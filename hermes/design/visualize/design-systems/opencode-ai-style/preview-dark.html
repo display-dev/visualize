@@ -1,0 +1,2150 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>opencode-ai-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23201d1d'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='ui-monospace,monospace' font-size='17' font-weight='700' fill='%23fdfcfc'%3E%5B%2B%5D%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="opencode-ai-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Single-font Berkeley-Mono identity, warm cream canvas, near-black ink, ASCII bracket markers, one dark TUI mockup as the signature surface.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/opencode-ai-style/tokens.css) === */
+/**
+ * design-systems/opencode-ai-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Dark-mode strategy (hand-edited 2026-05-25, drift from import-time default):
+ *
+ * Light-canonical brand with a single documented dark surface — the hero
+ * TUI mockup uses `--brand-surface-dark` (#201d1d) as the brand's own
+ * near-black. The brand has no full-page dark mode in the captured site,
+ * so the dark variant synthesises one by promoting the brand's documented
+ * TUI surface to canvas. This keeps the warm cast (oklch hue 17,
+ * chroma 0.0046) instead of dropping to the synthesised L=0.0082 pure
+ * near-black, which loses the brand's warm-charcoal undertone and
+ * disagrees with every other dark surface the brand already ships.
+ *
+ * Foreground / body / mute tones in dark mode reuse the brand-extras
+ * the brand already defines for the dark TUI: --brand-on-dark (#fdfcfc),
+ * --brand-on-dark-mute (#9a9898), --brand-ash. The card / secondary /
+ * muted surfaces step one notch above canvas using
+ * --brand-surface-dark-elevated (#302c2c) — the documented prompt-row
+ * fill inside the TUI mockup.
+ *
+ * Polarity-locked brand extras (--brand-surface-dark, --brand-on-dark,
+ * --brand-ink-deep, semantic ramps) stay at :root values in dark — they
+ * already encode their dark-context meaning and the documented hero TUI
+ * mockup keeps its same fill in both themes (now flush with the canvas
+ * rather than a single dark accent).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(0.9918 0.0011 17.1759);
+  --foreground: oklch(0.2341 0.0046 17.4891);
+  --card: oklch(0.9514 0.0032 17.2141);
+  --card-foreground: oklch(0.2341 0.0046 17.4891);
+  --popover: oklch(0.9514 0.0032 17.2141);
+  --popover-foreground: oklch(0.2341 0.0046 17.4891);
+  --primary: oklch(0.2341 0.0046 17.4891);
+  --primary-foreground: oklch(0.9918 0.0011 17.1759);
+  --secondary: oklch(0.9769 0.0011 17.1763);
+  --secondary-foreground: oklch(0.2341 0.0046 17.4891);
+  --muted: oklch(0.9769 0.0011 17.1763);
+  --muted-foreground: oklch(0.2341 0.0046 17.4891);
+  --accent: oklch(0.6028 0.2177 257.4239);
+  --accent-foreground: oklch(0.2341 0.0046 17.4891);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0.9918 0.0011 17.1759);
+  --border: oklch(0.1058 0.0434 29.2339 / 0.1200);
+  --input: oklch(0.1058 0.0434 29.2339 / 0.1200);
+  --ring: oklch(0.2341 0.0046 17.4891);
+  --sidebar: oklch(0.9769 0.0011 17.1763);
+  --sidebar-foreground: oklch(0.2341 0.0046 17.4891);
+  --sidebar-primary: oklch(0.2341 0.0046 17.4891);
+  --sidebar-primary-foreground: oklch(0.9918 0.0011 17.1759);
+  --sidebar-accent: oklch(0.9769 0.0011 17.1763);
+  --sidebar-accent-foreground: oklch(0.2341 0.0046 17.4891);
+  --sidebar-border: oklch(0.1058 0.0434 29.2339 / 0.1200);
+  --sidebar-ring: oklch(0.2341 0.0046 17.4891);
+  --chart-1: oklch(0.8100 0.0046 17.4891);
+  --chart-2: oklch(0.7100 0.0046 17.4891);
+  --chart-3: oklch(0.6100 0.0046 17.4891);
+  --chart-4: oklch(0.5100 0.0046 17.4891);
+  --chart-5: oklch(0.4200 0.0046 17.4891);
+
+  /* radius scale */
+  --radius-sm: 4px;
+  --radius-md: calc(0.625rem - 2px);
+  --radius-lg: 0.625rem;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: Berkeley Mono;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: Berkeley Mono;
+  --font-display: Berkeley Mono;
+
+  /* type scale tokens */
+  --text-display: 38px;
+  --text-heading: 16px;
+  --text-title: 16px;
+  --text-base: 16px;
+  --leading-tight: 1.5;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-ink-deep: oklch(0.1058 0.0434 29.2339);
+  --brand-charcoal: oklch(0.2974 0.0058 17.4853);
+  --brand-body: oklch(0.3802 0.0050 286.1576);
+  --brand-mute: oklch(0.4980 0.0025 17.2420);
+  --brand-stone: oklch(0.5399 0.0077 286.1391);
+  --brand-ash: oklch(0.6814 0.0023 17.2147);
+  --brand-surface-dark: oklch(0.2341 0.0046 17.4891);
+  --brand-surface-dark-elevated: oklch(0.2974 0.0058 17.4853);
+  --brand-hairline-strong: oklch(0.4980 0.0025 17.2420);
+  --brand-on-dark: oklch(0.9918 0.0011 17.1759);
+  --brand-on-dark-mute: oklch(0.6814 0.0023 17.2147);
+  --brand-accent-hover: oklch(0.4675 0.1639 256.6956);
+  --brand-accent-active: oklch(0.3803 0.1295 255.9238);
+  --brand-warning: oklch(0.7824 0.1711 67.2231);
+  --brand-warning-hover: oklch(0.6628 0.1441 67.6169);
+  --brand-warning-active: oklch(0.5375 0.1158 68.2476);
+  --brand-danger: oklch(0.6542 0.2321 28.6592);
+  --brand-danger-hover: oklch(0.5529 0.2255 27.2688);
+  --brand-danger-active: oklch(0.4542 0.1849 26.6038);
+  --brand-success: oklch(0.7556 0.2082 146.9836);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Hand-edited 2026-05-25 — see header comment. Promotes the brand's
+     documented --brand-surface-dark / --brand-surface-dark-elevated
+     pair to canvas + card, with --brand-on-dark as foreground and the
+     brand's documented mute/ash tones for body + muted text. */
+  --background: oklch(0.2341 0.0046 17.4891);            /* --brand-surface-dark */
+  --foreground: oklch(0.9918 0.0011 17.1759);            /* --brand-on-dark */
+  --card: oklch(0.2974 0.0058 17.4853);                  /* --brand-surface-dark-elevated */
+  --card-foreground: oklch(0.9918 0.0011 17.1759);
+  --popover: oklch(0.2974 0.0058 17.4853);
+  --popover-foreground: oklch(0.9918 0.0011 17.1759);
+  --primary: oklch(0.9918 0.0011 17.1759);               /* CTA flips to cream */
+  --primary-foreground: oklch(0.2341 0.0046 17.4891);    /* ink on cream */
+  --secondary: oklch(0.2974 0.0058 17.4853);
+  --secondary-foreground: oklch(0.9918 0.0011 17.1759);
+  --muted: oklch(0.2974 0.0058 17.4853);
+  --muted-foreground: oklch(0.6814 0.0023 17.2147);      /* --brand-ash */
+  --accent: oklch(0.6028 0.2177 257.4239);               /* Apple Blue holds in dark */
+  --accent-foreground: oklch(0.9918 0.0011 17.1759);
+  --destructive: oklch(0.6542 0.2321 28.6592);
+  --destructive-foreground: oklch(0.9918 0.0011 17.1759);
+  --border: oklch(0.9918 0.0011 17.1759 / 0.1400);       /* warm hairline on dark */
+  --input: oklch(0.9918 0.0011 17.1759 / 0.1400);
+  --ring: oklch(0.9918 0.0011 17.1759);
+  --sidebar: oklch(0.2974 0.0058 17.4853);
+  --sidebar-foreground: oklch(0.9918 0.0011 17.1759);
+  --sidebar-primary: oklch(0.9918 0.0011 17.1759);
+  --sidebar-primary-foreground: oklch(0.2341 0.0046 17.4891);
+  --sidebar-accent: oklch(0.2974 0.0058 17.4853);
+  --sidebar-accent-foreground: oklch(0.9918 0.0011 17.1759);
+  --sidebar-border: oklch(0.9918 0.0011 17.1759 / 0.1400);
+  --sidebar-ring: oklch(0.9918 0.0011 17.1759);
+  --chart-1: oklch(0.9918 0.0011 17.1759);
+  --chart-2: oklch(0.8200 0.0023 17.2147);
+  --chart-3: oklch(0.6814 0.0023 17.2147);
+  --chart-4: oklch(0.5399 0.0077 286.1391);
+  --chart-5: oklch(0.4200 0.0046 17.4891);
+
+  /* brand-extras for theme-flipping body text. Most --brand-* tokens
+     stay at :root (polarity-locked); these are the ones used as text
+     on the now-dark canvas and need to flip with theme. */
+  --brand-body: oklch(0.8200 0.0023 17.2147);            /* warm light gray on dark */
+  --brand-mute: oklch(0.6814 0.0023 17.2147);            /* --brand-ash level */
+  --brand-charcoal: oklch(0.9514 0.0032 17.2141);        /* near-cream emphasis */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2341 0.0046 17.4891);
+    --foreground: oklch(0.9918 0.0011 17.1759);
+    --card: oklch(0.2974 0.0058 17.4853);
+    --card-foreground: oklch(0.9918 0.0011 17.1759);
+    --popover: oklch(0.2974 0.0058 17.4853);
+    --popover-foreground: oklch(0.9918 0.0011 17.1759);
+    --primary: oklch(0.9918 0.0011 17.1759);
+    --primary-foreground: oklch(0.2341 0.0046 17.4891);
+    --secondary: oklch(0.2974 0.0058 17.4853);
+    --secondary-foreground: oklch(0.9918 0.0011 17.1759);
+    --muted: oklch(0.2974 0.0058 17.4853);
+    --muted-foreground: oklch(0.6814 0.0023 17.2147);
+    --accent: oklch(0.6028 0.2177 257.4239);
+    --accent-foreground: oklch(0.9918 0.0011 17.1759);
+    --destructive: oklch(0.6542 0.2321 28.6592);
+    --destructive-foreground: oklch(0.9918 0.0011 17.1759);
+    --border: oklch(0.9918 0.0011 17.1759 / 0.1400);
+    --input: oklch(0.9918 0.0011 17.1759 / 0.1400);
+    --ring: oklch(0.9918 0.0011 17.1759);
+    --sidebar: oklch(0.2974 0.0058 17.4853);
+    --sidebar-foreground: oklch(0.9918 0.0011 17.1759);
+    --sidebar-primary: oklch(0.9918 0.0011 17.1759);
+    --sidebar-primary-foreground: oklch(0.2341 0.0046 17.4891);
+    --sidebar-accent: oklch(0.2974 0.0058 17.4853);
+    --sidebar-accent-foreground: oklch(0.9918 0.0011 17.1759);
+    --sidebar-border: oklch(0.9918 0.0011 17.1759 / 0.1400);
+    --sidebar-ring: oklch(0.9918 0.0011 17.1759);
+    --chart-1: oklch(0.9918 0.0011 17.1759);
+    --chart-2: oklch(0.8200 0.0023 17.2147);
+    --chart-3: oklch(0.6814 0.0023 17.2147);
+    --chart-4: oklch(0.5399 0.0077 286.1391);
+    --chart-5: oklch(0.4200 0.0046 17.4891);
+
+    --brand-body: oklch(0.8200 0.0023 17.2147);
+    --brand-mute: oklch(0.6814 0.0023 17.2147);
+    --brand-charcoal: oklch(0.9514 0.0032 17.2141);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Opencode.ai-style preview shell — single-font monospaced identity.
+   Berkeley Mono is the documented brand face; we substitute JetBrains
+   Mono (closest metric match) with IBM Plex Mono as the documented
+   fallback. Cream canvas + near-black ink, ASCII bracket markers
+   ([+], [-], [x]) used as bullets. The signature surface is one full-
+   bleed dark TUI mockup carrying a coding-agent session — that's the
+   brand's defining moment. Everything else is hairline-bordered text
+   blocks on the cream canvas at 96px section rhythm. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-feature-settings: "kern", "liga", "calt";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--foreground);
+  text-decoration: none;
+  letter-spacing: 0;
+}
+.brand-mark::before {
+  content: "[+]";
+  color: var(--foreground);
+  font-weight: 700;
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 15px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--foreground);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.topnav-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-size: 15px;
+}
+.topnav-actions a {
+  color: var(--brand-mute);
+  text-decoration: none;
+  font-weight: 400;
+}
+.topnav-actions a:hover { color: var(--foreground); text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Buttons (4px radius, ASCII feel) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover {
+  background: var(--brand-ink-deep);
+  border-color: var(--brand-ink-deep);
+}
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--brand-hairline-strong);
+}
+.btn[data-variant="secondary"]:hover {
+  background: var(--secondary);
+}
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--brand-mute);
+  border-color: transparent;
+}
+.btn[data-variant="ghost"]:hover { color: var(--foreground); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Section frame — 96px section rhythm, hairline rules only -- */
+.section { padding: 6rem 1.5rem; }
+.section[data-tight] { padding: 4rem 1.5rem; }
+.section-inner { max-width: 1024px; margin: 0 auto; }
+.section-header { max-width: 44rem; margin-bottom: 2rem; }
+.section-eyebrow {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--brand-mute);
+  margin: 0 0 0.75rem;
+}
+.section-eyebrow::before {
+  content: "[ ";
+  color: var(--brand-mute);
+}
+.section-eyebrow::after {
+  content: " ]";
+  color: var(--brand-mute);
+}
+.section-title {
+  font-family: inherit;
+  font-size: clamp(1.75rem, 3vw, 2.375rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.25;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 24ch;
+}
+.section-lede {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-rule {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 0 0 2rem;
+}
+
+/* -- Hero (cream canvas, generous air) -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+  background: var(--background);
+}
+.hero-inner {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+.hero-news {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 0 0 1.75rem;
+  font-size: 14px;
+  color: var(--brand-body);
+}
+.hero-news-tag {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0;
+}
+.hero-display {
+  font-family: inherit;
+  font-size: clamp(2rem, 4.2vw, 2.875rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 22ch;
+}
+.hero-lede {
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body);
+  max-width: 42rem;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* -- TUI mockup (signature surface — single full-bleed dark moment) -- */
+.tui-frame {
+  margin-top: 4rem;
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  border-radius: var(--brand-radius-none);
+  padding: 2rem 2rem 2.25rem;
+  position: relative;
+}
+.tui-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--brand-ash);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid var(--brand-hairline-strong);
+}
+.tui-chrome-title {
+  letter-spacing: 0;
+}
+.tui-chrome-keys {
+  display: inline-flex;
+  gap: 1rem;
+}
+.tui-chrome-keys span { color: var(--brand-ash); }
+.tui-chrome-keys b { color: var(--brand-on-dark); font-weight: 500; }
+
+.tui-body {
+  font-family: inherit;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--brand-on-dark);
+}
+.tui-line { white-space: pre-wrap; }
+.tui-prompt {
+  display: block;
+  background: var(--brand-surface-dark-elevated);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  margin: 0.75rem 0;
+  color: var(--brand-on-dark);
+}
+.tui-prompt::before {
+  content: "│ ";
+  color: var(--brand-on-dark-mute);
+}
+.tui-prompt .agent {
+  color: var(--brand-on-dark);
+  font-weight: 700;
+}
+.tui-out { color: var(--brand-on-dark); }
+.tui-dim { color: var(--brand-ash); }
+.tui-ok { color: var(--brand-success); }
+.tui-warn { color: var(--brand-warning); }
+.tui-err { color: var(--brand-danger); }
+.tui-accent { color: var(--accent); }
+.tui-diff-add { color: var(--brand-success); }
+.tui-diff-del { color: var(--brand-danger); }
+.tui-hr {
+  border: 0;
+  border-top: 1px dashed var(--brand-hairline-strong);
+  margin: 1rem 0;
+}
+.tui-foot {
+  margin-top: 1.25rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--brand-hairline-strong);
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--brand-ash);
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.tui-foot b { color: var(--brand-on-dark); font-weight: 500; }
+
+/* -- Color swatches -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-none);
+  padding: 0.875rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.swatch-role {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+.swatch-name {
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--brand-mute);
+}
+
+/* -- Surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+}
+@media (max-width: 720px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border-right: 1px solid var(--border);
+}
+.ladder-step:last-child { border-right: none; }
+@media (max-width: 720px) {
+  .ladder-step { border-right: none; border-bottom: 1px solid var(--border); }
+  .ladder-step:last-child { border-bottom: none; }
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="soft"] { background: var(--card); color: var(--foreground); }
+.ladder-step[data-step="dark"] {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  border-right-color: var(--brand-hairline-strong);
+}
+.ladder-num {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brand-mute);
+}
+.ladder-step[data-step="dark"] .ladder-num { color: var(--brand-on-dark-mute); }
+.ladder-num::before { content: "["; color: inherit; }
+.ladder-num::after { content: "]"; color: inherit; }
+.ladder-name {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.ladder-role {
+  font-size: 14px;
+  color: var(--brand-body);
+  margin-top: auto;
+  line-height: 1.5;
+}
+.ladder-step[data-step="dark"] .ladder-role { color: var(--brand-on-dark-mute); }
+
+/* -- ASCII feature list -- */
+.list-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+.list-row {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid var(--border);
+  align-items: baseline;
+  font-size: 15px;
+  color: var(--brand-body);
+}
+.list-marker {
+  font-family: inherit;
+  color: var(--foreground);
+  font-weight: 500;
+}
+.list-content b {
+  color: var(--foreground);
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+
+/* -- Pricing (generic shape, no host-product leak) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; } }
+.pricing-card {
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--background);
+  color: var(--foreground);
+  border-right: 1px solid var(--border);
+}
+.pricing-card:last-child { border-right: none; }
+@media (max-width: 880px) {
+  .pricing-card { border-right: none; border-bottom: 1px solid var(--border); }
+  .pricing-card:last-child { border-bottom: none; }
+}
+.pricing-card[data-featured] {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  border-right-color: var(--brand-hairline-strong);
+}
+.pricing-name {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0;
+}
+.pricing-name::before { content: "[ "; color: var(--brand-mute); }
+.pricing-name::after { content: " ]"; color: var(--brand-mute); }
+.pricing-card[data-featured] .pricing-name::before,
+.pricing-card[data-featured] .pricing-name::after { color: var(--brand-on-dark-mute); }
+.pricing-price {
+  font-family: inherit;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+.pricing-tagline {
+  font-size: 14px;
+  color: var(--brand-body);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 3em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--brand-on-dark-mute); }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  font-size: 14px;
+  color: var(--brand-body);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: var(--brand-hairline-strong);
+  color: var(--brand-on-dark);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.625rem; }
+.pricing-features li::before {
+  content: "[+]";
+  color: var(--brand-mute);
+  font-weight: 500;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--brand-on-dark-mute); }
+.pricing-cta { margin-top: 0.5rem; }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+
+.type-stack { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
+.type-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.type-label {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-mute);
+}
+.type-label::before { content: "["; }
+.type-label::after { content: "]"; }
+.type-display {
+  font-family: inherit;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.25;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--foreground);
+}
+.type-body {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body);
+}
+.type-button {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2;
+  color: var(--foreground);
+}
+.type-caption {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 2;
+  color: var(--brand-mute);
+}
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.625rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-mute);
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.cmp-row-label::before { content: "["; }
+.cmp-row-label::after { content: "]"; }
+.badge-news-chip {
+  display: inline-flex;
+  align-items: center;
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0;
+}
+.input-demo {
+  background: var(--secondary);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  font-family: inherit;
+  font-size: 15px;
+  width: 16rem;
+  max-width: 100%;
+}
+.input-demo:focus-visible {
+  outline: none;
+  background: var(--background);
+  border-color: var(--foreground);
+}
+.snippet {
+  background: var(--card);
+  color: var(--foreground);
+  font-family: inherit;
+  font-size: 14px;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+  width: 100%;
+  max-width: 28rem;
+  justify-content: space-between;
+}
+.snippet-copy {
+  font-size: 13px;
+  color: var(--brand-mute);
+  cursor: pointer;
+}
+
+/* -- Footer -- */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 1.5rem 1.5rem;
+  background: var(--background);
+}
+.footer-inner {
+  max-width: 1024px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 14px; color: var(--brand-body); line-height: 1.5; margin: 0; }
+.footer-col-title {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0 0 0.875rem;
+}
+.footer-col-title::before { content: "[ "; color: var(--brand-mute); }
+.footer-col-title::after { content: " ]"; color: var(--brand-mute); }
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 14px; color: var(--brand-body); text-decoration: none; }
+.footer-list a:hover { color: var(--foreground); text-decoration: underline; text-underline-offset: 4px; }
+.footer-legal {
+  max-width: 1024px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 13px;
+  color: var(--brand-mute);
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">opencode-ai-style</a>
+    <div class="topnav-links">
+      <a href="#">Docs</a>
+      <a href="#">Models</a>
+      <a href="#">Plugins</a>
+      <a href="#">Changelog</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">GitHub [12.4k]</a>
+      <button class="btn" data-variant="primary" type="button">Install</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-news">
+      <span class="hero-news-tag">News</span>
+      <span>Plan mode lands behind the <code>--plan</code> flag</span>
+    </p>
+    <h1 class="hero-display">A coding agent that lives in the terminal.</h1>
+    <p class="hero-lede">Halcyon's engineering team runs the day from a single TUI. The agent reads the working tree, writes the diff, runs the test, prints the result. Edits get reviewed at the merge boundary, not in chat.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" type="button">Download for macOS</button>
+      <button class="btn" data-variant="secondary" type="button">Read the docs</button>
+    </div>
+
+    <div class="tui-frame" role="figure" aria-label="Coding-agent terminal session — diff applied, tests passed">
+      <div class="tui-chrome">
+        <span class="tui-chrome-title">opencode-ai-style ─ halcyon-api ─ feature/origin-auth-rate-limit</span>
+        <span class="tui-chrome-keys">
+          <span><b>tab</b> switch agent</span>
+          <span><b>ctrl-p</b> commands</span>
+        </span>
+      </div>
+      <div class="tui-body">
+<div class="tui-line tui-dim">┌── session #4d2a started by Jordan Kim ────────────────────────</div>
+<div class="tui-prompt"><span class="agent">[agent]</span> Add a rate-limit middleware to the origin-auth route. Keep the same shared-secret check and return 429 with Retry-After on overflow.</div>
+<div class="tui-line tui-dim">[+] reading  src/origin-auth/origin-auth.middleware.ts</div>
+<div class="tui-line tui-dim">[+] reading  src/origin-auth/origin-auth.module.ts</div>
+<div class="tui-line tui-dim">[+] reading  src/lib/rate-limit.ts</div>
+<hr class="tui-hr">
+<div class="tui-line tui-out"><b>[edit]</b> src/origin-auth/origin-auth.middleware.ts</div>
+<div class="tui-line"><span class="tui-diff-add">+ import { RateLimit } from '../lib/rate-limit';</span></div>
+<div class="tui-line"><span class="tui-diff-add">+ const limit = new RateLimit({ window: 60_000, max: 240 });</span></div>
+<div class="tui-line"><span class="tui-diff-del">- if (!req.headers['x-origin-auth']) return res.status(403);</span></div>
+<div class="tui-line"><span class="tui-diff-add">+ const verdict = await limit.check(req.ip);</span></div>
+<div class="tui-line"><span class="tui-diff-add">+ if (verdict.exceeded) {</span></div>
+<div class="tui-line"><span class="tui-diff-add">+   res.setHeader('Retry-After', verdict.retryAfter);</span></div>
+<div class="tui-line"><span class="tui-diff-add">+   return res.status(429).end();</span></div>
+<div class="tui-line"><span class="tui-diff-add">+ }</span></div>
+<div class="tui-line"><span class="tui-diff-add">+ if (!req.headers['x-origin-auth']) return res.status(403);</span></div>
+<hr class="tui-hr">
+<div class="tui-prompt"><span class="agent">[agent]</span> npm test -w api -- --filter origin-auth</div>
+<div class="tui-line"><span class="tui-dim">Test Files</span>  <span class="tui-ok">3 passed</span> <span class="tui-dim">(3)</span></div>
+<div class="tui-line"><span class="tui-dim">     Tests</span>  <span class="tui-ok">28 passed</span> <span class="tui-dim">(28)</span></div>
+<div class="tui-line"><span class="tui-dim">  Duration</span>  <span class="tui-ok">1.84s</span></div>
+<hr class="tui-hr">
+<div class="tui-line tui-out"><b>[summary]</b> 1 file changed · 9 insertions(+) · 1 deletion(-) · tests passed</div>
+      </div>
+      <div class="tui-foot">
+        <span><b>model</b> claude opus 4.7</span>
+        <span><b>cwd</b> halcyon-api</span>
+        <span><b>branch</b> feature/origin-auth-rate-limit</span>
+        <span><b>tokens</b> 4.2k</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens · colour</p>
+      <hr class="section-rule">
+      <h2 class="section-title">Cream, ink, and a single dark moment.</h2>
+      <p class="section-lede">The chrome stays in two values: warm cream canvas and near-black ink. The semantic ramp ships for the in-TUI states — accent blue, success green, danger red, warning amber — but on the marketing chrome it never lights up.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Cream</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--secondary);"></div><div class="swatch-role">Soft</div><div class="swatch-name">--secondary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--card);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--card</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-charcoal);"></div><div class="swatch-role">Charcoal</div><div class="swatch-name">--brand-charcoal</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Body</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-mute);"></div><div class="swatch-role">Mute</div><div class="swatch-name">--brand-mute</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--accent);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--accent</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens · surfaces</p>
+      <hr class="section-rule">
+      <h2 class="section-title">Three surfaces, no shadows.</h2>
+      <p class="section-lede">The canvas is the floor. Cards step one tint above it. The dark TUI surface is the only "elevated" moment in the system — color, not shadow, carries the depth.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">Page floor. Hero, sections, footer, list-row body.</span>
+      </div>
+      <div class="ladder-step" data-step="soft">
+        <span class="ladder-num">Card</span>
+        <span class="ladder-name">--card</span>
+        <span class="ladder-role">Install snippet, disabled fill, alternating row tint.</span>
+      </div>
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">Dark</span>
+        <span class="ladder-name">--brand-surface-dark</span>
+        <span class="ladder-role">Reserved for the TUI mockup. One per page, no exceptions.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="How the team works">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">how halcyon ships</p>
+      <hr class="section-rule">
+      <h2 class="section-title">Diffs proposed, tests run, humans sign off.</h2>
+      <p class="section-lede">Halcyon's engineering team treats the coding agent as a junior pair. The agent owns the keyboard during exploration; the human owns the merge button. Every change goes through the same loop.</p>
+    </div>
+    <div class="list-rows">
+      <div class="list-row">
+        <span class="list-marker">[+]</span>
+        <span class="list-content"><b>Working tree as the input.</b> The agent reads the repo the same way the engineer does — files, not a vector index. No retrieval to drift, no rebuilt context per session.</span>
+      </div>
+      <div class="list-row">
+        <span class="list-marker">[+]</span>
+        <span class="list-content"><b>Tests as the proof.</b> Every diff is followed by a test run before the agent claims the change works. The exit code is the source of truth, not the chat reply.</span>
+      </div>
+      <div class="list-row">
+        <span class="list-marker">[+]</span>
+        <span class="list-content"><b>Plan mode for the hairy ones.</b> The agent writes the plan first, the engineer reads it, then the diff lands. Cuts the time spent reverting speculative refactors to roughly zero.</span>
+      </div>
+      <div class="list-row">
+        <span class="list-marker">[+]</span>
+        <span class="list-content"><b>One scrollback per branch.</b> The session is the record. Avery Park reviews Sam Walker's session log before the merge — the conversation is the design doc.</span>
+      </div>
+      <div class="list-row">
+        <span class="list-marker">[x]</span>
+        <span class="list-content"><b>No background autopilot.</b> The agent does not commit, push, or open PRs on its own. Every external action waits behind a keystroke.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">pricing</p>
+      <hr class="section-rule">
+      <h2 class="section-title">Three tiers, same agent.</h2>
+      <p class="section-lede">The agent itself is the same binary across every tier. The tier sets the model budget, the support response, and how procurement signs the contract.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For weekend repos and personal projects.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Install</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="primary" type="button" style="background: var(--brand-on-dark); color: var(--brand-surface-dark); border-color: var(--brand-on-dark);">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organisations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens · type + components</p>
+      <hr class="section-rule">
+      <h2 class="section-title">One face. One weight ladder.</h2>
+      <p class="section-lede">Berkeley Mono carries the marketing chrome, the body prose, and the in-TUI command line. Substitute JetBrains Mono at weights 400 / 500 / 700 when Berkeley isn't licensed. Hierarchy lives in size and weight — never in font family.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Display 38 / 700</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Heading 16 / 700</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Body 16 / 400 · the default paragraph weight across every text role on the cream canvas.</span></div>
+        <div class="type-row"><span class="type-label">Button</span><span class="type-button">Button 16 / 500 / 2.0</span></div>
+        <div class="type-row"><span class="type-label">Caption</span><span class="type-caption">Caption 14 / 400 · footer, byline, fine print</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · 4 px radius · single weight</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" type="button">Install</button>
+            <button class="btn" data-variant="secondary" type="button">Read docs</button>
+            <button class="btn" data-variant="ghost" type="button">Skip</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Inline · news tag · text input</span>
+          <div class="cmp-row">
+            <span class="badge-news-chip">News</span>
+            <span class="badge-news-chip" style="background: transparent; color: var(--foreground); border: 1px solid var(--brand-hairline-strong);">Beta</span>
+            <input class="input-demo" type="text" value="riley.chen@halcyon.dev" aria-label="Email demo">
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Install snippet · monospaced inline</span>
+          <div class="cmp-row">
+            <span class="snippet"><span>curl -fsSL halcyon.dev/install | sh</span><span class="snippet-copy">[copy]</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#">opencode-ai-style</a>
+      <p class="footer-tagline">A token-surface preview rendered against the single-font monospaced design system. Berkeley Mono throughout, cream canvas, near-black ink, ASCII bracket markers, one dark TUI surface.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-list"><li><a href="#">Download</a></li><li><a href="#">Models</a></li><li><a href="#">Plugins</a></li><li><a href="#">Changelog</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list"><li><a href="#">Docs</a></li><li><a href="#">Recipes</a></li><li><a href="#">Discord</a></li><li><a href="#">GitHub</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">team@halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>opencode-ai-style · token surface preview · 2026.05.25</span>
+    <span>berkeley mono · cream canvas · ascii brackets · one dark surface</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Deck preview shell — slide-shape pitch composition === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--muted, #f4f3ef);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  padding: 2rem;
+  min-height: 100vh;
+}
+.deck { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* Each slide is an aspect-ratio container — projection-shaped */
+.slide {
+  aspect-ratio: 16 / 9;
+  background-color: var(--background);
+  border-radius: var(--radius-lg, 0.5rem);
+  padding: 3rem 4rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px -8px rgb(0 0 0 / 0.15);
+}
+.slide-num {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  letter-spacing: 0.08em;
+}
+.slide-num .total { color: var(--muted-foreground); }
+.slide-foot {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Slide 1 — title */
+.slide-title {
+  justify-content: center;
+  background: linear-gradient(135deg, var(--background) 0%, var(--card) 100%);
+}
+.slide-title .eyebrow {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+.slide-title h1 {
+  font-size: clamp(3rem, 7vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem 0;
+  max-width: 18ch;
+}
+.slide-title h1 .accent { color: var(--primary); }
+.slide-title .deck-meta {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  color: var(--muted-foreground);
+  font-size: 0.9375rem;
+}
+
+/* Slide 2 — bullets */
+.slide-bullets h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 2rem 0;
+}
+.slide-bullets ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+.slide-bullets li {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  font-size: 1.375rem;
+  line-height: 1.35;
+}
+.slide-bullets li .num {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+.slide-bullets li .lead { font-weight: 600; }
+.slide-bullets li .body { color: var(--muted-foreground); font-size: 1.125rem; }
+
+/* Slide 3 — metric pair */
+.slide-metric {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.slide-metric .stat-block .label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+.slide-metric .stat-block .stat {
+  font-size: clamp(4rem, 10vw, 7rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.5rem;
+}
+.slide-metric .stat-block .caption {
+  font-size: 1.25rem;
+  line-height: 1.35;
+  color: var(--muted-foreground);
+  max-width: 24ch;
+}
+.slide-metric .stat-block .delta {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-left: 1rem;
+}
+.slide-metric .visual {
+  background-color: var(--muted);
+  border-radius: var(--radius-md, 0.375rem);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.slide-metric .visual .row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+}
+.slide-metric .visual .row .v { font-family: var(--font-mono); font-weight: 600; }
+.slide-metric .visual .bar { height: 6px; background-color: var(--background); border-radius: 999px; overflow: hidden; }
+.slide-metric .visual .bar > span { display: block; height: 100%; background-color: var(--primary); }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <div class="slide slide-title">
+    <span class="eyebrow">Q3 2026 · Series A</span>
+    <h1>The fastest way to <span class="accent">share</span> a built artifact.</h1>
+    <p class="deck-meta">
+      <span>Jordan Kim · Founder</span>
+      <span>21 May 2026</span>
+    </p>
+    <span class="slide-foot">DECK · 01 / 12</span>
+  </div>
+
+  <div class="slide slide-bullets">
+    <h2>What we believe</h2>
+    <ul>
+      <li>
+        <span class="num">01</span>
+        <span><span class="lead">Artifacts are the unit of work.</span><br><span class="body">Plans, reports, dashboards, RFCs — the shipping form is a URL.</span></span>
+      </li>
+      <li>
+        <span class="num">02</span>
+        <span><span class="lead">Org-gated is the default for serious work.</span><br><span class="body">Public-by-default tools (Loom, Notion-published) are leaks waiting to happen.</span></span>
+      </li>
+      <li>
+        <span class="num">03</span>
+        <span><span class="lead">Agents publish; humans curate.</span><br><span class="body">The CLI / MCP write surface is the product. The browser is the read surface.</span></span>
+      </li>
+    </ul>
+    <span class="slide-num">03 <span class="total">/ 12</span></span>
+  </div>
+
+  <div class="slide slide-metric">
+    <div class="stat-block">
+      <div class="label">North-star metric</div>
+      <div class="stat">38<span style="font-size: 0.4em">%</span><span class="delta">+6.4 QoQ</span></div>
+      <div class="caption">of new signups publish their first artifact within seven days.</div>
+    </div>
+    <div class="visual">
+      <div class="row"><span>Q1</span><span class="v">26%</span></div>
+      <div class="bar"><span style="width: 65%"></span></div>
+      <div class="row"><span>Q2</span><span class="v">32%</span></div>
+      <div class="bar"><span style="width: 80%"></span></div>
+      <div class="row"><span>Q3</span><span class="v">38%</span></div>
+      <div class="bar"><span style="width: 95%"></span></div>
+    </div>
+    <span class="slide-num">07 <span class="total">/ 12</span></span>
+  </div>
+
+</div>
+</body>
+</html>

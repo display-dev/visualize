@@ -1,0 +1,2626 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pinterest-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23e60023'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='-apple-system,system-ui,sans-serif' font-weight='700' font-size='20' fill='%23ffffff'%3EP%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="pinterest-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Visual-discovery register — warm cream chrome, 16px-radius cards, Pin Sans-substitute typography, scarce Pinterest-Red accent, and a masonry pin board signature surface. Token surfaces rendered on Halcyon-themed neutral content.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/pinterest-style/tokens.css) === */
+/**
+ * design-systems/pinterest-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Pinterest is LIGHT-CANONICAL. DESIGN.md §1 documents the chrome as
+ * "warm-cream neutral palette carrying typography in Pin Sans" with
+ * surfaces alternating between true white (--background), faint-cream
+ * (--secondary), and warm-cream (--card). Pinterest Red (--primary,
+ * #e60023) is the only saturated colour and appears scarce — single
+ * CTA, active-tab indicator, wordmark.
+ *
+ * Pinterest does run a product dark mode (the authenticated feed), but
+ * DESIGN.md §6 known-gaps documents the captured pages as logged-out
+ * marketing + search — the dark-mode token surface isn't surfaced. The
+ * one documented dark surface IS captured though: the
+ * `create.pinterest.com` hero CTA strip uses --brand-surface-dark
+ * (#262622, a warm near-black with the same OKLCH chroma family as the
+ * cream palette). That value becomes the dark canvas.
+ *
+ * Dark-mode strategy: promote the documented --brand-surface-dark to
+ * the canvas, step cards up by one tonal stop so visual hierarchy
+ * holds, and lift body/mute/ash/stone inks so demo sections (swatches,
+ * ladder, type, components) flip cleanly into a "logged-in product
+ * dark mode" register. Pinterest Red (--primary) holds at its :root
+ * value — the chroma 0.2364 lands at 5.3:1 on the dark canvas and IS
+ * the brand identity; lifting it would erase the wordmark voltage.
+ *
+ * Polarity-locked tokens (stay at :root values via cascade):
+ *   --primary / --brand-primary-pressed / --brand-error-deep
+ *       Pinterest Red is the brand. Stays #e60023 on both polarities.
+ *   --brand-on-dark / --brand-on-dark-mute
+ *       Already always-light by name and definition.
+ *   --brand-surface-dark
+ *       Names "the brand's near-black surface." In dark mode it IS
+ *       the canvas; template CSS reaches for --background there.
+ *   --brand-focus-outer / --brand-focus-inner
+ *       The signature double-ring focus signal. Outer blue carries
+ *       focus identity regardless of polarity.
+ *   --brand-accent-purple
+ *       legacy-import editorial accent — base only, no documented
+ *       live counterpart on pinterest.com (homepage, business, login,
+ *       newsroom/predicts, create, about — 2026-05-25 sample: zero
+ *       purple instances across six pages). Kept as the documented
+ *       --brand-* surface, polarity-fixed; consumer is the swatch
+ *       demo only.
+ *   --brand-success-pale
+ *       Pale-green success-pill background; polarity-fixed surface.
+ *       Paired text uses --foreground (no synthesised "deep ink").
+ *
+ * Brand-extras lifted for dark canvas (text/divider tokens used
+ * directly in template CSS as ink on the dark canvas):
+ *   --brand-body / --brand-charcoal   → lift to near-white tone
+ *   --brand-mute / --brand-ash         → lift to mid-bright body tones
+ *   --brand-stone                      → lifts to a caption-tier gray
+ *   --brand-ink-soft                   → lifts to a near-white tinted
+ *                                        link colour preserving the
+ *                                        documented warm cast
+ *   --brand-hairline-soft              → lifts to a dark-mode divider
+ *   --brand-secondary-bg /
+ *   --brand-secondary-pressed          → lift to dark "secondary"
+ *                                        button fills so the gray-cream
+ *                                        button register stays legible
+ *   --brand-surface-elevated           → flips from white to elevated
+ *                                        dark card surface
+ *   --brand-on-secondary               → flips to white (was black)
+ *                                        for the lifted secondary fill
+ *
+ * Background/card/popover/secondary/muted lift to a calibrated near-black
+ * family rather than the synthesised lightness-inversion default, which
+ * produced pure-black canvas with white text reading as void rather than
+ * a calibrated brand dark.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0 0 0);
+  --card: oklch(0.9723 0.0040 106.4731);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(0.9723 0.0040 106.4731);
+  --popover-foreground: oklch(0 0 0);
+  --primary: oklch(0.5824 0.2364 25.5359);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9875 0.0026 106.4478);
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.9875 0.0026 106.4478);
+  --muted-foreground: oklch(0.4939 0.0109 106.7921);
+  --accent: oklch(0.6323 0.1971 271.2968);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.4431 0.1761 28.5406);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.8864 0.0095 106.5909);
+  --input: oklch(0.8864 0.0095 106.5909);
+  --ring: oklch(0.5824 0.2364 25.5359);
+  --sidebar: oklch(0.9875 0.0026 106.4478);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0.5824 0.2364 25.5359);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9875 0.0026 106.4478);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0.8864 0.0095 106.5909);
+  --sidebar-ring: oklch(0.5824 0.2364 25.5359);
+  --chart-1: oklch(0.8100 0.2000 25.5359);
+  --chart-2: oklch(0.7100 0.2000 25.5359);
+  --chart-3: oklch(0.6100 0.2000 25.5359);
+  --chart-4: oklch(0.5100 0.2000 25.5359);
+  --chart-5: oklch(0.4200 0.2000 25.5359);
+
+  /* Note on --muted-foreground: upstream value oklch(0 0 0) duplicates
+   * --foreground, leaving no semantic distinction between primary ink
+   * and muted helper text. Lifted to --brand-mute's documented value
+   * (0.4939) which lands at 4.7:1 on --background and reads as the
+   * brand's documented metadata/footer-link colour. */
+
+  /* radius scale */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 32px;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: Pin Sans;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: Pin Sans;
+
+  /* type scale tokens */
+  --text-display: 70px;
+  --text-heading: 44px;
+  --text-title: 18px;
+  --text-base: 16px;
+  --leading-tight: 1.1;
+  --leading-normal: 1.4;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-primary-pressed: oklch(0.5323 0.2160 25.2955);
+  --brand-ink-soft: oklch(0.2270 0.0209 322.6022);
+  --brand-body: oklch(0.3193 0.0087 106.8804);
+  --brand-charcoal: oklch(0.2671 0.0072 106.8804);
+  --brand-mute: oklch(0.4939 0.0109 106.7921);
+  --brand-ash: oklch(0.6551 0.0073 106.5989);
+  --brand-stone: oklch(0.8308 0.0096 106.6068);
+  --brand-hairline-soft: oklch(0.9205 0.0067 106.5304);
+  --brand-on-secondary: oklch(0 0 0);
+  --brand-secondary-bg: oklch(0.9205 0.0067 106.5304);
+  --brand-secondary-pressed: oklch(0.8308 0.0096 106.6068);
+  --brand-surface-elevated: oklch(1 0 0);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-dark-mute: oklch(1 0 0 / 0.7000);
+  --brand-surface-dark: oklch(0.2671 0.0072 106.8804);
+  --brand-focus-outer: oklch(0.5431 0.2061 269.5606);
+  --brand-focus-inner: oklch(1 0 0);
+  --brand-accent-purple: oklch(0.4447 0.1755 322.3719);
+  --brand-success-pale: oklch(0.9201 0.0519 161.7793);
+  --brand-error-deep: oklch(0.5323 0.2160 25.2955);
+}
+
+/*
+ * Dark mode — hand-tuned, NOT the OKLCH lightness-inversion default.
+ *
+ * Strategy: Pinterest's documented warm near-black (--brand-surface-dark,
+ * #262622, OKLCH 0.2671) becomes the canvas; cards step up by one tonal
+ * stop (~0.3100) so the small visual hierarchy holds; hairlines lift
+ * to a barely-perceptible mid-tone divider.
+ *
+ * Pinterest Red (--primary) holds at :root chroma 0.2364 — that's the
+ * brand identity. On dark canvas it lands at 5.3:1 (AA body floor) and
+ * carries the same scarce-CTA register that defines the system. The
+ * single-accent rule from DESIGN.md §"Do's" carries across both modes.
+ *
+ * The signature masonry pin grid stays light-tile / dark-ink in both
+ * modes (per AUTHORING.md single-polarity guidance) — pin imagery is
+ * the load-bearing visual element and the cream tile surface IS the
+ * brand. Demo sections (swatches, ladder, type, components) flip
+ * cleanly so the dark variant reads as "Pinterest at night" rather
+ * than "light page with three pinned accents."
+ */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* shadcn-semantic core — calibrated to Pinterest's documented warm near-black */
+  --background: oklch(0.2671 0.0072 106.8804);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.3100 0.0072 106.8804);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.3100 0.0072 106.8804);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.5824 0.2364 25.5359);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.3100 0.0072 106.8804);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.3100 0.0072 106.8804);
+  --muted-foreground: oklch(0.7600 0.0080 106.5);
+  --accent: oklch(0.6323 0.1971 271.2968);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.6730 0.2146 25.0396);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3800 0.0080 106.5);
+  --input: oklch(0.3800 0.0080 106.5);
+  --ring: oklch(0.5824 0.2364 25.5359);
+  --sidebar: oklch(0.3100 0.0072 106.8804);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.5824 0.2364 25.5359);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.3100 0.0072 106.8804);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3800 0.0080 106.5);
+  --sidebar-ring: oklch(0.5824 0.2364 25.5359);
+  --chart-1: oklch(0.4200 0.2000 25.5359);
+  --chart-2: oklch(0.5100 0.2000 25.5359);
+  --chart-3: oklch(0.6100 0.2000 25.5359);
+  --chart-4: oklch(0.7100 0.2000 25.5359);
+  --chart-5: oklch(0.8100 0.2000 25.5359);
+
+  /* brand-extras lifted for dark canvas — never lift Pinterest Red, the
+   * polarity-locked on-dark family, the focus-ring blue, the editorial
+   * purple accent, the success-pale chip, or the surface-dark
+   * (which IS the canvas in dark mode). */
+  --brand-body: oklch(0.9000 0.0080 106.5);
+  --brand-charcoal: oklch(0.9400 0.0080 106.5);
+  --brand-mute: oklch(0.7600 0.0080 106.5);
+  --brand-ash: oklch(0.6800 0.0080 106.5);
+  --brand-stone: oklch(0.5400 0.0080 106.5);
+  --brand-ink-soft: oklch(0.9000 0.0209 322.6022);
+  --brand-hairline-soft: oklch(0.3800 0.0080 106.5);
+  --brand-on-secondary: oklch(1 0 0);
+  --brand-secondary-bg: oklch(0.3800 0.0080 106.5);
+  --brand-secondary-pressed: oklch(0.4400 0.0080 106.5);
+  --brand-surface-elevated: oklch(0.3100 0.0072 106.8804);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2671 0.0072 106.8804);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.3100 0.0072 106.8804);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.3100 0.0072 106.8804);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(0.5824 0.2364 25.5359);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.3100 0.0072 106.8804);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.3100 0.0072 106.8804);
+    --muted-foreground: oklch(0.7600 0.0080 106.5);
+    --accent: oklch(0.6323 0.1971 271.2968);
+    --accent-foreground: oklch(0 0 0);
+    --destructive: oklch(0.6730 0.2146 25.0396);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3800 0.0080 106.5);
+    --input: oklch(0.3800 0.0080 106.5);
+    --ring: oklch(0.5824 0.2364 25.5359);
+    --sidebar: oklch(0.3100 0.0072 106.8804);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(0.5824 0.2364 25.5359);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.3100 0.0072 106.8804);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.3800 0.0080 106.5);
+    --sidebar-ring: oklch(0.5824 0.2364 25.5359);
+    --chart-1: oklch(0.4200 0.2000 25.5359);
+    --chart-2: oklch(0.5100 0.2000 25.5359);
+    --chart-3: oklch(0.6100 0.2000 25.5359);
+    --chart-4: oklch(0.7100 0.2000 25.5359);
+    --chart-5: oklch(0.8100 0.2000 25.5359);
+
+    --brand-body: oklch(0.9000 0.0080 106.5);
+    --brand-charcoal: oklch(0.9400 0.0080 106.5);
+    --brand-mute: oklch(0.7600 0.0080 106.5);
+    --brand-ash: oklch(0.6800 0.0080 106.5);
+    --brand-stone: oklch(0.5400 0.0080 106.5);
+    --brand-ink-soft: oklch(0.9000 0.0209 322.6022);
+    --brand-hairline-soft: oklch(0.3800 0.0080 106.5);
+    --brand-on-secondary: oklch(1 0 0);
+    --brand-secondary-bg: oklch(0.3800 0.0080 106.5);
+    --brand-secondary-pressed: oklch(0.4400 0.0080 106.5);
+    --brand-surface-elevated: oklch(0.3100 0.0072 106.8804);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Pinterest-style preview shell — visual-discovery register.
+ * Warm cream chrome + true-white canvas + Pinterest-Red scarce accent
+ * + 16px-radius across nearly every interactive element. Inter at 600
+ * weight approximates Pin Sans's tight letterspacing at display sizes
+ * (-1.2px tracking applied per DESIGN.md §3 §"Note on Font Substitutes").
+ *
+ * Brand voltage comes from a SINGLE signature surface: the masonry
+ * pin board with abstract gradient pin tiles at mixed aspect ratios
+ * (1:1 / 3:4 / 4:5 portrait), 8px gutters, overlay pills in corners,
+ * and invented-pool profile attribution. The "pin images" are CSS-only
+ * gradient compositions — no photographs, no copyrighted material.
+ *
+ * Pinterest's actual signature CTA pattern is a sticky red "Sign up"
+ * pill in the top-right corner. The preview honours the brand red
+ * but avoids that verbatim move — the red appears on the wordmark
+ * tile, on tab-active state, on the single primary action; the
+ * topnav action sits inline rather than sticky-anchored.
+ *
+ * Single-polarity per AUTHORING.md: only the masonry pin board (the
+ * brand's voltage moment) stays canvas-locked across modes. Demo
+ * sections (swatches, ladder, type, components) flip cleanly so dark
+ * mode reads as "Pinterest's logged-in night feed" rather than
+ * "light page with one masonry accent."
+ *
+ * Local preview-only custom properties for the pin tile gradient
+ * compositions — these are decorative visual placeholders standing in
+ * for photography, not tokens; per AUTHORING.md "Don't bake
+ * preview-only decoration into tokens.css." */
+
+:root {
+  --preview-pin-mauve-a: oklch(0.7800 0.1100 12);
+  --preview-pin-mauve-b: oklch(0.6400 0.1700 20);
+  --preview-pin-ochre-a: oklch(0.8400 0.1200 75);
+  --preview-pin-ochre-b: oklch(0.6800 0.1700 55);
+  --preview-pin-moss-a:  oklch(0.7800 0.1000 145);
+  --preview-pin-moss-b:  oklch(0.5400 0.1300 150);
+  --preview-pin-sky-a:   oklch(0.8200 0.0800 220);
+  --preview-pin-sky-b:   oklch(0.6000 0.1300 240);
+  --preview-pin-clay-a:  oklch(0.8800 0.0700 40);
+  --preview-pin-clay-b:  oklch(0.6600 0.1300 32);
+  --preview-pin-plum-a:  oklch(0.6200 0.1200 320);
+  --preview-pin-plum-b:  oklch(0.4400 0.1600 310);
+  --preview-pin-sand-a:  oklch(0.9200 0.0500 85);
+  --preview-pin-sand-b:  oklch(0.7400 0.0900 70);
+  --preview-pin-teal-a:  oklch(0.7600 0.0900 200);
+  --preview-pin-teal-b:  oklch(0.4800 0.1100 215);
+  --preview-pin-rose-a:  oklch(0.8600 0.0700 25);
+  --preview-pin-rose-b:  oklch(0.6800 0.1500 12);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Pin Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav — true white surface, hairline bottom rule, search pill
+ * centered, single primary CTA at right -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Brand mark — Pinterest-style P glyph in red circle */
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.brand-glyph {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--brand-radius-full);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  display: inline-grid;
+  place-items: center;
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0;
+  flex-shrink: 0;
+}
+
+.topnav-tabs {
+  display: flex;
+  gap: 0.25rem;
+  font-size: 14px;
+  font-weight: 700;
+  margin-left: 0.5rem;
+}
+.topnav-tab {
+  padding: 0.375rem 0.875rem;
+  border-radius: var(--brand-radius-full);
+  color: var(--foreground);
+  text-decoration: none;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.topnav-tab[data-active] {
+  background: var(--foreground);
+  color: var(--brand-on-dark);
+}
+@media (max-width: 880px) { .topnav-tabs { display: none; } }
+
+/* Search pill — full-rounded, search glyph at left */
+.search-pill {
+  flex: 1;
+  max-width: 32rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  height: 48px;
+  padding: 0 1rem;
+  background: var(--card);
+  border: 1px solid transparent;
+  border-radius: var(--brand-radius-full);
+  color: var(--brand-mute);
+  font-family: inherit;
+  font-size: 15px;
+  margin: 0 auto;
+}
+.search-pill-glyph {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  position: relative;
+  flex-shrink: 0;
+}
+.search-pill-glyph::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 7px;
+  height: 2px;
+  background: currentColor;
+  transform: rotate(45deg);
+  border-radius: 1px;
+}
+.search-pill:focus-within {
+  background: var(--background);
+  border-color: var(--brand-ash);
+  color: var(--foreground);
+}
+.search-pill-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font: inherit;
+  color: inherit;
+  min-width: 0;
+}
+.search-pill-input::placeholder { color: var(--brand-mute); }
+
+.topnav-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+.topnav-link {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--foreground);
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--brand-radius-full);
+  white-space: nowrap;
+}
+@media (max-width: 600px) { .topnav-link[data-collapsible] { display: none; } }
+
+/* -- Buttons — 16px radius (the documented dominant), 44px min-height
+ * for WCAG AA touch target, single primary in Pinterest Red. -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--radius-md);
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--brand-focus-outer);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover {
+  background: var(--brand-primary-pressed);
+  border-color: var(--brand-primary-pressed);
+}
+.btn[data-variant="secondary"] {
+  background: var(--brand-secondary-bg);
+  color: var(--brand-on-secondary);
+  border-color: var(--brand-secondary-bg);
+}
+.btn[data-variant="secondary"]:hover {
+  background: var(--brand-secondary-pressed);
+  border-color: var(--brand-secondary-pressed);
+}
+.btn[data-variant="tertiary"] {
+  background: transparent;
+  color: var(--foreground);
+}
+.btn[data-variant="tertiary"]:hover {
+  background: var(--card);
+}
+.btn[data-size="lg"] {
+  min-height: 48px;
+  padding: 0 1.5rem;
+  font-size: 15px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero — quiet warm cream wash, large display headline with
+ * negative tracking, single primary CTA below. No marquee gradient,
+ * no decorative chrome — Pinterest's hero is restrained because the
+ * pin grid below carries every voltage moment. -- */
+.hero {
+  background: var(--secondary);
+  padding: 5rem 1.5rem 4rem;
+}
+.hero-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+}
+.hero-eyebrow {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+  margin: 0 0 1.25rem;
+}
+.hero-display {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.0175em;
+  color: var(--foreground);
+  margin: 0 auto 1.5rem;
+  max-width: 18ch;
+}
+.hero-lede {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body);
+  max-width: 38rem;
+  margin: 0 auto 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* -- Filter chip strip — Pinterest's pill-tab signature, sits between
+ * the hero and the masonry grid as the discovery filter. -- */
+.filter-strip {
+  background: var(--background);
+  padding: 2rem 1.5rem 1.5rem;
+}
+.filter-strip-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.filter-chip {
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--card);
+  color: var(--foreground);
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  border: 1px solid transparent;
+  cursor: pointer;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  transition: background 150ms ease, color 150ms ease;
+  white-space: nowrap;
+}
+.filter-chip:focus-visible {
+  outline: 2px solid var(--brand-focus-outer);
+  outline-offset: 2px;
+}
+.filter-chip[data-active] {
+  background: var(--foreground);
+  color: var(--brand-on-dark);
+}
+@media (prefers-reduced-motion: reduce) {
+  .filter-chip { transition: none; }
+}
+
+/* -- Signature surface: masonry pin board
+ *
+ * This is the brand's voltage moment. Column-based masonry grid using
+ * CSS columns (the simplest production-shape masonry — preserves
+ * natural per-tile aspect ratios, no JavaScript). Each "pin" is a
+ * 16px-radius card with a CSS-only gradient composition standing in
+ * for photography (NOT actual photos — no copyrighted content), an
+ * overlay pill in the corner naming a search-term tag in Halcyon-team
+ * vocabulary (sprint retros, design crit, customer interviews, etc.),
+ * and a circular avatar with invented-pool profile attribution below.
+ *
+ * Polarity-locked: the masonry tiles stay light-tile / dark-ink on
+ * both modes because the cream tile surface IS the brand and lifting
+ * the gradient pins to dark-tinted variants would erase the
+ * recognizable colour palette. -- */
+.board-section {
+  background: var(--background);
+  padding: 0 1.5rem 5rem;
+}
+.board-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.board {
+  column-count: 4;
+  column-gap: 8px;
+}
+@media (max-width: 1024px) { .board { column-count: 3; } }
+@media (max-width: 768px)  { .board { column-count: 2; } }
+@media (max-width: 480px)  { .board { column-count: 1; } }
+
+.pin {
+  display: block;
+  background: oklch(0.9723 0.0040 106.4731);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 8px;
+  break-inside: avoid;
+  position: relative;
+  color: oklch(0 0 0);
+}
+/* Large pin variant — the home-page feature pin, 32px radius. */
+.pin[data-large] {
+  border-radius: var(--radius-lg);
+}
+
+/* The pin "image" is a CSS gradient composition (preview-only decoration,
+ * not photography). Sized by aspect-ratio per tile to preserve natural
+ * masonry rhythm. */
+.pin-image {
+  width: 100%;
+  display: block;
+  position: relative;
+}
+.pin-image[data-aspect="1:1"]  { aspect-ratio: 1 / 1; }
+.pin-image[data-aspect="3:4"]  { aspect-ratio: 3 / 4; }
+.pin-image[data-aspect="4:5"]  { aspect-ratio: 4 / 5; }
+.pin-image[data-aspect="2:3"]  { aspect-ratio: 2 / 3; }
+.pin-image[data-aspect="5:7"]  { aspect-ratio: 5 / 7; }
+
+.pin-image[data-grad="mauve"] {
+  background:
+    radial-gradient(circle at 25% 30%, var(--preview-pin-mauve-a) 0%, transparent 60%),
+    radial-gradient(circle at 80% 75%, var(--preview-pin-mauve-b) 0%, transparent 65%),
+    linear-gradient(135deg, var(--preview-pin-mauve-a) 0%, var(--preview-pin-mauve-b) 100%);
+}
+.pin-image[data-grad="ochre"] {
+  background:
+    radial-gradient(circle at 70% 25%, var(--preview-pin-ochre-a) 0%, transparent 55%),
+    radial-gradient(circle at 30% 80%, var(--preview-pin-ochre-b) 0%, transparent 60%),
+    linear-gradient(160deg, var(--preview-pin-ochre-a) 20%, var(--preview-pin-ochre-b) 100%);
+}
+.pin-image[data-grad="moss"] {
+  background:
+    radial-gradient(ellipse at 20% 20%, var(--preview-pin-moss-a) 0%, transparent 60%),
+    radial-gradient(ellipse at 85% 70%, var(--preview-pin-moss-b) 0%, transparent 65%),
+    linear-gradient(180deg, var(--preview-pin-moss-a) 0%, var(--preview-pin-moss-b) 100%);
+}
+.pin-image[data-grad="sky"] {
+  background:
+    radial-gradient(circle at 50% 20%, var(--preview-pin-sky-a) 0%, transparent 55%),
+    radial-gradient(circle at 50% 85%, var(--preview-pin-sky-b) 0%, transparent 65%),
+    linear-gradient(195deg, var(--preview-pin-sky-a) 25%, var(--preview-pin-sky-b) 100%);
+}
+.pin-image[data-grad="clay"] {
+  background:
+    radial-gradient(circle at 30% 35%, var(--preview-pin-clay-a) 0%, transparent 55%),
+    radial-gradient(circle at 75% 80%, var(--preview-pin-clay-b) 0%, transparent 60%),
+    linear-gradient(140deg, var(--preview-pin-clay-a) 0%, var(--preview-pin-clay-b) 100%);
+}
+.pin-image[data-grad="plum"] {
+  background:
+    radial-gradient(circle at 80% 25%, var(--preview-pin-plum-a) 0%, transparent 60%),
+    radial-gradient(circle at 20% 75%, var(--preview-pin-plum-b) 0%, transparent 65%),
+    linear-gradient(220deg, var(--preview-pin-plum-a) 0%, var(--preview-pin-plum-b) 100%);
+}
+.pin-image[data-grad="sand"] {
+  background:
+    radial-gradient(circle at 40% 40%, var(--preview-pin-sand-a) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, var(--preview-pin-sand-b) 0%, transparent 65%),
+    linear-gradient(170deg, var(--preview-pin-sand-a) 0%, var(--preview-pin-sand-b) 100%);
+}
+.pin-image[data-grad="teal"] {
+  background:
+    radial-gradient(ellipse at 65% 30%, var(--preview-pin-teal-a) 0%, transparent 60%),
+    radial-gradient(ellipse at 25% 75%, var(--preview-pin-teal-b) 0%, transparent 65%),
+    linear-gradient(200deg, var(--preview-pin-teal-a) 0%, var(--preview-pin-teal-b) 100%);
+}
+.pin-image[data-grad="rose"] {
+  background:
+    radial-gradient(circle at 30% 25%, var(--preview-pin-rose-a) 0%, transparent 60%),
+    radial-gradient(circle at 75% 80%, var(--preview-pin-rose-b) 0%, transparent 60%),
+    linear-gradient(155deg, var(--preview-pin-rose-a) 0%, var(--preview-pin-rose-b) 100%);
+}
+
+/* Overlay pill — anchored in the corner of a pin's image, names the
+ * search-term tag that matched. Pinterest's signature decorative
+ * gesture. The pill stays light-tile / dark-ink on both polarities
+ * because the surface it sits on (the pin tile) is polarity-locked. */
+.pin-pill {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  background: oklch(1 0 0);
+  color: oklch(0 0 0);
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--brand-radius-full);
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  white-space: nowrap;
+  max-width: calc(100% - 1.5rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 1px 3px hsl(0 0% 0% / 0.10);
+}
+.pin-pill[data-corner="top-left"]  { top: 0.75rem; left: 0.75rem; bottom: auto; }
+.pin-pill[data-corner="top-right"] { top: 0.75rem; right: 0.75rem; bottom: auto; left: auto; }
+
+/* Pin attribution row — sits below the image with 32px circular
+ * avatar carrying invented-pool initials and a profile name. */
+.pin-attr {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 0.75rem 0.75rem;
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 13px;
+  color: oklch(0 0 0);
+}
+.pin-attr-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--brand-radius-full);
+  display: inline-grid;
+  place-items: center;
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: oklch(0 0 0);
+  flex-shrink: 0;
+  background: var(--preview-pin-sand-a);
+}
+.pin-attr-avatar[data-tone="mauve"] { background: var(--preview-pin-mauve-a); }
+.pin-attr-avatar[data-tone="ochre"] { background: var(--preview-pin-ochre-a); }
+.pin-attr-avatar[data-tone="moss"]  { background: var(--preview-pin-moss-a); }
+.pin-attr-avatar[data-tone="sky"]   { background: var(--preview-pin-sky-a); }
+.pin-attr-avatar[data-tone="clay"]  { background: var(--preview-pin-clay-a); }
+.pin-attr-avatar[data-tone="plum"]  { background: var(--preview-pin-plum-a); }
+.pin-attr-avatar[data-tone="teal"]  { background: var(--preview-pin-teal-a); }
+.pin-attr-avatar[data-tone="rose"]  { background: var(--preview-pin-rose-a); }
+.pin-attr-name {
+  font-weight: 700;
+  font-size: 13px;
+}
+.pin-attr-meta {
+  margin-left: auto;
+  color: oklch(0.4939 0.0109 106.7921);
+  font-size: 12px;
+}
+
+/* -- Section frame — applied to demo bands below the masonry. -- */
+.section {
+  padding: 5rem 1.5rem;
+}
+.section[data-tight] { padding: 3.5rem 1.5rem; }
+.section[data-soft]  { background: var(--secondary); }
+.section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.section-header {
+  max-width: 42rem;
+  margin-bottom: 2.5rem;
+}
+.section-eyebrow {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+  margin: 0 0 0.75rem;
+}
+.section-title {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.0175em;
+  line-height: 1.15;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 24ch;
+}
+.section-lede {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 40rem;
+}
+
+/* -- Token demo: colour swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.swatch-chip {
+  height: 3.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+.swatch-role {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+}
+.swatch-name {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  color: var(--foreground);
+  word-break: break-all;
+}
+
+/* -- Token demo: surface ladder (cream → white → secondary →
+ * dark voltage). Five steps. -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 1024px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px)  { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 12rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="canvas"] {
+  background: var(--background);
+  color: var(--foreground);
+}
+.ladder-step[data-step="soft"] {
+  background: var(--secondary);
+  color: var(--foreground);
+}
+.ladder-step[data-step="cream"] {
+  background: var(--card);
+  color: var(--card-foreground);
+  border-color: var(--card);
+}
+.ladder-step[data-step="hairline"] {
+  background: var(--brand-secondary-bg);
+  color: var(--brand-on-secondary);
+  border-color: var(--brand-secondary-bg);
+}
+/* Dark voltage — Pinterest's documented surface-dark (#262622).
+ * Polarity-locked: stays warm near-black on both modes so the brand's
+ * documented "dark CTA strip" register reads consistently. */
+.ladder-step[data-step="dark"] {
+  background: oklch(0.2671 0.0072 106.8804);
+  color: oklch(1 0 0);
+  border-color: oklch(0.2671 0.0072 106.8804);
+}
+.ladder-num {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.ladder-name {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+}
+.ladder-role {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 13px;
+  opacity: 0.88;
+  margin-top: auto;
+  line-height: 1.45;
+}
+
+/* -- Type + components split -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+}
+.type-display {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 44px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.0175em;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--foreground);
+}
+.type-body {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-body);
+}
+.type-caption {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--brand-mute);
+  letter-spacing: 0;
+}
+.type-link {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--brand-ink-soft);
+}
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.75rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+/* Icon-circular button — 40px circle */
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+  border-radius: var(--brand-radius-full);
+  padding: 0;
+  background: var(--card);
+  color: var(--foreground);
+  border: 1px solid transparent;
+  display: inline-grid;
+  place-items: center;
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-icon:focus-visible {
+  outline: 2px solid var(--brand-focus-outer);
+  outline-offset: 3px;
+}
+
+/* Text input — 44px height, 16px radius, double-ring focus signal
+ * (2px foreground inner + 4px focus-outer ring). */
+.text-input {
+  width: 100%;
+  max-width: 24rem;
+  height: 44px;
+  padding: 0 1rem;
+  border: 1px solid var(--brand-ash);
+  border-radius: var(--radius-md);
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 16px;
+}
+.text-input::placeholder { color: var(--brand-ash); }
+.text-input:focus {
+  outline: none;
+  border-color: var(--foreground);
+  border-width: 2px;
+  padding: 0 calc(1rem - 1px);
+  box-shadow: 0 0 0 4px var(--brand-focus-outer);
+}
+
+/* Status badges — paired ink-on-pale tint family per DESIGN.md
+ * §"Editorial Accents" + §"Semantic". */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-full);
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.tag[data-tone="success"] {
+  background: var(--brand-success-pale);
+  /* Polarity-locked: pale-green chip is always-light, ink stays the
+   * brand's near-black (--brand-surface-dark) on both polarities. */
+  color: var(--brand-surface-dark);
+}
+.tag[data-tone="brand"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.tag[data-tone="neutral"] {
+  background: var(--card);
+  color: var(--foreground);
+}
+.tag[data-tone="ink"] {
+  background: var(--foreground);
+  color: var(--brand-on-dark);
+}
+
+/* Avatar stack — 32px circles, invented-pool initials, near-black ink
+ * on the gradient pin-palette family (polarity-locked colour pairs). */
+.avatar-stack {
+  display: inline-flex;
+  align-items: center;
+}
+.avatar-stack > .avatar { margin-left: -8px; border: 2px solid var(--background); }
+.avatar-stack > .avatar:first-child { margin-left: 0; }
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--brand-radius-full);
+  display: inline-grid;
+  place-items: center;
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: oklch(0 0 0);
+}
+.avatar[data-tone="mauve"] { background: var(--preview-pin-mauve-a); }
+.avatar[data-tone="ochre"] { background: var(--preview-pin-ochre-a); }
+.avatar[data-tone="moss"]  { background: var(--preview-pin-moss-a); }
+.avatar[data-tone="sky"]   { background: var(--preview-pin-sky-a); }
+.avatar[data-tone="clay"]  { background: var(--preview-pin-clay-a); }
+.avatar[data-tone="rose"]  { background: var(--preview-pin-rose-a); }
+
+/* -- Footer — true canvas surface with hairline top rule. -- */
+.footer {
+  background: var(--background);
+  border-top: 1px solid var(--border);
+  padding: 3rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 32ch;
+}
+.footer-tagline {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--brand-mute);
+  line-height: 1.55;
+  margin: 0;
+}
+.footer-col-title {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.footer-list a {
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--brand-mute);
+  text-decoration: none;
+}
+.footer-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'Pin Sans', 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--brand-mute);
+}
+.footer-legal-meta {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.04em;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#" aria-label="pinterest-style home">
+      <span class="brand-glyph" aria-hidden="true">P</span>
+      <span>pinterest-style</span>
+    </a>
+    <div class="topnav-tabs" role="tablist">
+      <a class="topnav-tab" data-active href="#">Boards</a>
+      <a class="topnav-tab" href="#">Today</a>
+      <a class="topnav-tab" href="#">Saved</a>
+    </div>
+    <label class="search-pill">
+      <span class="search-pill-glyph" aria-hidden="true"></span>
+      <input class="search-pill-input" type="search" placeholder="Search Halcyon's boards and pins" aria-label="Search">
+    </label>
+    <div class="topnav-actions">
+      <a class="topnav-link" data-collapsible href="#">Boards</a>
+      <button class="btn" data-variant="primary" type="button">Pin idea</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Visual board · Halcyon team</p>
+    <h1 class="hero-display">The wall where the brief lives.</h1>
+    <p class="hero-lede">Halcyon's product and design teams pin every reference, retro note, and customer quote to a shared board. The image earns the wall; the conversation carries the rest of the meeting.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Open the board</button>
+      <button class="btn" data-variant="secondary" data-size="lg" type="button">Start a fresh board</button>
+    </div>
+  </div>
+</header>
+
+<section class="filter-strip" aria-label="Board filter">
+  <div class="filter-strip-inner" role="tablist">
+    <button class="filter-chip" data-active role="tab" type="button">All boards</button>
+    <button class="filter-chip" role="tab" type="button">Design crit</button>
+    <button class="filter-chip" role="tab" type="button">Sprint retro</button>
+    <button class="filter-chip" role="tab" type="button">Customer interviews</button>
+    <button class="filter-chip" role="tab" type="button">Q3 planning</button>
+    <button class="filter-chip" role="tab" type="button">Brand moodboard</button>
+    <button class="filter-chip" role="tab" type="button">Onboarding flows</button>
+  </div>
+</section>
+
+<section class="board-section" aria-label="Masonry pin board">
+  <div class="board-inner">
+    <div class="board" role="figure" aria-label="Halcyon team's discovery board — fifteen pins across mixed aspect ratios">
+
+      <article class="pin" data-large>
+        <div class="pin-image" data-aspect="4:5" data-grad="mauve">
+          <span class="pin-pill">Brand moodboard</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="mauve" aria-hidden="true">JK</span>
+          <span class="pin-attr-name">Jordan Kim</span>
+          <span class="pin-attr-meta">42 pins</span>
+        </div>
+      </article>
+
+      <article class="pin">
+        <div class="pin-image" data-aspect="3:4" data-grad="ochre">
+          <span class="pin-pill">Design crit · Q3</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="ochre" aria-hidden="true">ML</span>
+          <span class="pin-attr-name">Morgan Lee</span>
+          <span class="pin-attr-meta">18 pins</span>
+        </div>
+      </article>
+
+      <article class="pin">
+        <div class="pin-image" data-aspect="1:1" data-grad="moss">
+          <span class="pin-pill" data-corner="top-left">Sprint retro</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="moss" aria-hidden="true">AP</span>
+          <span class="pin-attr-name">Avery Park</span>
+          <span class="pin-attr-meta">7 pins</span>
+        </div>
+      </article>
+
+      <article class="pin">
+        <div class="pin-image" data-aspect="2:3" data-grad="sky">
+          <span class="pin-pill">Customer interview</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="sky" aria-hidden="true">RC</span>
+          <span class="pin-attr-name">Riley Chen</span>
+          <span class="pin-attr-meta">31 pins</span>
+        </div>
+      </article>
+
+      <article class="pin">
+        <div class="pin-image" data-aspect="3:4" data-grad="clay">
+          <span class="pin-pill">Onboarding flow</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="clay" aria-hidden="true">SW</span>
+          <span class="pin-attr-name">Sam Walker</span>
+          <span class="pin-attr-meta">14 pins</span>
+        </div>
+      </article>
+
+      <article class="pin">
+        <div class="pin-image" data-aspect="4:5" data-grad="plum">
+          <span class="pin-pill">Q3 planning</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="rose" aria-hidden="true">TR</span>
+          <span class="pin-attr-name">Taylor Reyes</span>
+          <span class="pin-attr-meta">23 pins</span>
+        </div>
+      </article>
+
+      <article class="pin">
+        <div class="pin-image" data-aspect="1:1" data-grad="sand">
+          <span class="pin-pill" data-corner="top-left">Spec drafts</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="ochre" aria-hidden="true">JK</span>
+          <span class="pin-attr-name">Jordan Kim</span>
+          <span class="pin-attr-meta">9 pins</span>
+        </div>
+      </article>
+
+      <article class="pin">
+        <div class="pin-image" data-aspect="5:7" data-grad="teal">
+          <span class="pin-pill">Retro · cycle 24</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="sky" aria-hidden="true">ML</span>
+          <span class="pin-attr-name">Morgan Lee</span>
+          <span class="pin-attr-meta">12 pins</span>
+        </div>
+      </article>
+
+      <article class="pin">
+        <div class="pin-image" data-aspect="3:4" data-grad="rose">
+          <span class="pin-pill">Photo references</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="rose" aria-hidden="true">AP</span>
+          <span class="pin-attr-name">Avery Park</span>
+          <span class="pin-attr-meta">28 pins</span>
+        </div>
+      </article>
+
+      <article class="pin">
+        <div class="pin-image" data-aspect="4:5" data-grad="ochre">
+          <span class="pin-pill">Type studies</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="clay" aria-hidden="true">SW</span>
+          <span class="pin-attr-name">Sam Walker</span>
+          <span class="pin-attr-meta">11 pins</span>
+        </div>
+      </article>
+
+      <article class="pin">
+        <div class="pin-image" data-aspect="2:3" data-grad="moss">
+          <span class="pin-pill" data-corner="top-left">Customer quotes</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="moss" aria-hidden="true">RC</span>
+          <span class="pin-attr-name">Riley Chen</span>
+          <span class="pin-attr-meta">19 pins</span>
+        </div>
+      </article>
+
+      <article class="pin">
+        <div class="pin-image" data-aspect="1:1" data-grad="plum">
+          <span class="pin-pill">Composition study</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="mauve" aria-hidden="true">TR</span>
+          <span class="pin-attr-name">Taylor Reyes</span>
+          <span class="pin-attr-meta">6 pins</span>
+        </div>
+      </article>
+
+      <article class="pin">
+        <div class="pin-image" data-aspect="3:4" data-grad="sky">
+          <span class="pin-pill">Empty-state library</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="sky" aria-hidden="true">JK</span>
+          <span class="pin-attr-name">Jordan Kim</span>
+          <span class="pin-attr-meta">15 pins</span>
+        </div>
+      </article>
+
+      <article class="pin">
+        <div class="pin-image" data-aspect="4:5" data-grad="sand">
+          <span class="pin-pill">Ship reviews</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="ochre" aria-hidden="true">ML</span>
+          <span class="pin-attr-name">Morgan Lee</span>
+          <span class="pin-attr-meta">5 pins</span>
+        </div>
+      </article>
+
+      <article class="pin">
+        <div class="pin-image" data-aspect="2:3" data-grad="rose">
+          <span class="pin-pill">Cycle planning · Q3</span>
+        </div>
+        <div class="pin-attr">
+          <span class="pin-attr-avatar" data-tone="rose" aria-hidden="true">AP</span>
+          <span class="pin-attr-name">Avery Park</span>
+          <span class="pin-attr-meta">22 pins</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" data-soft aria-label="Colour tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Warm cream chrome, scarce red, never decorative.</h2>
+      <p class="section-lede">The chrome is a quiet warm neutral — true white, faint cream, surface cream — carrying Pinterest Red as the only saturated colour. The accent appears at most once per fold: wordmark tile, active tab, primary CTA. Everything else holds in ink.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--secondary);"></div><div class="swatch-role">Soft surface</div><div class="swatch-name">--secondary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--card);"></div><div class="swatch-role">Surface card</div><div class="swatch-name">--card</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-secondary-bg);"></div><div class="swatch-role">Hairline tier</div><div class="swatch-name">--brand-secondary-bg</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Action · Red</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-primary-pressed);"></div><div class="swatch-role">Action · Pressed</div><div class="swatch-name">--brand-primary-pressed</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink · Primary</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Ink · Body</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-mute);"></div><div class="swatch-role">Ink · Mute</div><div class="swatch-name">--brand-mute</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ash);"></div><div class="swatch-role">Ink · Ash</div><div class="swatch-name">--brand-ash</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-success-pale);"></div><div class="swatch-role">Semantic · Success pale</div><div class="swatch-name">--brand-success-pale</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-purple);"></div><div class="swatch-role">Editorial · Purple</div><div class="swatch-name">--brand-accent-purple</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces · Five steps</p>
+      <h2 class="section-title">White through warm near-black, three creams between.</h2>
+      <p class="section-lede">The page rotates through canvas (true white), soft (faint cream), card (warm cream), hairline (gray-cream), and the scarce dark voltage. The dark step is reserved for the rare CTA strip and the modal scrim — never as a section fill.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">01 · Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · pin tile · modal surface</span>
+      </div>
+      <div class="ladder-step" data-step="soft">
+        <span class="ladder-num">02 · Soft</span>
+        <span class="ladder-name">--secondary</span>
+        <span class="ladder-role">hero wash · alternating band</span>
+      </div>
+      <div class="ladder-step" data-step="cream">
+        <span class="ladder-num">03 · Cream</span>
+        <span class="ladder-name">--card</span>
+        <span class="ladder-role">search pill rest · category tile fill</span>
+      </div>
+      <div class="ladder-step" data-step="hairline">
+        <span class="ladder-num">04 · Hairline tier</span>
+        <span class="ladder-name">--brand-secondary-bg</span>
+        <span class="ladder-role">secondary button · row divider</span>
+      </div>
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">05 · Dark voltage</span>
+        <span class="ladder-name">--brand-surface-dark</span>
+        <span class="ladder-role">CTA strip · modal scrim ink</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">Pin Sans across every role, tight tracking at display.</h2>
+      <p class="section-lede">Display headlines run heavy at 600 weight with negative tracking (-1.2px at 70px) so the type feels confident rather than airy. Body sits at 16 / 1.4. There is no serif and no monospace in the chrome — the entire system runs on a single proprietary geometric sans (Pin Sans, with Inter as the documented open-source substitute).</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Pin, board, ship.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Pin Sans 700 · −0.0175em</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Pin Sans 600 · 18 / 1.3</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Pin Sans 400 at 16 pixels, line-height 1.4. Body carries the brand-body tint for running text and primary ink for headlines.</span></div>
+        <div class="type-row"><span class="type-label">Link</span><span class="type-link">An inline anchor link.</span></div>
+        <div class="type-row"><span class="type-label">Caption</span><span class="type-caption">Footer microcopy, metadata, last-saved timestamps.</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · primary + secondary + tertiary</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" type="button">Pin idea</button>
+            <button class="btn" data-variant="secondary" type="button">Save to board</button>
+            <button class="btn" data-variant="tertiary" type="button">Learn more</button>
+            <button class="btn-icon" type="button" aria-label="Save"><span aria-hidden="true">+</span></button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Filter chips · signature interactive · pill-rounded</span>
+          <div class="cmp-row">
+            <button class="filter-chip" data-active role="tab" type="button">All boards</button>
+            <button class="filter-chip" role="tab" type="button">Design crit</button>
+            <button class="filter-chip" role="tab" type="button">Retro</button>
+            <button class="filter-chip" role="tab" type="button">Planning</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Tags · paired ink-on-pale pairings</span>
+          <div class="cmp-row">
+            <span class="tag" data-tone="success">Saved</span>
+            <span class="tag" data-tone="brand">New</span>
+            <span class="tag" data-tone="neutral">Draft</span>
+            <span class="tag" data-tone="ink">Active</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Avatars · 36px circles · invented-pool initials</span>
+          <div class="cmp-row">
+            <div class="avatar-stack">
+              <span class="avatar" data-tone="mauve">JK</span>
+              <span class="avatar" data-tone="ochre">ML</span>
+              <span class="avatar" data-tone="moss">AP</span>
+              <span class="avatar" data-tone="sky">RC</span>
+              <span class="avatar" data-tone="clay">SW</span>
+              <span class="avatar" data-tone="rose">TR</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Text input · 44px · 16px radius · double-ring focus</span>
+          <div class="cmp-row">
+            <input class="text-input" type="email" placeholder="you@halcyon.dev" aria-label="Email">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#" aria-label="pinterest-style home">
+        <span class="brand-glyph" aria-hidden="true">P</span>
+        <span>pinterest-style</span>
+      </a>
+      <p class="footer-tagline">A token-surface preview rendered against the visual-discovery design system. Warm cream chrome, scarce Pinterest-Red accent, 16px-radius shape vocabulary, and a masonry pin grid signature. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Boards</p>
+      <ul class="footer-list">
+        <li><a href="#">Brand moodboard</a></li>
+        <li><a href="#">Design crit</a></li>
+        <li><a href="#">Sprint retro</a></li>
+        <li><a href="#">Q3 planning</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Team</p>
+      <ul class="footer-list">
+        <li><a href="#">Engineering</a></li>
+        <li><a href="#">Design</a></li>
+        <li><a href="#">Product</a></li>
+        <li><a href="#">Customer research</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list">
+        <li><a href="#">halcyon.dev</a></li>
+        <li><a href="#">app.halcyon.dev</a></li>
+        <li><a href="#">@halcyon/cli</a></li>
+        <li><a href="#">team@halcyon.dev</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Security</a></li>
+        <li><a href="#">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>pinterest-style · token surface preview · 2026.05.25</span>
+    <span class="footer-legal-meta">cream chrome · 16px radius · pin sans · scarce red · masonry signature</span>
+  </div>
+</footer>
+
+</body>
+</html>

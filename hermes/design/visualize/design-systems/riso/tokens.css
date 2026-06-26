@@ -1,0 +1,264 @@
+/**
+ * Riso theme — risograph-print register: 2-3 fluorescent spot colours on
+ * warm off-white paper. The defining structural commitment is *no muted-
+ * grey ramp* — every neutral is warm-tinted (hue 30 or hue 70), so the
+ * surface ramp reads as ink-on-paper rather than pixel-on-screen.
+ *
+ * Mode priority: light-canonical. Riso is fundamentally a print register;
+ * dark mode exists for the data-theme toggle but isn't a co-equal voice —
+ * the dark register reads as "spot prints on dark paper", which is a
+ * stylised inversion, not a separate aesthetic.
+ *
+ * Distinct from every other visualize design system on four axes:
+ *
+ *   1. **No grey ramp.** Clean / Brutalist / Whitepaper use 0-chroma
+ *      neutrals throughout the surface ramp. Riso replaces every cool-
+ *      grey beat with a warm-tinted near-paper or near-print value:
+ *      --muted at chroma 0.010 (not 0), --muted-foreground at chroma
+ *      0.014 (not 0). Even the "grey" sections in a Riso layout are
+ *      slightly cream or slightly ink-tinted. Pure cool grey is
+ *      out-of-register.
+ *
+ *   2. **High-chroma primary (0.27).** Most visualize systems cap
+ *      primary chroma at 0.22 (Brutalist's cadmium red is the
+ *      precedent). Riso's pink at chroma 0.27 deliberately exceeds
+ *      that ceiling — risograph ink is *fluorescent*, and a chroma-
+ *      restrained pink reads as "pink", not "riso". The genre-reflex
+ *      guard for chroma is the rule; Riso is the documented exception.
+ *
+ *   3. **Two-spot palette + optional third (chart only).** Pink primary
+ *      + teal accent are the entire chrome vocabulary. A yellow spot
+ *      appears in --chart-3 for data viz only — never in buttons,
+ *      headings, sidebars, or page sections. The constraint is the
+ *      identity; a third chrome spot breaks the small-print-run feel.
+ *
+ *   4. **Bordered, not lifted.** No shadow scale. Cards / inputs /
+ *      secondary-buttons all carry 2px solid borders in --foreground
+ *      (the print colour). Elevation is bordered: visible, opinionated,
+ *      ink-on-paper. Surfaces hover by shifting border colour, not by
+ *      lifting depth.
+ *
+ * Blessed templates: Manifesto / opinion essay, Single-page pitch
+ * (zine-shape), Conference talk handout, Roadmap-as-poster, Release
+ * announcement (when the brand voice is loud), Visual changelog.
+ *
+ * Discouraged: Technical documentation (chunky serif + high-chroma
+ * spots fight legibility for long content); Editorial / Whitepaper /
+ * Research brief (their academic register undermined by zine voice);
+ * Dashboard / dense data tables (the high-chroma spots clash with
+ * structured data); Onboarding / friendly conversational content
+ * (the opinionated voice reads aggressive).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Paper ramp (warm off-white, hue 70) ---------------------- */
+  --background:              oklch(0.96 0.012 70);
+  --foreground:              oklch(0.22 0.014 30);
+
+  --card:                    oklch(0.98 0.008 70);
+  --card-foreground:         oklch(0.22 0.014 30);
+
+  --popover:                 oklch(0.98 0.008 70);
+  --popover-foreground:      oklch(0.22 0.014 30);
+
+  /* Fluorescent pink — Riso's signature spot. Chroma 0.27 deliberately
+   * exceeds the usual ceiling; restraining it reads as "pink", not "riso". */
+  --primary:                 oklch(0.65 0.27 350);
+  --primary-foreground:      oklch(0.96 0.012 70);
+
+  --secondary:               oklch(0.92 0.020 200);
+  --secondary-foreground:    oklch(0.22 0.014 30);
+
+  --muted:                   oklch(0.93 0.010 70);
+  --muted-foreground:        oklch(0.40 0.014 30);
+
+  /* Teal — the second spot. Lower chroma than pink so pink stays dominant. */
+  --accent:                  oklch(0.65 0.18 200);
+  --accent-foreground:       oklch(0.96 0.012 70);
+
+  --destructive:             oklch(0.60 0.24 25);
+  --destructive-foreground:  oklch(0.96 0.012 70);
+
+  --border:                  oklch(0.86 0.014 70);
+  --input:                   oklch(0.86 0.014 70);
+  --ring:                    oklch(0.65 0.27 350);
+
+  --sidebar:                 oklch(0.93 0.010 70);
+  --sidebar-foreground:      oklch(0.22 0.014 30);
+  --sidebar-primary:         oklch(0.65 0.27 350);
+  --sidebar-primary-foreground: oklch(0.96 0.012 70);
+  --sidebar-accent:          oklch(0.65 0.18 200);
+  --sidebar-accent-foreground: oklch(0.96 0.012 70);
+  --sidebar-border:          oklch(0.86 0.014 70);
+  --sidebar-ring:            oklch(0.65 0.27 350);
+
+  /* -- Chart palette (categorical, two spots + optional yellow) - */
+  --chart-1:                 oklch(0.65 0.27 350);
+  --chart-2:                 oklch(0.65 0.18 200);
+  --chart-3:                 oklch(0.80 0.18 90);
+  --chart-4:                 oklch(0.55 0.20 340);
+  --chart-5:                 oklch(0.50 0.16 200);
+
+  /* -- Zero radius (print register) ----------------------------- */
+  --radius-sm:               0;
+  --radius-md:               0;
+  --radius-lg:               0;
+  --radius-xl:               0;
+
+  --space-xs:                0.25rem;
+  --space-sm:                0.5rem;
+  --space-md:                1rem;
+  --space-lg:                1.75rem;
+  --space-xl:                3rem;
+
+  /* No shadow scale — Riso elevates via 2px borders, not depth. */
+  --shadow-sm:               none;
+  --shadow-md:               none;
+  --shadow-lg:               none;
+  --shadow-2xs:              none;
+  --shadow-xs:               none;
+  --shadow-xl:               none;
+  --shadow-2xl:              none;
+
+  /* Border weight token — Riso uses 2px hard borders as the elevation
+   * vocabulary. Components reference --border-width directly. */
+  --border-width:            2px;
+
+  /* Ink-on-spot: when text sits ON a saturated pink/teal panel, use
+   * --foreground (dark ink) rather than --primary-foreground (paper).
+   * Dark-on-pink is 8:1; paper-on-pink is 3.32. Polarity-locked
+   * utility neutral (chroma 0.014) — not a brand colour modification,
+   * just the foreground choice for printing-spot panels.
+   *
+   * Note on the multi-ink medium carve-out: Risograph IS a multi-ink
+   * register where pink and teal are literally separate ink drums,
+   * not synthesized variants of a single brand colour. But the brand
+   * inks live in --primary (Fluorescent Pink, ≈ #FF48B0, canonical
+   * oklch(0.69 0.24 350); DESIGN.md elevates chroma 0.24 → 0.27 to
+   * read as "fluorescent") and --accent (Teal, ≈ #00838A, oklch(0.55
+   * 0.09 201); DESIGN.md elevates to chroma 0.18 + L 0.65 for the
+   * fluorescent-on-paper voltage). Synthesizing extra `-ink` tokens at
+   * darkened L just to win body-text contrast on cream paper is the
+   * brand-colour-modification anti-pattern — physical Riso inks don't
+   * shift lightness by viewing context. Small-text consumers route to
+   * --foreground (the print colour) with weight/tracking carrying the
+   * differentiation; the fluorescent voltage stays on display-scale
+   * consumers (h1 accent letters, principle .num) and spot fills. */
+  --brand-ink-on-spot:       oklch(0.22 0.014 30);
+  /* typography tokens */
+  --font-sans: 'Inter', 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Recoleta', 'Bagnard', 'Source Serif Pro', Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: var(--font-serif);
+
+  /* type scale tokens */
+  --text-display: clamp(2.5rem, 6vw, 4rem);
+  --text-heading: 2rem;
+  --text-title: 1.125rem;
+  --text-base: 17px;
+  --leading-tight: 1.0;
+  --leading-normal: 1.55;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: -0.02em;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Dark register: spot prints on dark paper. The chassis inverts L while
+   * keeping the warm hue; pink + teal preserve hue + chroma (the spots
+   * are the identity and remain vivid). */
+
+  --background:              oklch(0.18 0.014 30);
+  --foreground:              oklch(0.94 0.012 70);
+
+  --card:                    oklch(0.22 0.016 30);
+  --card-foreground:         oklch(0.94 0.012 70);
+
+  --popover:                 oklch(0.22 0.016 30);
+  --popover-foreground:      oklch(0.94 0.012 70);
+
+  --primary:                 oklch(0.70 0.27 350);
+  --primary-foreground:      oklch(0.18 0.014 30);
+
+  --secondary:               oklch(0.30 0.020 200);
+  --secondary-foreground:    oklch(0.94 0.012 70);
+
+  --muted:                   oklch(0.26 0.012 30);
+  --muted-foreground:        oklch(0.70 0.014 70);
+
+  --accent:                  oklch(0.70 0.18 200);
+  --accent-foreground:       oklch(0.18 0.014 30);
+
+  --destructive:             oklch(0.65 0.24 25);
+  --destructive-foreground:  oklch(0.18 0.014 30);
+
+  --border:                  oklch(0.34 0.014 30);
+  --input:                   oklch(0.34 0.014 30);
+  --ring:                    oklch(0.70 0.27 350);
+
+  --sidebar:                 oklch(0.22 0.016 30);
+  --sidebar-foreground:      oklch(0.94 0.012 70);
+  --sidebar-primary:         oklch(0.70 0.27 350);
+  --sidebar-primary-foreground: oklch(0.18 0.014 30);
+  --sidebar-accent:          oklch(0.70 0.18 200);
+  --sidebar-accent-foreground: oklch(0.18 0.014 30);
+  --sidebar-border:          oklch(0.34 0.014 30);
+  --sidebar-ring:            oklch(0.70 0.27 350);
+
+  --chart-1:                 oklch(0.70 0.27 350);
+  --chart-2:                 oklch(0.70 0.18 200);
+  --chart-3:                 oklch(0.82 0.18 90);
+  --chart-4:                 oklch(0.62 0.20 340);
+  --chart-5:                 oklch(0.58 0.16 200);
+
+  /* Ink-on-spot flips polarity for dark mode — when spot panels carry
+   * the lifted dark-mode --primary / --accent (L 0.70), the on-spot
+   * label still wants dark ink. */
+  --brand-ink-on-spot:       oklch(0.18 0.014 30);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background:            oklch(0.18 0.014 30);
+    --foreground:            oklch(0.94 0.012 70);
+    --card:                  oklch(0.22 0.016 30);
+    --card-foreground:       oklch(0.94 0.012 70);
+    --popover:               oklch(0.22 0.016 30);
+    --popover-foreground:    oklch(0.94 0.012 70);
+    --primary:               oklch(0.70 0.27 350);
+    --primary-foreground:    oklch(0.18 0.014 30);
+    --secondary:             oklch(0.30 0.020 200);
+    --secondary-foreground:  oklch(0.94 0.012 70);
+    --muted:                 oklch(0.26 0.012 30);
+    --muted-foreground:      oklch(0.70 0.014 70);
+    --accent:                oklch(0.70 0.18 200);
+    --accent-foreground:     oklch(0.18 0.014 30);
+    --destructive:           oklch(0.65 0.24 25);
+    --destructive-foreground: oklch(0.18 0.014 30);
+    --border:                oklch(0.34 0.014 30);
+    --input:                 oklch(0.34 0.014 30);
+    --ring:                  oklch(0.70 0.27 350);
+    --sidebar:               oklch(0.22 0.016 30);
+    --sidebar-foreground:    oklch(0.94 0.012 70);
+    --sidebar-primary:       oklch(0.70 0.27 350);
+    --sidebar-primary-foreground: oklch(0.18 0.014 30);
+    --sidebar-accent:        oklch(0.70 0.18 200);
+    --sidebar-accent-foreground: oklch(0.18 0.014 30);
+    --sidebar-border:        oklch(0.34 0.014 30);
+    --sidebar-ring:          oklch(0.70 0.27 350);
+    --chart-1:               oklch(0.70 0.27 350);
+    --chart-2:               oklch(0.70 0.18 200);
+    --chart-3:               oklch(0.82 0.18 90);
+    --chart-4:               oklch(0.62 0.20 340);
+    --chart-5:               oklch(0.58 0.16 200);
+
+    --brand-ink-on-spot:     oklch(0.18 0.014 30);
+  }
+}

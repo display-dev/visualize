@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Sketch preview shell — wireframe design crit handout === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  /* Subtle dot-grid background, like a Moleskine page */
+  background-image:
+    radial-gradient(circle at 1px 1px, oklch(from var(--foreground) l c h / 0.10) 1px, transparent 0);
+  background-size: 24px 24px;
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.page { max-width: 1000px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+
+.cursive {
+  font-family: var(--font-display);
+  letter-spacing: 0;
+}
+
+.notebook-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 0.875rem;
+  border-bottom: 2px dashed var(--border);
+  margin-bottom: 2.5rem;
+}
+.notebook-strip .doc {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.notebook-strip .date { font-size: 0.75rem; color: var(--muted-foreground); letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* Hero */
+.hero { margin-bottom: 3rem; }
+.hero .tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.05;
+  margin: 0 0 0.75rem 0;
+  letter-spacing: 0;
+  /* Hero stays straight; only side-annotation elements (.notes, .note arrow) tilt. */
+}
+.hero h1 .accent { color: var(--primary); }
+.hero h1 .strike {
+  position: relative;
+  color: var(--muted-foreground);
+  text-decoration: none;
+}
+/* Hand-drawn squiggle through the struck-out word — SVG overlay instead of
+   text-decoration line-through (which renders as a clean rule, breaking the
+   "scratched out" register on cursive letterforms). */
+.hero h1 .strike::after {
+  content: "";
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  top: 55%;
+  height: 0.4em;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'><path d='M 2 7 Q 18 1 35 7 T 70 7 T 105 7 T 140 7 T 175 7 T 198 7' stroke='%23ce4429' stroke-width='3.5' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+}
+.hero .note {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--accent);
+  margin: 0;
+  transform: rotate(0.5deg);
+  display: inline-block;
+}
+.hero .note::before { content: "← "; }
+
+/* Wireframe canvas */
+.canvas-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+@media (max-width: 780px) { .canvas-grid { grid-template-columns: 1fr; } }
+
+.wire {
+  background-color: var(--card);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+.wire .label-cap {
+  display: inline-block;
+  background-color: var(--background);
+  padding: 0 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  position: absolute;
+  top: -0.5rem;
+  left: 1rem;
+}
+.wire h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.875rem;
+  line-height: 1.1;
+  margin: 0.25rem 0 1rem 0;
+  letter-spacing: 0;
+}
+
+/* Wireframe blocks — placeholders for image / cta / etc */
+.block {
+  background-color: var(--secondary);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.625rem 0.875rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 0.625rem;
+}
+.block.img {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.block.img::before { content: "▭ image · 4:3"; }
+.block.lorem { line-height: 1.8; color: var(--foreground); font-family: var(--font-mono); font-size: 13px; padding: 0.875rem; text-align: left; text-transform: none; letter-spacing: 0; opacity: 0.85; }
+
+.cta-mock {
+  display: inline-block;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border: 2px dashed var(--primary-foreground);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+  text-decoration: none;
+}
+
+/* Side annotations */
+.notes {
+  background-color: var(--card);
+  border: 2px dashed var(--accent);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-md);
+  transform: rotate(0.5deg);
+}
+.notes h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 0 0 0.75rem 0;
+}
+.notes ul { list-style: none; padding: 0; margin: 0; }
+.notes li {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  padding-left: 1.5rem;
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+.notes li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+.notes li.question { color: var(--primary); }
+.notes li.question::before { content: "?"; font-weight: 700; font-size: 1.125rem; }
+
+/* Crit row */
+.crit {
+  background-color: var(--card);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.crit h3 {
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+.crit-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 60px;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.625rem 0;
+  border-bottom: 1px dashed var(--border);
+}
+.crit-row:last-child { border-bottom: none; }
+.crit-row .who {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  color: var(--primary);
+}
+.crit-row .what { font-family: var(--font-mono); font-size: 13px; color: var(--foreground); }
+.crit-row .vote {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  text-align: right;
+  color: var(--accent);
+}
+.crit-row .vote.q { color: var(--primary); }
+.crit-row .vote.x { color: var(--destructive); text-decoration: line-through; text-decoration-thickness: 2px; }
+
+footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 2px dashed var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="notebook-strip">
+    <span class="doc">feat / onboarding-picker — v0.3 draft</span>
+    <span class="date">21 may 2026 · crit thursday</span>
+  </div>
+
+  <div class="hero">
+    <span class="tag">Wireframe · please tear up</span>
+    <h1>Make first-run <span class="strike">fast</span> <span class="accent">obvious</span>.</h1>
+    <p class="note">that's the actual question</p>
+  </div>
+
+  <div class="canvas-grid">
+
+    <div class="wire">
+      <span class="label-cap">composer · primary surface</span>
+      <h2>The step picker</h2>
+      <div class="block img"></div>
+      <div class="block lorem">
+        list field. drop-target for re-ordering. 18ch min width before the helper text gets cramped.
+      </div>
+      <div class="block lorem">
+        team-only toggle ☐&nbsp;&nbsp;&nbsp; step-count pill →
+      </div>
+      <a href="#" class="cta-mock">Save and next</a>
+    </div>
+
+    <div class="notes">
+      <h3>open questions</h3>
+      <ul>
+        <li>does the re-order flow need a separate explicit "edit" affordance, or is drag-detect enough?</li>
+        <li class="question">what happens on a slow-loading helper hint? skeleton or progress bar?</li>
+        <li>"send to" picker — sticky default or always explicit?</li>
+        <li class="question">should the step-count pill default to 5 or "all"?</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="crit">
+    <h3>thursday crit — votes</h3>
+    <div class="crit-row">
+      <span class="who">morgan</span>
+      <span class="what">like the inline helper; step-count pill placement feels wrong</span>
+      <span class="vote">✓</span>
+    </div>
+    <div class="crit-row">
+      <span class="who">jordan</span>
+      <span class="what">drag-detect alone won't cover the keyboard re-order case</span>
+      <span class="vote q">?</span>
+    </div>
+    <div class="crit-row">
+      <span class="who">avery</span>
+      <span class="what">team-only toggle needs an icon, not a checkbox</span>
+      <span class="vote">✓</span>
+    </div>
+    <div class="crit-row">
+      <span class="who">riley</span>
+      <span class="what">cta copy "save and next" — too generic, try "continue"</span>
+      <span class="vote x">✗</span>
+    </div>
+  </div>
+
+  <footer>
+    <span>visualize / __DESIGN_SYSTEM_NAME__</span>
+    <span>tear it up · pin it back · take a photo</span>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,300 @@
+/**
+ * design-systems/meta-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Meta-style is LIGHT-CANONICAL with no documented dark mode (per
+ * DESIGN.md §6 known-gaps: "Specific dark-mode token values for canvas,
+ * surface, ink, and hairline are not defined; the brand has not surfaced
+ * a published dark-mode token set"). The brand's commerce surfaces run
+ * on a stark white canvas with two dark moments — the dark promo strip
+ * (`--brand-ink-deep`) and the yellow/black promo banner above the nav.
+ *
+ * Dark-mode strategy: synthesise a plausible dark by promoting the
+ * documented `--brand-ink-deep` family to canvas, keeping the cobalt
+ * `--primary` as the voltage that survives both polarities (it's
+ * Meta's saturated commerce CTA — designed to read on both light AND
+ * dark hero photography overlays per DESIGN.md §5 `hero-band-marketing`).
+ * Lift the body-ink ladder (charcoal → slate → steel → stone) so the
+ * tertiary text hierarchy remains legible on the dark canvas. Polarity-
+ * locked tokens (`--brand-ink-button`, `--brand-on-ink-button`) are NOT
+ * lifted in dark — `--brand-ink-button` names the brand's always-black
+ * marketing-CTA ink, used by the polarity-locked signature card's status
+ * pill; lifting it would invert the contrast against the locked surface.
+ *
+ * Signature voltage: per the single-polarity rule, only the compute-
+ * cluster status board stays canvas-locked (white surface, cobalt
+ * accents, near-black ink) on BOTH polarities — every other section
+ * (swatches, ladder, type, components, closer) flips with theme so the
+ * dark variant reads as "dark mode of Meta" not "light page with one
+ * dark band."
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2342 0.0065 258.3633);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2342 0.0065 258.3633);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2342 0.0065 258.3633);
+  /* Primary cobalt deepened from upstream L=0.5334 → 0.4700 (chroma
+   * preserved) so white text on the cobalt CTA passes WCAG AA 4.5:1
+   * for body-size labels. Upstream L=0.5334 lands ~4.27:1 — short of
+   * the body floor by a hair, per AUTHORING.md "DESIGN.md drift on
+   * white-on-saturated → dark ink" the fix is either deeper saturation
+   * (taken here, preserves the brand voltage register) or dark-ink ON
+   * cobalt (which would invert the brand's documented light-on-cobalt
+   * commerce-CTA pattern). DESIGN.md §6 known-gaps documents that the
+   * cobalt token's exact lightness shifts seasonally on the live site;
+   * a 0.06 L deepen lands inside the documented variance band. */
+  --primary: oklch(0.4700 0.2049 258.8101);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9657 0.0051 247.8773);
+  --secondary-foreground: oklch(0.2342 0.0065 258.3633);
+  --muted: oklch(0.9657 0.0051 247.8773);
+  --muted-foreground: oklch(0.4034 0.0135 256.7574);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0.2342 0.0065 258.3633);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.8572 0.0059 264.5291);
+  --input: oklch(0.8572 0.0059 264.5291);
+  --ring: oklch(0.4700 0.2049 258.8101);
+  --sidebar: oklch(0.9657 0.0051 247.8773);
+  --sidebar-foreground: oklch(0.2342 0.0065 258.3633);
+  --sidebar-primary: oklch(0.4700 0.2049 258.8101);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9657 0.0051 247.8773);
+  --sidebar-accent-foreground: oklch(0.2342 0.0065 258.3633);
+  --sidebar-border: oklch(0.8572 0.0059 264.5291);
+  --sidebar-ring: oklch(0.4700 0.2049 258.8101);
+  --chart-1: oklch(0.8100 0.2000 258.8101);
+  --chart-2: oklch(0.7100 0.2000 258.8101);
+  --chart-3: oklch(0.6100 0.2000 258.8101);
+  --chart-4: oklch(0.5100 0.2000 258.8101);
+  --chart-5: oklch(0.4200 0.2000 258.8101);
+
+  /* radius scale */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 16px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 2px;
+  --brand-radius-xxl: 24px;
+  --brand-radius-xxxl: 32px;
+  --brand-radius-feature: 40px;
+  --brand-radius-full: 100px;
+  --brand-radius-circle: 9999px;
+
+  /* typography tokens */
+  --font-sans: 'Inter', 'Optimistic VF', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: 'Inter', 'Optimistic VF', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 64px;
+  --text-heading: 48px;
+  --text-title: 28px;
+  --text-base: 16px;
+  --leading-tight: 1.16;
+  --leading-normal: 1.50;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-primary-deep: oklch(0.4898 0.1935 259.7076);
+  --brand-primary-soft: oklch(0.6515 0.1920 251.4696);
+  --brand-ink-button: oklch(0 0 0);
+  --brand-on-ink-button: oklch(1 0 0);
+  --brand-fb-blue: oklch(0.5871 0.2040 258.1007);
+  --brand-meta-link: oklch(0.4685 0.1107 262.8139);
+  --brand-oculus-purple: oklch(0.5409 0.2461 314.6351);
+  --brand-success: oklch(0.6296 0.1598 147.6777);
+  --brand-success-bg: oklch(0.7986 0.2676 141.8229);
+  --brand-attention: oklch(0.7853 0.1601 76.6645);
+  --brand-warning: oklch(0.8214 0.1600 82.5337);
+  --brand-warning-bg: oklch(0.9087 0.1888 99.8653);
+  --brand-critical: oklch(0.5903 0.2243 20.6332);
+  --brand-critical-strong: oklch(0.6186 0.2288 19.3555);
+  --brand-ink-deep: oklch(0.1798 0.0158 227.4213);
+  --brand-charcoal: oklch(0.4034 0.0135 256.7574);
+  --brand-slate: oklch(0.4167 0.0051 271.2923);
+  --brand-steel: oklch(0.5243 0.0299 248.3963);
+  --brand-stone: oklch(0.6621 0.0289 246.5215);
+  --brand-hairline-soft: oklch(0.9137 0.0098 252.8158);
+  --brand-disabled-text: oklch(0.8058 0.0072 247.9147);
+}
+
+/*
+ * Dark mode — hand-tuned, NOT the OKLCH lightness-inversion default.
+ *
+ * Strategy: promote Meta's documented dark surface (`--brand-ink-deep`)
+ * to canvas; step `--card` up to a slightly elevated dark surface so
+ * cards remain visible on the canvas. Cobalt `--primary` stays at its
+ * :root value — it's the brand's voltage that already survives both
+ * light and dark backgrounds (DESIGN.md §5 documents the cobalt buy-CTA
+ * appearing over both light tile surfaces AND dark hero-photography
+ * overlays). The cobalt ring works equally well on both polarities.
+ *
+ * Why each override exists:
+ *   --background      → promoted to --brand-ink-deep family (the brand's
+ *                       documented dark promo-strip color)
+ *   --card / --popover → step up one tonal notch so cards don't disappear
+ *                       into canvas; preserves Meta's flat-card register
+ *                       (no shadow, just hairline + tone step)
+ *   --foreground      → near-white inverse of original ink
+ *   --secondary / --muted → tonal step between canvas and card; used for
+ *                       chip backgrounds, nav-pill-group inner surface
+ *   --muted-foreground → lifts to mid-light so caption / fine-print reads
+ *   --border / --input → near-2a hairline that's visible on dark canvas
+ *
+ * Brand-extras overrides (the tokens used directly in template CSS):
+ *   --brand-charcoal  → lifts from L=0.4034 to L=0.7700 — used for body
+ *                       and tertiary text; on dark canvas the original
+ *                       near-black value would be invisible
+ *   --brand-slate     → lifts similarly — used for status row labels
+ *   --brand-steel     → lifts for caption / link copy
+ *   --brand-stone     → lifts for de-emphasized / metadata labels
+ *   --brand-hairline-soft → near-2a divider that works on dark canvas
+ *   --brand-meta-link → lifts because original L=0.47 is barely
+ *                       distinguishable from canvas; preserves blue hue
+ *   --brand-success / --brand-attention / --brand-warning / --brand-critical
+ *                      → kept at :root values; mid-saturation accents at
+ *                       L=0.6-0.8 already work against both polarities
+ *
+ * Polarity-locked tokens left at :root values (inherited via cascade):
+ *   --brand-ink-deep         → names "the brand's deep ink for promo strips"
+ *                              but in dark mode it IS the canvas, so the
+ *                              signature surface uses --background instead
+ *   --brand-ink-button       → always-black ink for the marketing-CTA pill;
+ *                              the signature status board (which is polarity-
+ *                              locked white in BOTH variants) uses this on
+ *                              its dark detail pills, so it stays black
+ *   --brand-on-ink-button    → already always-light by definition
+ *   --brand-success-bg / --brand-warning-bg → pastel fills sit at L=0.79/0.91
+ *                              and already work on both polarities for the
+ *                              chip register Meta documents
+ *   --brand-primary-deep / --brand-primary-soft → cobalt depth family stays
+ *                              consistent across polarities (the cobalt
+ *                              gradient is the brand)
+ *   --brand-fb-blue / --brand-oculus-purple → saturated accents are
+ *                              polarity-agnostic at L=0.54-0.59
+ *   --brand-disabled-text    → polarity-locked light-fill, doesn't apply
+ *                              in dark canvas where disabled state uses
+ *                              opacity instead
+ */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* shadcn-semantic core — calibrated to Meta's documented dark promo-strip family.
+   * Primary cobalt stays at the same deepened L=0.4700 as :root so the
+   * white-on-cobalt CTA passes WCAG AA 4.5:1 on both polarities and the
+   * brand voltage reads identically across light + dark canvases. */
+  --background: oklch(0.1798 0.0158 227.4213);
+  --foreground: oklch(0.9700 0.0030 247.8773);
+  --card: oklch(0.2400 0.0140 227.4213);
+  --card-foreground: oklch(0.9700 0.0030 247.8773);
+  --popover: oklch(0.2400 0.0140 227.4213);
+  --popover-foreground: oklch(0.9700 0.0030 247.8773);
+  --primary: oklch(0.4700 0.2049 258.8101);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.2700 0.0130 227.4213);
+  --secondary-foreground: oklch(0.9700 0.0030 247.8773);
+  --muted: oklch(0.2700 0.0130 227.4213);
+  --muted-foreground: oklch(0.7900 0.0080 247.8773);
+  --accent: oklch(0.2400 0.0140 227.4213);
+  --accent-foreground: oklch(0.9700 0.0030 247.8773);
+  --destructive: oklch(0.5903 0.2243 20.6332);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3100 0.0120 227.4213);
+  --input: oklch(0.3100 0.0120 227.4213);
+  --ring: oklch(0.5871 0.2040 258.1007);
+  --sidebar: oklch(0.2400 0.0140 227.4213);
+  --sidebar-foreground: oklch(0.9700 0.0030 247.8773);
+  --sidebar-primary: oklch(0.4700 0.2049 258.8101);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2700 0.0130 227.4213);
+  --sidebar-accent-foreground: oklch(0.9700 0.0030 247.8773);
+  --sidebar-border: oklch(0.3100 0.0120 227.4213);
+  --sidebar-ring: oklch(0.4700 0.2049 258.8101);
+  --chart-1: oklch(0.8100 0.2000 258.8101);
+  --chart-2: oklch(0.7100 0.2000 258.8101);
+  --chart-3: oklch(0.6100 0.2000 258.8101);
+  --chart-4: oklch(0.5100 0.2000 258.8101);
+  --chart-5: oklch(0.4200 0.2000 258.8101);
+
+  /* brand-extras lifted for dark canvas — never lift the polarity-locked
+   * ink-button / on-ink-button / ink-deep family (those stay at :root). */
+  --brand-charcoal: oklch(0.7700 0.0135 256.7574);
+  --brand-slate: oklch(0.7800 0.0080 271.2923);
+  --brand-steel: oklch(0.7500 0.0299 248.3963);
+  --brand-stone: oklch(0.7000 0.0289 246.5215);
+  --brand-hairline-soft: oklch(0.3100 0.0098 252.8158);
+  --brand-meta-link: oklch(0.7600 0.1107 262.8139);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1798 0.0158 227.4213);
+    --foreground: oklch(0.9700 0.0030 247.8773);
+    --card: oklch(0.2400 0.0140 227.4213);
+    --card-foreground: oklch(0.9700 0.0030 247.8773);
+    --popover: oklch(0.2400 0.0140 227.4213);
+    --popover-foreground: oklch(0.9700 0.0030 247.8773);
+    --primary: oklch(0.4700 0.2049 258.8101);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.2700 0.0130 227.4213);
+    --secondary-foreground: oklch(0.9700 0.0030 247.8773);
+    --muted: oklch(0.2700 0.0130 227.4213);
+    --muted-foreground: oklch(0.7900 0.0080 247.8773);
+    --accent: oklch(0.2400 0.0140 227.4213);
+    --accent-foreground: oklch(0.9700 0.0030 247.8773);
+    --destructive: oklch(0.5903 0.2243 20.6332);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3100 0.0120 227.4213);
+    --input: oklch(0.3100 0.0120 227.4213);
+    --ring: oklch(0.4700 0.2049 258.8101);
+    --sidebar: oklch(0.2400 0.0140 227.4213);
+    --sidebar-foreground: oklch(0.9700 0.0030 247.8773);
+    --sidebar-primary: oklch(0.4700 0.2049 258.8101);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.2700 0.0130 227.4213);
+    --sidebar-accent-foreground: oklch(0.9700 0.0030 247.8773);
+    --sidebar-border: oklch(0.3100 0.0120 227.4213);
+    --sidebar-ring: oklch(0.4700 0.2049 258.8101);
+    --chart-1: oklch(0.8100 0.2000 258.8101);
+    --chart-2: oklch(0.7100 0.2000 258.8101);
+    --chart-3: oklch(0.6100 0.2000 258.8101);
+    --chart-4: oklch(0.5100 0.2000 258.8101);
+    --chart-5: oklch(0.4200 0.2000 258.8101);
+
+    --brand-charcoal: oklch(0.7700 0.0135 256.7574);
+    --brand-slate: oklch(0.7800 0.0080 271.2923);
+    --brand-steel: oklch(0.7500 0.0299 248.3963);
+    --brand-stone: oklch(0.7000 0.0289 246.5215);
+    --brand-hairline-soft: oklch(0.3100 0.0098 252.8158);
+    --brand-meta-link: oklch(0.7600 0.1107 262.8139);
+  }
+}
+</content>
+</invoke>

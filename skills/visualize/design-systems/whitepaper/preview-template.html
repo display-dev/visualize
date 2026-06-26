@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Whitepaper preview shell — institutional / academic report === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans, ui-sans-serif);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.page { max-width: 920px; margin: 0 auto; padding: 4rem 3rem; }
+
+/* Institutional header */
+.head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--primary);
+  margin-bottom: 3rem;
+  align-items: end;
+}
+.head .inst {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  letter-spacing: -0.005em;
+  color: var(--primary);
+}
+.head .inst small { display: block; color: var(--muted-foreground); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.25rem; }
+.head .ref { text-align: right; font-size: 0.8125rem; color: var(--muted-foreground); font-variant-numeric: tabular-nums; }
+.head .ref .id { color: var(--primary); font-weight: 600; }
+
+/* Document classification */
+.classification {
+  display: flex;
+  gap: 0.625rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin-bottom: 1.5rem;
+}
+.classification .pill {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.125rem 0.625rem;
+}
+.classification .pill.primary { background-color: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+
+/* Title block */
+.eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 0.75rem 0;
+}
+h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 1rem 0;
+  max-width: 26ch;
+}
+.standfirst {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.1875rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+  margin: 0 0 2rem 0;
+  max-width: 56ch;
+}
+
+.authors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+  font-size: 0.875rem;
+}
+.authors .author .name { font-weight: 600; }
+.authors .author .affil { color: var(--muted-foreground); font-size: 0.8125rem; }
+.authors .date {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+.authors .date strong { color: var(--foreground); font-weight: 600; }
+
+/* Abstract box */
+.abstract {
+  background-color: var(--muted);
+  border-left: 3px solid var(--primary);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 3rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.abstract h2 {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 0.625rem 0;
+}
+.abstract p { margin: 0 0 0.625rem 0; }
+.abstract p:last-child { margin-bottom: 0; }
+
+/* TOC */
+.toc {
+  margin-bottom: 3rem;
+}
+.toc h2 {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.toc-row {
+  display: grid;
+  grid-template-columns: 2rem 1fr 3rem;
+  align-items: baseline;
+  padding: 0.375rem 0;
+  font-size: 0.9375rem;
+}
+.toc-row .num { font-family: var(--font-mono); color: var(--muted-foreground); font-variant-numeric: tabular-nums; }
+.toc-row .title { color: var(--foreground); border-bottom: 1px dotted var(--border); padding-bottom: 0.125rem; }
+.toc-row .pg { text-align: right; font-family: var(--font-mono); color: var(--muted-foreground); font-variant-numeric: tabular-nums; }
+.toc-row.indent { padding-left: 1.5rem; font-size: 0.875rem; }
+.toc-row.indent .title { color: var(--muted-foreground); }
+
+/* First body section */
+.section-num {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 0.5rem 0;
+}
+h2.body-h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 1rem 0;
+}
+.prose p { margin: 0 0 1.125rem 0; }
+.prose a { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; }
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--primary);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  letter-spacing: 0.04em;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="head">
+    <div class="inst">
+      Institute for Platform Engineering
+      <small>Quarterly research bulletin</small>
+    </div>
+    <div class="ref">
+      Reference <span class="id">IPE-2026-Q2-007</span><br>
+      Issued 21 May 2026
+    </div>
+  </div>
+
+  <div class="classification">
+    <span class="pill primary">Public</span>
+    <span class="pill">Peer-reviewed</span>
+    <span class="pill">v1.0 · stable</span>
+  </div>
+
+  <span class="eyebrow">Research bulletin · Edge platforms</span>
+  <h1>Distribution-aware publishing for the org-internal web</h1>
+  <p class="standfirst">An institutional analysis of seven publishing-platform architectures for the org-gated artifact category, with recommendations for procurement and platform engineering teams.</p>
+
+  <div class="authors">
+    <div class="author">
+      <div class="name">Mira Allende, Ph.D.</div>
+      <div class="affil">Institute for Platform Engineering · Lead author</div>
+    </div>
+    <div class="author">
+      <div class="name">Jordan Kim</div>
+      <div class="affil">Halcyon.dev · Industry collaborator</div>
+    </div>
+    <div class="date">
+      <strong>Submitted</strong> 04 April 2026 · <strong>Accepted</strong> 12 May 2026<br>
+      <strong>Published</strong> 21 May 2026 · <strong>Volume</strong> 09 · <strong>Issue</strong> 02
+    </div>
+  </div>
+
+  <div class="abstract">
+    <h2>Abstract</h2>
+    <p>We assess seven org-gated publishing architectures against four institutional criteria: latency at p99, time-to-first-byte for cold authentication paths, total-cost-of-ownership at the 1k–10k seat band, and the operational surface required to maintain the platform end-to-end.</p>
+    <p>The dominant architecture in the surveyed cohort centralises edge-rendered HTML behind a Worker-level auth gate, with origin databases serving only mutation. The pattern delivers a median p99 of 86 ms across regions with operational overhead substantially below the multi-region Postgres alternative.</p>
+  </div>
+
+  <div class="toc">
+    <h2>Contents</h2>
+    <div class="toc-row"><span class="num">01</span><span class="title">Introduction and scope</span><span class="pg">02</span></div>
+    <div class="toc-row indent"><span class="num">1.1</span><span class="title">Definitions: org-gated, org-shared, public</span><span class="pg">02</span></div>
+    <div class="toc-row indent"><span class="num">1.2</span><span class="title">Cohort selection methodology</span><span class="pg">04</span></div>
+    <div class="toc-row"><span class="num">02</span><span class="title">Architectural comparison</span><span class="pg">06</span></div>
+    <div class="toc-row indent"><span class="num">2.1</span><span class="title">Edge-rendered HTML pattern</span><span class="pg">07</span></div>
+    <div class="toc-row indent"><span class="num">2.2</span><span class="title">Origin-rendered SPA pattern</span><span class="pg">11</span></div>
+    <div class="toc-row indent"><span class="num">2.3</span><span class="title">Hybrid CDN-and-origin pattern</span><span class="pg">14</span></div>
+    <div class="toc-row"><span class="num">03</span><span class="title">Operational findings</span><span class="pg">18</span></div>
+    <div class="toc-row"><span class="num">04</span><span class="title">Recommendations and procurement guidance</span><span class="pg">24</span></div>
+    <div class="toc-row"><span class="num">—</span><span class="title">References (n=42)</span><span class="pg">31</span></div>
+  </div>
+
+  <div>
+    <span class="section-num">§ 1 · Introduction</span>
+    <h2 class="body-h2">The org-gated artifact as a distinct category</h2>
+    <div class="prose">
+      <p>The institutional shift from public-by-default publishing toward access-gated artifact distribution has proceeded faster than the literature has documented. The Q1 2026 industry survey conducted by this Institute found that <strong>83% of platform engineering teams at the 500–5,000 employee band</strong> now operate at least one org-gated artifact channel — a category that includes internal dashboards, agent-generated reports, runbook archives, and the proliferating long-tail of MCP-rendered documents.</p>
+      <p>This bulletin defines the category, surveys the architectural patterns currently in production, and offers procurement guidance for platform engineering teams evaluating new entrants. The data underlying §3 is drawn from <a href="#">the Institute's Q1 cohort study</a> (n=412 organisations).</p>
+    </div>
+  </div>
+
+  <footer>
+    <span>visualize · __DESIGN_SYSTEM_NAME__</span>
+    <span>Page 1 of 36 · ISSN 2563-9981</span>
+  </footer>
+
+</div>
+</body>
+</html>

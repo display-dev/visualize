@@ -1,0 +1,200 @@
+/**
+ * design-systems/tech-editorial/tokens.css
+ *
+ * Hand-authored from the spec at temp/refs/tech-editorial/raw.md.
+ * Sourced: 2026-05-26.
+ *
+ * Register: paper-warm editorial × brutalist 4-column scaffolding.
+ * Companion: design-systems/tech-editorial/DESIGN.md (§2 carries the
+ * spec citations for every chromatic value below).
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this brand's.
+ *     Never rename, never add to, never delete from per-brand.
+ *   - Brand-extras (--brand-*): the brand's own design-system vocabulary.
+ *     Surface-named only (-bg, -canvas, -ink, -on-dark, -hairline, etc.).
+ *     Never colour-with-modifier (-coral-ink, -blue-on-dark, -red-deep) —
+ *     those are the synthesis anti-pattern in name form.
+ *
+ * If a surface fails AA at the brand colour's documented value, fix the
+ * surface (route to --foreground / --brand-on-dark, add a background
+ * fill, route the brand colour to a non-text ::before icon, or bump to
+ * large-text threshold). Don't retune the colour.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are this brand's. */
+
+  --background: oklch(0.9728 0.0054 95.10);                /* #f7f6f2 — spec §Style prose */
+  --foreground: oklch(0.2264 0 0);                         /* #1c1c1c — spec §Style prose */
+  --card: oklch(0.9575 0.0067 97.35);                      /* paper-deep, synthesised */
+  --card-foreground: oklch(0.2264 0 0);                    /* #1c1c1c */
+  --popover: oklch(0.9848 0.0054 95.10);                   /* synthesised */
+  --popover-foreground: oklch(0.2264 0 0);                 /* #1c1c1c */
+
+  --primary: oklch(0.5069 0.0568 182.75);                  /* #3d7068 — muted forest-green, spec §Style prose */
+  --primary-foreground: oklch(1 0 0);                      /* #ffffff — spec §Animated CTA Button */
+  --secondary: oklch(0.9180 0.0081 98.89);                 /* hairline value, used as surface chip */
+  --secondary-foreground: oklch(0.2264 0 0);
+  --muted: oklch(0.9455 0.0027 106.45);                    /* synthesised, slight warm step */
+  --muted-foreground: oklch(0.5265 0.0062 106.61);         /* synthesised body-mute */
+  --accent: oklch(0.9455 0.0027 106.45);                   /* tracks --muted for hover surfaces */
+  --accent-foreground: oklch(0.2264 0 0);
+  --destructive: oklch(0.5771 0.2152 27.33);               /* synthesised, standard slot */
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.9180 0.0081 98.89);                    /* #e5e4de — spec §Style prose */
+  --input: oklch(0.9180 0.0081 98.89);                     /* #e5e4de — tracks --border */
+  --ring: oklch(0.5069 0.0568 182.75);                     /* #3d7068 — tracks --primary */
+
+  --sidebar: oklch(0.9728 0.0054 95.10);                   /* tracks --background */
+  --sidebar-foreground: oklch(0.2264 0 0);
+  --sidebar-primary: oklch(0.5069 0.0568 182.75);          /* tracks --primary */
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9455 0.0027 106.45);
+  --sidebar-accent-foreground: oklch(0.2264 0 0);
+  --sidebar-border: oklch(0.9180 0.0081 98.89);
+  --sidebar-ring: oklch(0.5069 0.0568 182.75);             /* tracks --primary */
+
+  --chart-1: oklch(0.5069 0.0568 182.75);                  /* forest-green primary */
+  --chart-2: oklch(0.6231 0.1880 259.81);                  /* scan-blue accent */
+  --chart-3: oklch(0.5265 0.0062 106.61);                  /* muted body-mute */
+  --chart-4: oklch(0.7699 0 0);                            /* italic-mute gray */
+  --chart-5: oklch(0.2264 0 0);                            /* foreground ink */
+
+  --radius-sm: 2px;                                        /* spec MUST NOT exceed 2px */
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Playfair Display', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Playfair Display', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+  /* -- Motion ---------------------------------------------------- */
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);         /* spec §Style prose */
+  --ease-scanline: cubic-bezier(0.8, 0, 0.2, 1);           /* spec §Scan-Line Progress Bar */
+  --duration-editorial: 800ms;                              /* spec: 700-1000ms range */
+  --duration-scanline: 2s;                                  /* spec §Scan-Line Progress Bar */
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Spec §Special Notes MUST: 1px borders instead of shadows for section
+   * separation. Only documented shadow: the contact-form submit-button
+   * primary-coloured shadow-drop (spec §Layout section 8). */
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. See AUTHORING "Token naming conventions"
+   * for the taxonomy and forbidden suffix list.
+   * -------------------------------------------------------------- */
+
+  /* Documented secondary brand colours */
+  --brand-accent-scan-blue: oklch(0.6231 0.1880 259.81);   /* #3b82f6 — spec §Scan-Line Progress Bar */
+  --brand-accent-italic-mute: oklch(0.6200 0 0);           /* ~#8b8b8b — chroma-0 utility neutral retuned from spec-cited #B4B4B4 (oklch 0.7699) so italic key-words clear the WCAG 3:1 large-text floor on the paper canvas (#f7f6f2). Used only at display sizes (hero h1, section-title h2, reveal-prose w). */
+
+  /* Hairlines / dividers */
+  --brand-hairline-soft: oklch(0.9180 0.0081 98.89);       /* #e5e4de — spec §Layout intro */
+  --brand-hairline-strong: oklch(0.8629 0.0082 98.90);     /* synthesised, paper-warm deeper hairline */
+
+  /* Body text neutrals — chroma ≈ 0.006 paper-warm utility tokens.
+   * These CAN be tuned per the AUTHORING utility-neutral exception. */
+  --brand-body: oklch(0.2264 0 0);                         /* tracks --foreground */
+  --brand-body-muted: oklch(0.5265 0.0062 106.61);         /* tracks --muted-foreground */
+  --brand-muted-soft: oklch(0.6297 0.0060 95.15);          /* a step weaker than --muted-foreground */
+
+  /* Polarity-locked surfaces — single-polarity register (light-canonical
+   * per spec). No explicit polarity locks in source spec; primary, scan-
+   * blue, and italic-mute hold chromatic identity across modes by catalog
+   * standard rule. */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Single-polarity light-canonical register per spec — no documented
+ * dark surface. Synthesised here so the catalog can render both modes.
+ * Canvas flips to the spec's foreground ink #1c1c1c; foreground flips
+ * to the spec's paper-warm #f7f6f2. Chromatic identity (--primary
+ * forest-green, --brand-accent-scan-blue, --brand-accent-italic-mute)
+ * stays at :root value — catalog rule, not spec-documented.
+ *
+ * See DESIGN.md §6 Notes for the construction rule.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.2264 0 0);                         /* #1c1c1c — flip of light foreground */
+  --foreground: oklch(0.9728 0.0054 95.10);                /* paper-warm flip */
+  --card: oklch(0.2652 0.0024 67.72);                      /* synthesised dark surface lift */
+  --card-foreground: oklch(0.9728 0.0054 95.10);
+  --popover: oklch(0.2934 0.0039 84.58);                   /* synthesised */
+  --popover-foreground: oklch(0.9728 0.0054 95.10);
+
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring stay at :root —
+   * single chromatic identity across modes. */
+
+  --secondary: oklch(0.3449 0.0037 84.58);                 /* synthesised hairline-strong on dark */
+  --secondary-foreground: oklch(0.9728 0.0054 95.10);
+  --muted: oklch(0.2934 0.0039 84.58);                     /* synthesised */
+  --muted-foreground: oklch(0.7277 0.0072 97.39);          /* synthesised paper-warm muted */
+  --accent: oklch(0.2934 0.0039 84.58);
+  --accent-foreground: oklch(0.9728 0.0054 95.10);
+
+  --border: oklch(0.3449 0.0037 84.58);                    /* synthesised dark hairline */
+  --input: oklch(0.3449 0.0037 84.58);
+
+  --sidebar: oklch(0.2264 0 0);
+  --sidebar-foreground: oklch(0.9728 0.0054 95.10);
+  --sidebar-accent: oklch(0.2934 0.0039 84.58);
+  --sidebar-accent-foreground: oklch(0.9728 0.0054 95.10);
+  --sidebar-border: oklch(0.3449 0.0037 84.58);
+
+  /* Polarity-locked brand-extras — primary, scan-blue, italic-mute
+   * stay at :root. Hairline values lift to the dark hairline tier. */
+  --brand-hairline-soft: oklch(0.3449 0.0037 84.58);
+  --brand-hairline-strong: oklch(0.4386 0 0);
+
+  /* Utility neutrals lift in dark mode as needed. */
+  --brand-body: oklch(0.9728 0.0054 95.10);
+  --brand-body-muted: oklch(0.7277 0.0072 97.39);
+  --brand-muted-soft: oklch(0.5791 0.0061 95.16);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2264 0 0);
+    --foreground: oklch(0.9728 0.0054 95.10);
+    --card: oklch(0.2652 0.0024 67.72);
+    --card-foreground: oklch(0.9728 0.0054 95.10);
+    --popover: oklch(0.2934 0.0039 84.58);
+    --popover-foreground: oklch(0.9728 0.0054 95.10);
+
+    --secondary: oklch(0.3449 0.0037 84.58);
+    --secondary-foreground: oklch(0.9728 0.0054 95.10);
+    --muted: oklch(0.2934 0.0039 84.58);
+    --muted-foreground: oklch(0.7277 0.0072 97.39);
+    --accent: oklch(0.2934 0.0039 84.58);
+    --accent-foreground: oklch(0.9728 0.0054 95.10);
+
+    --border: oklch(0.3449 0.0037 84.58);
+    --input: oklch(0.3449 0.0037 84.58);
+
+    --sidebar: oklch(0.2264 0 0);
+    --sidebar-foreground: oklch(0.9728 0.0054 95.10);
+    --sidebar-accent: oklch(0.2934 0.0039 84.58);
+    --sidebar-accent-foreground: oklch(0.9728 0.0054 95.10);
+    --sidebar-border: oklch(0.3449 0.0037 84.58);
+
+    --brand-hairline-soft: oklch(0.3449 0.0037 84.58);
+    --brand-hairline-strong: oklch(0.4386 0 0);
+
+    --brand-body: oklch(0.9728 0.0054 95.10);
+    --brand-body-muted: oklch(0.7277 0.0072 97.39);
+    --brand-muted-soft: oklch(0.5791 0.0061 95.16);
+  }
+}

@@ -1,0 +1,188 @@
+/**
+ * design-systems/win98/tokens.css
+ *
+ * Hand-authored from the spec-derived Win98 (Retro / 90s Nostalgia)
+ * design system documented in
+ * `visualize/design-systems/win98/DESIGN.md`.
+ *
+ * Spec-derived: no live brand site exists for the Windows 95/98 +
+ * GeoCities era. Source: `temp/refs/win98/raw.md` (Zhou Jason via
+ * designprompts.dev). Sourced: 2026-05-26.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are Win98's
+ *     max-saturation system-palette values.
+ *   - Brand-extras (--brand-*): the system's own vocabulary. Notable
+ *     pattern below — the 4-token bevel surface family
+ *     (--brand-bevel-light / -dark / -inner-deep / -inner-light) is
+ *     the signature 4-value border-color + inset box-shadow pattern,
+ *     re-composable into both outset and inset bevels.
+ *
+ * Win98 is single-polarity light. The [data-theme="dark"] block at
+ * the bottom intentionally mirrors :root rather than synthesise a
+ * flipped surface — flipping the Win98 palette is anachronistic.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are this brand's. */
+
+  --background: oklch(0.808 0 0);           /* #C0C0C0 button-face gray */
+  --foreground: oklch(0 0 0);               /* #000000 pure black text */
+  --card: oklch(1 0 0);                     /* #FFFFFF inset content area */
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0 0 0);
+
+  --primary: oklch(0.452 0.313 264.1);      /* #0000FF max-saturation blue */
+  --primary-foreground: oklch(1 0 0);       /* white on blue button */
+  --secondary: oklch(0.628 0.258 29.2);     /* #FF0000 danger / hot red */
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.6 0 0);                  /* #808080 exact 50% gray */
+  --muted-foreground: oklch(0 0 0);         /* never grey-on-grey body text */
+  --accent: oklch(0.452 0.313 264.1);       /* #0000FF — same hex as primary */
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.628 0.258 29.2);   /* #FF0000 — same hex as secondary */
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0 0 0);                   /* #000000 single-color fallback */
+  --input: oklch(1 0 0);                    /* #FFFFFF sunken input fill */
+  --ring: oklch(0 0 0);                     /* #000000 dotted focus outline */
+
+  --sidebar: oklch(0.808 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0.452 0.313 264.1);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.452 0.313 264.1);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0 0 0);
+  --sidebar-ring: oklch(0 0 0);
+
+  --chart-1: oklch(0.452 0.313 264.1);      /* #0000FF blue */
+  --chart-2: oklch(0.628 0.258 29.2);       /* #FF0000 red */
+  --chart-3: oklch(0.866 0.295 142.5);      /* #00FF00 green */
+  --chart-4: oklch(0.968 0.211 109.8);      /* #FFFF00 yellow */
+  --chart-5: oklch(0.421 0.193 328.4);      /* #800080 purple */
+
+  --radius: 0px;                            /* spec: zero everywhere, no exceptions */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Spec: system fonts that evoke 1995-1999. No webfont fetches. */
+  --font-sans: "MS Sans Serif", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "Courier New", Courier, ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Arial Black", Impact, Haettenschweiler, "Helvetica Neue", sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Win98 forbids soft drop shadows entirely. Depth comes from the
+   * 4-value bevel + inset box-shadow only. */
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. The bevel family below is the signature.
+   * ----------------------------------------------------------- */
+
+  /* 4-token bevel surface family — THE signature pattern.
+   *
+   * Outset (raised): top + left use --brand-bevel-light,
+   *                  bottom + right use --brand-bevel-dark.
+   *                  Inset box-shadow stops use -inner-deep (bottom-right
+   *                  shadow) and -inner-light (top-left highlight).
+   * Inset (sunken):  reverse the border-color assignments and the
+   *                  inner-shadow positions. Same four token values.
+   *
+   * Example outset:
+   *   border: 2px solid;
+   *   border-color: var(--brand-bevel-light) var(--brand-bevel-dark)
+   *                 var(--brand-bevel-dark)  var(--brand-bevel-light);
+   *   box-shadow: inset -1px -1px 0 var(--brand-bevel-inner-deep),
+   *               inset  1px  1px 0 var(--brand-bevel-inner-light);
+   *
+   * The four hexes are role-locked across the system — never tinted,
+   * never lifted for contrast, never overridden in dark mode. */
+  --brand-bevel-light:       oklch(1 0 0);       /* #FFFFFF top-left highlight */
+  --brand-bevel-dark:        oklch(0.6 0 0);     /* #808080 bottom-right shadow */
+  --brand-bevel-inner-deep:  oklch(0.371 0 0);   /* #404040 inner-shadow dark stop */
+  --brand-bevel-inner-light: oklch(0.904 0 0);   /* #DFDFDF inner-shadow light stop */
+
+  /* Polarity-locked surfaces (Win98 is light-only — these don't flip). */
+  --brand-canvas-light:      oklch(1 0 0);                    /* #FFFFFF */
+  --brand-panel-yellow:      oklch(0.988 0.065 107.5);        /* #FFFFCC notepad / help */
+  --brand-tile-weave:        oklch(0.783 0 0);                /* #B8B8B8 crosshatch stop */
+
+  /* Title-bar gradient endpoints (only documented gradient in the system). */
+  --brand-titlebar-start:    oklch(0.271 0.188 264.1);        /* #000080 navy */
+  --brand-titlebar-end:      oklch(0.594 0.148 245.8);        /* #1084D0 active-window blue */
+
+  /* Documented secondary brand colours (each cited in DESIGN.md §2). */
+  --brand-accent-red:              oklch(0.628 0.258 29.2);   /* #FF0000 */
+  --brand-accent-yellow:           oklch(0.968 0.211 109.8);  /* #FFFF00 */
+  --brand-accent-green:            oklch(0.866 0.295 142.5);  /* #00FF00 decorative */
+  --brand-accent-green-readable:   oklch(0.639 0.218 142.5);  /* #00AA00 button bg */
+  --brand-accent-purple:           oklch(0.421 0.193 328.4);  /* #800080 visited link */
+
+  /* Hairlines / dividers */
+  --brand-hairline-strong:   oklch(0.6 0 0);                  /* #808080 */
+  --brand-hairline-soft:     oklch(0.931 0 0);                /* #E8E8E8 zebra row */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Win98 is single-polarity light. This block mirrors :root
+ * deliberately — the era did not ship a dark Windows desktop
+ * variant, and synthesising one would be anachronistic. Authors
+ * who need a dark-canvas register should pick a different brand
+ * (see `terminal/` or `dithered/`).
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: light;
+
+  --background: oklch(0.808 0 0);
+  --foreground: oklch(0 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0 0 0);
+
+  --secondary: oklch(0.628 0.258 29.2);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.6 0 0);
+  --muted-foreground: oklch(0 0 0);
+
+  --border: oklch(0 0 0);
+  --input: oklch(1 0 0);
+
+  --sidebar: oklch(0.808 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: light;
+
+    --background: oklch(0.808 0 0);
+    --foreground: oklch(0 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0 0 0);
+
+    --secondary: oklch(0.628 0.258 29.2);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.6 0 0);
+    --muted-foreground: oklch(0 0 0);
+
+    --border: oklch(0 0 0);
+    --input: oklch(1 0 0);
+
+    --sidebar: oklch(0.808 0 0);
+    --sidebar-foreground: oklch(0 0 0);
+    --sidebar-border: oklch(0 0 0);
+  }
+}

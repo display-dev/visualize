@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Console preview shell — NOC status grid === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+.shell { max-width: 1280px; margin: 0 auto; padding: 1.5rem 2rem; }
+
+.bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+}
+.bar .logo {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--primary);
+}
+.bar .now { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted-foreground); }
+.bar .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background-color: var(--chart-1, #16a34a); margin-right: 0.5rem; vertical-align: middle; }
+
+h1 {
+  font-family: var(--font-sans);
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+}
+.sub { color: var(--muted-foreground); margin: 0 0 1.5rem 0; }
+
+/* Top metrics row */
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background-color: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 0.375rem);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.metric {
+  background-color: var(--card);
+  padding: 1rem 1.25rem;
+}
+.metric .label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin-bottom: 0.375rem;
+}
+.metric .value {
+  font-family: var(--font-mono);
+  font-size: 1.625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.metric .value.ok { color: var(--chart-1, #16a34a); }
+.metric .value.warn { color: var(--chart-2, #d97706); }
+.metric .value.err { color: var(--chart-3, #dc2626); }
+.metric .sparks {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 28px;
+  margin-top: 0.5rem;
+}
+.metric .sparks span {
+  flex: 1;
+  background-color: var(--primary);
+  opacity: 0.7;
+  border-radius: 1px;
+}
+
+/* Service grid */
+.grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 1.25rem; }
+@media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+
+.panel {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 0.375rem);
+  overflow: hidden;
+}
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.625rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.service-row {
+  display: grid;
+  grid-template-columns: 16px 1fr 100px 100px 80px;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.625rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+.service-row:last-child { border-bottom: none; }
+.service-row .name { color: var(--foreground); }
+.service-row .latency { color: var(--muted-foreground); text-align: right; font-variant-numeric: tabular-nums; }
+.service-row .errors { color: var(--muted-foreground); text-align: right; font-variant-numeric: tabular-nums; }
+.service-row .status {
+  text-align: right;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+}
+.status.ok { background-color: var(--chart-1, #16a34a); color: var(--primary-foreground); }
+.status.warn { background-color: var(--chart-2, #d97706); color: var(--background); }
+.status.err { background-color: var(--chart-3, #dc2626); color: var(--primary-foreground); }
+.dot-svc { width: 8px; height: 8px; border-radius: 50%; }
+
+/* Log tail panel */
+.logs {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  padding: 0.75rem 1rem;
+  background-color: var(--background);
+  border-bottom-left-radius: var(--radius-md, 0.375rem);
+  border-bottom-right-radius: var(--radius-md, 0.375rem);
+}
+.logs .ts { color: var(--muted-foreground); margin-right: 0.5rem; }
+.logs .level { display: inline-block; min-width: 4ch; margin-right: 0.5rem; font-weight: 600; }
+.logs .level.info { color: var(--primary); }
+.logs .level.warn { color: var(--chart-2, #d97706); }
+.logs .level.err { color: var(--chart-3, #dc2626); }
+.logs .level.ok { color: var(--chart-1, #16a34a); }
+.logs .msg { color: var(--foreground); }
+.logs .ctx { color: var(--muted-foreground); }
+
+footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="bar">
+    <span class="logo">// noc · platform · all-regions</span>
+    <span class="now"><span class="dot"></span>live · 21 May 2026 · 14:08:42 UTC</span>
+  </div>
+
+  <h1>halcyon.dev platform — operations</h1>
+  <p class="sub">All services nominal. KV propagation backlog cleared 13:51.</p>
+
+  <div class="metric-row">
+    <div class="metric">
+      <div class="label">Edge p50</div>
+      <div class="value ok">38ms</div>
+      <div class="sparks"><span style="height: 60%"></span><span style="height: 55%"></span><span style="height: 62%"></span><span style="height: 58%"></span><span style="height: 50%"></span><span style="height: 48%"></span><span style="height: 52%"></span><span style="height: 45%"></span></div>
+    </div>
+    <div class="metric">
+      <div class="label">Origin SLO 30d</div>
+      <div class="value ok">99.94%</div>
+      <div class="sparks"><span style="height: 96%"></span><span style="height: 95%"></span><span style="height: 97%"></span><span style="height: 96%"></span><span style="height: 96%"></span><span style="height: 95%"></span><span style="height: 96%"></span><span style="height: 95%"></span></div>
+    </div>
+    <div class="metric">
+      <div class="label">QPS</div>
+      <div class="value">2,418</div>
+      <div class="sparks"><span style="height: 40%"></span><span style="height: 52%"></span><span style="height: 68%"></span><span style="height: 80%"></span><span style="height: 92%"></span><span style="height: 78%"></span><span style="height: 88%"></span><span style="height: 80%"></span></div>
+    </div>
+    <div class="metric">
+      <div class="label">5xx / 1m</div>
+      <div class="value warn">4</div>
+      <div class="sparks"><span style="height: 10%"></span><span style="height: 8%"></span><span style="height: 5%"></span><span style="height: 12%"></span><span style="height: 8%"></span><span style="height: 22%"></span><span style="height: 18%"></span><span style="height: 14%"></span></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+
+    <div class="panel">
+      <div class="panel-header">
+        <span>// services · 12 monitored</span>
+        <span>p50 · err/h · state</span>
+      </div>
+      <div class="service-row">
+        <span class="dot-svc" style="background-color: var(--chart-1, #16a34a)"></span>
+        <span class="name">halcyon-worker</span>
+        <span class="latency">14ms</span>
+        <span class="errors">0</span>
+        <span class="status ok">ok</span>
+      </div>
+      <div class="service-row">
+        <span class="dot-svc" style="background-color: var(--chart-1, #16a34a)"></span>
+        <span class="name">halcyon-api</span>
+        <span class="latency">42ms</span>
+        <span class="errors">2</span>
+        <span class="status ok">ok</span>
+      </div>
+      <div class="service-row">
+        <span class="dot-svc" style="background-color: var(--chart-1, #16a34a)"></span>
+        <span class="name">halcyon-webapp</span>
+        <span class="latency">68ms</span>
+        <span class="errors">0</span>
+        <span class="status ok">ok</span>
+      </div>
+      <div class="service-row">
+        <span class="dot-svc" style="background-color: var(--chart-2, #d97706)"></span>
+        <span class="name">kv-slug-index</span>
+        <span class="latency">18s</span>
+        <span class="errors">12</span>
+        <span class="status warn">degraded</span>
+      </div>
+      <div class="service-row">
+        <span class="dot-svc" style="background-color: var(--chart-1, #16a34a)"></span>
+        <span class="name">r2-artifacts</span>
+        <span class="latency">38ms</span>
+        <span class="errors">0</span>
+        <span class="status ok">ok</span>
+      </div>
+      <div class="service-row">
+        <span class="dot-svc" style="background-color: var(--chart-1, #16a34a)"></span>
+        <span class="name">stripe-webhook</span>
+        <span class="latency">120ms</span>
+        <span class="errors">1</span>
+        <span class="status ok">ok</span>
+      </div>
+      <div class="service-row">
+        <span class="dot-svc" style="background-color: var(--chart-1, #16a34a)"></span>
+        <span class="name">postmark-bounce</span>
+        <span class="latency">180ms</span>
+        <span class="errors">0</span>
+        <span class="status ok">ok</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <span>// log tail · api-prod · last 60s</span>
+      </div>
+      <div class="logs">
+        <div><span class="ts">14:08:41</span><span class="level info">INFO</span><span class="msg">request handled</span> <span class="ctx">ctx=ArtifactServe status=200 ms=42</span></div>
+        <div><span class="ts">14:08:41</span><span class="level info">INFO</span><span class="msg">request handled</span> <span class="ctx">ctx=Comments status=200 ms=18</span></div>
+        <div><span class="ts">14:08:40</span><span class="level ok">OK</span><span class="msg">cron lease released</span> <span class="ctx">ctx=BounceReconcile</span></div>
+        <div><span class="ts">14:08:39</span><span class="level warn">WARN</span><span class="msg">kv propagation backlog</span> <span class="ctx">ctx=KV ms=18204</span></div>
+        <div><span class="ts">14:08:38</span><span class="level info">INFO</span><span class="msg">artifact published</span> <span class="ctx">ctx=ArtifactPublish org=acme-pro size=218KB</span></div>
+        <div><span class="ts">14:08:37</span><span class="level err">ERR</span><span class="msg">postmark 422</span> <span class="ctx">ctx=Notifications retry=2</span></div>
+        <div><span class="ts">14:08:36</span><span class="level info">INFO</span><span class="msg">request handled</span> <span class="ctx">ctx=ArtifactServe status=200 ms=38</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>// visualize · __DESIGN_SYSTEM_NAME__</span>
+    <span>// noc dark-canonical · tabular nums · traffic-light palette</span>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,2306 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>monograph — preview</title>
+
+<!--
+  Per-system shell for monograph. Signature mockup: poster hero —
+  monograph as massive Clash Display 700 over warm cream, two
+  soft-blurred radial blobs in red-orange + warm orange at mix-blend-multiply,
+  slide-fill primary CTA. Everything else is token demo. Source spec:
+  visualize/design-systems/monograph/DESIGN.md (§4 component vocabulary).
+-->
+
+<meta property="og:title" content="monograph — preview">
+<meta property="og:description" content="Poster-campaign register: warm cream canvas, multi-accent palette, soft-blurred gradient blobs, borderless grid, slide-fill CTA.">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23E4E2DD'/><circle cx='10' cy='14' r='10' fill='%23DB4A2B' opacity='0.7'/><circle cx='22' cy='20' r='10' fill='%23F8A348' opacity='0.7'/></svg>">
+
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@700,500&f[]=satoshi@400,500&display=swap">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/monograph/tokens.css) === */
+/**
+ * design-systems/monograph/tokens.css
+ *
+ * Hand-authored from monograph/DESIGN.md (companion).
+ * Sourced: 2026-05-26 (spec-derived; spec at
+ *   /Users/carl/Development/visualize/temp/refs/monograph/spec.md).
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this brand's.
+ *     Never rename, never add to, never delete from per-brand.
+ *   - Brand-extras (--brand-*): the brand's own design-system vocabulary.
+ *     Surface-named only.
+ *
+ * Notes specific to monograph:
+ *   - Single-polarity register (canonical-canvas: light). The
+ *     [data-theme="dark"] block mirrors :root per DESIGN.md §Known gaps
+ *     — the spec defers dark-mode authoring; a dark variant would
+ *     change every blob composition decision (warm cream is what makes
+ *     mix-blend-multiply read as paper rather than digital wash).
+ *   - --destructive collapses into --primary. The register has one red
+ *     (#DB4A2B) that serves both primary-CTA-destructive and
+ *     primary-chromatic-shout roles. Accepted overlap, not a synthesis
+ *     (DESIGN.md §2 → --destructive entry).
+ *   - Cards / grid / footer should explicitly suppress borders at the
+ *     consuming layer; the --border / --input tokens exist so shadcn
+ *     components don't fall back to currentColor, not to encourage use.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are this brand's. */
+
+  --background: oklch(0.9129 0.0071 88.65);
+  --foreground: oklch(0.2350 0 0);
+  --card: oklch(0.94 0.005 88);
+  --card-foreground: oklch(0.2350 0 0);
+  --popover: oklch(0.94 0.005 88);
+  --popover-foreground: oklch(0.2350 0 0);
+
+  --primary: oklch(0.6071 0.1866 33.68);    /* red-orange #DB4A2B */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.88 0.006 88);
+  --secondary-foreground: oklch(0.2350 0 0);
+  --muted: oklch(0.88 0.006 88);
+  --muted-foreground: oklch(0.55 0.004 80);
+  --accent: oklch(0.6071 0.1866 33.68);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.6071 0.1866 33.68); /* collapses into --primary — see header */
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.75 0.006 80);
+  --input: oklch(0.75 0.006 80);
+  --ring: oklch(0.6071 0.1866 33.68);        /* tracks --primary */
+
+  --sidebar: oklch(0.9129 0.0071 88.65);
+  --sidebar-foreground: oklch(0.2350 0 0);
+  --sidebar-primary: oklch(0.6071 0.1866 33.68);    /* tracks --primary */
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.88 0.006 88);
+  --sidebar-accent-foreground: oklch(0.2350 0 0);
+  --sidebar-border: oklch(0.75 0.006 80);
+  --sidebar-ring: oklch(0.6071 0.1866 33.68);       /* tracks --primary */
+
+  --chart-1: oklch(0.6071 0.1866 33.68);    /* red-orange */
+  --chart-2: oklch(0.7842 0.1448 64.40);    /* warm orange */
+  --chart-3: oklch(0.7677 0.1460 3.82);     /* soft pink */
+  --chart-4: oklch(0.42 0.004 80);          /* ink-mute */
+  --chart-5: oklch(0.55 0.004 80);          /* ink-subtle */
+
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: 'Satoshi', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Clash Display', 'Satoshi', 'Inter', system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Register is borderless and shadowless. No elevation tokens. */
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. See AUTHORING "Token naming conventions"
+   * for the taxonomy and forbidden suffix list.
+   * -------------------------------------------------------------- */
+
+  /* Canvas + paper ladder (the cream paper surfaces) */
+  --brand-canvas: oklch(0.9129 0.0071 88.65);
+  --brand-paper-soft: oklch(0.94 0.005 88);
+  --brand-paper-strong: oklch(0.88 0.006 88);
+
+  /* Body text ink ladder (chroma ≈ 0 utility neutrals) */
+  --brand-ink: oklch(0.2350 0 0);
+  --brand-ink-mute: oklch(0.42 0.004 80);
+  --brand-ink-subtle: oklch(0.55 0.004 80);
+
+  /* Hairlines / dividers — borderless register, narrow uses only */
+  --brand-hairline-soft: oklch(0.75 0.006 80);
+  --brand-hairline-strong: oklch(0.55 0.005 80);
+
+  /* Documented secondary brand colours (each cited in DESIGN.md §2) */
+  --brand-accent-red-orange: oklch(0.6071 0.1866 33.68);
+  --brand-accent-warm-orange: oklch(0.7842 0.1448 64.40);
+  --brand-accent-soft-pink: oklch(0.7677 0.1460 3.82);
+
+  /* Atmospheric blob fills (surface-named — the blob *is* the surface) */
+  --brand-blob-warm: oklch(0.7842 0.1448 64.40);
+  --brand-blob-pink: oklch(0.7677 0.1460 3.82);
+
+  /* Selection foreground (paired with --primary as ::selection background) */
+  --brand-selection-fg: oklch(1 0 0);
+}
+
+/* -- Dark theme ------------------------------------------------
+ * monograph is single-polarity (canonical-canvas: light);
+ * dark block mirrors :root per DESIGN.md §Known gaps.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.9129 0.0071 88.65);
+  --foreground: oklch(0.2350 0 0);
+  --card: oklch(0.94 0.005 88);
+  --card-foreground: oklch(0.2350 0 0);
+  --popover: oklch(0.94 0.005 88);
+  --popover-foreground: oklch(0.2350 0 0);
+
+  --secondary: oklch(0.88 0.006 88);
+  --secondary-foreground: oklch(0.2350 0 0);
+  --muted: oklch(0.88 0.006 88);
+  --muted-foreground: oklch(0.55 0.004 80);
+
+  --border: oklch(0.75 0.006 80);
+  --input: oklch(0.75 0.006 80);
+
+  --sidebar: oklch(0.9129 0.0071 88.65);
+  --sidebar-foreground: oklch(0.2350 0 0);
+  --sidebar-border: oklch(0.75 0.006 80);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.9129 0.0071 88.65);
+    --foreground: oklch(0.2350 0 0);
+    --card: oklch(0.94 0.005 88);
+    --card-foreground: oklch(0.2350 0 0);
+    --popover: oklch(0.94 0.005 88);
+    --popover-foreground: oklch(0.2350 0 0);
+
+    --secondary: oklch(0.88 0.006 88);
+    --secondary-foreground: oklch(0.2350 0 0);
+    --muted: oklch(0.88 0.006 88);
+    --muted-foreground: oklch(0.55 0.004 80);
+
+    --border: oklch(0.75 0.006 80);
+    --input: oklch(0.75 0.006 80);
+
+    --sidebar: oklch(0.9129 0.0071 88.65);
+    --sidebar-foreground: oklch(0.2350 0 0);
+    --sidebar-border: oklch(0.75 0.006 80);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Monograph preview shell — warm cream paper + multi-accent gradient blobs === */
+:root {
+  --ease-poster: cubic-bezier(0.16, 1, 0.3, 1);
+  --shell-page-max: 1440px;
+  --shell-page-pad: clamp(24px, 4vw, 64px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { scrollbar-width: thin; scrollbar-color: var(--primary) var(--background); }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Satoshi', var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: var(--primary); color: var(--brand-selection-fg); }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: var(--primary); }
+
+/* Layout container ------------------------------------------------ */
+.shell { max-width: var(--shell-page-max); margin: 0 auto; padding: 0 var(--shell-page-pad); }
+.bleed { width: 100%; max-width: var(--shell-page-max); margin: 0 auto; }
+
+/* Type roles ------------------------------------------------------ */
+.display {
+  font-family: 'Clash Display', var(--font-display);
+  font-weight: 700;
+  font-size: clamp(72px, 12vw, 200px);
+  line-height: 0.75;
+  letter-spacing: -0.05em;
+  margin: 0;
+}
+.heading {
+  font-family: 'Clash Display', var(--font-display);
+  font-weight: 700;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+.title {
+  font-family: 'Clash Display', var(--font-display);
+  font-weight: 500;
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.body { font-size: 16px; line-height: 1.55; }
+.lead-body {
+  font-family: 'Satoshi', var(--font-sans);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.5;
+}
+.label, .eyebrow {
+  font-family: 'Satoshi', var(--font-sans);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+/* --brand-ink-subtle (#73716f) lands at 3.75:1 on cream — below WCAG AA 4.5
+ * body floor (DESIGN.md §2 documents ~5.4:1 which doesn't match measurement).
+ * Route small-text labels / captions / specs to --brand-ink-mute (#4E4D4B,
+ * 8.3:1) per the AUTHORING utility-neutral retune rule. The token itself
+ * stays at its documented value for templates that need a softer label tier
+ * at display sizes (large-text 3:1 floor). */
+.eyebrow { color: var(--brand-ink-mute); margin: 0; }
+.eyebrow.primary { color: var(--primary); }
+.mono {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* Topnav ----------------------------------------------------------- */
+.topnav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px 0 0 0;
+  flex-wrap: wrap;
+}
+.topnav__brand {
+  font-family: 'Clash Display', var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+  color: var(--foreground);
+}
+.topnav__links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 16px;
+  font-family: 'Satoshi', var(--font-sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.25s var(--ease-poster);
+}
+.nav-link:hover { color: var(--primary); }
+.nav-link[aria-current="page"] {
+  position: relative;
+}
+.nav-link[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 4px;
+  height: 2px;
+  background: var(--primary);
+}
+.nav-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+}
+
+/* === SIGNATURE MOCKUP: poster hero with gradient blobs === */
+.poster-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 80px 0 96px 0;
+  isolation: isolate;
+}
+.poster-hero__blobs {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.blob {
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  max-width: 800px;
+  max-height: 800px;
+  border-radius: 9999px;
+  filter: blur(140px);
+  mix-blend-mode: multiply;
+  opacity: 0.75;
+  will-change: opacity, transform;
+}
+.blob--red    { background: var(--brand-accent-red-orange); top: -10%;  left: -8%;  }
+.blob--warm   { background: var(--brand-blob-warm);          top:  20%;  right: -12%; }
+.blob--pink   { background: var(--brand-blob-pink);          bottom: -20%; left: 30%; width: 40vw; height: 40vw; opacity: 0.55; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .blob { animation: blob-pulse 10s ease-in-out infinite; }
+  .blob--warm { animation-delay: -3.5s; }
+  .blob--pink { animation-delay: -6s; }
+  @keyframes blob-pulse {
+    0%, 100% { opacity: 0.55; }
+    50%      { opacity: 0.85; }
+  }
+  /* Entrance animates transform only (not opacity) so axe-core /
+   * browser-contrast doesn't sample the text at opacity:0 mid-animation
+   * and report the foreground as a blended mid-tone rather than ink. */
+  .poster-hero__inner { animation: poster-fade-up 0.9s var(--ease-poster) both; }
+  @keyframes poster-fade-up {
+    from { transform: translateY(20px); }
+    to   { transform: translateY(0); }
+  }
+}
+
+.poster-hero__inner {
+  position: relative;
+  z-index: 1;
+  padding-top: 64px;
+}
+.poster-hero__eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+/* The hero eyebrow row sits over the multiply-blended red-orange blob region;
+ * any chromatic ink (red on red-tinted cream → 1.19:1) and softer body inks
+ * (ink-mute on red-tinted cream → 2.79:1) fail AA. Per the AUTHORING "fix the
+ * surface, not the colour" rule, route both labels to --foreground (the
+ * darkest ink the system carries), which passes against the multiply-tinted
+ * blob region. Red-orange voltage stays in the display headline and the
+ * slide-fill CTA. */
+.poster-hero__eyebrow-row .label { color: var(--foreground); }
+.poster-hero__eyebrow-row .meta { color: var(--foreground); }
+.poster-hero__name {
+  font-family: 'Clash Display', var(--font-display);
+  font-weight: 700;
+  font-size: clamp(80px, 16vw, 240px);
+  line-height: 0.78;
+  letter-spacing: -0.05em;
+  margin: 0;
+  text-transform: lowercase;
+}
+.poster-hero__deck {
+  font-family: 'Satoshi', var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.4;
+  max-width: 36em;
+  margin: 40px 0 0 0;
+  color: var(--foreground);
+}
+.poster-hero__cta-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 48px;
+}
+
+/* Slide-fill primary CTA — voltage moment */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 16px 32px;
+  font-family: 'Satoshi', var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--background);
+  background: var(--foreground);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.45s var(--ease-poster);
+  isolation: isolate;
+}
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--background);
+  transform: translateX(-100%);
+  transition: transform 0.45s var(--ease-poster);
+  z-index: -1;
+}
+.btn-primary:hover { color: var(--foreground); }
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 8px 0;
+  font-family: 'Satoshi', var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.25s var(--ease-poster);
+}
+.btn-secondary:hover {
+  color: var(--primary);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+}
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+}
+
+/* btn-destructive intentionally not previewed: DESIGN.md §2 collapses
+ * --destructive into --primary; the spec's white-on-red-orange pairing
+ * lands at 4.17:1 (below WCAG AA 4.5:1 for normal text, below 3:1 large-text
+ * floor at 14px weight 500). The component is documented for vocabulary
+ * completeness in DESIGN.md §4; visualizing it would force a register-breaking
+ * size bump or a token override. Templates that need a destructive surface
+ * should reach for btn-primary (same red) at the consuming layer. */
+
+@media (prefers-reduced-motion: reduce) {
+  .blob { animation: none; opacity: 0.7; }
+  .poster-hero__inner { animation: none; }
+  .btn-primary,
+  .btn-primary::before,
+  .btn-secondary,
+  .nav-link { transition: none; }
+}
+
+/* Section frame --------------------------------------------------- */
+.section {
+  padding: 96px 0;
+  border-top: 0;
+}
+.section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 64px;
+  flex-wrap: wrap;
+}
+.section__head .heading { max-width: 18ch; }
+.section__head p {
+  font-family: 'Satoshi', var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-ink-mute);
+  max-width: 36em;
+  margin: 0;
+}
+
+/* TOKEN DEMO: colour swatch band --------------------------------- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+}
+.swatch {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.swatch__chip {
+  height: 160px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.swatch__chip--bordered { border-bottom: 1px solid var(--brand-hairline-soft); }
+.swatch__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.swatch__name {
+  font-family: 'Satoshi', var(--font-sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.swatch__token {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--brand-ink-mute);
+  word-break: break-all;
+}
+
+/* TOKEN DEMO: surface elevation ladder (canvas-tint only — no shadows) */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+@media (max-width: 720px) { .surface-ladder { grid-template-columns: 1fr; } }
+.surface-tile {
+  padding: 48px 32px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+}
+.surface-tile--canvas { background: var(--brand-canvas); }
+.surface-tile--soft   { background: var(--brand-paper-soft); }
+.surface-tile--strong { background: var(--brand-paper-strong); }
+.surface-tile__role {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--brand-ink-mute);
+}
+.surface-tile__title {
+  font-family: 'Clash Display', var(--font-display);
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
+}
+.surface-tile__body {
+  font-family: 'Satoshi', var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--brand-ink-mute);
+  margin: 0;
+}
+
+/* TOKEN DEMO: typography roles ----------------------------------- */
+.type-roles {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.type-role {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 32px;
+  align-items: baseline;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-role:last-child { border-bottom: 0; padding-bottom: 0; }
+@media (max-width: 720px) {
+  .type-role { grid-template-columns: 1fr; gap: 12px; }
+}
+.type-role__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.type-role__name {
+  font-family: 'Satoshi', var(--font-sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-role__spec {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--brand-ink-mute);
+  line-height: 1.4;
+}
+.type-sample-display {
+  font-family: 'Clash Display', var(--font-display);
+  font-weight: 700;
+  font-size: clamp(56px, 9vw, 128px);
+  line-height: 0.78;
+  letter-spacing: -0.05em;
+}
+.type-sample-heading {
+  font-family: 'Clash Display', var(--font-display);
+  font-weight: 700;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+.type-sample-title {
+  font-family: 'Clash Display', var(--font-display);
+  font-weight: 500;
+  font-size: clamp(22px, 2.5vw, 32px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.type-sample-body {
+  font-family: 'Satoshi', var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  max-width: 36em;
+}
+.type-sample-label {
+  font-family: 'Satoshi', var(--font-sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.type-sample-mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* TOKEN DEMO: component vocabulary ------------------------------- */
+.components-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 64px;
+}
+@media (max-width: 880px) { .components-grid { grid-template-columns: 1fr; gap: 48px; } }
+.component-block {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.component-block__head {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.component-block__title {
+  font-family: 'Clash Display', var(--font-display);
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.component-block__caption {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--brand-ink-mute);
+  line-height: 1.4;
+}
+.component-block__stage {
+  padding: 40px;
+  background: var(--brand-paper-soft);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  min-height: 160px;
+}
+
+/* tag-chip */
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 8px 12px;
+  font-family: 'Satoshi', var(--font-sans);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  background: var(--brand-paper-soft);
+  border: 1px solid var(--brand-hairline-soft);
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease-poster);
+}
+.tag-chip:hover { border-color: var(--brand-hairline-strong); }
+.tag-chip:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+}
+.tag-chip--selected {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+
+/* input-text */
+.input-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 360px;
+}
+.input-text {
+  display: block;
+  width: 100%;
+  padding: 12px 0;
+  font-family: 'Satoshi', var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--foreground);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--brand-hairline-strong);
+  outline: none;
+  transition: border-color 0.25s var(--ease-poster);
+}
+.input-text::placeholder { color: var(--brand-ink-mute); }
+.input-text:focus { border-bottom-color: var(--primary); }
+.input-text:focus-visible { outline: none; }
+
+/* pull-quote (with optional pink blob) */
+.pull-quote {
+  position: relative;
+  padding: 48px 32px;
+  background: var(--brand-paper-soft);
+  isolation: isolate;
+  overflow: hidden;
+}
+.pull-quote::before {
+  content: "";
+  position: absolute;
+  left: -10%;
+  top: -20%;
+  width: 60%;
+  height: 140%;
+  background: var(--brand-blob-pink);
+  filter: blur(100px);
+  mix-blend-mode: multiply;
+  opacity: 0.7;
+  z-index: -1;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+.pull-quote__text {
+  position: relative;
+  font-family: 'Clash Display', var(--font-display);
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+  max-width: 18ch;
+}
+.pull-quote__attr {
+  position: relative;
+  margin: 24px 0 0 0;
+  font-family: 'Satoshi', var(--font-sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+
+/* category-divider — full-bleed Clash Display 700 type break */
+.category-divider {
+  padding: 96px 0;
+  text-align: left;
+  overflow: hidden;
+}
+.category-divider__text {
+  font-family: 'Clash Display', var(--font-display);
+  font-weight: 700;
+  font-size: clamp(80px, 14vw, 240px);
+  line-height: 0.75;
+  letter-spacing: -0.05em;
+  margin: 0;
+  white-space: nowrap;
+  text-transform: lowercase;
+}
+
+/* TOKEN DEMO: stats / KPI band ----------------------------------- */
+.stats-band {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  padding: 64px 0;
+}
+@media (max-width: 880px) { .stats-band { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .stats-band { grid-template-columns: 1fr; } }
+.stat {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.stat__value {
+  font-family: 'Clash Display', var(--font-display);
+  font-weight: 700;
+  font-size: clamp(56px, 8vw, 96px);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+}
+.stat__label {
+  font-family: 'Satoshi', var(--font-sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+
+/* Footer ---------------------------------------------------------- */
+.footer {
+  position: relative;
+  overflow: hidden;
+  padding: 96px 0 64px 0;
+  isolation: isolate;
+}
+.footer__blob {
+  position: absolute;
+  width: 50vw;
+  height: 50vw;
+  max-width: 600px;
+  max-height: 600px;
+  border-radius: 9999px;
+  background: var(--brand-blob-warm);
+  filter: blur(140px);
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+  right: -10%;
+  bottom: -30%;
+  z-index: 0;
+  pointer-events: none;
+}
+.footer__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+}
+@media (max-width: 880px) {
+  .footer__inner { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+@media (max-width: 480px) {
+  .footer__inner { grid-template-columns: 1fr; }
+}
+.footer__wordmark {
+  font-family: 'Clash Display', var(--font-display);
+  font-weight: 700;
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  margin: 0 0 24px 0;
+  text-transform: lowercase;
+}
+.footer__byline {
+  font-family: 'Satoshi', var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--brand-ink-mute);
+  margin: 0;
+  max-width: 32ch;
+}
+.footer__col-title {
+  font-family: 'Satoshi', var(--font-sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 16px 0;
+}
+.footer__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  font-family: 'Satoshi', var(--font-sans);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--brand-ink-mute);
+  text-decoration: none;
+  transition: color 0.2s var(--ease-poster);
+}
+.footer-link:hover { color: var(--foreground); }
+.footer-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.footer__strip {
+  position: relative;
+  z-index: 1;
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-family: 'Satoshi', var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+</style>
+</head>
+<body>
+
+<header class="topnav-wrap">
+  <div class="shell">
+    <nav class="topnav" aria-label="Primary">
+      <span class="topnav__brand">monograph</span>
+      <ul class="topnav__links">
+        <li><a class="nav-link" href="#campaign" aria-current="page">Index</a></li>
+        <li><a class="nav-link" href="#palette">Palette</a></li>
+        <li><a class="nav-link" href="#type">Type</a></li>
+        <li><a class="nav-link" href="#components">Components</a></li>
+        <li><a class="nav-link" href="#colophon">Colophon</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- === SIGNATURE MOCKUP: poster hero with gradient blobs === -->
+<section class="poster-hero" id="campaign" aria-labelledby="poster-hero-title">
+  <div class="poster-hero__blobs" aria-hidden="true">
+    <div class="blob blob--red"></div>
+    <div class="blob blob--warm"></div>
+    <div class="blob blob--pink"></div>
+  </div>
+  <div class="shell">
+    <div class="poster-hero__inner">
+      <div class="poster-hero__eyebrow-row">
+        <span class="label">Volume 04 / Spring</span>
+        <span class="label meta">Halcyon press / interior monograph</span>
+      </div>
+      <h1 class="poster-hero__name" id="poster-hero-title">monograph</h1>
+      <p class="poster-hero__deck">A printed register for slow thinking on cream paper. Cover stock weighs 280 gsm; the inside pages are uncoated, milled in Småland, and bound by hand. One ink colour shouts. Two more sit quietly behind it.</p>
+      <div class="poster-hero__cta-row">
+        <a href="#palette" class="btn-primary">Open the issue</a>
+        <a href="#colophon" class="btn-secondary">Read the colophon</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOKEN DEMO: colour swatch band -->
+<section class="section" id="palette" aria-labelledby="palette-title">
+  <div class="shell">
+    <div class="section__head">
+      <h2 class="heading" id="palette-title">Three accents, one cream.</h2>
+      <p>The cream is the page. The red-orange is the only ink that talks at body size. Warm orange and soft pink stay in the blob composition; the paper holds the temperature.</p>
+    </div>
+    <div class="swatch-grid">
+
+      <div class="swatch">
+        <div class="swatch__chip" style="background: var(--brand-canvas);"></div>
+        <div class="swatch__meta">
+          <span class="swatch__name">Canvas</span>
+          <span class="swatch__token">--brand-canvas</span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch__chip" style="background: var(--brand-paper-soft);"></div>
+        <div class="swatch__meta">
+          <span class="swatch__name">Paper · soft</span>
+          <span class="swatch__token">--brand-paper-soft</span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch__chip" style="background: var(--brand-paper-strong);"></div>
+        <div class="swatch__meta">
+          <span class="swatch__name">Paper · strong</span>
+          <span class="swatch__token">--brand-paper-strong</span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch__chip" style="background: var(--brand-accent-red-orange);"></div>
+        <div class="swatch__meta">
+          <span class="swatch__name">Red-orange</span>
+          <span class="swatch__token">--primary</span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch__chip" style="background: var(--brand-blob-warm);"></div>
+        <div class="swatch__meta">
+          <span class="swatch__name">Warm orange</span>
+          <span class="swatch__token">--brand-blob-warm</span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch__chip" style="background: var(--brand-blob-pink);"></div>
+        <div class="swatch__meta">
+          <span class="swatch__name">Soft pink</span>
+          <span class="swatch__token">--brand-blob-pink</span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch__chip" style="background: var(--foreground);"></div>
+        <div class="swatch__meta">
+          <span class="swatch__name">Ink</span>
+          <span class="swatch__token">--foreground</span>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch__chip" style="background: var(--brand-ink-mute);"></div>
+        <div class="swatch__meta">
+          <span class="swatch__name">Ink · mute</span>
+          <span class="swatch__token">--brand-ink-mute</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TOKEN DEMO: surface elevation ladder (no shadows — borderless register) -->
+<section class="section" aria-labelledby="surfaces-title">
+  <div class="shell">
+    <div class="section__head">
+      <h2 class="heading" id="surfaces-title">Elevation by paper weight.</h2>
+      <p>The register rejects drop shadows and rounded corners. The ladder runs across three near-identical cream tints; spatial separation is whitespace and scale.</p>
+    </div>
+  </div>
+  <div class="bleed">
+    <div class="surface-ladder">
+      <div class="surface-tile surface-tile--canvas">
+        <span class="surface-tile__role">surface · canvas</span>
+        <h3 class="surface-tile__title">The page itself.</h3>
+        <p class="surface-tile__body">Body copy sits here at default body weight. The gradient blob composition assumes cream beneath; substituting white turns the multiply blend into a digital wash.</p>
+      </div>
+      <div class="surface-tile surface-tile--soft">
+        <span class="surface-tile__role">surface · paper-soft</span>
+        <h3 class="surface-tile__title">A breath above.</h3>
+        <p class="surface-tile__body">A barely-perceptible lift for pull-quote slabs and campaign blocks. The card has no border, no shadow; the tint alone signals containment.</p>
+      </div>
+      <div class="surface-tile surface-tile--strong">
+        <span class="surface-tile__role">surface · paper-strong</span>
+        <h3 class="surface-tile__title">Muted-tier.</h3>
+        <p class="surface-tile__body">For chip backgrounds, eyebrow strips, and the rare bordered block. Still cream, still warm — the chroma never leaves the page.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOKEN DEMO: typography roles -->
+<section class="section" id="type" aria-labelledby="type-title">
+  <div class="shell">
+    <div class="section__head">
+      <h2 class="heading" id="type-title">Six roles.</h2>
+      <p>Clash Display compressed to leading 0.75 carries the poster. Satoshi at 1.55 leading carries the page. Everything else is restraint.</p>
+    </div>
+    <div class="type-roles">
+
+      <div class="type-role">
+        <div class="type-role__meta">
+          <span class="type-role__name">Display</span>
+          <span class="type-role__spec">Clash Display · 700<br>leading 0.75 · tracking -0.05em</span>
+        </div>
+        <div class="type-sample-display">Halcyon</div>
+      </div>
+
+      <div class="type-role">
+        <div class="type-role__meta">
+          <span class="type-role__name">Heading</span>
+          <span class="type-role__spec">Clash Display · 700<br>leading 0.85 · tracking -0.04em</span>
+        </div>
+        <div class="type-sample-heading">An interior monograph for the spring issue.</div>
+      </div>
+
+      <div class="type-role">
+        <div class="type-role__meta">
+          <span class="type-role__name">Title</span>
+          <span class="type-role__spec">Clash Display · 500<br>leading 1.05 · tracking -0.02em</span>
+        </div>
+        <div class="type-sample-title">A short title sits two scales below the heading and reads as section punctuation.</div>
+      </div>
+
+      <div class="type-role">
+        <div class="type-role__meta">
+          <span class="type-role__name">Body</span>
+          <span class="type-role__spec">Satoshi · 400 · 16px<br>leading 1.55</span>
+        </div>
+        <div class="type-sample-body">The body weight sits at 16 pixels on a leading of 1.55. The line length stays under 36em because long lines on a warm cream canvas read as a lecture rather than an essay. The page expects the reader to come back twice.</div>
+      </div>
+
+      <div class="type-role">
+        <div class="type-role__meta">
+          <span class="type-role__name">Label</span>
+          <span class="type-role__spec">Satoshi · 500 · 12px<br>tracking 0.08em · uppercase</span>
+        </div>
+        <div class="type-sample-label">Section eyebrow / category mark / metadata</div>
+      </div>
+
+      <div class="type-role">
+        <div class="type-role__meta">
+          <span class="type-role__name">Mono</span>
+          <span class="type-role__spec">JetBrains Mono · 400<br>13px · leading 1.45</span>
+        </div>
+        <div class="type-sample-mono">halcyon@press:~$ set --issue 04 --paper cream --ink red-orange</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TOKEN DEMO: category divider (signature type-break) -->
+<div class="bleed">
+  <div class="shell">
+    <div class="category-divider" aria-hidden="true">
+      <p class="category-divider__text">interior</p>
+    </div>
+  </div>
+</div>
+
+<!-- TOKEN DEMO: component vocabulary -->
+<section class="section" id="components" aria-labelledby="components-title">
+  <div class="shell">
+    <div class="section__head">
+      <h2 class="heading" id="components-title">Component register.</h2>
+      <p>Eleven primitives. Buttons slide, inputs carry one bottom rule, chips wear the only hairline the register allows. Cards have no border at all.</p>
+    </div>
+
+    <div class="components-grid">
+
+      <div class="component-block">
+        <div class="component-block__head">
+          <h3 class="component-block__title">Buttons</h3>
+          <span class="component-block__caption">btn-primary slide-fill · btn-secondary ghost</span>
+        </div>
+        <div class="component-block__stage">
+          <a href="#" class="btn-primary">Open the issue</a>
+          <a href="#" class="btn-secondary">Read more</a>
+        </div>
+      </div>
+
+      <div class="component-block">
+        <div class="component-block__head">
+          <h3 class="component-block__title">Tag chips</h3>
+          <span class="component-block__caption">paper-soft fill · hairline-soft border · zero radius</span>
+        </div>
+        <div class="component-block__stage">
+          <button class="tag-chip" type="button">Interior</button>
+          <button class="tag-chip" type="button">Letterpress</button>
+          <button class="tag-chip tag-chip--selected" type="button">Spring 04</button>
+          <button class="tag-chip" type="button">Type specimen</button>
+        </div>
+      </div>
+
+      <div class="component-block">
+        <div class="component-block__head">
+          <h3 class="component-block__title">Input · text</h3>
+          <span class="component-block__caption">borderless except for a single bottom rule</span>
+        </div>
+        <div class="component-block__stage">
+          <div class="input-stack">
+            <label class="label" for="subscribe-email">Subscribe</label>
+            <input class="input-text" id="subscribe-email" type="email" placeholder="press@halcyon.dev">
+          </div>
+        </div>
+      </div>
+
+      <div class="component-block">
+        <div class="component-block__head">
+          <h3 class="component-block__title">Pull-quote</h3>
+          <span class="component-block__caption">italic 500 Clash · optional pink blob</span>
+        </div>
+        <div class="component-block__stage" style="padding: 0;">
+          <blockquote class="pull-quote" style="width: 100%;">
+            <p class="pull-quote__text">The paper holds the temperature. The ink only asks for attention twice.</p>
+            <p class="pull-quote__attr">Editorial preface — issue 04</p>
+          </blockquote>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TOKEN DEMO: stats / KPI band -->
+<section class="section" aria-labelledby="stats-title">
+  <div class="shell">
+    <div class="section__head">
+      <h2 class="heading" id="stats-title">Press run, by the numbers.</h2>
+      <p>The same register that carries the issue carries the figures. Display weight, leading 0.85, no decoration — the type carries the data.</p>
+    </div>
+    <div class="stats-band">
+      <div class="stat">
+        <span class="stat__value">04</span>
+        <span class="stat__label">Volume</span>
+      </div>
+      <div class="stat">
+        <span class="stat__value">2,400</span>
+        <span class="stat__label">Copies printed</span>
+      </div>
+      <div class="stat">
+        <span class="stat__value">280<span style="font-size: 0.5em; vertical-align: 0.4em; margin-left: 0.1em; letter-spacing: 0.04em;">gsm</span></span>
+        <span class="stat__label">Cover stock</span>
+      </div>
+      <div class="stat">
+        <span class="stat__value">14</span>
+        <span class="stat__label">Days on press</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Brand-flavoured closing band -->
+<footer class="footer" id="colophon">
+  <div class="footer__blob" aria-hidden="true"></div>
+  <div class="shell">
+    <div class="footer__inner">
+      <div>
+        <p class="footer__wordmark">monograph</p>
+        <p class="footer__byline">A printed register for slow thinking on cream paper. Set in Clash Display and Satoshi. Bound by hand in Småland.</p>
+      </div>
+      <div>
+        <p class="footer__col-title">Issue</p>
+        <ul class="footer__list">
+          <li><a class="footer-link" href="#campaign">Cover</a></li>
+          <li><a class="footer-link" href="#palette">Palette</a></li>
+          <li><a class="footer-link" href="#type">Type specimen</a></li>
+          <li><a class="footer-link" href="#components">Component register</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-title">Press</p>
+        <ul class="footer__list">
+          <li><a class="footer-link" href="#">Subscribe</a></li>
+          <li><a class="footer-link" href="#">Back issues</a></li>
+          <li><a class="footer-link" href="#">Wholesale</a></li>
+          <li><a class="footer-link" href="#">Errata</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-title">Colophon</p>
+        <ul class="footer__list">
+          <li><a class="footer-link" href="#">Typefaces</a></li>
+          <li><a class="footer-link" href="#">Paper stock</a></li>
+          <li><a class="footer-link" href="#">Bindery</a></li>
+          <li><a class="footer-link" href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__strip">
+      <span>visualize / monograph</span>
+      <span>cream paper · three accents</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

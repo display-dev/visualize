@@ -1,0 +1,166 @@
+/**
+ * design-systems/x-ai-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * xAI is dark-canonical and explicitly ships no light counterpart
+ * (DESIGN.md §6 Don't: "Don't introduce a light-mode counterpart.
+ * xAI is dark-canvas only."). Both the [data-theme="dark"] block and
+ * the prefers-color-scheme media query mirror :root — the synthesised
+ * lightness inversion (the catalogue's import-time default that would
+ * flip the canvas pale gray and the foreground black) is replaced.
+ *
+ * Polarity-locked trap to keep in mind for the preview template:
+ *   --primary           = white   (the xAI filled-pill CTA fill)
+ *   --primary-foreground = near-black (the ink that rides on it)
+ * These names look generic but the brand fixes them as voltage-on-canvas,
+ * not as "theme-flipping". Since both modes mirror :root they stay put,
+ * but use the literal token (not a hand-rolled inversion) so a future
+ * dark-edit doesn't accidentally re-introduce the flip.
+ *
+ * Also: --muted is set to background and --muted-foreground to pure
+ * white in the upstream import. The brand's actual muted ink lives in
+ * --brand-body-mid (oklch(0.6018 …)) and --brand-mute. Don't reach for
+ * --muted-foreground when you want a quiet body line — it returns pure
+ * white and reads as primary text.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(0.1448 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.1448 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.1448 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0.1448 0 0);
+  --secondary: oklch(0.1448 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.1448 0 0);
+  --muted-foreground: oklch(1 0 0);
+  --accent: oklch(0.7235 0.1872 49.1782);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0.1448 0 0);
+  --border: oklch(0.2557 0.0081 264.4227);
+  --input: oklch(0.2557 0.0081 264.4227);
+  --ring: oklch(1 0 0);
+  --sidebar: oklch(0.1448 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(1 0 0);
+  --sidebar-primary-foreground: oklch(0.1448 0 0);
+  --sidebar-accent: oklch(0.1448 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.2557 0.0081 264.4227);
+  --sidebar-ring: oklch(1 0 0);
+  --chart-1: oklch(0.8100 0 0);
+  --chart-2: oklch(0.7100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.5100 0 0);
+  --chart-5: oklch(0.4200 0 0);
+
+  /* radius scale */
+  --radius-sm: 8px;
+  --radius-md: calc(0.625rem - 2px);
+  --radius-lg: 0.625rem;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: universalSans, Inter, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: GeistMono, ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  --font-display: universalSans, Inter, system-ui, -apple-system, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 96px;
+  --text-heading: 72px;
+  --text-title: 32px;
+  --text-base: 16px;
+  --leading-tight: 1.00;
+  --leading-normal: 1.50;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-ink-hover: oklch(0.9843 0.0040 106.4720);
+  --brand-body: oklch(0.8918 0.0055 274.9583);
+  /* --brand-body-mid bumped from upstream oklch(0.6018 0.0103 258.3497)
+   * (= #7d8187 — fails WCAG AA at 4.48:1 on canvas-card and 2.92:1 on
+   * canvas-mid for body-size labels). 0.72 clears 4.5:1 on every documented
+   * surface lift while staying within the brand's restrained mid-emphasis
+   * register. Hue + chroma preserved from upstream. */
+  --brand-body-mid: oklch(0.7200 0.0103 258.3497);
+  --brand-mute: oklch(0.7200 0.0103 258.3497);
+  --brand-canvas-soft: oklch(0.2260 0.0083 264.3947);
+  --brand-canvas-card: oklch(0.2134 0 0);
+  --brand-canvas-mid: oklch(0.3466 0.0103 253.9711);
+  --brand-accent-sunset-soft: oklch(0.8561 0.1044 65.6690);
+  --brand-accent-dusk: oklch(0.5413 0.2466 293.0090);
+  --brand-accent-twilight: oklch(0.8112 0.1013 293.5712);
+  --brand-accent-breeze: oklch(0.8059 0.0695 252.6596);
+  --brand-accent-midnight: oklch(0.2034 0.0336 258.2773);
+}
+
+/* Both dark-theme blocks mirror :root — xAI has no light mode. */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1448 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.1448 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.1448 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0.1448 0 0);
+  --secondary: oklch(0.1448 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.1448 0 0);
+  --muted-foreground: oklch(1 0 0);
+  --accent: oklch(0.7235 0.1872 49.1782);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0.1448 0 0);
+  --border: oklch(0.2557 0.0081 264.4227);
+  --input: oklch(0.2557 0.0081 264.4227);
+  --ring: oklch(1 0 0);
+  --sidebar: oklch(0.1448 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(1 0 0);
+  --sidebar-primary-foreground: oklch(0.1448 0 0);
+  --sidebar-accent: oklch(0.1448 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.2557 0.0081 264.4227);
+  --sidebar-ring: oklch(1 0 0);
+  --chart-1: oklch(0.8100 0 0);
+  --chart-2: oklch(0.7100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.5100 0 0);
+  --chart-5: oklch(0.4200 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+  }
+}

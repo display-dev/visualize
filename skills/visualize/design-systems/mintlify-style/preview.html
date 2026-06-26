@@ -1,0 +1,2964 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mintlify-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2300d4a4'/%3E%3Cpath d='M9 21l4-10 1.6 4h2.8L19 21h-2.1l-.8-2.4h-3.2L12.1 21H9zm5.5-5.3h1.4l-.7-2.2-.7 2.2z' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="mintlify-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Docs-platform register — white canvas, black-pill primary CTAs, mint-green accent reserved for active state and feature confirmations, sky-blue atmospheric hero wash, 3-column documentation grid signature, Inter prose + Geist Mono code. Token surfaces rendered on Halcyon-themed neutral content.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/mintlify-style/tokens.css) === */
+/**
+ * design-systems/mintlify-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Mintlify is LIGHT-CANONICAL with a documented dark-surface family but
+ * no published dark-mode token set for the marketing or docs surface
+ * (DESIGN.md §6 "Known Gaps" — "the brand has not yet shipped a
+ * published dark-mode palette"). The synthesised OKLCH lightness-
+ * inversion default ships a too-pure-black canvas with no chroma
+ * separation; this file overrides it.
+ *
+ * Dark-mode strategy (matches the expo-style + cal-style pattern for
+ * light-canonical brands with a documented dark family): promote the
+ * documented `--brand-canvas-dark` (oklch 0.1448) to canvas + popover,
+ * `--brand-surface-code` (oklch 0.2273) to card + secondary + muted,
+ * and keep the signature mint accent on both polarities (the green
+ * passes AA on near-black). The primary CTA flips to white so the
+ * "black-pill primary" register holds its high-contrast-filled-pill
+ * shape on the dark canvas — the black fill stops reading once the
+ * canvas itself is near-black.
+ *
+ * Polarity-locked tokens (left at :root, inherited via cascade):
+ *   --brand-canvas-dark / --brand-surface-code
+ *       → these *name* the brand's dark surface; in dark mode they
+ *         already ARE the canvas + card. Template CSS uses --background
+ *         / --card instead. Lifting them would invert against intent.
+ *   --brand-on-dark / --brand-on-dark-muted
+ *       → already always-light by definition (white + light slate);
+ *         used wherever ink lands on a documented-dark surface.
+ *   --brand-brand-green / --brand-brand-green-soft
+ *       → the signature mint reads as the brand's accent voltage on
+ *         both polarities. Lifting the green in dark mode would change
+ *         the brand's documented signature voltage; the green clears
+ *         AA against the dark canvas at chip size.
+ *
+ *       Live verification (2026-05-25): mintlify.com homepage / pricing /
+ *       customers / docs all serve ONE mint — lab(79.98 -59.63 22.51) ≈
+ *       rgb(24, 226, 153) — across eyebrows, POPULAR badge, feature
+ *       checkmarks, sidebar dots, "Save 15%" copy. No documented
+ *       pressed/active darker variant. The legacy-import
+ *       --brand-brand-green-deep was a synthesised "darker" stop with
+ *       no live counterpart; deleted, consumers re-homed to the
+ *       canonical mint.
+ *   --brand-brand-tag / --brand-brand-warn / --brand-brand-annotate
+ *   --brand-brand-error
+ *       → docs-callout pigments scoped to small JSX-style chips
+ *         (REQUIRED label, type badges, twoslash annotations). At chip
+ *         size they pass AA on either polarity; surface-locked.
+ *   --brand-hero-sky-from / --brand-hero-sky-to
+ *   --brand-hero-dark-from / --brand-hero-dark-to
+ *       → hero-only atmospheric washes, not body surfaces. The hero
+ *         block attenuates the wash against the dark canvas via
+ *         opacity, so :root values are the right anchors.
+ *   --brand-testimonial-orange
+ *       → the warm coral surface DESIGN.md cites as the Cursor
+ *         testimonial card. Live verification (2026-05-25): the orange
+ *         testimonial surface has been replaced on mintlify.com/customers
+ *         with the standard customer-story grid; zero orange instances
+ *         observed across homepage / pricing / customers / docs. The
+ *         token is kept (cited by DESIGN.md, no surface in this preview
+ *         template consumes it, may return on a future Mintlify cycle),
+ *         but the import-time --brand-testimonial-orange-deep
+ *         synthesised variant — never deployed, never consumed by the
+ *         preview — was deleted.
+ *
+ * Tokens that DO lift in dark (lines below): the canonical canvas /
+ * card / popover / primary / muted / border family, plus the body /
+ * slate / steel / stone / hairline brand extras that template CSS
+ * uses directly for running text and section dividers. The pigment-
+ * ink tokens (`--brand-brand-tag` text, etc.) stay at :root — they
+ * appear only as chip ink against tinted chip backgrounds that the
+ * template inverts in dark via local CSS.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.1448 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.1448 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.1448 0 0);
+  --primary: oklch(0.1448 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9851 0 0);
+  --secondary-foreground: oklch(0.1448 0 0);
+  --muted: oklch(0.9851 0 0);
+  --muted-foreground: oklch(0.7322 0.0028 286.3292);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0.1448 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9219 0 0);
+  --input: oklch(0.9219 0 0);
+  --ring: oklch(0.1448 0 0);
+  --sidebar: oklch(0.9851 0 0);
+  --sidebar-foreground: oklch(0.1448 0 0);
+  --sidebar-primary: oklch(0.1448 0 0);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9851 0 0);
+  --sidebar-accent-foreground: oklch(0.1448 0 0);
+  --sidebar-border: oklch(0.9219 0 0);
+  --sidebar-ring: oklch(0.1448 0 0);
+  --chart-1: oklch(0.8100 0 0);
+  --chart-2: oklch(0.7100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.5100 0 0);
+  --chart-5: oklch(0.4200 0 0);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;
+  --brand-radius-xxl: 24px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: Inter;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: Geist Mono;
+  --font-display: Inter;
+
+  /* type scale tokens */
+  --text-display: 72px;
+  --text-heading: 56px;
+  --text-title: 36px;
+  --text-base: 16px;
+  --leading-tight: 1.05;
+  --leading-normal: 1.50;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-brand-green: oklch(0.7732 0.1548 168.9679);
+  --brand-brand-green-soft: oklch(0.8652 0.1129 172.5886);
+  --brand-brand-tag: oklch(0.5616 0.1565 259.2488);
+  --brand-brand-warn: oklch(0.6479 0.1376 69.8097);
+  --brand-brand-annotate: oklch(0.6436 0.1355 161.7761);
+  --brand-brand-error: oklch(0.6166 0.1597 22.9744);
+  --brand-brand-cursor: oklch(0.6268 0 0);
+  --brand-hero-sky-from: oklch(0.7184 0.0593 247.8663);
+  --brand-hero-sky-to: oklch(0.9390 0.0261 76.7928);
+  --brand-hero-dark-from: oklch(0.3401 0.0462 225.0064);
+  --brand-hero-dark-to: oklch(0.4318 0.0535 175.8466);
+  --brand-testimonial-orange: oklch(0.6688 0.1957 32.9556);
+  --brand-canvas-dark: oklch(0.1448 0 0);
+  --brand-surface: oklch(0.9761 0 0);
+  --brand-surface-code: oklch(0.2273 0.0038 286.0916);
+  --brand-hairline-soft: oklch(0.9461 0 0);
+  --brand-hairline-dark: oklch(0.2393 0 0);
+  --brand-charcoal: oklch(0.2273 0.0038 286.0916);
+  --brand-slate: oklch(0.3492 0.0034 286.2208);
+  --brand-steel: oklch(0.4683 0.0032 286.2761);
+  --brand-stone: oklch(0.6268 0 0);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-dark-muted: oklch(0.7668 0 0);
+}
+
+/*
+ * Dark mode — hand-tuned, NOT the OKLCH lightness-inversion default.
+ *
+ * Why each override exists:
+ *   --background          → matches the documented --brand-canvas-dark
+ *                           (#000) — the dark family Mintlify documents
+ *                           for promo banners + code wrapper, now
+ *                           promoted to canvas. Lifted to 0.1700 (a
+ *                           single tonal step above pure black) so card
+ *                           edges retain perceptible elevation contrast.
+ *   --card                → matches --brand-surface-code (oklch 0.2273)
+ *                           — the documented code-block surface, one
+ *                           tonal step up from canvas
+ *   --popover             → same as --card
+ *   --foreground          → --brand-on-dark (white)
+ *   --primary             → flips to white. Mintlify's primary register
+ *                           IS "black-pill, high-contrast filled" and
+ *                           the near-black fill stops reading on a dark
+ *                           canvas; flipping to white preserves the
+ *                           shape with the same voltage
+ *   --primary-foreground  → flips to near-black so the white-fill pill
+ *                           carries dark ink
+ *   --secondary / --muted → align to the code-surface tonal step so
+ *                           soft section bands stay distinguishable
+ *                           from canvas
+ *   --muted-foreground    → lifts to --brand-on-dark-muted (light slate,
+ *                           ~0.77 lightness) — the documented dark-
+ *                           context muted ink, clears 4.5:1 against
+ *                           the dark canvas
+ *   --border / --input    → step up to --brand-hairline-dark
+ *                           (oklch 0.2393), the documented dark
+ *                           hairline, so card edges remain perceptible
+ *   --ring                → flips to white to track the new --primary
+ *   --sidebar family      → tracks card/border so nested sidebar
+ *                           surfaces hold tonal step on dark
+ *   --chart-*             → reversed monochrome ramp (light→dark on
+ *                           light becomes dark→light on dark) so the
+ *                           same chart reads on either polarity
+ *
+ * Brand-extras overrides (template CSS reads these directly):
+ *   --brand-charcoal      → lifts to white, mirroring --foreground.
+ *                           Used for body emphasis + code-inline ink
+ *                           in the template; flipping keeps both legible
+ *   --brand-slate         → lifts to ~0.85 (was 0.35 dark slate that
+ *                           would be invisible on the dark canvas) for
+ *                           secondary text + metadata
+ *   --brand-steel         → lifts to ~0.77 (was 0.47 mid-slate) for
+ *                           tertiary text + table headers + sidebar
+ *                           inactive items + footer links
+ *   --brand-stone         → lifts to ~0.65 (was 0.63 stone) — adjusted
+ *                           slightly so captions clear AA on the
+ *                           ~0.17 canvas
+ *   --brand-surface       → flips to the elevated dark surface so
+ *                           "subtle alternating band" reads as a soft
+ *                           lift, not a near-invisible echo against
+ *                           the dark canvas
+ *   --brand-hairline-soft → flips to a near-#27 dark hairline (matches
+ *                           --border) so on-dark dividers stay visible
+ *
+ * Polarity-locked tokens (intentionally NOT overridden):
+ *   --brand-canvas-dark / --brand-surface-code
+ *   --brand-on-dark / --brand-on-dark-muted
+ *   --brand-brand-green / --brand-brand-green-soft
+ *   --brand-brand-tag / --brand-brand-warn / --brand-brand-annotate
+ *   --brand-brand-error / --brand-brand-cursor
+ *   --brand-hero-sky-from / --brand-hero-sky-to
+ *   --brand-hero-dark-from / --brand-hero-dark-to
+ *   --brand-testimonial-orange
+ * Rationale for each one is listed in the header block above.
+ */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* shadcn-semantic core — calibrated to Mintlify's documented dark family */
+  --background: oklch(0.1700 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2273 0.0038 286.0916);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2273 0.0038 286.0916);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0.1700 0 0);
+  --secondary: oklch(0.2273 0.0038 286.0916);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2273 0.0038 286.0916);
+  --muted-foreground: oklch(0.7668 0 0);
+  --accent: oklch(0.2273 0.0038 286.0916);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.2393 0 0);
+  --input: oklch(0.2393 0 0);
+  --ring: oklch(1 0 0);
+  --sidebar: oklch(0.2273 0.0038 286.0916);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(1 0 0);
+  --sidebar-primary-foreground: oklch(0.1700 0 0);
+  --sidebar-accent: oklch(0.2273 0.0038 286.0916);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.2393 0 0);
+  --sidebar-ring: oklch(1 0 0);
+  --chart-1: oklch(0.4200 0 0);
+  --chart-2: oklch(0.5100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.7100 0 0);
+  --chart-5: oklch(0.8100 0 0);
+
+  /* brand-extras lifted for the dark canvas — never lift the polarity-
+   * locked dark-surface / on-dark / mint-accent / pigment-callout
+   * family. */
+  --brand-charcoal: oklch(1 0 0);
+  --brand-slate: oklch(0.8500 0.0034 286.2208);
+  --brand-steel: oklch(0.7700 0.0032 286.2761);
+  --brand-stone: oklch(0.6500 0 0);
+  --brand-surface: oklch(0.2273 0.0038 286.0916);
+  --brand-hairline-soft: oklch(0.2700 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1700 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2273 0.0038 286.0916);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2273 0.0038 286.0916);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(1 0 0);
+    --primary-foreground: oklch(0.1700 0 0);
+    --secondary: oklch(0.2273 0.0038 286.0916);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.2273 0.0038 286.0916);
+    --muted-foreground: oklch(0.7668 0 0);
+    --accent: oklch(0.2273 0.0038 286.0916);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.5308 0.2178 29.2339);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.2393 0 0);
+    --input: oklch(0.2393 0 0);
+    --ring: oklch(1 0 0);
+    --sidebar: oklch(0.2273 0.0038 286.0916);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(1 0 0);
+    --sidebar-primary-foreground: oklch(0.1700 0 0);
+    --sidebar-accent: oklch(0.2273 0.0038 286.0916);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.2393 0 0);
+    --sidebar-ring: oklch(1 0 0);
+    --chart-1: oklch(0.4200 0 0);
+    --chart-2: oklch(0.5100 0 0);
+    --chart-3: oklch(0.6100 0 0);
+    --chart-4: oklch(0.7100 0 0);
+    --chart-5: oklch(0.8100 0 0);
+
+    --brand-charcoal: oklch(1 0 0);
+    --brand-slate: oklch(0.8500 0.0034 286.2208);
+    --brand-steel: oklch(0.7700 0.0032 286.2761);
+    --brand-stone: oklch(0.6500 0 0);
+    --brand-surface: oklch(0.2273 0.0038 286.0916);
+    --brand-hairline-soft: oklch(0.2700 0 0);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Mintlify-style preview shell — docs-platform register.
+ * White canvas + near-black ink with the documented sky-blue
+ * atmospheric wash behind the hero. The signature voltage is a
+ * three-column documentation page mockup (left sidebar nav with
+ * uppercase section headers, center prose body with code-inline +
+ * code-block + property-row, right rail TOC) framed inside a
+ * hairline-bordered card with the documented diffuse drop. Pill
+ * buttons at brand-radius-full per DESIGN.md "Pill-shaped buttons
+ * always". Mint accent (--brand-brand-green) restricted to ONE
+ * accent CTA on the hero, the active sidebar dot, and the docs
+ * checkmarks — the rest is black-on-white. Geist Mono on every
+ * code surface (inline, block, property names, type signatures).
+ * Halcyon-themed neutral content describes how Halcyon's team
+ * uses a generic docs-platform tool for their own internal
+ * engineering specs, runbooks, and API reference. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "kern", "liga", "cv11";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav (64px, canvas background, hairline divider) -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.topnav-inner {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--brand-radius-full);
+  background: var(--brand-brand-green);
+  display: inline-grid;
+  place-items: center;
+  color: var(--primary-foreground);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+[data-theme="dark"] .brand-glyph { color: var(--primary-foreground); }
+.brand-glyph::before {
+  content: "h";
+  display: block;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 1.5rem;
+  color: var(--brand-steel);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 14px;
+}
+.topnav-actions a {
+  color: var(--foreground);
+  text-decoration: none;
+  font-weight: 500;
+}
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (44px touch floor, pill radius per DESIGN.md "Pill-shaped
+ * buttons always; squared buttons signal third-party widget") -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--brand-radius-full);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover {
+  background: var(--brand-charcoal);
+  border-color: var(--brand-charcoal);
+}
+[data-theme="dark"] .btn[data-variant="primary"]:hover {
+  background: var(--brand-on-dark-muted);
+  border-color: var(--brand-on-dark-muted);
+}
+/* Mint accent CTA — used EXACTLY ONCE on the hero per DESIGN.md
+ * "Reserve --brand-brand-green for accent CTAs and active state
+ * indicators only — even one accent button per viewport carries
+ * weight". */
+.btn[data-variant="accent"] {
+  background: var(--brand-brand-green);
+  color: oklch(0.1448 0 0);
+  border-color: var(--brand-brand-green);
+}
+.btn[data-variant="accent"]:hover {
+  /* Hover holds the canonical mint — verified on mintlify.com 2026-05-25:
+   * the live brand uses ONE deployed mint everywhere (lab(79.98 -59.63 22.51)
+   * ≈ rgb(24, 226, 153)), no documented pressed/active darker variant.
+   * Differentiation comes from the existing focus-visible outline, not a hue shift. */
+  background: var(--brand-brand-green);
+  border-color: var(--brand-brand-green);
+}
+.btn[data-variant="secondary"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.btn[data-variant="secondary"]:hover {
+  border-color: var(--foreground);
+}
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--foreground);
+}
+.btn[data-size="lg"] {
+  min-height: 48px;
+  padding: 0 1.5rem;
+  font-size: 15px;
+}
+.btn[data-size="sm"] {
+  min-height: 36px;
+  padding: 0 0.875rem;
+  font-size: 13px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero: centered display headline + CTA stack with the documented
+ * sky-blue gradient atmospheric wash behind the hero only. The
+ * 3-column docs mockup below is the brand chrome. -- */
+.hero {
+  position: relative;
+  padding: 5rem 1.5rem 4rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Atmospheric gradient wash — sky-blue to cream radial behind the
+ * centered hero headline only. The gradient tokens come from the
+ * documented hero-sky-from / hero-sky-to pair. In dark mode the
+ * gradient tokens stay at :root, so the wash tones down naturally
+ * against the dark canvas via the lower opacity attenuator. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -4rem -8rem auto -8rem;
+  height: 32rem;
+  background:
+    radial-gradient(ellipse 65% 80% at 50% 0%,
+      color-mix(in oklch, var(--brand-hero-sky-from) 60%, transparent) 0%,
+      color-mix(in oklch, var(--brand-hero-sky-to) 40%, transparent) 45%,
+      transparent 75%);
+  z-index: -1;
+  pointer-events: none;
+}
+[data-theme="dark"] .hero::before {
+  background:
+    radial-gradient(ellipse 65% 80% at 50% 0%,
+      color-mix(in oklch, var(--brand-hero-sky-from) 18%, transparent) 0%,
+      color-mix(in oklch, var(--brand-hero-sky-to) 10%, transparent) 45%,
+      transparent 75%);
+}
+.hero-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem 0.25rem 0.5rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-full);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--brand-slate);
+  margin: 0 0 1.5rem;
+}
+.hero-eyebrow-chip {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.125rem 0.5rem;
+  background: var(--brand-brand-green-soft);
+  border-radius: var(--brand-radius-full);
+  color: oklch(0.1448 0 0);
+}
+[data-theme="dark"] .hero-eyebrow-chip {
+  background: color-mix(in oklch, var(--brand-brand-green) 28%, transparent);
+  color: var(--brand-brand-green);
+}
+.hero-display {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 18ch;
+}
+.hero-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-slate);
+  max-width: 40rem;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 4rem;
+}
+
+/* -- Signature: 3-column docs page mockup. Sidebar (uppercase section
+ * headers + nav items with active state in --brand-surface +
+ * mint dot) / main column (heading-3 page title + prose with code-
+ * inline + property-row + code-block) / right rail (page TOC).
+ * Halcyon's team using a generic docs tool for their OWN internal
+ * docs — engineering specs, runbooks, API reference. NOT Mintlify
+ * product features. -- */
+.docs-frame {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 1px 3px hsl(0 0% 0% / 0.04),
+    0 16px 48px hsl(0 0% 0% / 0.10),
+    0 32px 96px -16px hsl(0 0% 0% / 0.08);
+  overflow: hidden;
+}
+[data-theme="dark"] .docs-frame {
+  box-shadow:
+    0 1px 3px hsl(0 0% 0% / 0.4),
+    0 16px 48px hsl(0 0% 0% / 0.35);
+}
+.docs-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--brand-surface);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.docs-bar-dots {
+  display: inline-flex;
+  gap: 0.375rem;
+}
+.docs-bar-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+}
+.docs-bar-search {
+  flex: 1;
+  max-width: 28rem;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.75rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--brand-steel);
+  margin-left: auto;
+}
+.docs-bar-search-kbd {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.125rem 0.375rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-xs);
+  color: var(--brand-steel);
+  margin-left: auto;
+}
+.docs-bar-tabs {
+  display: inline-flex;
+  gap: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+}
+.docs-bar-tab {
+  color: var(--brand-steel);
+}
+.docs-bar-tab[data-active] { color: var(--foreground); }
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr 200px;
+  min-height: 32rem;
+  background: var(--background);
+}
+@media (max-width: 1080px) {
+  .docs-grid { grid-template-columns: 220px 1fr; }
+  .docs-toc { display: none; }
+}
+@media (max-width: 720px) {
+  .docs-grid { grid-template-columns: 1fr; }
+  .docs-side { display: none; }
+}
+
+.docs-side {
+  background: var(--background);
+  border-right: 1px solid var(--brand-hairline-soft);
+  padding: 1.5rem 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.docs-side-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+.docs-side-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+  padding: 0 0.75rem;
+  margin: 0 0 0.5rem;
+}
+.docs-side-item {
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--brand-steel);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+.docs-side-item[data-active] {
+  background: var(--brand-surface);
+  color: var(--foreground);
+  font-weight: 500;
+}
+.docs-side-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: transparent;
+  flex-shrink: 0;
+}
+.docs-side-item[data-active] .docs-side-dot { background: var(--brand-brand-green); }
+
+.docs-main {
+  padding: 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-width: 0;
+}
+.docs-breadcrumb {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--brand-steel);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+.docs-breadcrumb-sep { opacity: 0.5; }
+.docs-page-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.25;
+}
+.docs-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-slate);
+  margin: 0;
+}
+.docs-lede code {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--brand-surface);
+  color: var(--brand-charcoal);
+  padding: 0.125rem 0.375rem;
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-xs);
+}
+.docs-h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 1rem 0 0;
+  line-height: 1.4;
+}
+.docs-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--brand-slate);
+  margin: 0;
+}
+.docs-body a {
+  color: var(--brand-brand-tag);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+[data-theme="dark"] .docs-body a { color: oklch(0.7800 0.1450 234); }
+
+/* Property row — Mintlify's documented API doc pattern. Property
+ * name in mono + type chip + REQUIRED badge + description. */
+.prop-row {
+  padding: 0.875rem 0;
+  border-top: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+.prop-row-head {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.prop-name {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brand-charcoal);
+  background: var(--brand-surface);
+  padding: 0.125rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-xs);
+}
+.prop-type {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-steel);
+}
+.prop-required {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.125rem 0.5rem;
+  background: color-mix(in oklch, var(--brand-brand-error) 12%, transparent);
+  color: var(--brand-brand-error);
+  border-radius: var(--radius-sm);
+}
+.prop-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--brand-steel);
+  margin: 0;
+}
+
+/* Code block — Geist Mono on the documented dark surface (polarity-
+ * locked code wrapper). Header bar with language label + copy
+ * affordance. */
+.code-shell {
+  background: var(--brand-surface-code);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--brand-hairline-dark);
+}
+.code-shell-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.875rem;
+  background: var(--brand-surface-code);
+  border-bottom: 1px solid var(--brand-hairline-dark);
+}
+.code-shell-lang {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--brand-on-dark-muted);
+}
+.code-shell-copy {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--brand-on-dark-muted);
+  background: transparent;
+  border: 1px solid var(--brand-hairline-dark);
+  border-radius: var(--radius-sm);
+  padding: 0.125rem 0.5rem;
+}
+.code-block {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--brand-on-dark);
+  overflow-x: auto;
+}
+.code-block .tok-com { color: oklch(0.6500 0.0096 258.3419); }
+.code-block .tok-kw  { color: oklch(0.7717 0.1376 234.4486); }
+.code-block .tok-str { color: oklch(0.7800 0.1500 145); }
+.code-block .tok-fn  { color: oklch(0.8000 0.0500 60); }
+.code-block .tok-num { color: oklch(0.8000 0.1500 305); }
+.code-block .tok-tag { color: var(--brand-brand-green); }
+
+/* Callout — soft surface tile with a left accent rail (mint for the
+ * info variant, amber for warn). */
+.docs-callout {
+  display: grid;
+  grid-template-columns: 4px 1fr;
+  background: var(--brand-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.docs-callout-rail { background: var(--brand-brand-green); }
+.docs-callout[data-tone="warn"] .docs-callout-rail { background: var(--brand-brand-warn); }
+.docs-callout-inner {
+  padding: 0.875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.docs-callout-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+.docs-callout-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--brand-steel);
+  margin: 0;
+}
+
+.docs-toc {
+  padding: 2rem 1rem;
+  border-left: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.docs-toc-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+  margin: 0 0 0.25rem;
+}
+.docs-toc-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--brand-steel);
+  padding: 0.25rem 0;
+  padding-left: 0.75rem;
+  border-left: 2px solid transparent;
+}
+.docs-toc-item[data-active] {
+  color: var(--foreground);
+  font-weight: 500;
+  border-left-color: var(--brand-brand-green);
+}
+
+/* -- Section frame -- */
+.section {
+  padding: 6rem 1.5rem;
+}
+.section[data-tight] { padding: 4rem 1.5rem; }
+.section[data-loose] { padding: 8rem 1.5rem 6rem; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-header { max-width: 42rem; margin-bottom: 3rem; }
+.section-header[data-center] {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section-eyebrow {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--brand-steel);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--brand-slate);
+  margin: 0;
+  max-width: 40rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.swatch-chip {
+  height: 3rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+.swatch-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+}
+.swatch-name {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--foreground);
+  word-break: break-all;
+}
+
+/* -- Token demo: surface ladder. Mintlify's documented family runs
+ * canvas → surface → hairline → charcoal → canvas-dark. Five steps,
+ * the dark step is scarce per DESIGN.md "Reserve elevation for the
+ * hero product mockup". -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 1080px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="canvas"] {
+  background: var(--background);
+  color: var(--foreground);
+}
+.ladder-step[data-step="surface"] {
+  background: var(--brand-surface);
+  color: var(--foreground);
+  border-color: var(--brand-surface);
+}
+.ladder-step[data-step="card"] {
+  background: var(--card);
+  color: var(--foreground);
+}
+.ladder-step[data-step="hairline"] {
+  background: var(--background);
+  color: var(--foreground);
+  border: 2px solid var(--border);
+}
+/* The dark voltage surface — Mintlify's documented canvas-dark, used
+ * for promo banner + code wrapper. Polarity-locked to near-black on
+ * BOTH light and dark variants so the brand's documented "scarce dark
+ * inversion" reads on either polarity. */
+.ladder-step[data-step="dark"] {
+  background: oklch(0.1448 0 0);
+  color: oklch(1 0 0);
+  border-color: oklch(0.1448 0 0);
+}
+.ladder-num {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0;
+  opacity: 0.85;
+}
+.ladder-name {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 13px;
+}
+.ladder-role {
+  font-size: 13px;
+  opacity: 0.92;
+  margin-top: auto;
+  line-height: 1.45;
+}
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--brand-steel);
+}
+.type-display {
+  font-family: 'Inter', sans-serif;
+  font-size: 44px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-slate);
+}
+.type-mono {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 14px;
+  color: var(--brand-charcoal);
+  background: var(--brand-surface);
+  padding: 0.125rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-xs);
+  display: inline-block;
+}
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.75rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--brand-steel);
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+/* Badges — uppercase caption per DESIGN.md.
+ * Default: surface-strong tint + foreground ink.
+ * Required: error pigment (error-red on light error-tint).
+ * Type: surface tint + steel ink for inline type signatures.
+ * Tag: brand-tag pigment (blue) on tint background — used as the
+ * docs-tag chip in body prose. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--brand-radius-full);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  background: var(--brand-surface);
+}
+.badge[data-tone="required"] {
+  background: color-mix(in oklch, var(--brand-brand-error) 14%, transparent);
+  /* Deepen the red ink against the pale-pink tint so WCAG AA clears.
+   * --brand-brand-error at oklch 0.62 sits at ~3.3:1 on its own tint;
+   * dropping L to 0.45 clears 4.5:1 with the chroma + hue preserved. */
+  color: oklch(0.4500 0.1597 22.9744);
+}
+[data-theme="dark"] .badge[data-tone="required"] {
+  background: color-mix(in oklch, var(--brand-brand-error) 22%, transparent);
+  color: oklch(0.7800 0.1597 22.9744);
+}
+.badge[data-tone="type"] {
+  background: var(--brand-surface);
+  color: var(--brand-steel);
+  text-transform: none;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.badge[data-tone="tag"] {
+  background: color-mix(in oklch, var(--brand-brand-tag) 18%, transparent);
+  /* Same lift as required: --brand-brand-tag at oklch 0.56 sits at
+   * ~3.7:1; dropping L to 0.42 keeps the documentation-blue identity
+   * but clears AA against the pale-blue tint. */
+  color: oklch(0.4200 0.1565 259.2488);
+  text-transform: none;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+[data-theme="dark"] .badge[data-tone="tag"] {
+  background: color-mix(in oklch, var(--brand-brand-tag) 32%, transparent);
+  color: oklch(0.7800 0.1450 234);
+}
+.badge[data-tone="discount"] {
+  background: var(--brand-brand-green);
+  color: oklch(0.1448 0 0);
+}
+
+/* Text input (44px height, 8px radius, mint focus ring per DESIGN.md
+ * "focus uses the brand mint as the activation signal") */
+.text-input {
+  width: 100%;
+  max-width: 22rem;
+  height: 44px;
+  padding: 0 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+.text-input::placeholder { color: var(--brand-stone); }
+.text-input:focus {
+  outline: none;
+  border-color: var(--brand-brand-green);
+  border-width: 2px;
+  padding: 0 calc(0.875rem - 1px);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--brand-brand-green) 22%, transparent);
+}
+
+/* -- Pricing tiles (Hobby / Team / Org-wide, featured = mint border
+ * accent per DESIGN.md pricing-card-featured) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) {
+  .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; }
+}
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--foreground);
+  position: relative;
+}
+.pricing-card[data-featured] {
+  border: 2px solid var(--brand-brand-green);
+  box-shadow: 0 8px 24px color-mix(in oklch, var(--brand-brand-green) 16%, transparent);
+}
+.pricing-flag {
+  position: absolute;
+  top: -0.625rem;
+  right: 1.5rem;
+  background: var(--brand-brand-green);
+  color: oklch(0.1448 0 0);
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--brand-radius-full);
+}
+.pricing-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.pricing-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0.25rem 0 0;
+}
+.pricing-tagline {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--brand-steel);
+  margin: 0;
+  min-height: 2.8em;
+}
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding-top: 1.25rem;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--brand-slate);
+}
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.pricing-features li::before {
+  content: "✓";
+  /* Canonical mint — mintlify.com/pricing serves the same rgb(24, 226, 153)
+   * for the "Save 15%" eyebrow, "POPULAR" tier badge, and feature-list
+   * checkmarks (52 instances of the same mint, no deeper variant).
+   * Same on both polarities — the green clears AA on near-black at chip size. */
+  color: var(--brand-brand-green);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 14px;
+}
+
+/* -- Closer: dark promo-banner surface (Mintlify's documented
+ * promo-banner component — sticky black strip with white text).
+ * Polarity-locked to --brand-canvas-dark on BOTH modes so the closer
+ * reads as the brand's documented dark-inversion moment, not a near-
+ * invisible band. The coral testimonial surface is documented but its
+ * brand contrast against white ink is borderline (3.3-4.0:1 in axe);
+ * the canvas-dark closer holds the same "scarce inversion" pacing
+ * without the AA risk. Inline mint dot anchors the brand voltage in
+ * the closer without adding a second accent. -- */
+.closer-band {
+  background: var(--brand-canvas-dark);
+  color: var(--brand-on-dark);
+  padding: 4rem 1.5rem;
+}
+.closer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+@media (max-width: 880px) { .closer-inner { grid-template-columns: 1fr; } }
+.closer-eyebrow {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--brand-on-dark-muted);
+  margin: 0 0 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.closer-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-brand-green);
+  flex-shrink: 0;
+}
+.closer-quote {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--brand-on-dark);
+  margin: 0;
+}
+.closer-attr {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--brand-on-dark-muted);
+  margin: 1.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+.closer-attr-name {
+  font-weight: 600;
+  color: var(--brand-on-dark);
+}
+.closer-meta {
+  background: var(--brand-surface-code);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  border: 1px solid var(--brand-hairline-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.closer-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid var(--brand-hairline-dark);
+}
+.closer-meta-row:last-child { border-bottom: none; padding-bottom: 0; }
+.closer-meta-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark-muted);
+}
+.closer-meta-value {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--brand-on-dark);
+}
+
+/* -- Footer (canvas, hairline divider columns — DESIGN.md §5
+ * "Multi-column site footer, white canvas, hairline top divider") -- */
+.footer {
+  background: var(--background);
+  color: var(--brand-steel);
+  border-top: 1px solid var(--border);
+  padding: 4rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 32ch;
+}
+.footer-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.footer-tagline {
+  font-size: 13px;
+  color: var(--brand-steel);
+  line-height: 1.55;
+  margin: 0;
+}
+.footer-col-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.footer-list a {
+  font-size: 14px;
+  color: var(--brand-steel);
+  text-decoration: none;
+}
+.footer-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1240px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-steel);
+}
+.footer-legal-meta {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true"></span>
+      mintlify-style
+    </a>
+    <div class="topnav-links">
+      <a href="#">Solutions</a>
+      <a href="#">Pricing</a>
+      <a href="#">Customers</a>
+      <a href="#">Documentation</a>
+      <a href="#">Changelog</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Talk to sales</a>
+      <button class="btn" data-variant="primary" type="button">Get started</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">
+      <span class="hero-eyebrow-chip">v4.2</span>
+      Specs that the team actually reads
+    </p>
+    <h1 class="hero-display">The team docs that keep up with the team.</h1>
+    <p class="hero-lede">Halcyon's engineering specs, runbooks, and API reference share a single docs surface. Every spec is a Markdown file in the monorepo; every push rebuilds the published site in under thirty seconds.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="accent" data-size="lg" type="button">Get started</button>
+      <button class="btn" data-variant="secondary" data-size="lg" type="button">Talk to us</button>
+    </div>
+
+    <div class="docs-frame" role="figure" aria-label="Docs page mockup">
+      <div class="docs-bar">
+        <div class="docs-bar-dots">
+          <span class="docs-bar-dot" aria-hidden="true"></span>
+          <span class="docs-bar-dot" aria-hidden="true"></span>
+          <span class="docs-bar-dot" aria-hidden="true"></span>
+        </div>
+        <div class="docs-bar-tabs">
+          <span class="docs-bar-tab" data-active>Documentation</span>
+          <span class="docs-bar-tab">Guides</span>
+          <span class="docs-bar-tab">API Reference</span>
+        </div>
+        <div class="docs-bar-search">
+          <span>Search docs</span>
+          <span class="docs-bar-search-kbd">⌘ K</span>
+        </div>
+      </div>
+
+      <div class="docs-grid">
+        <aside class="docs-side">
+          <div class="docs-side-group">
+            <p class="docs-side-title">Engineering</p>
+            <div class="docs-side-item"><span class="docs-side-dot" aria-hidden="true"></span>Architecture</div>
+            <div class="docs-side-item"><span class="docs-side-dot" aria-hidden="true"></span>Service catalog</div>
+            <div class="docs-side-item" data-active><span class="docs-side-dot" aria-hidden="true"></span>Multi-tenant provisioning</div>
+            <div class="docs-side-item"><span class="docs-side-dot" aria-hidden="true"></span>Migrations</div>
+            <div class="docs-side-item"><span class="docs-side-dot" aria-hidden="true"></span>Background jobs</div>
+          </div>
+          <div class="docs-side-group">
+            <p class="docs-side-title">Runbooks</p>
+            <div class="docs-side-item"><span class="docs-side-dot" aria-hidden="true"></span>Incident response</div>
+            <div class="docs-side-item"><span class="docs-side-dot" aria-hidden="true"></span>On-call rotation</div>
+            <div class="docs-side-item"><span class="docs-side-dot" aria-hidden="true"></span>Backfill procedures</div>
+          </div>
+          <div class="docs-side-group">
+            <p class="docs-side-title">API Reference</p>
+            <div class="docs-side-item"><span class="docs-side-dot" aria-hidden="true"></span>Tenants</div>
+            <div class="docs-side-item"><span class="docs-side-dot" aria-hidden="true"></span>Members</div>
+            <div class="docs-side-item"><span class="docs-side-dot" aria-hidden="true"></span>Webhooks</div>
+          </div>
+        </aside>
+
+        <article class="docs-main">
+          <p class="docs-breadcrumb">
+            <span>Engineering</span>
+            <span class="docs-breadcrumb-sep" aria-hidden="true">/</span>
+            <span>Multi-tenant provisioning</span>
+          </p>
+          <h2 class="docs-page-title">Multi-tenant provisioning</h2>
+          <p class="docs-lede">Every Halcyon customer gets a tenant created at signup. The provisioning service writes the row to <code>tenants</code>, allocates a slug, and emits a <code>tenant.created</code> event the rest of the platform listens for.</p>
+
+          <div class="docs-callout">
+            <span class="docs-callout-rail" aria-hidden="true"></span>
+            <div class="docs-callout-inner">
+              <span class="docs-callout-title">Provisioning is idempotent</span>
+              <p class="docs-callout-body">Calling <code class="prop-type">createTenant</code> with the same external id twice returns the existing row instead of erroring. The retry-safe contract is the reason webhooks don't need processing leases at the boundary.</p>
+            </div>
+          </div>
+
+          <h3 class="docs-h2">Endpoint</h3>
+          <div class="code-shell">
+            <div class="code-shell-head">
+              <span class="code-shell-lang">POST /v1/tenants</span>
+              <button class="code-shell-copy" type="button">Copy</button>
+            </div>
+            <pre class="code-block"><span class="tok-com">// Provision a tenant from a Halcyon signup webhook.</span>
+<span class="tok-kw">const</span> tenant = <span class="tok-kw">await</span> halcyon.tenants.<span class="tok-fn">create</span>({
+  externalId: <span class="tok-str">'usr_8f2c4d'</span>,
+  slug: <span class="tok-str">'morgan-lee'</span>,
+  region: <span class="tok-str">'us-east-1'</span>,
+  plan: <span class="tok-str">'team'</span>,
+});
+<span class="tok-kw">console</span>.<span class="tok-fn">log</span>(tenant.id); <span class="tok-com">// → 'tnt_<span class="tok-num">01HQ3</span>...'</span></pre>
+          </div>
+
+          <h3 class="docs-h2">Parameters</h3>
+          <div class="prop-row">
+            <div class="prop-row-head">
+              <span class="prop-name">externalId</span>
+              <span class="prop-type">string</span>
+              <span class="prop-required">Required</span>
+            </div>
+            <p class="prop-desc">The caller's stable identifier for the tenant. Halcyon uses this to deduplicate retries from the signup webhook; passing the same value twice returns the existing row.</p>
+          </div>
+          <div class="prop-row">
+            <div class="prop-row-head">
+              <span class="prop-name">region</span>
+              <span class="prop-type">"us-east-1" | "eu-west-1"</span>
+            </div>
+            <p class="prop-desc">Data-residency region. Defaults to <code class="prop-type">us-east-1</code> when omitted; the team typically lets new customers default and migrates region-locked accounts on request.</p>
+          </div>
+          <div class="prop-row">
+            <div class="prop-row-head">
+              <span class="prop-name">plan</span>
+              <span class="prop-type">string</span>
+            </div>
+            <p class="prop-desc">Plan slug at provisioning time. Halcyon's billing layer reconciles this against the active subscription on the next event; mismatches are not fatal here.</p>
+          </div>
+        </article>
+
+        <aside class="docs-toc" aria-label="On this page">
+          <p class="docs-toc-title">On this page</p>
+          <span class="docs-toc-item">Endpoint</span>
+          <span class="docs-toc-item" data-active>Parameters</span>
+          <span class="docs-toc-item">Response shape</span>
+          <span class="docs-toc-item">Errors</span>
+          <span class="docs-toc-item">Idempotency</span>
+        </aside>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" data-loose aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens / colour</p>
+      <h2 class="section-title">Black-pill action, mint-green accent, used scarcely.</h2>
+      <p class="section-lede">The system runs near-monochrome at the action layer — primary CTAs are near-black pills on white. The signature mint shows up exactly where it earns the role: one hero CTA, the active-state dot in the sidebar, the green checkmark on a pricing-feature row. The sky-blue gradient sits behind the hero only, as an atmospheric wash.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Primary · CTA</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-brand-green);"></div><div class="swatch-role">Mint · accent</div><div class="swatch-name">--brand-brand-green</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-brand-green-soft);"></div><div class="swatch-role">Mint · soft tint</div><div class="swatch-name">--brand-brand-green-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface);"></div><div class="swatch-role">Surface · soft</div><div class="swatch-name">--brand-surface</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-dark);"></div><div class="swatch-role">Canvas dark · scarce</div><div class="swatch-name">--brand-canvas-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: linear-gradient(180deg, var(--brand-hero-sky-from) 0%, var(--brand-hero-sky-to) 100%);"></div><div class="swatch-role">Atmospheric · hero</div><div class="swatch-name">--brand-hero-sky-*</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-brand-tag);"></div><div class="swatch-role">Docs · tag</div><div class="swatch-name">--brand-brand-tag</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-brand-warn);"></div><div class="swatch-role">Docs · warn</div><div class="swatch-name">--brand-brand-warn</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-testimonial-orange);"></div><div class="swatch-role">Closer · warm break</div><div class="swatch-name">--brand-testimonial-orange</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens / surfaces / five steps</p>
+      <h2 class="section-title">Canvas through dark, one inversion at the floor.</h2>
+      <p class="section-lede">The brand rotates through canvas → surface → card → hairline → canvas-dark. The hairline step is a 2px border on canvas, not a tinted fill — Mintlify's docs grid uses the hairline as separation, not a soft surface. The dark step is scarce: code wrapper, promo strip, and the featured pricing tier when it ships inverted.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">01 / canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · prose body</span>
+      </div>
+      <div class="ladder-step" data-step="surface">
+        <span class="ladder-num">02 / surface</span>
+        <span class="ladder-name">--brand-surface</span>
+        <span class="ladder-role">code-inline tint · sidebar active fill</span>
+      </div>
+      <div class="ladder-step" data-step="card">
+        <span class="ladder-num">03 / card</span>
+        <span class="ladder-name">--card</span>
+        <span class="ladder-role">docs frame · pricing tier · faq accordion</span>
+      </div>
+      <div class="ladder-step" data-step="hairline">
+        <span class="ladder-num">04 / hairline</span>
+        <span class="ladder-name">--border</span>
+        <span class="ladder-role">grid separation · prop-row dividers</span>
+      </div>
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">05 / dark</span>
+        <span class="ladder-name">--brand-canvas-dark</span>
+        <span class="ladder-role">code wrapper · promo strip · scarce voltage</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">pricing</p>
+      <h2 class="section-title">Three shapes, mint border on the middle tier.</h2>
+      <p class="section-lede">The featured tier carries a 2px mint border + a tinted shadow per the documented pricing-card-featured pattern. The pill flag at the top of the card is the brand's "Featured" treatment — small, mint-filled, dark ink.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <span class="pricing-flag">Featured</span>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production together.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="accent" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens / type + components</p>
+      <h2 class="section-title">Inter for the page, Geist Mono on every code surface.</h2>
+      <p class="section-lede">Display tracks negative across the whole scale (−3% on the hero, −2.5% on h2). Body never bolds. Geist Mono carries inline code, type signatures, property names, and the page-level code block. The pairing is the brand's developer-respect signal.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">display</span><span class="type-display">Specs the team reads.</span></div>
+        <div class="type-row"><span class="type-label">heading</span><span class="type-heading">Inter 600 · −0.025em</span></div>
+        <div class="type-row"><span class="type-label">title</span><span class="type-title">Inter 600 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">body</span><span class="type-body">Default paragraph copy in Inter 400 at 16 pixels, line-height 1.5. Running prose uses a slate ink that softens against the white canvas, while the strongest weight stays near-black for headings. Inline code chips — like <span class="type-mono">npx @halcyon/cli docs</span> — sit on the soft surface tint at 1px hairline.</span></div>
+        <div class="type-row"><span class="type-label">mono</span><span class="type-mono">npx @halcyon/cli docs build --watch</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">buttons / primary + secondary + accent</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" type="button">Get started</button>
+            <button class="btn" data-variant="secondary" type="button">Read the docs</button>
+            <button class="btn" data-variant="accent" data-size="sm" type="button">Try the playground</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">badges / docs vocabulary</span>
+          <div class="cmp-row">
+            <span class="badge">Stable</span>
+            <span class="badge" data-tone="required">Required</span>
+            <span class="badge" data-tone="type">string</span>
+            <span class="badge" data-tone="type">boolean | undefined</span>
+            <span class="badge" data-tone="tag">&lt;Tabs&gt;</span>
+            <span class="badge" data-tone="discount">Save 20%</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">code block / Geist Mono on dark surface</span>
+          <div class="cmp-row" style="width: 100%;">
+            <div class="code-shell" style="width: 100%;">
+              <div class="code-shell-head">
+                <span class="code-shell-lang">halcyon.config.ts</span>
+                <button class="code-shell-copy" type="button">Copy</button>
+              </div>
+              <pre class="code-block"><span class="tok-com">// halcyon docs / config</span>
+<span class="tok-kw">import</span> { defineConfig } <span class="tok-kw">from</span> <span class="tok-str">'@halcyon/cli'</span>;
+
+<span class="tok-kw">export default</span> <span class="tok-fn">defineConfig</span>({
+  name: <span class="tok-str">'Halcyon'</span>,
+  sidebar: [
+    <span class="tok-str">'engineering'</span>,
+    <span class="tok-str">'runbooks'</span>,
+    <span class="tok-str">'api-reference'</span>,
+  ],
+  search: { provider: <span class="tok-str">'local'</span> },
+});</pre>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">text input / 44px / mint focus ring</span>
+          <div class="cmp-row">
+            <input class="text-input" type="email" placeholder="you@halcyon.dev" aria-label="Email">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closer-band" aria-label="Warm closer">
+  <div class="closer-inner">
+    <div>
+      <p class="closer-eyebrow">
+        <span class="closer-eyebrow-dot" aria-hidden="true"></span>
+        closer · scarce inversion
+      </p>
+      <p class="closer-quote">A spec written on Monday is the spec the on-call reads at 3am on Friday. The same surface, the same search, the same code block. The change is that the on-call doesn't open six tabs to find it.</p>
+      <p class="closer-attr">
+        <span class="closer-attr-name">Morgan Lee</span>
+        <span>Staff engineer · Halcyon Platform</span>
+      </p>
+    </div>
+    <div class="closer-meta">
+      <div class="closer-meta-row">
+        <span class="closer-meta-label">Pages</span>
+        <span class="closer-meta-value">284</span>
+      </div>
+      <div class="closer-meta-row">
+        <span class="closer-meta-label">Avg. read time</span>
+        <span class="closer-meta-value">2m 41s</span>
+      </div>
+      <div class="closer-meta-row">
+        <span class="closer-meta-label">Search latency</span>
+        <span class="closer-meta-value">42ms · p95</span>
+      </div>
+      <div class="closer-meta-row">
+        <span class="closer-meta-label">Build</span>
+        <span class="closer-meta-value">28s · last push</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="footer-brand-mark" href="#">
+        <span class="brand-glyph" aria-hidden="true"></span>
+        mintlify-style
+      </a>
+      <p class="footer-tagline">A token-surface preview rendered against a docs-platform design system. White canvas, black-pill primary, mint accent reserved for the one CTA + active state, sky-blue atmospheric wash on the hero, three-column docs grid signature, Geist Mono on every code surface. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Explore</p>
+      <ul class="footer-list">
+        <li><a href="#">Documentation</a></li>
+        <li><a href="#">Guides</a></li>
+        <li><a href="#">API reference</a></li>
+        <li><a href="#">Changelog</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list">
+        <li><a href="#">Customers</a></li>
+        <li><a href="#">Showcase</a></li>
+        <li><a href="#">Community</a></li>
+        <li><a href="#">Status</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list">
+        <li><a href="#">halcyon.dev</a></li>
+        <li><a href="#">app.halcyon.dev</a></li>
+        <li><a href="#">@halcyon/cli</a></li>
+        <li><a href="#">hlc.so</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Security</a></li>
+        <li><a href="#">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>mintlify-style · token surface preview · 2026.05.25</span>
+    <span class="footer-legal-meta">white canvas · black pill · mint accent scarcely · geist mono code</span>
+  </div>
+</footer>
+
+</body>
+</html>

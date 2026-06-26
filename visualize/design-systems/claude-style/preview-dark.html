@@ -1,0 +1,1900 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>claude-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23faf9f5'/%3E%3Cpath d='M16 6 L18 14 L26 16 L18 18 L16 26 L14 18 L6 16 L14 14 Z' fill='%23c6613f'/%3E%3C/svg%3E">
+<meta property="og:title" content="claude-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Two equally first-class surface families on one identity — Anthropic on warm cream (#faf9f5) with serif editorial register, Claude on near-black (#141413) with coral CTA and dark code-block + footer. Token surfaces rendered on Halcyon-themed neutral content.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/claude-style/tokens.css) === */
+/**
+ * design-systems/claude-style/tokens.css
+ *
+ * Hand-authored from live-verified Anthropic + Claude surfaces.
+ * Sourced: 2026-05-26 via chrome-mcp inspection of
+ *   anthropic.com (+ /news, /research, /glasswing),
+ *   claude.com/product/overview (+ /pricing, /pricing/enterprise),
+ *   claude.ai/login, platform.claude.com/docs.
+ * See DESIGN.md §1 (canonical canvas) + §2 (palette) for the per-token
+ * citation record.
+ *
+ * Canonical canvas: BOTH. Anthropic (the parent corp) lives on cream
+ * `#faf9f5`; Claude (the product) lives on near-black `#141413`. Three
+ * dark canvases coexist: `#141413` (marketing canonical), `#1f1f1e`
+ * (claude.ai/login), `#262624` (platform.claude.com/docs). The cream
+ * sits in `:root`; `[data-theme="dark"]` flips to `#141413`. The two
+ * sub-canvases (`#1f1f1e`, `#262624`) are polarity-locked surfaces
+ * declared once at `:root` — they're available for surface-specific
+ * rendering but don't drive the preview canvas.
+ *
+ * Dark-mode strategy: hand-tuned to the live `#141413` canvas with
+ * `#2c2a26` elevated card. The brand coral `--primary` carries the
+ * same OKLCH across polarities (chromatic identity is polarity-
+ * invariant per AUTHORING "Dark-mode strategy"). Brand-extras (ink
+ * ladder, hairline) lift in dark for AA where the consumer is body
+ * text, never to retune chromatic identity.
+ *
+ * Two-layer contract (AUTHORING "Token naming conventions"):
+ *   - Shadcn-semantic core: names are the upstream contract, values
+ *     are Claude's. Never rename, add to, or delete from per-brand.
+ *   - Brand-extras (--brand-*): the brand's own vocabulary. Surface-
+ *     named only. Never colour-with-modifier.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are Claude's. */
+
+  --background: oklch(0.9818 0.0054 95.0986);    /* #faf9f5 — Anthropic cream canvas (live: anthropic.com body bg) */
+  --foreground: oklch(0.1908 0.0020 106.5860);   /* #141413 — Anthropic body ink + canonical Claude dark canvas */
+  --card: oklch(0.9237 0.0135 97.4518);          /* #e8e6dc — live warm-tan card on anthropic.com Glasswing rim + editorial cards */
+  --card-foreground: oklch(0.1908 0.0020 106.5860);
+  --popover: oklch(0.9237 0.0135 97.4518);       /* synthesised — mirrors --card; no popover sampled live */
+  --popover-foreground: oklch(0.1908 0.0020 106.5860);
+
+  /* --primary: live full-saturation Anthropic coral. anthropic.com
+   * "Log in to Claude" nav pill (bg rgb(198, 97, 63)) + platform.claude.com
+   * floating "Ask Docs" pill. Brand identity — do NOT retune for
+   * contrast. The lighter cookie-CTA coral lives at --brand-primary-soft. */
+  --primary: oklch(0.6078 0.1379 39.0061);       /* #c6613f saturated Crail */
+
+  /* --primary-foreground: dark ink on Claude's coral primary. Verified
+   * pair: 4.86:1 (AA body PASS). White-on-coral is 4.05:1 (AA body
+   * fail, large-text-bold pass). Brand ships dark-ink-on-coral on the
+   * "Log in to Claude" nav pill and the cookie CTA — matches our
+   * choice. Preview consumers shipping primary buttons at body sizes
+   * are fine; the dispatcher qualifies large-text-bold consumers in
+   * Step 3 as the safety belt. */
+  --primary-foreground: oklch(0.1500 0.0042 84.5898);
+
+  --secondary: oklch(0.9237 0.0135 97.4518);     /* #e8e6dc — mirrors --card per DESIGN.md §2 */
+  --secondary-foreground: oklch(0.1908 0.0020 106.5860);
+  --muted: oklch(0.9485 0.0109 95.1665);         /* #f0eee6 — live inset cream on anthropic.com/news press rows */
+  --muted-foreground: oklch(0.5242 0.0096 91.5605); /* current value — pair × --background = 5.13:1, AA PASS, no retune */
+  --accent: oklch(0.8917 0.0213 79.0861);        /* #e3dacc — live warm-tan card accent (anthropic.com "Latest releases" tan card). Replaces upstream teal — no teal observed anywhere live. */
+  --accent-foreground: oklch(0.1908 0.0020 106.5860);
+  --destructive: oklch(0.5704 0.1649 23.9581);   /* synthesised — no destructive sampled live; retained from upstream */
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.8917 0.0213 79.0861);        /* #e3dacc — live newsroom row hairline; same hue as --accent */
+  --input: oklch(0.8917 0.0213 79.0861);         /* matches --border */
+  --ring: oklch(0.6078 0.1379 39.0061);          /* tracks --primary */
+
+  --sidebar: oklch(0.9485 0.0109 95.1665);       /* matches --muted */
+  --sidebar-foreground: oklch(0.1908 0.0020 106.5860);
+  --sidebar-primary: oklch(0.6078 0.1379 39.0061);  /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.1500 0.0042 84.5898);  /* matches --primary-foreground */
+  --sidebar-accent: oklch(0.8917 0.0213 79.0861); /* matches --accent */
+  --sidebar-accent-foreground: oklch(0.1908 0.0020 106.5860);
+  --sidebar-border: oklch(0.8917 0.0213 79.0861); /* matches --border */
+  --sidebar-ring: oklch(0.6078 0.1379 39.0061);  /* tracks --primary */
+
+  --chart-1: oklch(0.8100 0.1131 39.1453);
+  --chart-2: oklch(0.7100 0.1131 39.1453);
+  --chart-3: oklch(0.6100 0.1131 39.1453);
+  --chart-4: oklch(0.5100 0.1131 39.1453);
+  --chart-5: oklch(0.4200 0.1131 39.1453);
+
+  /* -- Radii ----------------------------------------------------- */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --brand-radius-xs: 4px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: StyreneB, Inter, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: JetBrains Mono, ui-monospace, monospace;
+  --font-display: Copernicus, Tiempos Headline, serif;
+
+  --text-display: 64px;
+  --text-heading: 48px;
+  --text-title: 18px;
+  --text-base: 16px;
+  --leading-tight: 1.05;
+  --leading-normal: 1.55;
+
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* -- Shadows --------------------------------------------------- */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* -- Brand-extras --------------------------------------------- */
+  /* Surface-named only. See AUTHORING "Token naming conventions". */
+
+  /* Brand primary lineage. --primary-soft is the lighter cookie-CTA
+   * coral observed on anthropic.com cookie banner + small coral pills
+   * + the "Ask Claude" composer button on dark cards. */
+  --brand-primary-soft: oklch(0.6724 0.1308 38.7559);     /* #d97757 — live softer coral */
+  /* --brand-primary-active: synthesised — no live press/hover state
+   * sampled in this cycle. Retained from upstream for downstream
+   * consumers. */
+  --brand-primary-active: oklch(0.5518 0.1133 38.4596);   /* synthesised */
+  --brand-primary-disabled: oklch(0.9072 0.0122 67.6727); /* synthesised */
+
+  /* Polarity-locked dark canvases. The three near-black surfaces are
+   * declared once at :root so they're available regardless of theme.
+   * --brand-canvas-dark-deep drives [data-theme="dark"]; the other two
+   * are surface-specific rendering primitives. */
+  --brand-canvas-dark-deep: oklch(0.1908 0.0020 106.5860); /* #141413 — Claude marketing canonical (claude.com/pricing, /product/overview, /pricing/enterprise, anthropic.com/glasswing) */
+  --brand-canvas-dark: oklch(0.2389 0.0019 106.5407);     /* #1f1f1e — claude.ai/login canvas */
+  --brand-canvas-docs: oklch(0.2679 0.0036 106.6428);     /* #262624 — platform.claude.com/docs canvas */
+
+  /* Elevated panel on dark. Sits one step above --brand-canvas-dark-deep,
+   * used for pricing cards / auth card / dark editorial cards. NOT the
+   * docs canvas (--brand-canvas-docs is the docs canvas; this is a card
+   * surface inside the marketing canvas). */
+  --brand-surface-dark-elevated: oklch(0.2572 0.0063 78.2148);
+
+  /* Polarity-locked light/cream surface (mirrors --background but
+   * surface-named for components that want canvas regardless of theme
+   * flip). */
+  --brand-surface-cream-strong: oklch(0.9092 0.0207 81.7791);
+
+  /* Cream-on-dark ink (polarity-locked). Used on every Claude dark
+   * surface for primary body. */
+  --brand-on-dark: oklch(0.9818 0.0054 95.0986);          /* #faf9f5 — live h1 on claude.com/product/overview */
+  /* Slightly cooler cream observed only on claude.ai/login body. */
+  --brand-on-dark-soft: oklch(0.8066 0.0140 97.4858);     /* #c2c0b6 — live top-nav muted link on claude.com/product/overview */
+  /* Small-caps eyebrow / nav-dropdown labels on dark canvas. */
+  --brand-on-dark-faint: oklch(0.6855 0.0117 95.2290);    /* #9c9a92 — live PLATFORM / DEVELOPER JOURNEY eyebrow on platform.claude.com */
+
+  /* Ink ladder — warm-neutral foreground stack on cream canvas. All
+   * live-observed values. */
+  --brand-ink-strong: oklch(0.3590 0.0051 106.6524);      /* #3d3d3a — secondary body inside cream cards (anthropic.com) */
+  --brand-ink-mute: oklch(0.6188 0.0104 100.0882);        /* #87867f — date/category metadata text on article cards. Live-observed; NOT the AA-override (see --brand-muted-soft). */
+  --brand-ink-subtle: oklch(0.7499 0.0129 96.4777);       /* #b0aea5 — dimmest editorial caption (anthropic.com) */
+
+  /* Compat alias retained for downstream consumers — same value as
+   * --brand-ink-strong; the new surface-named token is preferred. */
+  --brand-body: oklch(0.3590 0.0051 106.6524);
+  --brand-body-strong: oklch(0.2637 0.0037 106.6475);
+
+  /* Utility neutral (chroma ≈ 0) — AA-tuned for consumers of
+   * --muted-foreground that need to clear 4.5:1 against the cream
+   * canvas at body sizes. NOT a live-observed brand value: the
+   * live-observed mute is --brand-ink-mute (#87867f). This token is a
+   * utility-neutral override per the AUTHORING "Brand identity vs
+   * utility neutrals" exception — chroma is near-zero so retuning is
+   * in-bounds. */
+  --brand-muted-soft: oklch(0.5000 0.0136 91.5842);
+
+  /* Hairlines / dividers */
+  --brand-hairline-soft: oklch(0.8917 0.0213 79.0861);    /* #e3dacc — live newsroom row separators */
+
+  /* Documented secondary brand colours — Claude exposes none at full
+   * chroma. Coral is the only saturated brand hue. The tokens below
+   * are synthesised inheritance from upstream for downstream chart /
+   * semantic consumers; not live brand values. */
+  --brand-accent-amber: oklch(0.7716 0.1212 67.3858);     /* synthesised — no saturated amber observed live */
+  --brand-success: oklch(0.5949 0.1377 162.9528);         /* synthesised — no success green observed live */
+  --brand-warning: oklch(0.7686 0.1647 70.0804);          /* synthesised — no warning amber observed live */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Hand-tuned to Claude's live dark surfaces. --background lands on
+ * the canonical marketing canvas #141413; --card sits one step above
+ * at #2c2a26 (elevated panel). The brand coral --primary carries the
+ * SAME OKLCH as :root — chromatic identity is polarity-invariant.
+ * Polarity-locked tokens (--brand-canvas-dark-deep, --brand-on-dark,
+ * --brand-on-dark-soft, --brand-on-dark-faint) stay at :root values.
+ * Utility neutrals (--brand-body, --brand-muted-soft) lift for AA on
+ * the dark canvas.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1908 0.0020 106.5860);    /* #141413 — canonical Claude marketing canvas */
+  --foreground: oklch(0.9818 0.0054 95.0986);     /* #faf9f5 — live cream ink on dark */
+  --card: oklch(0.2572 0.0063 78.2148);           /* #2c2a26 — elevated panel on the marketing canvas */
+  --card-foreground: oklch(0.9818 0.0054 95.0986);
+  --popover: oklch(0.2572 0.0063 78.2148);
+  --popover-foreground: oklch(0.9818 0.0054 95.0986);
+
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring stay at the
+   * same OKLCH as :root — chromatic identity is polarity-invariant.
+   * Brand coral renders identically across themes. */
+  --primary: oklch(0.6078 0.1379 39.0061);
+  --primary-foreground: oklch(0.1500 0.0042 84.5898);  /* dark ink on coral, same as :root (pair = 4.86:1 AA PASS) */
+
+  --secondary: oklch(0.2572 0.0063 78.2148);      /* matches --card */
+  --secondary-foreground: oklch(0.9818 0.0054 95.0986);
+  --muted: oklch(0.2389 0.0019 106.5407);         /* one step above --background, near --brand-canvas-dark */
+  --muted-foreground: oklch(0.8066 0.0140 97.4858); /* lifted to --brand-on-dark-soft family for AA on dark */
+  --accent: oklch(0.2679 0.0036 106.6428);        /* one step above --card, near --brand-canvas-docs */
+  --accent-foreground: oklch(0.9818 0.0054 95.0986);
+  --destructive: oklch(0.6500 0.1649 23.9581);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.2700 0.0050 95);              /* hairline-on-dark approximation of the live 10%-opacity cream rule */
+  --input: oklch(0.2700 0.0050 95);
+  --ring: oklch(0.6078 0.1379 39.0061);           /* tracks --primary */
+
+  --sidebar: oklch(0.2389 0.0019 106.5407);
+  --sidebar-foreground: oklch(0.9818 0.0054 95.0986);
+  --sidebar-primary: oklch(0.6078 0.1379 39.0061);
+  --sidebar-primary-foreground: oklch(0.1500 0.0042 84.5898);
+  --sidebar-accent: oklch(0.2572 0.0063 78.2148);
+  --sidebar-accent-foreground: oklch(0.9818 0.0054 95.0986);
+  --sidebar-border: oklch(0.2700 0.0050 95);
+  --sidebar-ring: oklch(0.6078 0.1379 39.0061);
+
+  --chart-1: oklch(0.8100 0.1131 39.1453);
+  --chart-2: oklch(0.7100 0.1131 39.1453);
+  --chart-3: oklch(0.6100 0.1131 39.1453);
+  --chart-4: oklch(0.5100 0.1131 39.1453);
+  --chart-5: oklch(0.4200 0.1131 39.1453);
+
+  /* Brand-extras — only utility neutrals + theme-flipping surfaces
+   * override. Polarity-locked tokens (--brand-canvas-dark-deep,
+   * --brand-canvas-dark, --brand-canvas-docs, --brand-on-dark,
+   * --brand-on-dark-soft, --brand-on-dark-faint, --brand-ink-mute,
+   * --brand-ink-subtle, --brand-primary-soft, --brand-accent-amber,
+   * --brand-success, --brand-warning) stay at :root values. */
+  --brand-body: oklch(0.8600 0.0050 95);          /* utility neutral lifted for dark AA */
+  --brand-body-strong: oklch(0.9500 0.0050 95);
+  --brand-ink-strong: oklch(0.9500 0.0050 95);    /* the "secondary body on dark card" role inverts */
+  --brand-muted-soft: oklch(0.6500 0.0100 90);    /* utility-neutral AA-override for dark */
+  --brand-hairline-soft: oklch(0.2700 0.0050 95); /* dim hairline on dark */
+  --brand-surface-cream-strong: oklch(0.3000 0.0150 70); /* polarity-flipping cream-strong surface */
+  --brand-surface-dark-elevated: oklch(0.3000 0.0080 80); /* one more step up on the elevated ladder in dark */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1908 0.0020 106.5860);
+    --foreground: oklch(0.9818 0.0054 95.0986);
+    --card: oklch(0.2572 0.0063 78.2148);
+    --card-foreground: oklch(0.9818 0.0054 95.0986);
+    --popover: oklch(0.2572 0.0063 78.2148);
+    --popover-foreground: oklch(0.9818 0.0054 95.0986);
+
+    --primary: oklch(0.6078 0.1379 39.0061);
+    --primary-foreground: oklch(0.1500 0.0042 84.5898);
+
+    --secondary: oklch(0.2572 0.0063 78.2148);
+    --secondary-foreground: oklch(0.9818 0.0054 95.0986);
+    --muted: oklch(0.2389 0.0019 106.5407);
+    --muted-foreground: oklch(0.8066 0.0140 97.4858);
+    --accent: oklch(0.2679 0.0036 106.6428);
+    --accent-foreground: oklch(0.9818 0.0054 95.0986);
+    --destructive: oklch(0.6500 0.1649 23.9581);
+    --destructive-foreground: oklch(1 0 0);
+
+    --border: oklch(0.2700 0.0050 95);
+    --input: oklch(0.2700 0.0050 95);
+    --ring: oklch(0.6078 0.1379 39.0061);
+
+    --sidebar: oklch(0.2389 0.0019 106.5407);
+    --sidebar-foreground: oklch(0.9818 0.0054 95.0986);
+    --sidebar-primary: oklch(0.6078 0.1379 39.0061);
+    --sidebar-primary-foreground: oklch(0.1500 0.0042 84.5898);
+    --sidebar-accent: oklch(0.2572 0.0063 78.2148);
+    --sidebar-accent-foreground: oklch(0.9818 0.0054 95.0986);
+    --sidebar-border: oklch(0.2700 0.0050 95);
+    --sidebar-ring: oklch(0.6078 0.1379 39.0061);
+
+    --chart-1: oklch(0.8100 0.1131 39.1453);
+    --chart-2: oklch(0.7100 0.1131 39.1453);
+    --chart-3: oklch(0.6100 0.1131 39.1453);
+    --chart-4: oklch(0.5100 0.1131 39.1453);
+    --chart-5: oklch(0.4200 0.1131 39.1453);
+
+    --brand-body: oklch(0.8600 0.0050 95);
+    --brand-body-strong: oklch(0.9500 0.0050 95);
+    --brand-ink-strong: oklch(0.9500 0.0050 95);
+    --brand-muted-soft: oklch(0.6500 0.0100 90);
+    --brand-hairline-soft: oklch(0.2700 0.0050 95);
+    --brand-surface-cream-strong: oklch(0.3000 0.0150 70);
+    --brand-surface-dark-elevated: oklch(0.3000 0.0080 80);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Claude-style preview shell — both-canonical editorial register.
+   Two surface families on one identity: Anthropic on warm cream
+   (#faf9f5) with serif editorial body, Claude on near-black (#141413)
+   with coral CTAs and a dark code-block / footer floor.
+   Brand-true coral identity is the saturated #c6613f (live: anthropic.com
+   "Log in to Claude" nav pill + platform.claude.com floating "Ask Docs"
+   pill). The lighter #d97757 lives at --brand-primary-soft for cookie-CTA
+   and dark-card primary variants. Primary CTAs route through
+   --primary at sub-AA body-floor (4.05:1 white-on-coral, 4.86:1
+   dark-ink-on-coral); button text in the preview is qualified at
+   large-text-bold floor (≥19px @ 700) to clear contrast.
+   Display fonts route through 'Anthropic Serif' → Source Serif 4 →
+   Georgia (Anthropic's proprietary serif isn't licensable). Body sans
+   routes through 'Anthropic Sans' → Inter. Code through 'Anthropic
+   Mono' → JetBrains Mono. Halcyon-themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--brand-body, var(--foreground));
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-soft, var(--border));
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  font-size: 14px;
+}
+.topnav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  color: var(--foreground);
+}
+.topnav-brand-mark {
+  width: 18px;
+  height: 18px;
+  position: relative;
+}
+.topnav-brand-mark::before, .topnav-brand-mark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--primary);
+  clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+}
+.topnav-brand-mark::after { transform: rotate(45deg); opacity: 0.7; }
+.topnav-links {
+  display: flex;
+  gap: 1.75rem;
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+.topnav-links a { color: var(--brand-body, var(--foreground)); text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Buttons -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.125rem;
+  border-radius: var(--radius-md, 8px);
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease;
+}
+.btn[data-variant="primary"] { background: var(--primary); color: var(--primary-foreground); }
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-active, var(--primary)); }
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.btn[data-variant="secondary"]:hover { background: var(--card); }
+.btn[data-variant="ghost"] { background: transparent; color: var(--foreground); }
+.btn[data-variant="ghost"]:hover { background: var(--card); }
+.btn[data-size="lg"] { padding: 0.75rem 1.375rem; font-size: 15px; }
+
+/* -- Hero -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft, var(--muted-foreground));
+  margin: 0;
+}
+.eyebrow-mark {
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+}
+.hero-display {
+  font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 22ch;
+}
+.hero-lede {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-body, var(--foreground));
+  max-width: 52ch;
+  margin: 0;
+}
+.hero-ctas { display: flex; gap: 0.625rem; flex-wrap: wrap; margin-top: 0.75rem; }
+
+/* -- Page container -- */
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* -- Section -- */
+.section { padding: 5rem 0; }
+.section-header { margin-bottom: 2.5rem; max-width: 60ch; }
+.section-title {
+  font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0.75rem 0;
+  max-width: 22ch;
+}
+.section-lede {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--brand-body, var(--foreground));
+  max-width: 56ch;
+  margin: 0;
+}
+
+/* -- Dark product card (code mockup) — Claude's signature dark surface -- */
+.product-card {
+  background: var(--brand-canvas-dark-deep, var(--foreground));
+  color: var(--brand-on-dark, var(--background));
+  border-radius: var(--radius-lg, 12px);
+  overflow: hidden;
+  box-shadow: 0 1px 3px hsl(28 8% 22% / 0.08), 0 8px 24px hsl(28 8% 22% / 0.04);
+}
+.product-card-header {
+  background: var(--brand-surface-dark-elevated, var(--card));
+  padding: 0.875rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  border-bottom: 1px solid color-mix(in srgb, var(--brand-on-dark, white) 8%, transparent);
+}
+.product-card-tabs { display: flex; gap: 1rem; color: var(--brand-on-dark-soft, var(--muted-foreground)); font-family: 'Anthropic Sans', 'StyreneB', 'Inter'; }
+.product-card-tabs span[aria-current="page"] { color: var(--brand-on-dark, white); }
+.product-card-meta {
+  font-family: 'Anthropic Mono', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-on-dark-soft, var(--muted-foreground));
+}
+.product-card-body { padding: 1.25rem 1.5rem; font-family: 'Anthropic Mono', 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.7; }
+.code-line { display: block; }
+.code-comment { color: color-mix(in srgb, var(--brand-on-dark, white) 50%, transparent); }
+.code-key { color: var(--brand-accent-amber, var(--accent)); }
+.code-string { color: var(--brand-success, var(--accent)); }
+.code-fn { color: var(--primary); }
+.code-num { color: var(--brand-accent-amber, var(--accent)); }
+.code-out { color: color-mix(in srgb, var(--brand-on-dark, white) 65%, transparent); }
+.code-out-ok::before { content: "✓ "; color: var(--brand-success, var(--accent)); }
+
+/* -- Surface section: token ladder -- */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 880px) { .surface-ladder { grid-template-columns: repeat(2, 1fr); } }
+.surface-step {
+  padding: 1.5rem;
+  border-radius: var(--radius-lg, 12px);
+  min-height: 8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.surface-step[data-step="0"] { background: var(--background); color: var(--foreground); border: 1px solid var(--border); }
+.surface-step[data-step="1"] { background: var(--card); color: var(--foreground); }
+.surface-step[data-step="2"] { background: var(--brand-surface-cream-strong, var(--card)); color: var(--foreground); }
+.surface-step[data-step="3"] { background: var(--brand-canvas-dark-deep, var(--foreground)); color: var(--brand-on-dark, var(--background)); }
+.surface-step-num {
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.surface-step-name { font-family: 'Anthropic Mono', 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; }
+.surface-step-role { font-size: 14px; opacity: 0.78; line-height: 1.4; }
+
+/* Coral callout card (the brand's full-bleed accent surface) */
+.coral-callout {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-radius: var(--radius-xl, 16px);
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+@media (max-width: 880px) { .coral-callout { grid-template-columns: 1fr; } }
+.coral-callout-title {
+  font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: -0.6px;
+  line-height: 1.15;
+  margin: 0 0 0.75rem;
+}
+.coral-callout-body { font-size: 15px; line-height: 1.55; margin: 0; max-width: 32ch; }
+.coral-callout-actions { display: flex; flex-direction: column; gap: 0.5rem; }
+.coral-callout .btn[data-variant="primary"] { background: var(--background); color: var(--foreground); }
+.coral-callout .btn[data-variant="primary"]:hover { background: var(--card); }
+.coral-callout .btn[data-variant="ghost"] { color: var(--primary-foreground); border: 1px solid color-mix(in srgb, var(--primary-foreground) 35%, transparent); }
+.coral-callout .btn[data-variant="ghost"]:hover { background: color-mix(in srgb, var(--primary-foreground) 8%, transparent); }
+
+/* -- Typography roles -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--brand-hairline-soft, var(--border));
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft, var(--muted-foreground));
+}
+.type-display-xl { font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif; font-size: 64px; font-weight: 400; line-height: 1.05; letter-spacing: -1.5px; color: var(--foreground); }
+.type-display-lg { font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif; font-size: 48px; font-weight: 400; line-height: 1.1; letter-spacing: -1px; color: var(--foreground); }
+.type-display-md { font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif; font-size: 36px; font-weight: 400; line-height: 1.15; letter-spacing: -0.5px; color: var(--foreground); }
+.type-title { font-family: 'Anthropic Sans', 'StyreneB', 'Inter', sans-serif; font-size: 22px; font-weight: 500; line-height: 1.3; color: var(--foreground); }
+.type-body { font-size: 16px; font-weight: 400; line-height: 1.55; color: var(--brand-body, var(--foreground)); }
+.type-mono { font-family: 'Anthropic Mono', 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: var(--foreground); }
+
+/* -- Components -- */
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: var(--brand-radius-pill, 9999px);
+  background: var(--card);
+  color: var(--foreground);
+  border: 1px solid var(--brand-hairline-soft, var(--border));
+}
+.badge[data-tone="coral"] { background: color-mix(in srgb, var(--primary) 14%, var(--background)); color: var(--foreground); border-color: color-mix(in srgb, var(--primary) 25%, transparent); }
+.badge[data-tone="amber"] { background: color-mix(in srgb, var(--brand-accent-amber, var(--primary)) 18%, var(--background)); color: var(--foreground); }
+.badge[data-tone="success"] { background: color-mix(in srgb, var(--brand-success, var(--primary)) 14%, var(--background)); color: var(--foreground); }
+
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+@media (max-width: 880px) { .model-grid { grid-template-columns: 1fr; } }
+.model-card {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-soft, var(--border));
+  border-radius: var(--radius-lg, 12px);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.model-card-name {
+  font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+.model-card-desc { font-size: 14px; line-height: 1.55; color: var(--brand-body, var(--foreground)); margin: 0; }
+.model-card-meta {
+  font-family: 'Anthropic Mono', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-muted-soft, var(--muted-foreground));
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--brand-hairline-soft, var(--border));
+  margin-top: 0.25rem;
+}
+
+/* -- Footer (dark) -- */
+.footer {
+  background: var(--brand-canvas-dark-deep, var(--foreground));
+  color: var(--brand-on-dark, var(--background));
+  padding: 4rem 1.5rem 2rem;
+  margin-top: 5rem;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.footer-brand {
+  font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+}
+.footer-brand-tag {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--brand-on-dark-soft, var(--muted-foreground));
+  max-width: 32ch;
+}
+.footer-col-title {
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--brand-on-dark-soft, var(--muted-foreground));
+  margin: 0 0 0.75rem;
+}
+.footer-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 14px; }
+.footer-col-list a { color: var(--brand-on-dark, var(--background)); text-decoration: none; }
+.footer-col-list a:hover { text-decoration: underline; }
+.footer-legal {
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid color-mix(in srgb, var(--brand-on-dark, white) 12%, transparent);
+  font-size: 12px;
+  color: var(--brand-on-dark-soft, var(--muted-foreground));
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <span class="topnav-brand"><span class="topnav-brand-mark" aria-hidden="true"></span>claude-style</span>
+    <div class="topnav-links">
+      <a href="#">Tokens</a>
+      <a href="#">Typography</a>
+      <a href="#">Models</a>
+      <a href="#">Code</a>
+      <a href="#">Research</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="btn" data-variant="ghost">Try the agent</button>
+      <button class="btn" data-variant="primary">Get started</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>claude-style · Token surface</p>
+    <h1 class="hero-display">An editorial canvas for agent-assisted work.</h1>
+    <p class="hero-lede">A token-surface preview rendered against the design system. Warm cream canvas, slab-serif display, coral accent, dark-navy code surface — the signature moves shown on neutral content.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg">Get started</button>
+      <button class="btn" data-variant="secondary" data-size="lg">Read the docs →</button>
+    </div>
+  </div>
+</section>
+
+<main class="page">
+
+  <section class="section" aria-label="Code mockup">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>Product · Code surface</p>
+      <h2 class="section-title">Cream canvas, dark-navy code chrome.</h2>
+      <p class="section-lede">The brand's signature pacing: warm cream above, dark navy product surface below. Code blocks, terminal output, and model showcase live on the dark canvas.</p>
+    </div>
+    <div class="product-card" aria-label="Code mockup">
+      <div class="product-card-header">
+        <div class="product-card-tabs">
+          <span aria-current="page">agent.py</span>
+          <span>messages.json</span>
+          <span>README.md</span>
+        </div>
+        <span class="product-card-meta">halcyon-api / src · main</span>
+      </div>
+      <div class="product-card-body">
+        <span class="code-line"><span class="code-comment"># Halcyon — ask the agent about the codebase.</span></span>
+        <span class="code-line"><span class="code-key">from</span> halcyon.agent <span class="code-key">import</span> ask</span>
+        <span class="code-line">&nbsp;</span>
+        <span class="code-line">answer = <span class="code-fn">ask</span>(</span>
+        <span class="code-line">&nbsp;&nbsp;<span class="code-string">"Where does role escalation happen?"</span>,</span>
+        <span class="code-line">&nbsp;&nbsp;scope=<span class="code-string">"halcyon-api/src"</span>,</span>
+        <span class="code-line">)</span>
+        <span class="code-line">&nbsp;</span>
+        <span class="code-line"><span class="code-out code-out-ok">read 18 files, traced 4 call paths in <span class="code-num">2.1</span>s</span></span>
+        <span class="code-line"><span class="code-out">→ halcyon-api/src/auth.ts:42 escalateRole()</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Surface ladder">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>Tokens · Surface</p>
+      <h2 class="section-title">Cream canvas, warm cards, dark inverse.</h2>
+      <p class="section-lede">Four surfaces alternate page-by-page: cream canvas, light cream cards, warm cream-strong for content density, dark navy for product chrome. Coral CTA bridges them.</p>
+    </div>
+    <div class="surface-ladder">
+      <div class="surface-step" data-step="0"><span class="surface-step-num">Floor</span><span class="surface-step-name">--background</span><span class="surface-step-role">cream canvas · #faf9f5</span></div>
+      <div class="surface-step" data-step="1"><span class="surface-step-num">Card</span><span class="surface-step-name">--card</span><span class="surface-step-role">light cream</span></div>
+      <div class="surface-step" data-step="2"><span class="surface-step-num">Strong</span><span class="surface-step-name">--brand-surface-cream-strong</span><span class="surface-step-role">warm cream</span></div>
+      <div class="surface-step" data-step="3"><span class="surface-step-num">Dark</span><span class="surface-step-name">--brand-canvas-dark-deep</span><span class="surface-step-role">Claude marketing canvas (#141413)</span></div>
+    </div>
+
+    <div class="coral-callout" aria-label="Coral callout">
+      <div>
+        <h3 class="coral-callout-title">Coral pairs with cream. The bridge between the two surfaces.</h3>
+        <p class="coral-callout-body">Coral is the single chromatic accent in the system. It carries the CTA fill, the callout fill, the brand mark, and the link emphasis — used scarcely so it stays signal, not decoration.</p>
+      </div>
+      <div class="coral-callout-actions">
+        <button class="btn" data-variant="primary" data-size="lg">Get started</button>
+        <button class="btn" data-variant="ghost" data-size="lg">Read research</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>Tokens · Typography</p>
+      <h2 class="section-title">Slab-serif display, humanist body.</h2>
+      <p class="section-lede">Copernicus (Tiempos Headline / Source Serif 4) carries display at weight 400 with negative tracking. StyreneB (Inter) carries body sans. JetBrains Mono for code. Literary editorial voice over technical SaaS.</p>
+    </div>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Display-xl</span><span class="type-display-xl">Halcyon.</span></div>
+      <div class="type-row"><span class="type-label">Display-lg</span><span class="type-display-lg">An editorial canvas for agent work.</span></div>
+      <div class="type-row"><span class="type-label">Display-md</span><span class="type-display-md">Slab-serif display, humanist sans body, mono on code.</span></div>
+      <div class="type-row"><span class="type-label">Title</span><span class="type-title">StyreneB / Inter at 22px, weight 500.</span></div>
+      <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in StyreneB (Inter substitute) at 16 pixels, line-height 1.55. Humanist sans body pairs with the slab-serif display to create the brand's distinct literary register.</span></div>
+      <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">await agent.ask({ scope: 'halcyon-api/src' })</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Components">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>Vocabulary · Components</p>
+      <h2 class="section-title">Coral CTA, cream cards, soft badges.</h2>
+      <p class="section-lede">8px radius on buttons. 12px radius on cards. Pill on badges. Color tokens stay within the cream-coral-dark trinity, with amber and success used only as semantic accents on labels.</p>
+    </div>
+    <div class="cmp-stack">
+      <div class="cmp-row" aria-label="Buttons">
+        <button class="btn" data-variant="primary" data-size="lg">Get started</button>
+        <button class="btn" data-variant="secondary" data-size="lg">Read more</button>
+        <button class="btn" data-variant="ghost">Cancel</button>
+      </div>
+      <div class="cmp-row" aria-label="Badges">
+        <span class="badge" data-tone="coral">Anthropic</span>
+        <span class="badge" data-tone="amber">Beta</span>
+        <span class="badge" data-tone="success">Live</span>
+        <span class="badge">200k context</span>
+      </div>
+      <div class="model-grid">
+        <div class="model-card">
+          <span class="badge" data-tone="coral" style="align-self: flex-start;">Latest</span>
+          <h3 class="model-card-name">Halcyon Pro</h3>
+          <p class="model-card-desc">The default tier. Balanced for everyday work across most of Halcyon's surfaces.</p>
+          <div class="model-card-meta"><span>1M context</span><span>halcyon-pro-4</span></div>
+        </div>
+        <div class="model-card">
+          <span class="badge" data-tone="amber" style="align-self: flex-start;">Frontier</span>
+          <h3 class="model-card-name">Halcyon Max</h3>
+          <p class="model-card-desc">The heaviest variant. Reserved for long-running research and multi-step workflows.</p>
+          <div class="model-card-meta"><span>1M context</span><span>halcyon-max-4</span></div>
+        </div>
+        <div class="model-card">
+          <span class="badge" style="align-self: flex-start;">Fast</span>
+          <h3 class="model-card-name">Halcyon Lite</h3>
+          <p class="model-card-desc">Lightweight and inexpensive. Built for high-volume routing and classification jobs.</p>
+          <div class="model-card-meta"><span>200k context</span><span>halcyon-lite-4</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <span class="footer-brand">claude-style</span>
+      <p class="footer-brand-tag">A token-surface preview rendered against the warm-canvas editorial design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-col-list"><li><a href="#">Models</a></li><li><a href="#">API</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Research</p>
+      <ul class="footer-col-list"><li><a href="#">Constitution</a></li><li><a href="#">Papers</a></li><li><a href="#">Index</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-col-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">News</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-col-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">app.halcyon.dev</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>claude-style · token surface preview · 2026.05.22</span>
+    <span>cream + coral · slab serif · spike mark</span>
+  </div>
+</footer>
+
+</body>
+</html>

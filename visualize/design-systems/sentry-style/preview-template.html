@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231f1633'/%3E%3Cpath d='M16 7 L26 24 L20 24 L16 17 L12 24 L6 24 Z' fill='%23c2ef4e'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Two-polarity canvas — deep violet midnight marketing + white pricing — with electric-lime keyword chips wrapped around individual headline words.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Sentry-style preview shell — two-polarity canvas system: deep
+   violet midnight for marketing hero + product surfaces, white for
+   pricing and dense reference content. The single most recognizable
+   tic is the electric-lime keyword chip wrapped around individual
+   words inside the display headline — a syntax-highlight on the
+   reading flow. Rubik weight 700 stands in for the proprietary Sentri
+   Display; Rubik weight 400/500 for body and UI; Roboto Mono for code.
+   Uppercase eyebrow + button caps with 0.2px tracking. Halcyon-themed
+   neutral content. No mascot illustrations (proprietary IP). */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Rubik', -apple-system, system-ui, sans-serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Dark canvas band (marketing surfaces — hero, mockup, type+components, footer) -- */
+.canvas-dark {
+  background: var(--brand-surface-canvas-dark);
+  color: var(--brand-surface-canvas-light);
+}
+/* -- Light canvas band (pricing surface) -- */
+.canvas-light {
+  background: var(--brand-surface-canvas-light);
+  color: var(--brand-ink-deep);
+}
+
+/* -- Top nav (on dark canvas) -- */
+.topnav {
+  background: var(--brand-surface-canvas-dark);
+  border-bottom: 1px solid var(--brand-hairline-violet);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Rubik', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: var(--brand-surface-canvas-light);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 24px; height: 24px;
+  border-radius: var(--radius-sm);
+  background: var(--brand-surface-night);
+  display: inline-grid;
+  place-items: center;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 1.5rem;
+  color: var(--brand-on-dark-muted);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--brand-surface-canvas-light); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; font-size: 14px; }
+.topnav-actions a { color: var(--brand-on-dark-muted); text-decoration: none; font-weight: 500; }
+.topnav-actions a:hover { color: var(--brand-surface-canvas-light); }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (uppercase caps, 44 px touch target, focus-visible ring) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--radius-md);
+  font-family: 'Rubik', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--brand-ring-focus);
+  outline-offset: 3px;
+}
+/* primary CTA on light canvas — filled midnight violet, white type */
+.btn[data-variant="primary"] {
+  background: var(--brand-surface-night);
+  color: var(--brand-surface-canvas-light);
+  border-color: var(--brand-surface-night);
+}
+.btn[data-variant="primary"]:hover {
+  background: var(--brand-accent-violet-deep);
+  border-color: var(--brand-accent-violet-deep);
+}
+/* primary-inverse CTA on dark canvas — filled white, midnight type */
+.btn[data-variant="primary-inverse"] {
+  background: var(--brand-surface-canvas-light);
+  color: var(--brand-ink-deep);
+  border-color: var(--brand-surface-canvas-light);
+}
+.btn[data-variant="primary-inverse"]:hover {
+  background: var(--brand-surface-press-light);
+}
+.btn[data-variant="secondary"] {
+  background: transparent;
+  color: var(--brand-surface-canvas-light);
+  border: 1px solid var(--brand-on-dark-faint);
+}
+.btn[data-variant="secondary"]:hover {
+  background: var(--brand-on-dark-faint);
+}
+.btn[data-variant="secondary-light"] {
+  background: transparent;
+  color: var(--brand-ink-deep);
+  border: 1px solid var(--brand-hairline-cool);
+}
+.btn[data-variant="secondary-light"]:hover {
+  background: var(--brand-surface-press-light);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (dark canvas, chunky display, lime keyword chip) -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+}
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Rubik', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1.5rem;
+}
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.hero-display {
+  font-family: 'Rubik', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--brand-surface-canvas-light);
+  margin: 0 auto 1.5rem;
+  max-width: 18ch;
+}
+.lime-chip {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--brand-ink-deep);
+  padding: 0 0.5rem;
+  border-radius: var(--brand-radius-xs);
+  margin: 0 0.25rem;
+  line-height: 1.05;
+}
+.hero-lede {
+  font-family: 'Rubik', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-on-dark-muted);
+  max-width: 38rem;
+  margin: 0 auto 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* -- Signature: floating issue/event card (Sentry's product surface) -- */
+.product-wrap {
+  padding: 0 1.5rem 5rem;
+}
+.product-inner {
+  max-width: 64rem;
+  margin: 0 auto;
+}
+.issue-card {
+  background: var(--brand-surface-night);
+  border: 1px solid var(--brand-hairline-violet);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+.issue-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-violet);
+  gap: 1rem;
+}
+.issue-head-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.issue-head-eyebrow {
+  font-family: 'Roboto Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--brand-on-dark-muted);
+  letter-spacing: 0.04em;
+}
+.issue-head-title {
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--brand-surface-canvas-light);
+}
+.issue-head-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Rubik', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--brand-accent-violet-mid);
+  color: var(--brand-surface-canvas-light);
+}
+.tag-chip[data-tone="lime"] {
+  background: var(--accent);
+  color: var(--brand-ink-deep);
+}
+.tag-chip[data-tone="pink"] {
+  background: var(--brand-accent-pink);
+  color: var(--brand-ink-deep);
+}
+.issue-body {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  min-height: 20rem;
+}
+@media (max-width: 880px) { .issue-body { grid-template-columns: 1fr; } }
+.issue-trace {
+  padding: 1.25rem 1.5rem;
+  font-family: 'Roboto Mono', ui-monospace, monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--brand-on-dark-muted);
+  overflow-x: auto;
+}
+.issue-trace .line { display: block; white-space: nowrap; }
+.issue-trace .ln { display: inline-block; width: 1.5rem; color: var(--brand-on-dark-faint); text-align: right; margin-right: 1rem; user-select: none; }
+.issue-trace .file { color: var(--brand-surface-canvas-light); }
+.issue-trace .fn { color: var(--accent); }
+.issue-trace .err {
+  background: var(--brand-accent-pink);
+  color: var(--brand-ink-deep);
+  padding: 0 0.25rem;
+  border-radius: var(--brand-radius-xs);
+}
+.issue-meta {
+  background: rgba(0, 0, 0, 0.18);
+  border-left: 1px solid var(--brand-hairline-violet);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.issue-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.issue-meta-label {
+  font-family: 'Rubik', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark-faint);
+}
+.issue-meta-value {
+  font-family: 'Roboto Mono', ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--brand-surface-canvas-light);
+}
+.issue-sparkline {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 2.5rem;
+}
+.issue-sparkline > span {
+  flex: 1;
+  background: var(--accent);
+  border-radius: var(--brand-radius-xs);
+  min-height: 4px;
+}
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; }
+.section[data-tight] { padding: 3rem 1.5rem; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: 'Rubik', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1rem;
+}
+.canvas-light .section-eyebrow { color: var(--brand-accent-violet); }
+.section-title {
+  font-family: 'Rubik', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--brand-surface-canvas-light);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.canvas-light .section-title { color: var(--brand-ink-deep); }
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-on-dark-muted);
+  margin: 0;
+  max-width: 36rem;
+}
+.canvas-light .section-lede { color: var(--brand-ink-deep); }
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-violet);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--brand-surface-night);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--brand-hairline-violet);
+}
+.swatch-name {
+  font-family: 'Roboto Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--brand-surface-canvas-light);
+}
+.swatch-role {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--brand-on-dark-muted);
+}
+
+/* -- Token-demo: surface ladder (4 steps to show two-polarity) -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--brand-hairline-violet);
+}
+.ladder-step[data-step="canvas-dark"] { background: var(--brand-surface-canvas-dark); color: var(--brand-surface-canvas-light); }
+.ladder-step[data-step="night"] { background: var(--brand-surface-night); color: var(--brand-surface-canvas-light); }
+.ladder-step[data-step="canvas-light"] { background: var(--brand-surface-canvas-light); color: var(--brand-ink-deep); border-color: var(--brand-hairline-cloud); }
+.ladder-step[data-step="press-light"] { background: var(--brand-surface-press-light); color: var(--brand-ink-deep); border-color: var(--brand-hairline-cloud); }
+.ladder-num {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.ladder-name {
+  font-family: 'Roboto Mono', ui-monospace, monospace;
+  font-size: 12px;
+}
+.ladder-role { font-size: 13px; opacity: 0.86; margin-top: auto; line-height: 1.45; }
+
+/* -- Pricing (on light canvas — the polarity flip; featured tier inverted to night) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--brand-surface-canvas-light);
+  border: 1px solid var(--brand-hairline-cloud);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pricing-card[data-featured] {
+  background: var(--brand-surface-night);
+  border-color: var(--brand-surface-night);
+  color: var(--brand-surface-canvas-light);
+}
+.pricing-name {
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-deep);
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-name { color: var(--accent); }
+.pricing-price {
+  font-family: 'Rubik', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--brand-ink-deep);
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-price { color: var(--brand-surface-canvas-light); }
+.pricing-tagline {
+  font-size: 13px;
+  color: var(--brand-ink-deep);
+  opacity: 0.7;
+  margin: 0;
+  line-height: 1.5;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--brand-on-dark-muted); opacity: 1; }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--brand-hairline-cloud);
+  padding-top: 1rem;
+  font-size: 13px;
+  color: var(--brand-ink-deep);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: var(--brand-hairline-violet);
+  color: var(--brand-on-dark-muted);
+}
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.pricing-features li::before {
+  content: "✓";
+  color: var(--brand-accent-violet);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 14px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--accent); }
+
+/* -- Type + components row (on dark) -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--brand-hairline-violet);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Rubik', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark-muted);
+}
+.type-display {
+  font-family: 'Rubik', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--brand-surface-canvas-light);
+}
+.type-heading {
+  font-family: 'Rubik', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--brand-surface-canvas-light);
+}
+.type-title {
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--brand-surface-canvas-light);
+}
+.type-body { font-size: 14px; line-height: 1.55; color: var(--brand-on-dark-muted); }
+.type-mono { font-family: 'Roboto Mono', ui-monospace, monospace; font-size: 13px; color: var(--brand-on-dark-muted); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'Rubik', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark-muted);
+  width: 100%;
+}
+
+.code-block {
+  font-family: 'Roboto Mono', ui-monospace, monospace;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--brand-hairline-violet);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  color: var(--brand-on-dark-muted);
+  overflow-x: auto;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+.code-block .fn { color: var(--accent); }
+.code-block .str { color: var(--brand-accent-pink); }
+.code-block .com { color: var(--brand-on-dark-faint); }
+
+/* -- Footer (on dark with lime squiggly accent) -- */
+.footer {
+  border-top: 1px solid var(--brand-hairline-violet);
+  padding: 3rem 1.5rem 2rem;
+  background: var(--brand-surface-canvas-dark);
+  position: relative;
+}
+.footer-stripe {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background:
+    linear-gradient(90deg,
+      transparent 0%, transparent 8%,
+      var(--accent) 8%, var(--accent) 14%,
+      transparent 14%, transparent 22%,
+      var(--accent) 22%, var(--accent) 28%,
+      transparent 28%, transparent 100%);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 13px; color: var(--brand-on-dark-muted); line-height: 1.55; margin: 0; }
+.footer-col-title {
+  font-family: 'Rubik', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 13px; color: var(--brand-on-dark-muted); text-decoration: none; }
+.footer-list a:hover { color: var(--brand-surface-canvas-light); }
+.footer-legal {
+  max-width: 1200px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-violet);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-on-dark-faint);
+}
+.footer-legal-meta { font-family: 'Roboto Mono', ui-monospace, monospace; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Product</a>
+      <a href="#">Solutions</a>
+      <a href="#">Pricing</a>
+      <a href="#">Docs</a>
+      <a href="#">Customers</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary-inverse" type="button">Start Free</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero canvas-dark" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Halcyon · workspace</p>
+    <h1 class="hero-display">Where the <span class="lime-chip">whole team</span> writes against one&nbsp;canvas.</h1>
+    <p class="hero-lede">Halcyon's product engineers, analysts, and writers work on a violet midnight surface — code, prose, and review on the same canvas with a single lime-chip syntax highlight calling out the part that matters.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary-inverse" type="button">Get Started</button>
+      <button class="btn" data-variant="secondary" type="button">View Demo</button>
+    </div>
+  </div>
+</header>
+
+<section class="product-wrap canvas-dark" aria-label="Issue card signature mockup">
+  <div class="product-inner">
+    <article class="issue-card">
+      <header class="issue-head">
+        <div class="issue-head-meta">
+          <span class="issue-head-eyebrow">workspace.halcyon.dev / threads / open</span>
+          <span class="issue-head-title">Thread 4f2a: review checklist needs a second pass</span>
+        </div>
+        <div class="issue-head-actions">
+          <span class="tag-chip" data-tone="lime">Open</span>
+          <span class="tag-chip">workspace</span>
+          <span class="tag-chip" data-tone="pink">High</span>
+        </div>
+      </header>
+      <div class="issue-body">
+        <div class="issue-trace" aria-label="Thread trace">
+          <span class="line"><span class="ln">1</span><span class="file">notes/review-checklist.md</span> · opened by <span class="fn">maya@halcyon.dev</span></span>
+          <span class="line"><span class="ln">2</span></span>
+          <span class="line"><span class="ln">3</span>  &gt; <span class="err">Cross-team owners</span> on the checklist haven&apos;t been confirmed.</span>
+          <span class="line"><span class="ln">4</span>  &gt; Bob and Carl still pending sign-off; will close at noon Friday.</span>
+          <span class="line"><span class="ln">5</span></span>
+          <span class="line"><span class="ln">6</span><span class="fn">3 replies</span> · last 12 min ago</span>
+          <span class="line"><span class="ln">7</span></span>
+          <span class="line"><span class="ln">8</span>activity:</span>
+          <span class="line"><span class="ln">9</span>  <span class="fn">bob@halcyon.dev</span> added <span class="err">deadline</span> · 1 h ago</span>
+          <span class="line"><span class="ln">10</span>  <span class="fn">team@halcyon.dev</span> requested review · 2 h ago</span>
+          <span class="line"><span class="ln">11</span>  <span class="fn">maya@halcyon.dev</span> opened thread · 3 h ago</span>
+        </div>
+        <aside class="issue-meta" aria-label="Thread meta">
+          <div class="issue-meta-row">
+            <span class="issue-meta-label">Activity · 12 h</span>
+            <div class="issue-sparkline" aria-hidden="true">
+              <span style="height: 18%;"></span>
+              <span style="height: 28%;"></span>
+              <span style="height: 22%;"></span>
+              <span style="height: 45%;"></span>
+              <span style="height: 38%;"></span>
+              <span style="height: 62%;"></span>
+              <span style="height: 55%;"></span>
+              <span style="height: 80%;"></span>
+              <span style="height: 70%;"></span>
+              <span style="height: 92%;"></span>
+              <span style="height: 75%;"></span>
+              <span style="height: 100%;"></span>
+            </div>
+          </div>
+          <div class="issue-meta-row">
+            <span class="issue-meta-label">Owner</span>
+            <span class="issue-meta-value">maya@halcyon.dev</span>
+          </div>
+          <div class="issue-meta-row">
+            <span class="issue-meta-label">Watchers</span>
+            <span class="issue-meta-value">8 · across 3 teams</span>
+          </div>
+          <div class="issue-meta-row">
+            <span class="issue-meta-label">First seen</span>
+            <span class="issue-meta-value">3 h ago</span>
+          </div>
+        </aside>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section canvas-dark" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Violet midnight, one lime accent.</h2>
+      <p class="section-lede">Deep violet midnight as the marketing canvas, lifted night for cards. Electric lime treated as a typographic device — wrapped around individual words inside headlines, never a button fill. Hot pink as secondary punctuation. White surfaces reserved for pricing and dense reference.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-canvas-dark);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-canvas-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-night);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-night</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-canvas-light);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-canvas-light</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Primary</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--accent);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--accent · lime</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-pink);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-accent-pink</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-violet);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-accent-violet</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-violet-deep);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-accent-violet-deep</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-violet-mid);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-accent-violet-mid</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-hairline-violet);"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--brand-hairline-violet</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-hairline-cloud);"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--brand-hairline-cloud</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-press-light);"></div><div class="swatch-role">Press</div><div class="swatch-name">--brand-surface-press-light</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section canvas-dark" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces · Two polarities</p>
+      <h2 class="section-title">Four surfaces, two polarities.</h2>
+      <p class="section-lede">Marketing surfaces sit on the violet midnight canvas with night cards. Pricing and dense reference flip to white canvas with cloud-hairline cards. The system never blurs the two — only the polarity rotates.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas-dark">
+        <span class="ladder-num">Dark · Canvas</span>
+        <span class="ladder-name">--brand-surface-canvas-dark</span>
+        <span class="ladder-role">marketing hero · product surfaces</span>
+      </div>
+      <div class="ladder-step" data-step="night">
+        <span class="ladder-num">Dark · Night</span>
+        <span class="ladder-name">--brand-surface-night</span>
+        <span class="ladder-role">cards on dark · code blocks</span>
+      </div>
+      <div class="ladder-step" data-step="canvas-light">
+        <span class="ladder-num">Light · Canvas</span>
+        <span class="ladder-name">--brand-surface-canvas-light</span>
+        <span class="ladder-role">pricing · contact · dense reference</span>
+      </div>
+      <div class="ladder-step" data-step="press-light">
+        <span class="ladder-num">Light · Press</span>
+        <span class="ladder-name">--brand-surface-press-light</span>
+        <span class="ladder-role">pressed buttons · alt section bands</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section canvas-light" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing · Polarity Flip</p>
+      <h2 class="section-title">Three tiers on white canvas.</h2>
+      <p class="section-lede">Pricing pages live on the brand's other polarity — white canvas with cloud-hairline cards. Featured tier inverted to night, not lime; the accent stays a typographic device.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary-light" type="button">Get Started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="primary-inverse" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary-light" type="button">Talk to Sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section canvas-dark" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · type + components</p>
+      <h2 class="section-title">Rubik 700 for display, caps for buttons.</h2>
+      <p class="section-lede">Display tier at Rubik weight 700 with tight negative tracking. Body and UI at weight 400/500. Buttons and eyebrows uppercase with a 0.12-em tracking lift — console-output cadence. Code in Roboto Mono.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">A <span class="lime-chip">debugging</span> console.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Rubik · weight 700</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Rubik · weight 600 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Rubik at 14–16 pixels, line-height 1.55. Body text on dark uses the muted-on-dark token for readability without overpowering the canvas.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">workspace.threads.open()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · uppercase caps, 0.04 em tracking</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary-inverse" type="button">Get Started</button>
+            <button class="btn" data-variant="secondary" type="button">View Demo</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Tag chips · pill, uppercase caps</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <span class="tag-chip">workspace</span>
+            <span class="tag-chip" data-tone="lime">Open</span>
+            <span class="tag-chip" data-tone="pink">High</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Mono · code on translucent night</span>
+          <div class="code-block" style="margin-top:0.5rem;"><span class="com">// open threads watched by the team</span><br><span class="fn">await</span> halcyon.threads.<span class="fn">list</span>({ status: <span class="str">&apos;open&apos;</span> })</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-stripe" aria-hidden="true"></div>
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the two-polarity midnight-violet + electric-lime design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-list"><li><a href="#">Overview</a></li><li><a href="#">Workspace</a></li><li><a href="#">Threads</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list"><li><a href="#">Docs</a></li><li><a href="#">Changelog</a></li><li><a href="#">Status</a></li><li><a href="#">Blog</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">workspace.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">two-polarity canvas · lime keyword chip · uppercase caps</span>
+  </div>
+</footer>
+
+</body>
+</html>

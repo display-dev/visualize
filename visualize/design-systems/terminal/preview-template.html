@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Terminal preview shell — single-pane CRT session === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.term { max-width: 920px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+
+/* Window chrome */
+.win {
+  background-color: var(--card, var(--background));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 0.375rem);
+  overflow: hidden;
+  box-shadow: 0 4px 20px -4px rgb(0 0 0 / 0.30);
+}
+.win-bar {
+  background-color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 11px;
+  color: var(--muted-foreground);
+}
+.win-bar .dots { display: flex; gap: 0.375rem; }
+.win-bar .dot { width: 12px; height: 12px; border-radius: 50%; background-color: var(--border); }
+.win-bar .title { margin-left: auto; margin-right: 4ch; font-family: var(--font-mono); letter-spacing: 0.04em; }
+
+.session { padding: 1.5rem 1.5rem 2rem; }
+
+/* Mono headers — terminal's identity */
+h1, h2 {
+  font-family: var(--font-mono);
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+h1::before { content: "── "; color: var(--primary); }
+h1::after { content: " ──"; color: var(--primary); }
+h2 {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 2rem 0 0.5rem;
+}
+h2::before { content: ">> "; color: var(--primary); }
+
+.kicker {
+  color: var(--muted-foreground);
+  margin: 0 0 1.5rem 0;
+}
+
+/* Prompt lines */
+.line { margin: 0.25rem 0; white-space: pre-wrap; }
+/* Prompt: punctuation calm (muted), user vivid (green primary),
+ * host calm (muted), path distinct from primary (chart-4 blue). */
+.line .ps1 { color: var(--muted-foreground); }
+.line .ps1 .user { color: var(--primary); }
+.line .ps1 .host { color: var(--muted-foreground); }
+.line .ps1 .path { color: var(--chart-4); }
+.line .cmd { color: var(--foreground); }
+.line .out { color: var(--muted-foreground); }
+.line .ok { color: var(--chart-1, var(--primary)); }
+.line .warn { color: var(--chart-2, #92400e); }
+.line .err { color: var(--chart-3, #dc2626); }
+.line .num { color: var(--primary); }
+.line .str { color: var(--primary); }
+
+/* ASCII table */
+.box {
+  font-family: var(--font-mono);
+  color: var(--muted-foreground);
+  margin: 0.75rem 0 1.25rem 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.box .col-name { color: var(--foreground); }
+.box .col-val { color: var(--primary); }
+.box .col-state-ok { color: var(--chart-1, var(--primary)); }
+.box .col-state-warn { color: var(--chart-2, #92400e); }
+
+/* Status footer */
+.bottom {
+  margin-top: 2rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted-foreground);
+  letter-spacing: 0.04em;
+}
+
+/* Cursor */
+.cur { display: inline-block; width: 0.6em; height: 1em; background-color: var(--primary); vertical-align: -2px; animation: blink 1.2s steps(2) infinite; }
+@keyframes blink { to { background-color: transparent; } }
+</style>
+</head>
+<body>
+<div class="term">
+  <div class="win">
+    <div class="win-bar">
+      <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <span class="title">jordan@workshop · ~/code/halcyon — zsh — 92×30</span>
+    </div>
+
+    <div class="session">
+      <h1>halcyon / status</h1>
+      <p class="kicker">Tue May 21 14:08:42 UTC · all services nominal · 1 advisory</p>
+
+      <div class="line"><span class="ps1"><span class="user">jordan</span>@<span class="host">workshop</span>:<span class="path">~/code/halcyon</span>$</span> <span class="cmd">halcyon status --all</span></div>
+      <div class="line"><span class="out">resolving services... <span class="ok">ok</span></span></div>
+
+      <pre class="box">
+┌──────────────────────┬─────────┬──────────┬───────────┐
+│ <span class="col-name">service             </span> │ <span class="col-name">version</span> │ <span class="col-name">latency </span> │ <span class="col-name">state    </span> │
+├──────────────────────┼─────────┼──────────┼───────────┤
+│ halcyon-worker       │  <span class="col-val">2.1.4</span>  │   <span class="col-val">14ms</span>   │ <span class="col-state-ok">  ok     </span> │
+│ halcyon-api          │  <span class="col-val">3.8.0</span>  │   <span class="col-val">42ms</span>   │ <span class="col-state-ok">  ok     </span> │
+│ halcyon-webapp       │ <span class="col-val">16.4.1</span>  │   <span class="col-val">68ms</span>   │ <span class="col-state-ok">  ok     </span> │
+│ edge-cache           │    <span class="col-val">—</span>    │   <span class="col-val">18s </span>   │ <span class="col-state-warn"> degraded</span> │
+│ storage-cache        │    <span class="col-val">—</span>    │   <span class="col-val">38ms</span>   │ <span class="col-state-ok">  ok     </span> │
+└──────────────────────┴─────────┴──────────┴───────────┘
+</pre>
+
+      <div class="line"><span class="ps1"><span class="user">jordan</span>@<span class="host">workshop</span>:<span class="path">~/code/halcyon</span>$</span> <span class="cmd">halcyon deploy api <span class="str">--region eu-west</span></span></div>
+      <div class="line"><span class="out">→ building image · <span class="str">halcyon-api:3.8.1</span></span></div>
+      <div class="line"><span class="out">→ pushing to registry · <span class="num">218 MB</span></span></div>
+      <div class="line"><span class="out">→ rolling out · <span class="num">24</span> instances</span></div>
+      <div class="line"><span class="ok">✓</span> <span class="cmd">deployed</span> · <span class="str">https://halcyon.dev/status/api</span></div>
+
+      <h2>recent activity</h2>
+      <div class="line"><span class="out">14:08:39  </span><span class="warn">WARN</span> <span class="out">cache propagation backlog ctx=Cache ms=18204</span></div>
+      <div class="line"><span class="out">14:08:38  </span><span class="ok">INFO</span> <span class="out">build completed branch=main duration=42s</span></div>
+      <div class="line"><span class="out">14:08:37  </span><span class="err">ERR </span> <span class="out">email 422 ctx=Notifications retry=2</span></div>
+      <div class="line"><span class="out">14:08:36  </span><span class="ok">INFO</span> <span class="out">request handled ctx=API status=200 ms=38</span></div>
+
+      <div class="line"><span class="ps1"><span class="user">jordan</span>@<span class="host">workshop</span>:<span class="path">~/code/halcyon</span>$</span> <span class="cur"></span></div>
+
+      <div class="bottom">
+        <span>visualize · __DESIGN_SYSTEM_NAME__</span>
+        <span>mono headings · warm coal palette · dark-canonical</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

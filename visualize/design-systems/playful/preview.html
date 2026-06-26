@@ -1,0 +1,2403 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<!-- Playful Geometric — token-surface showcase. Signature mockup: the
+     Pop-Shadow primitive demonstration (Candy Button + Sticker Card +
+     Input row) with hard offset shadows animating between rest, lift,
+     and pressed positions. Source: temp/refs/playful/raw.md. -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>playful — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FFFDF5'/%3E%3Ccircle cx='12' cy='20' r='7' fill='%238B5CF6' stroke='%231E293B' stroke-width='1.6'/%3E%3Crect x='17' y='10' width='10' height='10' rx='2' fill='%23FBBF24' stroke='%231E293B' stroke-width='1.6'/%3E%3C/svg%3E">
+<meta property="og:title" content="playful — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Warm cream canvas + slate-800 ink + vivid violet primary + rotational decorative palette (hot pink, amber, mint). Stable Grid, Wild Decoration register — chunky 2px borders and hard offset shadows that animate between rest, lift, and pressed positions.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/playful/tokens.css) === */
+/**
+ * design-systems/playful/tokens.css
+ *
+ * Hand-authored from the Playful Geometric spec at
+ * temp/refs/playful/raw.md (Zhou Jason / designprompts.dev source).
+ * Sourced: 2026-05-26.
+ *
+ * Companion: design-systems/playful/DESIGN.md (§2 carries the live
+ * citation for every chromatic value below).
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this brand's.
+ *   - Brand-extras (--brand-*): the system's own design-system
+ *     vocabulary — decorative tones, hairlines, the chunky-border ink,
+ *     the bouncy easing curve.
+ *
+ * The system is light-canonical. The [data-theme="dark"] block is a
+ * conservative synthesised inversion — warm-near-black canvas, slate
+ * borders, decorative palette held at :root. The spec doesn't sanction
+ * a dark variant; consumers shipping the brand faithfully should pin
+ * light.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are this system's. */
+
+  --background: oklch(0.9934 0.0107 95.1593);        /* #FFFDF5 — warm cream paper canvas */
+  --foreground: oklch(0.2795 0.0368 260.0310);       /* #1E293B — slate-800, softer than black */
+  --card: oklch(1 0 0);                              /* #FFFFFF */
+  --card-foreground: oklch(0.2795 0.0368 260.0310);  /* slate-800 ink on white cards */
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2795 0.0368 260.0310);
+
+  --primary: oklch(0.6056 0.2189 292.7172);          /* #8B5CF6 — vivid violet, Candy Button fill */
+  --primary-foreground: oklch(1 0 0);                /* white label on violet */
+  --secondary: oklch(0.7253 0.1752 349.7607);        /* #F472B6 — hot pink decorative */
+  --secondary-foreground: oklch(0.2795 0.0368 260.0310);
+  --muted: oklch(0.9683 0.0069 247.8957);            /* #F1F5F9 — slate-100 */
+  --muted-foreground: oklch(0.5544 0.0407 257.4166); /* #64748B — slate-500 */
+  --accent: oklch(0.6056 0.2189 292.7172);           /* same hue as --primary per spec */
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.587 0.237 28.4);            /* synthesised warm coral — see DESIGN.md §2 */
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.9288 0.0126 255.5079);           /* #E2E8F0 — slate-200 (soft sticker shadow tone) */
+  --input: oklch(1 0 0);                             /* #FFFFFF — input surface */
+  --ring: oklch(0.6056 0.2189 292.7172);             /* tracks --primary — violet focus */
+
+  --sidebar: oklch(0.9934 0.0107 95.1593);
+  --sidebar-foreground: oklch(0.2795 0.0368 260.0310);
+  --sidebar-primary: oklch(0.6056 0.2189 292.7172); /* tracks --primary */
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9683 0.0069 247.8957);
+  --sidebar-accent-foreground: oklch(0.2795 0.0368 260.0310);
+  --sidebar-border: oklch(0.9288 0.0126 255.5079);
+  --sidebar-ring: oklch(0.6056 0.2189 292.7172);    /* tracks --primary */
+
+  --chart-1: oklch(0.6056 0.2189 292.7172);          /* violet */
+  --chart-2: oklch(0.7253 0.1752 349.7607);          /* pink */
+  --chart-3: oklch(0.8369 0.1644 84.4286);           /* amber */
+  --chart-4: oklch(0.7729 0.1535 163.2231);          /* mint */
+  --chart-5: oklch(0.2795 0.0368 260.0310);          /* slate-800 ink */
+
+  --radius-sm: 6px;
+  --radius-md: 8px;       /* input radius — rounded-lg */
+  --radius-lg: 12px;      /* card radius — rounded-xl */
+  --radius-xl: 16px;
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Outfit', 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Hard offset shadows, zero blur — the signature elevation. The
+   * shadow's position animates between three states (rest 4/4,
+   * lift 6/6, press 2/2); the colour is the chunky-border ink
+   * (slate-800) or one of the decorative tones for featured cards. */
+
+  /* -- Brand-extras --------------------------------------------- */
+
+  /* Decorative palette — three full-chroma rotational tones. The
+   * spec is explicit: these are decorative, not semantic. Pink is
+   * not "destructive," mint is not "success." */
+  --brand-accent-pink:   oklch(0.7253 0.1752 349.7607); /* #F472B6 */
+  --brand-accent-amber:  oklch(0.8369 0.1644 84.4286);  /* #FBBF24 */
+  --brand-accent-mint:   oklch(0.7729 0.1535 163.2231); /* #34D399 */
+
+  /* Hairlines / dividers */
+  --brand-hairline-soft:   oklch(0.8690 0.0198 252.8943); /* #CBD5E1 — input default border */
+  --brand-hairline-strong: oklch(0.2795 0.0368 260.0310); /* slate-800 — chunky 2px component border */
+
+  /* Body text neutrals — chroma ≈ 0 utility tokens. */
+  --brand-body:       oklch(0.2795 0.0368 260.0310);    /* slate-800 */
+  --brand-body-muted: oklch(0.5544 0.0407 257.4166);    /* slate-500 */
+  --brand-muted-soft: oklch(0.5400 0.0298 256.5);       /* mid slate for legal-line meta */
+
+  /* Pop-shadow primitive — the signature elevation language. The
+   * offset and colour can be overridden per surface (pink shadow on
+   * featured cards, violet shadow on focused inputs); the no-blur
+   * rule is universal. */
+  --brand-shadow-rest:  4px 4px 0 0 oklch(0.2795 0.0368 260.0310);
+  --brand-shadow-lift:  6px 6px 0 0 oklch(0.2795 0.0368 260.0310);
+  --brand-shadow-press: 2px 2px 0 0 oklch(0.2795 0.0368 260.0310);
+  --brand-shadow-card:  8px 8px 0 0 oklch(0.9288 0.0126 255.5079); /* soft slate-200 card shadow */
+
+  /* Motion — bouncy easing curve from spec §10. */
+  --brand-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Radii — the spec uses pill radii on buttons and rounded-lg on
+   * inputs; the system's radius scale skews larger than shadcn defaults. */
+  --brand-radius-pill: 9999px;
+  --brand-radius-xs:   4px;
+}
+
+/* -- Dark theme ------------------------------------------------
+ * The Playful spec is light-canonical and does NOT enumerate a
+ * dark variant. The block below is a conservative synthesised
+ * inversion — warm-near-black canvas, slate-700 borders, the
+ * decorative palette held at full chroma per the spec's
+ * single-chromatic-identity-across-modes default.
+ *
+ * Per AUTHORING.md "Brand colours are sacrosanct": no lifted
+ * variants of the decorative tones — surfaces that fail contrast
+ * on dark get re-homed, not the colour retuned.
+ *
+ * The chunky 2px slate-800 border becomes invisible on a near-black
+ * canvas; in the preview template the border colour is routed
+ * through a local custom property that swaps to a light slate in
+ * dark mode, NOT here — tokens.css holds brand identity, not
+ * preview shop-rules.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1831 0.0309 263.3831);        /* synthesised — slate-950 */
+  --foreground: oklch(0.9842 0.0034 247.8578);        /* slate-50 */
+  --card: oklch(0.2077 0.0398 265.7549);              /* slate-900 */
+  --card-foreground: oklch(0.9842 0.0034 247.8578);
+  --popover: oklch(0.2077 0.0398 265.7549);
+  --popover-foreground: oklch(0.9842 0.0034 247.8578);
+
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring stay at :root.
+   * The decorative palette stays at :root too — the spec's "single
+   * chromatic identity across modes" default holds. */
+
+  --secondary: oklch(0.7253 0.1752 349.7607);         /* hot pink stays */
+  --secondary-foreground: oklch(0.2795 0.0368 260.0310);
+  --muted: oklch(0.2795 0.0368 260.0310);             /* slate-800 */
+  --muted-foreground: oklch(0.7107 0.0351 256.7878);  /* slate-400 — lifted utility neutral */
+
+  --border: oklch(0.3717 0.0392 257.2870);            /* slate-700 — soft card shadow tone in dark */
+  --input: oklch(0.2077 0.0398 265.7549);             /* dark card surface */
+
+  --sidebar: oklch(0.1831 0.0309 263.3831);
+  --sidebar-foreground: oklch(0.9842 0.0034 247.8578);
+  --sidebar-accent: oklch(0.2795 0.0368 260.0310);
+  --sidebar-accent-foreground: oklch(0.9842 0.0034 247.8578);
+  --sidebar-border: oklch(0.3717 0.0392 257.2870);
+
+  /* Utility neutrals retune for dark canvas — chroma ≈ 0 only. */
+  --brand-hairline-soft:   oklch(0.4455 0.0374 257.2808); /* slate-600 in dark */
+  --brand-hairline-strong: oklch(0.9842 0.0034 247.8578); /* slate-50 — light chunky border in dark */
+
+  --brand-body:       oklch(0.9842 0.0034 247.8578);
+  --brand-body-muted: oklch(0.7107 0.0351 256.7878);
+  --brand-muted-soft: oklch(0.7107 0.0298 256.5);
+
+  /* Pop-shadow swaps to a light colour in dark — the slate-800 shadow
+   * is invisible on a slate-950 canvas. The decorative-shadow card
+   * variant (pink shadow) stays unchanged at :root. */
+  --brand-shadow-rest:  4px 4px 0 0 oklch(0.9842 0.0034 247.8578);
+  --brand-shadow-lift:  6px 6px 0 0 oklch(0.9842 0.0034 247.8578);
+  --brand-shadow-press: 2px 2px 0 0 oklch(0.9842 0.0034 247.8578);
+  --brand-shadow-card:  8px 8px 0 0 oklch(0.3717 0.0392 257.2870);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1831 0.0309 263.3831);
+    --foreground: oklch(0.9842 0.0034 247.8578);
+    --card: oklch(0.2077 0.0398 265.7549);
+    --card-foreground: oklch(0.9842 0.0034 247.8578);
+    --popover: oklch(0.2077 0.0398 265.7549);
+    --popover-foreground: oklch(0.9842 0.0034 247.8578);
+
+    --secondary: oklch(0.7253 0.1752 349.7607);
+    --secondary-foreground: oklch(0.2795 0.0368 260.0310);
+    --muted: oklch(0.2795 0.0368 260.0310);
+    --muted-foreground: oklch(0.7107 0.0351 256.7878);
+
+    --border: oklch(0.3717 0.0392 257.2870);
+    --input: oklch(0.2077 0.0398 265.7549);
+
+    --sidebar: oklch(0.1831 0.0309 263.3831);
+    --sidebar-foreground: oklch(0.9842 0.0034 247.8578);
+    --sidebar-accent: oklch(0.2795 0.0368 260.0310);
+    --sidebar-accent-foreground: oklch(0.9842 0.0034 247.8578);
+    --sidebar-border: oklch(0.3717 0.0392 257.2870);
+
+    --brand-hairline-soft:   oklch(0.4455 0.0374 257.2808);
+    --brand-hairline-strong: oklch(0.9842 0.0034 247.8578);
+
+    --brand-body:       oklch(0.9842 0.0034 247.8578);
+    --brand-body-muted: oklch(0.7107 0.0351 256.7878);
+    --brand-muted-soft: oklch(0.7107 0.0298 256.5);
+
+    --brand-shadow-rest:  4px 4px 0 0 oklch(0.9842 0.0034 247.8578);
+    --brand-shadow-lift:  6px 6px 0 0 oklch(0.9842 0.0034 247.8578);
+    --brand-shadow-press: 2px 2px 0 0 oklch(0.9842 0.0034 247.8578);
+    --brand-shadow-card:  8px 8px 0 0 oklch(0.3717 0.0392 257.2870);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Playful preview shell.
+ * "Stable Grid, Wild Decoration" — content on a clean readable grid,
+ * the gutters and backdrops alive with primitive shape (dot grids,
+ * solid circles, dashed connectors, scattered confetti). Hard offset
+ * shadows with zero blur are the signature elevation; their position
+ * animates between rest, lift, and pressed. The signature mockup
+ * (one section, mid-page) is a working demonstration of that
+ * primitive — Candy Button + Sticker Card + Input each rendered in
+ * the three states side by side.
+ *
+ * Token discipline: every chromatic surface routes through a
+ * tokens.css variable. Local custom properties (--shell-shadow-ink,
+ * --shell-shadow-card) are declared per-section to handle the
+ * dark-mode shadow flip without retuning the brand-shadow tokens
+ * themselves.
+ * ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 2px solid var(--brand-hairline-strong);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+.brand-glyph::before {
+  content: "";
+  position: absolute;
+  inset: 4px 12px 6px 0;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid var(--brand-hairline-strong);
+}
+.brand-glyph::after {
+  content: "";
+  position: absolute;
+  inset: 8px 0 4px 14px;
+  border-radius: 4px;
+  background: var(--brand-accent-amber);
+  border: 2px solid var(--brand-hairline-strong);
+  transform: rotate(8deg);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--brand-body);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 14px;
+}
+.topnav-actions a {
+  color: var(--foreground);
+  text-decoration: none;
+  font-weight: 600;
+}
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Candy Button (the primary signature) -- */
+.btn {
+  --btn-shadow-ink: var(--brand-hairline-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border: 2px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  /* 19px @ weight 700 clears the WCAG large-text threshold (≥18.66px bold),
+   * which drops the contrast floor from 4.5:1 to 3:1 — white-on-violet then
+   * passes (4.23:1) without retuning the brand chroma. */
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  background: var(--card);
+  color: var(--foreground);
+  transition:
+    transform 200ms var(--brand-ease-bounce),
+    box-shadow 200ms var(--brand-ease-bounce),
+    background 160ms ease,
+    color 160ms ease;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+}
+/* Candy Button — primary violet pill with chunky border + hard shadow.
+ * The translate-on-hover / translate-on-active is the spec's defining
+ * motion; the shadow position adjusts to match. */
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: 4px 4px 0 0 var(--btn-shadow-ink);
+}
+.btn[data-variant="primary"]:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 var(--btn-shadow-ink);
+}
+.btn[data-variant="primary"]:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 0 var(--btn-shadow-ink);
+}
+/* Secondary — transparent pill, no shadow, fills amber on hover. */
+.btn[data-variant="secondary"] {
+  background: transparent;
+  color: var(--foreground);
+}
+.btn[data-variant="secondary"]:hover {
+  background: var(--brand-accent-amber);
+}
+/* Ghost — text-only, no border, for tertiary actions. */
+.btn[data-variant="ghost"] {
+  background: transparent;
+  border-color: transparent;
+  color: var(--foreground);
+}
+.btn[data-variant="ghost"]:hover {
+  background: var(--muted);
+}
+.btn[data-size="lg"] { min-height: 52px; padding: 0 1.875rem; font-size: 22px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: background 120ms ease, color 120ms ease;
+  }
+  .btn[data-variant="primary"]:hover,
+  .btn[data-variant="primary"]:active {
+    transform: none;
+    box-shadow: 4px 4px 0 0 var(--btn-shadow-ink);
+  }
+}
+
+/* -- Hero (Stable Grid, Wild Decoration — text left, decorative
+ *    backdrops right) -- */
+.hero {
+  position: relative;
+  padding: 5.5rem 1.5rem 4.5rem;
+  overflow: hidden;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 3rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 960px) { .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+/* Massive amber circle behind the hero text — spec §"6. Hero Section":
+ * "A massive yellow circle behind the text." Lives in the backdrop,
+ * never under content rect of the headline. */
+.hero-circle {
+  position: absolute;
+  width: 30rem;
+  height: 30rem;
+  border-radius: 50%;
+  background: var(--brand-accent-amber);
+  top: -8rem;
+  left: -10rem;
+  z-index: 0;
+  opacity: 0.85;
+}
+/* Scattered confetti — small primitive shapes drifting in the gutter. */
+.hero-confetti {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.confetti-piece {
+  position: absolute;
+  border: 2px solid var(--brand-hairline-strong);
+}
+.confetti-piece[data-shape="circle"]  { border-radius: 50%; }
+.confetti-piece[data-shape="square"]  { border-radius: 4px; }
+.confetti-piece[data-shape="pill"]    { border-radius: 9999px; }
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  /* The hero amber circle (always-light brand chroma) sits behind this
+   * eyebrow on both modes. Use --secondary-foreground (slate-800 in both
+   * modes, polarity-locked) so the eyebrow stays readable on amber when
+   * --foreground flips to slate-50 in dark. */
+  color: var(--secondary-foreground);
+  margin: 0 0 1.5rem;
+  position: relative;
+}
+.hero-eyebrow-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--brand-accent-pink);
+  border: 2px solid var(--brand-hairline-strong);
+}
+.hero-display {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 14ch;
+}
+.hero-lede {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-body);
+  max-width: 34rem;
+  margin: 0 0 2.5rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Hero decorative panel — dotted backdrop + blob-masked tile.
+ * Stand-in for the spec's "image with a blob mask" + "dotted pattern
+ * behind the image". No real image; both layers are pure CSS. */
+.hero-decor {
+  position: relative;
+  height: 24rem;
+}
+.hero-decor-dots {
+  position: absolute;
+  inset: 1.5rem -1rem 1.5rem 0;
+  background-image: radial-gradient(circle, var(--brand-hairline-strong) 1.5px, transparent 1.5px);
+  background-size: 18px 18px;
+  background-position: 0 0;
+  opacity: 0.85;
+  border-radius: 24px;
+}
+.hero-decor-blob {
+  position: absolute;
+  inset: 2rem 1rem 2rem 4rem;
+  background: var(--primary);
+  border: 2px solid var(--brand-hairline-strong);
+  border-radius: 42% 58% 65% 35% / 38% 50% 50% 62%;
+  box-shadow: 8px 8px 0 0 var(--brand-accent-pink);
+}
+.hero-decor-mint {
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  bottom: 1rem;
+  left: -1.5rem;
+  border-radius: 50%;
+  background: var(--brand-accent-mint);
+  border: 2px solid var(--brand-hairline-strong);
+}
+.hero-decor-squiggle {
+  position: absolute;
+  top: 1.5rem;
+  right: 0.5rem;
+  width: 5rem;
+  height: 1.5rem;
+  color: var(--brand-hairline-strong);
+}
+
+/* -- Signature mockup: Pop-Shadow primitive demonstration.
+ *    Three rows showing the same primitive (Candy Button / Sticker
+ *    Card / Input) in three states — rest, lift, pressed. The shadow
+ *    position is what differs across states; nothing else changes.
+ *    This is the system's defining surface treatment. -- */
+.signature-section {
+  --shell-shadow-ink: var(--brand-hairline-strong);
+  --shell-shadow-card: var(--border);
+  position: relative;
+  padding: 5rem 1.5rem 6rem;
+  background: var(--card);
+  border-top: 2px solid var(--brand-hairline-strong);
+  border-bottom: 2px solid var(--brand-hairline-strong);
+}
+[data-theme="dark"] .signature-section {
+  --shell-shadow-ink: var(--foreground);
+  --shell-shadow-card: var(--brand-hairline-soft);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .signature-section {
+    --shell-shadow-ink: var(--foreground);
+    --shell-shadow-card: var(--brand-hairline-soft);
+  }
+}
+.signature-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.signature-header {
+  max-width: 40rem;
+  margin-bottom: 3rem;
+}
+.signature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 960px) { .signature-grid { grid-template-columns: 1fr; gap: 1.25rem; } }
+
+.state-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.state-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+  margin: 0 0 0.25rem;
+}
+.state-title {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--foreground);
+  margin: 0 0 0.5rem;
+}
+.state-caption {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--brand-body-muted);
+  margin: 0;
+  font-feature-settings: "tnum";
+}
+
+/* Static demos — three rest positions side by side, no hover required. */
+.demo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 52px;
+  padding: 0 1.875rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border: 2px solid var(--shell-shadow-ink);
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  /* Matches .btn[data-size="lg"] — 22px / 700 qualifies as WCAG large-text
+   * (3:1 floor) so the white-on-violet Candy Button passes without retuning
+   * the brand chroma. */
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+.demo-button-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--card);
+  color: var(--foreground);
+  display: inline-grid;
+  place-items: center;
+  font-weight: 700;
+}
+.demo-button[data-state="rest"]    { transform: none;                 box-shadow: 4px 4px 0 0 var(--shell-shadow-ink); }
+.demo-button[data-state="lift"]    { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 0 var(--shell-shadow-ink); }
+.demo-button[data-state="pressed"] { transform: translate(2px, 2px);   box-shadow: 2px 2px 0 0 var(--shell-shadow-ink); }
+
+.demo-card {
+  position: relative;
+  background: var(--card);
+  border: 2px solid var(--shell-shadow-ink);
+  border-radius: 14px;
+  padding: 1.75rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  min-height: 12rem;
+}
+.demo-card-icon {
+  position: absolute;
+  top: -16px;
+  left: 1.25rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--brand-accent-mint);
+  border: 2px solid var(--shell-shadow-ink);
+  display: grid;
+  place-items: center;
+  color: var(--shell-shadow-ink);
+}
+.demo-card-title {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+  margin: 0.5rem 0 0;
+}
+.demo-card-body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--brand-body-muted);
+  margin: 0;
+}
+.demo-card[data-state="rest"]    { transform: none;                  box-shadow: 8px 8px 0 0 var(--shell-shadow-card); }
+.demo-card[data-state="lift"]    { transform: translate(-2px, -2px); box-shadow: 10px 10px 0 0 var(--shell-shadow-card); }
+.demo-card[data-state="pressed"] { transform: translate(2px, 2px);   box-shadow: 6px 6px 0 0 var(--shell-shadow-card); }
+
+.demo-card[data-featured] {
+  /* Pink-shadow featured variant — the spec's documented featured-card
+   * treatment. The chunky border stays slate; the shadow flips colour. */
+}
+.demo-card[data-featured][data-state="rest"]    { box-shadow: 8px 8px 0 0 var(--brand-accent-pink); }
+.demo-card[data-featured][data-state="lift"]    { box-shadow: 10px 10px 0 0 var(--brand-accent-pink); }
+.demo-card[data-featured][data-state="pressed"] { box-shadow: 6px 6px 0 0 var(--brand-accent-pink); }
+
+.demo-input-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.demo-input-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.demo-input {
+  background: var(--input);
+  color: var(--foreground);
+  border: 2px solid var(--brand-hairline-soft);
+  border-radius: 10px;
+  padding: 0 1.125rem;
+  height: 48px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+.demo-input::placeholder { color: var(--brand-body-muted); opacity: 0.85; }
+.demo-input[data-state="rest"]    { box-shadow: 4px 4px 0 0 transparent; }
+.demo-input[data-state="lift"]    { border-color: var(--primary); box-shadow: 4px 4px 0 0 var(--primary); }
+.demo-input[data-state="pressed"] { border-color: var(--primary); box-shadow: 2px 2px 0 0 var(--primary); transform: translate(2px, 2px); }
+
+/* Dashed connector between state columns — the spec's "dashed SVG line
+ * connecting cards" register, applied here as a horizontal motion-trace. */
+.signature-connector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 2.5rem 0 0;
+  align-items: center;
+  gap: 1.5rem;
+}
+.signature-connector-trace {
+  height: 2px;
+  border-top: 2px dashed var(--brand-hairline-strong);
+  position: relative;
+}
+.signature-connector-trace::before,
+.signature-connector-trace::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--brand-hairline-strong);
+  background: var(--card);
+  top: -7px;
+}
+.signature-connector-trace::before { left: -6px; background: var(--brand-accent-amber); }
+.signature-connector-trace::after  { right: -6px; background: var(--brand-accent-mint); }
+.signature-connector-trace[data-only-left]::after { display: none; }
+.signature-connector-trace[data-only-right]::before { display: none; }
+@media (max-width: 960px) { .signature-connector { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-button[data-state="lift"],
+  .demo-button[data-state="pressed"],
+  .demo-card[data-state="lift"],
+  .demo-card[data-state="pressed"],
+  .demo-input[data-state="pressed"] {
+    transform: none;
+  }
+}
+
+/* -- Section frame -- */
+.section {
+  padding: 5rem 1.5rem;
+}
+.section[data-tight] { padding: 3.5rem 1.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section-eyebrow {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title {
+  margin-left: auto;
+  margin-right: auto;
+}
+.section-lede {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-header[data-center] .section-lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* -- Token-demo: color swatches -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.875rem;
+}
+.swatch {
+  border: 2px solid var(--brand-hairline-strong);
+  border-radius: 12px;
+  padding: 0.75rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--foreground);
+}
+.swatch-chip {
+  height: 3.25rem;
+  border-radius: 8px;
+  border: 2px solid var(--brand-hairline-strong);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+}
+
+/* -- Token-demo: surface elevation ladder. Five steps of the shadow
+ *    offset — 0, 2, 4, 6, 8 — showing how the primitive scales. -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+}
+@media (max-width: 1080px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  --shell-shadow-ink: var(--brand-hairline-strong);
+  background: var(--card);
+  border: 2px solid var(--brand-hairline-strong);
+  border-radius: 12px;
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  color: var(--foreground);
+}
+[data-theme="dark"] .ladder-step { --shell-shadow-ink: var(--foreground); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .ladder-step { --shell-shadow-ink: var(--foreground); }
+}
+.ladder-step[data-step="0"] { box-shadow: 0 0 0 0 transparent; }
+.ladder-step[data-step="1"] { box-shadow: 2px 2px 0 0 var(--shell-shadow-ink); }
+.ladder-step[data-step="2"] { box-shadow: 4px 4px 0 0 var(--shell-shadow-ink); }
+.ladder-step[data-step="3"] { box-shadow: 6px 6px 0 0 var(--shell-shadow-ink); }
+.ladder-step[data-step="4"] { box-shadow: 8px 8px 0 0 var(--shell-shadow-ink); }
+.ladder-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 12px;
+  color: var(--foreground);
+}
+.ladder-role {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  margin-top: auto;
+  color: var(--brand-body-muted);
+}
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 2px dashed var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+}
+.type-display {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-body);
+}
+.type-mono {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+  color: var(--brand-body);
+}
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.75rem; }
+.cmp-row {
+  display: flex;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.cmp-row-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.cmp-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.cmp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: var(--brand-radius-pill);
+  border: 2px solid var(--brand-hairline-strong);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  /* 19px / 700 qualifies as WCAG large-text (3:1 floor) so the violet
+   * chip's white-on-primary (4.23:1) passes without retuning the brand
+   * chroma; matches the Candy Button surface treatment. */
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+/* Decorative-tone chips sit on always-light brand chroma; route ink to
+ * --secondary-foreground (slate-800 in both modes, polarity-locked) so
+ * the chip stays readable in dark mode without retuning the chroma. */
+.cmp-chip[data-tone="violet"] { background: var(--primary); color: var(--primary-foreground); }
+.cmp-chip[data-tone="pink"]   { background: var(--brand-accent-pink); color: var(--secondary-foreground); }
+.cmp-chip[data-tone="amber"]  { background: var(--brand-accent-amber); color: var(--secondary-foreground); }
+.cmp-chip[data-tone="mint"]   { background: var(--brand-accent-mint); color: var(--secondary-foreground); }
+.cmp-chip[data-tone="cream"]  { background: var(--background); }
+
+/* Lucide-enclosed icon stand-in — coloured backplate, ink glyph. */
+.cmp-iconplate {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--brand-hairline-strong);
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+}
+.cmp-iconplate[data-tone="mint"]   { background: var(--brand-accent-mint); color: var(--brand-hairline-strong); }
+.cmp-iconplate[data-tone="amber"]  { background: var(--brand-accent-amber); color: var(--brand-hairline-strong); }
+.cmp-iconplate[data-tone="pink"]   { background: var(--brand-accent-pink); color: var(--brand-hairline-strong); }
+.cmp-iconplate[data-tone="violet"] { background: var(--primary); color: var(--primary-foreground); }
+
+/* -- Footer -- */
+.footer {
+  background: var(--muted);
+  color: var(--foreground);
+  border-top: 2px solid var(--brand-hairline-strong);
+  padding: 4rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 32ch;
+}
+.footer-tagline {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  color: var(--brand-body);
+  line-height: 1.55;
+  margin: 0;
+}
+.footer-col-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.footer-list a {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  color: var(--brand-body);
+  text-decoration: none;
+  font-weight: 500;
+}
+.footer-list a:hover { color: var(--foreground); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.footer-legal {
+  max-width: 1280px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--brand-hairline-soft);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  color: var(--brand-muted-soft);
+}
+.footer-legal-meta {
+  font-family: ui-monospace, Menlo, monospace;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true"></span>
+      playful
+    </a>
+    <div class="topnav-links">
+      <a href="#">Tokens</a>
+      <a href="#">Components</a>
+      <a href="#">Motion</a>
+      <a href="#">Patterns</a>
+      <a href="#">Changelog</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Get started</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <span class="hero-circle" aria-hidden="true"></span>
+  <div class="hero-confetti" aria-hidden="true">
+    <span class="confetti-piece" data-shape="square" style="top: 12%; left: 38%; width: 14px; height: 14px; transform: rotate(18deg); background: var(--brand-accent-amber);"></span>
+    <span class="confetti-piece" data-shape="pill"   style="top: 78%; left: 32%; width: 22px; height: 8px;  transform: rotate(-12deg); background: var(--brand-accent-mint);"></span>
+    <span class="confetti-piece" data-shape="circle" style="top: 18%; left: 92%; width: 12px; height: 12px; background: var(--brand-accent-pink);"></span>
+    <span class="confetti-piece" data-shape="square" style="top: 82%; left: 65%; width: 10px; height: 10px; transform: rotate(28deg); background: var(--primary);"></span>
+    <span class="confetti-piece" data-shape="circle" style="top: 60%; left: 4%;  width: 8px;  height: 8px;  background: var(--brand-accent-pink);"></span>
+  </div>
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow"><span class="hero-eyebrow-dot" aria-hidden="true"></span>Stable Grid, Wild Decoration</p>
+      <h1 class="hero-display">Tactile fun, on a readable grid.</h1>
+      <p class="hero-lede">A design system that puts the energy in the gutters and keeps the content quiet. Chunky borders, hard offset shadows, a warm cream canvas, and three decorative tones rotating through the page. Halcyon's design team uses it for marketing pages, internal portals, and weekend side projects.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" data-size="lg" type="button">
+          Get started
+          <span class="demo-button-icon" aria-hidden="true">→</span>
+        </button>
+        <button class="btn" data-variant="secondary" data-size="lg" type="button">Browse tokens</button>
+      </div>
+    </div>
+    <div class="hero-decor" aria-hidden="true">
+      <span class="hero-decor-dots"></span>
+      <span class="hero-decor-blob"></span>
+      <span class="hero-decor-mint"></span>
+      <svg class="hero-decor-squiggle" viewBox="0 0 80 24" fill="none" aria-hidden="true">
+        <path d="M2 12 Q 12 2, 22 12 T 42 12 T 62 12 T 78 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section class="signature-section" aria-label="Signature mockup — Pop Shadow primitive">
+  <div class="signature-inner">
+    <div class="signature-header">
+      <p class="section-eyebrow">Signature · Pop Shadow primitive</p>
+      <h2 class="section-title">Rest, lift, pressed — one primitive, three positions.</h2>
+      <p class="section-lede">The defining surface treatment is a hard offset shadow with zero blur. Every interactive primitive — buttons, cards, focused inputs — sits on the same three-state ladder. The shadow's position is what animates; the colour stays put.</p>
+    </div>
+
+    <div class="signature-grid">
+      <div class="state-column">
+        <div>
+          <p class="state-label">01 · Rest</p>
+          <h3 class="state-title">The page at rest.</h3>
+          <p class="state-caption">Shadow at <code>4px 4px 0 0</code>. The primitive sits two notches off the page — far enough to read as raised, close enough to feel pressed against the canvas.</p>
+        </div>
+        <button class="demo-button" data-state="rest" type="button" aria-label="Demonstration only — Candy Button at rest">
+          Try free
+          <span class="demo-button-icon" aria-hidden="true">→</span>
+        </button>
+        <article class="demo-card" data-state="rest">
+          <span class="demo-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+          </span>
+          <h4 class="demo-card-title">Workflows</h4>
+          <p class="demo-card-body">Weekly rituals — sprint reviews, design crits, retro notes. The card sits where the page expects it to sit.</p>
+        </article>
+        <div class="demo-input-row">
+          <label class="demo-input-label" for="demo-input-rest">Work email</label>
+          <input class="demo-input" id="demo-input-rest" data-state="rest" type="email" placeholder="team@halcyon.dev">
+        </div>
+      </div>
+
+      <div class="state-column">
+        <div>
+          <p class="state-label">02 · Lift</p>
+          <h3 class="state-title">Hover finds the primitive.</h3>
+          <p class="state-caption">The surface translates <code>-2/-2</code> and the shadow extends to <code>6/6</code>. The whole motion is one bouncy cubic-bezier — overshoot built in, no spring physics required.</p>
+        </div>
+        <button class="demo-button" data-state="lift" type="button" aria-label="Demonstration only — Candy Button on hover">
+          Try free
+          <span class="demo-button-icon" aria-hidden="true">→</span>
+        </button>
+        <article class="demo-card" data-state="lift" data-featured>
+          <span class="demo-card-icon" aria-hidden="true" style="background: var(--brand-accent-amber);">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2 15 8.5 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 9 8.5z" />
+            </svg>
+          </span>
+          <h4 class="demo-card-title">Featured workflow</h4>
+          <p class="demo-card-body">Pink-shadow variant — the sticker-card register the spec uses for the featured pricing tier and any card the page wants to flag.</p>
+        </article>
+        <div class="demo-input-row">
+          <label class="demo-input-label" for="demo-input-lift">Work email</label>
+          <input class="demo-input" id="demo-input-lift" data-state="lift" type="email" placeholder="team@halcyon.dev">
+        </div>
+      </div>
+
+      <div class="state-column">
+        <div>
+          <p class="state-label">03 · Pressed</p>
+          <h3 class="state-title">Click compresses the offset.</h3>
+          <p class="state-caption">On press the surface moves <code>+2/+2</code> and the shadow shrinks to <code>2/2</code>. The primitive looks pinned to the page for the duration of the press, then bounces back when released.</p>
+        </div>
+        <button class="demo-button" data-state="pressed" type="button" aria-label="Demonstration only — Candy Button pressed">
+          Try free
+          <span class="demo-button-icon" aria-hidden="true">→</span>
+        </button>
+        <article class="demo-card" data-state="pressed">
+          <span class="demo-card-icon" aria-hidden="true" style="background: var(--brand-accent-pink);">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </span>
+          <h4 class="demo-card-title">New workflow</h4>
+          <p class="demo-card-body">The icon plate uses mint for success, amber for warning, pink for new — never floating alone on the canvas.</p>
+        </article>
+        <div class="demo-input-row">
+          <label class="demo-input-label" for="demo-input-pressed">Work email</label>
+          <input class="demo-input" id="demo-input-pressed" data-state="pressed" type="email" placeholder="team@halcyon.dev">
+        </div>
+      </div>
+    </div>
+
+    <div class="signature-connector" aria-hidden="true">
+      <span class="signature-connector-trace" data-only-right></span>
+      <span class="signature-connector-trace"></span>
+      <span class="signature-connector-trace" data-only-left></span>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">One violet primary, three rotational tones.</h2>
+      <p class="section-lede">Violet carries every primary action. Hot pink, amber, and mint rotate as decorative — the spec is explicit that they're not state colours. Body type runs slate-800 on a warm cream canvas; pure black never appears in the system.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--card);"></div><div class="swatch-role">Card</div><div class="swatch-name">--card</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--muted);"></div><div class="swatch-role">Muted</div><div class="swatch-name">--muted</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Primary</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-pink);"></div><div class="swatch-role">Decorative</div><div class="swatch-name">--brand-accent-pink</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-amber);"></div><div class="swatch-role">Decorative</div><div class="swatch-name">--brand-accent-amber</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-mint);"></div><div class="swatch-role">Decorative</div><div class="swatch-name">--brand-accent-mint</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--border);"></div><div class="swatch-role">Card shadow</div><div class="swatch-name">--border</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-hairline-soft);"></div><div class="swatch-role">Input border</div><div class="swatch-name">--brand-hairline-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-hairline-strong);"></div><div class="swatch-role">Chunky border</div><div class="swatch-name">--brand-hairline-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--destructive);"></div><div class="swatch-role">Destructive</div><div class="swatch-name">--destructive</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface elevation ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Elevation · Offset ladder</p>
+      <h2 class="section-title">0, 2, 4, 6, 8 — the whole elevation language.</h2>
+      <p class="section-lede">Drop-shadows with blur never appear. The system's elevation is a five-step ladder of hard offset, zero blur. The first step is flush; the last is the featured-card register.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="0">
+        <span class="ladder-num">00 · Flush</span>
+        <span class="ladder-name">0 0 0 0</span>
+        <span class="ladder-role">inline label, table cell, helper meta</span>
+      </div>
+      <div class="ladder-step" data-step="1">
+        <span class="ladder-num">01 · Pressed</span>
+        <span class="ladder-name">2 2 0 ink</span>
+        <span class="ladder-role">primitive on click, compressed offset</span>
+      </div>
+      <div class="ladder-step" data-step="2">
+        <span class="ladder-num">02 · Rest</span>
+        <span class="ladder-name">4 4 0 ink</span>
+        <span class="ladder-role">Candy Button default, focused input</span>
+      </div>
+      <div class="ladder-step" data-step="3">
+        <span class="ladder-num">03 · Lift</span>
+        <span class="ladder-name">6 6 0 ink</span>
+        <span class="ladder-role">primitive on hover, extended offset</span>
+      </div>
+      <div class="ladder-step" data-step="4">
+        <span class="ladder-num">04 · Card</span>
+        <span class="ladder-name">8 8 0 border</span>
+        <span class="ladder-role">Sticker Card default and featured variants</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">Outfit for display, Plus Jakarta for everything else.</h2>
+      <p class="section-lede">Two families, a 1.25 major-third scale, and chunky display weights. Outfit at 700 / 800 carries every headline; Plus Jakarta Sans at 400 / 500 carries body and UI. Mono falls back to the system stack — the spec doesn't enumerate a brand mono.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Hello, playful.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Outfit · 700 · -0.02 tracking</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Plus Jakarta Sans · 600 · 19 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default running text in Plus Jakarta Sans at 16 pixels, line-height 1.55. Body ink runs slate-800 on a warm cream canvas — softer than black on paper-tinted off-white.</span></div>
+        <div class="type-row"><span class="type-label">Caption</span><span class="type-body" style="font-size: 13px;">Caption · helper meta · timestamp lines</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">tokens.--brand-shadow-rest</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · Candy + secondary + ghost</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" type="button">Get started</button>
+            <button class="btn" data-variant="secondary" type="button">Browse tokens</button>
+            <button class="btn" data-variant="ghost" type="button">Cancel</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Pill chips · violet primary + decorative rotation</span>
+          <div class="cmp-chips">
+            <span class="cmp-chip" data-tone="violet">Primary</span>
+            <span class="cmp-chip" data-tone="pink">Hot pink</span>
+            <span class="cmp-chip" data-tone="amber">Amber</span>
+            <span class="cmp-chip" data-tone="mint">Mint</span>
+            <span class="cmp-chip" data-tone="cream">Cream</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Lucide-enclosed icons · always inside a coloured plate</span>
+          <div class="cmp-row">
+            <span class="cmp-iconplate" data-tone="mint" title="Success">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+            </span>
+            <span class="cmp-iconplate" data-tone="amber" title="Warning">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /></svg>
+            </span>
+            <span class="cmp-iconplate" data-tone="pink" title="New">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+            </span>
+            <span class="cmp-iconplate" data-tone="violet" title="Primary">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+            </span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Input · slate hairline default, violet focus shadow</span>
+          <div class="demo-input-row" style="max-width: 22rem;">
+            <label class="demo-input-label" for="cmp-input-default">Work email</label>
+            <input class="demo-input" id="cmp-input-default" data-state="rest" type="email" placeholder="team@halcyon.dev">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#">
+        <span class="brand-glyph" aria-hidden="true"></span>
+        playful
+      </a>
+      <p class="footer-tagline">A token-surface preview rendered against the Playful Geometric design system — warm cream canvas, chunky 2px borders, hard offset shadows, decorative rotation in hot pink, amber, and mint. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Tokens</p>
+      <ul class="footer-list"><li><a href="#">Colour</a></li><li><a href="#">Type</a></li><li><a href="#">Elevation</a></li><li><a href="#">Motion</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Components</p>
+      <ul class="footer-list"><li><a href="#">Candy Button</a></li><li><a href="#">Sticker Card</a></li><li><a href="#">Input</a></li><li><a href="#">Icon plate</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>playful · token surface preview · 2026.05.26</span>
+    <span class="footer-legal-meta">stable grid · wild decoration · pop shadow</span>
+  </div>
+</footer>
+
+</body>
+</html>

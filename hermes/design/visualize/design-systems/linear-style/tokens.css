@@ -1,0 +1,186 @@
+/**
+ * design-systems/linear-style/tokens.css
+ *
+ * Live-verified against linear.app + linear.app/method + linear.app/changelog
+ * + Linear's marketing CSS bundles (static.linear.app) on 2026-05-26.
+ * Companion to ./DESIGN.md.
+ *
+ * canonical-canvas: dark. Linear is hard-coded dark-canonical — every
+ * marketing surface ships <html data-theme="dark"> with no light variant.
+ * Both [data-theme="dark"] and @media (prefers-color-scheme: dark) blocks
+ * mirror :root verbatim; the synthesised lightness inversion is not used
+ * because there is no brand-supported light variant to render.
+ *
+ * Intentional drift: --brand-ink-tertiary holds Linear's live value
+ * #62666d (sub-AA on canvas, ~3.16:1). Linear ships this for inline
+ * timestamps and accepts the sub-AA reading; the catalog mirrors that
+ * choice rather than "correcting" a brand-canonical decision.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(0.0692 0.0080 284.1148);
+  --foreground: oklch(0.9784 0.0011 197.1406);
+  --card: oklch(0.0692 0.0080 284.1148);
+  --card-foreground: oklch(0.9784 0.0011 197.1406);
+  --popover: oklch(0.0692 0.0080 284.1148);
+  --popover-foreground: oklch(0.9784 0.0011 197.1406);
+  --primary: oklch(0.5674 0.1585 275.2058);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.0692 0.0080 284.1148);
+  --secondary-foreground: oklch(0.9784 0.0011 197.1406);
+  --muted: oklch(0.0692 0.0080 284.1148);
+  --muted-foreground: oklch(0.9784 0.0011 197.1406);
+  --accent: oklch(0.0692 0.0080 284.1148);
+  --accent-foreground: oklch(0.9784 0.0011 197.1406);
+  --destructive: oklch(0.6534 0.1835 23.6794);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.2645 0.0098 268.3063);
+  --input: oklch(0.2645 0.0098 268.3063);
+  --ring: oklch(0.5674 0.1585 275.2058);
+  --sidebar: oklch(0.0692 0.0080 284.1148);
+  --sidebar-foreground: oklch(0.9784 0.0011 197.1406);
+  --sidebar-primary: oklch(0.5674 0.1585 275.2058);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.0692 0.0080 284.1148);
+  --sidebar-accent-foreground: oklch(0.9784 0.0011 197.1406);
+  --sidebar-border: oklch(0.2645 0.0098 268.3063);
+  --sidebar-ring: oklch(0.5674 0.1585 275.2058);
+
+  /* Synthesised lightness ladder of brand indigo — Linear doesn't publish
+   * a documented marketing-tree charting palette. Multi-hue palettes appear
+   * inside the product dashboards but aren't sampleable from marketing.
+   * Values held as a brand-coherent placeholder. */
+  --chart-1: oklch(0.8100 0.1585 275.2058);
+  --chart-2: oklch(0.7100 0.1585 275.2058);
+  --chart-3: oklch(0.6100 0.1585 275.2058);
+  --chart-4: oklch(0.5100 0.1585 275.2058);
+  --chart-5: oklch(0.4200 0.1585 275.2058);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;
+  --brand-radius-xxl: 24px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens — Linear loads InterVariable.woff2 (Inter Variable)
+   * and Berkeley-Mono-Variable.woff2 (Berkeley Mono) site-wide. Tiempos
+   * Headline is preloaded only on /method and is editorial-only; there is
+   * no marketing display family, so --font-display is intentionally omitted. */
+  --font-sans: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "Berkeley Mono", "Fira Code", "Jetbrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* type scale tokens */
+  --text-display: 80px;
+  --text-heading: 56px;
+  --text-title: 20px;
+  --text-base: 16px;
+  --leading-tight: 1.05;
+  --leading-normal: 1.50;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras */
+  --brand-primary-hover: oklch(0.6906 0.1637 276.2389);
+  --brand-primary-focus: oklch(0.5648 0.1585 275.5636);
+  --brand-ink-muted: oklch(0.8744 0.0152 260.7285);
+  --brand-ink-subtle: oklch(0.6488 0.0146 262.3594);
+  /* --brand-ink-tertiary holds Linear's live --color-text-quaternary
+   * (#62666d). This sits at ~3.16:1 against #0f1011 — sub-AA. Linear
+   * ships it intentionally for decorative timestamp metadata
+   * (`· 4 min ago`, `· 1 day ago`) and accepts the quiet reading per
+   * DESIGN.md §2. Consumers that need readable body text route to
+   * --brand-ink-subtle (#8a8f98), which is AA-passing. */
+  --brand-ink-tertiary: oklch(0.5092 0.0121 261.7676);
+  /* --brand-canvas-deep is Linear's --color-bg-primary on dark (#08090a) —
+   * the literal page-body bg behind the marketing-canvas wash. The surface
+   * ladder below starts one step lifted at --brand-surface-1 (#0f1011, the
+   * first card above the page canvas), matching every preview-template
+   * consumer that treats surface-1 as the elevated panel. */
+  --brand-canvas-deep: oklch(0.1390 0.0029 246.2561);
+  --brand-surface-1: oklch(0.1723 0.0026 247.9805);
+  --brand-surface-2: oklch(0.1950 0.0026 247.9581);
+  --brand-surface-3: oklch(0.2127 0.0025 247.9442);
+  --brand-surface-4: oklch(0.2171 0.0025 247.9412);
+  --brand-hairline-strong: oklch(0.3274 0.0105 285.8054);
+  --brand-hairline-tertiary: oklch(0.3661 0.0102 285.8850);
+  --brand-inverse-canvas: oklch(1 0 0);
+  --brand-inverse-surface-1: oklch(0.9724 0.0011 197.1405);
+  --brand-inverse-surface-2: oklch(0.9754 0.0011 197.1405);
+  --brand-inverse-ink: oklch(0 0 0);
+  --brand-brand-secure: oklch(0.6100 0.0699 279.2986);
+  --brand-semantic-success: oklch(0.6371 0.1749 146.6989);
+  --brand-semantic-overlay: oklch(0 0 0);
+
+  /* Documented secondary brand-accent tokens, surface-named per DESIGN.md §2.
+   * Each maps to a single Linear marketing-CSS variable with a documented
+   * semantic role; these are not synthesised lightness variants. */
+  --brand-accent-build: oklch(0.7716 0.1313 90.9836);   /* Linear --color-linear-build (#d4b144); "Build" workflow stage */
+  --brand-accent-plan: oklch(0.6951 0.1809 145.6213);   /* Linear --color-linear-plan (#3fb950); "On track" status / "Plan" workflow stage */
+  --brand-accent-secure: oklch(0.6100 0.0699 279.2986); /* Linear --color-linear-security (#7a7fad); muted indigo for security/auth illustration */
+}
+
+/* Both dark-theme blocks mirror :root — Linear has no light mode. */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.0692 0.0080 284.1148);
+  --foreground: oklch(0.9784 0.0011 197.1406);
+  --card: oklch(0.0692 0.0080 284.1148);
+  --card-foreground: oklch(0.9784 0.0011 197.1406);
+  --popover: oklch(0.0692 0.0080 284.1148);
+  --popover-foreground: oklch(0.9784 0.0011 197.1406);
+  --primary: oklch(0.5674 0.1585 275.2058);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.0692 0.0080 284.1148);
+  --secondary-foreground: oklch(0.9784 0.0011 197.1406);
+  --muted: oklch(0.0692 0.0080 284.1148);
+  --muted-foreground: oklch(0.9784 0.0011 197.1406);
+  --accent: oklch(0.0692 0.0080 284.1148);
+  --accent-foreground: oklch(0.9784 0.0011 197.1406);
+  --destructive: oklch(0.6534 0.1835 23.6794);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.2645 0.0098 268.3063);
+  --input: oklch(0.2645 0.0098 268.3063);
+  --ring: oklch(0.5674 0.1585 275.2058);
+  --sidebar: oklch(0.0692 0.0080 284.1148);
+  --sidebar-foreground: oklch(0.9784 0.0011 197.1406);
+  --sidebar-primary: oklch(0.5674 0.1585 275.2058);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.0692 0.0080 284.1148);
+  --sidebar-accent-foreground: oklch(0.9784 0.0011 197.1406);
+  --sidebar-border: oklch(0.2645 0.0098 268.3063);
+  --sidebar-ring: oklch(0.5674 0.1585 275.2058);
+  --chart-1: oklch(0.8100 0.1585 275.2058);
+  --chart-2: oklch(0.7100 0.1585 275.2058);
+  --chart-3: oklch(0.6100 0.1585 275.2058);
+  --chart-4: oklch(0.5100 0.1585 275.2058);
+  --chart-5: oklch(0.4200 0.1585 275.2058);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+  }
+}

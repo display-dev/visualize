@@ -1,0 +1,191 @@
+/**
+ * design-systems/grunge-collage/tokens.css
+ *
+ * Hand-authored from spec-derived Grunge Collage Motion Graphics register.
+ * Spec source: temp/refs/grunge-collage/raw.md (verbatim style prompt).
+ * Sourced: 2026-05-26.
+ * Companion: design-systems/grunge-collage/DESIGN.md.
+ *
+ * The spec documents exactly four colours — off-white paper (#F0EAD6),
+ * charcoal black (#1A1A1A), crimson red (#DC143C), muted gold (#C5A945).
+ * Every chromatic value below traces to one of those four. The §"Don't"
+ * rule "DON'T clutter the design with too many colors" is load-bearing;
+ * no synthesised hues are introduced.
+ *
+ * Distress effects (halftone overlays, ink-bleed offsets, torn-paper
+ * masks, stop-motion jitter) belong in the preview-template's <style>
+ * block, NOT here. The token surface is the brand's documented colour
+ * + typography surface; the chaos is rendered on top.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this brand's.
+ *   - Brand-extras (--brand-*): surface-named only, never colour-with-
+ *     modifier. The "ink" / "paper" suffixes here name surface roles
+ *     (paper canvas, ink-on-paper foreground), not chromatic modifiers.
+ *
+ * Dark-mode strategy: light-canonical, no documented dark. Synthesised
+ * carbon-copy / Xerox-inverted variant — canvas + neutrals flip,
+ * crimson + gold stay at :root value (single chromatic identity across
+ * modes is the default per AUTHORING).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+
+  --background: oklch(0.9364 0.0273 93.11);          /* #F0EAD6 off-white paper */
+  --foreground: oklch(0.2178 0 0);                   /* #1A1A1A charcoal */
+  --card: oklch(0.9364 0.0273 93.11);                /* same paper — torn-paper cards, no elevation */
+  --card-foreground: oklch(0.2178 0 0);
+  --popover: oklch(0.9364 0.0273 93.11);
+  --popover-foreground: oklch(0.2178 0 0);
+
+  --primary: oklch(0.5712 0.2219 20.09);             /* #DC143C crimson */
+  --primary-foreground: oklch(1 0 0);                /* #FFFFFF — chroma-0 retune from paper to win AA on crimson (4.14 → 5.80:1); paper #F0EAD6 reads ≈identical at banner scale, but pure white clears body-text floor for .btn-primary / .badge-red / .rung.r5 sub-roles. AUTHORING §"Brand identity vs. utility neutrals" — --primary-foreground is contract-pair, not identity. */
+  --secondary: oklch(0.2178 0 0);                    /* charcoal as secondary surface */
+  --secondary-foreground: oklch(0.9364 0.0273 93.11);
+  --muted: oklch(0.9024 0.0228 92.50);               /* paper-edge wash, slightly deeper than canvas */
+  --muted-foreground: oklch(0.3500 0.0030 92.00);    /* ink-tinted neutral for body secondary */
+  --accent: oklch(0.7406 0.1225 93.48);              /* #C5A945 muted gold */
+  --accent-foreground: oklch(0.2178 0 0);            /* charcoal on gold */
+  --destructive: oklch(0.5712 0.2219 20.09);         /* crimson doubles as destructive */
+  --destructive-foreground: oklch(1 0 0);            /* same chroma-0 retune as --primary-foreground; destructive is crimson */
+
+  --border: oklch(0.2178 0 0);                       /* hard charcoal hairlines */
+  --input: oklch(0.2178 0 0);
+  --ring: oklch(0.5712 0.2219 20.09);                /* tracks --primary */
+
+  --sidebar: oklch(0.9364 0.0273 93.11);
+  --sidebar-foreground: oklch(0.2178 0 0);
+  --sidebar-primary: oklch(0.5712 0.2219 20.09);     /* tracks --primary */
+  --sidebar-primary-foreground: oklch(1 0 0);        /* tracks --primary-foreground */
+  --sidebar-accent: oklch(0.7406 0.1225 93.48);
+  --sidebar-accent-foreground: oklch(0.2178 0 0);
+  --sidebar-border: oklch(0.2178 0 0);
+  --sidebar-ring: oklch(0.5712 0.2219 20.09);        /* tracks --primary */
+
+  /* Chart slots reuse the four-colour palette — no rainbow chart hues. */
+  --chart-1: oklch(0.5712 0.2219 20.09);             /* crimson */
+  --chart-2: oklch(0.7406 0.1225 93.48);             /* gold */
+  --chart-3: oklch(0.2178 0 0);                      /* charcoal */
+  --chart-4: oklch(0.3500 0.0030 92.00);             /* ink-mute */
+  --chart-5: oklch(0.9024 0.0228 92.50);             /* paper-edge */
+
+  --radius-sm: 0;                                    /* punk-zine register — no rounded corners */
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+
+  /* -- Typography ------------------------------------------------ */
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: 'Oswald', 'Impact', 'Arial Narrow', ui-sans-serif, system-ui, sans-serif;
+  --font-script: 'Permanent Marker', 'Caveat Brush', 'Brush Script MT', cursive;
+
+  /* -- Borders --------------------------------------------------- */
+  --border-width: 2px;                               /* heavy ink-edge default */
+
+  /* -- Shadows --------------------------------------------------- */
+  /* The register has no soft elevation. Borders are ink, not lift.
+   * Drop-shadows are replaced by hard offset blocks at the preview
+   * level via box-shadow: 4px 4px 0 0 var(--foreground); — that's
+   * preview decoration, not a token. */
+
+  /* -- Brand-extras --------------------------------------------- */
+
+  /* Polarity-locked surfaces. The paper canvas and charcoal banner
+   * surfaces don't flip with theme — they're identity, not chrome.
+   * Dark mode below does NOT override these. */
+  --brand-canvas-paper: oklch(0.9364 0.0273 93.11);  /* #F0EAD6 — always paper */
+  --brand-canvas-ink: oklch(0.2178 0 0);             /* #1A1A1A — always charcoal */
+  --brand-on-paper: oklch(0.2178 0 0);               /* charcoal ink on paper */
+  --brand-on-ink: oklch(0.9364 0.0273 93.11);        /* paper ink on charcoal */
+
+  /* Hairlines / dividers — both at full opacity vs. low-opacity wash */
+  --brand-hairline-strong: oklch(0.2178 0 0);                /* solid charcoal */
+  --brand-hairline-soft: oklch(0.2178 0 0 / 0.20);           /* charcoal at low alpha for grit washes */
+
+  /* Documented secondary brand colour */
+  --brand-accent-gold: oklch(0.7406 0.1225 93.48);   /* #C5A945 muted gold */
+
+  /* Body text neutrals — chroma ≈ 0 utility tokens for muted prose. */
+  --brand-body: oklch(0.2178 0 0);                   /* primary body — charcoal */
+  --brand-body-muted: oklch(0.3500 0.0030 92.00);    /* secondary body — ink-mute */
+  --brand-muted-soft: oklch(0.5000 0.0030 92.00);    /* tertiary body — paler ink-mute */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Synthesised carbon-copy / Xerox-inverted zine register. Spec
+ * documents no dark mode; this variant inverts canvas + neutrals
+ * and keeps the chromatic identity (crimson + gold) at :root value.
+ * Polarity-locked tokens (--brand-canvas-paper, --brand-canvas-ink,
+ * --brand-on-paper, --brand-on-ink) do NOT appear here — they're
+ * fixed at :root by definition.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1684 0 0);                   /* #0F0F0F distressed near-black */
+  --foreground: oklch(0.9364 0.0273 93.11);          /* paper as ink */
+  --card: oklch(0.2385 0.0257 19.14);                /* deepened crimson-tinted card — torn-paper-on-burned-ground */
+  --card-foreground: oklch(0.9364 0.0273 93.11);
+  --popover: oklch(0.1684 0 0);
+  --popover-foreground: oklch(0.9364 0.0273 93.11);
+
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring stay at :root
+   * (crimson). Single chromatic identity across modes. */
+
+  --secondary: oklch(0.9364 0.0273 93.11);           /* paper as secondary surface inverts */
+  --secondary-foreground: oklch(0.2178 0 0);
+  --muted: oklch(0.2385 0.0257 19.14);               /* crimson-tinted muted wash */
+  --muted-foreground: oklch(0.7500 0.0030 92.00);    /* lifted ink-mute for body on dark */
+
+  --border: oklch(0.9364 0.0273 93.11);              /* paper hairlines on near-black */
+  --input: oklch(0.9364 0.0273 93.11);
+
+  --sidebar: oklch(0.1684 0 0);
+  --sidebar-foreground: oklch(0.9364 0.0273 93.11);
+  --sidebar-border: oklch(0.9364 0.0273 93.11);
+
+  /* Utility neutrals (chroma ≈ 0) re-tinted for dark mode. */
+  --brand-body: oklch(0.9364 0.0273 93.11);          /* paper as body ink */
+  --brand-body-muted: oklch(0.7500 0.0030 92.00);
+  --brand-muted-soft: oklch(0.6000 0.0030 92.00);
+
+  --brand-hairline-soft: oklch(0.9364 0.0273 93.11 / 0.20);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1684 0 0);
+    --foreground: oklch(0.9364 0.0273 93.11);
+    --card: oklch(0.2385 0.0257 19.14);
+    --card-foreground: oklch(0.9364 0.0273 93.11);
+    --popover: oklch(0.1684 0 0);
+    --popover-foreground: oklch(0.9364 0.0273 93.11);
+
+    --secondary: oklch(0.9364 0.0273 93.11);
+    --secondary-foreground: oklch(0.2178 0 0);
+    --muted: oklch(0.2385 0.0257 19.14);
+    --muted-foreground: oklch(0.7500 0.0030 92.00);
+
+    --border: oklch(0.9364 0.0273 93.11);
+    --input: oklch(0.9364 0.0273 93.11);
+
+    --sidebar: oklch(0.1684 0 0);
+    --sidebar-foreground: oklch(0.9364 0.0273 93.11);
+    --sidebar-border: oklch(0.9364 0.0273 93.11);
+
+    --brand-body: oklch(0.9364 0.0273 93.11);
+    --brand-body-muted: oklch(0.7500 0.0030 92.00);
+    --brand-muted-soft: oklch(0.6000 0.0030 92.00);
+
+    --brand-hairline-soft: oklch(0.9364 0.0273 93.11 / 0.20);
+  }
+}

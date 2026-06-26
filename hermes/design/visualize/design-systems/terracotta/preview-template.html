@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Terracotta preview shell — slow-pace editorial essay === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+}
+.page { max-width: 720px; margin: 0 auto; padding: 5rem 2rem; }
+
+/* Humanist serif — Terracotta's identity */
+.serif {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+/* Masthead */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.masthead .pub {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: -0.005em;
+}
+.masthead .pub::first-letter { color: var(--primary); }
+.masthead .issue {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+/* Title */
+.essay-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.5rem, 5.5vw, 3.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 1.5rem 0;
+}
+
+/* Byline */
+.byline {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.byline .avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--accent-foreground);
+}
+.byline .who {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+.byline .when {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+  margin-top: 0.125rem;
+}
+
+/* Body prose — slow leading is the identity */
+.prose p { margin: 0 0 1.5rem 0; line-height: 1.65; }
+.prose p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 4rem;
+  float: left;
+  line-height: 0.9;
+  margin: 0.25rem 0.5rem -0.25rem 0;
+  color: var(--primary);
+}
+.prose a { color: var(--primary); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+/* Pull-quote — full serif, no quote marks needed, sage accent rule on left */
+.pullquote {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.625rem;
+  line-height: 1.35;
+  color: var(--foreground);
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  border-left: 4px solid var(--accent);
+  margin: 2rem 0;
+  letter-spacing: -0.005em;
+}
+.pullquote cite {
+  display: block;
+  margin-top: 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* Sub-head */
+.subhead {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  margin: 2.5rem 0 1rem 0;
+}
+
+/* Footnote */
+.footnote {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--muted-foreground);
+  padding: 1.25rem 1.5rem;
+  background-color: var(--muted);
+  border-radius: var(--radius-md, 0.3125rem);
+  margin: 2rem 0;
+}
+.footnote .num {
+  display: inline-block;
+  width: 1.5rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Read-more box at end */
+.endcap {
+  margin-top: 3rem;
+  padding: 1.75rem;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 0.5rem);
+}
+.endcap .badge {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: oklch(0.18 0.02 110);
+  background-color: var(--accent);
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  margin-bottom: 0.875rem;
+}
+.endcap h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: -0.005em;
+  margin: 0 0 0.5rem 0;
+}
+.endcap p { margin: 0 0 1rem 0; font-size: 0.9375rem; color: var(--muted-foreground); }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--radius-md, 0.3125rem);
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  text-decoration: none;
+  border: none;
+}
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+footer .left { font-family: var(--font-display); font-weight: 600; font-size: 0.9375rem; color: var(--foreground); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <span class="pub">Slowfeed</span>
+    <span class="issue">№ 17 · Sustainability</span>
+  </div>
+
+  <span class="eyebrow">Field notes</span>
+  <h1 class="essay-title">The patience required to publish a single page</h1>
+
+  <div class="byline">
+    <span class="avatar">M</span>
+    <div>
+      <div class="who">Mira Allende</div>
+      <div class="when">21 May 2026 · 8 min read</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>For ten years I have been writing the same essay. The version that ran in the 2017 anthology was four thousand words and four citations; the one I am sending to the printer next month is twelve hundred words and one citation. It is the same essay. The shape of the slow work is what the years gave me — the same argument, sharpened by a decade of patience, set in fired-clay against a sand canvas because the warm earth is what the argument is about.</p>
+
+    <p>The piece is about <a href="#">the cost of being heard quickly</a> — a question I first turned over in a conference handout, then in a longer piece for the quarterly, then in a talk I gave twice and have never given again. Each time I tried to write it faster, the argument went generic. The 2017 version is a recognisable shape of think-piece prose; the 2026 version is a thing I would write only this way.</p>
+
+    <div class="pullquote">
+      The slow page asks the reader to settle in. The fast page asks the reader to scroll. Both are choices about how much of the reader's attention the page believes it has earned.
+      <cite>— from "On the slow page", 2024</cite>
+    </div>
+
+    <p>I write this on a desk that has the same lamp it has had since I bought it secondhand in Portland in 2014. The lamp is the colour of the page I am setting — terracotta-orange, the kind you see on the unglazed underside of a flower pot. The match is not deliberate. I noticed it last week and felt the way you feel when a long pattern turns out to be a habit.</p>
+
+    <h3 class="subhead">A practice of returning</h3>
+
+    <p>The argument of the slow essay is that returning is its own form of attention. Writing the same piece eight times across a decade is not perfectionism, which is a kind of refusal to publish; it is the act of letting the world come back and tell you which sentences mattered. The first version had the right idea. The last version has the right sentences for the idea. The work between them is the work that the medium will not pay for and that nothing else can do.</p>
+
+    <div class="footnote">
+      <span class="num">¹</span>The earliest published version of this argument appeared in <em>Field Quarterly</em>, vol. 19 (2017), p. 42. I have left the original online; the persistence of the early draft is part of the practice.
+    </div>
+
+    <p>The cost of being heard quickly is everything that the speed leaves out. The cost of being heard slowly is most of the readers who would have shared the fast version. I have made the trade so many times now that I no longer experience it as a trade. It is just what the work is.</p>
+  </div>
+
+  <div class="endcap">
+    <span class="badge">Continue</span>
+    <h4>What I learned in the slow archive</h4>
+    <p>A companion essay on returning to your own out-of-print work and finding it both alien and familiar.</p>
+    <a href="#" class="btn">Read on Slowfeed →</a>
+  </div>
+
+  <footer>
+    <span class="left">Slowfeed · est. 2018</span>
+    <span>visualize · __DESIGN_SYSTEM_NAME__</span>
+  </footer>
+
+</div>
+</body>
+</html>

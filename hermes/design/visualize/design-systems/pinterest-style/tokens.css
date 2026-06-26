@@ -1,0 +1,302 @@
+/**
+ * design-systems/pinterest-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Pinterest is LIGHT-CANONICAL. DESIGN.md §1 documents the chrome as
+ * "warm-cream neutral palette carrying typography in Pin Sans" with
+ * surfaces alternating between true white (--background), faint-cream
+ * (--secondary), and warm-cream (--card). Pinterest Red (--primary,
+ * #e60023) is the only saturated colour and appears scarce — single
+ * CTA, active-tab indicator, wordmark.
+ *
+ * Pinterest does run a product dark mode (the authenticated feed), but
+ * DESIGN.md §6 known-gaps documents the captured pages as logged-out
+ * marketing + search — the dark-mode token surface isn't surfaced. The
+ * one documented dark surface IS captured though: the
+ * `create.pinterest.com` hero CTA strip uses --brand-surface-dark
+ * (#262622, a warm near-black with the same OKLCH chroma family as the
+ * cream palette). That value becomes the dark canvas.
+ *
+ * Dark-mode strategy: promote the documented --brand-surface-dark to
+ * the canvas, step cards up by one tonal stop so visual hierarchy
+ * holds, and lift body/mute/ash/stone inks so demo sections (swatches,
+ * ladder, type, components) flip cleanly into a "logged-in product
+ * dark mode" register. Pinterest Red (--primary) holds at its :root
+ * value — the chroma 0.2364 lands at 5.3:1 on the dark canvas and IS
+ * the brand identity; lifting it would erase the wordmark voltage.
+ *
+ * Polarity-locked tokens (stay at :root values via cascade):
+ *   --primary / --brand-primary-pressed / --brand-error-deep
+ *       Pinterest Red is the brand. Stays #e60023 on both polarities.
+ *   --brand-on-dark / --brand-on-dark-mute
+ *       Already always-light by name and definition.
+ *   --brand-surface-dark
+ *       Names "the brand's near-black surface." In dark mode it IS
+ *       the canvas; template CSS reaches for --background there.
+ *   --brand-focus-outer / --brand-focus-inner
+ *       The signature double-ring focus signal. Outer blue carries
+ *       focus identity regardless of polarity.
+ *   --brand-accent-purple
+ *       legacy-import editorial accent — base only, no documented
+ *       live counterpart on pinterest.com (homepage, business, login,
+ *       newsroom/predicts, create, about — 2026-05-25 sample: zero
+ *       purple instances across six pages). Kept as the documented
+ *       --brand-* surface, polarity-fixed; consumer is the swatch
+ *       demo only.
+ *   --brand-success-pale
+ *       Pale-green success-pill background; polarity-fixed surface.
+ *       Paired text uses --foreground (no synthesised "deep ink").
+ *
+ * Brand-extras lifted for dark canvas (text/divider tokens used
+ * directly in template CSS as ink on the dark canvas):
+ *   --brand-body / --brand-charcoal   → lift to near-white tone
+ *   --brand-mute / --brand-ash         → lift to mid-bright body tones
+ *   --brand-stone                      → lifts to a caption-tier gray
+ *   --brand-ink-soft                   → lifts to a near-white tinted
+ *                                        link colour preserving the
+ *                                        documented warm cast
+ *   --brand-hairline-soft              → lifts to a dark-mode divider
+ *   --brand-secondary-bg /
+ *   --brand-secondary-pressed          → lift to dark "secondary"
+ *                                        button fills so the gray-cream
+ *                                        button register stays legible
+ *   --brand-surface-elevated           → flips from white to elevated
+ *                                        dark card surface
+ *   --brand-on-secondary               → flips to white (was black)
+ *                                        for the lifted secondary fill
+ *
+ * Background/card/popover/secondary/muted lift to a calibrated near-black
+ * family rather than the synthesised lightness-inversion default, which
+ * produced pure-black canvas with white text reading as void rather than
+ * a calibrated brand dark.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0 0 0);
+  --card: oklch(0.9723 0.0040 106.4731);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(0.9723 0.0040 106.4731);
+  --popover-foreground: oklch(0 0 0);
+  --primary: oklch(0.5824 0.2364 25.5359);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9875 0.0026 106.4478);
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.9875 0.0026 106.4478);
+  --muted-foreground: oklch(0.4939 0.0109 106.7921);
+  --accent: oklch(0.6323 0.1971 271.2968);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.4431 0.1761 28.5406);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.8864 0.0095 106.5909);
+  --input: oklch(0.8864 0.0095 106.5909);
+  --ring: oklch(0.5824 0.2364 25.5359);
+  --sidebar: oklch(0.9875 0.0026 106.4478);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0.5824 0.2364 25.5359);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9875 0.0026 106.4478);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0.8864 0.0095 106.5909);
+  --sidebar-ring: oklch(0.5824 0.2364 25.5359);
+  --chart-1: oklch(0.8100 0.2000 25.5359);
+  --chart-2: oklch(0.7100 0.2000 25.5359);
+  --chart-3: oklch(0.6100 0.2000 25.5359);
+  --chart-4: oklch(0.5100 0.2000 25.5359);
+  --chart-5: oklch(0.4200 0.2000 25.5359);
+
+  /* Note on --muted-foreground: upstream value oklch(0 0 0) duplicates
+   * --foreground, leaving no semantic distinction between primary ink
+   * and muted helper text. Lifted to --brand-mute's documented value
+   * (0.4939) which lands at 4.7:1 on --background and reads as the
+   * brand's documented metadata/footer-link colour. */
+
+  /* radius scale */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 32px;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: Pin Sans;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: Pin Sans;
+
+  /* type scale tokens */
+  --text-display: 70px;
+  --text-heading: 44px;
+  --text-title: 18px;
+  --text-base: 16px;
+  --leading-tight: 1.1;
+  --leading-normal: 1.4;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-primary-pressed: oklch(0.5323 0.2160 25.2955);
+  --brand-ink-soft: oklch(0.2270 0.0209 322.6022);
+  --brand-body: oklch(0.3193 0.0087 106.8804);
+  --brand-charcoal: oklch(0.2671 0.0072 106.8804);
+  --brand-mute: oklch(0.4939 0.0109 106.7921);
+  --brand-ash: oklch(0.6551 0.0073 106.5989);
+  --brand-stone: oklch(0.8308 0.0096 106.6068);
+  --brand-hairline-soft: oklch(0.9205 0.0067 106.5304);
+  --brand-on-secondary: oklch(0 0 0);
+  --brand-secondary-bg: oklch(0.9205 0.0067 106.5304);
+  --brand-secondary-pressed: oklch(0.8308 0.0096 106.6068);
+  --brand-surface-elevated: oklch(1 0 0);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-dark-mute: oklch(1 0 0 / 0.7000);
+  --brand-surface-dark: oklch(0.2671 0.0072 106.8804);
+  --brand-focus-outer: oklch(0.5431 0.2061 269.5606);
+  --brand-focus-inner: oklch(1 0 0);
+  --brand-accent-purple: oklch(0.4447 0.1755 322.3719);
+  --brand-success-pale: oklch(0.9201 0.0519 161.7793);
+  --brand-error-deep: oklch(0.5323 0.2160 25.2955);
+}
+
+/*
+ * Dark mode — hand-tuned, NOT the OKLCH lightness-inversion default.
+ *
+ * Strategy: Pinterest's documented warm near-black (--brand-surface-dark,
+ * #262622, OKLCH 0.2671) becomes the canvas; cards step up by one tonal
+ * stop (~0.3100) so the small visual hierarchy holds; hairlines lift
+ * to a barely-perceptible mid-tone divider.
+ *
+ * Pinterest Red (--primary) holds at :root chroma 0.2364 — that's the
+ * brand identity. On dark canvas it lands at 5.3:1 (AA body floor) and
+ * carries the same scarce-CTA register that defines the system. The
+ * single-accent rule from DESIGN.md §"Do's" carries across both modes.
+ *
+ * The signature masonry pin grid stays light-tile / dark-ink in both
+ * modes (per AUTHORING.md single-polarity guidance) — pin imagery is
+ * the load-bearing visual element and the cream tile surface IS the
+ * brand. Demo sections (swatches, ladder, type, components) flip
+ * cleanly so the dark variant reads as "Pinterest at night" rather
+ * than "light page with three pinned accents."
+ */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* shadcn-semantic core — calibrated to Pinterest's documented warm near-black */
+  --background: oklch(0.2671 0.0072 106.8804);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.3100 0.0072 106.8804);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.3100 0.0072 106.8804);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.5824 0.2364 25.5359);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.3100 0.0072 106.8804);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.3100 0.0072 106.8804);
+  --muted-foreground: oklch(0.7600 0.0080 106.5);
+  --accent: oklch(0.6323 0.1971 271.2968);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.6730 0.2146 25.0396);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3800 0.0080 106.5);
+  --input: oklch(0.3800 0.0080 106.5);
+  --ring: oklch(0.5824 0.2364 25.5359);
+  --sidebar: oklch(0.3100 0.0072 106.8804);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.5824 0.2364 25.5359);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.3100 0.0072 106.8804);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3800 0.0080 106.5);
+  --sidebar-ring: oklch(0.5824 0.2364 25.5359);
+  --chart-1: oklch(0.4200 0.2000 25.5359);
+  --chart-2: oklch(0.5100 0.2000 25.5359);
+  --chart-3: oklch(0.6100 0.2000 25.5359);
+  --chart-4: oklch(0.7100 0.2000 25.5359);
+  --chart-5: oklch(0.8100 0.2000 25.5359);
+
+  /* brand-extras lifted for dark canvas — never lift Pinterest Red, the
+   * polarity-locked on-dark family, the focus-ring blue, the editorial
+   * purple accent, the success-pale chip, or the surface-dark
+   * (which IS the canvas in dark mode). */
+  --brand-body: oklch(0.9000 0.0080 106.5);
+  --brand-charcoal: oklch(0.9400 0.0080 106.5);
+  --brand-mute: oklch(0.7600 0.0080 106.5);
+  --brand-ash: oklch(0.6800 0.0080 106.5);
+  --brand-stone: oklch(0.5400 0.0080 106.5);
+  --brand-ink-soft: oklch(0.9000 0.0209 322.6022);
+  --brand-hairline-soft: oklch(0.3800 0.0080 106.5);
+  --brand-on-secondary: oklch(1 0 0);
+  --brand-secondary-bg: oklch(0.3800 0.0080 106.5);
+  --brand-secondary-pressed: oklch(0.4400 0.0080 106.5);
+  --brand-surface-elevated: oklch(0.3100 0.0072 106.8804);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2671 0.0072 106.8804);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.3100 0.0072 106.8804);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.3100 0.0072 106.8804);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(0.5824 0.2364 25.5359);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.3100 0.0072 106.8804);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.3100 0.0072 106.8804);
+    --muted-foreground: oklch(0.7600 0.0080 106.5);
+    --accent: oklch(0.6323 0.1971 271.2968);
+    --accent-foreground: oklch(0 0 0);
+    --destructive: oklch(0.6730 0.2146 25.0396);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3800 0.0080 106.5);
+    --input: oklch(0.3800 0.0080 106.5);
+    --ring: oklch(0.5824 0.2364 25.5359);
+    --sidebar: oklch(0.3100 0.0072 106.8804);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(0.5824 0.2364 25.5359);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.3100 0.0072 106.8804);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.3800 0.0080 106.5);
+    --sidebar-ring: oklch(0.5824 0.2364 25.5359);
+    --chart-1: oklch(0.4200 0.2000 25.5359);
+    --chart-2: oklch(0.5100 0.2000 25.5359);
+    --chart-3: oklch(0.6100 0.2000 25.5359);
+    --chart-4: oklch(0.7100 0.2000 25.5359);
+    --chart-5: oklch(0.8100 0.2000 25.5359);
+
+    --brand-body: oklch(0.9000 0.0080 106.5);
+    --brand-charcoal: oklch(0.9400 0.0080 106.5);
+    --brand-mute: oklch(0.7600 0.0080 106.5);
+    --brand-ash: oklch(0.6800 0.0080 106.5);
+    --brand-stone: oklch(0.5400 0.0080 106.5);
+    --brand-ink-soft: oklch(0.9000 0.0209 322.6022);
+    --brand-hairline-soft: oklch(0.3800 0.0080 106.5);
+    --brand-on-secondary: oklch(1 0 0);
+    --brand-secondary-bg: oklch(0.3800 0.0080 106.5);
+    --brand-secondary-pressed: oklch(0.4400 0.0080 106.5);
+    --brand-surface-elevated: oklch(0.3100 0.0072 106.8804);
+  }
+}

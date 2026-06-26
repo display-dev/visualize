@@ -1,0 +1,2544 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cyber-serif — preview</title>
+<!-- Cyber Serif preview shell — spec-derived dark-canonical register.
+     Signature mockup: a 3-up Spotlight Feature Card grid composing the
+     three named components together (Glassmorphism base + Shimmer Border
+     decoration + Spotlight Cursor Tracking on hover). All chromatic
+     surfaces route through tokens.css; emerald never appears as a block
+     fill, only as ink / 1px underlines / glow shadows / gradient stops. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23050505'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%2310b981'/%3E%3C/svg%3E">
+<meta property="og:title" content="cyber-serif — token-surface preview">
+<meta property="og:description" content="Spec-derived design-system preview from visualize. Newsreader serif display + Space Grotesk all-caps mono labels on near-black canvas + surgical emerald accent.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/cyber-serif/tokens.css) === */
+/**
+ * design-systems/cyber-serif/tokens.css
+ *
+ * Hand-authored from the spec-derived Cyber Serif system documented in
+ * ./DESIGN.md. Source: temp/refs/cyber-serif/raw.md (Cyber Serif Style
+ * spec). Sourced: 2026-05-26.
+ *
+ * canonical-canvas: dark. Cyber Serif is single-polarity by construction.
+ * Both [data-theme="dark"] and @media (prefers-color-scheme: dark) blocks
+ * mirror :root verbatim — there is no light variant to ship.
+ *
+ * Surgical-emerald rule: --primary is the system's sole chromatic accent
+ * (oklch(0.6959 0.1491 162.48) = #10b981). It must never fill a large
+ * block. Token consumers should route emerald to ink (one italic word,
+ * one alternating column), 1px hover underlines, box-shadow glows,
+ * shimmer-gradient stops at 0.3 alpha, spotlight-gradient stops at 0.15
+ * alpha, atmospheric blob fills at 0.10 alpha behind a 100px blur, the
+ * 6×6 pulse dot, the focus ring. The audit catches accidental large
+ * fills only via the preview rendering — there is no token-level guard.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this system's.
+ *   - Brand-extras (--brand-*): the system's own vocabulary, surface-
+ *     named only.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+
+  --background: oklch(0.1149 0 0);                    /* #050505 — DESIGN.md §2 Canvas + neutrals */
+  --foreground: oklch(0.9401 0 0);                    /* #EBEBEB — DESIGN.md §2 Canvas + neutrals */
+  --card: oklch(0.1591 0 0);                          /* glass-1 surface, opaque equivalent of rgba(255,255,255,0.02) over canvas */
+  --card-foreground: oklch(0.9401 0 0);
+  --popover: oklch(0.1591 0 0);
+  --popover-foreground: oklch(0.9401 0 0);
+
+  --primary: oklch(0.6959 0.1491 162.48);             /* #10b981 — DESIGN.md §2 Brand primary; surgical accent only */
+  --primary-foreground: oklch(0.1149 0 0);            /* near-black ink on the rare emerald fill */
+  --secondary: oklch(0.1867 0 0);                     /* glass-2 surface */
+  --secondary-foreground: oklch(0.9401 0 0);
+  --muted: oklch(0.1867 0 0);
+  --muted-foreground: oklch(0.6650 0 0);              /* chroma-0 utility neutral; lifted so body-text consumers clear AA on glass ladder up to glass-3 */
+  --accent: oklch(0.6959 0.1491 162.48);              /* tracks --primary; emerald is the sole accent */
+  --accent-foreground: oklch(0.1149 0 0);
+  --destructive: oklch(0.6534 0.1835 23.6794);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.2850 0 0);                        /* opaque equivalent of rgba(255,255,255,0.10) — glassmorphism hairline */
+  --input: oklch(0.2850 0 0);
+  --ring: oklch(0.6959 0.1491 162.48);                /* tracks --primary; emerald focus ring */
+
+  --sidebar: oklch(0.1149 0 0);
+  --sidebar-foreground: oklch(0.9401 0 0);
+  --sidebar-primary: oklch(0.6959 0.1491 162.48);     /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.1149 0 0);
+  --sidebar-accent: oklch(0.1591 0 0);
+  --sidebar-accent-foreground: oklch(0.9401 0 0);
+  --sidebar-border: oklch(0.2850 0 0);
+  --sidebar-ring: oklch(0.6959 0.1491 162.48);        /* tracks --primary */
+
+  /* Chart palette — monochrome lightness ladder with a single emerald
+   * anchor. The system has no documented secondary chromatic identity,
+   * so the chart palette resists the multi-hue convention; emerald
+   * carries chart-1 and the remaining steps walk down through white. */
+  --chart-1: oklch(0.6959 0.1491 162.48);             /* emerald primary */
+  --chart-2: oklch(0.9401 0 0);                       /* near-white */
+  --chart-3: oklch(0.7316 0 0);                       /* ink-mute */
+  --chart-4: oklch(0.6650 0 0);                       /* ink-subtle; tracks --muted-foreground / --brand-ink-subtle */
+  --chart-5: oklch(0.3600 0 0);                       /* ink-faint */
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;                                  /* rounded-3xl — Glassmorphism / Spotlight feature card */
+
+  /* -- Typography ------------------------------------------------ */
+  /* Newsreader is the display serif (200–800, italic). Space Grotesk
+   * is positioned in the --font-mono role because the spec uses it as
+   * a technical all-caps 10px / 0.2em label face, which is mono-coded
+   * behaviour; a true monospace stack sits behind it for any code
+   * block consumer. Inter handles body. */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+  --font-serif: "Newsreader", "Source Serif 4", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "Space Grotesk", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: "Newsreader", "Source Serif 4", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+  /* -- Brand-extras ---------------------------------------------
+   * Polarity-locked: Cyber Serif ships dark-only, so every token below
+   * is fixed across all theme blocks. None should be overridden in
+   * [data-theme="dark"] or in @media (prefers-color-scheme: dark).
+   * -------------------------------------------------------------- */
+
+  /* Brand primary lineage — emerald state cycle, derived from spec's
+   * pulse-glow / pressed implications (no live state ladder shipped
+   * in the spec; documented in DESIGN.md §2). */
+  --brand-primary-deep: oklch(0.5960 0.1274 163.23);  /* #059669 — pressed-state emerald */
+  --brand-primary-soft: oklch(0.7729 0.1535 163.22);  /* #34d399 — shimmer-gradient mid-stop, hover lift */
+  --brand-primary-press: oklch(0.5781 0.1159 166.95); /* #0d8f6b — deepest pressed */
+
+  /* Polarity-locked canvas + ink */
+  --brand-canvas-night: oklch(0.1149 0 0);            /* #050505 — dominant canvas */
+  --brand-on-dark: oklch(0.9401 0 0);                 /* #EBEBEB — primary text on canvas */
+
+  /* Glassmorphism surface ladder — opaque equivalents of the spec's
+   * rgba(255,255,255, A) alpha ramp over the near-black canvas. */
+  --brand-surface-glass-1: oklch(0.1591 0 0);         /* 2% white over canvas */
+  --brand-surface-glass-2: oklch(0.1867 0 0);         /* 4% white over canvas */
+  --brand-surface-glass-3: oklch(0.2134 0 0);         /* 6% white over canvas */
+
+  /* Hairlines / dividers — two weights, both spec-cited */
+  --brand-hairline-soft: oklch(0.2178 0 0);           /* 5% white over canvas — benchmark table row dividers */
+  --brand-hairline-strong: oklch(0.2850 0 0);         /* 10% white over canvas — glassmorphism card border */
+
+  /* Body-text neutrals — chroma-zero utility ladder */
+  --brand-ink-strong: oklch(0.9401 0 0);              /* #EBEBEB; same as --foreground */
+  --brand-ink-mute: oklch(0.7316 0 0);                /* text-white/70 equivalent */
+  --brand-ink-subtle: oklch(0.6650 0 0);              /* body-text role on glass surfaces — chroma-0 utility, lifted to clear AA on canvas + glass 1/2/3 (#050505 → #191919) */
+  --brand-ink-faint: oklch(0.3600 0 0);               /* text-white/20 equivalent — inactive labels, decorative-only (never body text) */
+
+  /* Brand-specific radii — pills + rounded-3xl */
+  --brand-radius-card: 24px;                          /* rounded-3xl — Glassmorphism / Spotlight card */
+  --brand-radius-pill: 9999px;                        /* CTA buttons — full pill */
+  --brand-radius-glyph: 10px;                         /* logo mark rounded square */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Cyber Serif is dark-canonical. Every value below mirrors :root —
+ * there is no second polarity to flip to.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1149 0 0);
+  --foreground: oklch(0.9401 0 0);
+  --card: oklch(0.1591 0 0);
+  --card-foreground: oklch(0.9401 0 0);
+  --popover: oklch(0.1591 0 0);
+  --popover-foreground: oklch(0.9401 0 0);
+
+  --primary: oklch(0.6959 0.1491 162.48);
+  --primary-foreground: oklch(0.1149 0 0);
+  --secondary: oklch(0.1867 0 0);
+  --secondary-foreground: oklch(0.9401 0 0);
+  --muted: oklch(0.1867 0 0);
+  --muted-foreground: oklch(0.6650 0 0);
+  --accent: oklch(0.6959 0.1491 162.48);
+  --accent-foreground: oklch(0.1149 0 0);
+  --destructive: oklch(0.6534 0.1835 23.6794);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.2850 0 0);
+  --input: oklch(0.2850 0 0);
+  --ring: oklch(0.6959 0.1491 162.48);
+
+  --sidebar: oklch(0.1149 0 0);
+  --sidebar-foreground: oklch(0.9401 0 0);
+  --sidebar-primary: oklch(0.6959 0.1491 162.48);
+  --sidebar-primary-foreground: oklch(0.1149 0 0);
+  --sidebar-accent: oklch(0.1591 0 0);
+  --sidebar-accent-foreground: oklch(0.9401 0 0);
+  --sidebar-border: oklch(0.2850 0 0);
+  --sidebar-ring: oklch(0.6959 0.1491 162.48);
+
+  --chart-1: oklch(0.6959 0.1491 162.48);
+  --chart-2: oklch(0.9401 0 0);
+  --chart-3: oklch(0.7316 0 0);
+  --chart-4: oklch(0.6650 0 0);
+  --chart-5: oklch(0.3600 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1149 0 0);
+    --foreground: oklch(0.9401 0 0);
+    --card: oklch(0.1591 0 0);
+    --card-foreground: oklch(0.9401 0 0);
+    --popover: oklch(0.1591 0 0);
+    --popover-foreground: oklch(0.9401 0 0);
+
+    --primary: oklch(0.6959 0.1491 162.48);
+    --primary-foreground: oklch(0.1149 0 0);
+    --secondary: oklch(0.1867 0 0);
+    --secondary-foreground: oklch(0.9401 0 0);
+    --muted: oklch(0.1867 0 0);
+    --muted-foreground: oklch(0.6650 0 0);
+    --accent: oklch(0.6959 0.1491 162.48);
+    --accent-foreground: oklch(0.1149 0 0);
+    --destructive: oklch(0.6534 0.1835 23.6794);
+    --destructive-foreground: oklch(1 0 0);
+
+    --border: oklch(0.2850 0 0);
+    --input: oklch(0.2850 0 0);
+    --ring: oklch(0.6959 0.1491 162.48);
+
+    --sidebar: oklch(0.1149 0 0);
+    --sidebar-foreground: oklch(0.9401 0 0);
+    --sidebar-primary: oklch(0.6959 0.1491 162.48);
+    --sidebar-primary-foreground: oklch(0.1149 0 0);
+    --sidebar-accent: oklch(0.1591 0 0);
+    --sidebar-accent-foreground: oklch(0.9401 0 0);
+    --sidebar-border: oklch(0.2850 0 0);
+    --sidebar-ring: oklch(0.6959 0.1491 162.48);
+
+    --chart-1: oklch(0.6959 0.1491 162.48);
+    --chart-2: oklch(0.9401 0 0);
+    --chart-3: oklch(0.7316 0 0);
+    --chart-4: oklch(0.6650 0 0);
+    --chart-5: oklch(0.3600 0 0);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Cyber Serif preview shell ===========================================
+   Dark-canonical, single-polarity. Signature mockup is the spotlight
+   feature grid (combines Glassmorphism + Shimmer Border + Spotlight
+   Cursor — the three named components stacked together).
+   Curve: cubic-bezier(0.16, 1, 0.3, 1) — used everywhere. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.05px;
+  overflow-x: hidden;
+}
+
+/* -- Morphing background glows (atmospheric decoration) -- */
+.glow-field {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-blob {
+  position: absolute;
+  width: 384px;
+  height: 384px;
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  filter: blur(100px);
+  animation: morph 8s cubic-bezier(0.16, 1, 0.3, 1) infinite alternate;
+}
+.glow-blob[data-blob="a"] { top: -6rem; left: 12%; animation-delay: 0s; }
+.glow-blob[data-blob="b"] { top: 32rem; right: 8%; animation-delay: -3s; }
+.glow-blob[data-blob="c"] { top: 96rem; left: 30%; animation-delay: -5s; }
+@keyframes morph {
+  0%   { border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%; }
+  100% { border-radius: 60% 40% 40% 60% / 30% 70% 30% 70%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .glow-blob { animation: none; border-radius: 50%; }
+}
+
+/* -- Page container -- */
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* -- Top navigation -- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: 64px;
+  background: color-mix(in srgb, var(--background) 80%, transparent);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.topnav-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+}
+.topnav-glyph {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--brand-radius-glyph);
+  background: var(--brand-on-dark);
+  color: var(--brand-canvas-night);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.topnav-mark:hover .topnav-glyph { transform: rotate(360deg); }
+@media (prefers-reduced-motion: reduce) {
+  .topnav-glyph, .topnav-mark:hover .topnav-glyph { transition: none; transform: none; }
+}
+.topnav-links {
+  display: flex;
+  gap: 2rem;
+}
+.topnav-links a {
+  position: relative;
+  color: var(--brand-ink-mute);
+  font-size: 14px;
+  text-decoration: none;
+  padding: 0.25rem 0;
+  transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.topnav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1px;
+  width: 0;
+  background: var(--primary);
+  transition: width 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-links a:hover::after { width: 100%; }
+.topnav-links a:focus-visible {
+  outline: 1px solid var(--ring);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.topnav-actions { display: flex; gap: 0.75rem; align-items: center; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Button grammar (pills only — never standard rounds) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.625rem 1.5rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.05px;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow 280ms cubic-bezier(0.16, 1, 0.3, 1),
+              background 200ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn:focus-visible {
+  outline: 1px solid var(--ring);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--foreground);
+  color: var(--brand-canvas-night);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--primary) 36%, transparent),
+              0 0 1px color-mix(in srgb, var(--primary) 60%, transparent);
+  animation: pulse-glow 3.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+.btn[data-variant="primary"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 36px color-mix(in srgb, var(--primary) 52%, transparent),
+              0 0 1px color-mix(in srgb, var(--primary) 80%, transparent);
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 24px color-mix(in srgb, var(--primary) 32%, transparent),
+                          0 0 1px color-mix(in srgb, var(--primary) 60%, transparent); }
+  50%      { box-shadow: 0 0 38px color-mix(in srgb, var(--primary) 48%, transparent),
+                          0 0 2px color-mix(in srgb, var(--primary) 80%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn[data-variant="primary"] { animation: none; }
+  .btn:hover { transform: none; }
+}
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--brand-hairline-strong);
+}
+.btn[data-variant="ghost"]:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--primary) 30%, transparent);
+}
+.btn[data-variant="quiet"] {
+  background: transparent;
+  color: var(--brand-ink-mute);
+}
+.btn[data-variant="quiet"]:hover { color: var(--foreground); }
+
+/* -- All-caps technical label (eyebrow) -- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+  margin: 0;
+}
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+  animation: dot-pulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 8px color-mix(in srgb, var(--primary) 60%, transparent); }
+  50%      { box-shadow: 0 0 14px color-mix(in srgb, var(--primary) 90%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow-dot { animation: none; }
+}
+
+/* -- Hero -- */
+.hero {
+  padding: 8rem 0 6rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 4rem;
+  align-items: center;
+  min-height: 88vh;
+}
+@media (max-width: 980px) { .hero { grid-template-columns: 1fr; gap: 3rem; min-height: 0; } }
+.hero-eyebrow-row { display: flex; gap: 1rem; margin-bottom: 2rem; }
+.hero-display {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 8vw, 6.25rem);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  margin: 0 0 1.5rem;
+  max-width: 14ch;
+}
+.hero-display em {
+  font-style: italic;
+  color: var(--primary);
+  font-weight: 400;
+}
+.hero-lede {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--brand-ink-mute);
+  max-width: 44ch;
+  margin: 0 0 2.5rem;
+}
+.hero-ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.hero-meta {
+  display: flex;
+  gap: 2rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.hero-meta-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+.hero-meta-num {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--foreground);
+  letter-spacing: -0.02em;
+}
+.hero-meta-num em { font-style: italic; color: var(--primary); font-weight: 400; }
+
+/* -- Hero right column: abstract floating glass cards -- */
+.hero-mockup {
+  position: relative;
+  height: 28rem;
+}
+.float-card {
+  position: absolute;
+  background: var(--brand-surface-glass-1);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-radius-card);
+  padding: 1.5rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.float-card[data-layer="back"] {
+  width: 18rem;
+  top: 0;
+  right: 1rem;
+  transform: rotate(-2deg);
+}
+.float-card[data-layer="mid"] {
+  width: 16rem;
+  top: 6rem;
+  left: 1rem;
+  transform: rotate(3deg);
+}
+.float-card[data-layer="front"] {
+  width: 19rem;
+  bottom: 0;
+  right: 0.5rem;
+  transform: rotate(-1deg);
+}
+.float-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-ink-subtle);
+}
+.float-card-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: dot-pulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+.float-card-num {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+.float-card-num em { font-style: italic; color: var(--primary); font-weight: 400; }
+.float-card-label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--brand-ink-mute);
+  line-height: 1.5;
+}
+.float-card-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 32px;
+  margin-top: 0.75rem;
+}
+.float-card-bars span {
+  display: inline-block;
+  width: 8px;
+  background: var(--brand-hairline-strong);
+  border-radius: 1px;
+}
+.float-card-bars span[data-on="true"] { background: var(--primary); }
+@media (max-width: 980px) { .hero-mockup { display: none; } }
+
+/* -- Section frame -- */
+.section { padding: 6rem 0; border-top: 1px solid var(--brand-hairline-soft); }
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 3.5rem;
+  max-width: 56ch;
+}
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0;
+  max-width: 18ch;
+}
+.section-title em { font-style: italic; color: var(--primary); font-weight: 400; }
+.section-lede {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--brand-ink-mute);
+  margin: 0;
+}
+
+/* -- Signature mockup: 3-up Spotlight Feature Card grid ----------------
+   Combines Glassmorphism Card (base) + Shimmer Border (continuous emerald
+   sweep on the ::after pseudo) + Spotlight Cursor (radial gradient on
+   ::before, opacity 0 -> 1 on hover; mouse position via CSS vars set
+   inline). The three named components from the spec stacked together. */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 980px) { .feature-grid { grid-template-columns: 1fr; } }
+
+.spotlight-card {
+  position: relative;
+  padding: 2.5rem;
+  background: var(--brand-surface-glass-1);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-radius-card);
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.spotlight-card::before {
+  /* Spotlight Cursor Tracking — 600px radial gradient anchored to
+     --mouse-x / --mouse-y. CSS vars set inline below; the JS would
+     update them on mousemove. Static fallback positions at 50/30. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 30%),
+    color-mix(in srgb, var(--primary) 15%, transparent),
+    transparent 40%
+  );
+  transition: opacity 380ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.spotlight-card::after {
+  /* Shimmer Border — 3-stop horizontal emerald gradient at 200%
+     animating from 200% to -200% over 4s linearly. */
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--primary) 30%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: shimmer 4s linear infinite;
+}
+.spotlight-card:hover::before { opacity: 1; }
+.spotlight-card:hover { transform: translateY(-2px); }
+.spotlight-card:focus-within { outline: 1px solid var(--ring); outline-offset: 4px; }
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-card::after { animation: none; opacity: 0.4; }
+  .spotlight-card:hover { transform: none; }
+}
+
+.spotlight-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-lg);
+  background: var(--brand-surface-glass-3);
+  border: 1px solid var(--brand-hairline-strong);
+  color: var(--foreground);
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.spotlight-card:hover .spotlight-icon { transform: rotate(12deg); }
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-icon, .spotlight-card:hover .spotlight-icon { transition: none; transform: none; }
+}
+.spotlight-title {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+  position: relative;
+  z-index: 1;
+}
+.spotlight-title em { font-style: italic; color: var(--primary); font-weight: 400; }
+.spotlight-desc {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--brand-ink-subtle);
+  margin: 0 0 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+.spotlight-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  position: relative;
+  z-index: 1;
+}
+.spotlight-meta-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+/* -- Color swatch band -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+}
+@media (max-width: 980px) { .swatch-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 540px) { .swatch-grid { grid-template-columns: repeat(2, 1fr); } }
+.swatch {
+  background: var(--brand-surface-glass-1);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 9rem;
+}
+.swatch-chip {
+  height: 3.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-name {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+.swatch-value {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--brand-ink-subtle);
+}
+
+/* -- Surface ladder -- */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+@media (max-width: 880px) { .surface-ladder { grid-template-columns: repeat(2, 1fr); } }
+.surface-step {
+  padding: 1.5rem;
+  border-right: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 8rem;
+}
+.surface-step:last-child { border-right: none; }
+.surface-step[data-step="0"] { background: var(--background); }
+.surface-step[data-step="1"] { background: var(--brand-surface-glass-1); }
+.surface-step[data-step="2"] { background: var(--brand-surface-glass-2); }
+.surface-step[data-step="3"] { background: var(--brand-surface-glass-3); }
+.surface-step-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+.surface-step-name {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+}
+.surface-step-role { font-size: 12px; color: var(--brand-ink-subtle); }
+
+/* -- Typography roles -- */
+.type-stack { display: flex; flex-direction: column; gap: 2.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 2rem;
+  align-items: baseline;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+.type-display {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+.type-display em { font-style: italic; color: var(--primary); font-weight: 400; }
+.type-heading {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.type-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.type-body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
+  letter-spacing: -0.05px;
+  color: var(--brand-ink-strong);
+}
+.type-caption {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-ink-subtle);
+}
+.type-mono {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+
+/* -- Component vocabulary band -- */
+.components-stack { display: flex; flex-direction: column; gap: 3rem; }
+.cmp-block { display: flex; flex-direction: column; gap: 1rem; }
+.cmp-block-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+.cmp-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.875rem;
+  border: 1px solid var(--brand-hairline-strong);
+  background: var(--brand-surface-glass-1);
+  border-radius: var(--brand-radius-pill);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+.status-pill-dot { width: 5px; height: 5px; border-radius: 50%; }
+.status-pill-dot[data-state="live"] { background: var(--primary); box-shadow: 0 0 6px var(--primary); }
+.status-pill-dot[data-state="muted"] { background: var(--brand-ink-faint); }
+.status-pill-dot[data-state="strong"] { background: var(--brand-on-dark); }
+
+.text-input {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  background: var(--brand-surface-glass-1);
+  color: var(--foreground);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--radius-md);
+  padding: 0.625rem 1rem;
+  min-height: 44px;
+  min-width: 18rem;
+  transition: border-color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.text-input:focus-visible {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary), 0 0 16px color-mix(in srgb, var(--primary) 35%, transparent);
+}
+.text-input::placeholder { color: var(--brand-ink-subtle); }
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 4px 10px;
+  background: var(--brand-surface-glass-2);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-pill);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+.tag-pill[data-emphasis="emerald"] { color: var(--primary); border-color: color-mix(in srgb, var(--primary) 40%, transparent); }
+
+/* -- Benchmark table -- */
+.benchmark {
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--brand-surface-glass-1);
+}
+.benchmark-header,
+.benchmark-row {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  padding: 0.875rem 1.5rem;
+}
+.benchmark-header {
+  background: var(--brand-surface-glass-2);
+  border-bottom: 1px solid var(--brand-hairline-strong);
+}
+.benchmark-header span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+.benchmark-row {
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  font-family: var(--font-sans);
+  font-size: 14px;
+}
+.benchmark-row:last-child { border-bottom: none; }
+.benchmark-cell-name {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--brand-on-dark);
+}
+.benchmark-cell-num {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--brand-ink-mute);
+}
+.benchmark-cell-num[data-tone="emerald"] {
+  color: var(--primary);
+}
+.benchmark-cell-check {
+  font-size: 14px;
+  color: var(--primary);
+  animation: dot-pulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@media (max-width: 880px) {
+  .benchmark-header, .benchmark-row {
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+  .benchmark-header span:nth-child(4),
+  .benchmark-header span:nth-child(5),
+  .benchmark-row > *:nth-child(4),
+  .benchmark-row > *:nth-child(5) {
+    display: none;
+  }
+}
+
+/* -- CTA closer with gradient text -- */
+.cta-closer {
+  padding: 6rem 0;
+  text-align: center;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.cta-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+  margin: 0 auto 2rem;
+}
+.cta-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+  animation: dot-pulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+.cta-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin: 0 auto 2.5rem;
+  max-width: 16ch;
+  background: linear-gradient(90deg, var(--brand-on-dark) 30%, var(--primary) 70%, var(--brand-on-dark) 110%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-drift 8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+.cta-headline em { font-style: italic; }
+@keyframes gradient-drift {
+  0%   { background-position: 0% 0; }
+  100% { background-position: -100% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-headline { animation: none; background-position: 50% 0; }
+}
+.cta-closer .btn { font-size: 15px; padding: 0.875rem 2rem; }
+
+/* -- Footer -- */
+.footer { padding: 5rem 0 2.5rem; border-top: 1px solid var(--brand-hairline-soft); }
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, 1fr);
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+@media (max-width: 880px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+.footer-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.footer-brand-aphorism {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--brand-ink-mute);
+  margin: 1.25rem 0 0;
+  max-width: 32ch;
+}
+.footer-col-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+  margin: 0 0 1rem;
+}
+.footer-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.625rem; }
+.footer-col-list a {
+  position: relative;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--brand-ink-mute);
+  text-decoration: none;
+  padding-bottom: 1px;
+}
+.footer-col-list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 0;
+  background: var(--primary);
+  transition: width 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.footer-col-list a:hover { color: var(--foreground); }
+.footer-col-list a:hover::after { width: 100%; }
+.footer-col-list a:focus-visible { outline: 1px solid var(--ring); outline-offset: 3px; border-radius: 2px; }
+.footer-legal {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding-top: 2rem;
+}
+.footer-legal a { color: var(--brand-ink-mute); text-decoration: none; }
+.footer-legal a:hover { color: var(--foreground); }
+
+/* -- Reduced motion universal override -- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="glow-field" aria-hidden="true">
+  <span class="glow-blob" data-blob="a"></span>
+  <span class="glow-blob" data-blob="b"></span>
+  <span class="glow-blob" data-blob="c"></span>
+</div>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="topnav-mark" href="#" aria-label="Halcyon home">
+      <span class="topnav-glyph" aria-hidden="true">H</span>
+      <span>halcyon</span>
+    </a>
+    <div class="topnav-links">
+      <a href="#tokens">Tokens</a>
+      <a href="#typography">Typography</a>
+      <a href="#components">Components</a>
+      <a href="#benchmarks">Benchmarks</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="btn" data-variant="quiet" type="button">Sign in</button>
+      <button class="btn" data-variant="primary" type="button">Open the catalogue</button>
+    </div>
+  </div>
+</nav>
+
+<main class="page">
+
+  <section class="hero" aria-label="Hero">
+    <div>
+      <div class="hero-eyebrow-row">
+        <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>cyber-serif &middot; release 2026.05</span>
+      </div>
+      <h1 class="hero-display">The catalogue, set in <em>quiet</em> serif.</h1>
+      <p class="hero-lede">A token-surface preview rendered against the design system. Newsreader display, Space Grotesk technical labels, a single emerald accent reserved for ink, glow, and the 1px underline on link hover.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" type="button">Read the spec</button>
+        <button class="btn" data-variant="ghost" type="button">View tokens</button>
+      </div>
+      <div class="hero-meta">
+        <div class="hero-meta-cell">
+          <span class="hero-meta-num"><em>96</em>%</span>
+          <span class="type-mono">Token coverage</span>
+        </div>
+        <div class="hero-meta-cell">
+          <span class="hero-meta-num">3<em>×</em></span>
+          <span class="type-mono">Sample sweep</span>
+        </div>
+        <div class="hero-meta-cell">
+          <span class="hero-meta-num">0</span>
+          <span class="type-mono">Brand-X lift</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-mockup" aria-hidden="true">
+      <div class="float-card" data-layer="back">
+        <div class="float-card-header">
+          <span>session &middot; live</span>
+          <span class="float-card-pulse"></span>
+        </div>
+        <div class="float-card-num">04<em>:</em>17</div>
+        <div class="float-card-label">Throughput steady since the last review window.</div>
+        <div class="float-card-bars">
+          <span style="height:30%"></span>
+          <span style="height:55%"></span>
+          <span style="height:42%"></span>
+          <span style="height:78%" data-on="true"></span>
+          <span style="height:64%"></span>
+          <span style="height:88%" data-on="true"></span>
+          <span style="height:72%"></span>
+        </div>
+      </div>
+      <div class="float-card" data-layer="mid">
+        <div class="float-card-header">
+          <span>release / nightly</span>
+          <span class="float-card-pulse"></span>
+        </div>
+        <div class="float-card-num"><em>v</em>4.18</div>
+        <div class="float-card-label">All scripts green; carrier on staging.</div>
+      </div>
+      <div class="float-card" data-layer="front">
+        <div class="float-card-header">
+          <span>queue &middot; outbound</span>
+          <span class="float-card-pulse"></span>
+        </div>
+        <div class="float-card-num">128<em>k</em></div>
+        <div class="float-card-label">Messages flushed in the last 24h cycle.</div>
+        <div class="float-card-bars">
+          <span style="height:48%"></span>
+          <span style="height:62%" data-on="true"></span>
+          <span style="height:74%"></span>
+          <span style="height:55%"></span>
+          <span style="height:90%" data-on="true"></span>
+          <span style="height:68%"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Signature mockup: Spotlight Feature Grid (Glass + Shimmer + Spotlight stacked) -->
+  <section class="section" id="signature" aria-label="Signature mockup">
+    <header class="section-header">
+      <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Signature surface</span>
+      <h2 class="section-title">Three pieces that compose, <em>one</em> at a time.</h2>
+      <p class="section-lede">The grid below stacks the three named components from the spec: a glassmorphism card as the base, a shimmer border travelling at 4s linear, and a 600px spotlight on the cursor that fades in on hover. Move the pointer across any card to see the radial gradient pick it up.</p>
+    </header>
+
+    <div class="feature-grid">
+      <article class="spotlight-card" style="--mouse-x: 38%; --mouse-y: 30%;" tabindex="0">
+        <span class="spotlight-icon" aria-hidden="true">G</span>
+        <h3 class="spotlight-title">A faint <em>lift</em> over the canvas.</h3>
+        <p class="spotlight-desc">The glassmorphism base sits at two-percent white with a one-pixel hairline at ten-percent. Backdrop blur reads the field behind it without ever overwhelming the canvas.</p>
+        <div class="spotlight-meta">
+          <span class="spotlight-meta-dot" aria-hidden="true"></span>
+          <span>Glassmorphism &middot; base layer</span>
+        </div>
+      </article>
+
+      <article class="spotlight-card" style="--mouse-x: 62%; --mouse-y: 40%;" tabindex="0">
+        <span class="spotlight-icon" aria-hidden="true">S</span>
+        <h3 class="spotlight-title">A pulse of emerald, <em>sweeping</em>.</h3>
+        <p class="spotlight-desc">Three colour stops in a horizontal gradient at two-hundred percent width, animating its position from positive to negative across four seconds. The eye reads it as light travelling around the edge.</p>
+        <div class="spotlight-meta">
+          <span class="spotlight-meta-dot" aria-hidden="true"></span>
+          <span>Shimmer border &middot; 4s linear</span>
+        </div>
+      </article>
+
+      <article class="spotlight-card" style="--mouse-x: 54%; --mouse-y: 28%;" tabindex="0">
+        <span class="spotlight-icon" aria-hidden="true">C</span>
+        <h3 class="spotlight-title">A spotlight that <em>follows</em> the cursor.</h3>
+        <p class="spotlight-desc">Radial gradient at six-hundred pixels, fifteen-percent emerald at the centre fading to transparent at forty-percent radius. The hover transition lifts opacity from zero to one over three-eighty milliseconds.</p>
+        <div class="spotlight-meta">
+          <span class="spotlight-meta-dot" aria-hidden="true"></span>
+          <span>Spotlight cursor &middot; on hover</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Tokens -->
+  <section class="section" id="tokens" aria-label="Colour tokens">
+    <header class="section-header">
+      <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens</span>
+      <h2 class="section-title">A canvas, six neutrals, <em>one</em> accent.</h2>
+      <p class="section-lede">The system is monochromatic by construction. Emerald exists as a surgical highlight — never the fill on a block, always the ink on a small surface or the glow on a shadow.</p>
+    </header>
+
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--brand-canvas-night); border-color: var(--brand-hairline-soft);"></div>
+        <span class="swatch-name">Canvas night</span>
+        <span class="swatch-value">--brand-canvas-night</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--brand-on-dark);"></div>
+        <span class="swatch-name">On dark</span>
+        <span class="swatch-value">--brand-on-dark</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--primary);"></div>
+        <span class="swatch-name">Primary</span>
+        <span class="swatch-value">--primary</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--brand-ink-mute);"></div>
+        <span class="swatch-name">Ink mute</span>
+        <span class="swatch-value">--brand-ink-mute</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--brand-ink-subtle);"></div>
+        <span class="swatch-name">Ink subtle</span>
+        <span class="swatch-value">--brand-ink-subtle</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--brand-hairline-strong);"></div>
+        <span class="swatch-name">Hairline</span>
+        <span class="swatch-value">--brand-hairline-strong</span>
+      </div>
+    </div>
+
+    <div class="surface-ladder" style="margin-top: 2.5rem;" aria-label="Surface elevation">
+      <div class="surface-step" data-step="0">
+        <span class="surface-step-num">Step 0</span>
+        <span class="surface-step-name">Canvas</span>
+        <span class="surface-step-role">--background</span>
+      </div>
+      <div class="surface-step" data-step="1">
+        <span class="surface-step-num">Step 1</span>
+        <span class="surface-step-name">Glass 1</span>
+        <span class="surface-step-role">2% lift</span>
+      </div>
+      <div class="surface-step" data-step="2">
+        <span class="surface-step-num">Step 2</span>
+        <span class="surface-step-name">Glass 2</span>
+        <span class="surface-step-role">4% lift</span>
+      </div>
+      <div class="surface-step" data-step="3">
+        <span class="surface-step-num">Step 3</span>
+        <span class="surface-step-name">Glass 3</span>
+        <span class="surface-step-role">6% lift</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typography -->
+  <section class="section" id="typography" aria-label="Typography">
+    <header class="section-header">
+      <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Typography</span>
+      <h2 class="section-title">Serif sets the <em>register</em>.</h2>
+      <p class="section-lede">Newsreader at display, Inter at body, Space Grotesk at the smallest technical labels. Six roles in service of one tonal claim — editorial gravitas, with a high-tech caption layer underneath.</p>
+    </header>
+
+    <div class="type-stack">
+      <div class="type-row">
+        <span class="type-label">Display</span>
+        <span class="type-display">Editorial, <em>sharpened</em>.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Heading</span>
+        <span class="type-heading">A title that earns its line height.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Title</span>
+        <span class="type-title">Section title in the same serif.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Body</span>
+        <span class="type-body">Body text in Inter at light weight. Long passages stay readable on the near-black canvas because the foreground sits at near-white, the line height stays at one-point-five, and the measure never stretches beyond fifty-six characters.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Caption</span>
+        <span class="type-caption">A caption in Inter at thirteen pixels, used under figures and inside meta rows.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Mono / label</span>
+        <span class="type-mono">Space Grotesk &middot; 10px / 0.2em</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Components -->
+  <section class="section" id="components" aria-label="Component vocabulary">
+    <header class="section-header">
+      <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Components</span>
+      <h2 class="section-title">Pills, <em>only</em> pills.</h2>
+      <p class="section-lede">Buttons take the full-pill radius. Cards take rounded-twenty-four. Standard rounded corners are forbidden — the spec is explicit on that.</p>
+    </header>
+
+    <div class="components-stack">
+      <div class="cmp-block">
+        <span class="cmp-block-label">Buttons</span>
+        <div class="cmp-row">
+          <button class="btn" data-variant="primary" type="button">Primary action</button>
+          <button class="btn" data-variant="ghost" type="button">Ghost variant</button>
+          <button class="btn" data-variant="quiet" type="button">Quiet link</button>
+        </div>
+      </div>
+
+      <div class="cmp-block">
+        <span class="cmp-block-label">Status &amp; metadata pills</span>
+        <div class="cmp-row">
+          <span class="status-pill"><span class="status-pill-dot" data-state="live" aria-hidden="true"></span>Live</span>
+          <span class="status-pill"><span class="status-pill-dot" data-state="strong" aria-hidden="true"></span>Ready</span>
+          <span class="status-pill"><span class="status-pill-dot" data-state="muted" aria-hidden="true"></span>Paused</span>
+          <span class="tag-pill" data-emphasis="emerald">Recommended</span>
+          <span class="tag-pill">Stable</span>
+        </div>
+      </div>
+
+      <div class="cmp-block">
+        <span class="cmp-block-label">Input</span>
+        <div class="cmp-row">
+          <input class="text-input" type="text" placeholder="Search the catalogue" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benchmark table -->
+  <section class="section" id="benchmarks" aria-label="Benchmark table">
+    <header class="section-header">
+      <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Benchmark</span>
+      <h2 class="section-title">A data row with <em>two</em> ink registers.</h2>
+      <p class="section-lede">Columns alternate between muted-white ink and emerald ink. Numeric cells animate from zero on scroll-into-view; check cells carry the same pulse rhythm as the eyebrow dots.</p>
+    </header>
+
+    <div class="benchmark">
+      <div class="benchmark-header">
+        <span>Surface</span>
+        <span>Step 0</span>
+        <span>Step 1</span>
+        <span>Step 2</span>
+        <span>Step 3</span>
+      </div>
+      <div class="benchmark-row">
+        <span class="benchmark-cell-name">Hero / signature</span>
+        <span class="benchmark-cell-num">1.0</span>
+        <span class="benchmark-cell-num" data-tone="emerald">0.96</span>
+        <span class="benchmark-cell-num">0.94</span>
+        <span class="benchmark-cell-check" aria-hidden="true">&check;</span>
+      </div>
+      <div class="benchmark-row">
+        <span class="benchmark-cell-name">Spotlight grid</span>
+        <span class="benchmark-cell-num">1.0</span>
+        <span class="benchmark-cell-num" data-tone="emerald">0.98</span>
+        <span class="benchmark-cell-num">0.92</span>
+        <span class="benchmark-cell-check" aria-hidden="true">&check;</span>
+      </div>
+      <div class="benchmark-row">
+        <span class="benchmark-cell-name">Editorial body</span>
+        <span class="benchmark-cell-num">1.0</span>
+        <span class="benchmark-cell-num" data-tone="emerald">0.94</span>
+        <span class="benchmark-cell-num">0.90</span>
+        <span class="benchmark-cell-check" aria-hidden="true">&check;</span>
+      </div>
+      <div class="benchmark-row">
+        <span class="benchmark-cell-name">Benchmark surface</span>
+        <span class="benchmark-cell-num">1.0</span>
+        <span class="benchmark-cell-num" data-tone="emerald">0.99</span>
+        <span class="benchmark-cell-num">0.96</span>
+        <span class="benchmark-cell-check" aria-hidden="true">&check;</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA closer with gradient headline -->
+  <section class="cta-closer" aria-label="Closing CTA">
+    <span class="cta-eyebrow">Catalogue &middot; carrier</span>
+    <h2 class="cta-headline">A serif that <em>holds</em> the line.</h2>
+    <button class="btn" data-variant="primary" type="button">Open the catalogue</button>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="page">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-brand-mark">
+          <span class="topnav-glyph" aria-hidden="true">H</span>
+          <span>halcyon</span>
+        </span>
+        <p class="footer-brand-aphorism">A token-surface preview for cyber-serif. Built for teams that want editorial gravitas and a faint emerald breath at the edges.</p>
+      </div>
+      <div>
+        <h3 class="footer-col-title">Catalogue</h3>
+        <ul class="footer-col-list">
+          <li><a href="#tokens">Tokens</a></li>
+          <li><a href="#typography">Typography</a></li>
+          <li><a href="#components">Components</a></li>
+          <li><a href="#benchmarks">Benchmarks</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-col-title">Halcyon</h3>
+        <ul class="footer-col-list">
+          <li><a href="#">halcyon.dev</a></li>
+          <li><a href="#">app.halcyon.dev</a></li>
+          <li><a href="#">@halcyon/cli</a></li>
+          <li><a href="#">hlc.so</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-col-title">Catalogue notes</h3>
+        <ul class="footer-col-list">
+          <li><a href="#">Authoring flow</a></li>
+          <li><a href="#">Token conventions</a></li>
+          <li><a href="#">Polish pass</a></li>
+          <li><a href="#">Changelog</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>&copy; 2026 halcyon &middot; catalogue preview</span>
+      <span>cyber-serif &middot; rev 2026.05.26</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

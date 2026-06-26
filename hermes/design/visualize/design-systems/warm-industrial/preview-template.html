@@ -1,0 +1,1322 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23EBEBE8'/%3E%3Cg fill='none' stroke='%2318181B' stroke-width='1'%3E%3Cpath d='M0 8h32M0 16h32M0 24h32M8 0v32M16 0v32M24 0v32'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='3' fill='%230066FF'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Warm-industrial design-system preview from visualize. Warm zinc canvas + Inter / Playfair Display Italic pairing + 12-column structural grid + stroke-text headings + clip-path reveal interactions + 4% fractal noise overlay.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Playfair+Display:ital,wght@1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === warm-industrial preview shell ============================
+ * Light-canonical brutalist grid + editorial typography register.
+ * Signature mockup: split hero block — 7-column stroke-text + serif
+ * italic headline, 5-column project tile with clip-path reveal demo,
+ * persistent 12-column grid lines behind every surface, 4% fractal
+ * noise overlay for tactile feel. Halcyon-themed neutral content
+ * throughout. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* -- Fractal noise overlay (register signature, 4% opacity) -- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply;
+}
+
+/* -- 12-column structural grid (persistent under all content) -- */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  max-width: 1600px;
+  margin: 0 auto;
+  pointer-events: none;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+.grid-overlay span {
+  border-left: 1px solid var(--brand-grid-line);
+}
+.grid-overlay span:first-child { border-left: none; }
+
+main, header, footer { position: relative; z-index: 2; }
+
+/* -- Container -- */
+.shell {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* -- Sticky top bar -- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 80px;
+  background: color-mix(in oklab, var(--background) 80%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.topnav-inner {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+.topnav-links {
+  display: flex;
+  gap: 2rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--foreground);
+}
+.topnav-links a {
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+  padding: 0.5rem 0;
+}
+.topnav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--foreground);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 480ms var(--brand-easing);
+}
+.topnav-links a:hover::after,
+.topnav-links a:focus-visible::after { transform: scaleX(1); }
+.topnav-links a:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+
+.brand-mark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  color: var(--foreground);
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 1;
+}
+.brand-mark .serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+.brand-mark .sans {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 18px;
+}
+
+.topnav-cta-zone {
+  display: flex;
+  justify-content: flex-end;
+}
+.cta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--brand-radius-pill);
+  border: 1px solid var(--foreground);
+  background: transparent;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 320ms var(--brand-easing), color 320ms var(--brand-easing);
+}
+.cta-pill:hover { background: var(--foreground); color: var(--background); }
+.cta-pill:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+@media (max-width: 880px) {
+  .topnav-links { display: none; }
+}
+
+/* -- Signature: split hero -- */
+.hero {
+  padding: 4rem 2rem 6rem;
+  border-bottom: 1px solid var(--border);
+}
+.hero-inner {
+  max-width: 1600px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 4rem;
+  align-items: stretch;
+}
+@media (max-width: 1020px) {
+  .hero-inner { grid-template-columns: 1fr; }
+}
+
+.hero-left { display: flex; flex-direction: column; gap: 2.5rem; }
+
+.status-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--foreground);
+}
+.status-dot {
+  width: 8px; height: 8px;
+  border-radius: var(--brand-radius-badge);
+  background: var(--brand-status-live);
+  box-shadow: 0 0 0 0 color-mix(in oklab, var(--brand-status-live) 50%, transparent);
+  animation: pulse 2400ms var(--brand-easing) infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0   color-mix(in oklab, var(--brand-status-live) 50%, transparent); }
+  70%  { box-shadow: 0 0 0 10px color-mix(in oklab, var(--brand-status-live) 0%,  transparent); }
+  100% { box-shadow: 0 0 0 0   color-mix(in oklab, var(--brand-status-live) 0%,  transparent); }
+}
+
+.hero-headline {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-size: clamp(4.5rem, 10vw, 9rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  margin: 0;
+  color: var(--foreground);
+  text-transform: uppercase;
+}
+.hero-headline .stroke {
+  -webkit-text-stroke: 1px var(--foreground);
+  color: transparent;
+  display: block;
+}
+.hero-headline .italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  text-transform: none;
+  display: block;
+}
+
+.hero-readout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+}
+.hero-readout-cell {
+  padding-right: 1.5rem;
+}
+.hero-readout-cell + .hero-readout-cell { border-left: 1px solid var(--brand-hairline-soft); padding-left: 1.5rem; }
+.readout-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--brand-body-muted);
+  margin-bottom: 0.5rem;
+}
+.readout-value {
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.005em;
+  color: var(--foreground);
+}
+
+.hero-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  align-self: flex-start;
+}
+.start-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25rem;
+  min-height: 64px;
+  padding: 0 2rem;
+  background: var(--foreground);
+  color: var(--background);
+  border: 1px solid var(--foreground);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: var(--brand-radius-xs);
+  transition: background 320ms var(--brand-easing), color 320ms var(--brand-easing);
+}
+.start-button:hover { background: var(--background); color: var(--foreground); }
+.start-button:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+.start-button .arrow {
+  display: inline-block;
+  transition: transform 480ms var(--brand-easing);
+}
+.start-button:hover .arrow { transform: rotate(-45deg); }
+
+/* -- Signature mockup: clip-path project reveal demo -- */
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 1.25rem;
+  min-height: 480px;
+  position: relative;
+  overflow: hidden;
+}
+.project-row {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  position: relative;
+}
+
+.project-meta {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.project-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--brand-body-muted);
+}
+.project-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+  margin: 0;
+  text-transform: none;
+  transition: font-family 360ms var(--brand-easing), font-style 360ms var(--brand-easing);
+}
+.project-row:hover .project-title,
+.project-row:focus-within .project-title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+}
+.project-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--brand-body-muted);
+}
+.project-stats span { letter-spacing: 0.08em; }
+.project-stats strong { color: var(--foreground); font-weight: 700; letter-spacing: 0; }
+
+.project-reveal {
+  position: relative;
+  min-height: 280px;
+  border-left: 1px solid var(--border);
+  background: var(--muted);
+  overflow: hidden;
+}
+.project-reveal-image {
+  position: absolute;
+  inset: 0;
+  background-image: url("https://picsum.photos/seed/riveter-atlas/800/600");
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(1);
+  clip-path: inset(0 0 0 100%);
+  transition: clip-path 600ms var(--brand-easing);
+}
+.project-reveal-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: color-mix(in oklab, var(--primary) 20%, transparent);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.project-row:hover .project-reveal-image,
+.project-row:focus-within .project-reveal-image {
+  clip-path: inset(0 0 0 0);
+}
+
+.reveal-view-chip {
+  position: absolute;
+  right: 1.25rem;
+  top: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px; height: 56px;
+  border-radius: var(--brand-radius-badge);
+  border: 1px solid var(--brand-on-dark);
+  background: transparent;
+  color: var(--brand-on-dark);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 360ms var(--brand-easing), transform 360ms var(--brand-easing);
+  pointer-events: none;
+  z-index: 2;
+}
+.project-row:hover .reveal-view-chip,
+.project-row:focus-within .reveal-view-chip {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hero-right-caption {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--brand-body-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-dot { animation: none; }
+  .project-reveal-image { transition: none; clip-path: inset(0 0 0 0); }
+  .reveal-view-chip { opacity: 1; transform: none; transition: none; }
+  .topnav-links a::after,
+  .start-button .arrow,
+  .project-title { transition: none; }
+}
+
+/* -- Marquee ribbon (zinc-100 polarity-locked band) -- */
+.marquee {
+  background: var(--brand-canvas-marquee);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+.marquee-track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 3rem;
+  white-space: nowrap;
+  animation: marquee-scroll 28s linear infinite;
+  will-change: transform;
+}
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+.marquee-word {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--brand-canvas-night);
+}
+.marquee-word.stroke {
+  -webkit-text-stroke: 1px var(--brand-canvas-night);
+  color: transparent;
+}
+.marquee-word.italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.02em;
+}
+.marquee-star {
+  display: inline-block;
+  width: 24px; height: 24px;
+  color: var(--primary);
+  flex: 0 0 auto;
+}
+
+/* -- Token demos -- */
+.demos { padding: 6rem 0; }
+.demo-section + .demo-section { margin-top: 5rem; }
+.demo-shell {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--brand-body-muted);
+  margin-bottom: 1rem;
+}
+.section-title {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  margin: 0 0 2.5rem 0;
+  text-transform: uppercase;
+}
+.section-title .italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.025em;
+}
+
+/* Colour swatch band */
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+}
+.swatches > * + * { border-left: 1px solid var(--border); }
+.swatch {
+  padding: 1.5rem 1.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.5rem;
+  min-height: 220px;
+}
+.swatch-chip {
+  width: 100%;
+  aspect-ratio: 1.6 / 1;
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--foreground);
+}
+.swatch-token {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--brand-body-muted);
+  margin-top: 0.25rem;
+}
+@media (max-width: 880px) {
+  .swatches { grid-template-columns: repeat(2, 1fr); }
+  .swatches > * + * { border-left: none; }
+  .swatch + .swatch { border-top: 1px solid var(--border); }
+}
+
+/* Surface ladder */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+}
+.ladder > * + * { border-left: 1px solid var(--border); }
+.ladder-cell {
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 200px;
+}
+.ladder-cell[data-surface="background"]  { background: var(--background); }
+.ladder-cell[data-surface="card"]        { background: var(--card); }
+.ladder-cell[data-surface="muted"]       { background: var(--muted); }
+.ladder-cell[data-surface="charcoal"]    { background: var(--brand-canvas-night); color: var(--brand-on-dark); }
+.ladder-num {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--brand-body-muted);
+}
+.ladder-cell[data-surface="charcoal"] .ladder-num { color: color-mix(in oklab, var(--brand-on-dark) 70%, transparent); }
+.ladder-label {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.ladder-note {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.ladder-cell[data-surface="charcoal"] .ladder-note { color: color-mix(in oklab, var(--brand-on-dark) 85%, transparent); }
+@media (max-width: 880px) {
+  .ladder { grid-template-columns: repeat(2, 1fr); }
+  .ladder > * + * { border-left: none; }
+  .ladder-cell { border-top: 1px solid var(--border); }
+  .ladder-cell:nth-child(-n+2) { border-top: none; }
+  .ladder-cell:nth-child(odd) { border-right: 1px solid var(--border); }
+}
+
+/* Type roles */
+.type-table {
+  border: 1px solid var(--border);
+}
+.type-row {
+  display: grid;
+  grid-template-columns: 180px 1fr 200px;
+  align-items: baseline;
+  padding: 1.5rem 2rem;
+  gap: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.type-row:first-child { border-top: none; }
+.type-role {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--brand-body-muted);
+}
+.type-spec {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--brand-body-muted);
+  text-align: right;
+}
+.type-sample-display {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-size: 4rem;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--foreground);
+  text-transform: uppercase;
+}
+.type-sample-display.stroke {
+  -webkit-text-stroke: 1px var(--foreground);
+  color: transparent;
+}
+.type-sample-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 3.25rem;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+}
+.type-sample-heading {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 2.25rem;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+}
+.type-sample-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--foreground);
+}
+.type-sample-label {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--foreground);
+}
+@media (max-width: 880px) {
+  .type-row { grid-template-columns: 1fr; }
+  .type-spec { text-align: left; }
+}
+
+/* Component vocabulary */
+.components-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+}
+.components-grid > * + * { border-left: 1px solid var(--border); }
+.component-cell {
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.component-label {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--brand-body-muted);
+}
+.component-stack { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+
+.btn-rect {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border-radius: var(--brand-radius-xs);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
+  transition: background 240ms var(--brand-easing), color 240ms var(--brand-easing);
+}
+.btn-rect:hover { background: var(--background); color: var(--foreground); }
+.btn-rect:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+.btn-rect[data-variant="ghost"] {
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+.btn-rect[data-variant="ghost"]:hover {
+  border-color: var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--brand-radius-badge);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  border: 1px solid var(--foreground);
+  background: transparent;
+  color: var(--foreground);
+}
+.badge[data-tone="live"] {
+  border-color: var(--brand-status-live);
+  background: transparent;
+  color: var(--foreground);
+}
+.badge[data-tone="live"] .status-dot { width: 6px; height: 6px; }
+
+.input-field {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  height: 48px;
+  padding: 0 1rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--foreground);
+  border-radius: var(--brand-radius-xs);
+}
+.input-field::placeholder { color: var(--brand-body-muted); }
+.input-field:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-color: var(--foreground);
+}
+
+.card-flat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-xs);
+  width: 100%;
+}
+.card-flat-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--brand-body-muted);
+}
+.card-flat-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+  margin: 0;
+}
+.card-flat-body {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--brand-body-muted);
+  margin: 0;
+}
+
+@media (max-width: 880px) {
+  .components-grid { grid-template-columns: 1fr; }
+  .components-grid > * + * { border-left: none; border-top: 1px solid var(--border); }
+}
+
+/* -- Stats band -- */
+.stats {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 4rem 0;
+}
+.stats-grid {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.stat-cell { padding: 1rem 1.5rem; border-left: 1px solid var(--brand-hairline-soft); }
+.stat-cell:first-child { border-left: none; padding-left: 0; }
+.stat-value {
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+}
+.stat-value.italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+}
+.stat-label {
+  display: block;
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--brand-body-muted);
+}
+@media (max-width: 880px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem 0; }
+  .stat-cell:nth-child(odd) { border-left: none; padding-left: 0; }
+}
+
+/* -- Footer (polarity-locked charcoal) -- */
+.footer {
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  padding: 5rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+.footer-marquee {
+  position: absolute;
+  inset: auto 0 -1.5rem 0;
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-size: 20vw;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.08;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.footer-inner {
+  max-width: 1600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+.footer-contact {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  align-self: flex-start;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+.footer-contact::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--brand-on-dark);
+  transform: scaleX(0.25);
+  transform-origin: left center;
+  transition: transform 480ms var(--brand-easing);
+}
+.footer-contact:hover::after,
+.footer-contact:focus-visible::after { transform: scaleX(1); }
+.footer-contact:focus-visible { outline: 2px solid var(--primary); outline-offset: 6px; }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+  border-top: 1px solid color-mix(in oklab, var(--brand-on-dark) 18%, transparent);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--brand-on-dark);
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.footer-bottom .status-row { color: var(--brand-on-dark); }
+
+/* Dark-mode treatment for the polarity-locked footer marquee text: in
+ * dark mode the canvas already inverts, so the marquee can lean stronger. */
+[data-theme="dark"] .footer-marquee,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .footer-marquee {
+    opacity: 0.12;
+  }
+}
+</style>
+
+</head>
+<body>
+
+<div class="grid-overlay" aria-hidden="true">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<header class="topnav">
+  <div class="topnav-inner">
+    <nav class="topnav-links" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#journal">Journal</a>
+      <a href="#studio">Studio</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="brand-mark" href="#top">
+      <span class="serif">studio</span><span class="sans">__DESIGN_SYSTEM_NAME__</span>
+    </a>
+    <div class="topnav-cta-zone">
+      <a class="cta-pill" href="#start">Start a project</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Signature mockup: split hero with stroke-text headline +
+       clip-path reveal demo on the right -->
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="status-row">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Available — Spring intake, 2026</span>
+        </div>
+
+        <h1 class="hero-headline">
+          <span class="stroke">Form follows</span>
+          <span class="italic">function,</span>
+          <span class="stroke">and friction</span>
+        </h1>
+
+        <div class="hero-readout">
+          <div class="hero-readout-cell">
+            <span class="readout-label">Discipline</span>
+            <span class="readout-value">Studio &amp; product systems</span>
+          </div>
+          <div class="hero-readout-cell">
+            <span class="readout-label">Cycle</span>
+            <span class="readout-value">Q2 / 2026 · 8-week sprints</span>
+          </div>
+          <div class="hero-readout-cell">
+            <span class="readout-label">Capacity</span>
+            <span class="readout-value">Two engagements open</span>
+          </div>
+        </div>
+
+        <a class="start-button" href="#start">
+          <span>Start a project</span>
+          <span class="arrow" aria-hidden="true">&#8599;</span>
+        </a>
+      </div>
+
+      <div class="hero-right">
+        <article class="project-row" tabindex="0" aria-label="Project preview — Riveter Atlas. Hover or focus to reveal the project image.">
+          <div class="project-meta">
+            <div>
+              <div class="project-eyebrow">Selected work · 03 / 12</div>
+              <h2 class="project-title">Riveter Atlas — a cartography for cold-pressed steel.</h2>
+            </div>
+            <div class="project-stats">
+              <span>Built for <strong>Foundry District</strong></span>
+              <span>Shipped <strong>Q1 2026</strong></span>
+              <span>Surfaces <strong>Identity · Editorial · Product</strong></span>
+            </div>
+          </div>
+          <div class="project-reveal" aria-hidden="true">
+            <div class="project-reveal-image"></div>
+            <span class="reveal-view-chip">View &nbsp;&#8599;</span>
+          </div>
+        </article>
+        <div class="hero-right-caption">
+          <span>Reveal · clip-path interaction</span>
+          <span>Hover or focus</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee ribbon (polarity-locked zinc-100 band) -->
+  <section class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-word">Brutalist grids</span>
+      <svg class="marquee-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 9 L22 11 L16 15 L18 22 L12 18 L6 22 L8 15 L2 11 L10 9 Z"/></svg>
+      <span class="marquee-word italic">editorial italic</span>
+      <svg class="marquee-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 9 L22 11 L16 15 L18 22 L12 18 L6 22 L8 15 L2 11 L10 9 Z"/></svg>
+      <span class="marquee-word stroke">Warm concrete</span>
+      <svg class="marquee-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 9 L22 11 L16 15 L18 22 L12 18 L6 22 L8 15 L2 11 L10 9 Z"/></svg>
+      <span class="marquee-word italic">tactile surfaces</span>
+      <svg class="marquee-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 9 L22 11 L16 15 L18 22 L12 18 L6 22 L8 15 L2 11 L10 9 Z"/></svg>
+      <!-- duplicate for seamless scroll -->
+      <span class="marquee-word">Brutalist grids</span>
+      <svg class="marquee-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 9 L22 11 L16 15 L18 22 L12 18 L6 22 L8 15 L2 11 L10 9 Z"/></svg>
+      <span class="marquee-word italic">editorial italic</span>
+      <svg class="marquee-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 9 L22 11 L16 15 L18 22 L12 18 L6 22 L8 15 L2 11 L10 9 Z"/></svg>
+      <span class="marquee-word stroke">Warm concrete</span>
+      <svg class="marquee-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 9 L22 11 L16 15 L18 22 L12 18 L6 22 L8 15 L2 11 L10 9 Z"/></svg>
+      <span class="marquee-word italic">tactile surfaces</span>
+      <svg class="marquee-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 9 L22 11 L16 15 L18 22 L12 18 L6 22 L8 15 L2 11 L10 9 Z"/></svg>
+    </div>
+  </section>
+
+  <!-- Token demos -->
+  <section class="demos">
+
+    <div class="demo-section" id="work">
+      <div class="demo-shell">
+        <div class="section-eyebrow">Token · canvas + ink</div>
+        <h2 class="section-title">Colour <span class="italic">register</span></h2>
+        <div class="swatches">
+          <div class="swatch">
+            <div class="swatch-chip" style="background: var(--background);"></div>
+            <div>
+              <div class="swatch-name">Canvas</div>
+              <div class="swatch-token">--background</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-chip" style="background: var(--card);"></div>
+            <div>
+              <div class="swatch-name">Card</div>
+              <div class="swatch-token">--card</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-chip" style="background: var(--muted);"></div>
+            <div>
+              <div class="swatch-name">Muted</div>
+              <div class="swatch-token">--muted</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-chip" style="background: var(--brand-canvas-night);"></div>
+            <div>
+              <div class="swatch-name">Charcoal</div>
+              <div class="swatch-token">--brand-canvas-night</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-chip" style="background: var(--primary);"></div>
+            <div>
+              <div class="swatch-name">Accent</div>
+              <div class="swatch-token">--primary</div>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-chip" style="background: var(--brand-status-live);"></div>
+            <div>
+              <div class="swatch-name">Live</div>
+              <div class="swatch-token">--brand-status-live</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <div class="demo-shell">
+        <div class="section-eyebrow">Token · surface ladder</div>
+        <h2 class="section-title">Elevation <span class="italic">by hairline</span></h2>
+        <div class="ladder">
+          <div class="ladder-cell" data-surface="background">
+            <span class="ladder-num">01</span>
+            <span class="ladder-label">Canvas</span>
+            <span class="ladder-note">The default warm gray. Every section starts here unless the spec carves out an exception.</span>
+          </div>
+          <div class="ladder-cell" data-surface="card">
+            <span class="ladder-num">02</span>
+            <span class="ladder-label">Card</span>
+            <span class="ladder-note">One stop above canvas. Lift reads through warm tint, not shadow.</span>
+          </div>
+          <div class="ladder-cell" data-surface="muted">
+            <span class="ladder-num">03</span>
+            <span class="ladder-label">Muted band</span>
+            <span class="ladder-note">Polarity-locked zinc-100. Always-light, doubles as the marquee surface.</span>
+          </div>
+          <div class="ladder-cell" data-surface="charcoal">
+            <span class="ladder-num">04</span>
+            <span class="ladder-label">Charcoal</span>
+            <span class="ladder-note">Polarity-locked charcoal — used for the footer and inversion-style accent cards.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <div class="demo-shell">
+        <div class="section-eyebrow">Token · type roles</div>
+        <h2 class="section-title">Typography <span class="italic">pairing</span></h2>
+        <div class="type-table">
+          <div class="type-row">
+            <span class="type-role">Display</span>
+            <span class="type-sample-display">Heavy grotesque</span>
+            <span class="type-spec">Inter 900 · 64–144px · −0.05em</span>
+          </div>
+          <div class="type-row">
+            <span class="type-role">Display stroke</span>
+            <span class="type-sample-display stroke">Outline only</span>
+            <span class="type-spec">-webkit-text-stroke 1px</span>
+          </div>
+          <div class="type-row">
+            <span class="type-role">Display italic</span>
+            <span class="type-sample-italic">Editorial italic counterweight</span>
+            <span class="type-spec">Playfair Display · 400 italic · −0.025em</span>
+          </div>
+          <div class="type-row">
+            <span class="type-role">Heading</span>
+            <span class="type-sample-heading">Section heading at thirty-six pixels.</span>
+            <span class="type-spec">Inter 700 · 32–40px</span>
+          </div>
+          <div class="type-row">
+            <span class="type-role">Body</span>
+            <span class="type-sample-body">Body copy at sixteen to eighteen pixels with a generous 1.55 line-height. Long-form reads against the warm gray canvas without competing with the structural grid lines behind it.</span>
+            <span class="type-spec">Inter 400 · 16–18px · 1.55</span>
+          </div>
+          <div class="type-row">
+            <span class="type-role">Readout label</span>
+            <span class="type-sample-label">Technical readout — uppercase 10px</span>
+            <span class="type-spec">Inter 700 · 10–11px · 0.25em</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <div class="demo-shell">
+        <div class="section-eyebrow">Token · component vocabulary</div>
+        <h2 class="section-title">Components</h2>
+        <div class="components-grid">
+          <div class="component-cell">
+            <span class="component-label">Rectangular CTA</span>
+            <div class="component-stack">
+              <a class="btn-rect" href="#">Start a project <span aria-hidden="true">&#8599;</span></a>
+              <a class="btn-rect" data-variant="ghost" href="#">View the journal</a>
+            </div>
+          </div>
+          <div class="component-cell">
+            <span class="component-label">Badges &amp; status</span>
+            <div class="component-stack">
+              <span class="badge">In studio</span>
+              <span class="badge" data-tone="live">
+                <span class="status-dot" aria-hidden="true"></span>
+                Live · system operational
+              </span>
+            </div>
+          </div>
+          <div class="component-cell">
+            <span class="component-label">Input</span>
+            <div class="component-stack">
+              <input class="input-field" type="email" placeholder="team@halcyon.dev" aria-label="Email">
+            </div>
+          </div>
+          <div class="component-cell">
+            <span class="component-label">Card</span>
+            <div class="component-stack">
+              <div class="card-flat">
+                <span class="card-flat-eyebrow">Journal · 04 · 26</span>
+                <h3 class="card-flat-title">Notes on the warm-gray canvas — a brief field guide.</h3>
+                <p class="card-flat-body">A studio essay on warm neutrals, structural alignment, and the editorial italic as a counterweight to the heavy grotesque.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <div class="demo-shell">
+        <div class="section-eyebrow">Token · stats band</div>
+        <h2 class="section-title">By the <span class="italic">numbers</span></h2>
+      </div>
+      <div class="stats">
+        <div class="stats-grid">
+          <div class="stat-cell">
+            <span class="stat-value">128</span>
+            <span class="stat-label">Engagements shipped</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-value italic">eight</span>
+            <span class="stat-label">Week studio sprint</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-value">12</span>
+            <span class="stat-label">Column structural grid</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-value italic">/04</span>
+            <span class="stat-label">Percent fractal noise</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="footer" id="contact">
+  <span class="footer-marquee" aria-hidden="true">__DESIGN_SYSTEM_NAME__</span>
+  <div class="footer-inner">
+    <div class="section-eyebrow" style="color: color-mix(in oklab, var(--brand-on-dark) 70%, transparent);">Write to the studio</div>
+    <a class="footer-contact" href="mailto:team@halcyon.dev">team@halcyon.dev &nbsp;&#8599;</a>
+
+    <div class="footer-bottom">
+      <div class="status-row">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>System operational</span>
+      </div>
+      <span>__DESIGN_SYSTEM_NAME__ &middot; studio of warm-industrial work &middot; Halcyon &copy; 2026</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

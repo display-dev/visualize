@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Brutalist preview shell — manifesto register === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+.page { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
+
+/* Issue strip */
+.issue {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 4px solid var(--foreground);
+  margin-bottom: 3rem;
+}
+.issue .name {
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+}
+.issue .name .red { color: var(--primary); }
+.issue .meta {
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Manifesto headline */
+.hero { margin-bottom: 4rem; }
+.hero .label {
+  display: inline-block;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  padding: 0.25rem 0.625rem;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-weight: 900;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.5rem 0;
+  text-transform: uppercase;
+}
+.hero h1 .red { color: var(--primary); }
+.hero .deck {
+  font-size: 1.375rem;
+  line-height: 1.3;
+  font-weight: 500;
+  max-width: 28em;
+  margin: 0;
+}
+
+/* Three-up of theses */
+.theses {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 4px solid var(--foreground);
+  border-bottom: 4px solid var(--foreground);
+  margin: 3rem 0;
+}
+@media (max-width: 720px) { .theses { grid-template-columns: 1fr; } }
+.thesis {
+  padding: 1.75rem 1.5rem;
+  border-right: 4px solid var(--foreground);
+}
+.thesis:last-child { border-right: none; }
+.thesis .num {
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.thesis h3 {
+  font-weight: 900;
+  font-size: 1.25rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem 0;
+}
+.thesis p { margin: 0; font-size: 0.9375rem; line-height: 1.4; }
+
+/* Statement block */
+.statement {
+  background-color: var(--foreground);
+  color: var(--background);
+  padding: 2.5rem 2rem;
+  margin: 3rem 0;
+  position: relative;
+}
+.statement::before {
+  content: "//";
+  position: absolute;
+  left: 1rem;
+  top: 0.5rem;
+  color: var(--primary);
+  font-weight: 900;
+  font-size: 2.5rem;
+}
+.statement p {
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+  padding-left: 2rem;
+}
+.statement p .red { color: var(--primary); }
+
+/* CTA row */
+.cta {
+  display: flex;
+  gap: 0;
+  margin-top: 3rem;
+  border: 4px solid var(--foreground);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 2rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+  flex: 1;
+}
+.btn-primary { background-color: var(--primary); color: var(--primary-foreground); }
+.btn-plain { background-color: transparent; color: var(--foreground); border-left: 4px solid var(--foreground); }
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  border-top: 4px solid var(--foreground);
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="issue">
+    <span class="name">manifesto<span class="red">.</span>html</span>
+    <span class="meta">Vol. 21 / May 2026 / Signed CR</span>
+  </div>
+
+  <div class="hero">
+    <span class="label">Position statement</span>
+    <h1>The artifact <span class="red">is</span> the product.</h1>
+    <p class="deck">Everything else — accounts, dashboards, billing, the entire CRUD of a SaaS product — is overhead. The artifact is the only thing that matters.</p>
+  </div>
+
+  <div class="theses">
+    <div class="thesis">
+      <span class="num">01</span>
+      <h3>One published link.</h3>
+      <p>The unit of delivery is a URL. Not a doc. Not a Slack message. Not a PDF in an email. A URL that loads.</p>
+    </div>
+    <div class="thesis">
+      <span class="num">02</span>
+      <h3>Behind the wall.</h3>
+      <p>Public is the lazy default. Org-gated is the harder, more honest one — most artifacts shouldn't be on the open web.</p>
+    </div>
+    <div class="thesis">
+      <span class="num">03</span>
+      <h3>Cheap or free.</h3>
+      <p>Pricing matches what the cloud actually costs. Anything more is selling overhead as if it were product.</p>
+    </div>
+  </div>
+
+  <div class="statement">
+    <p>If your artifact takes longer to <span class="red">share</span> than it took to <span class="red">make</span>, the tool got in the way.</p>
+  </div>
+
+  <div class="cta">
+    <a href="#" class="btn btn-primary">Sign the manifesto</a>
+    <a href="#" class="btn btn-plain">Read past issues</a>
+  </div>
+
+  <footer>
+    <span>visualize / __DESIGN_SYSTEM_NAME__</span>
+    <span>Pure black / cadmium red / weight 900 / zero radius</span>
+  </footer>
+
+</div>
+</body>
+</html>

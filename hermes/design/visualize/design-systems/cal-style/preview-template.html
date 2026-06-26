@@ -1,0 +1,1278 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111111'/%3E%3Ccircle cx='16' cy='16' r='5.5' fill='none' stroke='%23ffffff' stroke-width='1.75'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Scheduling-software-first interface — warm-near-white canvas with pure-white cards floated above, near-black primary CTAs, Cal Sans display headlines, a booking-calendar signature card, dark product / footer mode. Token surfaces rendered on Halcyon-themed neutral content.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Cal-style preview shell — clean scheduling-software register.
+ * Warm-near-white canvas (#f4f4f4) with pure-white cards floated
+ * above, near-black ink. Brand voltage comes from the booking
+ * calendar grid signature card — Cal.com's defining surface against
+ * Calendly/SavvyCal, with date cells reading lifted out of the white
+ * card via the warm-gray canvas fill. Display headlines route through
+ * --font-display (Cal Sans, Inter fallback); body routes through
+ * --font-sans (same family). The featured pricing tier and footer
+ * flip to the documented dark surface family (#0f0f0f / #171717),
+ * matching cal.com/docs and the in-product booking-page canvas.
+ * Cal.ai sub-brand chrome is polarity-locked and declared in tokens
+ * but not rendered here. Halcyon-themed neutral content describing
+ * how an operating team books sprint reviews, design crits, customer
+ * demos, all-hands. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Cal Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "kern", "liga", "cv11";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav (64px, white surface, hairline divider) -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  position: relative;
+}
+.brand-glyph::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.75px solid var(--primary-foreground);
+}
+.brand-glyph::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--primary-foreground);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 1.5rem;
+  color: var(--muted-foreground);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 14px;
+}
+.topnav-actions a {
+  color: var(--foreground);
+  text-decoration: none;
+  font-weight: 500;
+}
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (44px touch floor, 8px radius primary per DESIGN.md) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--radius-md);
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover {
+  background: var(--brand-primary-active);
+  border-color: var(--brand-primary-active);
+}
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.btn[data-variant="secondary"]:hover {
+  border-color: var(--foreground);
+}
+/* On-dark variant: white pill on dark canvas / featured tier / footer cards */
+.btn[data-variant="on-dark"] {
+  background: var(--brand-on-dark);
+  color: oklch(0.1776 0 0);
+  border-color: var(--brand-on-dark);
+}
+.btn[data-variant="on-dark"]:hover {
+  background: var(--brand-on-dark-soft);
+  border-color: var(--brand-on-dark-soft);
+}
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--foreground);
+}
+.btn[data-size="lg"] {
+  min-height: 48px;
+  padding: 0 1.5rem;
+  font-size: 15px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero: 7-5 split with display headline left + signature booking
+ * card right. Display uses Inter 600 with -0.02em to approximate Cal
+ * Sans tracking. -- */
+.hero {
+  padding: 4rem 1.5rem 5rem;
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 1.5rem;
+}
+.hero-eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-success);
+  flex-shrink: 0;
+}
+.hero-display {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 14ch;
+}
+.hero-lede {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body);
+  max-width: 36rem;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.hero-trust {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brand-body);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.hero-trust-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--brand-body);
+  flex-shrink: 0;
+}
+
+/* -- Signature: booking/scheduling card (hero right column)
+ * Cal's defining surface — the booking widget. Shows the active
+ * day, time-slot picker, meeting form, confirm CTA. Built from
+ * the same component vocabulary that appears below in the demo
+ * sections; this is the brand's voltage moment. -- */
+.booking-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px hsl(0 0% 0% / 0.05), 0 4px 12px hsl(0 0% 0% / 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.booking-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.booking-host {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.booking-host-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--brand-radius-full);
+  background: var(--brand-badge-violet);
+  color: oklch(0.1776 0 0);
+  display: inline-grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.booking-host-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brand-body);
+  margin: 0;
+  line-height: 1.3;
+}
+.booking-title {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0.125rem 0 0;
+  line-height: 1.2;
+}
+.booking-duration {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--secondary);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--foreground);
+  flex-shrink: 0;
+}
+.booking-duration::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-success);
+}
+
+.booking-day {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--foreground);
+  letter-spacing: -0.01em;
+  margin: 0 0 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.booking-day-meta {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-body);
+}
+.booking-slots {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+.booking-slot {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--background);
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--foreground);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+.booking-slot[data-selected] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.booking-slot[data-pending] {
+  color: var(--brand-body);
+  opacity: 0.8;
+}
+.booking-confirm {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  gap: 1rem;
+}
+.booking-confirm-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+.booking-confirm-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.booking-confirm-value {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+/* -- Section frame -- */
+.section {
+  padding: 5rem 1.5rem;
+}
+.section[data-tight] { padding: 4rem 1.5rem; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section-eyebrow {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 20ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.swatch-chip {
+  height: 3rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+.swatch-role {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.swatch-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--foreground);
+  word-break: break-all;
+}
+
+/* -- Token demo: surface ladder (Cal's documented 5 surfaces) -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 1080px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="canvas"] {
+  background: var(--background);
+  color: var(--foreground);
+}
+.ladder-step[data-step="secondary"] {
+  background: var(--secondary);
+  color: var(--foreground);
+  border-color: var(--secondary);
+}
+.ladder-step[data-step="card"] {
+  background: var(--card);
+  color: var(--foreground);
+  border-color: var(--card);
+}
+.ladder-step[data-step="strong"] {
+  background: var(--brand-surface-strong);
+  color: var(--foreground);
+  border-color: var(--brand-surface-strong);
+}
+/* The dark voltage surface — Cal's documented footer/featured-tier
+ * dark. Polarity-locked: stays near-black on BOTH light and dark
+ * variants so the brand's dark-card register reads consistently. */
+.ladder-step[data-step="dark"] {
+  background: oklch(0.1730 0 0);
+  color: oklch(1 0 0);
+  border-color: oklch(0.1730 0 0);
+}
+.ladder-num {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.ladder-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+}
+.ladder-role {
+  font-size: 13px;
+  opacity: 0.88;
+  margin-top: auto;
+  line-height: 1.45;
+}
+
+/* -- Pricing tiles (Hobby / Team / Org-wide, featured = dark) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) {
+  .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; }
+}
+.pricing-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--foreground);
+}
+/* Featured tier — flips to the documented dark surface. Polarity-
+ * locked to near-black so the "featured = dark inversion" register
+ * holds on both light and dark canvases (the dark canvas elevates it
+ * with a hairline rather than colour contrast — read the
+ * .pricing-card[data-featured] style as a polarity-locked signature
+ * card). */
+.pricing-card[data-featured] {
+  background: oklch(0.1730 0 0);
+  border-color: oklch(0.1730 0 0);
+  color: oklch(1 0 0);
+}
+.pricing-name {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.pricing-price {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0.25rem 0 0;
+}
+.pricing-tagline {
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.85;
+  margin: 0;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { opacity: 0.92; }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: oklch(0.3500 0 0);
+}
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.pricing-features li::before {
+  content: "✓";
+  color: var(--brand-success);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 14px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--brand-badge-emerald); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.type-display {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-body);
+}
+.type-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 14px;
+  color: var(--brand-body);
+}
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.75rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+/* Nav-pill-group — Cal's signature interactive component */
+.nav-pill-group {
+  display: inline-flex;
+  padding: 4px;
+  background: var(--secondary);
+  border-radius: var(--brand-radius-pill);
+  gap: 2px;
+}
+.nav-pill {
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand-body);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+.nav-pill[data-active] {
+  background: var(--background);
+  color: var(--foreground);
+  box-shadow: 0 1px 2px hsl(0 0% 0% / 0.06);
+}
+@media (prefers-reduced-motion: reduce) { .nav-pill { transition: none; } }
+
+/* Badge pills (Cal's signature pastel set, used on tags + avatar fills) */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: oklch(0.1776 0 0);
+}
+/* Pastel chips default to near-black ink — mid-saturation fills
+ * (violet, pink) drop below WCAG AA with white text (~3.5-4.2:1).
+ * Near-black ink lands 8-11:1 across the entire pastel set. */
+.badge[data-tone="orange"]  { background: var(--brand-badge-orange); }
+.badge[data-tone="pink"]    { background: var(--brand-badge-pink); }
+.badge[data-tone="violet"]  { background: var(--brand-badge-violet); }
+.badge[data-tone="emerald"] { background: var(--brand-badge-emerald); }
+.badge[data-tone="neutral"] { background: var(--secondary); color: var(--foreground); }
+
+/* Avatar circles — small pastel-fill set */
+.avatar-stack {
+  display: inline-flex;
+  align-items: center;
+}
+.avatar-stack > .avatar { margin-left: -8px; border: 2px solid var(--background); }
+.avatar-stack > .avatar:first-child { margin-left: 0; }
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--brand-radius-full);
+  display: inline-grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--brand-on-dark);
+}
+/* All pastel avatars use near-black ink for legible initials.
+ * Mid-saturation fills (violet, pink) drop below 4.5:1 with
+ * white text; near-black ink lands 8-11:1 across the set. */
+.avatar[data-tone="orange"]  { background: var(--brand-badge-orange); color: oklch(0.1776 0 0); }
+.avatar[data-tone="pink"]    { background: var(--brand-badge-pink); color: oklch(0.1776 0 0); }
+.avatar[data-tone="violet"]  { background: var(--brand-badge-violet); color: oklch(0.1776 0 0); }
+.avatar[data-tone="emerald"] { background: var(--brand-badge-emerald); color: oklch(0.1776 0 0); }
+.avatar[data-tone="neutral"] { background: var(--brand-surface-strong); color: var(--foreground); }
+
+/* Text input (40px height, 8px radius) */
+.text-input {
+  width: 100%;
+  max-width: 22rem;
+  height: 40px;
+  padding: 0 0.875rem;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md);
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 14px;
+}
+.text-input::placeholder { color: var(--brand-muted-soft); }
+.text-input:focus {
+  outline: none;
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 18%, transparent);
+}
+
+/* -- Light gray CTA band (pre-footer "Smarter, simpler scheduling")
+ * Uses --secondary so it shifts to a soft elevated dark-card on dark
+ * canvas — flips with theme. */
+.cta-band {
+  background: var(--secondary);
+  color: var(--foreground);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.cta-band-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 36rem;
+}
+.cta-band-title {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: clamp(1.625rem, 2.6vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--foreground);
+  margin: 0;
+}
+.cta-band-lede {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--brand-body);
+  margin: 0;
+}
+
+/* -- Footer (dark navy — the only deliberately dark band on light
+ * canvas. Polarity-locked: stays near-black even in dark mode so the
+ * brand's "footer closes the page with inversion" register holds in
+ * both polarities; in dark mode the canvas is already dark so the
+ * footer carries a hairline top border + elevated card for the brand
+ * block to keep visual closure.) -- */
+.footer {
+  background: oklch(0.1730 0 0);
+  color: oklch(1 0 0);
+  padding: 4rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 32ch;
+}
+.footer-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: oklch(1 0 0);
+  text-decoration: none;
+}
+.footer-brand-glyph {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  background: oklch(1 0 0);
+  display: inline-grid;
+  place-items: center;
+  position: relative;
+}
+.footer-brand-glyph::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.75px solid oklch(0.1776 0 0);
+}
+.footer-brand-glyph::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: oklch(0.1776 0 0);
+}
+.footer-tagline {
+  font-size: 13px;
+  color: oklch(0.7118 0.0129 286.0665);
+  line-height: 1.55;
+  margin: 0;
+}
+.footer-col-title {
+  font-family: 'Cal Sans', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: oklch(1 0 0);
+  margin: 0 0 1rem;
+}
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.footer-list a {
+  font-size: 14px;
+  color: oklch(0.7118 0.0129 286.0665);
+  text-decoration: none;
+}
+.footer-list a:hover { color: oklch(1 0 0); }
+.footer-legal {
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid oklch(0.2700 0 0);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: oklch(0.7118 0.0129 286.0665);
+}
+.footer-legal-meta {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true"></span>
+      __DESIGN_SYSTEM_NAME__
+    </a>
+    <div class="topnav-links">
+      <a href="#">Product</a>
+      <a href="#">Solutions</a>
+      <a href="#">Resources</a>
+      <a href="#">Pricing</a>
+      <a href="#">Enterprise</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Sign up free</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow"><span class="hero-eyebrow-dot" aria-hidden="true"></span>Halcyon · Scheduling</p>
+      <h1 class="hero-display">The better way to book your team's week.</h1>
+      <p class="hero-lede">Halcyon's product, engineering, and operations teams keep sprint reviews, design crits, customer demos, and all-hands on a single rhythm. One link per cadence, slots open only when the host can actually meet.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" data-size="lg" type="button">Sign up free</button>
+        <button class="btn" data-variant="secondary" data-size="lg" type="button">Book a demo</button>
+      </div>
+      <p class="hero-trust">
+        <span>Free for personal use</span>
+        <span class="hero-trust-dot" aria-hidden="true"></span>
+        <span>No credit card</span>
+        <span class="hero-trust-dot" aria-hidden="true"></span>
+        <span>2-minute setup</span>
+      </p>
+    </div>
+
+    <aside class="booking-card" role="figure" aria-label="Booking flow signature surface">
+      <div class="booking-meta">
+        <div class="booking-host">
+          <span class="booking-host-avatar" aria-hidden="true">JK</span>
+          <div>
+            <p class="booking-host-name">Jordan Kim · Hosting</p>
+            <h2 class="booking-title">Sprint review · cycle 24</h2>
+          </div>
+        </div>
+        <span class="booking-duration">30 min</span>
+      </div>
+
+      <div>
+        <p class="booking-day">
+          <span>Thursday, May 28</span>
+          <span class="booking-day-meta">UTC · 5 of 8 open</span>
+        </p>
+        <div class="booking-slots" role="list">
+          <button class="booking-slot" type="button" role="listitem">9:00 AM</button>
+          <button class="booking-slot" type="button" role="listitem">9:30 AM</button>
+          <button class="booking-slot" type="button" data-selected role="listitem">10:00 AM</button>
+          <button class="booking-slot" type="button" role="listitem">10:30 AM</button>
+          <button class="booking-slot" type="button" role="listitem">1:00 PM</button>
+          <button class="booking-slot" type="button" data-pending role="listitem">1:30 PM</button>
+        </div>
+      </div>
+
+      <div class="booking-confirm">
+        <div class="booking-confirm-meta">
+          <span class="booking-confirm-label">Selected</span>
+          <span class="booking-confirm-value">Thu · 10:00 AM</span>
+        </div>
+        <button class="btn" data-variant="primary" type="button">Confirm slot</button>
+      </div>
+    </aside>
+  </div>
+</header>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Near-black ink, pastel accents.</h2>
+      <p class="section-lede">The system runs monochrome at the action layer — primary CTAs are near-black on white, confidently engineered without the lift of an accent colour. Pastel fills appear only on avatars and small category tags, never on the primary CTA.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Primary · Ink</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--card);"></div><div class="swatch-role">Card</div><div class="swatch-name">--card</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--secondary);"></div><div class="swatch-role">Secondary</div><div class="swatch-name">--secondary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-strong);"></div><div class="swatch-role">Surface strong</div><div class="swatch-name">--brand-surface-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: oklch(0.1730 0 0);"></div><div class="swatch-role">Surface dark</div><div class="swatch-name">--brand-surface-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-badge-orange);"></div><div class="swatch-role">Badge · Orange</div><div class="swatch-name">--brand-badge-orange</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-badge-pink);"></div><div class="swatch-role">Badge · Pink</div><div class="swatch-name">--brand-badge-pink</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-badge-violet);"></div><div class="swatch-role">Badge · Violet</div><div class="swatch-name">--brand-badge-violet</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-badge-emerald);"></div><div class="swatch-role">Badge · Emerald</div><div class="swatch-name">--brand-badge-emerald</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-success);"></div><div class="swatch-role">Semantic · Success</div><div class="swatch-name">--brand-success</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-warning);"></div><div class="swatch-role">Semantic · Warning</div><div class="swatch-name">--brand-warning</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces · Five steps</p>
+      <h2 class="section-title">White through dark, one inversion at the floor.</h2>
+      <p class="section-lede">Pages rotate through canvas → secondary → card → strong → dark, with the dark step reserved for the footer and the featured pricing tier. The dark surface is scarce by design; using it twice in a row breaks the brand's pacing.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">01 · Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · editorial body</span>
+      </div>
+      <div class="ladder-step" data-step="secondary">
+        <span class="ladder-num">02 · Secondary</span>
+        <span class="ladder-name">--secondary</span>
+        <span class="ladder-role">nav-pill-group · soft section dividers</span>
+      </div>
+      <div class="ladder-step" data-step="card">
+        <span class="ladder-num">03 · Card</span>
+        <span class="ladder-name">--card</span>
+        <span class="ladder-role">feature cards · testimonial cards</span>
+      </div>
+      <div class="ladder-step" data-step="strong">
+        <span class="ladder-num">04 · Strong</span>
+        <span class="ladder-name">--brand-surface-strong</span>
+        <span class="ladder-role">hairline alternative · disabled fills</span>
+      </div>
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">05 · Dark</span>
+        <span class="ladder-name">--brand-surface-dark</span>
+        <span class="ladder-role">footer · featured tier · scarce voltage</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three shapes, one inversion at the middle.</h2>
+      <p class="section-lede">The featured tier flips to the documented dark surface — colour-block contrast does the elevation work. No accent borders, no scale shifts, no badge. Just inversion.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production together.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="on-dark" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">Geometric display, neutral body.</h2>
+      <p class="section-lede">Display headlines run Inter 600 with -0.04em tracking (an Inter approximation of the documented Cal Sans face). Body type stays Inter 400, never bolder. The boundary doesn't blur — every display headline carries the same weight-and-tracking signature.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">A canvas for the week.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Inter 600 · −0.03em</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter 600 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Inter 400 at 16 pixels, line-height 1.5. Body uses a slate-blue tint for running text and near-black for headlines and primary actions.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">scheduler.cycle.next()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · primary + secondary pair</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" type="button">Sign up free</button>
+            <button class="btn" data-variant="secondary" type="button">Book a demo</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Nav-pill-group · signature interactive</span>
+          <div class="cmp-row">
+            <div class="nav-pill-group" role="tablist">
+              <button class="nav-pill" data-active role="tab" type="button">Personal</button>
+              <button class="nav-pill" role="tab" type="button">Teams</button>
+              <button class="nav-pill" role="tab" type="button">Enterprise</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Badges · pastel category tags</span>
+          <div class="cmp-row">
+            <span class="badge" data-tone="orange">Product</span>
+            <span class="badge" data-tone="pink">Design</span>
+            <span class="badge" data-tone="violet">Engineering</span>
+            <span class="badge" data-tone="emerald">Operations</span>
+            <span class="badge" data-tone="neutral">Internal</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Avatars · 36px circles · stacked overlay</span>
+          <div class="cmp-row">
+            <div class="avatar-stack">
+              <span class="avatar" data-tone="violet">JK</span>
+              <span class="avatar" data-tone="orange">ML</span>
+              <span class="avatar" data-tone="pink">AP</span>
+              <span class="avatar" data-tone="emerald">RC</span>
+              <span class="avatar" data-tone="neutral">SW</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Text input · 40px · 8px radius</span>
+          <div class="cmp-row">
+            <input class="text-input" type="email" placeholder="you@halcyon.dev" aria-label="Email">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pre-footer CTA">
+  <div class="section-inner">
+    <div class="cta-band">
+      <div class="cta-band-text">
+        <h3 class="cta-band-title">Smarter, simpler scheduling.</h3>
+        <p class="cta-band-lede">A booking link per cadence. Sprint review, design crit, customer demo, all-hands — each one a slot pattern the team agrees to once, then never re-negotiates.</p>
+      </div>
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Sign up free</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="footer-brand-mark" href="#">
+        <span class="footer-brand-glyph" aria-hidden="true"></span>
+        __DESIGN_SYSTEM_NAME__
+      </a>
+      <p class="footer-tagline">A token-surface preview rendered against the scheduling-software design system. Clean modern SaaS canvas, near-black ink, pastel accents on tags and avatars, dark navy footer closure. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-list">
+        <li><a href="#">Booking links</a></li>
+        <li><a href="#">Team availability</a></li>
+        <li><a href="#">Workflows</a></li>
+        <li><a href="#">Integrations</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Solutions</p>
+      <ul class="footer-list">
+        <li><a href="#">Engineering</a></li>
+        <li><a href="#">Sales</a></li>
+        <li><a href="#">Operations</a></li>
+        <li><a href="#">Customer success</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list">
+        <li><a href="#">halcyon.dev</a></li>
+        <li><a href="#">app.halcyon.dev</a></li>
+        <li><a href="#">@halcyon/cli</a></li>
+        <li><a href="#">hlc.so</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Security</a></li>
+        <li><a href="#">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">white canvas · near-black ink · pastel chips · dark footer closure</span>
+  </div>
+</footer>
+
+</body>
+</html>

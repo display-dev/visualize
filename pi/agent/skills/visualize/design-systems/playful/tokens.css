@@ -1,0 +1,220 @@
+/**
+ * design-systems/playful/tokens.css
+ *
+ * Hand-authored from the Playful Geometric spec at
+ * temp/refs/playful/raw.md (Zhou Jason / designprompts.dev source).
+ * Sourced: 2026-05-26.
+ *
+ * Companion: design-systems/playful/DESIGN.md (§2 carries the live
+ * citation for every chromatic value below).
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this brand's.
+ *   - Brand-extras (--brand-*): the system's own design-system
+ *     vocabulary — decorative tones, hairlines, the chunky-border ink,
+ *     the bouncy easing curve.
+ *
+ * The system is light-canonical. The [data-theme="dark"] block is a
+ * conservative synthesised inversion — warm-near-black canvas, slate
+ * borders, decorative palette held at :root. The spec doesn't sanction
+ * a dark variant; consumers shipping the brand faithfully should pin
+ * light.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are this system's. */
+
+  --background: oklch(0.9934 0.0107 95.1593);        /* #FFFDF5 — warm cream paper canvas */
+  --foreground: oklch(0.2795 0.0368 260.0310);       /* #1E293B — slate-800, softer than black */
+  --card: oklch(1 0 0);                              /* #FFFFFF */
+  --card-foreground: oklch(0.2795 0.0368 260.0310);  /* slate-800 ink on white cards */
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2795 0.0368 260.0310);
+
+  --primary: oklch(0.6056 0.2189 292.7172);          /* #8B5CF6 — vivid violet, Candy Button fill */
+  --primary-foreground: oklch(1 0 0);                /* white label on violet */
+  --secondary: oklch(0.7253 0.1752 349.7607);        /* #F472B6 — hot pink decorative */
+  --secondary-foreground: oklch(0.2795 0.0368 260.0310);
+  --muted: oklch(0.9683 0.0069 247.8957);            /* #F1F5F9 — slate-100 */
+  --muted-foreground: oklch(0.5544 0.0407 257.4166); /* #64748B — slate-500 */
+  --accent: oklch(0.6056 0.2189 292.7172);           /* same hue as --primary per spec */
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.587 0.237 28.4);            /* synthesised warm coral — see DESIGN.md §2 */
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.9288 0.0126 255.5079);           /* #E2E8F0 — slate-200 (soft sticker shadow tone) */
+  --input: oklch(1 0 0);                             /* #FFFFFF — input surface */
+  --ring: oklch(0.6056 0.2189 292.7172);             /* tracks --primary — violet focus */
+
+  --sidebar: oklch(0.9934 0.0107 95.1593);
+  --sidebar-foreground: oklch(0.2795 0.0368 260.0310);
+  --sidebar-primary: oklch(0.6056 0.2189 292.7172); /* tracks --primary */
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9683 0.0069 247.8957);
+  --sidebar-accent-foreground: oklch(0.2795 0.0368 260.0310);
+  --sidebar-border: oklch(0.9288 0.0126 255.5079);
+  --sidebar-ring: oklch(0.6056 0.2189 292.7172);    /* tracks --primary */
+
+  --chart-1: oklch(0.6056 0.2189 292.7172);          /* violet */
+  --chart-2: oklch(0.7253 0.1752 349.7607);          /* pink */
+  --chart-3: oklch(0.8369 0.1644 84.4286);           /* amber */
+  --chart-4: oklch(0.7729 0.1535 163.2231);          /* mint */
+  --chart-5: oklch(0.2795 0.0368 260.0310);          /* slate-800 ink */
+
+  --radius-sm: 6px;
+  --radius-md: 8px;       /* input radius — rounded-lg */
+  --radius-lg: 12px;      /* card radius — rounded-xl */
+  --radius-xl: 16px;
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Outfit', 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Hard offset shadows, zero blur — the signature elevation. The
+   * shadow's position animates between three states (rest 4/4,
+   * lift 6/6, press 2/2); the colour is the chunky-border ink
+   * (slate-800) or one of the decorative tones for featured cards. */
+
+  /* -- Brand-extras --------------------------------------------- */
+
+  /* Decorative palette — three full-chroma rotational tones. The
+   * spec is explicit: these are decorative, not semantic. Pink is
+   * not "destructive," mint is not "success." */
+  --brand-accent-pink:   oklch(0.7253 0.1752 349.7607); /* #F472B6 */
+  --brand-accent-amber:  oklch(0.8369 0.1644 84.4286);  /* #FBBF24 */
+  --brand-accent-mint:   oklch(0.7729 0.1535 163.2231); /* #34D399 */
+
+  /* Hairlines / dividers */
+  --brand-hairline-soft:   oklch(0.8690 0.0198 252.8943); /* #CBD5E1 — input default border */
+  --brand-hairline-strong: oklch(0.2795 0.0368 260.0310); /* slate-800 — chunky 2px component border */
+
+  /* Body text neutrals — chroma ≈ 0 utility tokens. */
+  --brand-body:       oklch(0.2795 0.0368 260.0310);    /* slate-800 */
+  --brand-body-muted: oklch(0.5544 0.0407 257.4166);    /* slate-500 */
+  --brand-muted-soft: oklch(0.5400 0.0298 256.5);       /* mid slate for legal-line meta */
+
+  /* Pop-shadow primitive — the signature elevation language. The
+   * offset and colour can be overridden per surface (pink shadow on
+   * featured cards, violet shadow on focused inputs); the no-blur
+   * rule is universal. */
+  --brand-shadow-rest:  4px 4px 0 0 oklch(0.2795 0.0368 260.0310);
+  --brand-shadow-lift:  6px 6px 0 0 oklch(0.2795 0.0368 260.0310);
+  --brand-shadow-press: 2px 2px 0 0 oklch(0.2795 0.0368 260.0310);
+  --brand-shadow-card:  8px 8px 0 0 oklch(0.9288 0.0126 255.5079); /* soft slate-200 card shadow */
+
+  /* Motion — bouncy easing curve from spec §10. */
+  --brand-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Radii — the spec uses pill radii on buttons and rounded-lg on
+   * inputs; the system's radius scale skews larger than shadcn defaults. */
+  --brand-radius-pill: 9999px;
+  --brand-radius-xs:   4px;
+}
+
+/* -- Dark theme ------------------------------------------------
+ * The Playful spec is light-canonical and does NOT enumerate a
+ * dark variant. The block below is a conservative synthesised
+ * inversion — warm-near-black canvas, slate-700 borders, the
+ * decorative palette held at full chroma per the spec's
+ * single-chromatic-identity-across-modes default.
+ *
+ * Per AUTHORING.md "Brand colours are sacrosanct": no lifted
+ * variants of the decorative tones — surfaces that fail contrast
+ * on dark get re-homed, not the colour retuned.
+ *
+ * The chunky 2px slate-800 border becomes invisible on a near-black
+ * canvas; in the preview template the border colour is routed
+ * through a local custom property that swaps to a light slate in
+ * dark mode, NOT here — tokens.css holds brand identity, not
+ * preview shop-rules.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1831 0.0309 263.3831);        /* synthesised — slate-950 */
+  --foreground: oklch(0.9842 0.0034 247.8578);        /* slate-50 */
+  --card: oklch(0.2077 0.0398 265.7549);              /* slate-900 */
+  --card-foreground: oklch(0.9842 0.0034 247.8578);
+  --popover: oklch(0.2077 0.0398 265.7549);
+  --popover-foreground: oklch(0.9842 0.0034 247.8578);
+
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring stay at :root.
+   * The decorative palette stays at :root too — the spec's "single
+   * chromatic identity across modes" default holds. */
+
+  --secondary: oklch(0.7253 0.1752 349.7607);         /* hot pink stays */
+  --secondary-foreground: oklch(0.2795 0.0368 260.0310);
+  --muted: oklch(0.2795 0.0368 260.0310);             /* slate-800 */
+  --muted-foreground: oklch(0.7107 0.0351 256.7878);  /* slate-400 — lifted utility neutral */
+
+  --border: oklch(0.3717 0.0392 257.2870);            /* slate-700 — soft card shadow tone in dark */
+  --input: oklch(0.2077 0.0398 265.7549);             /* dark card surface */
+
+  --sidebar: oklch(0.1831 0.0309 263.3831);
+  --sidebar-foreground: oklch(0.9842 0.0034 247.8578);
+  --sidebar-accent: oklch(0.2795 0.0368 260.0310);
+  --sidebar-accent-foreground: oklch(0.9842 0.0034 247.8578);
+  --sidebar-border: oklch(0.3717 0.0392 257.2870);
+
+  /* Utility neutrals retune for dark canvas — chroma ≈ 0 only. */
+  --brand-hairline-soft:   oklch(0.4455 0.0374 257.2808); /* slate-600 in dark */
+  --brand-hairline-strong: oklch(0.9842 0.0034 247.8578); /* slate-50 — light chunky border in dark */
+
+  --brand-body:       oklch(0.9842 0.0034 247.8578);
+  --brand-body-muted: oklch(0.7107 0.0351 256.7878);
+  --brand-muted-soft: oklch(0.7107 0.0298 256.5);
+
+  /* Pop-shadow swaps to a light colour in dark — the slate-800 shadow
+   * is invisible on a slate-950 canvas. The decorative-shadow card
+   * variant (pink shadow) stays unchanged at :root. */
+  --brand-shadow-rest:  4px 4px 0 0 oklch(0.9842 0.0034 247.8578);
+  --brand-shadow-lift:  6px 6px 0 0 oklch(0.9842 0.0034 247.8578);
+  --brand-shadow-press: 2px 2px 0 0 oklch(0.9842 0.0034 247.8578);
+  --brand-shadow-card:  8px 8px 0 0 oklch(0.3717 0.0392 257.2870);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1831 0.0309 263.3831);
+    --foreground: oklch(0.9842 0.0034 247.8578);
+    --card: oklch(0.2077 0.0398 265.7549);
+    --card-foreground: oklch(0.9842 0.0034 247.8578);
+    --popover: oklch(0.2077 0.0398 265.7549);
+    --popover-foreground: oklch(0.9842 0.0034 247.8578);
+
+    --secondary: oklch(0.7253 0.1752 349.7607);
+    --secondary-foreground: oklch(0.2795 0.0368 260.0310);
+    --muted: oklch(0.2795 0.0368 260.0310);
+    --muted-foreground: oklch(0.7107 0.0351 256.7878);
+
+    --border: oklch(0.3717 0.0392 257.2870);
+    --input: oklch(0.2077 0.0398 265.7549);
+
+    --sidebar: oklch(0.1831 0.0309 263.3831);
+    --sidebar-foreground: oklch(0.9842 0.0034 247.8578);
+    --sidebar-accent: oklch(0.2795 0.0368 260.0310);
+    --sidebar-accent-foreground: oklch(0.9842 0.0034 247.8578);
+    --sidebar-border: oklch(0.3717 0.0392 257.2870);
+
+    --brand-hairline-soft:   oklch(0.4455 0.0374 257.2808);
+    --brand-hairline-strong: oklch(0.9842 0.0034 247.8578);
+
+    --brand-body:       oklch(0.9842 0.0034 247.8578);
+    --brand-body-muted: oklch(0.7107 0.0351 256.7878);
+    --brand-muted-soft: oklch(0.7107 0.0298 256.5);
+
+    --brand-shadow-rest:  4px 4px 0 0 oklch(0.9842 0.0034 247.8578);
+    --brand-shadow-lift:  6px 6px 0 0 oklch(0.9842 0.0034 247.8578);
+    --brand-shadow-press: 2px 2px 0 0 oklch(0.9842 0.0034 247.8578);
+    --brand-shadow-card:  8px 8px 0 0 oklch(0.3717 0.0392 257.2870);
+  }
+}

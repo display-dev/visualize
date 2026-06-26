@@ -1,0 +1,2362 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cloudflare-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23ff5e1f'/%3E%3Cpath d='M21 13.2 C20 11.5 18 10.5 16 10.5 C13.5 10.5 11.4 12.2 10.8 14.5 C9.5 14.7 8.5 15.8 8.5 17.1 C8.5 18.5 9.7 19.7 11.1 19.7 L21.5 19.7 C22.6 19.7 23.5 18.8 23.5 17.6 C23.5 16.5 22.7 15.6 21.6 15.5 C21.8 14.7 21.6 13.8 21 13.2 Z' fill='%23fffbf5'/%3E%3C/svg%3E">
+<meta property="og:title" content="cloudflare-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Polarity-aware canvas, full-bleed orange signature card, pill geometry, hairline tiles, mono accent code register.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/cloudflare-style/tokens.css) === */
+/**
+ * design-systems/cloudflare-style/tokens.css
+ *
+ * Hand-authored from live-verified cloudflare.com surfaces.
+ * Sourced: 2026-05-25 — see ./DESIGN.md (§2 Palette, §3 Typography).
+ *
+ * Cloudflare ships canonical-canvas: both. The marketing site is polarity-
+ * aware via prefers-color-scheme + ?theme= query, Kumo defines every
+ * --color-kumo-* slot via light-dark(), the developer docs ship explicit
+ * [data-theme=light] and [data-theme=dark] blocks, and the blog is
+ * white-canonical. :root carries the light branch (white canvas, near-black
+ * foreground per Kumo's color-scheme: light default and the editorial blog);
+ * [data-theme="dark"] carries the warm-charcoal marketing-skin branch
+ * (#151414 canvas, #f0e3de cream foreground). prefers-color-scheme: dark
+ * mirrors the dark block verbatim.
+ *
+ * Two oranges live alongside each other in Cloudflare's vocabulary. The
+ * marketing accent-100 (#ff5e1f) drives --primary on both polarities — it's
+ * the 2026 marketing-skin override and the colour the inline <code> tokens
+ * deploy. The Kumo canonical (#f6821f) is carried as --brand-orange-legacy
+ * — the colour the developer docs, the blog, and the FedRAMP variant all
+ * use as their primary. Downstream consumers reaching for "the Cloudflare
+ * orange" without further qualification want the legacy value.
+ *
+ * Both --primary instances stay at the same OKLCH across polarities (per
+ * the AUTHORING primary-family-asymmetry rule) — Cloudflare doesn't
+ * document a per-mode brand-orange swap.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core: names upstream, values this brand's.
+ *   - Brand-extras (--brand-*): surface-named only.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+
+  --background: oklch(1.000 0 0);                       /* #fff — Kumo color-scheme: light default; blog body */
+  --foreground: oklch(0.2686 0 0);                      /* #262626 — marketing --color-foreground-100 (light branch) */
+  --card: oklch(0.9938 0.0013 106.42);                  /* #fdfdfc — marketing --color-background-200 (light) */
+  --card-foreground: oklch(0.2686 0 0);
+  --popover: oklch(0.9938 0.0013 106.42);
+  --popover-foreground: oklch(0.2686 0 0);
+
+  --primary: oklch(0.6870 0.2075 38.79);                /* #ff5e1f marketing brand orange (--color-accent-100) */
+  --primary-foreground: oklch(0.9895 0.0090 78.28);     /* #fffbf5 cream on orange — polarity-locked foreground */
+  --secondary: oklch(0.2393 0 0);                       /* dark charcoal — inverted pill bg on light canvas */
+  --secondary-foreground: oklch(0.9895 0.0090 78.28);   /* cream text on charcoal pill */
+  --muted: oklch(0.9774 0.0025 48.72);                  /* #f9f7f6 — marketing --color-background-300 (light); section dividers */
+  --muted-foreground: oklch(0.4500 0 0);                /* mid-grey body-muted on light canvas */
+  --accent: oklch(0.9774 0.0025 48.72);                 /* same as --muted; nav-hover surface on light */
+  --accent-foreground: oklch(0.2686 0 0);
+  --destructive: oklch(0.6916 0.1988 20.19);            /* attack-red — Cloudflare reserves for security-emergency entry only; downstream consumers should treat as a brand-specific reservation, not a generic delete-row colour */
+  --destructive-foreground: oklch(0.9895 0.0090 78.28);
+
+  --border: oklch(0.2686 0 0 / 0.125);                  /* foreground-at-12.5%-alpha on light */
+  --input: oklch(0.2686 0 0 / 0.125);
+  --ring: oklch(0.6870 0.2075 38.79);                   /* tracks --primary */
+
+  --sidebar: oklch(1.000 0 0);
+  --sidebar-foreground: oklch(0.2686 0 0);
+  --sidebar-primary: oklch(0.6870 0.2075 38.79);        /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.9895 0.0090 78.28);
+  --sidebar-accent: oklch(0.9774 0.0025 48.72);
+  --sidebar-accent-foreground: oklch(0.2686 0 0);
+  --sidebar-border: oklch(0.2686 0 0 / 0.125);
+  --sidebar-ring: oklch(0.6870 0.2075 38.79);           /* tracks --primary */
+
+  /* Chart palette derived from documented secondary brand colours
+   * (marketing orange / hover orange / Kumo canonical orange /
+   * blog blue / accent yellow). */
+  --chart-1: oklch(0.6870 0.2075 38.79);                /* marketing brand orange */
+  --chart-2: oklch(0.7114 0.1877 40.38);                /* orange hover #ff7038 */
+  --chart-3: oklch(0.7235 0.1724 53.79);                /* Kumo canonical orange #f6821f */
+  --chart-4: oklch(0.7208 0.1357 237.53);               /* editorial blog blue #3eb0ef */
+  --chart-5: oklch(0.8652 0.1768 90.38);                /* accent yellow #ffcc00 */
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Kunst Grotesk is the marketing display + body. Inter is the
+   * developer-docs fallback. System fallbacks for the blog editorial
+   * canvas (where the brand ships Apple-system stack deliberately). */
+  --font-sans: 'Kunst Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'Apercu Mono Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Kunst Grotesk', 'Inter', system-ui, sans-serif;
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. Cloudflare's vocabulary covers two co-existing
+   * oranges (marketing accent + Kumo canonical), polarity-locked
+   * signature surfaces (orange CTA card, dark code-block canvas), an
+   * attack-red pair reserved for security-emergency CTAs, and pairs of
+   * hairline / on-canvas tokens for each polarity.
+   * -------------------------------------------------------------- */
+
+  /* Brand primary lineage. --brand-primary-hover is documented in the
+   * marketing CSS (--color-accent-200 #ff7038). --brand-orange-legacy is
+   * the Kumo canonical (#f6821f) — the colour the developer docs, the
+   * blog, and the FedRAMP variant all deploy as their primary. */
+  --brand-primary-hover: oklch(0.7114 0.1877 40.38);    /* #ff7038 marketing hover */
+  --brand-orange-legacy: oklch(0.7235 0.1724 53.79);    /* #f6821f Kumo canonical — dev docs / blog / FedRAMP */
+  --brand-orange-mobile: oklch(0.6629 0.2272 35.92);    /* #ff4801 mobile theme-color meta */
+
+  /* Polarity-locked signature surfaces.
+   * The orange-fill CTA card and the warm-deep code-mockup canvas don't
+   * flip with theme — they're identity surfaces. Cream-on-orange is the
+   * documented foreground inside the orange card. The code-mockup canvas
+   * stays dark even on the white-canonical blog (Ashes theme #1c2023). */
+  --brand-canvas-orange: oklch(0.6870 0.2075 38.79);    /* full-bleed orange CTA fill (= --primary) */
+  --brand-on-orange: oklch(0.9895 0.0090 78.28);        /* cream text on orange card */
+  --brand-canvas-code: oklch(0.2407 0.0083 240.23);     /* #1c2023 blog Ashes code-block backdrop */
+  --brand-code-ident: oklch(0.7548 0.0577 226.16);      /* #95aec7 Ashes pastel-blue identifier */
+  --brand-code-keyword: oklch(0.7283 0.0567 351.17);    /* #c795ae Ashes keyword pink */
+
+  /* Foreground variants (utility neutrals — chroma ≈ 0.009-0.016 carry
+   * slight warmth from the OKLCH hue; chroma ≈ 0 are pure neutrals).
+   * --brand-on-dark is the cream locked to dark surfaces; --brand-on-light
+   * is the near-black locked to light surfaces. --brand-ink-strong is the
+   * hero / H1 foreground (one step brighter than the canvas foreground). */
+  --brand-ink-strong: oklch(0.9895 0.0090 78.28);       /* cream-white #fffbf5 — strong text on dark hero */
+  --brand-on-dark: oklch(0.9895 0.0090 78.28);          /* foreground locked to dark surfaces */
+  --brand-on-light: oklch(0.2686 0 0);                  /* #262626 foreground locked to light surfaces */
+
+  /* Documented secondary brand colours.
+   * Accent-yellow is decorative-only (chart fill / stroke marker, never
+   * body text). Editorial blog blue is the post-listing link colour
+   * carried from Ghost CMS defaults. */
+  --brand-accent-yellow: oklch(0.8652 0.1768 90.38);    /* #ffcc00 */
+  --brand-blog-blue: oklch(0.7208 0.1357 237.53);       /* #3eb0ef editorial */
+  --brand-blog-grey: oklch(0.2038 0.0067 258.37);       /* #15171a editorial heading */
+
+  /* Attack-red pair. Cloudflare reserves these for security-emergency
+   * entry points ("Under attack?"); not general-purpose destructive.
+   * The Kumo --color-kumo-danger lineage (light red-500 / dark red-900)
+   * is the routine destructive surface, separate from this entry-point
+   * vocabulary. */
+  --brand-attack: oklch(0.6916 0.1988 20.19);           /* #ff5b66 attack-red link */
+
+  /* Hairlines / dividers — foreground-at-alpha on each polarity so
+   * warmth tracks the canvas automatically. */
+  --brand-hairline-soft: oklch(0.2686 0 0 / 0.125);     /* light-canvas hairline */
+  --brand-hairline-strong: oklch(0.2686 0 0 / 0.30);    /* light-canvas stronger divider */
+
+  /* Brand-specific radius extras */
+  --brand-radius-pill: 9999px;                          /* canonical button shape on every CTA */
+  --brand-radius-card: 12px;                            /* hairline tile / case-study card */
+  --brand-radius-signature: 16px;                       /* orange signature-card corner */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * The marketing skin: warm near-black canvas (#151414) with warm-cream
+ * foreground (#f0e3de). The cream tint is intentional — chroma 0.0158
+ * encodes a paper-on-charcoal aesthetic that distinguishes the marketing
+ * surface from a generic dark mode. Kumo defines every slot via
+ * light-dark() with chromaless white as the dark foreground; the
+ * marketing site overrides that to the warm cream. We follow the
+ * marketing surface for the dark branch.
+ *
+ * Chromatic brand tokens (--primary, --ring, --brand-orange-legacy,
+ * --brand-attack, etc.) stay at the :root value — Cloudflare doesn't
+ * document a per-mode orange swap. Only canvas + neutrals + hairlines
+ * flip. The orange CTA card and code-mockup canvas are polarity-locked
+ * by definition and don't appear in this block.
+ * --------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1924 0.0016 17);                /* #151414 marketing dark canvas */
+  --foreground: oklch(0.9248 0.0158 42.38);             /* #f0e3de warm-cream foreground */
+  --card: oklch(0.2098 0.0025 67.69);                   /* #191817 marketing --color-background-200 (dark) */
+  --card-foreground: oklch(0.9248 0.0158 42.38);
+  --popover: oklch(0.2098 0.0025 67.69);
+  --popover-foreground: oklch(0.9248 0.0158 42.38);
+
+  --secondary: oklch(0.9895 0.0090 78.28);              /* cream pill bg — inverted pill on dark */
+  --secondary-foreground: oklch(0.2393 0 0);            /* charcoal text on cream pill */
+  --muted: oklch(0.2812 0.0039 84.58);                  /* #2a2927 marketing --color-background-300 (dark) */
+  --muted-foreground: oklch(0.6683 0.0094 44.84);       /* muted body text on dark canvas */
+  --accent: oklch(0.2098 0.0025 67.69);                 /* same as --card; nav-hover on dark */
+  --accent-foreground: oklch(0.9895 0.0090 78.28);
+
+  --border: oklch(0.9248 0.0158 42.38 / 0.125);         /* foreground-at-12.5%-alpha; picks up canvas warmth */
+  --input: oklch(0.9248 0.0158 42.38 / 0.125);
+
+  --sidebar: oklch(0.1924 0.0016 17);
+  --sidebar-foreground: oklch(0.9248 0.0158 42.38);
+  --sidebar-accent: oklch(0.2098 0.0025 67.69);
+  --sidebar-accent-foreground: oklch(0.9895 0.0090 78.28);
+  --sidebar-border: oklch(0.9248 0.0158 42.38 / 0.125);
+
+  /* Hairlines flip to foreground-at-alpha on dark — warmth carries. */
+  --brand-hairline-soft: oklch(0.9248 0.0158 42.38 / 0.125);   /* dark-canvas hairline */
+  --brand-hairline-strong: oklch(0.9248 0.0158 42.38 / 0.30);  /* dark-canvas stronger divider */
+
+  /* --brand-on-light is documented at #fffbf5 inside the marketing
+   * --color-light-foreground token — it's the colour the hero overlay
+   * deploys for cream text on near-black. The :root variant uses the
+   * dark-charcoal foreground for light surfaces; the dark block reuses
+   * the cream because the dark canvas IS the surface being overlaid. */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1924 0.0016 17);
+    --foreground: oklch(0.9248 0.0158 42.38);
+    --card: oklch(0.2098 0.0025 67.69);
+    --card-foreground: oklch(0.9248 0.0158 42.38);
+    --popover: oklch(0.2098 0.0025 67.69);
+    --popover-foreground: oklch(0.9248 0.0158 42.38);
+
+    --secondary: oklch(0.9895 0.0090 78.28);
+    --secondary-foreground: oklch(0.2393 0 0);
+    --muted: oklch(0.2812 0.0039 84.58);
+    --muted-foreground: oklch(0.6683 0.0094 44.84);
+    --accent: oklch(0.2098 0.0025 67.69);
+    --accent-foreground: oklch(0.9895 0.0090 78.28);
+
+    --border: oklch(0.9248 0.0158 42.38 / 0.125);
+    --input: oklch(0.9248 0.0158 42.38 / 0.125);
+
+    --sidebar: oklch(0.1924 0.0016 17);
+    --sidebar-foreground: oklch(0.9248 0.0158 42.38);
+    --sidebar-accent: oklch(0.2098 0.0025 67.69);
+    --sidebar-accent-foreground: oklch(0.9895 0.0090 78.28);
+    --sidebar-border: oklch(0.9248 0.0158 42.38 / 0.125);
+
+    --brand-hairline-soft: oklch(0.9248 0.0158 42.38 / 0.125);
+    --brand-hairline-strong: oklch(0.9248 0.0158 42.38 / 0.30);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Cloudflare-style preview shell — polarity-aware (both modes
+   render through this same template). Canvas + neutrals flip via the
+   shadcn-core tokens; the orange signature card is polarity-locked at
+   render time (background = --brand-canvas-orange, internal text colour
+   = the documented charcoal-on-orange foreground that clears AA at body
+   size; cream on orange lands at 2.96 which fails both body 4.5:1 and
+   large-text 3:1). The dark code-block surface is also polarity-locked
+   (--brand-canvas-code). Everything else routes through --foreground /
+   --background / --card / --muted so the two polarities both clear AA
+   without separate templates. Kunst Grotesk → Inter substitute. Halcyon
+   neutral content throughout. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Kunst Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -- Top nav (transparent over canvas, sticky with hairline on scroll) -- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  height: 72px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  font-size: 16px;
+}
+.topnav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  color: var(--foreground);
+}
+/* Topnav brand mark — a small orange tile with a cream cloud-shape glyph.
+   Polarity-locked: orange-on-cream regardless of canvas. */
+.topnav-brand-mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: var(--brand-canvas-orange);
+  display: inline-grid;
+  place-items: center;
+}
+.topnav-brand-mark::after {
+  content: "";
+  width: 10px;
+  height: 7px;
+  border-radius: 4px 4px 7px 7px;
+  background: var(--brand-on-orange);
+  box-shadow: -3px -1px 0 -1px var(--brand-on-orange);
+}
+.topnav-links { display: flex; gap: 1.25rem; align-items: center; font-size: 15px; font-weight: 500; }
+.topnav-links a {
+  color: var(--foreground);
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+}
+.topnav-links a:hover { background: var(--muted); }
+.topnav-attack {
+  color: var(--brand-attack);
+  font-weight: 500;
+}
+.topnav-attack:hover { background: color-mix(in oklch, var(--brand-attack) 12%, transparent); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; }
+@media (max-width: 1000px) { .topnav-links { display: none; } }
+
+/* -- Pill button (canonical Cloudflare shape: 9999px radius) -- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: -0.1px;
+  transition: background 120ms ease, border-color 120ms ease, transform 120ms ease;
+  white-space: nowrap;
+}
+/* Primary pill: brand orange fill, charcoal foreground for AA at body
+   size (cream-on-orange = 2.96 fails both body 4.5 and large 3.0;
+   charcoal-on-orange = 4.95 clears body). Polarity-locked: the orange
+   fill is the brand voltage and stays orange in both modes. */
+.pill[data-variant="primary"] {
+  background: var(--brand-canvas-orange);
+  color: var(--brand-on-light);
+  border-color: var(--brand-canvas-orange);
+}
+.pill[data-variant="primary"]:hover {
+  background: var(--brand-primary-hover);
+  border-color: var(--brand-primary-hover);
+}
+.pill[data-variant="primary"]:active { transform: translateY(1px) scale(0.98); }
+.pill[data-variant="secondary"] {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  border-color: var(--secondary);
+}
+.pill[data-variant="secondary"]:hover { background: color-mix(in oklch, var(--secondary) 88%, var(--foreground)); }
+.pill[data-variant="outline"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--brand-hairline-strong);
+}
+.pill[data-variant="outline"]:hover {
+  background: var(--muted);
+  border-color: var(--foreground);
+  color: var(--brand-canvas-orange);
+}
+.pill[data-size="sm"] { min-height: 36px; padding: 0.5rem 0.75rem; font-size: 13px; }
+.pill:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.pill .arrow { font-size: 14px; line-height: 1; transition: transform 150ms ease; }
+.pill:hover .arrow { transform: translateX(2px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pill, .pill .arrow { transition: none; }
+  .pill:hover .arrow { transform: none; }
+  .pill[data-variant="primary"]:active { transform: none; }
+}
+
+/* -- Page container -- */
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* -- Hero -- */
+.hero {
+  padding: 4rem 0 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--muted-foreground);
+  margin: 0;
+  text-transform: uppercase;
+}
+.eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand-canvas-orange);
+}
+.hero-display {
+  font-family: inherit;
+  font-size: clamp(2.5rem, 5.5vw, 3.5rem);
+  font-weight: 500;
+  line-height: 0.99;
+  letter-spacing: -1.4px;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 20ch;
+}
+.hero-lede {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--foreground);
+  max-width: 52ch;
+  margin: 0;
+}
+.hero-lede code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.875em;
+  color: var(--foreground);
+  font-weight: 500;
+  background: var(--muted);
+  border: 1px solid var(--brand-hairline-soft);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+.hero-ctas { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+
+/* -- Signature orange card (the brand's voltage moment) --
+   Full-bleed orange fill with inline counter tile. Polarity-locked:
+   the orange canvas stays at full saturation across modes; foreground
+   ink is charcoal (--brand-on-light) for AA at body size, since cream
+   on orange lands at 2.96. The H2 title uses the same charcoal so it
+   reads strongly against orange.
+
+   Inside the orange card sits a dark "pocket" tile (--brand-canvas-code,
+   the polarity-locked deep navy from the blog Ashes theme) carrying
+   the team metrics. Dark-on-orange pocket → cream text reads sharply.
+   The pocket is polarity-locked too: dark in both modes by design. */
+.signature-card {
+  background: var(--brand-canvas-orange);
+  color: var(--brand-on-light);
+  border-radius: var(--brand-radius-signature);
+  padding: 3rem;
+  margin: 0 0 5rem;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.signature-card::before {
+  /* Subtle radial gradient overlay using the hover-orange to give the
+     card a "glow" texture without breaking AA. The gradient stays
+     orange-on-orange so foreground inks aren't compromised. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 80% at 12% 30%, color-mix(in oklch, var(--brand-primary-hover) 60%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.signature-card > * { position: relative; z-index: 1; }
+@media (max-width: 880px) { .signature-card { grid-template-columns: 1fr; padding: 2rem; gap: 2rem; } }
+.signature-eyebrow {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-on-light);
+  margin: 0 0 1rem;
+}
+.signature-title {
+  font-family: inherit;
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -1.2px;
+  color: var(--brand-on-light);
+  margin: 0 0 1rem;
+  max-width: 14ch;
+  /* Subtle outline echoing Cloudflare's 4-direction text-shadow signature
+     — but in the charcoal that owns this surface, not orange. */
+  text-shadow:
+    -1px -1px 0 color-mix(in oklch, var(--brand-on-light) 20%, transparent),
+    1px -1px 0 color-mix(in oklch, var(--brand-on-light) 20%, transparent),
+    -1px 1px 0 color-mix(in oklch, var(--brand-on-light) 20%, transparent),
+    1px 1px 0 color-mix(in oklch, var(--brand-on-light) 20%, transparent);
+}
+.signature-body {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--brand-on-light);
+  max-width: 36ch;
+  margin: 0 0 1.5rem;
+  font-weight: 500;
+}
+.signature-card .pill[data-variant="filled-dark"] {
+  background: var(--brand-canvas-code);
+  color: var(--brand-on-dark);
+  border-color: var(--brand-canvas-code);
+}
+.signature-card .pill[data-variant="filled-dark"]:hover {
+  background: color-mix(in oklch, var(--brand-canvas-code) 88%, black);
+  border-color: color-mix(in oklch, var(--brand-canvas-code) 88%, black);
+}
+.signature-card .pill[data-variant="ghost-on-orange"] {
+  background: transparent;
+  color: var(--brand-on-light);
+  border-color: color-mix(in oklch, var(--brand-on-light) 40%, transparent);
+}
+.signature-card .pill[data-variant="ghost-on-orange"]:hover {
+  background: color-mix(in oklch, var(--brand-on-light) 8%, transparent);
+  border-color: var(--brand-on-light);
+}
+
+/* Inline metrics tile inside the orange card. Polarity-locked dark
+   surface so foreground cream stays sharp on both modes. */
+.deploy-tile {
+  background: var(--brand-canvas-code);
+  border: 1px solid color-mix(in oklch, var(--brand-on-dark) 12%, transparent);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: var(--brand-on-dark);
+}
+.deploy-tile-label {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.85;
+}
+.deploy-tile-value {
+  font-family: inherit;
+  font-size: 48px;
+  font-weight: 500;
+  letter-spacing: -1.2px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--brand-on-dark);
+}
+.deploy-tile-trend {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: var(--brand-canvas-orange);
+  font-weight: 500;
+}
+.deploy-tile-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 0.5rem;
+  font-size: 13px;
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  color: var(--brand-on-dark);
+}
+.deploy-tile-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-top: 1px solid color-mix(in oklch, var(--brand-on-dark) 18%, transparent);
+}
+.deploy-tile-row > span:first-child { opacity: 0.78; }
+
+/* -- Section frame -- */
+.section { padding: 5rem 0; border-top: 1px solid var(--brand-hairline-soft); }
+.section-header { margin-bottom: 2.5rem; max-width: 60ch; }
+.section-title {
+  font-family: inherit;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -1.2px;
+  line-height: 1;
+  color: var(--foreground);
+  margin: 0.75rem 0;
+  max-width: 22ch;
+}
+.section-lede {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--foreground);
+  max-width: 56ch;
+  margin: 0;
+  opacity: 0.85;
+}
+.section-lede code {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 0.875em;
+  font-weight: 500;
+  color: var(--foreground);
+  background: var(--muted);
+  border: 1px solid var(--brand-hairline-soft);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+
+/* -- Surface elevation ladder -- */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-card);
+  overflow: hidden;
+}
+@media (max-width: 880px) { .surface-ladder { grid-template-columns: 1fr; } }
+.surface-step {
+  padding: 1.5rem;
+  font-size: 13px;
+  border-right: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 8rem;
+}
+.surface-step:last-child { border-right: none; }
+@media (max-width: 880px) {
+  .surface-step { border-right: none; border-bottom: 1px solid var(--brand-hairline-soft); }
+  .surface-step:last-child { border-bottom: none; }
+}
+.surface-step[data-step="0"] { background: var(--background); }
+.surface-step[data-step="1"] { background: var(--card); }
+.surface-step[data-step="2"] { background: var(--muted); }
+.surface-step-num {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+.surface-step-name { font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace; font-size: 13px; color: var(--foreground); font-weight: 500; }
+.surface-step-role { font-size: 13px; color: var(--foreground); line-height: 1.45; opacity: 0.85; }
+
+/* -- Color swatches -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-name { font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace; font-size: 12px; color: var(--foreground); font-weight: 500; }
+.swatch-role {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+
+/* -- Typography roles -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+.type-display { font-family: inherit; font-size: 56px; font-weight: 500; letter-spacing: -1.4px; line-height: 0.99; color: var(--foreground); }
+.type-heading { font-family: inherit; font-size: 40px; font-weight: 500; letter-spacing: -1.0px; line-height: 1; color: var(--foreground); }
+.type-quote { font-family: inherit; font-size: 24px; font-weight: 500; letter-spacing: -0.6px; line-height: 1.15; color: var(--foreground); }
+.type-title { font-family: inherit; font-size: 18px; font-weight: 500; letter-spacing: -0.45px; line-height: 1.2; color: var(--foreground); }
+.type-body { font-size: 16px; font-weight: 400; line-height: 1.5; color: var(--foreground); }
+.type-mono { font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: var(--foreground); }
+
+.inline-code {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 0.92em;
+  font-weight: 500;
+  color: var(--foreground);
+  background: var(--muted);
+  border: 1px solid var(--brand-hairline-soft);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+
+/* -- Component vocabulary -- */
+.components-stack { display: flex; flex-direction: column; gap: 2rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+
+/* Pill-tab segmented control */
+.tab-group {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--brand-radius-pill);
+  background: var(--muted);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.tab {
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--foreground);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  min-height: 36px;
+  letter-spacing: -0.1px;
+}
+.tab[aria-selected="true"] {
+  background: var(--background);
+  border: 1px solid var(--brand-hairline-soft);
+  color: var(--foreground);
+}
+.tab:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Hairline tile cards */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 880px) { .tile-grid { grid-template-columns: 1fr; } }
+.tile {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-card);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.tile:hover {
+  border-color: var(--brand-canvas-orange);
+  box-shadow: 0 0 0 1px var(--brand-canvas-orange);
+}
+.tile-eyebrow {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.tile-title {
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.45px;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.2;
+}
+.tile-body { font-size: 14px; line-height: 1.5; color: var(--foreground); margin: 0; opacity: 0.85; }
+.tile-meta {
+  margin-top: auto;
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--muted-foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile { transition: none; }
+}
+
+/* Code-display register — polarity-locked dark surface, the Ashes theme
+   pastel pallete on the dark canvas-code background. Stays dark in
+   both modes by design (Cloudflare's blog renders code dark on a
+   white-canonical canvas — code is always dark). */
+.code-card {
+  background: var(--brand-canvas-code);
+  border: 1px solid color-mix(in oklch, var(--brand-on-dark) 10%, transparent);
+  border-radius: var(--brand-radius-card);
+  overflow: hidden;
+}
+.code-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid color-mix(in oklch, var(--brand-on-dark) 10%, transparent);
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-on-dark);
+}
+.code-card-head-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-canvas-orange);
+}
+.code-card-head-name { opacity: 0.85; }
+.code-card-body {
+  margin: 0;
+  padding: 1.25rem 1.25rem 1.5rem;
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--brand-on-dark);
+  white-space: pre;
+  overflow-x: auto;
+}
+.code-line { display: block; }
+.code-ident { color: var(--brand-code-ident); }
+.code-key { color: var(--brand-code-keyword); }
+.code-str { color: var(--brand-accent-yellow); }
+.code-num { color: var(--brand-blog-blue); }
+.code-comment { color: var(--brand-on-dark); opacity: 0.5; }
+.code-call { color: var(--brand-canvas-orange); }
+
+/* Status badges. Bg routes through canvas-mixed neutrals; foreground
+   uses canvas-flipping --foreground or canvas-locked brand chroma
+   verified for AA on both modes. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--brand-radius-pill);
+  border: 1px solid transparent;
+}
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.85;
+}
+/* Orange badge: dark-on-orange in both modes (orange surface is the
+   identity; charcoal foreground clears body AA at 4.95). */
+.badge[data-tone="orange"] {
+  background: var(--brand-canvas-orange);
+  color: var(--brand-on-light);
+  border-color: var(--brand-canvas-orange);
+}
+/* Legacy-orange (Kumo canonical) — same charcoal-on-orange treatment. */
+.badge[data-tone="legacy"] {
+  background: var(--brand-orange-legacy);
+  color: var(--brand-on-light);
+  border-color: var(--brand-orange-legacy);
+}
+/* Yellow badge: dark-on-yellow. Yellow is decorative-only per DESIGN.md
+   §6; treat as a chip surface, not a foreground. */
+.badge[data-tone="yellow"] {
+  background: var(--brand-accent-yellow);
+  color: var(--brand-on-light);
+  border-color: var(--brand-accent-yellow);
+}
+/* Attack badge: tinted orange (the brand reserves attack-red itself for
+   security-emergency entry only; for routine "rolled back" use the
+   chip-form here). */
+.badge[data-tone="red"] {
+  background: var(--brand-attack);
+  color: var(--brand-on-light);
+  border-color: var(--brand-attack);
+}
+/* Neutral badge: muted bg + foreground — flips with theme. */
+.badge[data-tone="neutral"] {
+  background: var(--muted);
+  color: var(--foreground);
+  border-color: var(--brand-hairline-soft);
+}
+/* Blog-blue badge: pastel cyan bg (editorial palette) + dark charcoal
+   foreground. The pastel surface lands light enough on both modes; the
+   foreground is the polarity-locked --brand-on-light dark. */
+.badge[data-tone="blue"] {
+  background: var(--brand-blog-blue);
+  color: var(--brand-on-light);
+  border-color: var(--brand-blog-blue);
+}
+
+/* Input register */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 14rem;
+}
+.field-label {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+.field-input {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-radius-pill);
+  padding: 0.75rem 1rem;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--foreground);
+  min-height: 44px;
+}
+.field-input::placeholder { color: var(--muted-foreground); }
+.field-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 1px;
+  border-color: var(--brand-canvas-orange);
+}
+
+/* Bar-graph row */
+.bar-rows { display: flex; flex-direction: column; gap: 0.75rem; }
+.bar-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr 5rem;
+  gap: 1rem;
+  align-items: center;
+  font-size: 13px;
+}
+.bar-row-label { color: var(--foreground); font-weight: 500; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; }
+.bar-track {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--muted);
+  overflow: hidden;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.bar-fill {
+  height: 100%;
+  background: var(--brand-canvas-orange);
+  border-radius: 3px;
+}
+.bar-row-num {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 12px;
+  text-align: right;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* Pull-quote card */
+.quote-card {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-card);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.quote-mark {
+  font-family: inherit;
+  font-size: 40px;
+  line-height: 0.8;
+  font-weight: 500;
+  color: var(--brand-canvas-orange);
+}
+.quote-body {
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 44ch;
+}
+.quote-byline {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+.quote-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--muted);
+  border: 1px solid var(--brand-hairline-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* -- Stats strip -- */
+.stats-strip {
+  background: var(--card);
+  border-top: 1px solid var(--brand-hairline-soft);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.stats-row {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 880px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.stat-value {
+  font-family: inherit;
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.8px;
+  line-height: 1;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+.stat-trend {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* -- Footer -- */
+.footer {
+  padding: 4rem 0 2rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+@media (max-width: 880px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+.footer-col-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+.footer-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-col-list a { font-size: 14px; color: var(--foreground); text-decoration: none; opacity: 0.85; }
+.footer-col-list a:hover { color: var(--brand-canvas-orange); text-decoration: underline; opacity: 1; }
+.footer-legal {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--muted-foreground);
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding-top: 1.5rem;
+  letter-spacing: 0.04em;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <span class="topnav-brand"><span class="topnav-brand-mark" aria-hidden="true"></span>cloudflare-style</span>
+    <div class="topnav-links">
+      <a href="#">Surfaces</a>
+      <a href="#">Vocabulary</a>
+      <a href="#">Typography</a>
+      <a href="#">Components</a>
+      <a class="topnav-attack" href="#">Status?</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="pill" data-variant="outline" data-size="sm" type="button">Sign in</button>
+      <button class="pill" data-variant="primary" data-size="sm" type="button">Start exploring <span class="arrow" aria-hidden="true">&rsaquo;</span></button>
+    </div>
+  </div>
+</nav>
+
+<main class="page">
+
+  <section class="hero" aria-label="Hero">
+    <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>cloudflare-style &middot; token surface &middot; 2026.05.25</p>
+    <h1 class="hero-display">Paper, charcoal, cut by orange.</h1>
+    <p class="hero-lede">A token-surface preview rendered against the design system on both polarities. Canvas + neutrals flip with theme; the orange signature card and the dark code register stay locked. Pill geometry on every CTA, hairline tiles on canvas, mono accent <code>--brand-canvas-orange</code> for the voltage moments.</p>
+    <div class="hero-ctas">
+      <button class="pill" data-variant="primary" type="button">Start exploring <span class="arrow" aria-hidden="true">&rsaquo;</span></button>
+      <button class="pill" data-variant="outline" type="button">Read the changelog</button>
+    </div>
+  </section>
+
+  <section class="signature-card" aria-label="Signature surface — orange voltage card">
+    <div>
+      <p class="signature-eyebrow">Voltage &middot; one surface carries the brand</p>
+      <h2 class="signature-title">One full-bleed orange, on every canvas.</h2>
+      <p class="signature-body">Polarity-locked: the orange card holds across light and dark because it is the identity. Inside it, a dark pocket carries the team metrics; the foreground stays charcoal so the headline clears body AA without retuning the orange.</p>
+      <div class="cmp-row">
+        <button class="pill" data-variant="filled-dark" type="button">Open the brief <span class="arrow" aria-hidden="true">&rsaquo;</span></button>
+        <button class="pill" data-variant="ghost-on-orange" type="button">Read the changelog</button>
+      </div>
+    </div>
+    <aside class="deploy-tile" aria-label="Team metrics">
+      <span class="deploy-tile-label">Ship cadence &middot; trailing 7 days</span>
+      <span class="deploy-tile-value">147</span>
+      <span class="deploy-tile-trend">&uarr; 22% vs. trailing week</span>
+      <div class="deploy-tile-rows">
+        <div class="deploy-tile-row"><span>PRs merged</span><span>89</span></div>
+        <div class="deploy-tile-row"><span>Deploys</span><span>147</span></div>
+        <div class="deploy-tile-row"><span>Mean lead time</span><span>2h 14m</span></div>
+        <div class="deploy-tile-row"><span>Rollbacks</span><span>2</span></div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="section" aria-label="Colour tokens">
+    <header class="section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens &middot; Colour</p>
+      <h2 class="section-title">Two oranges, neutrals everywhere else.</h2>
+      <p class="section-lede">Marketing-skin orange drives <code>--primary</code>. The legacy Kumo orange lives on as <code>--brand-orange-legacy</code> for downstream surfaces. Everything else holds in canvas, card, muted, and foreground on both polarities.</p>
+    </header>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--background);"></div><span class="swatch-role">Canvas</span><span class="swatch-name">--background</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--card);"></div><span class="swatch-role">Surface</span><span class="swatch-name">--card</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--muted);"></div><span class="swatch-role">Surface</span><span class="swatch-name">--muted</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--foreground);"></div><span class="swatch-role">Ink</span><span class="swatch-name">--foreground</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--muted-foreground);"></div><span class="swatch-role">Ink</span><span class="swatch-name">--muted-foreground</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-canvas-orange);"></div><span class="swatch-role">Voltage</span><span class="swatch-name">--brand-canvas-orange</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-primary-hover);"></div><span class="swatch-role">Voltage</span><span class="swatch-name">--brand-primary-hover</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-orange-legacy);"></div><span class="swatch-role">Legacy</span><span class="swatch-name">--brand-orange-legacy</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-accent-yellow);"></div><span class="swatch-role">Accent</span><span class="swatch-name">--brand-accent-yellow</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-blog-blue);"></div><span class="swatch-role">Editorial</span><span class="swatch-name">--brand-blog-blue</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-attack);"></div><span class="swatch-role">Reserved</span><span class="swatch-name">--brand-attack</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-canvas-code);"></div><span class="swatch-role">Code</span><span class="swatch-name">--brand-canvas-code</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Surface ladder">
+    <header class="section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens &middot; Surfaces</p>
+      <h2 class="section-title">Three steps from the floor.</h2>
+      <p class="section-lede">Hairlines carry depth on both polarities &mdash; foreground-at-alpha so warmth tracks the canvas automatically. No shadows on canvas cards; elevation reads through the hairline alone.</p>
+    </header>
+    <div class="surface-ladder" aria-label="Surface ladder">
+      <div class="surface-step" data-step="0"><span class="surface-step-num">Floor &middot; Canvas</span><span class="surface-step-name">--background</span><span class="surface-step-role">Page bed</span></div>
+      <div class="surface-step" data-step="1"><span class="surface-step-num">Lift 1 &middot; Card</span><span class="surface-step-name">--card</span><span class="surface-step-role">Pricing tiles, pop surfaces, hairline cards</span></div>
+      <div class="surface-step" data-step="2"><span class="surface-step-num">Lift 2 &middot; Muted</span><span class="surface-step-name">--muted</span><span class="surface-step-role">Recessed pill rails, segmented controls, status bands</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography roles">
+    <header class="section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens &middot; Typography</p>
+      <h2 class="section-title">Weight five hundred, tight tracking.</h2>
+      <p class="section-lede">Headings never reach bold. Hero sits at fifty-six pixels with negative tracking of one point four; calmness comes from medium weight plus the cut, not from bold.</p>
+    </header>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Display &middot; 56</span><span class="type-display">Paper on charcoal.</span></div>
+      <div class="type-row"><span class="type-label">Heading &middot; 40</span><span class="type-heading">One accent carries the brand.</span></div>
+      <div class="type-row"><span class="type-label">Quote &middot; 24</span><span class="type-quote">&ldquo;Most of our cost is people; the rest is electricity.&rdquo;</span></div>
+      <div class="type-row"><span class="type-label">Title &middot; 18</span><span class="type-title">Hairline tiles on canvas</span></div>
+      <div class="type-row"><span class="type-label">Body &middot; 16</span><span class="type-body">Default paragraph copy at sixteen pixels with line-height one point five. The humanist grotesque carries the body voice. Inline tokens such as <span class="inline-code">data-theme</span> sit in a muted chip so they read against the surrounding text without competing for attention.</span></div>
+      <div class="type-row"><span class="type-label">Mono &middot; 14</span><span class="type-mono">await deploys.commit({ ref: &apos;main&apos;, region: &apos;iad&apos; })</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Component vocabulary">
+    <header class="section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Vocabulary &middot; Components</p>
+      <h2 class="section-title">Pill is the canonical shape.</h2>
+      <p class="section-lede">Every CTA carries the nine-thousand-nine-hundred-ninety-nine-pixel radius. Cards stay at twelve pixels for editorial surfaces and sixteen for the signature orange tile. Hairline tiles never lift on shadow &mdash; only on the orange ring.</p>
+    </header>
+    <div class="components-stack">
+
+      <div class="cmp-row" aria-label="Pill variants">
+        <button class="pill" data-variant="primary" type="button">Primary &middot; orange</button>
+        <button class="pill" data-variant="secondary" type="button">Secondary &middot; inverse</button>
+        <button class="pill" data-variant="outline" type="button">Outline &middot; hairline</button>
+        <button class="pill" data-variant="primary" data-size="sm" type="button">Small</button>
+        <button class="pill" data-variant="outline" data-size="sm" type="button">Small outline</button>
+      </div>
+
+      <div class="cmp-row" aria-label="Segmented pill control">
+        <div class="tab-group" role="tablist">
+          <button class="tab" role="tab" aria-selected="true" type="button">Overview</button>
+          <button class="tab" role="tab" aria-selected="false" type="button">Surfaces</button>
+          <button class="tab" role="tab" aria-selected="false" type="button">Tokens</button>
+          <button class="tab" role="tab" aria-selected="false" type="button">Components</button>
+        </div>
+      </div>
+
+      <div class="cmp-row" aria-label="Status badges">
+        <span class="badge" data-tone="orange"><span class="badge-dot" aria-hidden="true"></span>Shipped</span>
+        <span class="badge" data-tone="legacy">In review</span>
+        <span class="badge" data-tone="blue">Editorial</span>
+        <span class="badge" data-tone="yellow">Drafting</span>
+        <span class="badge" data-tone="red">Rolled back</span>
+        <span class="badge" data-tone="neutral">Archived</span>
+      </div>
+
+      <div class="cmp-row" aria-label="Form input">
+        <div class="field">
+          <label class="field-label" for="email-input">Team email</label>
+          <input class="field-input" id="email-input" type="email" placeholder="team@halcyon.dev" autocomplete="off">
+        </div>
+        <div class="field">
+          <label class="field-label" for="region-input">Region</label>
+          <input class="field-input" id="region-input" type="text" value="iad &middot; primary" readonly>
+        </div>
+      </div>
+
+      <div class="tile-grid" aria-label="Hairline tile cards">
+        <article class="tile">
+          <span class="tile-eyebrow">Engineering &middot; Sprint 42</span>
+          <h3 class="tile-title">Inbox triage runs at lunch.</h3>
+          <p class="tile-body">Open issues drop twenty per cent by the time the team finishes lunch. Throughput is steady &mdash; backlog stays bounded without weekend work.</p>
+          <span class="tile-meta">Updated 2h ago &middot; Jordan Kim</span>
+        </article>
+        <article class="tile">
+          <span class="tile-eyebrow">Design &middot; Crit 18</span>
+          <h3 class="tile-title">Pill geometry sticks.</h3>
+          <p class="tile-body">The capsule shape is recognisable across every CTA. Outline pills do the heavy lifting in the nav; primary pills get reserved for one moment per page.</p>
+          <span class="tile-meta">Updated 5h ago &middot; Morgan Lee</span>
+        </article>
+        <article class="tile">
+          <span class="tile-eyebrow">Customer interviews &middot; W21</span>
+          <h3 class="tile-title">Dashboards get checked once.</h3>
+          <p class="tile-body">Teams glance at the aggregate view in the morning and trust the alerts after that. The board earns its real estate by being legible at a glance.</p>
+          <span class="tile-meta">Updated 1d ago &middot; Avery Park</span>
+        </article>
+      </div>
+
+      <div class="bar-rows" aria-label="Resource usage bars">
+        <div class="bar-row">
+          <span class="bar-row-label">iad &middot; bandwidth</span>
+          <span class="bar-track"><span class="bar-fill" style="width: 78%;"></span></span>
+          <span class="bar-row-num">78%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-row-label">dub &middot; bandwidth</span>
+          <span class="bar-track"><span class="bar-fill" style="width: 52%;"></span></span>
+          <span class="bar-row-num">52%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-row-label">sin &middot; bandwidth</span>
+          <span class="bar-track"><span class="bar-fill" style="width: 31%;"></span></span>
+          <span class="bar-row-num">31%</span>
+        </div>
+      </div>
+
+      <div class="code-card" aria-label="Code-display register">
+        <div class="code-card-head">
+          <span class="code-card-head-dot" aria-hidden="true"></span>
+          <span class="code-card-head-name">halcyon-api &middot; src/routes/health.ts</span>
+        </div>
+        <pre class="code-card-body"><span class="code-line"><span class="code-comment">// halcyon health check &mdash; runs on every deploy across regions</span></span><span class="code-line"><span class="code-key">export default</span> {</span><span class="code-line">  <span class="code-key">async</span> <span class="code-call">fetch</span>(<span class="code-ident">request</span>, <span class="code-ident">env</span>) {</span><span class="code-line">    <span class="code-key">const</span> <span class="code-ident">status</span> = <span class="code-key">await</span> <span class="code-ident">env</span>.<span class="code-ident">db</span>.<span class="code-call">ping</span>();</span><span class="code-line">    <span class="code-key">return</span> <span class="code-ident">Response</span>.<span class="code-call">json</span>({ ok: <span class="code-str">true</span>, region: <span class="code-str">"iad"</span>, latency: <span class="code-num">42</span> });</span><span class="code-line">  },</span><span class="code-line">};</span></pre>
+      </div>
+
+      <article class="quote-card" aria-label="Pull quote">
+        <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+        <p class="quote-body">A token surface is the smallest set of decisions a design system commits to. Everything downstream &mdash; components, templates, outputs &mdash; composes against it.</p>
+        <div class="quote-byline">
+          <span class="quote-avatar" aria-hidden="true">RC</span>
+          <span>Riley Chen &middot; Halcyon design</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+</main>
+
+<section class="stats-strip" aria-label="Team metrics">
+  <div class="stats-row">
+    <div class="stat"><span class="stat-label">PRs &middot; sprint 42</span><span class="stat-value">312</span><span class="stat-trend">&uarr; 18 vs. sprint 41</span></div>
+    <div class="stat"><span class="stat-label">Specs in review</span><span class="stat-value">24</span><span class="stat-trend">&uarr; 4 since Monday</span></div>
+    <div class="stat"><span class="stat-label">Deploys per day</span><span class="stat-value">21</span><span class="stat-trend">&uarr; 2 vs. trailing 7d</span></div>
+    <div class="stat"><span class="stat-label">Mean lead time</span><span class="stat-value">2h 14m</span><span class="stat-trend">&darr; 8m vs. last week</span></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="page">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-col-title">Surfaces</p>
+        <ul class="footer-col-list"><li><a href="#">Canvas</a></li><li><a href="#">Cards</a></li><li><a href="#">Code register</a></li><li><a href="#">Signature card</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Tokens</p>
+        <ul class="footer-col-list"><li><a href="#">Colour</a></li><li><a href="#">Type scale</a></li><li><a href="#">Radii</a></li><li><a href="#">Hairlines</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Components</p>
+        <ul class="footer-col-list"><li><a href="#">Pills</a></li><li><a href="#">Badges</a></li><li><a href="#">Hairline tiles</a></li><li><a href="#">Bar rows</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Halcyon</p>
+        <ul class="footer-col-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">&commat;halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>cloudflare-style &middot; token surface preview &middot; 2026.05.25</span>
+      <span>paper on charcoal &middot; weight 500 &middot; pill geometry &middot; brand orange voltage</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

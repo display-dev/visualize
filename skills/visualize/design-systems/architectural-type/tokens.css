@@ -1,0 +1,255 @@
+/**
+ * design-systems/architectural-type/tokens.css
+ *
+ * Hand-authored from the spec at temp/refs/architectural-type/raw.md.
+ * Sourced: 2026-05-26. Companion DESIGN.md cites every chromatic value
+ * back to a verbatim spec passage.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core: names are the upstream shadcn contract,
+ *     values are this system's.
+ *   - Brand-extras: surface-named only. Never colour-with-modifier.
+ *
+ * Register: Swiss-Brutalist, dark-canonical. Pure black canvas, white
+ * foreground, single functional indigo accent. Hairlines instead of
+ * shadows. Zero-radius except for pill buttons.
+ *
+ * If a surface needs more weight, fix the surface — bring in a
+ * hairline, lift a section to the canvas-night surface, or route the
+ * label to the foreground role. Don't synthesise a second accent.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+
+  --background:               oklch(0 0 0);
+  --foreground:               oklch(1 0 0);
+
+  --card:                     oklch(0 0 0);
+  --card-foreground:          oklch(1 0 0);
+
+  --popover:                  oklch(0 0 0);
+  --popover-foreground:       oklch(1 0 0);
+
+  --primary:                  oklch(0.5854 0.2041 277.12);
+  --primary-foreground:       oklch(1 0 0);
+
+  --secondary:                oklch(0.22 0 0);
+  --secondary-foreground:     oklch(1 0 0);
+
+  --muted:                    oklch(0.18 0 0);
+  --muted-foreground:         oklch(0.62 0 0);
+
+  --accent:                   oklch(0.5854 0.2041 277.12);
+  --accent-foreground:        oklch(1 0 0);
+
+  --destructive:              oklch(0.5854 0.2041 277.12);
+  --destructive-foreground:   oklch(1 0 0);
+
+  --border:                   oklch(0.34 0 0);
+  --input:                    oklch(0.34 0 0);
+  --ring:                     oklch(0.5854 0.2041 277.12);
+
+  --sidebar:                  oklch(0 0 0);
+  --sidebar-foreground:       oklch(1 0 0);
+  --sidebar-primary:          oklch(0.5854 0.2041 277.12);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent:           oklch(0.18 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border:           oklch(0.34 0 0);
+  --sidebar-ring:             oklch(0.5854 0.2041 277.12);
+
+  /* Chart palette — monochrome ladder + single indigo accent.
+   * Spec forbids a multi-hue chart palette under the monochrome rule;
+   * categorical series differentiate through lightness stops with the
+   * accent reserved as a single highlight series. */
+  --chart-1:                  oklch(1 0 0);
+  --chart-2:                  oklch(0.78 0 0);
+  --chart-3:                  oklch(0.55 0 0);
+  --chart-4:                  oklch(0.34 0 0);
+  --chart-5:                  oklch(0.5854 0.2041 277.12);
+
+  /* -- Radii ------------------------------------------------------ */
+  /* Spec rule: zero-radius on grid cells and input fields; pill is the
+   * exception, expressed as the radius-pill token below. */
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Display + body + mono ramp per spec. */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Inter Tight', 'Inter', system-ui, sans-serif;
+
+  /* Compound type tokens — the spec's six type roles. */
+  --text-display:    clamp(5rem, 18vw, 24vw);
+  --text-display-sm: clamp(2.5rem, 7vw, 4.5rem);
+  --text-heading:    1.5rem;
+  --text-heading-sm: 1.25rem;
+  --text-title:      1rem;
+  --text-title-sm:   0.875rem;
+
+  --leading-tight:   0.95;
+  --leading-normal:  1.5;
+
+  /* Display tracking is the spec's signature. */
+  --tracking-display: -0.06em;
+  --tracking-heading: -0.04em;
+  --tracking-normal:  0;
+  --tracking-mono-tight: 0.2em;
+  --tracking-mono-wide:  0.4em;
+  --tracking-mono-cta:   0.3em;
+
+  /* -- Brand-extras --------------------------------------------- */
+
+  /* Polarity-locked surfaces — the hero quadrants and command bar
+   * stay on canvas-night in both modes. */
+  --brand-canvas-night:       oklch(0 0 0);
+  --brand-on-dark:            oklch(1 0 0);
+  --brand-on-dark-soft:       oklch(1 0 0 / 0.6);
+  --brand-on-dark-faint:      oklch(1 0 0 / 0.4);
+  --brand-on-dark-mute:       oklch(1 0 0 / 0.2);
+
+  /* Hairlines — the system's primary divider weight. */
+  --brand-hairline-soft:      oklch(1 0 0 / 0.15);
+  --brand-hairline-strong:    oklch(1 0 0 / 0.3);
+
+  /* Body neutrals — chroma 0 utility tokens per the AUTHORING
+   * utility-neutral exception. */
+  --brand-body:               oklch(1 0 0);
+  --brand-body-muted:         oklch(0.62 0 0);
+  --brand-muted-soft:         oklch(0.78 0 0);
+
+  /* Pill button radius — the lone exception to the zero-radius rule. */
+  --brand-radius-pill:        999px;
+
+  /* Hero quadrant overflow tint — the optional ghost-fill on a single
+   * hero cell that breaks the otherwise uniform 4-cell rhythm. */
+  --brand-hero-overflow:      oklch(1 0 0 / 0.08);
+
+  /* Topnav backdrop alpha — 80 % of canvas-night with backdrop-blur. */
+  --brand-topnav-bg:          oklch(0 0 0 / 0.8);
+}
+
+/* -- Light theme ------------------------------------------------
+ * Light mode is a synthesised inverse for the showcase shell; the
+ * spec is dark-canonical and silent on a light variant. Indigo
+ * accent stays chromatically identical. Polarity-locked brand-extras
+ * (canvas-night, on-dark, hairlines named -soft / -strong) do NOT
+ * flip — they remain at :root values per the AUTHORING polarity-lock
+ * rule.
+ * ---------------------------------------------------------------- */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --background:               oklch(1 0 0);
+  --foreground:               oklch(0.16 0 0);
+
+  --card:                     oklch(1 0 0);
+  --card-foreground:          oklch(0.16 0 0);
+
+  --popover:                  oklch(1 0 0);
+  --popover-foreground:       oklch(0.16 0 0);
+
+  --secondary:                oklch(0.95 0 0);
+  --secondary-foreground:     oklch(0.16 0 0);
+
+  --muted:                    oklch(0.95 0 0);
+  --muted-foreground:         oklch(0.42 0 0);
+
+  --accent:                   oklch(0.5854 0.2041 277.12);
+  --accent-foreground:        oklch(1 0 0);
+
+  --destructive:              oklch(0.5854 0.2041 277.12);
+  --destructive-foreground:   oklch(1 0 0);
+
+  --border:                   oklch(0.85 0 0);
+  --input:                    oklch(0.85 0 0);
+
+  --sidebar:                  oklch(1 0 0);
+  --sidebar-foreground:       oklch(0.16 0 0);
+  --sidebar-accent:           oklch(0.95 0 0);
+  --sidebar-accent-foreground: oklch(0.16 0 0);
+  --sidebar-border:           oklch(0.85 0 0);
+
+  /* Chart palette — monochrome inverse ladder with accent retained. */
+  --chart-1:                  oklch(0.16 0 0);
+  --chart-2:                  oklch(0.35 0 0);
+  --chart-3:                  oklch(0.55 0 0);
+  --chart-4:                  oklch(0.78 0 0);
+  --chart-5:                  oklch(0.5854 0.2041 277.12);
+
+  /* Body neutrals invert for the light canvas. */
+  --brand-body:               oklch(0.16 0 0);
+  --brand-body-muted:         oklch(0.42 0 0);
+  --brand-muted-soft:         oklch(0.55 0 0);
+
+  /* Topnav backdrop on a light canvas (synthesised inverse of the
+   * dark 80 % alpha overlay). */
+  --brand-topnav-bg:          oklch(1 0 0 / 0.8);
+
+  /* Polarity-locked brand-extras (--brand-canvas-night, --brand-on-dark,
+   * --brand-on-dark-faint, --brand-on-dark-mute, --brand-hairline-soft,
+   * --brand-hairline-strong, --brand-hero-overflow) stay at :root
+   * values by definition; do NOT override here. */
+}
+
+/* -- Dark theme override (explicit) ---------------------------- */
+/* :root is already the dark default. This block exists so consumers
+ * that flip with data-theme="dark" land back on the canonical dark
+ * register from any other theme state. */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background:               oklch(0 0 0);
+  --foreground:               oklch(1 0 0);
+  --card:                     oklch(0 0 0);
+  --card-foreground:          oklch(1 0 0);
+  --popover:                  oklch(0 0 0);
+  --popover-foreground:       oklch(1 0 0);
+
+  --secondary:                oklch(0.22 0 0);
+  --secondary-foreground:     oklch(1 0 0);
+  --muted:                    oklch(0.18 0 0);
+  --muted-foreground:         oklch(0.62 0 0);
+  --accent:                   oklch(0.5854 0.2041 277.12);
+  --accent-foreground:        oklch(1 0 0);
+
+  --border:                   oklch(0.34 0 0);
+  --input:                    oklch(0.34 0 0);
+
+  --sidebar:                  oklch(0 0 0);
+  --sidebar-foreground:       oklch(1 0 0);
+  --sidebar-accent:           oklch(0.18 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border:           oklch(0.34 0 0);
+
+  --chart-1:                  oklch(1 0 0);
+  --chart-2:                  oklch(0.78 0 0);
+  --chart-3:                  oklch(0.55 0 0);
+  --chart-4:                  oklch(0.34 0 0);
+  --chart-5:                  oklch(0.5854 0.2041 277.12);
+
+  --brand-body:               oklch(1 0 0);
+  --brand-body-muted:         oklch(0.62 0 0);
+  --brand-muted-soft:         oklch(0.78 0 0);
+
+  --brand-topnav-bg:          oklch(0 0 0 / 0.8);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+    /* :root is dark-canonical; no override needed. The block exists
+     * so a future consumer that flips :root to a light default by
+     * convention still lands on the dark register under OS
+     * preference. */
+  }
+}
+</content>
+</invoke>

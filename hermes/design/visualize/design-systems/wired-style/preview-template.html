@@ -1,0 +1,892 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='2' fill='%23000'/%3E%3Cpath d='M5 8 L7 24 L11 24 L13 14 L15 24 L19 24 L21 8 L18 8 L17 19 L15 8 L11 8 L9 19 L8 8 Z M23 8 L23 24 L26 24 L26 8 Z' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Stark editorial duet — black wordmark masthead on white canvas + tall narrow display serif for hero + humanist serif body + sans metadata. Magazine-on-the-web with very little marketing chrome.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Wired-style preview shell — strict editorial duet, magazine-on-
+   the-web. Black wordmark masthead on white canvas, tall narrow display
+   serif for hero headlines, humanist serif body for long-form reading,
+   clean sans for metadata + kicker + bylines. 3-up article grid as
+   the signature surface. Fraunces (variable optical-size serif) stands
+   in for WiredDisplay at weight 700/900. Source Serif 4 for body
+   reading. Inter for metadata. Halcyon-themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Source Serif 4', 'Source Serif Pro', 'Georgia', serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Masthead nav (black wordmark on white, magazine bar) -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--foreground);
+}
+.topnav-bar {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+.topnav-bar-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.topnav-bar-meta { color: var(--brand-body); }
+.topnav-masthead {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.brand-mark {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.topnav-cats {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 0.5rem 0;
+}
+.topnav-cats a { color: var(--foreground); text-decoration: none; }
+.topnav-cats a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.topnav-cats a[aria-current="page"] { font-weight: 700; }
+@media (max-width: 900px) { .topnav-cats { flex-wrap: wrap; gap: 0.75rem 1rem; padding: 0 1rem 0.5rem; } }
+
+/* -- Buttons -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border-radius: var(--brand-radius-none);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-ink-soft); border-color: var(--brand-ink-soft); }
+.btn[data-variant="secondary"] {
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+}
+.btn[data-variant="secondary"]:hover { background: var(--foreground); color: var(--background); }
+.btn[data-size="lg"] { min-height: 52px; padding: 0 1.75rem; font-size: 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (lead story — tall display serif + lead image placeholder) -- */
+.hero {
+  padding: 3rem 1.5rem 4rem;
+  border-bottom: 1px solid var(--border);
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 880px) { .hero-inner { grid-template-columns: 1fr; gap: 2rem; } }
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  border-bottom: 2px solid var(--foreground);
+  padding-bottom: 0.25rem;
+  align-self: flex-start;
+}
+.hero-display {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  margin: 0 0 1.25rem;
+}
+.hero-deck {
+  font-family: 'Source Serif 4', 'Georgia', serif;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--brand-ink-soft);
+  margin: 0 0 1.5rem;
+  max-width: 38rem;
+}
+.hero-byline {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.hero-byline strong { color: var(--foreground); font-weight: 700; }
+.hero-image {
+  aspect-ratio: 4 / 3;
+  background:
+    linear-gradient(135deg, oklch(0.55 0.06 240) 0%, oklch(0.32 0.08 260) 60%, oklch(0.18 0.04 270) 100%);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hero-image-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.75rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--background);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+}
+
+/* -- Section frame -- */
+.section { padding: 4rem 1.5rem; background: var(--background); }
+.section[data-tight] { padding: 2.5rem 1.5rem; }
+.section[data-band="soft"] { background: var(--brand-canvas-soft); }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 60rem; margin-bottom: 2.5rem; border-bottom: 1px solid var(--foreground); padding-bottom: 1rem; }
+.section-header[data-center] { text-align: left; }
+.section-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 0.5rem;
+}
+.section-title {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 28ch;
+}
+
+/* -- Signature: 3-up article grid -- */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 880px) { .articles-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
+.article {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.article-image {
+  aspect-ratio: 16 / 10;
+  background: var(--photo-bg, linear-gradient(135deg, oklch(0.6 0.06 60), oklch(0.42 0.08 30)));
+  border: 1px solid var(--border);
+}
+.article-image[data-tone="electric"] { --photo-bg: linear-gradient(135deg, oklch(0.45 0.18 300), oklch(0.25 0.12 280)); }
+.article-image[data-tone="forest"] { --photo-bg: linear-gradient(135deg, oklch(0.52 0.12 150), oklch(0.30 0.10 165)); }
+.article-image[data-tone="rust"] { --photo-bg: linear-gradient(135deg, oklch(0.55 0.14 35), oklch(0.34 0.10 22)); }
+.article-image[data-tone="cobalt"] { --photo-bg: linear-gradient(135deg, oklch(0.42 0.16 250), oklch(0.24 0.10 245)); }
+.article-image[data-tone="sand"] { --photo-bg: linear-gradient(135deg, oklch(0.78 0.06 75), oklch(0.62 0.08 60)); }
+.article-image[data-tone="rose"] { --photo-bg: linear-gradient(135deg, oklch(0.72 0.08 350), oklch(0.50 0.12 5)); }
+.article-kicker {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.article-headline {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--foreground);
+  margin: 0;
+}
+.article-deck {
+  font-family: 'Source Serif 4', 'Georgia', serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-ink-soft);
+  margin: 0;
+}
+.article-byline {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin-top: 0.25rem;
+}
+.article-byline strong { color: var(--foreground); font-weight: 700; }
+
+/* -- Long-form excerpt (humanist serif body, magazine column) -- */
+.longform {
+  max-width: 38rem;
+  margin: 0 auto;
+}
+.longform-headline {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 1.25rem;
+}
+.longform-deck {
+  font-family: 'Source Serif 4', 'Georgia', serif;
+  font-size: 19px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--brand-ink-soft);
+  margin: 0 0 1.5rem;
+}
+.longform-byline {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 0 0 2rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.longform-byline strong { color: var(--foreground); font-weight: 700; }
+.longform-body p {
+  font-family: 'Source Serif 4', 'Georgia', serif;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--brand-ink-soft);
+  margin: 0 0 1.25rem;
+}
+.longform-body p:first-of-type::first-letter {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: 3.5rem;
+  font-weight: 700;
+  float: left;
+  line-height: 0.9;
+  padding: 0.25rem 0.5rem 0 0;
+  color: var(--foreground);
+}
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  padding: 0.75rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="soft"] { background: var(--brand-canvas-soft); color: var(--foreground); }
+.ladder-step[data-step="inverse"] { background: var(--foreground); color: var(--background); border-color: var(--foreground); }
+.ladder-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 12px;
+}
+.ladder-role { font-family: 'Source Serif 4', serif; font-size: 14px; opacity: 0.86; margin-top: auto; line-height: 1.45; }
+
+/* -- Pricing (subscription tiers, magazine-style) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--background);
+  border: 1px solid var(--foreground);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pricing-card[data-featured] {
+  background: var(--foreground);
+  color: var(--background);
+}
+.pricing-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-name { color: var(--background); }
+.pricing-price {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-price { color: var(--background); }
+.pricing-tagline {
+  font-family: 'Source Serif 4', serif;
+  font-size: 14px;
+  color: var(--brand-ink-soft);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 2.9em;
+  font-style: italic;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--background); opacity: 0.88; }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  font-family: 'Source Serif 4', serif;
+  font-size: 14px;
+  color: var(--brand-ink-soft);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: rgba(255, 255, 255, 0.25);
+  color: var(--background);
+  opacity: 0.92;
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "—";
+  color: var(--foreground);
+  flex-shrink: 0;
+  width: 16px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--background); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.type-display {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.0;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Source Serif 4', serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body { font-family: 'Source Serif 4', serif; font-size: 14px; line-height: 1.55; color: var(--brand-ink-soft); }
+.type-mono { font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: var(--brand-body); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  width: 100%;
+}
+
+/* -- Footer (inverse — black masthead bar at the bottom) -- */
+.footer {
+  background: var(--foreground);
+  color: var(--background);
+  padding: 3rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer .brand-mark { color: var(--background); }
+.footer-tagline { font-family: 'Source Serif 4', serif; font-size: 14px; color: var(--background); opacity: 0.78; line-height: 1.55; margin: 0; }
+.footer-col-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--background);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-family: 'Source Serif 4', serif; font-size: 14px; color: var(--background); opacity: 0.78; text-decoration: none; }
+.footer-list a:hover { opacity: 1; text-decoration: underline; }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--background);
+  opacity: 0.6;
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; text-transform: none; letter-spacing: 0; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-bar">
+    <div class="topnav-bar-inner">
+      <span class="topnav-bar-meta">May 24, 2026 · Subscribe</span>
+      <span class="topnav-bar-meta">Sign in · Search</span>
+    </div>
+  </div>
+  <div class="topnav-masthead">
+    <a class="brand-mark" href="#">__DESIGN_SYSTEM_NAME__</a>
+  </div>
+  <div class="topnav-cats">
+    <a href="#" aria-current="page">Workspace</a>
+    <a href="#">Backstory</a>
+    <a href="#">Ideas</a>
+    <a href="#">Reviews</a>
+    <a href="#">Long Reads</a>
+    <a href="#">Magazine</a>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-kicker">Workspace · The Long Read</p>
+      <h1 class="hero-display">The room where the whole team writes.</h1>
+      <p class="hero-deck">Halcyon's product team replaced their messaging tool, their docs site, and their review queue with one editorial canvas. Eleven months in, the room is louder, the writing is sharper, and the meeting count is down.</p>
+      <span class="hero-byline">by <strong>Morgan Lee</strong> · 12 min read</span>
+    </div>
+    <figure class="hero-image" aria-label="Lead photograph placeholder">
+      <figcaption class="hero-image-caption">Photograph by Halcyon studio · 2026</figcaption>
+    </figure>
+  </div>
+</header>
+
+<section class="section" aria-label="Article grid signature">
+  <div class="section-inner">
+    <header class="section-header">
+      <p class="section-eyebrow">Workspace · This Week</p>
+      <h2 class="section-title">Six stories from the team's editorial canvas.</h2>
+    </header>
+    <div class="articles-grid">
+      <article class="article">
+        <figure class="article-image" data-tone="electric" aria-hidden="true"></figure>
+        <p class="article-kicker">Field Notes</p>
+        <h3 class="article-headline">How an editorial canvas changed our standup forever.</h3>
+        <p class="article-deck">A product lead explains why moving the daily out of chat and into a shared note changed which questions got asked.</p>
+        <p class="article-byline">by <strong>Avery Park</strong> · 6 min</p>
+      </article>
+      <article class="article">
+        <figure class="article-image" data-tone="forest" aria-hidden="true"></figure>
+        <p class="article-kicker">Ideas</p>
+        <h3 class="article-headline">The whole-team room, ported from a 1990s newsroom.</h3>
+        <p class="article-deck">What product teams can borrow from how an editorial floor stages the day around a single editorial calendar.</p>
+        <p class="article-byline">by <strong>Jordan Kim</strong> · 9 min</p>
+      </article>
+      <article class="article">
+        <figure class="article-image" data-tone="rust" aria-hidden="true"></figure>
+        <p class="article-kicker">Reviews</p>
+        <h3 class="article-headline">Three months on Halcyon: notes from an engineering manager.</h3>
+        <p class="article-deck">Spec drafts, code reviews, and incident notes all live on one surface — and the on-call shift got quieter.</p>
+        <p class="article-byline">by <strong>Morgan Lee</strong> · 7 min</p>
+      </article>
+      <article class="article">
+        <figure class="article-image" data-tone="cobalt" aria-hidden="true"></figure>
+        <p class="article-kicker">Long Reads</p>
+        <h3 class="article-headline">What happens when the product team writes its own news.</h3>
+        <p class="article-deck">A reflection on the kind of work that emerges when the audience for a note is colleagues, not customers.</p>
+        <p class="article-byline">by <strong>Avery Park</strong> · 12 min</p>
+      </article>
+      <article class="article">
+        <figure class="article-image" data-tone="sand" aria-hidden="true"></figure>
+        <p class="article-kicker">Backstory</p>
+        <h3 class="article-headline">Halcyon's editorial calendar, redrawn for the quarter.</h3>
+        <p class="article-deck">How the team decides which threads get a feature, which get a note, and which get a review of the review.</p>
+        <p class="article-byline">by <strong>Jordan Kim</strong> · 5 min</p>
+      </article>
+      <article class="article">
+        <figure class="article-image" data-tone="rose" aria-hidden="true"></figure>
+        <p class="article-kicker">Field Notes</p>
+        <h3 class="article-headline">The room hears more than the message: comments in context.</h3>
+        <p class="article-deck">Why threading the review under the work — rather than alongside it — changes what gets resolved.</p>
+        <p class="article-byline">by <strong>Morgan Lee</strong> · 8 min</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="soft" aria-label="Long-form excerpt">
+  <div class="section-inner">
+    <article class="longform">
+      <p class="article-kicker">Workspace · Long Read</p>
+      <h2 class="longform-headline">The whole-team room, ported from a 1990s newsroom.</h2>
+      <p class="longform-deck">What product teams can borrow from how an editorial floor stages the day around a single editorial calendar.</p>
+      <div class="longform-byline">
+        by <strong>Jordan Kim</strong> · 9 min read · May 24, 2026
+      </div>
+      <div class="longform-body">
+        <p>The newsroom of the late nineties had a quality that most product teams lost when they moved to chat. Every desk in the room could see the whiteboard, and every conversation that mattered happened in front of it — assigning a piece, killing a piece, debating a kicker.</p>
+        <p>Halcyon's editorial canvas is an attempt to restore that whiteboard. Notes are drafts, reviews are thread, the calendar is the surface — and the room can see the calendar without anyone having to ping anyone.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <header class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Strict editorial duet.</h2>
+    </header>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-soft);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ink-soft);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-link);"></div><div class="swatch-role">Link</div><div class="swatch-name">--brand-link</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--border);"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--border</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--destructive);"></div><div class="swatch-role">Status</div><div class="swatch-name">--destructive</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="soft" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <header class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces</p>
+      <h2 class="section-title">Three registers. White, soft, inverse.</h2>
+    </header>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · article body</span>
+      </div>
+      <div class="ladder-step" data-step="soft">
+        <span class="ladder-num">Soft</span>
+        <span class="ladder-name">--brand-canvas-soft</span>
+        <span class="ladder-role">long-read band · alternating</span>
+      </div>
+      <div class="ladder-step" data-step="inverse">
+        <span class="ladder-num">Inverse</span>
+        <span class="ladder-name">--foreground</span>
+        <span class="ladder-role">footer · featured tier</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <header class="section-header" data-center>
+      <p class="section-eyebrow">Subscribe</p>
+      <h2 class="section-title">Three subscription tiers.</h2>
+    </header>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For readers and personal projects.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Read free</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams who write on the same canvas.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" type="button" style="background: var(--background); color: var(--foreground); border-color: var(--background);">Subscribe</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <header class="section-header">
+      <p class="section-eyebrow">Tokens · type + components</p>
+      <h2 class="section-title">Three families. Display, body, meta.</h2>
+    </header>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Tall narrow serif.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Fraunces weight 700</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Source Serif · medium · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Source Serif 4 at 14–18 pixels, line-height 1.55–1.65. Long-form reading register; humanist serif body for magazine-on-the-web posture.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">workspace/notes/q3-roadmap.md</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · square, uppercase caps</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Subscribe</button>
+            <button class="btn" data-variant="secondary" type="button">Read more</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#" style="font-size: 32px;">__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the magazine-on-the-web editorial design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Sections</p>
+      <ul class="footer-list"><li><a href="#">Workspace</a></li><li><a href="#">Backstory</a></li><li><a href="#">Ideas</a></li><li><a href="#">Reviews</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">More</p>
+      <ul class="footer-list"><li><a href="#">Magazine</a></li><li><a href="#">Long Reads</a></li><li><a href="#">Newsletters</a></li><li><a href="#">Archive</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">workspace.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Imprint</p>
+      <ul class="footer-list"><li><a href="#">Masthead</a></li><li><a href="#">Contact</a></li><li><a href="#">Press</a></li><li><a href="#">Subscribe</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">white canvas · black ink · serif display · sans meta</span>
+  </div>
+</footer>
+
+</body>
+</html>

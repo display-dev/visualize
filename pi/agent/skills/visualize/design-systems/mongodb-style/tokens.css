@@ -1,0 +1,215 @@
+/**
+ * design-systems/mongodb-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * The dark-mode block applies OKLCH lightness inversion to canonical
+ * shadcn-semantic tokens only. Brand-specific extras (--brand-*) are
+ * intentionally NOT overridden in dark mode — they inherit their
+ * :root values via the CSS cascade, preserving the brand's documented
+ * intent for tokens like surface-dark / on-dark / inverse-canvas that
+ * already encode a dark-context meaning.
+ *
+ * Hand-edit the [data-theme="dark"] block when the brand's actual dark
+ * palette is documented and differs from the synthesised default.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2201 0.0440 230.1730);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2201 0.0440 230.1730);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2201 0.0440 230.1730);
+  --primary: oklch(0.8254 0.2367 148.3680);
+  --primary-foreground: oklch(0.2201 0.0440 230.1730);
+  --secondary: oklch(0.9736 0.0034 174.4843);
+  --secondary-foreground: oklch(0.2201 0.0440 230.1730);
+  --muted: oklch(0.9736 0.0034 174.4843);
+  --muted-foreground: oklch(0.7609 0.0178 242.5044);
+  --accent: oklch(0.5500 0.2470 291.3376);
+  --accent-foreground: oklch(0.2201 0.0440 230.1730);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0.2201 0.0440 230.1730);
+  --border: oklch(0.9197 0.0059 239.8252);
+  --input: oklch(0.9197 0.0059 239.8252);
+  --ring: oklch(0.8254 0.2367 148.3680);
+  --sidebar: oklch(0.9736 0.0034 174.4843);
+  --sidebar-foreground: oklch(0.2201 0.0440 230.1730);
+  --sidebar-primary: oklch(0.8254 0.2367 148.3680);
+  --sidebar-primary-foreground: oklch(0.2201 0.0440 230.1730);
+  --sidebar-accent: oklch(0.9736 0.0034 174.4843);
+  --sidebar-accent-foreground: oklch(0.2201 0.0440 230.1730);
+  --sidebar-border: oklch(0.9197 0.0059 239.8252);
+  --sidebar-ring: oklch(0.8254 0.2367 148.3680);
+  --chart-1: oklch(0.8100 0.2000 148.3680);
+  --chart-2: oklch(0.7100 0.2000 148.3680);
+  --chart-3: oklch(0.6100 0.2000 148.3680);
+  --chart-4: oklch(0.5100 0.2000 148.3680);
+  --chart-5: oklch(0.4200 0.2000 148.3680);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;
+  --brand-radius-xxl: 24px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: Euclid Circular A;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: Euclid Circular A;
+
+  /* type scale tokens */
+  --text-display: 72px;
+  --text-heading: 56px;
+  --text-title: 36px;
+  --text-base: 16px;
+  --leading-tight: 1.10;
+  --leading-normal: 1.55;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-primary-deep: oklch(0.6738 0.1978 147.4703);
+  /* --brand-primary-pressed restored to upstream — this token names a
+   * button :active surface, not a text colour. LeafyGreen's documented
+   * primary pressed is PRIMARY_BUTTON_INTERACTIVE_GREEN #00593F
+   * (oklch ~0.41 0.086 165); the upstream value here is a synthesised
+   * OKLCH-ladder stop, not a LeafyGreen token, so neither value is
+   * "right." For text-on-white AA, consumers route to
+   * --brand-brand-green-dark (oklch 0.4584 0.0963 165 = LeafyGreen
+   * green.dark2 #00684A — DESIGN.md §2 "inline link colour"). */
+  --brand-primary-pressed: oklch(0.5580 0.1634 147.5586);
+  --brand-brand-green: oklch(0.8254 0.2367 148.3680);
+  --brand-brand-green-dark: oklch(0.4584 0.0963 165.0871);
+  --brand-brand-green-mid: oklch(0.6283 0.1563 154.6897);
+  --brand-brand-green-soft: oklch(0.9154 0.0617 155.8087);
+  --brand-brand-teal-deep: oklch(0.2201 0.0440 230.1730);
+  --brand-brand-teal: oklch(0.3349 0.0634 224.8871);
+  --brand-brand-teal-mid: oklch(0.4584 0.0963 165.0871);
+  --brand-accent-orange: oklch(0.7015 0.1840 39.9888);
+  --brand-accent-pink: oklch(0.7116 0.1835 346.9482);
+  --brand-accent-blue: oklch(0.4565 0.1309 270.8703);
+  --brand-semantic-warning-bg: oklch(0.9783 0.0322 93.5127);
+  --brand-semantic-warning-text: oklch(0.5682 0.0800 72.2137);
+  --brand-canvas-dark: oklch(0.2201 0.0440 230.1730);
+  --brand-surface: oklch(0.9863 0.0025 165.0777);
+  --brand-surface-feature: oklch(0.9693 0.0312 163.2641);
+  --brand-hairline-soft: oklch(0.9504 0.0042 236.4985);
+  --brand-hairline-strong: oklch(0.8398 0.0184 245.4252);
+  --brand-hairline-dark: oklch(0.2874 0.0303 237.6029);
+  --brand-charcoal: oklch(0.2874 0.0303 237.6029);
+  --brand-slate: oklch(0.4172 0.0302 237.6364);
+  --brand-steel: oklch(0.5231 0.0294 244.7974);
+  /* --brand-stone darkened from 0.6320 → 0.5300 for ≥4.5:1 on white
+   * canvas (swatch-role labels). */
+  --brand-stone: oklch(0.5300 0.0281 244.6446);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-dark-muted: oklch(0.7609 0.0178 242.5044);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Hand-edited: MongoDB is two-polarity and canvas-explicit — every
+   * section in the preview shell carries .canvas-white or .canvas-teal
+   * which sets background + ink explicitly. Brand-extras like
+   * --brand-charcoal serve as SURFACE colors (cards on dark hero) and
+   * must stay at their :root values; overriding them in dark inverts
+   * the dark surfaces to light and breaks the brand. Mirror :root
+   * verbatim instead — both theme modes render the canvas-explicit
+   * two-polarity system as intended (same pattern as Sentry). */
+
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2201 0.0440 230.1730);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2201 0.0440 230.1730);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2201 0.0440 230.1730);
+  --primary: oklch(0.8254 0.2367 148.3680);
+  --primary-foreground: oklch(0.2201 0.0440 230.1730);
+  --secondary: oklch(0.9736 0.0034 174.4843);
+  --secondary-foreground: oklch(0.2201 0.0440 230.1730);
+  --muted: oklch(0.9736 0.0034 174.4843);
+  --muted-foreground: oklch(0.7609 0.0178 242.5044);
+  --accent: oklch(0.5500 0.2470 291.3376);
+  --accent-foreground: oklch(0.2201 0.0440 230.1730);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0.2201 0.0440 230.1730);
+  --border: oklch(0.9197 0.0059 239.8252);
+  --input: oklch(0.9197 0.0059 239.8252);
+  --ring: oklch(0.8254 0.2367 148.3680);
+  --sidebar: oklch(0.9736 0.0034 174.4843);
+  --sidebar-foreground: oklch(0.2201 0.0440 230.1730);
+  --sidebar-primary: oklch(0.8254 0.2367 148.3680);
+  --sidebar-primary-foreground: oklch(0.2201 0.0440 230.1730);
+  --sidebar-accent: oklch(0.9736 0.0034 174.4843);
+  --sidebar-accent-foreground: oklch(0.2201 0.0440 230.1730);
+  --sidebar-border: oklch(0.9197 0.0059 239.8252);
+  --sidebar-ring: oklch(0.8254 0.2367 148.3680);
+  --chart-1: oklch(0.8100 0.2000 148.3680);
+  --chart-2: oklch(0.7100 0.2000 148.3680);
+  --chart-3: oklch(0.6100 0.2000 148.3680);
+  --chart-4: oklch(0.5100 0.2000 148.3680);
+  --chart-5: oklch(0.4200 0.2000 148.3680);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.2201 0.0440 230.1730);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.2201 0.0440 230.1730);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.2201 0.0440 230.1730);
+    --primary: oklch(0.8254 0.2367 148.3680);
+    --primary-foreground: oklch(0.2201 0.0440 230.1730);
+    --secondary: oklch(0.9736 0.0034 174.4843);
+    --secondary-foreground: oklch(0.2201 0.0440 230.1730);
+    --muted: oklch(0.9736 0.0034 174.4843);
+    --muted-foreground: oklch(0.7609 0.0178 242.5044);
+    --accent: oklch(0.5500 0.2470 291.3376);
+    --accent-foreground: oklch(0.2201 0.0440 230.1730);
+    --destructive: oklch(0.5308 0.2178 29.2339);
+    --destructive-foreground: oklch(0.2201 0.0440 230.1730);
+    --border: oklch(0.9197 0.0059 239.8252);
+    --input: oklch(0.9197 0.0059 239.8252);
+    --ring: oklch(0.8254 0.2367 148.3680);
+    --sidebar: oklch(0.9736 0.0034 174.4843);
+    --sidebar-foreground: oklch(0.2201 0.0440 230.1730);
+    --sidebar-primary: oklch(0.8254 0.2367 148.3680);
+    --sidebar-primary-foreground: oklch(0.2201 0.0440 230.1730);
+    --sidebar-accent: oklch(0.9736 0.0034 174.4843);
+    --sidebar-accent-foreground: oklch(0.2201 0.0440 230.1730);
+    --sidebar-border: oklch(0.9197 0.0059 239.8252);
+    --sidebar-ring: oklch(0.8254 0.2367 148.3680);
+    --chart-1: oklch(0.8100 0.2000 148.3680);
+    --chart-2: oklch(0.7100 0.2000 148.3680);
+    --chart-3: oklch(0.6100 0.2000 148.3680);
+    --chart-4: oklch(0.5100 0.2000 148.3680);
+    --chart-5: oklch(0.4200 0.2000 148.3680);
+  }
+}

@@ -1,0 +1,2339 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hyper-saturated — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23FDE047'/%3E%3Cpath d='M8 22 L10 10 L13 10 L14.5 17.5 L16 10 L19 10 L20.5 17.5 L22 10 L25 10 L23 22 L19.5 22 L18 14.5 L16.5 22 Z' fill='%230A0A0A'/%3E%3C/svg%3E">
+<meta property="og:title" content="hyper-saturated — token-surface preview">
+<meta property="og:description" content="Spec-derived hyper-saturated design system from visualize. Cyber-yellow shout band balanced by deep-onyx void sections, glassmorphic floating data card, asymmetrical liquid sectioning, massive Inter display type, pill-shaped CTAs at extreme radii. Halcyon-themed neutral content.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/hyper-saturated/tokens.css) === */
+/**
+ * design-systems/hyper-saturated/tokens.css
+ *
+ * Hand-authored from the Hyper-Saturated Fluid spec
+ * (temp/refs/hyper-saturated/raw.md — Zhou Jason, Superdesign library).
+ * Sourced: 2026-05-26.
+ *
+ * Register-family invention — spec-derived, no live brand site to
+ * navigate. Companion: design-systems/hyper-saturated/DESIGN.md.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this system's.
+ *   - Brand-extras (--brand-*): the system's own design-system
+ *     vocabulary. Surface-named only (-canvas-void, -canvas-shout,
+ *     -surface-charcoal, -on-void, -on-shout, -glass-*, -hairline-*).
+ *
+ * Polarity locks:
+ *   --brand-canvas-shout / --brand-canvas-void / --brand-surface-charcoal /
+ *   --brand-surface-onyx-elevated / --brand-on-void / --brand-on-shout /
+ *   --brand-glass-fill / --brand-glass-border DO NOT flip with theme.
+ *   The shout-on-void contract is the system's identity in both polarities.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+
+  --background: oklch(0.9851 0 0);                      /* #FAFAFA */
+  --foreground: oklch(0.1448 0 0);                      /* #0A0A0A — spec Deep Onyx, also light-canvas ink */
+  --card: oklch(1 0 0);                                 /* #FFFFFF */
+  --card-foreground: oklch(0.1448 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.1448 0 0);
+
+  --primary: oklch(0.9052 0.1657 98.11);                /* #FDE047 — Cyber Yellow shout */
+  --primary-foreground: oklch(0.1448 0 0);              /* #0A0A0A — locked black on yellow */
+  --secondary: oklch(0.9219 0 0);                       /* #E5E5E5 */
+  --secondary-foreground: oklch(0.1448 0 0);
+  --muted: oklch(0.9702 0 0);                           /* #F5F5F5 */
+  --muted-foreground: oklch(0.3715 0 0);                /* #404040 — utility neutral, chroma 0 */
+  --accent: oklch(0.9052 0.1657 98.11);                 /* mirrors --primary */
+  --accent-foreground: oklch(0.1448 0 0);
+  --destructive: oklch(0.5771 0.2152 27.33);            /* #DC2626 — synthesised status */
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.9219 0 0);                          /* #E5E5E5 */
+  --input: oklch(0.9219 0 0);
+  --ring: oklch(0.9052 0.1657 98.11);                   /* tracks --primary */
+
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.1448 0 0);
+  --sidebar-primary: oklch(0.9052 0.1657 98.11);        /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.1448 0 0);
+  --sidebar-accent: oklch(0.9702 0 0);
+  --sidebar-accent-foreground: oklch(0.1448 0 0);
+  --sidebar-border: oklch(0.9219 0 0);
+  --sidebar-ring: oklch(0.9052 0.1657 98.11);           /* tracks --primary */
+
+  --chart-1: oklch(0.9052 0.1657 98.11);                /* shout */
+  --chart-2: oklch(0.1448 0 0);                         /* onyx */
+  --chart-3: oklch(0.2686 0 0);                         /* deep gray */
+  --chart-4: oklch(0.5555 0 0);                         /* mid gray */
+  --chart-5: oklch(0.7155 0 0);                         /* light gray */
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 32px;                                    /* spec rounded-[32px] for glass containers */
+  --radius-xl: 9999px;                                  /* spec pill (rounded-full) — interactive default */
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: 'Inter', 'General Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Inter', 'General Sans', system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* The spec calls for shadow-2xl on glassmorphic cards (Tailwind 2xl =
+   * 0 25px 50px -12px rgb(0 0 0 / 0.25)). The pill CTA hover uses
+   * shadow-lg (0 10px 15px -3px / 0 4px 6px -4px). */
+  --shadow-card: 0 25px 50px -12px oklch(0 0 0 / 0.25);
+  --shadow-pill-hover: 0 10px 15px -3px oklch(0 0 0 / 0.18), 0 4px 6px -4px oklch(0 0 0 / 0.12);
+
+  /* -- Brand-extras --------------------------------------------- */
+
+  /* Polarity-locked shout + void surfaces (spec contract: same in both
+   * modes — the shout-on-void identity is the system's signature). */
+  --brand-canvas-shout: oklch(0.9052 0.1657 98.11);     /* #FDE047 */
+  --brand-canvas-void: oklch(0.1448 0 0);               /* #0A0A0A */
+  --brand-surface-charcoal: oklch(0.2046 0 0);          /* #171717 — spec Surface Charcoal */
+  --brand-surface-onyx-elevated: oklch(0.2686 0 0);     /* #262626 — spec Deep Gray, void UI elements */
+
+  /* Polarity-locked foregrounds (the shout-text and void-text contract) */
+  --brand-on-shout: oklch(0.1448 0 0);                  /* #0A0A0A — locked black on yellow */
+  --brand-on-void: oklch(1 0 0);                        /* #FFFFFF — locked white on onyx */
+  --brand-on-void-mute: oklch(0.7155 0 0);              /* #A3A3A3 — utility neutral, chroma 0 */
+
+  /* Glassmorphic overlay (the spec's signature floating surface) */
+  --brand-glass-fill: oklch(1 0 0 / 0.10);              /* spec bg-white/10 */
+  --brand-glass-border: oklch(1 0 0 / 0.20);            /* spec 1px white border at 20% */
+  --brand-glass-blur: 24px;                             /* spec backdrop-blur-2xl */
+
+  /* Liquid-section radii — the bimodal radii contract (pill or extreme,
+   * never the 8/12/16px middle ground per spec Don't). */
+  --brand-radius-pill: 9999px;
+  --brand-radius-card: 32px;
+  --brand-radius-liquid-major: 120px;                   /* spec rounded-b-[120px] */
+  --brand-radius-liquid-minor: 40px;                    /* spec rounded-bl-[40px] */
+
+  /* Hairlines / dividers */
+  --brand-hairline-soft: oklch(0.9219 0 0);             /* #E5E5E5 — light canvas */
+  --brand-hairline-on-void: oklch(1 0 0 / 0.10);        /* void canvas — extension of glass border */
+
+  /* Body text neutrals (chroma ≈ 0 utility) */
+  --brand-body: oklch(0.1448 0 0);                      /* light-canvas body */
+  --brand-body-muted: oklch(0.3715 0 0);                /* light-canvas muted body */
+
+  /* Motion vocabulary (the elastic liquid ease — spec §Animation) */
+  --brand-ease-elastic: cubic-bezier(0.22, 1, 0.36, 1);
+  --brand-dur-fast: 120ms;
+  --brand-dur-base: 240ms;
+  --brand-dur-slow: 480ms;
+}
+
+/* -- Dark theme ------------------------------------------------
+ * The shout-on-void contract is polarity-locked, so the hero band +
+ * void section + glassmorphic surfaces stay at :root values. Only the
+ * supporting light canvas + light card flip to onyx + charcoal for
+ * the dark mode of the token-demo surrounds.
+ *
+ * --primary stays at :root — there is no documented dark-mode variant
+ * for Cyber Yellow.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1448 0 0);                      /* mirrors --brand-canvas-void */
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2046 0 0);                            /* mirrors --brand-surface-charcoal */
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2046 0 0);
+  --popover-foreground: oklch(1 0 0);
+
+  --secondary: oklch(0.2686 0 0);                       /* mirrors --brand-surface-onyx-elevated */
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2046 0 0);
+  --muted-foreground: oklch(0.7155 0 0);                /* utility lift for dark canvas */
+
+  --border: oklch(1 0 0 / 0.10);                        /* mirrors --brand-hairline-on-void */
+  --input: oklch(1 0 0 / 0.10);
+
+  --sidebar: oklch(0.2046 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2686 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(1 0 0 / 0.10);
+
+  /* Utility neutral body inks lift in dark mode */
+  --brand-body: oklch(1 0 0);
+  --brand-body-muted: oklch(0.7155 0 0);
+  --brand-hairline-soft: oklch(1 0 0 / 0.10);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1448 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2046 0 0);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2046 0 0);
+    --popover-foreground: oklch(1 0 0);
+
+    --secondary: oklch(0.2686 0 0);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.2046 0 0);
+    --muted-foreground: oklch(0.7155 0 0);
+
+    --border: oklch(1 0 0 / 0.10);
+    --input: oklch(1 0 0 / 0.10);
+
+    --sidebar: oklch(0.2046 0 0);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.2686 0 0);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(1 0 0 / 0.10);
+
+    --brand-body: oklch(1 0 0);
+    --brand-body-muted: oklch(0.7155 0 0);
+    --brand-hairline-soft: oklch(1 0 0 / 0.10);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Hyper-Saturated Fluid preview shell — spec-derived (Superdesign
+   library, Zhou Jason). Signature mockup: liquid hero band (cyber-yellow
+   shout with asymmetric rounded-b wave) carrying a glassmorphic data
+   card that floats at the seam between the shout and the void. Every
+   other section is token demos. Halcyon-themed neutral fintech-shape
+   content — invented mark names, abstract amounts, no real customer
+   logos. */
+
+/* -- Preview-local decorative scopes. Per AUTHORING.md, decorative-only
+ * non-token values (transparent washes, checker textures) may be scoped
+ * here. Each value sits on the shout-on-shout or shout-on-void contract
+ * — all chromatic semantics still trace to tokens.css §2. */
+:root {
+  --preview-shout-wash-soft:   oklch(0 0 0 / 0.06);
+  --preview-shout-wash-light:  oklch(0 0 0 / 0.08);
+  --preview-shout-wash-line:   oklch(0 0 0 / 0.10);
+  --preview-shout-wash-strong: oklch(0 0 0 / 0.12);
+  --preview-shout-wash-border: oklch(0 0 0 / 0.20);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga", "tnum";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Polarity-locked surfaces (the shout-on-void contract; same in both
+ * themes per spec) -- */
+.canvas-shout {
+  background: var(--brand-canvas-shout);
+  color: var(--brand-on-shout);
+}
+.canvas-void {
+  background: var(--brand-canvas-void);
+  color: var(--brand-on-void);
+}
+.canvas-charcoal {
+  background: var(--brand-surface-charcoal);
+  color: var(--brand-on-void);
+}
+
+/* -- Top nav (sits on shout canvas — the hero extends behind nav) -- */
+.topnav {
+  position: relative;
+  background: var(--brand-canvas-shout);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+.topnav-inner {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--brand-on-shout);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--brand-radius-pill);
+  background: var(--brand-canvas-void);
+  display: inline-grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--brand-canvas-shout);
+}
+.topnav-links {
+  display: flex;
+  gap: 2rem;
+  font-size: 14px;
+  font-weight: 600;
+  flex: 1;
+  margin-left: 2.5rem;
+  color: var(--brand-on-shout);
+}
+.topnav-links a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.78;
+  transition: opacity var(--brand-dur-fast) ease;
+}
+.topnav-links a:hover { opacity: 1; }
+.topnav-links a:focus-visible {
+  outline: 2px solid var(--brand-on-shout);
+  outline-offset: 4px;
+  border-radius: 4px;
+  opacity: 1;
+}
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+@media (max-width: 960px) { .topnav-links { display: none; } }
+
+/* -- Pill button (the spec's interactive primitive — fully-rounded,
+ * elastic squish on active, scale-up on hover) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0 1.75rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    transform var(--brand-dur-base) var(--brand-ease-elastic),
+    box-shadow var(--brand-dur-base) var(--brand-ease-elastic),
+    background var(--brand-dur-fast) ease,
+    color var(--brand-dur-fast) ease,
+    border-color var(--brand-dur-fast) ease;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-pill-hover);
+}
+.btn:active {
+  transform: scale(0.95);
+}
+.btn[data-variant="dark"] {
+  background: var(--brand-canvas-void);
+  color: var(--brand-on-void);
+  border-color: var(--brand-canvas-void);
+}
+.btn[data-variant="shout"] {
+  background: var(--brand-canvas-shout);
+  color: var(--brand-on-shout);
+  border-color: var(--brand-canvas-shout);
+}
+.btn[data-variant="outline-on-shout"] {
+  background: transparent;
+  color: var(--brand-on-shout);
+  border-color: var(--preview-shout-wash-border);
+}
+.btn[data-variant="outline-on-shout"]:hover {
+  background: var(--preview-shout-wash-light);
+  border-color: var(--brand-canvas-void);
+}
+.btn[data-variant="outline-on-void"] {
+  background: transparent;
+  color: var(--brand-on-void);
+  border-color: var(--brand-glass-border);
+}
+.btn[data-variant="outline-on-void"]:hover {
+  background: var(--brand-glass-fill);
+  border-color: var(--brand-on-void);
+}
+.btn[data-variant="outline"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.btn[data-variant="outline"]:hover {
+  background: var(--muted);
+}
+.btn[data-size="sm"] { min-height: 40px; padding: 0 1.25rem; font-size: 13px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: background var(--brand-dur-fast) ease, color var(--brand-dur-fast) ease, border-color var(--brand-dur-fast) ease; }
+  .btn:hover { transform: none; box-shadow: none; }
+  .btn:active { transform: none; }
+}
+
+/* -- Liquid hero (the system's voltage moment — cyber-yellow shout band
+ * with asymmetric rounded-bottom-right wave bleeding into the void) -- */
+.hero {
+  position: relative;
+  background: var(--brand-canvas-shout);
+  color: var(--brand-on-shout);
+  padding: 5rem 2rem 8rem;
+  border-bottom-right-radius: clamp(60px, 12vw, 120px);
+  border-bottom-left-radius: clamp(20px, 4vw, 40px);
+  overflow: visible;
+  margin-bottom: -3rem;
+  z-index: 1;
+}
+.hero-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 4rem;
+  align-items: end;
+}
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 3rem; align-items: stretch; }
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand-on-shout);
+  margin: 0 0 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--preview-shout-wash-light);
+  width: max-content;
+}
+.hero-eyebrow .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-canvas-void);
+}
+.hero-display {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: var(--brand-on-shout);
+  margin: 0 0 1.5rem;
+  max-width: 14ch;
+}
+.hero-display em {
+  font-style: normal;
+  display: inline-block;
+  padding: 0 0.4rem;
+  background: var(--brand-canvas-void);
+  color: var(--brand-canvas-shout);
+  border-radius: var(--brand-radius-pill);
+  margin-right: 0.4rem;
+  font-size: 0.85em;
+  vertical-align: 0.05em;
+}
+.hero-lede {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--brand-on-shout);
+  opacity: 0.82;
+  max-width: 38ch;
+  margin: 0 0 2.5rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* -- Glassmorphic data card (the spec's signature floating surface —
+ * sits at the seam between the shout band and the void below) -- */
+.glass-card {
+  position: relative;
+  background: var(--brand-glass-fill);
+  backdrop-filter: blur(var(--brand-glass-blur));
+  -webkit-backdrop-filter: blur(var(--brand-glass-blur));
+  border: 1px solid var(--brand-glass-border);
+  border-radius: var(--brand-radius-card);
+  padding: 2rem;
+  box-shadow: var(--shadow-card);
+  color: var(--brand-on-shout);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  /* float the card past the bottom of the hero so it overlaps the void seam */
+  transform: translateY(3rem);
+  animation: glass-drift 6s ease-in-out infinite alternate;
+}
+@keyframes glass-drift {
+  from { transform: translateY(3rem); }
+  to   { transform: translateY(2.5rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .glass-card { animation: none; }
+}
+.glass-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.glass-card-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--brand-on-shout);
+  margin: 0;
+}
+.glass-card-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand-on-shout);
+  opacity: 0.7;
+  margin: 0 0 0.5rem;
+}
+.glass-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--brand-canvas-shout);
+  color: var(--brand-on-shout);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border: 2px solid var(--brand-canvas-void);
+}
+.glass-amount {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 6.5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  color: var(--brand-on-shout);
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+.glass-amount-suffix {
+  font-size: 0.4em;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  margin-left: 0.5rem;
+  vertical-align: 0.3em;
+  opacity: 0.65;
+}
+.glass-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+.glass-grid-cell {
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-md);
+  background: var(--preview-shout-wash-soft);
+  border: 1px solid var(--preview-shout-wash-line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.glass-grid-ccy {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-on-shout);
+  opacity: 0.65;
+}
+.glass-grid-amount {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--brand-on-shout);
+}
+.glass-card-foot {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--preview-shout-wash-strong);
+}
+.glass-card-foot-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-on-shout);
+  opacity: 0.7;
+}
+
+/* -- Section frame -- */
+.section {
+  position: relative;
+  padding: 7rem 2rem 5rem;
+  background: var(--background);
+  z-index: 1;
+}
+.section[data-tight] { padding: 5rem 2rem 4rem; }
+.section[data-void] {
+  background: var(--brand-canvas-void);
+  color: var(--brand-on-void);
+}
+.section-inner { max-width: 1240px; margin: 0 auto; }
+.section-header { max-width: 44rem; margin-bottom: 3rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 1.25rem;
+}
+.section[data-void] .section-eyebrow { color: var(--brand-on-void-mute); }
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+  color: var(--foreground);
+  margin: 0 0 1.25rem;
+  max-width: 24ch;
+}
+.section[data-void] .section-title { color: var(--brand-on-void); }
+.section-lede {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+  margin: 0;
+  max-width: 42rem;
+  opacity: 0.85;
+}
+.section[data-void] .section-lede { color: var(--brand-on-void-mute); opacity: 1; }
+
+/* -- Token-demo: colour swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.section[data-void] .swatch {
+  background: var(--brand-surface-charcoal);
+  border-color: var(--brand-hairline-on-void);
+  color: var(--brand-on-void);
+}
+.swatch-chip {
+  height: 3.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+.section[data-void] .swatch-chip { border-color: var(--brand-hairline-on-void); }
+.swatch-chip[data-checker] {
+  background-image:
+    linear-gradient(45deg, var(--preview-shout-wash-line) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--preview-shout-wash-line) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--preview-shout-wash-line) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--preview-shout-wash-line) 75%);
+  background-size: 14px 14px;
+  background-position: 0 0, 0 7px, 7px -7px, -7px 0;
+}
+.swatch-role {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.section[data-void] .swatch-role { color: var(--brand-on-void-mute); }
+.swatch-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--foreground);
+  word-break: break-all;
+}
+.section[data-void] .swatch-name { color: var(--brand-on-void); }
+
+/* -- Token-demo: radii ladder (the bimodal contract — pill or extreme) -- */
+.radii-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 1.25rem;
+}
+.radii-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 1.5rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 12rem;
+  align-items: flex-start;
+}
+.radii-card[data-step="pill"]   { border-radius: var(--brand-radius-pill); padding: 1.5rem 2.5rem; }
+.radii-card[data-step="card"]   { border-radius: var(--brand-radius-card); }
+.radii-card[data-step="liquid-major"] {
+  border-bottom-right-radius: var(--brand-radius-liquid-major);
+  border-top-left-radius: var(--brand-radius-card);
+  border-top-right-radius: var(--brand-radius-card);
+  border-bottom-left-radius: var(--brand-radius-card);
+}
+.radii-card[data-step="liquid-minor"] {
+  border-bottom-left-radius: var(--brand-radius-liquid-minor);
+  border-top-left-radius: var(--brand-radius-card);
+  border-top-right-radius: var(--brand-radius-card);
+  border-bottom-right-radius: var(--brand-radius-card);
+}
+.radii-num {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.radii-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--foreground);
+  word-break: break-all;
+}
+.radii-role {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--muted-foreground);
+  margin-top: auto;
+  line-height: 1.4;
+}
+
+/* -- Type + components split row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+@media (max-width: 1024px) { .split-row { grid-template-columns: 1fr; gap: 3rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.section[data-void] .type-row { border-bottom-color: var(--brand-hairline-on-void); }
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.section[data-void] .type-label { color: var(--brand-on-void-mute); }
+.type-display {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  color: var(--foreground);
+}
+.section[data-void] .type-display { color: var(--brand-on-void); }
+.type-heading {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.0;
+  color: var(--foreground);
+}
+.section[data-void] .type-heading { color: var(--brand-on-void); }
+.type-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+.section[data-void] .type-title { color: var(--brand-on-void); }
+.type-body {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+.section[data-void] .type-body { color: var(--brand-on-void); }
+.type-caption {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+.section[data-void] .type-caption { color: var(--brand-on-void); }
+.type-mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+.section[data-void] .type-mono { color: var(--brand-on-void); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.75rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.section[data-void] .cmp-row-label { color: var(--brand-on-void-mute); }
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.875rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.tag-chip[data-tone="shout"] {
+  background: var(--brand-canvas-shout);
+  color: var(--brand-on-shout);
+}
+.tag-chip[data-tone="void"] {
+  background: var(--brand-canvas-void);
+  color: var(--brand-on-void);
+}
+.tag-chip[data-tone="outline"] {
+  background: transparent;
+  color: var(--foreground);
+  border: 2px solid var(--border);
+}
+.tag-chip[data-tone="award"] {
+  background: var(--brand-surface-charcoal);
+  color: var(--brand-on-void);
+  border: 1px solid var(--brand-hairline-on-void);
+}
+.tag-chip[data-tone="award"] .chip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-canvas-shout);
+}
+
+/* -- Void section: monochrome wordmark ticker (spec §Logo Ticker in the Void) -- */
+.ticker {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--brand-hairline-on-void);
+  border-bottom: 1px solid var(--brand-hairline-on-void);
+}
+.ticker-mark {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--brand-on-void);
+  opacity: 0.6;
+  text-decoration: none;
+  transition: opacity var(--brand-dur-base) ease;
+}
+.ticker-mark:hover { opacity: 1; }
+.ticker-mark:focus-visible {
+  outline: 2px solid var(--brand-on-void);
+  outline-offset: 6px;
+  border-radius: 2px;
+  opacity: 1;
+}
+
+/* -- KPI band on void -- */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1.5rem;
+}
+.kpi-cell {
+  background: var(--brand-surface-charcoal);
+  border: 1px solid var(--brand-hairline-on-void);
+  border-radius: var(--brand-radius-card);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.kpi-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand-on-void-mute);
+}
+.kpi-value {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  color: var(--brand-on-void);
+  font-variant-numeric: tabular-nums;
+}
+.kpi-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--brand-canvas-shout);
+  color: var(--brand-on-shout);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  width: max-content;
+}
+
+/* -- Closing band (void with a single shout pill — the transition area
+ * where the high-vis trust badge pattern lives per spec) -- */
+.closing-band {
+  background: var(--brand-canvas-void);
+  color: var(--brand-on-void);
+  padding: 7rem 2rem;
+  text-align: center;
+}
+.closing-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  align-items: center;
+}
+.closing-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--brand-surface-charcoal);
+  color: var(--brand-on-void);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1px solid var(--brand-hairline-on-void);
+}
+.closing-badge .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-canvas-shout);
+}
+.closing-aphorism {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  color: var(--brand-on-void);
+  margin: 0;
+  max-width: 22ch;
+}
+.closing-aphorism .shout-pill {
+  display: inline-block;
+  padding: 0 0.4rem;
+  background: var(--brand-canvas-shout);
+  color: var(--brand-on-shout);
+  border-radius: var(--brand-radius-pill);
+  font-size: 0.92em;
+  vertical-align: 0.05em;
+}
+.closing-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
+
+/* -- Footer (void) -- */
+.footer {
+  background: var(--brand-canvas-void);
+  color: var(--brand-on-void);
+  padding: 4rem 2rem 2rem;
+  border-top: 1px solid var(--brand-hairline-on-void);
+}
+.footer-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr repeat(4, 1fr);
+  gap: 3rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--brand-on-void);
+  text-decoration: none;
+}
+.footer-tagline {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--brand-on-void-mute);
+  line-height: 1.5;
+  margin: 0;
+}
+.footer-col-title {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand-on-void-mute);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.625rem; }
+.footer-list a {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--brand-on-void);
+  text-decoration: none;
+  opacity: 0.78;
+  transition: opacity var(--brand-dur-fast) ease;
+}
+.footer-list a:hover { opacity: 1; }
+.footer-list a:focus-visible {
+  outline: 2px solid var(--brand-on-void);
+  outline-offset: 4px;
+  border-radius: 2px;
+  opacity: 1;
+}
+.footer-legal {
+  max-width: 1240px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-on-void);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--brand-on-void-mute);
+}
+.footer-legal-meta { font-family: var(--font-mono); font-size: 11px; }
+</style>
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>hyper-saturated</a>
+    <div class="topnav-links">
+      <a href="#">Ledger</a>
+      <a href="#">Treasury</a>
+      <a href="#">Cards</a>
+      <a href="#">Routing</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="btn" data-variant="outline-on-shout" data-size="sm" type="button">Sign in</button>
+      <button class="btn" data-variant="dark" data-size="sm" type="button">Open the ledger</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow"><span class="dot" aria-hidden="true"></span>Halcyon Treasury &middot; Q3 ledger</p>
+      <h1 class="hero-display"><em>Settled</em> by the close of business.</h1>
+      <p class="hero-lede">Halcyon's finance team runs corporate cards, vendor invoices, and inbound settlements off one ledger. Cleared by 17:00 local, every line item priced at mid-market.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="dark" type="button">Open the ledger</button>
+        <button class="btn" data-variant="outline-on-shout" type="button">See the routing rates</button>
+      </div>
+    </div>
+
+    <div class="glass-card" role="figure" aria-label="Halcyon team multi-currency ledger card">
+      <div class="glass-card-head">
+        <div>
+          <p class="glass-card-eyebrow">Halcyon Ops &middot; Team ledger</p>
+          <h2 class="glass-card-title">Total holdings</h2>
+        </div>
+        <span class="glass-pill">Mid-market</span>
+      </div>
+      <p class="glass-amount">428,612.40<span class="glass-amount-suffix">EUR</span></p>
+      <div class="glass-grid">
+        <div class="glass-grid-cell">
+          <span class="glass-grid-ccy">EUR</span>
+          <span class="glass-grid-amount">218,640.18</span>
+        </div>
+        <div class="glass-grid-cell">
+          <span class="glass-grid-ccy">USD</span>
+          <span class="glass-grid-amount">142,082.55</span>
+        </div>
+        <div class="glass-grid-cell">
+          <span class="glass-grid-ccy">GBP</span>
+          <span class="glass-grid-amount">67,889.67</span>
+        </div>
+      </div>
+      <div class="glass-card-foot">
+        <span class="glass-card-foot-label">Last cleared &middot; 16:48 CET</span>
+        <button class="btn" data-variant="dark" data-size="sm" type="button">Add a route</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" aria-label="Colour tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens &middot; Colour</p>
+      <h2 class="section-title">One shout, one void, no middle ground.</h2>
+      <p class="section-lede">A single saturated yellow carries every brand moment. The void absorbs everything else. There is no third chromatic accent and no graduated dark-stack between the canvas and the surface.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-shout);"></div><div class="swatch-role">Shout &middot; primary</div><div class="swatch-name">--brand-canvas-shout</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-void); border-color: var(--brand-canvas-void);"></div><div class="swatch-role">Void &middot; canvas</div><div class="swatch-name">--brand-canvas-void</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-charcoal); border-color: var(--brand-surface-charcoal);"></div><div class="swatch-role">Charcoal &middot; panel</div><div class="swatch-name">--brand-surface-charcoal</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-onyx-elevated); border-color: var(--brand-surface-onyx-elevated);"></div><div class="swatch-role">Elevated &middot; on-void</div><div class="swatch-name">--brand-surface-onyx-elevated</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--card);"></div><div class="swatch-role">Card &middot; light</div><div class="swatch-name">--card</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--muted);"></div><div class="swatch-role">Muted &middot; surface</div><div class="swatch-name">--muted</div></div>
+      <div class="swatch"><div class="swatch-chip" data-checker style="background: var(--brand-glass-fill);"></div><div class="swatch-role">Glass &middot; fill</div><div class="swatch-name">--brand-glass-fill</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--destructive);"></div><div class="swatch-role">Destructive</div><div class="swatch-name">--destructive</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Radii ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens &middot; Radii</p>
+      <h2 class="section-title">Pills and waves. Nothing between.</h2>
+      <p class="section-lede">The radii contract is bimodal — pill-shaped interactives at 9999px, glass cards at 32px, liquid section edges at 40-120px. The 8 / 12 / 16px middle ground is intentionally absent.</p>
+    </div>
+    <div class="radii-grid">
+      <div class="radii-card" data-step="pill">
+        <span class="radii-num">Pill &middot; interactive</span>
+        <span class="radii-name">--brand-radius-pill</span>
+        <span class="radii-role">buttons &middot; badges &middot; chips</span>
+      </div>
+      <div class="radii-card" data-step="card">
+        <span class="radii-num">Card &middot; glass</span>
+        <span class="radii-name">--brand-radius-card</span>
+        <span class="radii-role">data cards &middot; KPI cells</span>
+      </div>
+      <div class="radii-card" data-step="liquid-major">
+        <span class="radii-num">Liquid &middot; major</span>
+        <span class="radii-name">--brand-radius-liquid-major</span>
+        <span class="radii-role">hero wave &middot; bottom-right edge</span>
+      </div>
+      <div class="radii-card" data-step="liquid-minor">
+        <span class="radii-num">Liquid &middot; minor</span>
+        <span class="radii-name">--brand-radius-liquid-minor</span>
+        <span class="radii-role">hero wave &middot; bottom-left edge</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-void aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens &middot; Type &amp; components</p>
+      <h2 class="section-title">Massive on top, tiny beneath.</h2>
+      <p class="section-lede">Display sizes anchor every section. Body and labels stay small and functional. The type-scale shift between the hero and the row beneath it is the system's most visible signature.</p>
+    </div>
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Mid-market</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Vendors paid Friday</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Routing rates today</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Cleared lines reconcile against the published rate at the timestamp the route was opened, not the timestamp the funds settled.</span></div>
+        <div class="type-row"><span class="type-label">Caption</span><span class="type-caption">Halcyon Ops &middot; 14 vendors &middot; 4 currencies</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">RATE-EUR/USD-1.0942</span></div>
+      </div>
+      <div class="cmp-stack">
+        <div class="cmp-row">
+          <span class="cmp-row-label">Pill buttons</span>
+          <button class="btn" data-variant="shout" type="button">Open a route</button>
+          <button class="btn" data-variant="outline-on-void" type="button">Cancel</button>
+          <button class="btn" data-variant="shout" data-size="sm" type="button">Add a payee</button>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-row-label">Chips</span>
+          <span class="tag-chip" data-tone="shout">Mid-market</span>
+          <span class="tag-chip" data-tone="void">Cleared</span>
+          <span class="tag-chip" data-tone="outline">Pending</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-row-label">Trust badge</span>
+          <span class="tag-chip" data-tone="award"><span class="chip-dot" aria-hidden="true"></span>Top 50 ledger of 2026</span>
+          <span class="tag-chip" data-tone="award"><span class="chip-dot" aria-hidden="true"></span>SOC 2 Type II</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-void data-tight aria-label="KPI band">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens &middot; KPI surfaces</p>
+      <h2 class="section-title">Numbers on charcoal. Trend on shout.</h2>
+      <p class="section-lede">KPI cells sit on the charcoal panel, foreground in white, deltas rendered as cyber-yellow pills. The system reserves the shout colour for the single number that needs to land first.</p>
+    </div>
+    <div class="kpi-row">
+      <div class="kpi-cell">
+        <span class="kpi-label">Cleared this week</span>
+        <span class="kpi-value">1,284</span>
+        <span class="kpi-trend">+12.4% vs last</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-label">Median settlement</span>
+        <span class="kpi-value">4h 18m</span>
+        <span class="kpi-trend">&minus;38m vs last</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-label">Routes open</span>
+        <span class="kpi-value">47</span>
+        <span class="kpi-trend">+6 vs last</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-label">Vendors paid</span>
+        <span class="kpi-value">312</span>
+        <span class="kpi-trend">+24 vs last</span>
+      </div>
+    </div>
+    <div class="ticker" style="margin-top: 3.5rem;" aria-label="Partner marks (void monochrome)">
+      <a class="ticker-mark" href="#">halcyon.dev</a>
+      <a class="ticker-mark" href="#">hlc.so</a>
+      <a class="ticker-mark" href="#">ops/halcyon</a>
+      <a class="ticker-mark" href="#">@halcyon/cli</a>
+      <a class="ticker-mark" href="#">treasury.hlc.so</a>
+      <a class="ticker-mark" href="#">routes.hlc.so</a>
+    </div>
+  </div>
+</section>
+
+<section class="closing-band" aria-label="Closing band">
+  <div class="closing-inner">
+    <p class="closing-badge"><span class="dot" aria-hidden="true"></span>Halcyon &middot; Treasury</p>
+    <h2 class="closing-aphorism">Cleared by <span class="shout-pill">17:00</span> local.</h2>
+    <div class="closing-ctas">
+      <button class="btn" data-variant="shout" type="button">Open the ledger</button>
+      <button class="btn" data-variant="outline-on-void" type="button">Read the routing docs</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" aria-label="Footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="footer-brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>hyper-saturated</a>
+      <p class="footer-tagline">A spec-derived design system &mdash; cyber-yellow shout, deep-onyx void, glassmorphic floating data, liquid section edges.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Ledger</p>
+      <ul class="footer-list">
+        <li><a href="#">Open a route</a></li>
+        <li><a href="#">Routing rates</a></li>
+        <li><a href="#">Settlement log</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Cards</p>
+      <ul class="footer-list">
+        <li><a href="#">Corporate card</a></li>
+        <li><a href="#">Travel card</a></li>
+        <li><a href="#">Vendor card</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Docs</p>
+      <ul class="footer-list">
+        <li><a href="#">CLI &mdash; @halcyon/cli</a></li>
+        <li><a href="#">API reference</a></li>
+        <li><a href="#">Status</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>&copy; 2026 Halcyon Treasury Ltd. All routes priced mid-market.</span>
+    <span class="footer-legal-meta">hyper-saturated &middot; v2026.05</span>
+  </div>
+</footer>
+
+</body>
+</html>

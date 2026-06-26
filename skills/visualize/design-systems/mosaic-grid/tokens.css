@@ -1,0 +1,183 @@
+/**
+ * design-systems/mosaic-grid/tokens.css
+ *
+ * Hand-authored from the spec-derived Mosaic Grid design system.
+ * Sourced: 2026-05-26 from temp/refs/mosaic-grid/raw.md (Superdesign library
+ * entry "Mosaic Grid Architecture Style" by Shirley Lou). No live brand site —
+ * see DESIGN.md frontmatter (source: spec-derived).
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this system's.
+ *     Never rename, never add to, never delete from per-system.
+ *   - Brand-extras (--brand-*): the system's own design vocabulary.
+ *     Surface-named only (-canvas-paper, -ink-forest, -hairline, etc.).
+ *
+ * Register: Technical Minimalist. Paper canvas (cream #F7F7F5) + Forest primary
+ * (#1A3C2B) + Grid ink (#3A3A38) hairlines. Zero shadows. 0px or 2px radii.
+ * Decorative accent trio (coral / mint / gold) stays inside bento left-borders.
+ *
+ * Dark mode is NOT documented in the spec. The [data-theme="dark"] block is a
+ * synthesised plausible inversion (near-black canvas, paper ink, brand chromatics
+ * preserved at :root values) following AUTHORING.md "light-canonical, no
+ * documented dark mode" guidance. Don't treat the dark block as brand-truth.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+
+  --background: oklch(0.9756 0.0026 106.45);            /* Paper #F7F7F5 */
+  --foreground: oklch(0.3477 0.0034 106.58);            /* Grid #3A3A38 */
+  --card: oklch(0.9756 0.0026 106.45);                  /* Paper — cells share canvas */
+  --card-foreground: oklch(0.3477 0.0034 106.58);
+  --popover: oklch(0.9756 0.0026 106.45);
+  --popover-foreground: oklch(0.3477 0.0034 106.58);
+
+  --primary: oklch(0.3249 0.0505 159.94);               /* Forest #1A3C2B */
+  --primary-foreground: oklch(0.9756 0.0026 106.45);    /* Paper on Forest */
+  --secondary: oklch(0.3249 0.0505 159.94);             /* Forest — ghost button border + ink */
+  --secondary-foreground: oklch(0.9756 0.0026 106.45);
+  --muted: oklch(0.9756 0.0026 106.45);                 /* Paper — muted regions differ by hairline framing */
+  --muted-foreground: oklch(0.3477 0.0034 106.58);
+  --accent: oklch(0.9756 0.0026 106.45);
+  --accent-foreground: oklch(0.3477 0.0034 106.58);
+  --destructive: oklch(0.7584 0.1480 37.71);            /* Coral #FF8C69 — warm-spectrum accent */
+  --destructive-foreground: oklch(0.9756 0.0026 106.45);
+
+  --border: oklch(0.3477 0.0034 106.58);                /* Grid #3A3A38 — consumers apply 20% alpha */
+  --input: oklch(0.3477 0.0034 106.58);
+  --ring: oklch(0.3249 0.0505 159.94);                  /* tracks --primary */
+
+  --sidebar: oklch(0.9756 0.0026 106.45);
+  --sidebar-foreground: oklch(0.3477 0.0034 106.58);
+  --sidebar-primary: oklch(0.3249 0.0505 159.94);       /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.9756 0.0026 106.45);
+  --sidebar-accent: oklch(0.9756 0.0026 106.45);
+  --sidebar-accent-foreground: oklch(0.3477 0.0034 106.58);
+  --sidebar-border: oklch(0.3477 0.0034 106.58);
+  --sidebar-ring: oklch(0.3249 0.0505 159.94);          /* tracks --primary */
+
+  --chart-1: oklch(0.3249 0.0505 159.94);               /* Forest */
+  --chart-2: oklch(0.7584 0.1480 37.71);                /* Coral */
+  --chart-3: oklch(0.9232 0.1277 154.24);               /* Mint */
+  --chart-4: oklch(0.8730 0.1396 93.54);                /* Gold */
+  --chart-5: oklch(0.3477 0.0034 106.58);               /* Grid */
+
+  --radius-sm: 0px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: 'General Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Zero shadows by spec — "No box shadows" per §Style prompt. The
+   * spec is explicit: hairlines do the work of elevation. */
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. Each value cited in DESIGN.md §2.
+   * -------------------------------------------------------------- */
+
+  /* Named canvases + ink */
+  --brand-canvas-paper: oklch(0.9756 0.0026 106.45);    /* #F7F7F5 — DESIGN §2 */
+  --brand-ink-forest:   oklch(0.3249 0.0505 159.94);    /* #1A3C2B — DESIGN §2 */
+  --brand-ink-grid:     oklch(0.3477 0.0034 106.58);    /* #3A3A38 — DESIGN §2 */
+
+  /* Hairlines / dividers — spec §"Style prose": 1px at #3A3A38/20.
+   * Mosaic background uses 0.5px at #3A3A38/30. */
+  --brand-hairline-soft:   oklch(0.3477 0.0034 106.58 / 0.2);
+  --brand-hairline-strong: oklch(0.3477 0.0034 106.58 / 0.45);
+
+  /* Utility neutrals for muted labels (caption hints, swatch values,
+   * footer meta, index hints in nav). Chroma-0 — not brand identity.
+   * Replaces opacity-blended ink that drifted sub-AA on body sizes.
+   *
+   * Two variants:
+   *   --brand-muted-soft    — flips with theme (use on theme-flipping surfaces).
+   *   --brand-muted-on-paper — paper-locked (use inside canvas-locked cards). */
+  --brand-muted-soft:     oklch(0.50 0 106.58);
+  --brand-muted-on-paper: oklch(0.50 0 106.58);
+
+  /* Documented secondary brand colours (DESIGN §2 — Style prompt palette) */
+  --brand-accent-coral: oklch(0.7584 0.1480 37.71);     /* #FF8C69 */
+  --brand-accent-mint:  oklch(0.9232 0.1277 154.24);    /* #9EFFBF */
+  --brand-accent-gold:  oklch(0.8730 0.1396 93.54);     /* #F4D35E */
+
+  /* Brand radii — spec §"Style prompt": 0px or 2px sm. */
+  --brand-radius-xs: 2px;
+  --brand-radius-none: 0px;
+}
+
+/* -- Dark theme ------------------------------------------------
+ * SYNTHESISED. The spec ships no documented dark mode. This block
+ * is a plausible inversion: near-black canvas, paper ink, brand
+ * chromatics held at :root values per AUTHORING.md "light-canonical,
+ * no documented dark mode" guidance.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.18 0.004 159.94);
+  --foreground: oklch(0.9756 0.0026 106.45);            /* Paper ink on dark */
+  --card: oklch(0.18 0.004 159.94);
+  --card-foreground: oklch(0.9756 0.0026 106.45);
+  --popover: oklch(0.18 0.004 159.94);
+  --popover-foreground: oklch(0.9756 0.0026 106.45);
+
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring stay at :root —
+   * forest green is brand identity, holds across modes. */
+
+  --secondary: oklch(0.3249 0.0505 159.94);
+  --secondary-foreground: oklch(0.9756 0.0026 106.45);
+  --muted: oklch(0.18 0.004 159.94);
+  --muted-foreground: oklch(0.74 0.003 106.45);
+
+  --border: oklch(0.9756 0.0026 106.45);                /* paper hairlines on dark canvas */
+  --input: oklch(0.9756 0.0026 106.45);
+
+  --sidebar: oklch(0.18 0.004 159.94);
+  --sidebar-foreground: oklch(0.9756 0.0026 106.45);
+  --sidebar-border: oklch(0.9756 0.0026 106.45);
+
+  --brand-hairline-soft:   oklch(0.9756 0.0026 106.45 / 0.2);
+  --brand-hairline-strong: oklch(0.9756 0.0026 106.45 / 0.45);
+
+  /* Dark-mode utility neutral — lifted lightness for AA on near-black canvas. */
+  --brand-muted-soft: oklch(0.74 0 106.58);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.18 0.004 159.94);
+    --foreground: oklch(0.9756 0.0026 106.45);
+    --card: oklch(0.18 0.004 159.94);
+    --card-foreground: oklch(0.9756 0.0026 106.45);
+    --popover: oklch(0.18 0.004 159.94);
+    --popover-foreground: oklch(0.9756 0.0026 106.45);
+
+    --secondary: oklch(0.3249 0.0505 159.94);
+    --secondary-foreground: oklch(0.9756 0.0026 106.45);
+    --muted: oklch(0.18 0.004 159.94);
+    --muted-foreground: oklch(0.74 0.003 106.45);
+
+    --border: oklch(0.9756 0.0026 106.45);
+    --input: oklch(0.9756 0.0026 106.45);
+
+    --sidebar: oklch(0.18 0.004 159.94);
+    --sidebar-foreground: oklch(0.9756 0.0026 106.45);
+    --sidebar-border: oklch(0.9756 0.0026 106.45);
+
+    --brand-hairline-soft:   oklch(0.9756 0.0026 106.45 / 0.2);
+    --brand-hairline-strong: oklch(0.9756 0.0026 106.45 / 0.45);
+
+    --brand-muted-soft: oklch(0.74 0 106.58);
+  }
+}

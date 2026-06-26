@@ -1,0 +1,318 @@
+/**
+ * design-systems/claude-style/tokens.css
+ *
+ * Hand-authored from live-verified Anthropic + Claude surfaces.
+ * Sourced: 2026-05-26 via chrome-mcp inspection of
+ *   anthropic.com (+ /news, /research, /glasswing),
+ *   claude.com/product/overview (+ /pricing, /pricing/enterprise),
+ *   claude.ai/login, platform.claude.com/docs.
+ * See DESIGN.md §1 (canonical canvas) + §2 (palette) for the per-token
+ * citation record.
+ *
+ * Canonical canvas: BOTH. Anthropic (the parent corp) lives on cream
+ * `#faf9f5`; Claude (the product) lives on near-black `#141413`. Three
+ * dark canvases coexist: `#141413` (marketing canonical), `#1f1f1e`
+ * (claude.ai/login), `#262624` (platform.claude.com/docs). The cream
+ * sits in `:root`; `[data-theme="dark"]` flips to `#141413`. The two
+ * sub-canvases (`#1f1f1e`, `#262624`) are polarity-locked surfaces
+ * declared once at `:root` — they're available for surface-specific
+ * rendering but don't drive the preview canvas.
+ *
+ * Dark-mode strategy: hand-tuned to the live `#141413` canvas with
+ * `#2c2a26` elevated card. The brand coral `--primary` carries the
+ * same OKLCH across polarities (chromatic identity is polarity-
+ * invariant per AUTHORING "Dark-mode strategy"). Brand-extras (ink
+ * ladder, hairline) lift in dark for AA where the consumer is body
+ * text, never to retune chromatic identity.
+ *
+ * Two-layer contract (AUTHORING "Token naming conventions"):
+ *   - Shadcn-semantic core: names are the upstream contract, values
+ *     are Claude's. Never rename, add to, or delete from per-brand.
+ *   - Brand-extras (--brand-*): the brand's own vocabulary. Surface-
+ *     named only. Never colour-with-modifier.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are Claude's. */
+
+  --background: oklch(0.9818 0.0054 95.0986);    /* #faf9f5 — Anthropic cream canvas (live: anthropic.com body bg) */
+  --foreground: oklch(0.1908 0.0020 106.5860);   /* #141413 — Anthropic body ink + canonical Claude dark canvas */
+  --card: oklch(0.9237 0.0135 97.4518);          /* #e8e6dc — live warm-tan card on anthropic.com Glasswing rim + editorial cards */
+  --card-foreground: oklch(0.1908 0.0020 106.5860);
+  --popover: oklch(0.9237 0.0135 97.4518);       /* synthesised — mirrors --card; no popover sampled live */
+  --popover-foreground: oklch(0.1908 0.0020 106.5860);
+
+  /* --primary: live full-saturation Anthropic coral. anthropic.com
+   * "Log in to Claude" nav pill (bg rgb(198, 97, 63)) + platform.claude.com
+   * floating "Ask Docs" pill. Brand identity — do NOT retune for
+   * contrast. The lighter cookie-CTA coral lives at --brand-primary-soft. */
+  --primary: oklch(0.6078 0.1379 39.0061);       /* #c6613f saturated Crail */
+
+  /* --primary-foreground: dark ink on Claude's coral primary. Verified
+   * pair: 4.86:1 (AA body PASS). White-on-coral is 4.05:1 (AA body
+   * fail, large-text-bold pass). Brand ships dark-ink-on-coral on the
+   * "Log in to Claude" nav pill and the cookie CTA — matches our
+   * choice. Preview consumers shipping primary buttons at body sizes
+   * are fine; the dispatcher qualifies large-text-bold consumers in
+   * Step 3 as the safety belt. */
+  --primary-foreground: oklch(0.1500 0.0042 84.5898);
+
+  --secondary: oklch(0.9237 0.0135 97.4518);     /* #e8e6dc — mirrors --card per DESIGN.md §2 */
+  --secondary-foreground: oklch(0.1908 0.0020 106.5860);
+  --muted: oklch(0.9485 0.0109 95.1665);         /* #f0eee6 — live inset cream on anthropic.com/news press rows */
+  --muted-foreground: oklch(0.5242 0.0096 91.5605); /* current value — pair × --background = 5.13:1, AA PASS, no retune */
+  --accent: oklch(0.8917 0.0213 79.0861);        /* #e3dacc — live warm-tan card accent (anthropic.com "Latest releases" tan card). Replaces upstream teal — no teal observed anywhere live. */
+  --accent-foreground: oklch(0.1908 0.0020 106.5860);
+  --destructive: oklch(0.5704 0.1649 23.9581);   /* synthesised — no destructive sampled live; retained from upstream */
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.8917 0.0213 79.0861);        /* #e3dacc — live newsroom row hairline; same hue as --accent */
+  --input: oklch(0.8917 0.0213 79.0861);         /* matches --border */
+  --ring: oklch(0.6078 0.1379 39.0061);          /* tracks --primary */
+
+  --sidebar: oklch(0.9485 0.0109 95.1665);       /* matches --muted */
+  --sidebar-foreground: oklch(0.1908 0.0020 106.5860);
+  --sidebar-primary: oklch(0.6078 0.1379 39.0061);  /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.1500 0.0042 84.5898);  /* matches --primary-foreground */
+  --sidebar-accent: oklch(0.8917 0.0213 79.0861); /* matches --accent */
+  --sidebar-accent-foreground: oklch(0.1908 0.0020 106.5860);
+  --sidebar-border: oklch(0.8917 0.0213 79.0861); /* matches --border */
+  --sidebar-ring: oklch(0.6078 0.1379 39.0061);  /* tracks --primary */
+
+  --chart-1: oklch(0.8100 0.1131 39.1453);
+  --chart-2: oklch(0.7100 0.1131 39.1453);
+  --chart-3: oklch(0.6100 0.1131 39.1453);
+  --chart-4: oklch(0.5100 0.1131 39.1453);
+  --chart-5: oklch(0.4200 0.1131 39.1453);
+
+  /* -- Radii ----------------------------------------------------- */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --brand-radius-xs: 4px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: StyreneB, Inter, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: JetBrains Mono, ui-monospace, monospace;
+  --font-display: Copernicus, Tiempos Headline, serif;
+
+  --text-display: 64px;
+  --text-heading: 48px;
+  --text-title: 18px;
+  --text-base: 16px;
+  --leading-tight: 1.05;
+  --leading-normal: 1.55;
+
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* -- Shadows --------------------------------------------------- */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* -- Brand-extras --------------------------------------------- */
+  /* Surface-named only. See AUTHORING "Token naming conventions". */
+
+  /* Brand primary lineage. --primary-soft is the lighter cookie-CTA
+   * coral observed on anthropic.com cookie banner + small coral pills
+   * + the "Ask Claude" composer button on dark cards. */
+  --brand-primary-soft: oklch(0.6724 0.1308 38.7559);     /* #d97757 — live softer coral */
+  /* --brand-primary-active: synthesised — no live press/hover state
+   * sampled in this cycle. Retained from upstream for downstream
+   * consumers. */
+  --brand-primary-active: oklch(0.5518 0.1133 38.4596);   /* synthesised */
+  --brand-primary-disabled: oklch(0.9072 0.0122 67.6727); /* synthesised */
+
+  /* Polarity-locked dark canvases. The three near-black surfaces are
+   * declared once at :root so they're available regardless of theme.
+   * --brand-canvas-dark-deep drives [data-theme="dark"]; the other two
+   * are surface-specific rendering primitives. */
+  --brand-canvas-dark-deep: oklch(0.1908 0.0020 106.5860); /* #141413 — Claude marketing canonical (claude.com/pricing, /product/overview, /pricing/enterprise, anthropic.com/glasswing) */
+  --brand-canvas-dark: oklch(0.2389 0.0019 106.5407);     /* #1f1f1e — claude.ai/login canvas */
+  --brand-canvas-docs: oklch(0.2679 0.0036 106.6428);     /* #262624 — platform.claude.com/docs canvas */
+
+  /* Elevated panel on dark. Sits one step above --brand-canvas-dark-deep,
+   * used for pricing cards / auth card / dark editorial cards. NOT the
+   * docs canvas (--brand-canvas-docs is the docs canvas; this is a card
+   * surface inside the marketing canvas). */
+  --brand-surface-dark-elevated: oklch(0.2572 0.0063 78.2148);
+
+  /* Polarity-locked light/cream surface (mirrors --background but
+   * surface-named for components that want canvas regardless of theme
+   * flip). */
+  --brand-surface-cream-strong: oklch(0.9092 0.0207 81.7791);
+
+  /* Cream-on-dark ink (polarity-locked). Used on every Claude dark
+   * surface for primary body. */
+  --brand-on-dark: oklch(0.9818 0.0054 95.0986);          /* #faf9f5 — live h1 on claude.com/product/overview */
+  /* Slightly cooler cream observed only on claude.ai/login body. */
+  --brand-on-dark-soft: oklch(0.8066 0.0140 97.4858);     /* #c2c0b6 — live top-nav muted link on claude.com/product/overview */
+  /* Small-caps eyebrow / nav-dropdown labels on dark canvas. */
+  --brand-on-dark-faint: oklch(0.6855 0.0117 95.2290);    /* #9c9a92 — live PLATFORM / DEVELOPER JOURNEY eyebrow on platform.claude.com */
+
+  /* Ink ladder — warm-neutral foreground stack on cream canvas. All
+   * live-observed values. */
+  --brand-ink-strong: oklch(0.3590 0.0051 106.6524);      /* #3d3d3a — secondary body inside cream cards (anthropic.com) */
+  --brand-ink-mute: oklch(0.6188 0.0104 100.0882);        /* #87867f — date/category metadata text on article cards. Live-observed; NOT the AA-override (see --brand-muted-soft). */
+  --brand-ink-subtle: oklch(0.7499 0.0129 96.4777);       /* #b0aea5 — dimmest editorial caption (anthropic.com) */
+
+  /* Compat alias retained for downstream consumers — same value as
+   * --brand-ink-strong; the new surface-named token is preferred. */
+  --brand-body: oklch(0.3590 0.0051 106.6524);
+  --brand-body-strong: oklch(0.2637 0.0037 106.6475);
+
+  /* Utility neutral (chroma ≈ 0) — AA-tuned for consumers of
+   * --muted-foreground that need to clear 4.5:1 against the cream
+   * canvas at body sizes. NOT a live-observed brand value: the
+   * live-observed mute is --brand-ink-mute (#87867f). This token is a
+   * utility-neutral override per the AUTHORING "Brand identity vs
+   * utility neutrals" exception — chroma is near-zero so retuning is
+   * in-bounds. */
+  --brand-muted-soft: oklch(0.5000 0.0136 91.5842);
+
+  /* Hairlines / dividers */
+  --brand-hairline-soft: oklch(0.8917 0.0213 79.0861);    /* #e3dacc — live newsroom row separators */
+
+  /* Documented secondary brand colours — Claude exposes none at full
+   * chroma. Coral is the only saturated brand hue. The tokens below
+   * are synthesised inheritance from upstream for downstream chart /
+   * semantic consumers; not live brand values. */
+  --brand-accent-amber: oklch(0.7716 0.1212 67.3858);     /* synthesised — no saturated amber observed live */
+  --brand-success: oklch(0.5949 0.1377 162.9528);         /* synthesised — no success green observed live */
+  --brand-warning: oklch(0.7686 0.1647 70.0804);          /* synthesised — no warning amber observed live */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Hand-tuned to Claude's live dark surfaces. --background lands on
+ * the canonical marketing canvas #141413; --card sits one step above
+ * at #2c2a26 (elevated panel). The brand coral --primary carries the
+ * SAME OKLCH as :root — chromatic identity is polarity-invariant.
+ * Polarity-locked tokens (--brand-canvas-dark-deep, --brand-on-dark,
+ * --brand-on-dark-soft, --brand-on-dark-faint) stay at :root values.
+ * Utility neutrals (--brand-body, --brand-muted-soft) lift for AA on
+ * the dark canvas.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1908 0.0020 106.5860);    /* #141413 — canonical Claude marketing canvas */
+  --foreground: oklch(0.9818 0.0054 95.0986);     /* #faf9f5 — live cream ink on dark */
+  --card: oklch(0.2572 0.0063 78.2148);           /* #2c2a26 — elevated panel on the marketing canvas */
+  --card-foreground: oklch(0.9818 0.0054 95.0986);
+  --popover: oklch(0.2572 0.0063 78.2148);
+  --popover-foreground: oklch(0.9818 0.0054 95.0986);
+
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring stay at the
+   * same OKLCH as :root — chromatic identity is polarity-invariant.
+   * Brand coral renders identically across themes. */
+  --primary: oklch(0.6078 0.1379 39.0061);
+  --primary-foreground: oklch(0.1500 0.0042 84.5898);  /* dark ink on coral, same as :root (pair = 4.86:1 AA PASS) */
+
+  --secondary: oklch(0.2572 0.0063 78.2148);      /* matches --card */
+  --secondary-foreground: oklch(0.9818 0.0054 95.0986);
+  --muted: oklch(0.2389 0.0019 106.5407);         /* one step above --background, near --brand-canvas-dark */
+  --muted-foreground: oklch(0.8066 0.0140 97.4858); /* lifted to --brand-on-dark-soft family for AA on dark */
+  --accent: oklch(0.2679 0.0036 106.6428);        /* one step above --card, near --brand-canvas-docs */
+  --accent-foreground: oklch(0.9818 0.0054 95.0986);
+  --destructive: oklch(0.6500 0.1649 23.9581);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.2700 0.0050 95);              /* hairline-on-dark approximation of the live 10%-opacity cream rule */
+  --input: oklch(0.2700 0.0050 95);
+  --ring: oklch(0.6078 0.1379 39.0061);           /* tracks --primary */
+
+  --sidebar: oklch(0.2389 0.0019 106.5407);
+  --sidebar-foreground: oklch(0.9818 0.0054 95.0986);
+  --sidebar-primary: oklch(0.6078 0.1379 39.0061);
+  --sidebar-primary-foreground: oklch(0.1500 0.0042 84.5898);
+  --sidebar-accent: oklch(0.2572 0.0063 78.2148);
+  --sidebar-accent-foreground: oklch(0.9818 0.0054 95.0986);
+  --sidebar-border: oklch(0.2700 0.0050 95);
+  --sidebar-ring: oklch(0.6078 0.1379 39.0061);
+
+  --chart-1: oklch(0.8100 0.1131 39.1453);
+  --chart-2: oklch(0.7100 0.1131 39.1453);
+  --chart-3: oklch(0.6100 0.1131 39.1453);
+  --chart-4: oklch(0.5100 0.1131 39.1453);
+  --chart-5: oklch(0.4200 0.1131 39.1453);
+
+  /* Brand-extras — only utility neutrals + theme-flipping surfaces
+   * override. Polarity-locked tokens (--brand-canvas-dark-deep,
+   * --brand-canvas-dark, --brand-canvas-docs, --brand-on-dark,
+   * --brand-on-dark-soft, --brand-on-dark-faint, --brand-ink-mute,
+   * --brand-ink-subtle, --brand-primary-soft, --brand-accent-amber,
+   * --brand-success, --brand-warning) stay at :root values. */
+  --brand-body: oklch(0.8600 0.0050 95);          /* utility neutral lifted for dark AA */
+  --brand-body-strong: oklch(0.9500 0.0050 95);
+  --brand-ink-strong: oklch(0.9500 0.0050 95);    /* the "secondary body on dark card" role inverts */
+  --brand-muted-soft: oklch(0.6500 0.0100 90);    /* utility-neutral AA-override for dark */
+  --brand-hairline-soft: oklch(0.2700 0.0050 95); /* dim hairline on dark */
+  --brand-surface-cream-strong: oklch(0.3000 0.0150 70); /* polarity-flipping cream-strong surface */
+  --brand-surface-dark-elevated: oklch(0.3000 0.0080 80); /* one more step up on the elevated ladder in dark */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1908 0.0020 106.5860);
+    --foreground: oklch(0.9818 0.0054 95.0986);
+    --card: oklch(0.2572 0.0063 78.2148);
+    --card-foreground: oklch(0.9818 0.0054 95.0986);
+    --popover: oklch(0.2572 0.0063 78.2148);
+    --popover-foreground: oklch(0.9818 0.0054 95.0986);
+
+    --primary: oklch(0.6078 0.1379 39.0061);
+    --primary-foreground: oklch(0.1500 0.0042 84.5898);
+
+    --secondary: oklch(0.2572 0.0063 78.2148);
+    --secondary-foreground: oklch(0.9818 0.0054 95.0986);
+    --muted: oklch(0.2389 0.0019 106.5407);
+    --muted-foreground: oklch(0.8066 0.0140 97.4858);
+    --accent: oklch(0.2679 0.0036 106.6428);
+    --accent-foreground: oklch(0.9818 0.0054 95.0986);
+    --destructive: oklch(0.6500 0.1649 23.9581);
+    --destructive-foreground: oklch(1 0 0);
+
+    --border: oklch(0.2700 0.0050 95);
+    --input: oklch(0.2700 0.0050 95);
+    --ring: oklch(0.6078 0.1379 39.0061);
+
+    --sidebar: oklch(0.2389 0.0019 106.5407);
+    --sidebar-foreground: oklch(0.9818 0.0054 95.0986);
+    --sidebar-primary: oklch(0.6078 0.1379 39.0061);
+    --sidebar-primary-foreground: oklch(0.1500 0.0042 84.5898);
+    --sidebar-accent: oklch(0.2572 0.0063 78.2148);
+    --sidebar-accent-foreground: oklch(0.9818 0.0054 95.0986);
+    --sidebar-border: oklch(0.2700 0.0050 95);
+    --sidebar-ring: oklch(0.6078 0.1379 39.0061);
+
+    --chart-1: oklch(0.8100 0.1131 39.1453);
+    --chart-2: oklch(0.7100 0.1131 39.1453);
+    --chart-3: oklch(0.6100 0.1131 39.1453);
+    --chart-4: oklch(0.5100 0.1131 39.1453);
+    --chart-5: oklch(0.4200 0.1131 39.1453);
+
+    --brand-body: oklch(0.8600 0.0050 95);
+    --brand-body-strong: oklch(0.9500 0.0050 95);
+    --brand-ink-strong: oklch(0.9500 0.0050 95);
+    --brand-muted-soft: oklch(0.6500 0.0100 90);
+    --brand-hairline-soft: oklch(0.2700 0.0050 95);
+    --brand-surface-cream-strong: oklch(0.3000 0.0150 70);
+    --brand-surface-dark-elevated: oklch(0.3000 0.0080 80);
+  }
+}

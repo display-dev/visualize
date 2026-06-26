@@ -1,0 +1,1223 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23181d26'/%3E%3Crect x='6' y='14' width='6' height='6' rx='1' fill='%23fcab79'/%3E%3Crect x='14' y='14' width='6' height='6' rx='1' fill='%23a8d8c4'/%3E%3Crect x='22' y='14' width='4' height='6' rx='1' fill='%23f4d35e'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Editorial workflow software — white canvas + near-black ink + full-bleed signature cards in coral / forest / dark navy + cream callout band + pastel demo-grid surfaces. Haas at modest weights.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Display:wght@400;475;500;575&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Airtable-style preview shell — editorial workflow surface.
+   White canvas + near-black ink (Haas at 400/500, never bolder than
+   500). Brand voltage from full-bleed signature cards in coral /
+   forest / dark navy + cream callout + pastel demo-grid surfaces.
+   No atmospheric gradient on the hero, no hover styling. Pricing
+   sub-system runs Inter Display + pill buttons as a deliberate
+   dialect. Halcyon-themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Always-white signature canvas (database tile, pricing tiles).
+ * Locked white in both polarities via --brand-canvas-light pattern
+ * so the signature surface — Airtable's defining white workspace —
+ * stays its registered polarity regardless of viewer theme. */
+.canvas-white {
+  background: oklch(1 0 0);
+  color: var(--brand-pricing-ink);
+}
+.canvas-white .section-title,
+.canvas-white .section-lede,
+.canvas-white .section-eyebrow {
+  color: var(--brand-pricing-ink);
+}
+.canvas-white .section-lede { opacity: 0.82; }
+.canvas-white .section-eyebrow { opacity: 0.85; }
+
+/* -- Always-cream callout surface ("The path to 10× ...") -- */
+.canvas-cream {
+  background: var(--brand-signature-cream);
+  color: var(--brand-pricing-ink);
+}
+.canvas-cream .section-title,
+.canvas-cream .section-lede,
+.canvas-cream .section-eyebrow {
+  color: var(--brand-pricing-ink);
+}
+.canvas-cream .section-lede { opacity: 0.85; }
+.canvas-cream .section-eyebrow { opacity: 0.85; }
+
+/* -- Always-navy signature card surface (mid-page CTA voltage) -- */
+.canvas-navy {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+}
+
+/* -- Top nav (light, always white per DESIGN.md "nav stays light on
+ *    every page" — even over signature dark sections) -- */
+.topnav {
+  background: oklch(1 0 0);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  color: var(--brand-pricing-ink);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background: var(--brand-pricing-ink);
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  padding: 4px;
+}
+.brand-glyph::before,
+.brand-glyph::after {
+  content: "";
+  border-radius: 1px;
+}
+.brand-glyph::before { background: var(--brand-signature-peach); }
+.brand-glyph::after  { background: var(--brand-signature-mint); }
+.brand-glyph-cell { background: var(--brand-signature-yellow); border-radius: 1px; }
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 400;
+  flex: 1;
+  margin-left: 2rem;
+  /* Always-dark ink with opacity rather than --brand-body, because the
+   * topnav is polarity-locked white — --brand-body lifts in dark and
+   * would be light-gray on white. */
+  color: var(--brand-pricing-ink);
+  opacity: 0.66;
+}
+.topnav-links:hover { opacity: 1; }
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--brand-pricing-ink); }
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 14px;
+}
+.topnav-actions a {
+  color: var(--brand-pricing-ink);
+  text-decoration: none;
+  font-weight: 500;
+}
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (44 px touch, 12 px radius primary) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--brand-info-border);
+  outline-offset: 3px;
+}
+/* Primary: near-black filled pill on white surfaces. Polarity-locked
+ * via --brand-pricing-ink (always near-black) so the primary CTA
+ * keeps its brand register on both light and dark editorial canvases. */
+.btn[data-variant="primary"] {
+  background: var(--brand-pricing-ink);
+  color: var(--brand-on-dark);
+  border-color: var(--brand-pricing-ink);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-active); border-color: var(--brand-primary-active); }
+/* Secondary: white outlined, paired with primary. Locked white via
+ * --brand-canvas-light tokens so it stays white in both polarities. */
+.btn[data-variant="secondary"] {
+  background: oklch(1 0 0);
+  color: var(--brand-pricing-ink);
+  border-color: var(--brand-pricing-ink);
+}
+.btn[data-variant="secondary"]:hover { background: var(--brand-pricing-ink); color: var(--brand-on-dark); }
+/* On-dark variant: still white pill but used on signature coral /
+ * forest / dark navy cards. */
+.btn[data-variant="on-dark"] {
+  background: oklch(1 0 0);
+  color: var(--brand-pricing-ink);
+  border-color: oklch(1 0 0);
+}
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--brand-pricing-ink);
+  border-color: transparent;
+}
+/* Pricing pill — sub-system signal, only used inside pricing block. */
+.btn[data-variant="pricing-pill"] {
+  background: oklch(1 0 0);
+  color: var(--brand-pricing-ink);
+  border-color: var(--brand-pricing-ink);
+  border-radius: var(--brand-radius-pill);
+  padding: 0 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 475;
+}
+.btn[data-variant="pricing-pill"]:hover { background: var(--brand-pricing-ink); color: var(--brand-on-dark); }
+.btn[data-size="lg"] { min-height: 48px; padding: 0 1.75rem; font-size: 16px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (white canvas, no atmospheric backdrop — per the brand's
+ *    "trust whitespace as the hero atmosphere" rule). -- */
+.hero {
+  padding: 6rem 1.5rem 4rem;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 1.5rem;
+}
+.hero-eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-signature-coral);
+}
+.hero-display {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 22ch;
+}
+.hero-lede {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body);
+  max-width: 38rem;
+  margin: 0 0 2.5rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* -- Signature database table — Airtable's defining surface --
+ * Locked to .canvas-white so the grid stays its registered polarity
+ * (white tile, near-black ink) regardless of viewer theme. */
+.db-shell {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: oklch(1 0 0);
+  overflow: hidden;
+  box-shadow: 0 1px 3px hsl(0 0% 0% / 0.05);
+}
+.db-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--brand-surface-strong);
+  background: oklch(0.9842 0.0034 247.8578);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--brand-pricing-ink);
+  opacity: 1;
+}
+.db-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  color: var(--brand-pricing-ink);
+  opacity: 0.66;
+  cursor: pointer;
+}
+.db-tab[data-active] {
+  background: oklch(1 0 0);
+  opacity: 1;
+  box-shadow: 0 1px 2px hsl(0 0% 0% / 0.06);
+}
+.db-tab-glyph {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+}
+.db-tab[data-active] .db-tab-glyph { background: var(--brand-signature-coral); }
+.db-tab:not([data-active]) .db-tab-glyph { background: oklch(0.78 0.01 262); }
+.db-toolbar {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-pricing-ink);
+  opacity: 0.66;
+}
+.db-toolbar-chip {
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+  background: oklch(1 0 0);
+  border: 1px solid var(--border);
+}
+.db-grid {
+  display: grid;
+  grid-template-columns: 32px 2fr 1.25fr 1.25fr 1fr 1fr;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--brand-pricing-ink);
+}
+.db-header {
+  display: contents;
+}
+.db-header > div {
+  padding: 0.625rem 0.875rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-pricing-ink);
+  opacity: 0.7;
+  border-bottom: 1px solid var(--border);
+  background: oklch(1 0 0);
+}
+.db-row {
+  display: contents;
+}
+.db-row > div {
+  padding: 0.75rem 0.875rem;
+  border-bottom: 1px solid var(--border);
+  background: oklch(1 0 0);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.db-row:last-child > div { border-bottom: none; }
+.db-row-index {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--brand-pricing-ink);
+  opacity: 0.65;
+  justify-content: center;
+}
+.db-row-name { font-weight: 500; }
+.db-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.625rem;
+  border-radius: var(--brand-radius-pill);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-pricing-ink);
+}
+.db-chip[data-tone="peach"]   { background: var(--brand-signature-peach); }
+.db-chip[data-tone="mint"]    { background: var(--brand-signature-mint); }
+.db-chip[data-tone="yellow"]  { background: var(--brand-signature-yellow); }
+.db-chip[data-tone="mustard"] { background: var(--brand-signature-mustard); color: var(--brand-pricing-ink); }
+.db-chip[data-tone="coral"]   { background: var(--brand-signature-coral); color: var(--brand-on-dark); }
+.db-chip[data-tone="cream"]   { background: var(--brand-signature-cream); }
+.db-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 600;
+  display: inline-grid;
+  place-items: center;
+  color: var(--brand-on-dark);
+}
+.db-avatar[data-tone="coral"] { background: var(--brand-signature-coral); }
+.db-avatar[data-tone="forest"] { background: var(--brand-signature-forest); }
+.db-avatar[data-tone="navy"]   { background: var(--brand-surface-dark); }
+.db-date {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 12px;
+  opacity: 0.72;
+}
+
+.signature-section {
+  padding: 4rem 1.5rem 6rem;
+}
+.signature-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.signature-header {
+  max-width: 40rem;
+}
+
+/* -- Section frame -- */
+.section {
+  padding: 5rem 1.5rem;
+}
+.section[data-tight] { padding: 3.5rem 1.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: oklch(1 0 0);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--brand-pricing-ink);
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--brand-radius-xs);
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--brand-pricing-ink);
+}
+.swatch-role {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* Swatch tiles are polarity-locked white via .canvas-white parent +
+   * the explicit oklch(1 0 0) bg above. Use always-dark ink, not
+   * --brand-body (which lifts in dark and would invert against white). */
+  color: var(--brand-pricing-ink);
+  opacity: 0.66;
+}
+
+/* -- Token-demo: surface ladder (5 surfaces — Airtable's full polarity) -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 1080px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--border);
+}
+/* Polarity-locked 5-surface demo. Each card shows a fixed brand-palette
+ * value regardless of viewer theme. */
+.ladder-step[data-step="white"]  { background: oklch(1 0 0); color: var(--brand-pricing-ink); }
+.ladder-step[data-step="cream"]  { background: var(--brand-signature-cream); color: var(--brand-pricing-ink); }
+.ladder-step[data-step="coral"]  { background: var(--brand-signature-coral); color: var(--brand-on-dark); border-color: var(--brand-signature-coral); }
+.ladder-step[data-step="forest"] { background: var(--brand-signature-forest); color: var(--brand-on-dark); border-color: var(--brand-signature-forest); }
+.ladder-step[data-step="navy"]   { background: var(--brand-surface-dark); color: var(--brand-on-dark); border-color: var(--brand-surface-dark); }
+.ladder-num {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+}
+.ladder-role {
+  font-size: 13px;
+  opacity: 0.86;
+  margin-top: auto;
+  line-height: 1.4;
+}
+
+/* -- Pricing sub-system (Inter Display + pill buttons — deliberate
+ *    dialect signaling commercial precision). Polarity-locked to
+ *    white tiles + featured cream tier so the two-track read holds
+ *    regardless of theme. -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: oklch(1 0 0);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--brand-pricing-ink);
+}
+.pricing-card[data-featured] {
+  background: var(--brand-signature-cream);
+  border-color: var(--brand-signature-cream);
+}
+.pricing-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 475;
+  letter-spacing: -0.01em;
+  color: var(--brand-pricing-ink);
+  margin: 0;
+}
+.pricing-price {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 475;
+  letter-spacing: -0.03em;
+  color: var(--brand-pricing-ink);
+  line-height: 1;
+}
+.pricing-tagline {
+  font-size: 13px;
+  color: var(--brand-pricing-ink);
+  opacity: 0.7;
+  margin: 0;
+  line-height: 1.45;
+  min-height: 2.8em;
+}
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid hsl(0 0% 0% / 0.12);
+  padding-top: 1rem;
+  font-size: 13px;
+  color: var(--brand-pricing-ink);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "✓";
+  color: var(--brand-pricing-ink);
+  font-weight: 500;
+  flex-shrink: 0;
+  width: 14px;
+}
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.type-display {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; line-height: 1.45; color: var(--brand-body); }
+.type-mono { font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: var(--brand-body); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  width: 100%;
+}
+.cmp-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  align-items: center;
+}
+.cmp-chips .db-chip { padding: 0.25rem 0.75rem; }
+
+/* -- Mid-page navy signature CTA (voltage moment, polarity-locked) -- */
+.navy-cta {
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 3rem 1.5rem 0;
+}
+.navy-cta-card {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2.5rem;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+@media (max-width: 880px) { .navy-cta-card { grid-template-columns: 1fr; gap: 1.5rem; padding: 2.5rem 1.75rem; } }
+.navy-cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--brand-on-dark);
+  margin: 0 0 0.75rem;
+}
+.navy-cta-lede {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--brand-on-dark);
+  opacity: 0.78;
+  margin: 0;
+  max-width: 32rem;
+}
+.navy-cta-actions { display: flex; gap: 0.625rem; flex-wrap: wrap; justify-content: flex-end; }
+@media (max-width: 880px) { .navy-cta-actions { justify-content: flex-start; } }
+
+/* -- Coral + forest signature pair, demo-grid style -- */
+.signature-pair {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+@media (max-width: 880px) { .signature-pair { grid-template-columns: 1fr; } }
+.signature-card {
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 18rem;
+}
+.signature-card[data-tone="coral"]  { background: var(--brand-signature-coral); color: var(--brand-on-dark); }
+.signature-card[data-tone="forest"] { background: var(--brand-signature-forest); color: var(--brand-on-dark); }
+.signature-card-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.85;
+}
+.signature-card-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  margin: 0;
+}
+.signature-card-body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--brand-on-dark);
+  opacity: 0.82;
+  margin: 0;
+  flex: 1;
+}
+.signature-card-cta { margin-top: 0.5rem; }
+
+/* -- Light gray CTA band ("Start building with Halcyon"). The band's bg
+ * (--brand-surface-strong) flips with theme (light gray ↔ dark gray), so
+ * text uses --foreground so it flips alongside the surface. -- */
+.cta-band {
+  background: var(--brand-surface-strong);
+  color: var(--foreground);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.cta-band-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 36rem;
+}
+.cta-band-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  margin: 0;
+}
+.cta-band-lede {
+  font-size: 15px;
+  line-height: 1.5;
+  opacity: 0.78;
+  margin: 0;
+}
+
+/* -- Footer (light, always-white per DESIGN.md) -- */
+.footer {
+  background: oklch(1 0 0);
+  color: var(--brand-pricing-ink);
+  border-top: 1px solid var(--border);
+  padding: 3rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline {
+  font-size: 13px;
+  color: var(--brand-pricing-ink);
+  opacity: 0.7;
+  line-height: 1.55;
+  margin: 0;
+}
+.footer-col-title {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-pricing-ink);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a {
+  font-size: 13px;
+  color: var(--brand-pricing-ink);
+  opacity: 0.72;
+  text-decoration: none;
+}
+.footer-list a:hover { opacity: 1; }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-pricing-ink);
+  opacity: 0.66;
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true">
+        <span class="brand-glyph-cell"></span>
+        <span class="brand-glyph-cell"></span>
+      </span>
+      __DESIGN_SYSTEM_NAME__
+    </a>
+    <div class="topnav-links">
+      <a href="#">Platform</a>
+      <a href="#">Solutions</a>
+      <a href="#">Resources</a>
+      <a href="#">Enterprise</a>
+      <a href="#">Pricing</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Book demo</a>
+      <button class="btn" data-variant="primary" type="button">Sign up for free</button>
+      <a href="#">Log in</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow"><span class="hero-eyebrow-dot" aria-hidden="true"></span>Halcyon · Workspace</p>
+    <h1 class="hero-display">Editorial workspace for the operating team.</h1>
+    <p class="hero-lede">Halcyon's product, engineering, design, and operations teams keep specs, calendars, and customer threads on a single workspace — quietly editorial, never noisy.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Sign up for free</button>
+      <button class="btn" data-variant="secondary" data-size="lg" type="button">Book demo</button>
+    </div>
+  </div>
+</header>
+
+<section class="signature-section canvas-white" aria-label="Database signature surface">
+  <div class="signature-inner">
+    <div class="signature-header">
+      <p class="section-eyebrow">Workspace · Grid view</p>
+      <h2 class="section-title">A canvas that looks like a database, runs like a spreadsheet.</h2>
+      <p class="section-lede">One workspace, four views. The engineering team sees their sprint as a grid; design sees the same records as a gallery; operations watches the calendar.</p>
+    </div>
+
+    <div class="db-shell" role="figure" aria-label="Halcyon engineering tracker — grid view">
+      <div class="db-tabs">
+        <span class="db-tab" data-active><span class="db-tab-glyph"></span>Grid</span>
+        <span class="db-tab"><span class="db-tab-glyph"></span>Calendar</span>
+        <span class="db-tab"><span class="db-tab-glyph"></span>Kanban</span>
+        <span class="db-tab"><span class="db-tab-glyph"></span>Gallery</span>
+        <span class="db-toolbar">
+          <span class="db-toolbar-chip">Filter · 2</span>
+          <span class="db-toolbar-chip">Group · Status</span>
+          <span class="db-toolbar-chip">Sort · Date</span>
+        </span>
+      </div>
+      <div class="db-grid">
+        <div class="db-header">
+          <div></div>
+          <div>Task</div>
+          <div>Status</div>
+          <div>Owner</div>
+          <div>Priority</div>
+          <div>Updated</div>
+        </div>
+        <div class="db-row">
+          <div class="db-row-index">1</div>
+          <div class="db-row-name">Auth bootstrap refactor</div>
+          <div><span class="db-chip" data-tone="peach">In review</span></div>
+          <div><span class="db-avatar" data-tone="coral">JK</span> Jordan K.</div>
+          <div><span class="db-chip" data-tone="mint">P1</span></div>
+          <div class="db-date">Today</div>
+        </div>
+        <div class="db-row">
+          <div class="db-row-index">2</div>
+          <div class="db-row-name">Q3 design crit prep</div>
+          <div><span class="db-chip" data-tone="mustard">Drafting</span></div>
+          <div><span class="db-avatar" data-tone="forest">ML</span> Morgan L.</div>
+          <div><span class="db-chip" data-tone="cream">P2</span></div>
+          <div class="db-date">Tomorrow</div>
+        </div>
+        <div class="db-row">
+          <div class="db-row-index">3</div>
+          <div class="db-row-name">Customer interview synthesis</div>
+          <div><span class="db-chip" data-tone="mint">Shipped</span></div>
+          <div><span class="db-avatar" data-tone="coral">JK</span> Jordan K.</div>
+          <div><span class="db-chip" data-tone="mint">P1</span></div>
+          <div class="db-date">2d ago</div>
+        </div>
+        <div class="db-row">
+          <div class="db-row-index">4</div>
+          <div class="db-row-name">Pricing experiment results</div>
+          <div><span class="db-chip" data-tone="yellow">Blocked</span></div>
+          <div><span class="db-avatar" data-tone="forest">ML</span> Morgan L.</div>
+          <div><span class="db-chip" data-tone="coral">P0</span></div>
+          <div class="db-date">3d ago</div>
+        </div>
+        <div class="db-row">
+          <div class="db-row-index">5</div>
+          <div class="db-row-name">Onboarding flow rewrite</div>
+          <div><span class="db-chip" data-tone="peach">In review</span></div>
+          <div><span class="db-avatar" data-tone="coral">JK</span> Jordan K.</div>
+          <div><span class="db-chip" data-tone="cream">P2</span></div>
+          <div class="db-date">5d ago</div>
+        </div>
+        <div class="db-row">
+          <div class="db-row-index">6</div>
+          <div class="db-row-name">Vendor renewal — Postmark</div>
+          <div><span class="db-chip" data-tone="mint">Shipped</span></div>
+          <div><span class="db-avatar" data-tone="navy">JK</span> Jordan K.</div>
+          <div><span class="db-chip" data-tone="cream">P3</span></div>
+          <div class="db-date">1w ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="signature-pair">
+      <article class="signature-card" data-tone="coral">
+        <span class="signature-card-eyebrow">Signature · Coral</span>
+        <h3 class="signature-card-title">Production work in prototype speed.</h3>
+        <p class="signature-card-body">The coral signature card is Halcyon's biggest brand moment — full-bleed dark coral with white type, used once per scroll to break the editorial rhythm. The button below is the same white outline pill it always is on dark surfaces.</p>
+        <div class="signature-card-cta"><button class="btn" data-variant="on-dark" type="button">Read the manifesto</button></div>
+      </article>
+      <article class="signature-card" data-tone="forest">
+        <span class="signature-card-eyebrow">Signature · Forest</span>
+        <h3 class="signature-card-title">Deep green register.</h3>
+        <p class="signature-card-body">Forest sits alongside coral as the second voltage surface — usually next to a small product UI fragment in a two-card cluster.</p>
+        <div class="signature-card-cta"><button class="btn" data-variant="on-dark" type="button">Explore</button></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Near-black ink, signature voltage.</h2>
+      <p class="section-lede">The editorial body runs near-black ink on white. Brand voltage is delegated to the signature surface family — coral, forest, navy, cream, plus four pastel demo-grid surfaces.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: oklch(1 0 0);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-pricing-ink);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-pricing-ink</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Body</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-link);"></div><div class="swatch-role">Link</div><div class="swatch-name">--brand-link</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-signature-coral);"></div><div class="swatch-role">Signature</div><div class="swatch-name">--brand-signature-coral</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-signature-forest);"></div><div class="swatch-role">Signature</div><div class="swatch-name">--brand-signature-forest</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-dark);"></div><div class="swatch-role">Signature</div><div class="swatch-name">--brand-surface-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-signature-cream);"></div><div class="swatch-role">Callout</div><div class="swatch-name">--brand-signature-cream</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-signature-peach);"></div><div class="swatch-role">Demo-grid</div><div class="swatch-name">--brand-signature-peach</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-signature-mint);"></div><div class="swatch-role">Demo-grid</div><div class="swatch-name">--brand-signature-mint</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-signature-yellow);"></div><div class="swatch-role">Demo-grid</div><div class="swatch-name">--brand-signature-yellow</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-signature-mustard);"></div><div class="swatch-role">Demo-grid</div><div class="swatch-name">--brand-signature-mustard</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces · Five polarities</p>
+      <h2 class="section-title">Five polarities, one rhythm.</h2>
+      <p class="section-lede">Editorial pages rotate through white → cream → coral → forest → navy. The canvas resets between every signature surface so two of the same polarity never sit next to each other.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="white">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">editorial body · default page floor</span>
+      </div>
+      <div class="ladder-step" data-step="cream">
+        <span class="ladder-num">Callout</span>
+        <span class="ladder-name">--brand-signature-cream</span>
+        <span class="ladder-role">soft beige interlude · stat callouts</span>
+      </div>
+      <div class="ladder-step" data-step="coral">
+        <span class="ladder-num">Signature</span>
+        <span class="ladder-name">--brand-signature-coral</span>
+        <span class="ladder-role">biggest brand moment · once per scroll</span>
+      </div>
+      <div class="ladder-step" data-step="forest">
+        <span class="ladder-num">Signature</span>
+        <span class="ladder-name">--brand-signature-forest</span>
+        <span class="ladder-role">deep green sibling to coral</span>
+      </div>
+      <div class="ladder-step" data-step="navy">
+        <span class="ladder-num">Voltage</span>
+        <span class="ladder-name">--brand-surface-dark</span>
+        <span class="ladder-role">dark navy CTA card · mid-page</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="navy-cta">
+  <div class="navy-cta-card canvas-navy" role="region" aria-label="Mid-page navy CTA">
+    <div>
+      <h3 class="navy-cta-title">The path to 10× every person in the operating team.</h3>
+      <p class="navy-cta-lede">Halcyon's product team ships ten times more weekly specs since the workspace moved here. The dark navy card is the brand's voltage moment — never decorative, always a recommitment.</p>
+    </div>
+    <div class="navy-cta-actions">
+      <button class="btn" data-variant="on-dark" type="button">Read the case study</button>
+    </div>
+  </div>
+</div>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing · Sub-system dialect</p>
+      <h2 class="section-title">Three tiers, one canvas.</h2>
+      <p class="section-lede">Pricing runs its own dialect — Inter Display at 475 weight, pill-shaped buttons that don't appear elsewhere in the system. A deliberate sub-system signaling commercial precision.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="pricing-pill" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="pricing-pill" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="pricing-pill" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">Haas at 400/500, calm.</h2>
+      <p class="section-lede">Display sizes never go bolder than 500. Emphasis comes from size and the signature surface cards, not from weight. The pricing sub-system uses Inter Display 475 — a custom mid-weight that doesn't appear anywhere else.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Five surfaces, one rhythm.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Haas Grot Disp · 400</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Haas · 500 · 18 / 1.35</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Haas at 14 pixels, line-height 1.4. Near-black ink for editorial body, body gray for helper text.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">workspace.tasks.list()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · primary + secondary pair</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Sign up for free</button>
+            <button class="btn" data-variant="secondary" type="button">Book demo</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Status chips · signature palette</span>
+          <div class="cmp-chips" style="margin-top:0.5rem;">
+            <span class="db-chip" data-tone="peach">In review</span>
+            <span class="db-chip" data-tone="mint">Shipped</span>
+            <span class="db-chip" data-tone="yellow">Blocked</span>
+            <span class="db-chip" data-tone="mustard">Drafting</span>
+            <span class="db-chip" data-tone="cream">Backlog</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Buttons · pricing sub-system pill</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="pricing-pill" type="button">Get started</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Light CTA banner">
+  <div class="section-inner">
+    <div class="cta-band">
+      <div class="cta-band-text">
+        <h3 class="cta-band-title">Start building with Halcyon.</h3>
+        <p class="cta-band-lede">A workspace for the editorial operating team — specs, calendars, customer threads on one canvas. The button to the right is the system's only primary CTA outside the hero.</p>
+      </div>
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Sign up for free</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#">
+        <span class="brand-glyph" aria-hidden="true">
+          <span class="brand-glyph-cell"></span>
+          <span class="brand-glyph-cell"></span>
+        </span>
+        __DESIGN_SYSTEM_NAME__
+      </a>
+      <p class="footer-tagline">A token-surface preview rendered against the editorial workflow design system. Near-black ink, signature voltage cards, Haas at modest weights. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Platform</p>
+      <ul class="footer-list"><li><a href="#">Workspace</a></li><li><a href="#">Templates</a></li><li><a href="#">Automations</a></li><li><a href="#">Integrations</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Solutions</p>
+      <ul class="footer-list"><li><a href="#">Marketing</a></li><li><a href="#">Operations</a></li><li><a href="#">Product</a></li><li><a href="#">Engineering</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">white canvas · near-black ink · signature voltage · 5-polarity</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23f7a501'/%3E%3Cpath d='M9 11 L9 22 L11.5 22 L11.5 13 L16 22 L18 22 L18 11 L15.5 11 L15.5 19.5 L11.5 11 Z M20 11 L23 22 L25 22 L25.5 19 L22.5 19 L22 11 Z' fill='%2323251d'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Warm cream canvas, olive ink, single yellow-orange CTA pill, file-tree sidebar marginalia, white-on-cream analytics cards.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === PostHog-style preview shell — warm cream canvas with olive-gray ink
+   for body, deep olive-charcoal for headlines, single saturated yellow-
+   orange CTA pill carrying every primary action, file-tree sidebar
+   marginalia (hand-drawn outline icons + filename labels), white-on-
+   cream bordered cards stacking on the canvas with 4-6px radii.
+   IBM Plex Sans throughout. Halcyon's team using a generic analytics
+   surface — no host-product surface, no PostHog brand naming. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--brand-body);
+  font-family: 'IBM Plex Sans Variable', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 24px; height: 24px;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--brand-charcoal);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 15px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 1.5rem;
+  color: var(--brand-body);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions { display: flex; gap: 0.75rem; align-items: center; font-size: 14px; }
+.topnav-actions a { color: var(--brand-body); text-decoration: none; font-weight: 500; }
+.topnav-actions a:hover { color: var(--foreground); }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (44px min touch target, focus-visible ring, reduced-motion-aware
+   offset shadow, dark-mode shadow color flips via --preview-button-shadow) -- */
+:root { --preview-button-shadow: var(--brand-charcoal); }
+[data-theme="dark"] { --preview-button-shadow: var(--brand-on-dark); }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, border-color 120ms ease, transform 120ms ease, box-shadow 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--brand-focus-ring);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] { background: var(--primary); color: var(--brand-charcoal); border: 1.5px solid var(--brand-charcoal); box-shadow: 2px 2px 0 0 var(--preview-button-shadow); }
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-pressed); transform: translate(-1px, -1px); box-shadow: 3px 3px 0 0 var(--preview-button-shadow); }
+.btn[data-variant="secondary"] {
+  background: var(--card);
+  color: var(--foreground);
+  border: 1.5px solid var(--foreground);
+  box-shadow: 2px 2px 0 0 var(--preview-button-shadow);
+}
+.btn[data-variant="secondary"]:hover { background: var(--secondary); transform: translate(-1px, -1px); box-shadow: 3px 3px 0 0 var(--preview-button-shadow); }
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--brand-body);
+  padding: 0.5rem 0.75rem;
+  min-height: 44px;
+}
+.btn[data-variant="ghost"]:hover { color: var(--foreground); }
+.btn[data-size="lg"] { padding: 0.625rem 1.25rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn:hover { transform: none; }
+}
+
+/* -- Hero -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 880px) { .hero-inner { grid-template-columns: 1fr; gap: 2rem; } }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--brand-mute);
+  margin: 0 0 1rem;
+}
+.eyebrow-mark { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); border: 1.5px solid var(--brand-charcoal); }
+.hero-display {
+  font-family: inherit;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0 0 1.25rem;
+  max-width: 22ch;
+}
+.hero-lede {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-body);
+  max-width: 50ch;
+  margin: 0 0 1.5rem;
+}
+.hero-ctas { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+/* -- File-tree sidebar mockup (the cream-canvas signature) -- */
+.tree-card {
+  background: var(--brand-surface-doc);
+  border: 1.5px solid var(--foreground);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  box-shadow: 4px 4px 0 0 var(--preview-button-shadow);
+  font-family: inherit;
+  font-size: 14px;
+}
+.tree-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  margin-bottom: 0.5rem;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brand-mute);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.tree-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  color: var(--brand-body);
+}
+.tree-row[aria-current="page"] {
+  background: var(--primary);
+  color: var(--brand-charcoal);
+  font-weight: 600;
+  border: 1px solid var(--brand-charcoal);
+}
+.tree-row[data-indent="1"] { padding-left: 1.5rem; }
+.tree-row[data-indent="2"] { padding-left: 2.5rem; }
+.tree-icon {
+  width: 16px; height: 16px;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--brand-mute);
+}
+.tree-row[aria-current="page"] .tree-icon { color: var(--brand-charcoal); }
+.tree-section {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--brand-mute);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 1rem 0.5rem 0.25rem;
+}
+.tree-section:first-of-type { padding-top: 0.25rem; }
+
+/* -- Stats strip (cream cards on canvas) -- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 880px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+.stat-card {
+  background: var(--card);
+  border: 1.5px solid var(--foreground);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.stat-label {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brand-mute);
+}
+.stat-value {
+  font-family: inherit;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  font-feature-settings: "tnum";
+  line-height: 1;
+}
+/* Stat-delta body uses --foreground so it clears AA against tinted
+ * canvas in both themes. Direction reads through the ▲/▼ glyph in
+ * brand accent (icon-as-semantic, non-text 3:1 threshold). Verified
+ * 2026-05-25: posthog.com pricing surfaces stat labels at full
+ * brand-green/red on the tinted bg; we match the colour role but
+ * route body text through foreground for legibility. */
+.stat-delta {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--foreground);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.stat-delta::before {
+  content: "▲";
+  color: var(--brand-accent-green);
+  font-size: 10px;
+  line-height: 1;
+}
+.stat-delta[data-dir="down"]::before { content: "▼"; color: var(--brand-accent-red); }
+
+/* -- Section frame -- */
+.section { padding: 4rem 1.5rem; }
+.section[data-tight] { padding: 2.5rem 1.5rem; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-header { max-width: 60ch; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-title {
+  font-family: inherit;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: var(--foreground);
+  margin: 0 0 0.75rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 60ch;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-name {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-mute);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 10rem;
+  border: 1.5px solid var(--foreground);
+}
+.ladder-step[data-step="floor"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="card"] { background: var(--card); color: var(--foreground); }
+.ladder-step[data-step="doc"] { background: var(--brand-surface-doc); color: var(--foreground); }
+.ladder-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+}
+.ladder-name {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--foreground);
+}
+.ladder-role { font-size: 14px; color: var(--brand-body); margin-top: auto; }
+
+/* -- Pricing -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--card);
+  border: 1.5px solid var(--foreground);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 3px 3px 0 0 var(--preview-button-shadow);
+}
+.pricing-card[data-featured] {
+  background: var(--primary);
+  border-color: var(--brand-charcoal);
+  box-shadow: 3px 3px 0 0 var(--brand-charcoal);
+  color: var(--brand-charcoal);
+}
+/* Featured pricing card lives on the yellow primary bg — name and price
+ * must stay charcoal in both themes (otherwise foreground inverts to
+ * cream and reads white-on-yellow in dark mode). */
+.pricing-card[data-featured] .pricing-name,
+.pricing-card[data-featured] .pricing-price { color: var(--brand-charcoal); }
+.pricing-name {
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-price {
+  font-family: inherit;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  font-feature-settings: "tnum";
+  line-height: 1;
+}
+.pricing-price > .pricing-period { font-size: 14px; color: var(--brand-mute); font-weight: 500; letter-spacing: 0; }
+.pricing-card[data-featured] .pricing-period { color: var(--brand-charcoal); }
+.pricing-tagline { font-size: 13px; color: var(--brand-body); margin: 0; line-height: 1.5; min-height: 2.7em; }
+.pricing-card[data-featured] .pricing-tagline { color: var(--brand-charcoal); }
+.pricing-cta { margin-top: 0.5rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding-top: 1rem;
+  font-size: 13px;
+  color: var(--brand-body);
+}
+.pricing-card[data-featured] .pricing-features { border-top-color: rgba(35, 37, 29, 0.25); color: var(--brand-charcoal); }
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "✓";
+  color: var(--brand-accent-green);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 14px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--brand-charcoal); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+}
+.type-display { font-family: inherit; font-size: 36px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--foreground); }
+.type-heading { font-family: inherit; font-size: 24px; font-weight: 800; letter-spacing: -0.025em; line-height: 1.33; color: var(--foreground); }
+.type-title { font-family: inherit; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--foreground); }
+.type-body { font-size: 14px; line-height: 1.5; color: var(--brand-body); }
+.type-mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: var(--foreground); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--secondary);
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+}
+/* Blue tag fg is polarity-locked (stays dark) because the -soft bg also
+ * stays light in both themes; lifting it caused light-on-light failures. */
+.badge[data-tone="blue"] { background: var(--brand-accent-blue-soft); color: var(--brand-accent-blue-ink, oklch(0.45 0.18 264)); border-color: var(--brand-accent-blue-ink, oklch(0.45 0.18 264)); }
+/* Tone pills: brand accent at full upstream lightness is sub-AA as
+ * text on -soft tinted bgs (~3.5:1) AND green at L 0.57 sits in a dead
+ * zone where neither white nor dark ink clears 4.5:1 as fg-on-accent.
+ * Resolution: keep the documented -soft tinted bg + route text to
+ * --brand-charcoal (the brand's deep dark ink that already sits on
+ * every yellow surface). Border stays on the accent for tone signal. */
+.badge[data-tone="green"] { background: var(--brand-accent-green-soft); color: var(--brand-charcoal); border-color: var(--brand-accent-green); }
+.badge[data-tone="red"] { background: var(--brand-accent-red-soft); color: var(--brand-charcoal); border-color: var(--brand-accent-red); }
+.badge[data-tone="purple"] { background: var(--brand-accent-purple-soft); color: var(--brand-charcoal); border-color: var(--brand-accent-purple); }
+
+/* -- Footer -- */
+.footer {
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding: 3rem 1.5rem 2rem;
+  background: var(--background);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 13px; color: var(--brand-body); line-height: 1.55; margin: 0; }
+.footer-col-title {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 13px; color: var(--brand-body); text-decoration: none; }
+.footer-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-mute);
+}
+.footer-legal-meta { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Product</a>
+      <a href="#">Pricing</a>
+      <a href="#">Docs</a>
+      <a href="#">Community</a>
+      <a href="#">Company</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Get started — free</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>Halcyon · workspace</p>
+      <h1 class="hero-display">A warm-canvas workspace for the whole team.</h1>
+      <p class="hero-lede">Halcyon's team keeps notes, reports, and tracked work in one cream-canvas surface — close enough to the engineering board to share owners, far enough to read like editorial.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" data-size="lg" type="button">Get started — free</button>
+        <button class="btn" data-variant="ghost" data-size="lg" type="button">See the demo →</button>
+      </div>
+    </div>
+
+    <aside class="tree-card" aria-label="File tree">
+      <div class="tree-head">Halcyon · workspace</div>
+      <div class="tree-section">Reports</div>
+      <div class="tree-row" data-indent="0"><span class="tree-icon" aria-hidden="true">▾</span>analytics</div>
+      <div class="tree-row" data-indent="1" aria-current="page"><span class="tree-icon" aria-hidden="true">·</span>signups.mdx</div>
+      <div class="tree-row" data-indent="1"><span class="tree-icon" aria-hidden="true">·</span>activation.mdx</div>
+      <div class="tree-row" data-indent="1"><span class="tree-icon" aria-hidden="true">·</span>retention.mdx</div>
+      <div class="tree-row" data-indent="1"><span class="tree-icon" aria-hidden="true">·</span>funnels.mdx</div>
+      <div class="tree-section">Notebooks</div>
+      <div class="tree-row" data-indent="0"><span class="tree-icon" aria-hidden="true">·</span>q3-launch-recap.mdx</div>
+      <div class="tree-row" data-indent="0"><span class="tree-icon" aria-hidden="true">·</span>weekly-metrics.mdx</div>
+      <div class="tree-row" data-indent="0"><span class="tree-icon" aria-hidden="true">·</span>onboarding-experiment.mdx</div>
+      <div class="tree-section">Recent</div>
+      <div class="tree-row" data-indent="0"><span class="tree-icon" aria-hidden="true">▸</span>queries</div>
+      <div class="tree-row" data-indent="0"><span class="tree-icon" aria-hidden="true">▸</span>dashboards</div>
+    </aside>
+  </div>
+</header>
+
+<section class="section" data-tight aria-label="Stats">
+  <div class="section-inner">
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Notes updated this week</div>
+        <div class="stat-value">1,284</div>
+        <div class="stat-delta">+12.4% vs prior week</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Threads resolved</div>
+        <div class="stat-value">418</div>
+        <div class="stat-delta">+1.8pp</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Reports shared</div>
+        <div class="stat-value">184</div>
+        <div class="stat-delta">+3.2pp</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Team coverage</div>
+        <div class="stat-value">92<span style="font-size:18px;color:var(--brand-mute);">%</span></div>
+        <div class="stat-delta">+4pp vs prior quarter</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>Tokens · Colour</p>
+      <h2 class="section-title">Cream canvas, indexed.</h2>
+      <p class="section-lede">Warm cream surface paired with white hairline-bordered cards. A single saturated yellow-orange carries the primary CTA. Olive-charcoal ink runs the body; deeper charcoal sits in headlines and on yellow surfaces.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--card);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--card</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-doc);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--brand-surface-doc</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--secondary);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--secondary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-primary-pressed);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-primary-pressed</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-mute);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-mute</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--accent);"></div><div class="swatch-role">Pop</div><div class="swatch-name">--accent</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-green);"></div><div class="swatch-role">Pop</div><div class="swatch-name">--brand-accent-green</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-red);"></div><div class="swatch-role">Pop</div><div class="swatch-name">--brand-accent-red</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>Tokens · Surfaces</p>
+      <h2 class="section-title">Three surface registers.</h2>
+      <p class="section-lede">Cream canvas as the page floor. White cards lifted with a 1.5px charcoal border and a 2-3px offset shadow. A slightly off-white doc surface for tree-card marginalia. No drop shadows — hairlines and ink contrast carry the depth.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="floor">
+        <span class="ladder-num">Floor</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">cream canvas · body region</span>
+      </div>
+      <div class="ladder-step" data-step="card">
+        <span class="ladder-num">Card</span>
+        <span class="ladder-name">--card</span>
+        <span class="ladder-role">white card · charcoal border</span>
+      </div>
+      <div class="ladder-step" data-step="doc">
+        <span class="ladder-num">Doc</span>
+        <span class="ladder-name">--brand-surface-doc</span>
+        <span class="ladder-role">tree marginalia · file-tree</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="eyebrow" style="justify-content: center;"><span class="eyebrow-mark" aria-hidden="true"></span>Pricing</p>
+      <h2 class="section-title">Three tiers. No seat tax.</h2>
+      <p class="section-lede">Flat per-workspace pricing. Start free, scale on the same surface.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>Tokens · type + components</p>
+      <h2 class="section-title">IBM Plex Sans, tight leading, heavy headlines.</h2>
+      <p class="section-lede">Display sits at weight 700, headings at 800, body at 400 in a 1.5 leading. Buttons carry 1.5px charcoal borders with a 2-3px offset shadow — the only ornament the system commits to.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Cream canvas, charcoal ink.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Tight leading, heavy headlines</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Plex Sans · weight 700</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in IBM Plex Sans at 16 pixels, line-height 1.5. Olive-gray ink keeps the canvas warm; the deeper charcoal sits in headlines only.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">--brand-charcoal</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · offset-shadow pill</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Get started — free</button>
+            <button class="btn" data-variant="secondary" type="button">See the demo</button>
+            <button class="btn" data-variant="ghost" type="button">Sign in</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Status badges · pill with charcoal border</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <span class="badge">Default</span>
+            <span class="badge" data-tone="blue">Beta</span>
+            <span class="badge" data-tone="green">Live</span>
+            <span class="badge" data-tone="red">Hotfix</span>
+            <span class="badge" data-tone="purple">Experiment</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Stat deltas · semantic accents</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <span class="stat-delta">+12.4% vs prior week</span>
+            <span class="stat-delta" data-dir="down">−8 open threads</span>
+            <span class="stat-delta">+418 new notes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the warm-canvas dev-tools design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-list"><li><a href="#">Overview</a></li><li><a href="#">Workspace</a></li><li><a href="#">Reports</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list"><li><a href="#">Docs</a></li><li><a href="#">Community</a></li><li><a href="#">Changelog</a></li><li><a href="#">Blog</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">app.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Status</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.23</span>
+    <span class="footer-legal-meta">cream canvas · olive ink · yellow pill · charcoal borders</span>
+  </div>
+</footer>
+
+</body>
+</html>

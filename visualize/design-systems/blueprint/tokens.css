@@ -1,0 +1,233 @@
+/**
+ * Blueprint theme — technical-drawing register, dark-mode-native.
+ * Navy paper + warm-gold ink — the engineering-schematic aesthetic
+ * called out in spec § Theme catalogue (line 71): "Navy + gold grid,
+ * technical-document feel." A direct lift of visual-explainer's
+ * Blueprint constrained aesthetic (spec § Related work line 1289),
+ * resolved into the shadcn semantic token shape.
+ *
+ * Authored dark-first: dark is the canonical state; the :root block
+ * is the *light* state (drafting-paper interpretation), so that the
+ * standard load order (`:root` → optional `[data-theme="dark"]` override → optional
+ * `@media` auto-dark) lands on the correct mode at every entry point.
+ * Same convention as Terminal. Per spec line 104, Blueprint sits in
+ * the dark-first group alongside Terminal and IDE — the NOC / dev-shop
+ * register.
+ *
+ * Maintains shadcn semantic token shape so it swaps drop-in with any
+ * other theme. Light + dark variants both designed; neither is a
+ * derivation. "Light Blueprint" reads as a printed-and-reviewed
+ * drafting page; "dark Blueprint" is the canonical navy-paper register.
+ *
+ * Distinct from Clean / Editorial / Terminal / Deck on four axes:
+ *   1. Surfaces carry visible cool-blue chroma (hue 245–250). Clean's
+ *      surfaces are 0-chroma; Editorial's are warm 0.008; Terminal's
+ *      are coal 0.012–0.022; Blueprint's cool-blue cast carries
+ *      the identity.
+ *   2. Primary is warm gold (hue 75–80, chroma 0.13). Distinct hue
+ *      family from Deck's warm amber (hue 60–65) — gold sits cooler
+ *      and reads "engineering documentation" rather than "marketing
+ *      pitch." The navy-gold pairing is one of the oldest
+ *      drafting-discipline conventions; reader pre-training pins
+ *      "blueprint" to this exact pairing.
+ *   3. Borders carry visible chroma (cool-blue, not neutral gray)
+ *      — the grid-line feel comes from border tokens that share
+ *      the surface's hue family, so schematic diagrams read as
+ *      drawings on paper rather than rectangles on white.
+ *   4. Tighter leading (1.15 / 1.55) and slightly looser tracking
+ *      (0.005em) gives prose an annotation-feel — text reads as
+ *      drawing-board labels rather than long-form-publishing copy.
+ *
+ * Blessed templates: Architecture overview, Diagram, ADR, Plan review,
+ * Roadmap timeline, Org chart, Threat model (within ADR). The
+ * document-register and structural-explanation templates from
+ * finding 34's pairing rule (Clean / Blueprint / Terminal).
+ *
+ * Discouraged: Whitepaper, Research brief, Postmortem (long-form
+ * publishing register reads off-key in navy-paper chrome), Pitch
+ * deck, One-pager, Case study (marketing register — Blueprint's
+ * engineering tone undermines the persuasive job), Meeting notes,
+ * Onboarding module (conversational warmth doesn't survive the
+ * schematic cast). The warning is "you probably didn't mean to,"
+ * per the discouraged-combo rule (finding 16).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Drafting-paper interpretation: cool off-white + deep navy ink   */
+  /* + desaturated gold. Reads as a blueprint printed onto white     */
+  /* drafting paper for a review session rather than the canonical  */
+  /* navy-paper register.                                            */
+
+  /* -- Surface / Foreground pairs ------------------------------ */
+  --background:              oklch(0.99 0.002 235);   /* drafting-paper cool — subtle, not washed */
+  --foreground:              oklch(0.22 0.025 250);   /* navy ink — body text */
+
+  --card:                    oklch(1 0 0);            /* pure white ink surfaces — visibly lift off the paper */
+  --card-foreground:         oklch(0.22 0.025 250);
+
+  --popover:                 oklch(1 0 0);
+  --popover-foreground:      oklch(0.22 0.025 250);
+
+  --primary:                 oklch(0.55 0.13 75);     /* deeper gold for light — the one bright accent */
+  --primary-foreground:      oklch(1 0 0);
+
+  --secondary:               oklch(0.97 0.003 235);
+  --secondary-foreground:    oklch(0.22 0.025 250);
+
+  --muted:                   oklch(0.97 0.003 235);
+  --muted-foreground:        oklch(0.46 0.015 245);
+
+  --accent:                  oklch(0.95 0.005 235);
+  --accent-foreground:       oklch(0.22 0.025 250);
+
+  /* Warm coal-red ceiling — restrained per genre-reflex guard. */
+  --destructive:             oklch(0.55 0.22 25);
+  --destructive-foreground:  oklch(1 0 0);
+
+  /* Borders carry just-perceptible cool — grid-line + card-seam   */
+  /* feel without tinting the whole canvas.                        */
+  --border:                  oklch(0.92 0.004 235);
+  --input:                   oklch(0.92 0.004 235);
+  --ring:                    oklch(0.55 0.13 75);
+
+  /* Sidebar tokens (preserved for shadcn-shape parity) */
+  --sidebar:                 oklch(0.98 0.003 235);
+  --sidebar-foreground:      oklch(0.22 0.025 250);
+  --sidebar-primary:         oklch(0.55 0.13 75);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent:          oklch(0.95 0.005 235);
+  --sidebar-accent-foreground: oklch(0.22 0.025 250);
+  --sidebar-border:          oklch(0.92 0.004 235);
+  --sidebar-ring:            oklch(0.55 0.13 75);
+
+  /* Chart tokens — technical-cool five-stop, gold leads. */
+  --chart-1:                 oklch(0.55 0.13 75);
+  --chart-2:                 oklch(0.50 0.12 230);
+  --chart-3:                 oklch(0.48 0.10 200);
+  --chart-4:                 oklch(0.45 0.08 165);
+  --chart-5:                 oklch(0.40 0.06 250);
+
+  /* -- Typography tokens ---------------------------------------- */
+  --font-sans:  'Inter', 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono:  'IBM Plex Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Display sticks to sans — annotation-feel comes from leading + */
+  /* tracking + the navy surface, not from a serif or mono face.   */
+  --font-display: var(--font-sans);
+
+  /* -- Type scale tokens ---------------------------------------- */
+  --text-display:  clamp(1.875rem, 4.5vw, 2.75rem);
+  --text-heading:  1.5rem;
+  --text-title:    1.0625rem;
+  --text-base:     16px;
+  --leading-tight: 1.15;     /* tighter than Clean (1.2) — schematic */
+  --leading-normal: 1.55;    /* tighter than Clean (1.6) — annotation */
+
+  /* -- Radius — minimal, drawings have sharp corners ------------ */
+  --radius:                  0.25rem;
+  --radius-sm:               calc(var(--radius) - 2px);
+  --radius-md:               var(--radius);
+  --radius-lg:               calc(var(--radius) + 2px);
+  --radius-xl:               calc(var(--radius) + 4px);
+
+  /* -- Spacing -------------------------------------------------- */
+  --spacing:                 0.25rem;
+
+  /* -- Tracking — slightly looser, annotation-feel -------------- */
+  --tracking-normal:         0.005em;
+
+  /* -- Shadow scale — cool-tinted, subtle (drawings, not chrome) - */
+  --shadow-2xs: 0 1px 2px 0 hsl(220 40% 8% / 0.04);
+  --shadow-xs:  0 1px 2px 0 hsl(220 40% 8% / 0.06);
+  --shadow-sm:  0 1px 3px 0 hsl(220 40% 8% / 0.08), 0 1px 2px -1px hsl(220 40% 8% / 0.06);
+  --shadow:     0 2px 4px -1px hsl(220 40% 8% / 0.10);
+  --shadow-md:  0 4px 8px -2px hsl(220 40% 8% / 0.12), 0 2px 4px -2px hsl(220 40% 8% / 0.08);
+  --shadow-lg:  0 12px 20px -4px hsl(220 40% 8% / 0.14), 0 4px 8px -4px hsl(220 40% 8% / 0.10);
+  --shadow-xl:  0 24px 32px -8px hsl(220 40% 8% / 0.18);
+  --shadow-2xl: 0 32px 64px -16px hsl(220 40% 8% / 0.26);
+}
+
+/* -- Dark mode -------------------------------------------------- */
+/* Canonical Blueprint register: deep navy paper + cool near-white  */
+/* ink + warm-gold accent. This is the mode the theme is designed   */
+/* against; the :root light state is the drafting-paper companion.  */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background:              oklch(0.20 0.035 250);   /* deep navy — calmer chroma */
+  --foreground:              oklch(0.93 0.022 220);
+  --card:                    oklch(0.24 0.040 250);
+  --card-foreground:         oklch(0.93 0.022 220);
+  --popover:                 oklch(0.24 0.040 250);
+  --popover-foreground:      oklch(0.93 0.022 220);
+  --primary:                 oklch(0.82 0.16 80);     /* warm gold — the single bright accent */
+  --primary-foreground:      oklch(0.20 0.035 250);
+  --secondary:               oklch(0.28 0.035 245);
+  --secondary-foreground:    oklch(0.93 0.022 220);
+  --muted:                   oklch(0.28 0.035 245);
+  --muted-foreground:        oklch(0.74 0.025 220);
+  --accent:                  oklch(0.32 0.045 245);
+  --accent-foreground:       oklch(0.93 0.022 220);
+  --destructive:             oklch(0.68 0.20 25);
+  --destructive-foreground:  oklch(0.93 0.022 220);
+  --border:                  oklch(0.36 0.050 245);
+  --input:                   oklch(0.32 0.045 245);
+  --ring:                    oklch(0.82 0.16 80);
+  --sidebar:                 oklch(0.22 0.035 250);
+  --sidebar-foreground:      oklch(0.93 0.022 220);
+  --sidebar-primary:         oklch(0.82 0.16 80);
+  --sidebar-primary-foreground: oklch(0.20 0.035 250);
+  --sidebar-accent:          oklch(0.32 0.045 245);
+  --sidebar-accent-foreground: oklch(0.93 0.022 220);
+  --sidebar-border:          oklch(0.36 0.050 245);
+  --sidebar-ring:            oklch(0.82 0.16 80);
+
+  --chart-1:                 oklch(0.82 0.16 80);
+  --chart-2:                 oklch(0.70 0.14 220);
+  --chart-3:                 oklch(0.64 0.12 195);
+  --chart-4:                 oklch(0.58 0.10 165);
+  --chart-5:                 oklch(0.55 0.08 250);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background:              oklch(0.21 0.08 250);
+    --foreground:              oklch(0.93 0.022 220);
+    --card:                    oklch(0.25 0.08 250);
+    --card-foreground:         oklch(0.93 0.022 220);
+    --popover:                 oklch(0.25 0.08 250);
+    --popover-foreground:      oklch(0.93 0.022 220);
+    --primary:                 oklch(0.82 0.16 80);
+    --primary-foreground:      oklch(0.21 0.08 250);
+    --secondary:               oklch(0.29 0.07 245);
+    --secondary-foreground:    oklch(0.93 0.022 220);
+    --muted:                   oklch(0.29 0.07 245);
+    --muted-foreground:        oklch(0.74 0.03 220);
+    --accent:                  oklch(0.33 0.09 245);
+    --accent-foreground:       oklch(0.93 0.022 220);
+    --destructive:             oklch(0.68 0.20 25);
+    --destructive-foreground:  oklch(0.93 0.022 220);
+    --border:                  oklch(0.38 0.09 245);
+    --input:                   oklch(0.34 0.08 245);
+    --ring:                    oklch(0.82 0.16 80);
+
+    --sidebar:                 oklch(0.23 0.08 250);
+    --sidebar-foreground:      oklch(0.93 0.022 220);
+    --sidebar-primary:         oklch(0.82 0.16 80);
+    --sidebar-primary-foreground: oklch(0.21 0.08 250);
+    --sidebar-accent:          oklch(0.33 0.09 245);
+    --sidebar-accent-foreground: oklch(0.93 0.022 220);
+    --sidebar-border:          oklch(0.38 0.09 245);
+    --sidebar-ring:            oklch(0.82 0.16 80);
+
+    --chart-1:                 oklch(0.82 0.16 80);
+    --chart-2:                 oklch(0.70 0.14 220);
+    --chart-3:                 oklch(0.64 0.12 195);
+    --chart-4:                 oklch(0.58 0.10 165);
+    --chart-5:                 oklch(0.55 0.08 250);
+  }
+}

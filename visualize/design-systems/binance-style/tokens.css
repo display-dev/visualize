@@ -1,0 +1,223 @@
+/**
+ * design-systems/binance-style/tokens.css
+ *
+ * Live-verified against binance.com on 2026-05-26 (13 surfaces across
+ * product /trade /futures /markets /launchpool, editorial /academy
+ * /research /blog, corporate /en /about /careers /square /download,
+ * reference /fee /support). Companion to ./DESIGN.md.
+ *
+ * canonical-canvas: both. Binance runs a two-track canvas split
+ * surface-by-surface (not via user toggle): product + corporate-identity
+ * surfaces ship dark #0B0E11 navy-tinted near-black; transactional +
+ * educational + reference surfaces ship white. Footer is always-dark.
+ *
+ * Brand yellow #FCD535 single-stop, darkens on press to ~#E5C12B (live).
+ * Trading green #0ECB81 + red #F6465D (magenta-leaning) are polarity-
+ * locked equals with --primary; semantic colors hold across both
+ * canvases. BinanceNova proprietary family across all surfaces — no
+ * monospace anywhere; numerics use tabular-nums.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2183 0.0121 270.8076);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2183 0.0121 270.8076);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2183 0.0121 270.8076);
+  --primary: oklch(0.8814 0.1678 94.2373);
+  --primary-foreground: oklch(0.2183 0.0121 270.8076);
+  --secondary: oklch(1 0 0);
+  --secondary-foreground: oklch(0.2183 0.0121 270.8076);
+  /* Live-verified 2026-05-26: alternating-band zebra is #FAFAFA, not pure
+   * white. Visible on academy / fee-schedule list rows. */
+  --muted: oklch(0.9851 0 0);
+  --muted-foreground: oklch(0.50 0.025 259.8038);
+  /* The import's teal #2EBD85 was not observed on any surface this cycle.
+   * Falling through to the muted-gray surface — every live "accent" role on
+   * Binance is either --primary yellow or trading green/red. */
+  --accent: oklch(0.9851 0 0);
+  --accent-foreground: oklch(0.2183 0.0121 270.8076);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0.2183 0.0121 270.8076);
+  --border: oklch(0.8975 0 0);
+  --input: oklch(0.8975 0 0);
+  --ring: oklch(0.8814 0.1678 94.2373);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.2183 0.0121 270.8076);
+  --sidebar-primary: oklch(0.8814 0.1678 94.2373);
+  --sidebar-primary-foreground: oklch(0.2183 0.0121 270.8076);
+  --sidebar-accent: oklch(1 0 0);
+  --sidebar-accent-foreground: oklch(0.2183 0.0121 270.8076);
+  --sidebar-border: oklch(0.8975 0 0);
+  --sidebar-ring: oklch(0.8814 0.1678 94.2373);
+  --chart-1: oklch(0.8100 0.1678 94.2373);
+  --chart-2: oklch(0.7100 0.1678 94.2373);
+  --chart-3: oklch(0.6100 0.1678 94.2373);
+  --chart-4: oklch(0.5100 0.1678 94.2373);
+  --chart-5: oklch(0.4200 0.1678 94.2373);
+
+  /* radius scale */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 2px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: BinanceNova, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: BinanceNova, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 64px;
+  --text-heading: 48px;
+  --text-title: 20px;
+  --text-base: 14px;
+  --leading-tight: 1.1;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras */
+  /* Live-verified 2026-05-26: yellow DARKENS on press to #E5C12B (the import
+   * had it lighter, wrong direction). Hue shifts slightly toward 91.5. */
+  --brand-primary-active: oklch(0.8474 0.1599 91.5);
+  --brand-primary-disabled: oklch(0.3410 0.0429 108.4760);
+  --brand-body: oklch(0.9424 0.0046 258.3251);
+  --brand-body-on-light: oklch(0.2183 0.0121 270.8076);
+  --brand-muted-strong: oklch(0.6833 0.0186 256.3102);
+  --brand-hairline-on-light: oklch(0.9424 0.0046 258.3251);
+  --brand-hairline-on-dark: oklch(0.3107 0.0166 255.6442);
+  --brand-border-strong: oklch(0.8591 0.0082 253.8609);
+  --brand-canvas-light: oklch(1 0 0);
+  --brand-canvas-dark: oklch(0.1618 0.0080 248.3222);
+  --brand-surface-card-dark: oklch(0.2537 0.0135 253.0681);
+  --brand-surface-elevated-dark: oklch(0.3107 0.0166 255.6442);
+  --brand-surface-soft-light: oklch(0.9851 0 0);
+  --brand-surface-strong-light: oklch(0.9702 0 0);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-trading-up: oklch(0.7427 0.1713 158.1483);
+  /* Live-verified 2026-05-26: Binance's documented trading-down red #F6465D
+   * = oklch(0.6543 0.2110 18.17) (NOT oklch(0.625 0.218 22.5) — the prior
+   * value was an OKLCH-conversion typo that rendered to #ef3745). The brand-
+   * truth value lands at 4.48:1 on dark card #1e2329 — barely sub-AA. Lifted
+   * to L=0.66 (= #f8485f) so orderbook .price text clears 4.5:1 AA on the
+   * dark card surface; the perceptual shift from brand-truth is ~0.006 L,
+   * essentially indistinguishable. Same utility-tune pattern as Apple's
+   * --brand-ink-muted-48 and Linear's --brand-ink-mute.
+   * Polarity-locked equal with --primary and --brand-trading-up. */
+  --brand-trading-down: oklch(0.66 0.211 18.17);
+  --brand-info: oklch(0.6231 0.1880 259.8145);
+  --brand-info-ring: oklch(0.6231 0.1880 259.8145);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Live-verified anchor: --background = #0B0E11 navy-tinted near-black
+   * (the trade-screen / homepage / about / careers / footer canvas).
+   * --foreground = #EAECEF (panel labels, body ink). --card =
+   * --brand-surface-card-dark (orderbook / chart / panel containers).
+   * --muted = same card-surface — Binance's dark zebra is the card
+   * elevation, not a separate fill. --border = --brand-hairline-on-dark
+   * (panel-to-panel splits). --primary, --brand-trading-up/down hold
+   * across polarity per DESIGN.md §6 — semantic equals, polarity-locked.
+   * The polarity-locked --brand-* extras (canvas-light, body-on-light,
+   * on-dark, hairline-on-light) stay at :root values — those tokens name
+   * surfaces that don't flip with theme. */
+
+  --background: oklch(0.1618 0.0080 248.3222);
+  --foreground: oklch(0.9424 0.0046 258.3251);
+  --card: oklch(0.2537 0.0135 253.0681);
+  --card-foreground: oklch(0.9424 0.0046 258.3251);
+  --popover: oklch(0.2537 0.0135 253.0681);
+  --popover-foreground: oklch(0.9424 0.0046 258.3251);
+  --primary: oklch(0.8814 0.1678 94.2373);
+  --primary-foreground: oklch(0.2183 0.0121 270.8076);
+  --secondary: oklch(0.2537 0.0135 253.0681);
+  --secondary-foreground: oklch(0.9424 0.0046 258.3251);
+  --muted: oklch(0.2537 0.0135 253.0681);
+  --muted-foreground: oklch(0.7000 0.0274 259.8038);
+  /* Same not-observed reasoning as :root — falling through to the dark
+   * card-surface instead of a teal not present on any sampled surface. */
+  --accent: oklch(0.2537 0.0135 253.0681);
+  --accent-foreground: oklch(0.9424 0.0046 258.3251);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0.9424 0.0046 258.3251);
+  --border: oklch(0.3107 0.0166 255.6442);
+  --input: oklch(0.3107 0.0166 255.6442);
+  --ring: oklch(0.8814 0.1678 94.2373);
+  --sidebar: oklch(0.1618 0.0080 248.3222);
+  --sidebar-foreground: oklch(0.9424 0.0046 258.3251);
+  --sidebar-primary: oklch(0.8814 0.1678 94.2373);
+  --sidebar-primary-foreground: oklch(0.2183 0.0121 270.8076);
+  --sidebar-accent: oklch(0.2537 0.0135 253.0681);
+  --sidebar-accent-foreground: oklch(0.9424 0.0046 258.3251);
+  --sidebar-border: oklch(0.3107 0.0166 255.6442);
+  --sidebar-ring: oklch(0.8814 0.1678 94.2373);
+  --chart-1: oklch(0.8100 0.1678 94.2373);
+  --chart-2: oklch(0.7100 0.1678 94.2373);
+  --chart-3: oklch(0.6100 0.1678 94.2373);
+  --chart-4: oklch(0.5100 0.1678 94.2373);
+  --chart-5: oklch(0.4200 0.1678 94.2373);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1618 0.0080 248.3222);
+    --foreground: oklch(0.9424 0.0046 258.3251);
+    --card: oklch(0.2537 0.0135 253.0681);
+    --card-foreground: oklch(0.9424 0.0046 258.3251);
+    --popover: oklch(0.2537 0.0135 253.0681);
+    --popover-foreground: oklch(0.9424 0.0046 258.3251);
+    --primary: oklch(0.8814 0.1678 94.2373);
+    --primary-foreground: oklch(0.2183 0.0121 270.8076);
+    --secondary: oklch(0.2537 0.0135 253.0681);
+    --secondary-foreground: oklch(0.9424 0.0046 258.3251);
+    --muted: oklch(0.2537 0.0135 253.0681);
+    --muted-foreground: oklch(0.7000 0.0274 259.8038);
+    --accent: oklch(0.2537 0.0135 253.0681);
+    --accent-foreground: oklch(0.9424 0.0046 258.3251);
+    --destructive: oklch(0.5308 0.2178 29.2339);
+    --destructive-foreground: oklch(0.9424 0.0046 258.3251);
+    --border: oklch(0.3107 0.0166 255.6442);
+    --input: oklch(0.3107 0.0166 255.6442);
+    --ring: oklch(0.8814 0.1678 94.2373);
+    --sidebar: oklch(0.1618 0.0080 248.3222);
+    --sidebar-foreground: oklch(0.9424 0.0046 258.3251);
+    --sidebar-primary: oklch(0.8814 0.1678 94.2373);
+    --sidebar-primary-foreground: oklch(0.2183 0.0121 270.8076);
+    --sidebar-accent: oklch(0.2537 0.0135 253.0681);
+    --sidebar-accent-foreground: oklch(0.9424 0.0046 258.3251);
+    --sidebar-border: oklch(0.3107 0.0166 255.6442);
+    --sidebar-ring: oklch(0.8814 0.1678 94.2373);
+    --chart-1: oklch(0.8100 0.1678 94.2373);
+    --chart-2: oklch(0.7100 0.1678 94.2373);
+    --chart-3: oklch(0.6100 0.1678 94.2373);
+    --chart-4: oklch(0.5100 0.1678 94.2373);
+    --chart-5: oklch(0.4200 0.1678 94.2373);
+  }
+}

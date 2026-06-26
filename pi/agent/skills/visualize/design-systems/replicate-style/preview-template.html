@@ -1,0 +1,1321 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23ea2804'/%3E%3Cpath d='M9 9h7.2a4.6 4.6 0 0 1 1.4 8.98L21 23h-3.4l-3.1-5.4H12V23H9Zm3 2.6v3.5h3.7a1.75 1.75 0 0 0 0-3.5Z' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Warm cream canvas, heavy display headline, orange CTA stamp, model-card grid, dark code-story band — rendered against tokens.css.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,500;10..48,700;10..48,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Replicate-style preview shell ===
+ *
+ * Token-surface preview rendered against the documented design system:
+ * warm cream canvas, monumental Bricolage display (rb-freigeist-neue
+ * substitute), Inter body, JetBrains Mono for code, orange voltage as a
+ * stamp on CTA + hero + status pills, dark code-story band as the
+ * editorial pull-quote, fully-rounded interactive surfaces.
+ *
+ * Halcyon-themed neutral content: a generic SaaS engineering team
+ * leaning on an inference platform. Model identifiers are abstract
+ * placeholders (image-gen-xl, text-embed-3, voice-clone-v2) — never
+ * real model names.
+ *
+ * One signature surface (the model-card grid). Everything else is
+ * token demo. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'basier-square', 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Display family — Bricolage Grotesque as the rb-freigeist-neue substitute.
+ * Tight lineHeight: 1.0, aggressive negative tracking. The catalogue's
+ * recommended fallback per DESIGN.md §3 Font Substitutes. */
+.display {
+  font-family: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+/* -- Buttons (44px floor, focus-visible, reduced-motion-aware).
+ * `pill` carries the brand's signature fully-rounded interactive geometry
+ * — every actionable surface lives at radius 9999. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--brand-radius-full);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.pill:focus-visible {
+  outline: 2px solid var(--brand-ring-focus);
+  outline-offset: 3px;
+}
+/* Primary pill uses --brand-primary-deep as the default surface so the
+ * white label clears WCAG AA (--primary at L=0.602 lands ~4.4:1 vs white;
+ * --brand-primary-deep at L=0.519 lands ~5.8:1). DESIGN.md documents
+ * --brand-primary-deep as the pressed state, but using it as the resting
+ * pill surface keeps the brand-orange identity while passing contrast on
+ * body-size labels. The lighter --primary stays free for the stamp moments
+ * elsewhere — hero illustration, link color, decorative gradient stops. */
+.pill[data-variant="primary"] {
+  background: var(--brand-primary-deep);
+  color: var(--primary-foreground);
+}
+.pill[data-variant="primary"]:hover {
+  background: var(--primary);
+}
+.pill[data-variant="dark"] {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+}
+.pill[data-variant="dark"]:hover {
+  background: var(--brand-surface-deep);
+}
+.pill[data-variant="outline"] {
+  background: var(--card);
+  color: var(--foreground);
+  border-color: var(--brand-hairline-strong);
+}
+.pill[data-variant="outline"]:hover {
+  background: var(--brand-surface-bone);
+}
+.pill[data-variant="ghost"] {
+  background: transparent;
+  color: var(--foreground);
+  padding: 0.5rem 1rem;
+}
+.pill[data-variant="ghost"]:hover {
+  color: var(--brand-charcoal);
+}
+.pill[data-size="sm"] {
+  min-height: 36px;
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill { transition: none; }
+}
+
+/* -- Top nav (cream canvas, hairline border) -- */
+.topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  height: 60px;
+}
+.topnav-left { display: flex; align-items: center; gap: 2rem; }
+.topnav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.topnav-brand-glyph {
+  width: 24px; height: 24px;
+  border-radius: 9999px;
+  background: var(--primary);
+  flex-shrink: 0;
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--brand-charcoal);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions { display: flex; align-items: center; gap: 0.5rem; }
+@media (max-width: 900px) {
+  .topnav-links { display: none; }
+}
+
+/* -- Hero band (cream canvas, monumental display).
+ * Single signature decorative moment: a hand-drawn-feeling sun glyph in the
+ * orange palette anchoring the headline, the way Replicate's home hero
+ * carries a stylised illustration inside the orange band. We keep it
+ * cream-canvas here (matches the wider page rhythm) rather than reproducing
+ * the full hero-warm gradient band, which would compete with the model-card
+ * signature surface. */
+.hero {
+  position: relative;
+  padding: 4rem 2rem 6rem;
+  border-bottom: 1px solid var(--border);
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 4rem;
+  align-items: center;
+}
+@media (max-width: 960px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+}
+.hero-headline {
+  font-family: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+  font-size: clamp(3rem, 9vw, 7.5rem);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 12ch;
+}
+.hero-lede {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--brand-body);
+  max-width: 48ch;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Hand-drawn-feeling decorative glyph — orange palette, irregular geometry,
+ * meant to read as the editorial-zine signature illustration without
+ * reproducing the original artwork. */
+.hero-art {
+  position: relative;
+  aspect-ratio: 1;
+  max-width: 22rem;
+  margin: 0 auto;
+}
+.hero-art-disc {
+  position: absolute;
+  inset: 12% 14% 18% 10%;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 32% 30%, var(--brand-hero-glow) 0%, transparent 55%),
+    radial-gradient(circle at 70% 70%, var(--brand-hero-pink) 0%, transparent 60%),
+    var(--primary);
+  box-shadow:
+    0 8px 32px rgba(234, 40, 4, 0.18),
+    0 0 0 4px var(--brand-surface-bone),
+    0 0 0 5px var(--brand-hairline-strong);
+}
+.hero-art-ring {
+  position: absolute;
+  inset: 4% 4% 6% 6%;
+  border-radius: 9999px;
+  border: 1.5px dashed var(--brand-hairline-strong);
+  opacity: 0.45;
+}
+.hero-art-tick {
+  position: absolute;
+  width: 1.5px;
+  height: 14px;
+  background: var(--brand-hairline-strong);
+  top: 50%;
+  left: 50%;
+  transform-origin: 0.75px 8rem;
+}
+
+/* -- Section frame (cream default) -- */
+.section { padding: 5rem 2rem; }
+.section[data-band="bone"] { background: var(--brand-surface-bone); }
+.section[data-band="dark"] { background: var(--brand-surface-dark); color: var(--brand-on-dark); }
+.section[data-band="deep"] { background: var(--brand-surface-deep); color: var(--brand-on-dark); }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-charcoal);
+  margin: 0 0 1rem;
+}
+.section[data-band="dark"] .eyebrow,
+.section[data-band="deep"] .eyebrow {
+  color: var(--brand-on-dark-mute);
+}
+.section-title {
+  font-family: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 18ch;
+}
+.section[data-band="dark"] .section-title,
+.section[data-band="deep"] .section-title {
+  color: var(--brand-on-dark);
+}
+.section-lede {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  max-width: 60ch;
+  margin: 0 0 2.5rem;
+}
+.section[data-band="dark"] .section-lede,
+.section[data-band="deep"] .section-lede {
+  color: var(--brand-on-dark-mute);
+}
+
+/* -- Sub-nav pill row (Replicate's secondary navigation pattern) -- */
+.subnav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.subnav-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-full);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--brand-charcoal);
+  background: transparent;
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+.subnav-pill:hover {
+  border-color: var(--brand-hairline-strong);
+  color: var(--foreground);
+}
+.subnav-pill[aria-current="true"] {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+.subnav-pill:focus-visible {
+  outline: 2px solid var(--brand-ring-focus);
+  outline-offset: 2px;
+}
+
+/* -- Model-card grid (SIGNATURE SURFACE).
+ * Pure white cards on cream canvas, square thumbnail with rounded radius,
+ * owner/name in basier-square substitute, single-line description in
+ * charcoal, status pill bottom-left, capability tags bottom-right.
+ * This is the one piece of Replicate the preview takes whole-cloth. */
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+@media (max-width: 1100px) { .model-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 820px) { .model-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .model-grid { grid-template-columns: 1fr; } }
+
+.model-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+.model-card:hover {
+  border-color: var(--brand-hairline-strong);
+  box-shadow: 0 8px 24px rgba(32, 32, 32, 0.08);
+}
+@media (prefers-reduced-motion: reduce) {
+  .model-card { transition: none; }
+}
+.model-thumb {
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+}
+.model-thumb[data-shade="warm-1"] {
+  background:
+    radial-gradient(circle at 30% 30%, var(--brand-hero-glow) 0%, transparent 60%),
+    radial-gradient(circle at 70% 80%, var(--brand-hero-pink) 0%, transparent 65%),
+    var(--primary);
+}
+.model-thumb[data-shade="warm-2"] {
+  background:
+    radial-gradient(circle at 70% 20%, var(--brand-hero-pink) 0%, transparent 55%),
+    linear-gradient(135deg, var(--brand-primary-deep) 0%, var(--primary) 60%, var(--brand-hero-glow) 100%);
+}
+.model-thumb[data-shade="ink"] {
+  background:
+    radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--brand-hero-glow) 40%, transparent) 0%, transparent 60%),
+    linear-gradient(160deg, var(--brand-surface-deep) 0%, var(--brand-surface-dark) 60%, var(--brand-charcoal) 100%);
+}
+.model-thumb[data-shade="bone"] {
+  background:
+    repeating-linear-gradient(45deg, var(--brand-surface-bone) 0px, var(--brand-surface-bone) 12px, var(--card) 12px, var(--card) 24px),
+    var(--brand-surface-bone);
+  border: 1px solid var(--border);
+}
+.model-thumb[data-shade="success"] {
+  background:
+    radial-gradient(circle at 40% 40%, color-mix(in srgb, var(--brand-badge-success) 70%, transparent) 0%, transparent 65%),
+    linear-gradient(160deg, var(--brand-surface-dark) 0%, color-mix(in srgb, var(--brand-badge-success) 35%, var(--brand-surface-dark)) 100%);
+}
+.model-thumb[data-shade="dusk"] {
+  background:
+    radial-gradient(circle at 50% 0%, var(--brand-hero-pink) 0%, transparent 60%),
+    linear-gradient(180deg, var(--primary) 0%, var(--brand-primary-deep) 70%, var(--brand-surface-dark) 100%);
+}
+.model-thumb[data-shade="dawn"] {
+  background:
+    linear-gradient(180deg, var(--brand-surface-bone) 0%, var(--brand-hero-pink) 50%, var(--brand-hero-glow) 100%);
+}
+.model-thumb[data-shade="grid"] {
+  background:
+    linear-gradient(var(--border) 1px, transparent 1px) 0 0 / 16px 16px,
+    linear-gradient(90deg, var(--border) 1px, transparent 1px) 0 0 / 16px 16px,
+    var(--card);
+}
+.model-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.model-owner {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--brand-mute);
+}
+.model-name {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+}
+.model-desc {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--brand-charcoal);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.model-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+/* Status pills run at 11px caption — well below any large-text threshold.
+ * Dark ink on the brand's success-green + stamp-orange surfaces clears
+ * WCAG AA (4.5:1+ on both) where a white label would land in the 2-4:1
+ * range. AUTHORING.md's "Signature-palette chip contrast" pattern:
+ * default to brand-locked dark ink on mid-saturation chips; reserve
+ * the white-on-brand pairing for surfaces where the chip is genuinely
+ * dark (the cold pill stays charcoal-on-bone for parity). */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--brand-badge-success);
+  color: var(--brand-surface-dark);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.status-pill[data-state="warm"] {
+  background: var(--brand-primary-deep);
+  color: var(--brand-on-dark);
+}
+.status-pill[data-state="cold"] {
+  background: var(--brand-surface-bone);
+  color: var(--brand-charcoal);
+  border: 1px solid var(--border);
+}
+.status-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: currentColor;
+  opacity: 0.85;
+}
+.tag-row { display: inline-flex; gap: 0.25rem; }
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--background);
+  border: 1px solid var(--border);
+  color: var(--brand-charcoal);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* -- Color swatch grid (token demo) -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 3rem;
+  border-radius: var(--radius-sm);
+}
+.swatch-chip[data-stroke] {
+  border: 1px solid var(--border);
+}
+.swatch-role {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--brand-mute);
+}
+.swatch-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--foreground);
+  word-break: break-all;
+}
+
+/* -- Surface ladder (token demo) -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+@media (max-width: 1024px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  padding: 1.5rem 1.25rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 10rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="canvas"] { background: var(--background); }
+.ladder-step[data-step="bone"] { background: var(--brand-surface-bone); }
+.ladder-step[data-step="card"] { background: var(--card); }
+.ladder-step[data-step="dark"] {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  border-color: var(--brand-divider-dark);
+}
+.ladder-step[data-step="deep"] {
+  background: var(--brand-surface-deep);
+  color: var(--brand-on-dark);
+  border-color: var(--brand-divider-dark);
+}
+.ladder-num {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+}
+.ladder-step[data-step="dark"] .ladder-num,
+.ladder-step[data-step="deep"] .ladder-num {
+  color: var(--brand-on-dark-mute);
+}
+.ladder-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--foreground);
+  word-break: break-all;
+}
+.ladder-step[data-step="dark"] .ladder-name,
+.ladder-step[data-step="deep"] .ladder-name {
+  color: var(--brand-on-dark);
+}
+.ladder-role {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--brand-charcoal);
+  margin-top: auto;
+}
+.ladder-step[data-step="dark"] .ladder-role,
+.ladder-step[data-step="deep"] .ladder-role {
+  color: var(--brand-on-dark-mute);
+}
+
+/* -- Typography roles (token demo) -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+}
+.type-display {
+  font-family: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.035em;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--foreground);
+}
+.type-body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-body);
+}
+.type-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 14px;
+  color: var(--foreground);
+}
+
+/* -- Code-story band: dark surface, JetBrains mono, code-tab strip.
+ * The brand's "how it works" walkthrough — a print-pull-quote slot
+ * inside the cream rhythm. Halcyon-team-using-an-inference-API copy;
+ * model identifier is an abstract placeholder. */
+.code-split {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 4rem;
+  align-items: start;
+}
+@media (max-width: 960px) { .code-split { grid-template-columns: 1fr; gap: 2rem; } }
+.code-narrative .section-title { color: var(--brand-on-dark); }
+.code-narrative .section-lede { color: var(--brand-on-dark-mute); }
+.code-card {
+  background: var(--brand-surface-deep);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--brand-divider-dark);
+}
+.code-tabs {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.75rem 0.75rem 0;
+  background: var(--brand-surface-deep);
+}
+.code-tab {
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--brand-radius-xs);
+  background: transparent;
+  color: var(--brand-on-dark-mute);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: none;
+  cursor: pointer;
+}
+.code-tab[aria-current="true"] {
+  color: var(--brand-on-dark);
+  border-bottom: 2px solid var(--primary);
+  border-radius: 0;
+  padding-bottom: 0.25rem;
+}
+.code-block {
+  background: var(--brand-surface-dark);
+  padding: 1.25rem 1.5rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--brand-on-dark);
+  overflow-x: auto;
+}
+.code-block pre {
+  margin: 0;
+  font-family: inherit;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.code-line { display: block; }
+.code-comment { color: var(--brand-on-dark-mute); }
+.code-keyword { color: var(--brand-hero-pink); }
+.code-string { color: var(--brand-hero-glow); }
+.code-fn { color: var(--brand-on-dark); }
+
+/* -- Playground panel (a second signature surface beat — single prompt
+ * input + output thumbnail + run button). Sits inside the dark code-story
+ * band as the companion to the API snippet. Read as "the same thing,
+ * two ways: API or playground." */
+.playground {
+  margin-top: 2rem;
+  background: var(--brand-surface-dark);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--brand-divider-dark);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+.playground-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.playground-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark-mute);
+  width: 4.5rem;
+  flex-shrink: 0;
+}
+.playground-input {
+  flex: 1;
+  background: var(--brand-surface-deep);
+  border: 1px solid var(--brand-divider-dark);
+  border-radius: var(--brand-radius-full);
+  padding: 0.5rem 1rem;
+  min-height: 40px;
+  color: var(--brand-on-dark);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+}
+.playground-input[data-empty]::after {
+  content: attr(data-empty);
+  color: var(--brand-on-dark-mute);
+}
+
+/* -- Component vocabulary row -- */
+.cmp-stack { display: flex; flex-direction: column; gap: 2rem; }
+.cmp-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.cmp-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+}
+.cmp-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.text-input {
+  display: inline-flex;
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-full);
+  padding: 0.5rem 1.25rem;
+  min-height: 44px;
+  min-width: 16rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  color: var(--brand-mute);
+}
+.text-input:focus-within {
+  border-color: var(--brand-hairline-strong);
+  outline: 3px solid var(--brand-ring-focus);
+  outline-offset: 0;
+}
+.tag-static {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--background);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+}
+.tag-static[data-tone="primary"] {
+  background: var(--brand-primary-deep);
+  color: var(--brand-on-dark);
+  border-color: var(--brand-primary-deep);
+}
+.tag-static[data-tone="success"] {
+  background: var(--brand-badge-success);
+  color: var(--brand-surface-dark);
+  border-color: var(--brand-badge-success);
+}
+.tag-static[data-tone="dark"] {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  border-color: var(--brand-surface-dark);
+}
+
+/* -- Footer (black canvas, multi-column) -- */
+.footer {
+  background: var(--brand-surface-deep);
+  color: var(--brand-on-dark);
+  padding: 4rem 2rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 960px) {
+  .footer-inner { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+}
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 32ch;
+}
+.footer-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--brand-on-dark);
+}
+.footer-brand-glyph {
+  width: 24px; height: 24px;
+  border-radius: 9999px;
+  background: var(--primary);
+}
+.footer-tagline {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--brand-on-dark-mute);
+  margin: 0;
+}
+.footer-col-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand-on-dark);
+  letter-spacing: 0.02em;
+  margin: 0 0 1rem;
+}
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.footer-list a {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--brand-on-dark-mute);
+  text-decoration: none;
+}
+.footer-list a:hover { color: var(--brand-on-dark); }
+.footer-legal {
+  max-width: 1280px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-divider-dark);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--brand-on-dark-mute);
+}
+</style>
+
+</head>
+<body>
+
+<header role="banner">
+  <nav class="topnav" aria-label="Primary">
+    <div class="topnav-left">
+      <a class="topnav-brand" href="#">
+        <span class="topnav-brand-glyph" aria-hidden="true"></span>
+        __DESIGN_SYSTEM_NAME__
+      </a>
+      <div class="topnav-links">
+        <a href="#">Explore</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+        <a href="#">Blog</a>
+      </div>
+    </div>
+    <div class="topnav-actions">
+      <button class="pill" data-variant="ghost" data-size="sm" type="button">Sign in</button>
+      <button class="pill" data-variant="primary" data-size="sm" type="button">Get started</button>
+    </div>
+  </nav>
+
+  <section class="hero" aria-label="Hero">
+    <div class="hero-inner">
+      <div>
+        <p class="eyebrow">token surface · preview · 2026.05.25</p>
+        <h1 class="hero-headline">A workshop for the model crew.</h1>
+        <p class="hero-lede">Halcyon's engineering team queues a few thousand jobs a day on top of an inference API. The cream canvas, the monumental display headline, and the orange stamp on the primary CTA are the three signature moves the catalog renders against tokens.css.</p>
+        <div class="hero-ctas">
+          <button class="pill" data-variant="primary" type="button">Try a model</button>
+          <button class="pill" data-variant="outline" type="button">Read the docs</button>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="hero-art-disc"></div>
+        <div class="hero-art-ring"></div>
+        <span class="hero-art-tick" style="transform: translate(-50%, -50%) rotate(0deg);"></span>
+        <span class="hero-art-tick" style="transform: translate(-50%, -50%) rotate(45deg);"></span>
+        <span class="hero-art-tick" style="transform: translate(-50%, -50%) rotate(90deg);"></span>
+        <span class="hero-art-tick" style="transform: translate(-50%, -50%) rotate(135deg);"></span>
+      </div>
+    </div>
+  </section>
+</header>
+
+<section class="section" aria-label="Model catalogue">
+  <div class="section-inner">
+    <p class="eyebrow">signature surface · model grid</p>
+    <h2 class="section-title">The grid where the team looks.</h2>
+    <p class="section-lede">Pure white cards on the cream canvas. Square thumbnail, owner slug in mono, name in Inter 600, single-line description in charcoal, status pill bottom-left, capability tag bottom-right. The catalogue's one signature surface for the Replicate-style preview — everything else on the page is token demo. Model identifiers are abstract placeholders.</p>
+
+    <nav class="subnav" aria-label="Model categories">
+      <button class="subnav-pill" type="button" aria-current="true">All</button>
+      <button class="subnav-pill" type="button">Featured</button>
+      <button class="subnav-pill" type="button">Image</button>
+      <button class="subnav-pill" type="button">Audio</button>
+      <button class="subnav-pill" type="button">Text</button>
+      <button class="subnav-pill" type="button">Embeddings</button>
+      <button class="subnav-pill" type="button">Video</button>
+    </nav>
+
+    <div class="model-grid">
+      <article class="model-card">
+        <div class="model-thumb" data-shade="warm-1" aria-hidden="true"></div>
+        <div class="model-meta">
+          <span class="model-owner">halcyon-labs /</span>
+          <span class="model-name">image-gen-xl</span>
+        </div>
+        <p class="model-desc">Generic placeholder for a high-resolution image generator the platform team keeps in the catalog as a benchmark.</p>
+        <div class="model-footer">
+          <span class="status-pill"><span class="status-pill-dot" aria-hidden="true"></span>warm</span>
+          <span class="tag-row"><span class="tag">image</span></span>
+        </div>
+      </article>
+
+      <article class="model-card">
+        <div class="model-thumb" data-shade="bone" aria-hidden="true"></div>
+        <div class="model-meta">
+          <span class="model-owner">halcyon-labs /</span>
+          <span class="model-name">text-embed-3</span>
+        </div>
+        <p class="model-desc">Embedding endpoint used by the doc-search service across halcyon.dev's internal knowledge corpus.</p>
+        <div class="model-footer">
+          <span class="status-pill"><span class="status-pill-dot" aria-hidden="true"></span>running</span>
+          <span class="tag-row"><span class="tag">embedding</span></span>
+        </div>
+      </article>
+
+      <article class="model-card">
+        <div class="model-thumb" data-shade="ink" aria-hidden="true"></div>
+        <div class="model-meta">
+          <span class="model-owner">community /</span>
+          <span class="model-name">voice-clone-v2</span>
+        </div>
+        <p class="model-desc">Speech model the customer-research team uses to anonymise interview recordings before transcript review.</p>
+        <div class="model-footer">
+          <span class="status-pill" data-state="warm"><span class="status-pill-dot" aria-hidden="true"></span>warm</span>
+          <span class="tag-row"><span class="tag">audio</span></span>
+        </div>
+      </article>
+
+      <article class="model-card">
+        <div class="model-thumb" data-shade="success" aria-hidden="true"></div>
+        <div class="model-meta">
+          <span class="model-owner">halcyon-labs /</span>
+          <span class="model-name">depth-mid</span>
+        </div>
+        <p class="model-desc">Single-image depth estimator wired into the engineering preview build for the Q3 perception spike.</p>
+        <div class="model-footer">
+          <span class="status-pill"><span class="status-pill-dot" aria-hidden="true"></span>running</span>
+          <span class="tag-row"><span class="tag">vision</span></span>
+        </div>
+      </article>
+
+      <article class="model-card">
+        <div class="model-thumb" data-shade="dusk" aria-hidden="true"></div>
+        <div class="model-meta">
+          <span class="model-owner">community /</span>
+          <span class="model-name">style-mix-tiny</span>
+        </div>
+        <p class="model-desc">Compact style-transfer endpoint the design crit pulls in for moodboard variations every Thursday.</p>
+        <div class="model-footer">
+          <span class="status-pill" data-state="cold"><span class="status-pill-dot" aria-hidden="true"></span>cold</span>
+          <span class="tag-row"><span class="tag">image</span></span>
+        </div>
+      </article>
+
+      <article class="model-card">
+        <div class="model-thumb" data-shade="dawn" aria-hidden="true"></div>
+        <div class="model-meta">
+          <span class="model-owner">halcyon-labs /</span>
+          <span class="model-name">summarise-prose</span>
+        </div>
+        <p class="model-desc">Tuned summariser the customer-success team pipes weekly NPS comments through before posting in #voice-of-customer.</p>
+        <div class="model-footer">
+          <span class="status-pill"><span class="status-pill-dot" aria-hidden="true"></span>running</span>
+          <span class="tag-row"><span class="tag">text</span></span>
+        </div>
+      </article>
+
+      <article class="model-card">
+        <div class="model-thumb" data-shade="warm-2" aria-hidden="true"></div>
+        <div class="model-meta">
+          <span class="model-owner">community /</span>
+          <span class="model-name">caption-it</span>
+        </div>
+        <p class="model-desc">Image captioner the marketing team runs over a screenshot pile before drafting changelog post titles.</p>
+        <div class="model-footer">
+          <span class="status-pill"><span class="status-pill-dot" aria-hidden="true"></span>warm</span>
+          <span class="tag-row"><span class="tag">vision</span></span>
+        </div>
+      </article>
+
+      <article class="model-card">
+        <div class="model-thumb" data-shade="grid" aria-hidden="true"></div>
+        <div class="model-meta">
+          <span class="model-owner">halcyon-labs /</span>
+          <span class="model-name">grid-search-mini</span>
+        </div>
+        <p class="model-desc">Generic placeholder for a small ranking model the search team keeps live during nightly retraining.</p>
+        <div class="model-footer">
+          <span class="status-pill" data-state="cold"><span class="status-pill-dot" aria-hidden="true"></span>idle</span>
+          <span class="tag-row"><span class="tag">ranking</span></span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="bone" aria-label="Color tokens">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · colour</p>
+    <h2 class="section-title">Cream, ink, orange.</h2>
+    <p class="section-lede">Three roles do the work. Cream as the canvas, ink as the type, orange as the stamp. Everything else is a hairline divider or a print-pull-quote dark band. Chips below resolve from <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.875em;">tokens.css</code>.</p>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" data-stroke style="background: var(--background);"></div><div class="swatch-role">Surface · canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" data-stroke style="background: var(--brand-surface-bone);"></div><div class="swatch-role">Surface · bone</div><div class="swatch-name">--brand-surface-bone</div></div>
+      <div class="swatch"><div class="swatch-chip" data-stroke style="background: var(--card);"></div><div class="swatch-role">Surface · card</div><div class="swatch-name">--card</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-dark);"></div><div class="swatch-role">Surface · dark</div><div class="swatch-name">--brand-surface-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-deep);"></div><div class="swatch-role">Surface · deep</div><div class="swatch-name">--brand-surface-deep</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Action · orange</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-primary-deep);"></div><div class="swatch-role">Action · pressed</div><div class="swatch-name">--brand-primary-deep</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-hero-glow);"></div><div class="swatch-role">Atmospheric</div><div class="swatch-name">--brand-hero-glow</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-hero-pink);"></div><div class="swatch-role">Atmospheric</div><div class="swatch-name">--brand-hero-pink</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink · primary</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Ink · body</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-charcoal);"></div><div class="swatch-role">Ink · charcoal</div><div class="swatch-name">--brand-charcoal</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-mute);"></div><div class="swatch-role">Ink · mute</div><div class="swatch-name">--brand-mute</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-badge-success);"></div><div class="swatch-role">Semantic · success</div><div class="swatch-name">--brand-badge-success</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Surface ladder">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · surface</p>
+    <h2 class="section-title">Five surfaces, one ladder.</h2>
+    <p class="section-lede">Canvas as the page floor. Bone as the section divider. Card as the white plate every model lives on. Dark and deep are the print-pull-quote surfaces that host code wells and the global footer. Surfaces never modulate by elevation shadow — colour-blocking carries the rhythm.</p>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">0</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">cream canvas · default page</span>
+      </div>
+      <div class="ladder-step" data-step="bone">
+        <span class="ladder-num">1</span>
+        <span class="ladder-name">--brand-surface-bone</span>
+        <span class="ladder-role">inset band · feature group</span>
+      </div>
+      <div class="ladder-step" data-step="card">
+        <span class="ladder-num">2</span>
+        <span class="ladder-name">--card</span>
+        <span class="ladder-role">white plate · model + input</span>
+      </div>
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">3</span>
+        <span class="ladder-name">--brand-surface-dark</span>
+        <span class="ladder-role">code well · featured tier</span>
+      </div>
+      <div class="ladder-step" data-step="deep">
+        <span class="ladder-num">4</span>
+        <span class="ladder-name">--brand-surface-deep</span>
+        <span class="ladder-role">footer · tab strip</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="dark" aria-label="Code story">
+  <div class="section-inner">
+    <div class="code-split">
+      <div class="code-narrative">
+        <p class="eyebrow">how it works</p>
+        <h2 class="section-title">Two calls, one response.</h2>
+        <p class="section-lede">The print-pull-quote band hosts a code well in JetBrains Mono. The dark surface inverts the page rhythm without breaking the cream ladder around it. Halcyon's platform team wraps a single helper around the generic inference call; the rest of the engineering team treats it as a function.</p>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="pill" data-variant="primary" type="button">Open in API</button>
+          <button class="pill" data-variant="dark" type="button">Open the playground</button>
+        </div>
+      </div>
+      <div>
+        <div class="code-card" aria-label="API snippet">
+          <div class="code-tabs" role="tablist">
+            <button class="code-tab" type="button" role="tab" aria-current="true">python</button>
+            <button class="code-tab" type="button" role="tab">node</button>
+            <button class="code-tab" type="button" role="tab">curl</button>
+            <button class="code-tab" type="button" role="tab">http</button>
+          </div>
+          <div class="code-block">
+<pre><span class="code-line"><span class="code-comment"># Generic inference call. Model identifier is a placeholder.</span></span><span class="code-line"><span class="code-keyword">import</span> halcyon_inference <span class="code-keyword">as</span> hi</span><span class="code-line"></span><span class="code-line">client = hi.<span class="code-fn">Client</span>(api_key=os.environ[<span class="code-string">"HALCYON_API_KEY"</span>])</span><span class="code-line"></span><span class="code-line">job = client.<span class="code-fn">run</span>(</span><span class="code-line">  model=<span class="code-string">"halcyon-labs/image-gen-xl"</span>,</span><span class="code-line">  input={<span class="code-string">"prompt"</span>: <span class="code-string">"a quiet workshop at dusk"</span>},</span><span class="code-line">)</span><span class="code-line"></span><span class="code-line"><span class="code-comment"># Returns a stable URL the engineering team archives.</span></span><span class="code-line"><span class="code-keyword">print</span>(job.output[<span class="code-keyword">0</span>])</span></pre>
+          </div>
+        </div>
+
+        <div class="playground" aria-label="Inference playground">
+          <div class="playground-row">
+            <span class="playground-label">model</span>
+            <span class="playground-input">halcyon-labs/image-gen-xl</span>
+          </div>
+          <div class="playground-row">
+            <span class="playground-label">prompt</span>
+            <span class="playground-input">a quiet workshop at dusk, soft golden light, hand-drawn</span>
+          </div>
+          <div class="playground-row">
+            <span class="playground-label">output</span>
+            <span class="playground-input" data-empty="ready · 1.4 s"></span>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+            <button class="pill" data-variant="outline" data-size="sm" type="button" style="background: transparent; color: var(--brand-on-dark); border-color: var(--brand-divider-dark);">Reset</button>
+            <button class="pill" data-variant="primary" data-size="sm" type="button">Run</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="bone" aria-label="Typography roles">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · type</p>
+    <h2 class="section-title">Three families, three jobs.</h2>
+    <p class="section-lede">Display held at weight 700+ with negative tracking from −0.04em at hero scale to −0.015em at title scale. Body in Inter at 16px / 1.5. Code never set in the sans — JetBrains Mono carries every literal command and model slug.</p>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Display</span><span class="type-display">Run the work.</span></div>
+      <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Cream canvas, orange stamp.</span></div>
+      <div class="type-row"><span class="type-label">Title</span><span class="type-title">Token surface preview · 2026.05</span></div>
+      <div class="type-row"><span class="type-label">Body</span><span class="type-body">Halcyon's engineering team writes specs in the morning, drops a design crit at lunch, and lands a few hundred inference jobs against the staging queue between code review and the end of the day. The body role is Inter at sixteen pixels, one-point-five line-height, with the warm body ink token instead of the page ink for long-form prose.</span></div>
+      <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">halcyon-labs/image-gen-xl · text-embed-3 · voice-clone-v2</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Component vocabulary">
+  <div class="section-inner">
+    <p class="eyebrow">vocabulary · components</p>
+    <h2 class="section-title">Pills, inputs, tags.</h2>
+    <p class="section-lede">Every interactive surface lives at radius 9999. Buttons, inputs, badges, avatars. The pill geometry is the second-loudest brand signal after the cream canvas — content cards step to <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.875em;">--radius-md</code> 10px so the rhythm reads as friendly precision rather than pill-on-pill noise.</p>
+    <div class="cmp-stack">
+      <div class="cmp-group">
+        <span class="cmp-label">Pill buttons · 9999px radius · 44px floor</span>
+        <div class="cmp-row">
+          <button class="pill" data-variant="primary" type="button">Primary</button>
+          <button class="pill" data-variant="dark" type="button">Dark</button>
+          <button class="pill" data-variant="outline" type="button">Outline</button>
+          <button class="pill" data-variant="ghost" type="button">Ghost</button>
+          <button class="pill" data-variant="primary" data-size="sm" type="button">Small primary</button>
+          <button class="pill" data-variant="outline" data-size="sm" type="button">Small outline</button>
+        </div>
+      </div>
+      <div class="cmp-group">
+        <span class="cmp-label">Input · pill geometry, hairline border</span>
+        <div class="cmp-row">
+          <label class="text-input">
+            <span aria-hidden="true" style="margin-right: 0.5rem;">›</span>
+            <span>Search a model, slug, or task</span>
+          </label>
+          <button class="pill" data-variant="primary" type="button">Search</button>
+        </div>
+      </div>
+      <div class="cmp-group">
+        <span class="cmp-label">Tags &amp; status pills · pill geometry, semantic tones</span>
+        <div class="cmp-row">
+          <span class="tag-static">image</span>
+          <span class="tag-static">embedding</span>
+          <span class="tag-static">audio</span>
+          <span class="tag-static">vision</span>
+          <span class="tag-static" data-tone="primary">featured</span>
+          <span class="tag-static" data-tone="success">running</span>
+          <span class="tag-static" data-tone="dark">on-dark</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-brand-mark">
+        <span class="footer-brand-glyph" aria-hidden="true"></span>
+        __DESIGN_SYSTEM_NAME__
+      </span>
+      <p class="footer-tagline">Token-surface preview rendered against the warm-cream / orange-stamp / heavy-display design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Catalogue</p>
+      <ul class="footer-list">
+        <li><a href="#">Models</a></li>
+        <li><a href="#">Collections</a></li>
+        <li><a href="#">Featured</a></li>
+        <li><a href="#">Pricing</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Developers</p>
+      <ul class="footer-list">
+        <li><a href="#">Docs</a></li>
+        <li><a href="#">API reference</a></li>
+        <li><a href="#">Status</a></li>
+        <li><a href="#">Changelog</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list">
+        <li><a href="#">halcyon.dev</a></li>
+        <li><a href="#">app.halcyon.dev</a></li>
+        <li><a href="#">hlc.so</a></li>
+        <li><a href="#">@halcyon/cli</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Security</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.25</span>
+    <span>cream canvas · orange stamp · monumental display · pill geometry</span>
+  </div>
+</footer>
+
+</body>
+</html>

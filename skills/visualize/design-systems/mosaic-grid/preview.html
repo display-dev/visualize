@@ -1,0 +1,2113 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mosaic-grid — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231A3C2B'/%3E%3Cpath d='M9 9h6v6H9zM17 9h6v6h-6zM9 17h6v6H9zM17 17h6v6h-6z' fill='%23F7F7F5' opacity='0.92'/%3E%3C/svg%3E">
+<meta property="og:title" content="mosaic-grid — token-surface preview">
+<meta property="og:description" content="Technical Minimalist register — paper-cream canvas, forest-green primary, grid-gray hairlines, zero shadows, mosaic-panel SVG background, L-shaped corner markers on form containers, JetBrains Mono numerical-index nav labels, 2x2 bento grid with monospaced mockup cells. Token surfaces on Halcyon-themed neutral content.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/mosaic-grid/tokens.css) === */
+/**
+ * design-systems/mosaic-grid/tokens.css
+ *
+ * Hand-authored from the spec-derived Mosaic Grid design system.
+ * Sourced: 2026-05-26 from temp/refs/mosaic-grid/raw.md (Superdesign library
+ * entry "Mosaic Grid Architecture Style" by Shirley Lou). No live brand site —
+ * see DESIGN.md frontmatter (source: spec-derived).
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this system's.
+ *     Never rename, never add to, never delete from per-system.
+ *   - Brand-extras (--brand-*): the system's own design vocabulary.
+ *     Surface-named only (-canvas-paper, -ink-forest, -hairline, etc.).
+ *
+ * Register: Technical Minimalist. Paper canvas (cream #F7F7F5) + Forest primary
+ * (#1A3C2B) + Grid ink (#3A3A38) hairlines. Zero shadows. 0px or 2px radii.
+ * Decorative accent trio (coral / mint / gold) stays inside bento left-borders.
+ *
+ * Dark mode is NOT documented in the spec. The [data-theme="dark"] block is a
+ * synthesised plausible inversion (near-black canvas, paper ink, brand chromatics
+ * preserved at :root values) following AUTHORING.md "light-canonical, no
+ * documented dark mode" guidance. Don't treat the dark block as brand-truth.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+
+  --background: oklch(0.9756 0.0026 106.45);            /* Paper #F7F7F5 */
+  --foreground: oklch(0.3477 0.0034 106.58);            /* Grid #3A3A38 */
+  --card: oklch(0.9756 0.0026 106.45);                  /* Paper — cells share canvas */
+  --card-foreground: oklch(0.3477 0.0034 106.58);
+  --popover: oklch(0.9756 0.0026 106.45);
+  --popover-foreground: oklch(0.3477 0.0034 106.58);
+
+  --primary: oklch(0.3249 0.0505 159.94);               /* Forest #1A3C2B */
+  --primary-foreground: oklch(0.9756 0.0026 106.45);    /* Paper on Forest */
+  --secondary: oklch(0.3249 0.0505 159.94);             /* Forest — ghost button border + ink */
+  --secondary-foreground: oklch(0.9756 0.0026 106.45);
+  --muted: oklch(0.9756 0.0026 106.45);                 /* Paper — muted regions differ by hairline framing */
+  --muted-foreground: oklch(0.3477 0.0034 106.58);
+  --accent: oklch(0.9756 0.0026 106.45);
+  --accent-foreground: oklch(0.3477 0.0034 106.58);
+  --destructive: oklch(0.7584 0.1480 37.71);            /* Coral #FF8C69 — warm-spectrum accent */
+  --destructive-foreground: oklch(0.9756 0.0026 106.45);
+
+  --border: oklch(0.3477 0.0034 106.58);                /* Grid #3A3A38 — consumers apply 20% alpha */
+  --input: oklch(0.3477 0.0034 106.58);
+  --ring: oklch(0.3249 0.0505 159.94);                  /* tracks --primary */
+
+  --sidebar: oklch(0.9756 0.0026 106.45);
+  --sidebar-foreground: oklch(0.3477 0.0034 106.58);
+  --sidebar-primary: oklch(0.3249 0.0505 159.94);       /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.9756 0.0026 106.45);
+  --sidebar-accent: oklch(0.9756 0.0026 106.45);
+  --sidebar-accent-foreground: oklch(0.3477 0.0034 106.58);
+  --sidebar-border: oklch(0.3477 0.0034 106.58);
+  --sidebar-ring: oklch(0.3249 0.0505 159.94);          /* tracks --primary */
+
+  --chart-1: oklch(0.3249 0.0505 159.94);               /* Forest */
+  --chart-2: oklch(0.7584 0.1480 37.71);                /* Coral */
+  --chart-3: oklch(0.9232 0.1277 154.24);               /* Mint */
+  --chart-4: oklch(0.8730 0.1396 93.54);                /* Gold */
+  --chart-5: oklch(0.3477 0.0034 106.58);               /* Grid */
+
+  --radius-sm: 0px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: 'General Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Zero shadows by spec — "No box shadows" per §Style prompt. The
+   * spec is explicit: hairlines do the work of elevation. */
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. Each value cited in DESIGN.md §2.
+   * -------------------------------------------------------------- */
+
+  /* Named canvases + ink */
+  --brand-canvas-paper: oklch(0.9756 0.0026 106.45);    /* #F7F7F5 — DESIGN §2 */
+  --brand-ink-forest:   oklch(0.3249 0.0505 159.94);    /* #1A3C2B — DESIGN §2 */
+  --brand-ink-grid:     oklch(0.3477 0.0034 106.58);    /* #3A3A38 — DESIGN §2 */
+
+  /* Hairlines / dividers — spec §"Style prose": 1px at #3A3A38/20.
+   * Mosaic background uses 0.5px at #3A3A38/30. */
+  --brand-hairline-soft:   oklch(0.3477 0.0034 106.58 / 0.2);
+  --brand-hairline-strong: oklch(0.3477 0.0034 106.58 / 0.45);
+
+  /* Utility neutrals for muted labels (caption hints, swatch values,
+   * footer meta, index hints in nav). Chroma-0 — not brand identity.
+   * Replaces opacity-blended ink that drifted sub-AA on body sizes.
+   *
+   * Two variants:
+   *   --brand-muted-soft    — flips with theme (use on theme-flipping surfaces).
+   *   --brand-muted-on-paper — paper-locked (use inside canvas-locked cards). */
+  --brand-muted-soft:     oklch(0.50 0 106.58);
+  --brand-muted-on-paper: oklch(0.50 0 106.58);
+
+  /* Documented secondary brand colours (DESIGN §2 — Style prompt palette) */
+  --brand-accent-coral: oklch(0.7584 0.1480 37.71);     /* #FF8C69 */
+  --brand-accent-mint:  oklch(0.9232 0.1277 154.24);    /* #9EFFBF */
+  --brand-accent-gold:  oklch(0.8730 0.1396 93.54);     /* #F4D35E */
+
+  /* Brand radii — spec §"Style prompt": 0px or 2px sm. */
+  --brand-radius-xs: 2px;
+  --brand-radius-none: 0px;
+}
+
+/* -- Dark theme ------------------------------------------------
+ * SYNTHESISED. The spec ships no documented dark mode. This block
+ * is a plausible inversion: near-black canvas, paper ink, brand
+ * chromatics held at :root values per AUTHORING.md "light-canonical,
+ * no documented dark mode" guidance.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.18 0.004 159.94);
+  --foreground: oklch(0.9756 0.0026 106.45);            /* Paper ink on dark */
+  --card: oklch(0.18 0.004 159.94);
+  --card-foreground: oklch(0.9756 0.0026 106.45);
+  --popover: oklch(0.18 0.004 159.94);
+  --popover-foreground: oklch(0.9756 0.0026 106.45);
+
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring stay at :root —
+   * forest green is brand identity, holds across modes. */
+
+  --secondary: oklch(0.3249 0.0505 159.94);
+  --secondary-foreground: oklch(0.9756 0.0026 106.45);
+  --muted: oklch(0.18 0.004 159.94);
+  --muted-foreground: oklch(0.74 0.003 106.45);
+
+  --border: oklch(0.9756 0.0026 106.45);                /* paper hairlines on dark canvas */
+  --input: oklch(0.9756 0.0026 106.45);
+
+  --sidebar: oklch(0.18 0.004 159.94);
+  --sidebar-foreground: oklch(0.9756 0.0026 106.45);
+  --sidebar-border: oklch(0.9756 0.0026 106.45);
+
+  --brand-hairline-soft:   oklch(0.9756 0.0026 106.45 / 0.2);
+  --brand-hairline-strong: oklch(0.9756 0.0026 106.45 / 0.45);
+
+  /* Dark-mode utility neutral — lifted lightness for AA on near-black canvas. */
+  --brand-muted-soft: oklch(0.74 0 106.58);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.18 0.004 159.94);
+    --foreground: oklch(0.9756 0.0026 106.45);
+    --card: oklch(0.18 0.004 159.94);
+    --card-foreground: oklch(0.9756 0.0026 106.45);
+    --popover: oklch(0.18 0.004 159.94);
+    --popover-foreground: oklch(0.9756 0.0026 106.45);
+
+    --secondary: oklch(0.3249 0.0505 159.94);
+    --secondary-foreground: oklch(0.9756 0.0026 106.45);
+    --muted: oklch(0.18 0.004 159.94);
+    --muted-foreground: oklch(0.74 0.003 106.45);
+
+    --border: oklch(0.9756 0.0026 106.45);
+    --input: oklch(0.9756 0.0026 106.45);
+
+    --sidebar: oklch(0.18 0.004 159.94);
+    --sidebar-foreground: oklch(0.9756 0.0026 106.45);
+    --sidebar-border: oklch(0.9756 0.0026 106.45);
+
+    --brand-hairline-soft:   oklch(0.9756 0.0026 106.45 / 0.2);
+    --brand-hairline-strong: oklch(0.9756 0.0026 106.45 / 0.45);
+
+    --brand-muted-soft: oklch(0.74 0 106.58);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Mosaic Grid preview shell — Technical Minimalist register.
+ * Signature mockup: 2x2 Bento Feature Grid framed by L-shaped corner
+ * markers (per DESIGN §4: Technical Form CTA + Bento Feature Grid).
+ * Each cell carries a JetBrains Mono header with a coloured
+ * left-border accent (coral / mint / gold) and an inner mockup box
+ * simulating a code snippet, status indicator, or config row.
+ * Bento sits on the mosaic-panel SVG background; corner markers
+ * frame the entire bento as one composite voltage moment. Numerical-
+ * index nav labels (01. PRICING) and Space Grotesk display headline
+ * carry the editorial-typographic identity. Content is Halcyon-team
+ * neutral SaaS work, not any product surface. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Mosaic background pattern (spec §"Section 1") -- */
+.mosaic-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-color: var(--brand-canvas-paper);
+  background-image:
+    linear-gradient(to right, var(--brand-hairline-strong) 0.5px, transparent 0.5px),
+    linear-gradient(to bottom, var(--brand-hairline-strong) 0.5px, transparent 0.5px);
+  background-size: 96px 96px, 96px 96px;
+  background-position: 0 0, 0 0;
+  opacity: 1;
+}
+.mosaic-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--brand-hairline-strong) 0.5px, transparent 0.5px),
+    linear-gradient(to bottom, var(--brand-hairline-strong) 0.5px, transparent 0.5px);
+  background-size: 192px 288px, 288px 192px;
+  background-position: 48px 64px, 64px 48px;
+}
+
+/* -- Topnav (spec §"Section 2") -- */
+.topnav {
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  background: var(--background);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--foreground);
+}
+.brand-glyph {
+  width: 32px;
+  height: 32px;
+  background: var(--brand-ink-forest);
+  display: inline-grid;
+  place-items: center;
+}
+.brand-glyph svg { display: block; }
+.brand-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  text-decoration: none;
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  min-height: 44px;
+  padding: 12px 0;
+}
+.nav-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+}
+.nav-link .idx { color: var(--brand-muted-soft); }
+.nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+/* -- Buttons (spec §"Section 2") -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--brand-radius-xs);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 150ms linear;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.btn-primary {
+  background: var(--brand-ink-forest);
+  color: var(--primary-foreground);
+  border: 1px solid var(--brand-ink-forest);
+}
+.btn-primary:hover { opacity: 0.88; }
+.btn-ghost {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+}
+.btn-ghost:hover { background: color-mix(in oklch, var(--foreground) 8%, transparent); }
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (spec §"Section 3") -- */
+.hero {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 1.5rem 5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  padding-left: 1rem;
+  border-left: 1px solid var(--foreground);
+  margin-bottom: 2rem;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 6.5vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+}
+.hero h1 em {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--brand-muted-soft);
+}
+.hero p.lede {
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  max-width: 36rem;
+  color: var(--foreground);
+  margin: 0 0 2rem;
+}
+.hero-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+/* Hero abstract wireframe graphic — square + dashed orbit */
+.hero-fig {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-width: 380px;
+  margin-left: auto;
+  border: 1px solid var(--brand-ink-grid);
+  background: var(--brand-canvas-paper);
+  display: grid;
+  place-items: center;
+}
+.hero-fig::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px dashed var(--brand-hairline-strong);
+  border-radius: 50%;
+  margin: 12%;
+}
+.hero-fig-img {
+  width: 60%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  mix-blend-mode: luminosity;
+  opacity: 0.9;
+  transition: opacity 200ms ease-out, filter 200ms ease-out;
+}
+.hero-fig-img:hover { mix-blend-mode: normal; opacity: 1; }
+.hero-fig-tag {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-ink-grid);
+}
+@media (max-width: 880px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-fig { margin: 0 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-fig-img { transition: none; }
+}
+
+/* -- SIGNATURE MOCKUP: Bento Feature Grid framed by L-corner-markers
+ *    (combines spec §"Section 4: Bento Feature Grid" with spec
+ *    §"Section 5: Technical Form CTA" corner-marker treatment — the
+ *    bento sits inside a corner-marked frame, which is the system's
+ *    voltage moment) -- */
+.signature {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.signature-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.signature-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.signature-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.signature-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 38rem;
+}
+
+.bento-frame {
+  position: relative;
+  padding: 1.5rem;
+  background: transparent;
+}
+.bento-frame::before,
+.bento-frame::after,
+.bento-frame > .corner-tl,
+.bento-frame > .corner-br {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--foreground);
+  border-style: solid;
+}
+.bento-frame::before { top: 0; left: 0; border-width: 2px 0 0 2px; }
+.bento-frame::after  { top: 0; right: 0; border-width: 2px 2px 0 0; }
+.bento-frame > .corner-tl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+.bento-frame > .corner-br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+
+.bento {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--brand-ink-grid);
+  border: 1px solid var(--brand-ink-grid);
+}
+@media (max-width: 760px) { .bento { grid-template-columns: 1fr; } }
+
+.bento-cell {
+  background: var(--brand-canvas-paper);
+  padding: 2rem;
+  border-left: 4px solid var(--cell-accent, var(--brand-ink-forest));
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 240px;
+}
+.bento-cell .label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-ink-grid);
+}
+.bento-cell .label .num { opacity: 0.55; margin-right: 0.5rem; }
+.bento-cell h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--brand-ink-forest);
+  margin: 0;
+}
+.bento-cell p {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--brand-ink-grid);
+  margin: 0;
+}
+
+.cell-coral { --cell-accent: var(--brand-accent-coral); }
+.cell-mint  { --cell-accent: var(--brand-accent-mint); }
+.cell-gold  { --cell-accent: var(--brand-accent-gold); }
+.cell-forest { --cell-accent: var(--brand-ink-forest); }
+
+/* Mockup box — monospaced wireframe of UI fragments (spec §"Section 4") */
+.mockup {
+  border: 1px solid var(--brand-hairline-soft);
+  background: var(--brand-canvas-paper);
+  padding: 1rem;
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--brand-ink-grid);
+}
+.mockup .row { display: flex; align-items: center; gap: 0.5rem; }
+.mockup .chip {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--chip-color, var(--brand-ink-forest));
+  flex-shrink: 0;
+}
+.mockup .k { color: var(--brand-ink-forest); font-weight: 500; }
+.mockup .v { color: var(--brand-ink-grid); }
+.mockup .comment { color: var(--brand-ink-grid); opacity: 0.55; }
+.mockup .ok { --chip-color: var(--brand-ink-forest); }
+.mockup .warn { --chip-color: var(--brand-accent-coral); }
+.mockup .info { --chip-color: var(--brand-accent-gold); }
+.mockup .neutral { --chip-color: var(--brand-ink-grid); }
+
+/* -- Status badge (spec §"Components 1") -- */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 4px 12px;
+  border: 1px solid color-mix(in oklch, var(--foreground) 24%, transparent);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.status-badge::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: var(--foreground);
+}
+
+/* -- Token-demo sections -- */
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 2.6vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 2rem;
+}
+
+/* Colour swatches */
+.swatches { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--brand-ink-grid); border: 1px solid var(--brand-ink-grid); }
+@media (max-width: 880px) { .swatches { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 480px) { .swatches { grid-template-columns: repeat(2, 1fr); } }
+.swatch {
+  background: var(--brand-canvas-paper);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 160px;
+}
+.swatch .chip {
+  width: 100%;
+  height: 64px;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch .name { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brand-ink-forest); }
+.swatch .val { font-family: var(--font-mono); font-size: 9.5px; color: var(--brand-muted-on-paper); word-break: break-all; }
+
+/* Surface ladder */
+.ladder { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-card {
+  border: 1px solid var(--brand-ink-grid);
+  padding: 2rem;
+  background: var(--brand-canvas-paper);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.ladder-card .num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-ink-grid);
+}
+.ladder-card .title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--brand-ink-forest);
+}
+.ladder-card .body { font-family: var(--font-sans); font-size: 14px; line-height: 1.55; color: var(--brand-ink-grid); margin: 0; }
+
+/* Typography roles */
+.type-roles { display: grid; gap: 2rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: 0; }
+.type-row .role {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-sample-display { font-family: var(--font-display); font-size: 3rem; font-weight: 700; letter-spacing: -0.02em; line-height: 0.95; color: var(--foreground); }
+.type-sample-heading { font-family: var(--font-display); font-size: 2rem; font-weight: 600; letter-spacing: -0.015em; line-height: 1.1; color: var(--foreground); }
+.type-sample-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; color: var(--foreground); }
+.type-sample-body { font-family: var(--font-sans); font-size: 1rem; line-height: 1.6; color: var(--foreground); }
+.type-sample-label { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--foreground); }
+.type-sample-mono { font-family: var(--font-mono); font-size: 13px; line-height: 1.6; color: var(--foreground); }
+@media (max-width: 700px) { .type-row { grid-template-columns: 1fr; gap: 0.5rem; } }
+
+/* Component vocabulary */
+.components { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+@media (max-width: 760px) { .components { grid-template-columns: 1fr; } }
+.component-block { border: 1px solid var(--brand-ink-grid); padding: 2rem; background: var(--brand-canvas-paper); display: flex; flex-direction: column; gap: 1.5rem; }
+.component-block .heading { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand-ink-grid); }
+.component-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+
+.input-row { display: flex; flex-direction: column; gap: 0.5rem; max-width: 320px; }
+.input-row label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-ink-grid);
+}
+.input-row input {
+  background: var(--brand-canvas-paper);
+  border: 1px solid var(--brand-ink-grid);
+  border-radius: var(--brand-radius-xs);
+  padding: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--brand-ink-forest);
+  min-height: 44px;
+}
+.input-row input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 1px;
+  border-color: var(--brand-ink-forest);
+}
+
+/* Testimonial card (spec §"Components 3") */
+.testimonial-band {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.testimonial-band-inner { max-width: 720px; margin: 0 auto; }
+.testimonial {
+  border: 1px solid var(--brand-ink-grid);
+  background: var(--brand-canvas-paper);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.testimonial-top { display: flex; align-items: center; justify-content: space-between; }
+.testimonial-quote {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--brand-ink-forest);
+  line-height: 1;
+}
+.testimonial-stars { display: inline-flex; gap: 2px; }
+.testimonial-stars span {
+  width: 10px;
+  height: 10px;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--brand-ink-forest);
+}
+.testimonial-body {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--brand-ink-grid);
+  margin: 0;
+}
+.testimonial-foot {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.testimonial-avatar {
+  width: 36px;
+  height: 36px;
+  background: var(--brand-ink-forest);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--primary-foreground);
+}
+.testimonial-meta { display: flex; flex-direction: column; gap: 2px; }
+.testimonial-name { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand-ink-forest); }
+.testimonial-title { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--brand-muted-on-paper); }
+
+/* Footer */
+.footer {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 1.5rem 2.5rem;
+  background: var(--background);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.footer-mark { display: flex; align-items: center; gap: 0.75rem; }
+.footer-meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand-muted-soft); }
+
+</style>
+</head>
+<body>
+
+<div class="mosaic-bg" aria-hidden="true"></div>
+
+<!-- Topnav: square logo box, numerical-index nav, ghost + solid buttons -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="#" class="brand-mark">
+      <span class="brand-glyph" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="1" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+          <rect x="9" y="1" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+          <rect x="1" y="9" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+          <rect x="9" y="9" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+        </svg>
+      </span>
+      <span class="brand-name">mosaic-grid</span>
+    </a>
+    <ul class="nav-links" aria-label="Primary">
+      <li><a class="nav-link" href="#"><span class="idx">01.</span>Atlas</a></li>
+      <li><a class="nav-link" href="#"><span class="idx">02.</span>Methods</a></li>
+      <li><a class="nav-link" href="#"><span class="idx">03.</span>Tooling</a></li>
+      <li><a class="nav-link" href="#"><span class="idx">04.</span>Library</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#" class="btn btn-ghost">Sign in</a>
+      <a href="#" class="btn btn-primary">Request access</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero: large editorial headline + wireframe orbit graphic -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <span>Edition</span>
+        <span>·</span>
+        <span>26 — Architecture</span>
+      </div>
+      <h1>
+        Drawn in <em>plan view</em>,<br>
+        built for the page.
+      </h1>
+      <p class="lede">
+        A token surface for technical writing, engineering specs, and product teardowns.
+        Halcyon's research desk runs every weekly memo through this register — paper
+        canvas, forest ink, hairline gutters. Nothing decorative, everything load-balanced.
+      </p>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-primary">Open atlas</a>
+        <a href="#" class="btn btn-ghost">Read brief</a>
+      </div>
+    </div>
+    <figure class="hero-fig" aria-label="Abstract orbit wireframe">
+      <img class="hero-fig-img" src="https://picsum.photos/seed/mosaic-grid-orbit-140r/600/600" alt="" aria-hidden="true" loading="lazy" />
+      <span class="hero-fig-tag">FIG 01 · ORBIT 140R</span>
+    </figure>
+  </div>
+</section>
+
+<!-- SIGNATURE MOCKUP: Bento Feature Grid framed by L-shaped corner markers -->
+<section class="signature">
+  <div class="signature-inner">
+    <header class="signature-header">
+      <span class="signature-eyebrow">§ 04 · Workbench Grid</span>
+      <h2 class="signature-title">Four cells, four registers, one hairline rule.</h2>
+      <span class="status-badge">Live · v2.6</span>
+    </header>
+
+    <div class="bento-frame">
+      <span class="corner-tl" aria-hidden="true"></span>
+      <span class="corner-br" aria-hidden="true"></span>
+
+      <div class="bento" role="list">
+        <article class="bento-cell cell-coral" role="listitem">
+          <span class="label"><span class="num">01.</span>Tenant Bootstrap</span>
+          <h3>Provisioning</h3>
+          <p>Halcyon's onboarding pipeline reads the org slug, allocates a row, mounts the workspace. Two-step audit, no human in the path.</p>
+          <div class="mockup" aria-hidden="true">
+            <div class="row"><span class="chip ok"></span><span class="k">tenant.slug</span><span class="v">= "halcyon-research"</span></div>
+            <div class="row"><span class="chip ok"></span><span class="k">region</span><span class="v">= "eu-fra-1"</span></div>
+            <div class="row"><span class="chip info"></span><span class="k">status</span><span class="v">= READY</span></div>
+            <div class="row"><span class="comment"># bootstrap.ts · 14ms</span></div>
+          </div>
+        </article>
+
+        <article class="bento-cell cell-mint" role="listitem">
+          <span class="label"><span class="num">02.</span>Spec Index</span>
+          <h3>Engineering memos</h3>
+          <p>Halcyon's research team writes every spec on paper canvas. Twelve memos a week, indexed by quarter, referenced by row id.</p>
+          <div class="mockup" aria-hidden="true">
+            <div class="row"><span class="chip neutral"></span><span class="k">SPEC-0148</span><span class="v">Edge cache · draft</span></div>
+            <div class="row"><span class="chip ok"></span><span class="k">SPEC-0147</span><span class="v">Topology v3 · merged</span></div>
+            <div class="row"><span class="chip info"></span><span class="k">SPEC-0146</span><span class="v">Retry budget · review</span></div>
+            <div class="row"><span class="chip neutral"></span><span class="k">SPEC-0145</span><span class="v">Quota model · merged</span></div>
+          </div>
+        </article>
+
+        <article class="bento-cell cell-gold" role="listitem">
+          <span class="label"><span class="num">03.</span>Deploy Ledger</span>
+          <h3>Release timeline</h3>
+          <p>Friday cuts, Monday rollouts, weekly retrospectives. The ledger reads like a plan-view of the quarter — every cell time-stamped, every line accounted for.</p>
+          <div class="mockup" aria-hidden="true">
+            <div class="row"><span class="chip ok"></span><span class="k">14:02 UTC</span><span class="v">v2.6.1 → prod</span></div>
+            <div class="row"><span class="chip ok"></span><span class="k">12:18 UTC</span><span class="v">v2.6.0 → staging</span></div>
+            <div class="row"><span class="chip warn"></span><span class="k">09:44 UTC</span><span class="v">migrate · paused</span></div>
+            <div class="row"><span class="comment"># ledger.tail · 06:00</span></div>
+          </div>
+        </article>
+
+        <article class="bento-cell cell-forest" role="listitem">
+          <span class="label"><span class="num">04.</span>Sprint Burndown</span>
+          <h3>Cycle 26 · week 3</h3>
+          <p>Eighteen tickets opened, fourteen closed, four in review. The team holds the line at 78% closure on a four-week cadence.</p>
+          <div class="mockup" aria-hidden="true">
+            <div class="row"><span class="chip ok"></span><span class="k">closed</span><span class="v">14 · 78%</span></div>
+            <div class="row"><span class="chip info"></span><span class="k">in review</span><span class="v">04 · 22%</span></div>
+            <div class="row"><span class="chip neutral"></span><span class="k">backlog</span><span class="v">+ 22 awaiting triage</span></div>
+            <div class="row"><span class="comment"># burndown.csv · 26.3</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Token demo: colour swatches -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-eyebrow">§ 05 · Palette</p>
+    <h2>Six surfaces, one register.</h2>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="chip" style="background: var(--brand-canvas-paper); border-color: var(--brand-ink-grid);"></div>
+        <span class="name">Paper</span>
+        <span class="val">canvas / cell fill</span>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: var(--brand-ink-forest); border-color: var(--brand-ink-forest);"></div>
+        <span class="name">Forest</span>
+        <span class="val">primary / heading ink</span>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: var(--brand-ink-grid); border-color: var(--brand-ink-grid);"></div>
+        <span class="name">Grid</span>
+        <span class="val">hairlines / body</span>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: var(--brand-accent-coral);"></div>
+        <span class="name">Coral</span>
+        <span class="val">bento accent · 01</span>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: var(--brand-accent-mint);"></div>
+        <span class="name">Mint</span>
+        <span class="val">bento accent · 02</span>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: var(--brand-accent-gold);"></div>
+        <span class="name">Gold</span>
+        <span class="val">bento accent · 03</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Token demo: surface ladder (hairline-only elevation) -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-eyebrow">§ 06 · Elevation</p>
+    <h2>Hairlines do the work of shadow.</h2>
+    <div class="ladder">
+      <article class="ladder-card">
+        <span class="num">Level · 00</span>
+        <span class="title">Canvas</span>
+        <p class="body">Paper at the base. The mosaic-panel grid sits beneath every section as quiet structural texture.</p>
+      </article>
+      <article class="ladder-card">
+        <span class="num">Level · 01</span>
+        <span class="title">Hairline frame</span>
+        <p class="body">A 1px line at twenty-percent opacity separates regions. No fill change, no surface lift.</p>
+      </article>
+      <article class="ladder-card">
+        <span class="num">Level · 02</span>
+        <span class="title">Solid edge</span>
+        <p class="body">Cards and figures step up to full-strength grid hairlines. Still flat. Still on paper.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Token demo: typography roles -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-eyebrow">§ 07 · Type</p>
+    <h2>Three families, six roles.</h2>
+    <div class="type-roles">
+      <div class="type-row">
+        <span class="role">Display · Space Grotesk 700</span>
+        <span class="type-sample-display">In plan view.</span>
+      </div>
+      <div class="type-row">
+        <span class="role">Heading · Space Grotesk 600</span>
+        <span class="type-sample-heading">A workbench for technical writing</span>
+      </div>
+      <div class="type-row">
+        <span class="role">Title · Space Grotesk 600</span>
+        <span class="type-sample-title">Edition 26 · the architecture issue</span>
+      </div>
+      <div class="type-row">
+        <span class="role">Body · General Sans 400</span>
+        <span class="type-sample-body">Halcyon's research desk publishes weekly memos on paper canvas. The bento grid carries the four cells of a working week — provisioning, specs, releases, retrospectives — separated by hairline gutters and nothing else.</span>
+      </div>
+      <div class="type-row">
+        <span class="role">Caption · JetBrains Mono 500</span>
+        <span class="type-sample-label">FIG · 03 · BURNDOWN · CYCLE 26</span>
+      </div>
+      <div class="type-row">
+        <span class="role">Mono · JetBrains Mono 400</span>
+        <span class="type-sample-mono">const region = "eu-fra-1"; const ttl = 86400;</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Token demo: component vocabulary -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-eyebrow">§ 08 · Components</p>
+    <h2>Buttons, badges, inputs.</h2>
+    <div class="components">
+      <div class="component-block">
+        <span class="heading">Buttons · solid + ghost</span>
+        <div class="component-row">
+          <a href="#" class="btn btn-primary">Primary</a>
+          <a href="#" class="btn btn-ghost">Ghost</a>
+        </div>
+        <span class="heading">Status indicators</span>
+        <div class="component-row">
+          <span class="status-badge">Live</span>
+          <span class="status-badge" style="border-color: color-mix(in oklch, var(--brand-accent-coral) 60%, transparent); color: var(--brand-ink-grid);">
+            <span style="background: var(--brand-accent-coral); width: 8px; height: 8px; display: inline-block;"></span>
+            Build · 14m
+          </span>
+          <span class="status-badge" style="border-color: color-mix(in oklch, var(--brand-accent-gold) 60%, transparent); color: var(--brand-ink-grid);">
+            <span style="background: var(--brand-accent-gold); width: 8px; height: 8px; display: inline-block;"></span>
+            Migrate
+          </span>
+        </div>
+      </div>
+
+      <div class="component-block">
+        <span class="heading">Form fields · monospaced labels above</span>
+        <div class="input-row">
+          <label for="org-name">Org name</label>
+          <input id="org-name" type="text" value="halcyon-research" />
+        </div>
+        <div class="input-row">
+          <label for="region">Region</label>
+          <input id="region" type="text" value="eu-fra-1" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Token demo: monospaced testimonial card (spec §"Components 3") -->
+<section class="testimonial-band">
+  <div class="testimonial-band-inner">
+    <p class="section-eyebrow" style="text-align: center; margin-bottom: 1.5rem;">§ 09 · Field note</p>
+    <article class="testimonial">
+      <div class="testimonial-top">
+        <span class="testimonial-quote">&ldquo;</span>
+        <span class="testimonial-stars" aria-label="Five out of five">
+          <span>&#9632;</span><span>&#9632;</span><span>&#9632;</span><span>&#9632;</span><span>&#9632;</span>
+        </span>
+      </div>
+      <p class="testimonial-body">Every weekly memo lands in the same shape. Paper canvas, four cells, one hairline rule. The team can read each other's drafts at a glance because the register never moves — only the words inside the cells do.</p>
+      <div class="testimonial-foot">
+        <div class="testimonial-avatar" aria-hidden="true">MR</div>
+        <div class="testimonial-meta">
+          <span class="testimonial-name">Morgan Reyes</span>
+          <span class="testimonial-title">Editor-at-large · mosaic-grid atlas</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-mark">
+      <span class="brand-glyph" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="1" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+          <rect x="9" y="1" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+          <rect x="1" y="9" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+          <rect x="9" y="9" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+        </svg>
+      </span>
+      <span class="brand-name">mosaic-grid</span>
+    </div>
+    <div class="footer-meta">EDITION 26 · ARCHITECTURE · MMXXVI</div>
+  </div>
+</footer>
+
+</body>
+</html>

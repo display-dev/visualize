@@ -1,0 +1,1325 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111111'/%3E%3Cpath d='M8 22 L8 10 L16 18 L24 10 L24 22' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Stark monochrome canvas + black-pill CTAs + a four-up vibrant gradient matrix (coral / magenta / blue / purple) carrying the brand voltage. DM Sans across every role; 80px hero display with -2px letter-spacing. Token surfaces rendered on Halcyon-themed neutral content.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === MiniMax-style preview shell — stark monochrome marketing register
+ * with a vibrant four-up brand-colour gradient matrix as the signature
+ * voltage moment. Black-pill primary CTAs (`var(--primary)` is the brand's
+ * dominant action across every surface) sit on a near-pure white canvas;
+ * the only chromatic energy enters via the polarity-locked product-matrix
+ * grid (coral / magenta / blue / purple) and the near-monochrome body
+ * ladder. DM Sans carries every role from 80px hero displays down to
+ * 12px micro labels. Halcyon-themed content describes the team using a
+ * generic AI assistant for engineering / design / research / operations
+ * workstreams — not MiniMax's product surface, not the host product's
+ * surface. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'DM Sans', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Promo banner (MiniMax's signature above-nav strip; near-black with
+ * inline coral accent CTA. Polarity-locked dark in both modes so the
+ * brand's "scarce promotional voltage" register holds.) -- */
+.promo-banner {
+  background: oklch(0.1448 0 0);
+  color: oklch(1 0 0);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  padding: 0.625rem 1.5rem;
+  text-align: center;
+}
+.promo-banner-inline {
+  color: oklch(0.6780 0.2122 33.7723);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  margin-left: 0.5rem;
+  font-weight: 600;
+}
+
+/* -- Top nav (64px, white surface, hairline divider) -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--brand-radius-full);
+  background: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  color: var(--primary-foreground);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+/* Inline-link nav (no pills — MiniMax marketing uses underlineless text) */
+.topnav-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.topnav-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+  text-decoration: none;
+  letter-spacing: -0.005em;
+  transition: opacity 120ms ease;
+}
+.topnav-link:hover { opacity: 0.7; }
+@media (prefers-reduced-motion: reduce) { .topnav-link { transition: none; } }
+@media (max-width: 1024px) { .topnav-links { display: none; } }
+
+.topnav-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* -- Buttons (44px touch floor, fully pill-shaped per DESIGN.md "pill is
+ * a brand signature; squared buttons signal third-party widget"). Three
+ * registers: black-pill primary (dominant CTA), outlined-pill secondary
+ * (paired with primary in dual-CTA hero), and white-fill tertiary. -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.625rem 1.5rem;
+  border-radius: var(--brand-radius-full);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 120ms ease, background 120ms ease, color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { opacity: 0.88; }
+.btn[data-variant="secondary"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+.btn[data-variant="secondary"]:hover { background: var(--secondary); }
+.btn[data-variant="tertiary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.btn[data-variant="tertiary"]:hover { background: var(--secondary); }
+.btn[data-variant="on-dark"] {
+  background: oklch(1 0 0);
+  color: oklch(0.1448 0 0);
+  border-color: oklch(1 0 0);
+}
+.btn[data-variant="on-dark"]:hover { opacity: 0.92; }
+.btn[data-size="lg"] {
+  min-height: 48px;
+  padding: 0.75rem 1.875rem;
+  font-size: 15px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero: centered display + dual-CTA pattern. MiniMax's documented
+ * `hero-band-marketing` shape (DESIGN.md §5). 80px display, -2px tracking,
+ * 1.10 leading — non-negotiable per "don't reduce hero leading below 1.10"
+ * (DESIGN.md §6 Don't). The display uses DM Sans 600. -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+  text-align: center;
+}
+.hero-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-charcoal);
+  padding: 0.375rem 0.875rem;
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-full);
+  background: var(--background);
+  margin: 0;
+}
+.hero-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-brand-coral);
+  flex-shrink: 0;
+}
+.hero-display {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 600;
+  line-height: 1.10;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 18ch;
+}
+.hero-lede {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  color: var(--brand-charcoal);
+  max-width: 38rem;
+  margin: 0;
+}
+.hero-ctas {
+  display: inline-flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/* -- Signature surface: four-up vibrant product-matrix grid. The brand's
+ * defining recognizable moment (DESIGN.md §5 product-matrix-grid).
+ * Coral / magenta / blue / purple gradient cards each carrying a Halcyon
+ * team workstream rather than a MiniMax model identity. 32px radius
+ * (--brand-radius-hero) — the doubled radius is the documented "this is
+ * a featured product moment" signature.
+ *
+ * Polarity-locked: stays vibrant + white ink in BOTH modes per the
+ * single-polarity-brands rule (only signature voltage stays canvas-
+ * locked across themes). */
+.matrix-section {
+  padding: 5rem 1.5rem;
+}
+.matrix-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.matrix-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.matrix-header-title-group {
+  max-width: 36rem;
+}
+.matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 1100px) { .matrix-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .matrix-grid { grid-template-columns: 1fr; } }
+
+.matrix-card {
+  position: relative;
+  border-radius: var(--brand-radius-hero);
+  padding: 1.75rem 1.5rem 1.5rem;
+  color: oklch(1 0 0);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-height: 22rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+.matrix-card[data-tone="coral"] {
+  background:
+    radial-gradient(ellipse at 18% 15%, oklch(0.7900 0.1900 50 / 0.55), transparent 60%),
+    radial-gradient(ellipse at 90% 95%, oklch(0.4400 0.1900 25 / 0.65), transparent 65%),
+    var(--brand-brand-coral);
+}
+.matrix-card[data-tone="magenta"] {
+  background:
+    radial-gradient(ellipse at 25% 10%, oklch(0.7800 0.1800 350 / 0.55), transparent 60%),
+    radial-gradient(ellipse at 95% 100%, oklch(0.4200 0.1900 330 / 0.65), transparent 65%),
+    var(--brand-brand-magenta);
+}
+.matrix-card[data-tone="blue"] {
+  background:
+    radial-gradient(ellipse at 22% 12%, oklch(0.6800 0.2000 250 / 0.55), transparent 60%),
+    radial-gradient(ellipse at 92% 96%, oklch(0.3600 0.2000 270 / 0.70), transparent 65%),
+    var(--brand-brand-blue);
+}
+.matrix-card[data-tone="purple"] {
+  background:
+    radial-gradient(ellipse at 20% 15%, oklch(0.7400 0.2000 295 / 0.55), transparent 60%),
+    radial-gradient(ellipse at 95% 95%, oklch(0.4000 0.2200 310 / 0.65), transparent 65%),
+    var(--brand-brand-purple);
+}
+.matrix-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.matrix-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 4px 10px;
+  border-radius: var(--brand-radius-full);
+  background: oklch(1 0 0 / 0.22);
+  color: oklch(1 0 0);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.matrix-card-eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: oklch(1 0 0 / 0.85);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.matrix-card-wordmark {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: oklch(1 0 0);
+  margin: 0;
+  margin-top: auto;
+}
+.matrix-card-tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: oklch(1 0 0 / 0.88);
+  margin: 0;
+  max-width: 22ch;
+}
+.matrix-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid oklch(1 0 0 / 0.22);
+}
+.matrix-card-meta {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: oklch(1 0 0 / 0.88);
+  letter-spacing: 0.02em;
+}
+.matrix-card-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: oklch(1 0 0 / 0.18);
+  display: inline-grid;
+  place-items: center;
+  color: oklch(1 0 0);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; }
+.section[data-tight] { padding: 4rem 1.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 42rem; margin-bottom: 3rem; }
+.section-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-lede {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  color: var(--brand-charcoal);
+  margin: 0;
+  max-width: 38rem;
+}
+
+/* -- Token demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--radius-xl);
+  padding: 1rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.swatch-chip {
+  height: 3.25rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-role {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+}
+.swatch-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--foreground);
+  word-break: break-all;
+}
+
+/* -- Token demo: surface ladder (5 steps) -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 1080px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  border-radius: var(--radius-xl);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 12rem;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.ladder-step[data-step="canvas"]    { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="surface"]   { background: var(--brand-surface); color: var(--foreground); border-color: var(--brand-hairline-soft); }
+.ladder-step[data-step="card"]      { background: var(--card); color: var(--foreground); }
+.ladder-step[data-step="ink"]       {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+/* The polarity-locked footer-band surface (the brand's documented dark
+ * footer color). Stays near-black in BOTH polarities so the brand's
+ * "scarce dark band" register reads consistently — in dark mode the
+ * canvas IS this same color, so the step reads as identical to canvas
+ * which is the correct register. */
+.ladder-step[data-step="footer-bg"] {
+  background: oklch(0.1448 0 0);
+  color: oklch(1 0 0);
+  border-color: oklch(0.1448 0 0);
+}
+.ladder-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.ladder-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+}
+.ladder-role {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  opacity: 0.92;
+  margin-top: auto;
+}
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2.5rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+}
+.type-display {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 56px;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.10;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-charcoal);
+}
+.type-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--brand-charcoal);
+}
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.75rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+/* Pill-tab group — brand's documented `pill-tab` segmented register */
+.pill-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 4px;
+  background: var(--secondary);
+  border-radius: var(--brand-radius-full);
+}
+.pill-group-tab {
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-full);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brand-charcoal);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+.pill-group-tab[data-active] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+@media (prefers-reduced-motion: reduce) { .pill-group-tab { transition: none; } }
+
+/* Badges — MiniMax's documented chip set (badge-success / badge-new /
+ * badge-beta / badge-code). Pill geometry universal. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 4px 10px;
+  border-radius: var(--brand-radius-full);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+.badge[data-tone="new"]     { background: var(--brand-brand-coral); color: oklch(1 0 0); }
+.badge[data-tone="success"] { background: var(--brand-success-bg); color: var(--brand-success-text); }
+.badge[data-tone="beta"]    { background: var(--secondary); color: var(--foreground); }
+.badge[data-tone="code"]    {
+  background: var(--secondary);
+  color: var(--foreground);
+  border-radius: var(--radius-sm);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  padding: 2px 8px;
+}
+.badge[data-tone="ink"]     { background: var(--primary); color: var(--primary-foreground); }
+.badge[data-tone="neutral"] { background: var(--secondary); color: var(--foreground); }
+
+/* Search-pill — MiniMax's documented documentation top-bar search */
+.search-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 22rem;
+  height: 40px;
+  padding: 0 0.875rem;
+  border-radius: var(--radius-md);
+  background: var(--brand-surface);
+  border: 1px solid var(--border);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--brand-steel);
+  cursor: text;
+}
+.search-pill-glyph {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--brand-steel);
+  position: relative;
+}
+.search-pill-glyph::after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  bottom: -3px;
+  width: 6px;
+  height: 1.5px;
+  background: var(--brand-steel);
+  transform: rotate(45deg);
+  transform-origin: 0 0;
+}
+.search-pill-shortcut {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--brand-steel);
+  padding: 2px 6px;
+  border-radius: var(--brand-radius-xs);
+  border: 1px solid var(--border);
+  background: var(--background);
+}
+
+/* Text input (44px touch floor) */
+.text-input {
+  width: 100%;
+  max-width: 22rem;
+  height: 44px;
+  padding: 0 0.875rem;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md);
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+}
+.text-input::placeholder { color: var(--brand-stone); }
+.text-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  border-width: 2px;
+  padding: 0 calc(0.875rem - 1px);
+}
+
+/* Pricing — generic SaaS-shape tiers per AUTHORING.md "never the host
+ * product's surface". Hobby / Team / Org-wide naming, no the host product
+ * differentiators (no Google + Microsoft SSO, no custom domains, no audit
+ * log), no MiniMax model names. */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 960px) { .pricing-grid { grid-template-columns: 1fr; } }
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-xxxl);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.pricing-card[data-feature] {
+  border-color: var(--primary);
+  border-width: 1.5px;
+}
+.pricing-card-top { display: flex; flex-direction: column; gap: 0.5rem; }
+.pricing-tier-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.pricing-tier-pill {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: var(--brand-radius-full);
+  background: var(--brand-brand-coral);
+  color: oklch(1 0 0);
+  text-transform: uppercase;
+}
+.pricing-tier-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-tier-amount {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--brand-charcoal);
+  margin: 0;
+}
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--brand-charcoal);
+  line-height: 1.5;
+}
+.pricing-features li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, var(--brand-success-text) 22%, transparent 24%),
+    var(--brand-success-bg);
+}
+
+/* -- Closer: dark band with dual-CTA pattern. Polarity-locked dark in
+ * both modes — MiniMax's documented promo-banner / footer register is
+ * always near-black. In dark mode the canvas IS this same colour, so
+ * the closer reads as a flat embossed inverse (the hairline border + the
+ * white-ink primary CTA carry the visual elevation). -- */
+.closer {
+  margin: 0 1.5rem;
+  background: oklch(0.1448 0 0);
+  color: oklch(1 0 0);
+  border-radius: var(--brand-radius-hero);
+  padding: 3.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  border: 1px solid oklch(0.2800 0 0);
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.closer-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  max-width: 40rem;
+}
+.closer-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* Coral lifted from the :root token's L=0.58 to L=0.72 ONLY for this
+   * label — the closer eyebrow sits on a near-black band where the
+   * matrix-locked coral falls to ~4.16:1, short of WCAG AA 4.5:1 for
+   * body-size labels. Brand-locked coral stays at :root for the matrix
+   * cards (white-on-coral); this local lift is for ink-on-dark only. */
+  color: oklch(0.7200 0.1700 33.7723);
+  margin: 0;
+}
+.closer-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: oklch(1 0 0);
+  margin: 0;
+}
+.closer-lede {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  color: oklch(1 0 0 / 0.85);
+  margin: 0;
+}
+.closer-ctas { display: inline-flex; gap: 0.75rem; flex-wrap: wrap; }
+
+.closer-section { padding: 4rem 0; }
+
+/* -- Footer (white canvas with hairline divider in light mode; flips to
+ * canvas in dark mode via --background) -- */
+.footer {
+  background: var(--background);
+  color: var(--foreground);
+  padding: 4rem 1.5rem 2rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  max-width: 32ch;
+}
+.footer-tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--brand-steel);
+  line-height: 1.55;
+  margin: 0;
+}
+.footer-col-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.footer-list a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--brand-steel);
+  text-decoration: none;
+}
+.footer-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1280px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--brand-charcoal);
+}
+.footer-legal-meta { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+</style>
+
+</head>
+<body>
+
+<div class="promo-banner" role="region" aria-label="Announcement">
+  Weekly Halcyon engineering rollup is live for Week 21
+  <a class="promo-banner-inline" href="#">Read the digest</a>
+</div>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true">H</span>
+      __DESIGN_SYSTEM_NAME__
+    </a>
+    <div class="topnav-links">
+      <a class="topnav-link" href="#">Workstreams</a>
+      <a class="topnav-link" href="#">Engineering</a>
+      <a class="topnav-link" href="#">Research</a>
+      <a class="topnav-link" href="#">Company</a>
+    </div>
+    <div class="topnav-actions">
+      <a class="btn" data-variant="secondary" href="#">Sign in</a>
+      <a class="btn" data-variant="primary" href="#">Get a demo</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow"><span class="hero-eyebrow-dot" aria-hidden="true"></span>Halcyon Engineering · Week 21</p>
+    <h1 class="hero-display">An editorial canvas for a working team.</h1>
+    <p class="hero-lede">Halcyon's engineering, design, research, and operations teams share one weekly board. The assistant drafts the diff, the team signs off at the merge boundary, and Friday's rollup writes itself by the time the office closes.</p>
+    <div class="hero-ctas">
+      <a class="btn" data-variant="primary" data-size="lg" href="#">Open this week's board</a>
+      <a class="btn" data-variant="secondary" data-size="lg" href="#">Read the digest</a>
+    </div>
+  </div>
+</header>
+
+<section class="matrix-section" aria-label="Workstream matrix — signature surface">
+  <div class="matrix-inner">
+    <div class="matrix-header">
+      <div class="matrix-header-title-group">
+        <p class="section-eyebrow">Halcyon HQ · Workstreams</p>
+        <h2 class="section-title">Four boards. One rollup at the close of week.</h2>
+      </div>
+      <p class="section-lede" style="margin: 0;">Each workstream carries a colour, a current count, and a Friday handoff. The team checks in Monday and reads the digest Friday afternoon.</p>
+    </div>
+
+    <div class="matrix-grid">
+      <article class="matrix-card" data-tone="coral" aria-label="Engineering workstream card">
+        <div class="matrix-card-top">
+          <p class="matrix-card-eyebrow">01 · Engineering</p>
+          <span class="matrix-card-badge">Open</span>
+        </div>
+        <div>
+          <h3 class="matrix-card-wordmark">Diffs by Wednesday</h3>
+          <p class="matrix-card-tagline">Halcyon ships multiple PRs a day. The assistant drafts the diff and runs the tests before a human signs off at the merge boundary.</p>
+        </div>
+        <div class="matrix-card-footer">
+          <span class="matrix-card-meta">14 open · 3 review · 7 merged</span>
+          <span class="matrix-card-arrow" aria-hidden="true">&gt;</span>
+        </div>
+      </article>
+
+      <article class="matrix-card" data-tone="magenta" aria-label="Design workstream card">
+        <div class="matrix-card-top">
+          <p class="matrix-card-eyebrow">02 · Design</p>
+          <span class="matrix-card-badge">Live crit</span>
+        </div>
+        <div>
+          <h3 class="matrix-card-wordmark">Crit at noon Thursday</h3>
+          <p class="matrix-card-tagline">A weekly design crit puts work on the wall. Riley pins the brief, Avery reviews, and the team votes before lunch.</p>
+        </div>
+        <div class="matrix-card-footer">
+          <span class="matrix-card-meta">6 boards · 2 pinned · 4 ready</span>
+          <span class="matrix-card-arrow" aria-hidden="true">&gt;</span>
+        </div>
+      </article>
+
+      <article class="matrix-card" data-tone="blue" aria-label="Research workstream card">
+        <div class="matrix-card-top">
+          <p class="matrix-card-eyebrow">03 · Research</p>
+          <span class="matrix-card-badge">In flight</span>
+        </div>
+        <div>
+          <h3 class="matrix-card-wordmark">Customer reads</h3>
+          <p class="matrix-card-tagline">Sam runs the customer-interview cycle. The assistant synthesises every transcript into a single thread the team can read on a Friday afternoon.</p>
+        </div>
+        <div class="matrix-card-footer">
+          <span class="matrix-card-meta">12 interviews · 4 themes</span>
+          <span class="matrix-card-arrow" aria-hidden="true">&gt;</span>
+        </div>
+      </article>
+
+      <article class="matrix-card" data-tone="purple" aria-label="Operations workstream card">
+        <div class="matrix-card-top">
+          <p class="matrix-card-eyebrow">04 · Operations</p>
+          <span class="matrix-card-badge">Q3 plan</span>
+        </div>
+        <div>
+          <h3 class="matrix-card-wordmark">Numbers on Monday</h3>
+          <p class="matrix-card-tagline">A weekly metrics rollup lands in the team channel every Monday at nine. Morgan owns the dashboard, Taylor owns the narrative.</p>
+        </div>
+        <div class="matrix-card-footer">
+          <span class="matrix-card-meta">DAU · NPS · runway · deploys</span>
+          <span class="matrix-card-arrow" aria-hidden="true">&gt;</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Stark monochrome, scarce vibrant identity.</h2>
+      <p class="section-lede">The marketing canvas runs near-monochrome. Brand colour enters only where the page declares product identity. Coral, magenta, blue, and purple are the four documented model-identity tones — used on the matrix grid, used nowhere else.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background); border: 1px solid var(--brand-hairline-soft);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Primary · Ink pill</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: oklch(0.1448 0 0);"></div><div class="swatch-role">Footer ground</div><div class="swatch-name">--brand-footer-bg</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--secondary);"></div><div class="swatch-role">Secondary</div><div class="swatch-name">--secondary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-brand-coral);"></div><div class="swatch-role">Identity · Coral</div><div class="swatch-name">--brand-brand-coral</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-brand-magenta);"></div><div class="swatch-role">Identity · Magenta</div><div class="swatch-name">--brand-brand-magenta</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-brand-blue);"></div><div class="swatch-role">Identity · Blue</div><div class="swatch-name">--brand-brand-blue</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-brand-purple);"></div><div class="swatch-role">Identity · Purple</div><div class="swatch-name">--brand-brand-purple</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-success-bg);"></div><div class="swatch-role">Success · Wash</div><div class="swatch-name">--brand-success-bg</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-success-text);"></div><div class="swatch-role">Success · Ink</div><div class="swatch-name">--brand-success-text</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--destructive);"></div><div class="swatch-role">Destructive</div><div class="swatch-name">--destructive</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces · Five steps</p>
+      <h2 class="section-title">Canvas through ink, scarce dark band at the closer.</h2>
+      <p class="section-lede">Pages run on canvas, lift to surface for documentation backgrounds, return to card for content tiles, accept ink only at the action moment, and close on the dark footer band. The ink step is the brand's commitment voltage; the footer band is the scarce-dark register.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">01 · Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · marketing body · cards on white</span>
+      </div>
+      <div class="ladder-step" data-step="surface">
+        <span class="ladder-num">02 · Surface</span>
+        <span class="ladder-name">--brand-surface</span>
+        <span class="ladder-role">search-pill rest · sidebar active · soft section</span>
+      </div>
+      <div class="ladder-step" data-step="card">
+        <span class="ladder-num">03 · Card</span>
+        <span class="ladder-name">--card</span>
+        <span class="ladder-role">documentation card · pricing tier · table row</span>
+      </div>
+      <div class="ladder-step" data-step="ink">
+        <span class="ladder-num">04 · Ink pill</span>
+        <span class="ladder-name">--primary</span>
+        <span class="ladder-role">dominant CTA · "commit here" voltage</span>
+      </div>
+      <div class="ladder-step" data-step="footer-bg">
+        <span class="ladder-num">05 · Footer band</span>
+        <span class="ladder-name">--brand-footer-bg</span>
+        <span class="ladder-role">promo banner · multi-column footer · closer</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">DM Sans across every role, tight 1.10 leading at the display.</h2>
+      <p class="section-lede">Hero displays run DM Sans 600 with -0.04em letter-spacing and 1.10 line-height. Body settles at 16px, 1.5 leading. Buttons are universally pill-shaped, badges sit in a pill register, and the segmented pill-tab group carries the brand's documented documentation nav.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">A working canvas</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Built for a team's week</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">DM Sans 600 · 20 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in DM Sans 400 at 16 pixels, 1.5 line-height. The body register stays at charcoal weight; the heading register lifts to the near-black anchor.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">team.rollup.publish()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · dual-CTA pattern</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" type="button">Open the board</button>
+            <button class="btn" data-variant="secondary" type="button">Read the digest</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Buttons · tertiary register</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="tertiary" type="button">View archive</button>
+            <button class="btn" data-variant="tertiary" type="button">Manage team</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Pill-group · segmented nav</span>
+          <div class="cmp-row">
+            <div class="pill-group" role="tablist">
+              <button class="pill-group-tab" data-active role="tab" type="button">Engineering</button>
+              <button class="pill-group-tab" role="tab" type="button">Design</button>
+              <button class="pill-group-tab" role="tab" type="button">Research</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Badges · status pills</span>
+          <div class="cmp-row">
+            <span class="badge" data-tone="new">New</span>
+            <span class="badge" data-tone="success">Shipped</span>
+            <span class="badge" data-tone="beta">Beta</span>
+            <span class="badge" data-tone="code">API</span>
+            <span class="badge" data-tone="ink">Active</span>
+            <span class="badge" data-tone="neutral">Archived</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Search-pill · documentation top-bar</span>
+          <div class="cmp-row">
+            <span class="search-pill" role="search" aria-label="Search">
+              <span class="search-pill-glyph" aria-hidden="true"></span>
+              Search the rollup
+              <span class="search-pill-shortcut">&#8984;K</span>
+            </span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Text input · 44px · 8px radius · blue focus</span>
+          <div class="cmp-row">
+            <input class="text-input" type="email" placeholder="you@halcyon.dev" aria-label="Email">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Pricing tiers">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Pricing tiles</p>
+      <h2 class="section-title">Three shapes, one geometry.</h2>
+      <p class="section-lede">Pricing tiles use the same 24px-rounded white card geometry as the documentation register. The feature tier carries a 1.5px ink border instead of a coloured fill; the brand reserves vibrant colour for the matrix.</p>
+    </div>
+    <div class="pricing-grid">
+      <article class="pricing-card">
+        <div class="pricing-card-top">
+          <span class="pricing-tier-label">Hobby</span>
+          <h3 class="pricing-tier-name">Free</h3>
+          <p class="pricing-tier-amount">Personal use, no card on file.</p>
+        </div>
+        <ul class="pricing-features">
+          <li>Standard quota</li>
+          <li>Best-effort response</li>
+          <li>Community support</li>
+          <li>Personal workspace</li>
+        </ul>
+        <button class="btn" data-variant="tertiary" type="button">Start free</button>
+      </article>
+      <article class="pricing-card" data-feature>
+        <div class="pricing-card-top">
+          <span class="pricing-tier-label">Team <span class="pricing-tier-pill">Popular</span></span>
+          <h3 class="pricing-tier-name">Standard</h3>
+          <p class="pricing-tier-amount">Per-team plan, monthly or annual.</p>
+        </div>
+        <ul class="pricing-features">
+          <li>Increased quota</li>
+          <li>Priority response</li>
+          <li>Team workspace</li>
+          <li>Weekly digest export</li>
+        </ul>
+        <button class="btn" data-variant="primary" type="button">Choose Team</button>
+      </article>
+      <article class="pricing-card">
+        <div class="pricing-card-top">
+          <span class="pricing-tier-label">Org-wide</span>
+          <h3 class="pricing-tier-name">Custom</h3>
+          <p class="pricing-tier-amount">Org-wide deployment with paperwork.</p>
+        </div>
+        <ul class="pricing-features">
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+          <li>Production SLA</li>
+        </ul>
+        <button class="btn" data-variant="tertiary" type="button">Talk to the team</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="closer-section" aria-label="Pre-footer closer band">
+  <div class="closer">
+    <div class="closer-text">
+      <p class="closer-eyebrow">Friday rollup · Week 21</p>
+      <h3 class="closer-title">An editorial canvas for a working team.</h3>
+      <p class="closer-lede">Halcyon's engineering and design teams open Monday, close Friday, and archive the rollup. The assistant drafts the diff, the team signs off at the merge boundary, and the digest writes itself.</p>
+    </div>
+    <div class="closer-ctas">
+      <a class="btn" data-variant="on-dark" data-size="lg" href="#">Open this week</a>
+      <a class="btn" data-variant="secondary" data-size="lg" href="#" style="color: oklch(1 0 0); border-color: oklch(1 0 0);">Read the digest</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#">
+        <span class="brand-glyph" aria-hidden="true">H</span>
+        __DESIGN_SYSTEM_NAME__
+      </a>
+      <p class="footer-tagline">A token-surface preview rendered against the stark monochrome design system. White canvas, black-pill CTAs, four-up vibrant matrix as the signature voltage, DM Sans across every role. Halcyon-themed neutral content; not affiliated with the upstream brand.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Workstreams</p>
+      <ul class="footer-list">
+        <li><a href="#">Engineering</a></li>
+        <li><a href="#">Design</a></li>
+        <li><a href="#">Research</a></li>
+        <li><a href="#">Operations</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Engineering</p>
+      <ul class="footer-list">
+        <li><a href="#">halcyon-api</a></li>
+        <li><a href="#">halcyon-webapp</a></li>
+        <li><a href="#">halcyon-worker</a></li>
+        <li><a href="#">halcyon-cli</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list">
+        <li><a href="#">halcyon.dev</a></li>
+        <li><a href="#">app.halcyon.dev</a></li>
+        <li><a href="#">@halcyon/cli</a></li>
+        <li><a href="#">hlc.so</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Security</a></li>
+        <li><a href="#">team@halcyon.dev</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.25</span>
+    <span class="footer-legal-meta">white canvas · ink pill · vibrant matrix · DM Sans</span>
+  </div>
+</footer>
+
+</body>
+</html>

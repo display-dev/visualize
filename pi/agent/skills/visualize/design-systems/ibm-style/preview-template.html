@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230f62fe'/%3E%3Cpath d='M8 9 L24 9 L24 11 L8 11 Z M8 13 L24 13 L24 15 L8 15 Z M8 17 L24 17 L24 19 L8 19 Z M8 21 L24 21 L24 23 L8 23 Z' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. White canvas + charcoal type + single IBM Blue accent + IBM Plex Sans light-weight display + flat-square 0-4px radii + thin-bordered tile cards.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === IBM-style preview shell — Carbon Design System: white canvas,
+   charcoal type, IBM Blue (#0f62fe) as the single confident accent,
+   IBM Plex Sans at weight 300 for display (the brand's signature
+   light-weight tic) and 400/600 for body and emphasis. Flat-square
+   aesthetic: 0–4 px corners, thin 1 px borders, no shadows. Sections
+   separate via subtle gray rows. Tile grid as the signature surface.
+   Dark inverse footer mirrors Carbon's documented footer pattern.
+   Halcyon-themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav (white, charcoal, square) -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.16px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 22px; height: 22px;
+  background: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--primary-foreground);
+}
+.topnav-links {
+  display: flex;
+  gap: 1rem;
+  font-size: 14px;
+  font-weight: 400;
+  flex: 1;
+  margin-left: 1.5rem;
+  color: var(--brand-ink-muted);
+}
+.topnav-links a {
+  color: inherit;
+  text-decoration: none;
+  padding: 0 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+}
+.topnav-links a:hover { color: var(--foreground); background: var(--brand-surface-1); }
+.topnav-actions { display: flex; gap: 0; align-items: center; font-size: 14px; height: 48px; }
+.topnav-actions a { color: var(--brand-ink-muted); text-decoration: none; font-weight: 400; padding: 0 1rem; display: inline-flex; align-items: center; height: 100%; }
+.topnav-actions a:hover { color: var(--foreground); background: var(--brand-surface-1); }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (square, no radius, 48 px tall — Carbon spec) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+  border-radius: 0;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0.16px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 70ms ease, color 70ms ease, border-color 70ms ease;
+  white-space: nowrap;
+  min-width: 10rem;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-blue-hover); border-color: var(--brand-blue-hover); }
+.btn[data-variant="secondary"] {
+  background: var(--brand-secondary-bg);
+  color: var(--brand-secondary-ink);
+  border-color: var(--brand-secondary-bg);
+}
+.btn[data-variant="secondary"]:hover { background: var(--brand-ink-muted); border-color: var(--brand-ink-muted); }
+.btn[data-variant="tertiary"] {
+  background: transparent;
+  color: var(--brand-blue-on-dark);
+  border: 1px solid var(--brand-blue-on-dark);
+}
+.btn[data-variant="tertiary"]:hover { background: var(--brand-blue-on-dark); color: var(--primary-foreground); }
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--brand-blue-on-dark);
+  border-color: transparent;
+  min-width: auto;
+  padding: 0.75rem 1rem;
+}
+.btn[data-variant="ghost"]:hover { background: var(--brand-surface-1); }
+.btn-arrow {
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (white, light-300 display, square button with arrow) -- */
+.hero {
+  background: var(--background);
+  padding: 5rem 1rem 6rem;
+  position: relative;
+}
+.hero-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+  align-items: end;
+}
+@media (max-width: 880px) { .hero-inner { grid-template-columns: 1fr; } }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+  color: var(--brand-ink-muted);
+  margin: 0 0 1rem;
+}
+.eyebrow-square {
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+}
+.hero-display {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 300;
+  line-height: 1.17;
+  letter-spacing: -0.5px;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 16ch;
+}
+.hero-lede {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--foreground);
+  max-width: 38rem;
+  margin: 0 0 2rem;
+}
+.hero-aside {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-ink-subtle);
+  letter-spacing: 0.32px;
+  border-left: 1px solid var(--border);
+  padding-left: 1.5rem;
+  line-height: 1.5;
+}
+.hero-aside-key {
+  display: block;
+  color: var(--brand-ink-muted);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.32px;
+  margin-bottom: 0.25rem;
+}
+
+/* -- Signature: tile grid (Carbon's marketing surface vocabulary) -- */
+.tile-section {
+  padding: 1px 0;
+  background: var(--brand-surface-1);
+}
+.tile-grid {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+@media (max-width: 1080px) { .tile-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .tile-grid { grid-template-columns: 1fr; } }
+.tile {
+  background: var(--background);
+  padding: 2rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 16rem;
+  position: relative;
+  transition: background 120ms ease;
+}
+.tile:hover { background: var(--brand-surface-1); }
+.tile[data-featured] { background: var(--brand-surface-2); }
+.tile-eyebrow {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.32px;
+  color: var(--brand-ink-muted);
+}
+.tile-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: var(--foreground);
+  margin: 0;
+}
+.tile-body {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--brand-ink-muted);
+  margin: 0;
+  flex: 1;
+}
+.tile-arrow {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  color: var(--primary);
+  align-self: flex-start;
+}
+
+/* -- Section frame -- */
+.section { padding: 5rem 1rem; }
+.section[data-tight] { padding: 3rem 1rem; }
+.section[data-band="soft"] { background: var(--brand-surface-1); }
+.section-inner { max-width: 1320px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 300;
+  letter-spacing: -0.32px;
+  line-height: 1.2;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 24ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-ink-muted);
+  margin: 0;
+  max-width: 36rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.swatch {
+  padding: 1rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+@media (max-width: 880px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="surface-1"] { background: var(--brand-surface-1); color: var(--foreground); }
+.ladder-step[data-step="surface-2"] { background: var(--brand-surface-2); color: var(--foreground); }
+.ladder-step[data-step="inverse"] { background: var(--brand-inverse-canvas); color: var(--brand-inverse-ink); }
+.ladder-num {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.ladder-name {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 13px;
+}
+.ladder-role { font-size: 14px; opacity: 0.86; margin-top: auto; line-height: 1.45; }
+
+/* -- Pricing (white tiles, featured = inverse-dark) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--background);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pricing-card[data-featured] {
+  background: var(--brand-inverse-canvas);
+  color: var(--brand-inverse-ink);
+}
+.pricing-name {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.16px;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-name { color: var(--brand-inverse-ink); }
+.pricing-price {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 42px;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+  color: var(--foreground);
+  line-height: 1.1;
+}
+.pricing-card[data-featured] .pricing-price { color: var(--brand-inverse-ink); }
+.pricing-tagline {
+  font-size: 14px;
+  color: var(--brand-ink-muted);
+  margin: 0;
+  line-height: 1.45;
+  min-height: 2.9em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--brand-inverse-ink-muted); }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  font-size: 14px;
+  color: var(--foreground);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: rgba(255, 255, 255, 0.25);
+  color: var(--brand-inverse-ink);
+}
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.pricing-features li::before {
+  content: "—";
+  color: var(--primary);
+  flex-shrink: 0;
+  width: 16px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--brand-inverse-ink); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+}
+.type-display {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 42px;
+  font-weight: 300;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: -0.32px;
+  line-height: 1.25;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; line-height: 1.5; color: var(--foreground); }
+.type-mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: var(--foreground); letter-spacing: 0.16px; }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+  width: 100%;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--brand-surface-1);
+  color: var(--foreground);
+}
+.tag[data-tone="blue"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.tag[data-tone="info"] {
+  background: var(--brand-surface-2);
+}
+
+/* -- Footer (inverse-dark canvas — Carbon documented pattern) -- */
+.footer {
+  background: var(--brand-inverse-canvas);
+  color: var(--brand-inverse-ink);
+  padding: 3rem 1rem 2rem;
+}
+.footer-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer .brand-mark { color: var(--brand-inverse-ink); }
+.footer-tagline { font-size: 13px; color: var(--brand-inverse-ink-muted); line-height: 1.5; margin: 0; }
+.footer-col-title {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+  color: var(--brand-inverse-ink-muted);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 14px; color: var(--brand-inverse-ink); text-decoration: none; }
+.footer-list a:hover { color: var(--primary); }
+.footer-legal {
+  max-width: 1320px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-inverse-ink-muted);
+}
+.footer-legal-meta { font-family: 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: 0.16px; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Products</a>
+      <a href="#">Solutions</a>
+      <a href="#">Industries</a>
+      <a href="#">Research</a>
+      <a href="#">Support</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-square" aria-hidden="true"></span>Halcyon · workspace</p>
+      <h1 class="hero-display">A canvas for the whole team to work on.</h1>
+      <p class="hero-lede">Halcyon's product team writes specs, runs reviews, and ships notes on a flat-square enterprise surface — IBM Plex throughout, IBM Blue carrying the single action, no decoration that doesn&apos;t earn its grid cell.</p>
+      <div class="hero-ctas">
+        <a class="btn" data-variant="primary" href="#">Get started <span class="btn-arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <aside class="hero-aside" aria-label="Hero meta">
+      <span class="hero-aside-key">Version</span>
+      Halcyon · 2026.05.24
+      <br>
+      <br>
+      <span class="hero-aside-key">Status</span>
+      Workspace · enterprise edition
+      <br>
+      <br>
+      <span class="hero-aside-key">Region</span>
+      Global · 12 zones available
+    </aside>
+  </div>
+</header>
+
+<section class="tile-section" aria-label="Tile grid signature mockup">
+  <h2 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;">Workspace tile grid</h2>
+  <div class="tile-grid">
+    <div class="tile">
+      <span class="tile-eyebrow">Workspace</span>
+      <h3 class="tile-title">Notes &amp; reviews</h3>
+      <p class="tile-body">Long-form writing surface for the whole team. Notes index against the editorial calendar; reviews thread inline.</p>
+      <span class="tile-arrow" aria-hidden="true">→</span>
+    </div>
+    <div class="tile" data-featured>
+      <span class="tile-eyebrow">Workspace</span>
+      <h3 class="tile-title">Specs &amp; tickets</h3>
+      <p class="tile-body">Engineering specs live next to the tickets they unblock. Owners, due dates, and the closing review on one surface.</p>
+      <span class="tile-arrow" aria-hidden="true">→</span>
+    </div>
+    <div class="tile">
+      <span class="tile-eyebrow">Workspace</span>
+      <h3 class="tile-title">Analytics dashboards</h3>
+      <p class="tile-body">Saved insights from the operations team, refreshed nightly. Embed straight into a note or review surface.</p>
+      <span class="tile-arrow" aria-hidden="true">→</span>
+    </div>
+    <div class="tile">
+      <span class="tile-eyebrow">Workspace</span>
+      <h3 class="tile-title">Org-wide search</h3>
+      <p class="tile-body">Search across every note, spec, review, and dashboard in the org. Scoped to the requester&apos;s permission set.</p>
+      <span class="tile-arrow" aria-hidden="true">→</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">One blue, the rest is gray.</h2>
+      <p class="section-lede">White canvas with subtle gray surface bands. A single IBM Blue carries every action — buttons, links, accent squares. Charcoal foreground at 80% luminance, muted ink for body emphasis, subtle ink for helper copy.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-1);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-1</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-2);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-2</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-inverse-canvas);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-inverse-canvas</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Primary</div><div class="swatch-name">--primary · IBM Blue 60</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-blue-hover);"></div><div class="swatch-role">Primary</div><div class="swatch-name">--brand-blue-hover</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-blue-80);"></div><div class="swatch-role">Primary</div><div class="swatch-name">--brand-blue-80</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ink-muted);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-muted</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ink-subtle);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-subtle</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-semantic-success);"></div><div class="swatch-role">Status</div><div class="swatch-name">--brand-semantic-success</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-semantic-warning);"></div><div class="swatch-role">Status</div><div class="swatch-name">--brand-semantic-warning</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="soft" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces</p>
+      <h2 class="section-title">Four surface registers.</h2>
+      <p class="section-lede">White canvas as the page floor. Two lifted gray surface bands for alternating rows and emphasis. Inverse near-black for the footer and the featured pricing tier — Carbon's documented two-polarity contract.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · default body</span>
+      </div>
+      <div class="ladder-step" data-step="surface-1">
+        <span class="ladder-num">Surface 1</span>
+        <span class="ladder-name">--brand-surface-1</span>
+        <span class="ladder-role">alternating row band · soft chrome</span>
+      </div>
+      <div class="ladder-step" data-step="surface-2">
+        <span class="ladder-num">Surface 2</span>
+        <span class="ladder-name">--brand-surface-2</span>
+        <span class="ladder-role">emphasis tile · stronger band</span>
+      </div>
+      <div class="ladder-step" data-step="inverse">
+        <span class="ladder-num">Inverse</span>
+        <span class="ladder-name">--brand-inverse-canvas</span>
+        <span class="ladder-role">footer · featured tier · contrast block</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three tiers. Flat grid.</h2>
+      <p class="section-lede">Pricing on the white canvas — tiles share a 1 px gap, featured tier inverted to near-black. No discounts highlighted, no decorations earning their cell.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><a class="btn" data-variant="tertiary" href="#">Get started <span class="btn-arrow" aria-hidden="true">→</span></a></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><a class="btn" data-variant="primary" href="#">Start Team <span class="btn-arrow" aria-hidden="true">→</span></a></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><a class="btn" data-variant="tertiary" href="#">Talk to sales <span class="btn-arrow" aria-hidden="true">→</span></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="soft" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · type + components</p>
+      <h2 class="section-title">IBM Plex Sans, weight 300.</h2>
+      <p class="section-lede">Display sits at weight 300 with -0.5 px tracking — the brand's signature light-weight tic. Body at weight 400, emphasis at 600. IBM Plex Mono carries every eyebrow, caption, and code reference in uppercase with positive 0.32 px tracking.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Flat-square gravitas.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Light at 300, sharp at 0.</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">IBM Plex Sans · 400 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in IBM Plex Sans at 14–16 pixels, line-height 1.5. Carbon recommends light weights for marketing display, regular weights for product, and bold only for emphasis.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">workspace.notes.open()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · square, no radius, arrow icon</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <a class="btn" data-variant="primary" href="#">Primary <span class="btn-arrow" aria-hidden="true">→</span></a>
+            <a class="btn" data-variant="secondary" href="#">Secondary <span class="btn-arrow" aria-hidden="true">→</span></a>
+            <a class="btn" data-variant="tertiary" href="#">Tertiary <span class="btn-arrow" aria-hidden="true">→</span></a>
+            <a class="btn" data-variant="ghost" href="#">Ghost</a>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Tags · subtle pill, single accent option</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <span class="tag">Workspace</span>
+            <span class="tag" data-tone="blue">Active</span>
+            <span class="tag" data-tone="info">Beta</span>
+            <span class="tag">Archived</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the Carbon-aligned flat-square design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Products</p>
+      <ul class="footer-list"><li><a href="#">Workspace</a></li><li><a href="#">Specs</a></li><li><a href="#">Dashboards</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Solutions</p>
+      <ul class="footer-list"><li><a href="#">Enterprise</a></li><li><a href="#">Hybrid cloud</a></li><li><a href="#">Government</a></li><li><a href="#">Education</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">workspace.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">About</p>
+      <ul class="footer-list"><li><a href="#">Company</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">white canvas · IBM Blue · flat-square 0–4 px · IBM Plex 300</span>
+  </div>
+</footer>
+
+</body>
+</html>

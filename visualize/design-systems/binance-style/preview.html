@@ -1,0 +1,2095 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>binance-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23202833'/%3E%3Cpath d='M16 7 L20 11 L16 15 L12 11 Z M11 16 L15 12 L11 16 L7 16 Z M21 16 L25 16 L21 16 L17 12 L17 12 Z M16 17 L20 21 L16 25 L12 21 Z' fill='%23fcd535'/%3E%3C/svg%3E">
+<meta property="og:title" content="binance-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Confident financial-platform surface — dark-canonical canvas with Binance's iconic yellow (#FCD535) for every primary CTA + value-claim, trading green/red accents for price direction, light transactional band for buy/exchange surfaces.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/binance-style/tokens.css) === */
+/**
+ * design-systems/binance-style/tokens.css
+ *
+ * Live-verified against binance.com on 2026-05-26 (13 surfaces across
+ * product /trade /futures /markets /launchpool, editorial /academy
+ * /research /blog, corporate /en /about /careers /square /download,
+ * reference /fee /support). Companion to ./DESIGN.md.
+ *
+ * canonical-canvas: both. Binance runs a two-track canvas split
+ * surface-by-surface (not via user toggle): product + corporate-identity
+ * surfaces ship dark #0B0E11 navy-tinted near-black; transactional +
+ * educational + reference surfaces ship white. Footer is always-dark.
+ *
+ * Brand yellow #FCD535 single-stop, darkens on press to ~#E5C12B (live).
+ * Trading green #0ECB81 + red #F6465D (magenta-leaning) are polarity-
+ * locked equals with --primary; semantic colors hold across both
+ * canvases. BinanceNova proprietary family across all surfaces — no
+ * monospace anywhere; numerics use tabular-nums.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2183 0.0121 270.8076);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2183 0.0121 270.8076);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2183 0.0121 270.8076);
+  --primary: oklch(0.8814 0.1678 94.2373);
+  --primary-foreground: oklch(0.2183 0.0121 270.8076);
+  --secondary: oklch(1 0 0);
+  --secondary-foreground: oklch(0.2183 0.0121 270.8076);
+  /* Live-verified 2026-05-26: alternating-band zebra is #FAFAFA, not pure
+   * white. Visible on academy / fee-schedule list rows. */
+  --muted: oklch(0.9851 0 0);
+  --muted-foreground: oklch(0.50 0.025 259.8038);
+  /* The import's teal #2EBD85 was not observed on any surface this cycle.
+   * Falling through to the muted-gray surface — every live "accent" role on
+   * Binance is either --primary yellow or trading green/red. */
+  --accent: oklch(0.9851 0 0);
+  --accent-foreground: oklch(0.2183 0.0121 270.8076);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0.2183 0.0121 270.8076);
+  --border: oklch(0.8975 0 0);
+  --input: oklch(0.8975 0 0);
+  --ring: oklch(0.8814 0.1678 94.2373);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.2183 0.0121 270.8076);
+  --sidebar-primary: oklch(0.8814 0.1678 94.2373);
+  --sidebar-primary-foreground: oklch(0.2183 0.0121 270.8076);
+  --sidebar-accent: oklch(1 0 0);
+  --sidebar-accent-foreground: oklch(0.2183 0.0121 270.8076);
+  --sidebar-border: oklch(0.8975 0 0);
+  --sidebar-ring: oklch(0.8814 0.1678 94.2373);
+  --chart-1: oklch(0.8100 0.1678 94.2373);
+  --chart-2: oklch(0.7100 0.1678 94.2373);
+  --chart-3: oklch(0.6100 0.1678 94.2373);
+  --chart-4: oklch(0.5100 0.1678 94.2373);
+  --chart-5: oklch(0.4200 0.1678 94.2373);
+
+  /* radius scale */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 2px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: BinanceNova, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: BinanceNova, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 64px;
+  --text-heading: 48px;
+  --text-title: 20px;
+  --text-base: 14px;
+  --leading-tight: 1.1;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras */
+  /* Live-verified 2026-05-26: yellow DARKENS on press to #E5C12B (the import
+   * had it lighter, wrong direction). Hue shifts slightly toward 91.5. */
+  --brand-primary-active: oklch(0.8474 0.1599 91.5);
+  --brand-primary-disabled: oklch(0.3410 0.0429 108.4760);
+  --brand-body: oklch(0.9424 0.0046 258.3251);
+  --brand-body-on-light: oklch(0.2183 0.0121 270.8076);
+  --brand-muted-strong: oklch(0.6833 0.0186 256.3102);
+  --brand-hairline-on-light: oklch(0.9424 0.0046 258.3251);
+  --brand-hairline-on-dark: oklch(0.3107 0.0166 255.6442);
+  --brand-border-strong: oklch(0.8591 0.0082 253.8609);
+  --brand-canvas-light: oklch(1 0 0);
+  --brand-canvas-dark: oklch(0.1618 0.0080 248.3222);
+  --brand-surface-card-dark: oklch(0.2537 0.0135 253.0681);
+  --brand-surface-elevated-dark: oklch(0.3107 0.0166 255.6442);
+  --brand-surface-soft-light: oklch(0.9851 0 0);
+  --brand-surface-strong-light: oklch(0.9702 0 0);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-trading-up: oklch(0.7427 0.1713 158.1483);
+  /* Live-verified 2026-05-26: Binance's documented trading-down red #F6465D
+   * = oklch(0.6543 0.2110 18.17) (NOT oklch(0.625 0.218 22.5) — the prior
+   * value was an OKLCH-conversion typo that rendered to #ef3745). The brand-
+   * truth value lands at 4.48:1 on dark card #1e2329 — barely sub-AA. Lifted
+   * to L=0.66 (= #f8485f) so orderbook .price text clears 4.5:1 AA on the
+   * dark card surface; the perceptual shift from brand-truth is ~0.006 L,
+   * essentially indistinguishable. Same utility-tune pattern as Apple's
+   * --brand-ink-muted-48 and Linear's --brand-ink-mute.
+   * Polarity-locked equal with --primary and --brand-trading-up. */
+  --brand-trading-down: oklch(0.66 0.211 18.17);
+  --brand-info: oklch(0.6231 0.1880 259.8145);
+  --brand-info-ring: oklch(0.6231 0.1880 259.8145);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Live-verified anchor: --background = #0B0E11 navy-tinted near-black
+   * (the trade-screen / homepage / about / careers / footer canvas).
+   * --foreground = #EAECEF (panel labels, body ink). --card =
+   * --brand-surface-card-dark (orderbook / chart / panel containers).
+   * --muted = same card-surface — Binance's dark zebra is the card
+   * elevation, not a separate fill. --border = --brand-hairline-on-dark
+   * (panel-to-panel splits). --primary, --brand-trading-up/down hold
+   * across polarity per DESIGN.md §6 — semantic equals, polarity-locked.
+   * The polarity-locked --brand-* extras (canvas-light, body-on-light,
+   * on-dark, hairline-on-light) stay at :root values — those tokens name
+   * surfaces that don't flip with theme. */
+
+  --background: oklch(0.1618 0.0080 248.3222);
+  --foreground: oklch(0.9424 0.0046 258.3251);
+  --card: oklch(0.2537 0.0135 253.0681);
+  --card-foreground: oklch(0.9424 0.0046 258.3251);
+  --popover: oklch(0.2537 0.0135 253.0681);
+  --popover-foreground: oklch(0.9424 0.0046 258.3251);
+  --primary: oklch(0.8814 0.1678 94.2373);
+  --primary-foreground: oklch(0.2183 0.0121 270.8076);
+  --secondary: oklch(0.2537 0.0135 253.0681);
+  --secondary-foreground: oklch(0.9424 0.0046 258.3251);
+  --muted: oklch(0.2537 0.0135 253.0681);
+  --muted-foreground: oklch(0.7000 0.0274 259.8038);
+  /* Same not-observed reasoning as :root — falling through to the dark
+   * card-surface instead of a teal not present on any sampled surface. */
+  --accent: oklch(0.2537 0.0135 253.0681);
+  --accent-foreground: oklch(0.9424 0.0046 258.3251);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0.9424 0.0046 258.3251);
+  --border: oklch(0.3107 0.0166 255.6442);
+  --input: oklch(0.3107 0.0166 255.6442);
+  --ring: oklch(0.8814 0.1678 94.2373);
+  --sidebar: oklch(0.1618 0.0080 248.3222);
+  --sidebar-foreground: oklch(0.9424 0.0046 258.3251);
+  --sidebar-primary: oklch(0.8814 0.1678 94.2373);
+  --sidebar-primary-foreground: oklch(0.2183 0.0121 270.8076);
+  --sidebar-accent: oklch(0.2537 0.0135 253.0681);
+  --sidebar-accent-foreground: oklch(0.9424 0.0046 258.3251);
+  --sidebar-border: oklch(0.3107 0.0166 255.6442);
+  --sidebar-ring: oklch(0.8814 0.1678 94.2373);
+  --chart-1: oklch(0.8100 0.1678 94.2373);
+  --chart-2: oklch(0.7100 0.1678 94.2373);
+  --chart-3: oklch(0.6100 0.1678 94.2373);
+  --chart-4: oklch(0.5100 0.1678 94.2373);
+  --chart-5: oklch(0.4200 0.1678 94.2373);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1618 0.0080 248.3222);
+    --foreground: oklch(0.9424 0.0046 258.3251);
+    --card: oklch(0.2537 0.0135 253.0681);
+    --card-foreground: oklch(0.9424 0.0046 258.3251);
+    --popover: oklch(0.2537 0.0135 253.0681);
+    --popover-foreground: oklch(0.9424 0.0046 258.3251);
+    --primary: oklch(0.8814 0.1678 94.2373);
+    --primary-foreground: oklch(0.2183 0.0121 270.8076);
+    --secondary: oklch(0.2537 0.0135 253.0681);
+    --secondary-foreground: oklch(0.9424 0.0046 258.3251);
+    --muted: oklch(0.2537 0.0135 253.0681);
+    --muted-foreground: oklch(0.7000 0.0274 259.8038);
+    --accent: oklch(0.2537 0.0135 253.0681);
+    --accent-foreground: oklch(0.9424 0.0046 258.3251);
+    --destructive: oklch(0.5308 0.2178 29.2339);
+    --destructive-foreground: oklch(0.9424 0.0046 258.3251);
+    --border: oklch(0.3107 0.0166 255.6442);
+    --input: oklch(0.3107 0.0166 255.6442);
+    --ring: oklch(0.8814 0.1678 94.2373);
+    --sidebar: oklch(0.1618 0.0080 248.3222);
+    --sidebar-foreground: oklch(0.9424 0.0046 258.3251);
+    --sidebar-primary: oklch(0.8814 0.1678 94.2373);
+    --sidebar-primary-foreground: oklch(0.2183 0.0121 270.8076);
+    --sidebar-accent: oklch(0.2537 0.0135 253.0681);
+    --sidebar-accent-foreground: oklch(0.9424 0.0046 258.3251);
+    --sidebar-border: oklch(0.3107 0.0166 255.6442);
+    --sidebar-ring: oklch(0.8814 0.1678 94.2373);
+    --chart-1: oklch(0.8100 0.1678 94.2373);
+    --chart-2: oklch(0.7100 0.1678 94.2373);
+    --chart-3: oklch(0.6100 0.1678 94.2373);
+    --chart-4: oklch(0.5100 0.1678 94.2373);
+    --chart-5: oklch(0.4200 0.1678 94.2373);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Binance-style preview shell — dark-canonical financial platform.
+   Marketing + product default to dark canvas (navy-tinted near-black);
+   transactional band ("Buy crypto") flips to light. Iconic yellow
+   (#FCD535) carries every primary CTA and value-claim moment, in both
+   polarities. Trading green/red thread through both for price direction.
+   BinanceNova substituted by Inter at 500/700. Halcyon-themed neutral
+   ticker content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'BinanceNova', 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern", "liga", "tnum";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Always-dark signature canvas (marketing hero, footer). Locked
+ * to --brand-canvas-dark across both polarities. -- */
+.canvas-dark {
+  background: var(--brand-canvas-dark);
+  color: var(--brand-body);
+}
+.canvas-dark .section-title,
+.canvas-dark .section-eyebrow,
+.canvas-dark .section-lede { color: var(--brand-body); }
+.canvas-dark .section-title { color: var(--brand-on-dark); }
+
+/* -- Always-light transactional band ("Buy crypto" surface). -- */
+.canvas-light {
+  background: var(--brand-canvas-light);
+  color: var(--brand-body-on-light);
+}
+.canvas-light .section-title,
+.canvas-light .section-eyebrow,
+.canvas-light .section-lede { color: var(--brand-body-on-light); }
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--brand-canvas-dark);
+  border-bottom: 1px solid var(--brand-hairline-on-dark);
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--brand-on-dark);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--primary-foreground);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--brand-on-dark);
+}
+.topnav-links a { color: inherit; text-decoration: none; opacity: 0.85; }
+.topnav-links a:hover { opacity: 1; }
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 14px;
+}
+.topnav-actions a {
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  font-weight: 500;
+  opacity: 0.85;
+}
+.topnav-actions a:hover { opacity: 1; }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (yellow primary, dark text) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--radius-sm);
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+/* Primary: yellow filled, always — both polarities. */
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-active); border-color: var(--brand-primary-active); }
+/* Secondary on dark surfaces */
+.btn[data-variant="on-dark"] {
+  background: transparent;
+  color: var(--brand-on-dark);
+  border-color: var(--brand-hairline-on-dark);
+}
+.btn[data-variant="on-dark"]:hover { border-color: var(--brand-on-dark); }
+/* Secondary on light surfaces */
+.btn[data-variant="on-light"] {
+  background: var(--brand-canvas-light);
+  color: var(--brand-body-on-light);
+  border-color: var(--brand-border-strong);
+}
+.btn[data-variant="on-light"]:hover { border-color: var(--brand-body-on-light); }
+.btn[data-size="lg"] { min-height: 48px; padding: 0 1.5rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (dark canonical) -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 960px) { .hero-inner { grid-template-columns: 1fr; gap: 2rem; } }
+.hero-eyebrow {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 1.25rem;
+}
+.hero-display {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--brand-on-dark);
+  margin: 0 0 1.25rem;
+  max-width: 18ch;
+}
+.hero-display .yellow { color: var(--primary); }
+.hero-lede {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body);
+  max-width: 38rem;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* -- Trading mockup (signature surface — ticker + chart sketch + order book) -- */
+.trader {
+  background: var(--brand-surface-card-dark);
+  border: 1px solid var(--brand-hairline-on-dark);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  color: var(--brand-on-dark);
+}
+.trader-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.625rem 0.875rem;
+  border-bottom: 1px solid var(--brand-hairline-on-dark);
+  background: var(--brand-surface-elevated-dark);
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-muted-strong);
+}
+.trader-tabs span[data-active] {
+  color: var(--brand-on-dark);
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+  background: var(--brand-surface-card-dark);
+}
+.trader-tabs span { padding: 0.25rem 0.625rem; }
+.trader-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 0;
+}
+.trader-ticker {
+  padding: 1.125rem 1.125rem 1rem;
+  border-right: 1px solid var(--brand-hairline-on-dark);
+}
+.trader-pair {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  margin-bottom: 0.875rem;
+}
+.trader-pair-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--brand-on-dark);
+}
+.trader-pair-mute {
+  font-size: 11px;
+  color: var(--brand-muted-strong);
+}
+.trader-price {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.015em;
+  color: var(--brand-trading-up);
+  line-height: 1;
+}
+.trader-meta {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 0.625rem;
+  font-size: 12px;
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+.trader-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+.trader-meta-label {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-muted-strong);
+}
+.trader-meta-value { color: var(--brand-on-dark); font-weight: 500; }
+.trader-chart {
+  margin-top: 1rem;
+  height: 86px;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+.trader-chart .candle {
+  width: 6px;
+  border-radius: 1px;
+  background: var(--brand-trading-up);
+  align-self: flex-end;
+}
+.trader-chart .candle[data-tone="down"] { background: var(--brand-trading-down); }
+.trader-book {
+  padding: 1.125rem 1.125rem 1rem;
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.trader-book-label {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-muted-strong);
+  margin-bottom: 0.5rem;
+}
+.trader-book-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  padding: 0.1875rem 0;
+}
+.trader-book-row[data-tone="up"]   .price { color: var(--brand-trading-up); }
+.trader-book-row[data-tone="down"] .price { color: var(--brand-trading-down); }
+.trader-book-row .amount { color: var(--brand-on-dark); opacity: 0.65; text-align: right; }
+.trader-book-spread {
+  margin: 0.5rem 0;
+  padding: 0.25rem 0;
+  border-top: 1px solid var(--brand-hairline-on-dark);
+  border-bottom: 1px solid var(--brand-hairline-on-dark);
+  font-size: 11px;
+  color: var(--brand-muted-strong);
+  text-align: center;
+}
+
+/* -- Section frame -- */
+.section { padding: 4.5rem 1.5rem; }
+.section[data-tight] { padding: 3.5rem 1.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  /* Body-section eyebrow uses --muted-foreground (flips with theme).
+   * Yellow --primary is reserved for hero-eyebrow (on dark canvas),
+   * the topnav brand mark, and primary CTAs — where it passes AA. */
+  color: var(--muted-foreground);
+  margin: 0 0 0.875rem;
+}
+.section-title {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.625rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.625rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.25rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.625rem;
+}
+@media (max-width: 880px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 10rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="dark"]   { background: var(--brand-canvas-dark); color: var(--brand-on-dark); border-color: var(--brand-hairline-on-dark); }
+.ladder-step[data-step="card"]   { background: var(--brand-surface-card-dark); color: var(--brand-on-dark); border-color: var(--brand-hairline-on-dark); }
+.ladder-step[data-step="light"]  { background: var(--brand-canvas-light); color: var(--brand-body-on-light); border-color: var(--brand-border-strong); }
+.ladder-step[data-step="yellow"] { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+.ladder-num {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+}
+.ladder-role {
+  font-size: 13px;
+  opacity: 0.86;
+  margin-top: auto;
+  line-height: 1.4;
+}
+
+/* -- Pricing tile -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--foreground);
+}
+.pricing-card[data-featured] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+}
+.pricing-name {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+.pricing-price {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+.pricing-tagline {
+  font-size: 13px;
+  color: var(--muted-foreground);
+  margin: 0;
+  line-height: 1.45;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--primary-foreground); opacity: 0.78; }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.875rem;
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+.pricing-card[data-featured] .pricing-features { border-top-color: oklch(0 0 0 / 0.18); color: var(--primary-foreground); opacity: 0.86; }
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "·";
+  color: var(--primary);
+  font-size: 18px;
+  flex-shrink: 0;
+  width: 14px;
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--primary-foreground); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.125rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.125rem;
+  align-items: baseline;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.type-display {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; line-height: 1.5; color: var(--muted-foreground); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  width: 100%;
+}
+.trade-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+/* Trade chips — strong fill with white text passes AA in both polarities;
+ * the tinted-bg-with-coloured-text pattern fails when both are close in
+ * lightness (the tinted background is the foreground color at 18%, so the
+ * text ends up bright-red on light-red etc.). */
+.trade-chip[data-tone="up"]   { background: var(--brand-trading-up); color: oklch(0.18 0.02 250); }
+.trade-chip[data-tone="down"] { background: var(--brand-trading-down); color: oklch(0.18 0.02 250); }
+
+/* -- Footer (always-dark) -- */
+.footer {
+  background: var(--brand-canvas-dark);
+  color: var(--brand-on-dark);
+  border-top: 1px solid var(--brand-hairline-on-dark);
+  padding: 3rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 13px; color: var(--brand-body); line-height: 1.55; margin: 0; opacity: 0.7; }
+.footer-col-title {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 13px; color: var(--brand-on-dark); text-decoration: none; opacity: 0.7; }
+.footer-list a:hover { opacity: 1; }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-on-dark);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-on-dark);
+  opacity: 0.55;
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">H</span>binance-style</a>
+    <div class="topnav-links">
+      <a href="#">Markets</a>
+      <a href="#">Trade</a>
+      <a href="#">Earn</a>
+      <a href="#">Wallets</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Get started</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero canvas-dark" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Halcyon · Markets</p>
+      <h1 class="hero-display">Trade with <span class="yellow">confidence</span>.</h1>
+      <p class="hero-lede">Halcyon's treasury team runs the day from a single dark canvas — BTC + USDT on one panel, the order book on the other, every yellow CTA the same one across both polarities.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" data-size="lg" type="button">Start trading</button>
+        <button class="btn" data-variant="on-dark" data-size="lg" type="button">View markets</button>
+      </div>
+    </div>
+
+    <div class="trader" role="figure" aria-label="Halcyon treasury — BTC/USDT ticker + chart sketch + order book">
+      <div class="trader-tabs">
+        <span data-active>Spot</span>
+        <span>Margin</span>
+        <span>Futures</span>
+        <span style="margin-left:auto;">USDT</span>
+      </div>
+      <div class="trader-grid">
+        <div class="trader-ticker">
+          <div class="trader-pair">
+            <span class="trader-pair-name">BTC/USDT</span>
+            <span class="trader-pair-mute">Spot · Halcyon Treasury</span>
+          </div>
+          <div class="trader-price">67,482.18</div>
+          <div class="trader-meta">
+            <div class="trader-meta-row"><span class="trader-meta-label">24h Δ</span><span class="trader-meta-value" style="color: var(--brand-trading-up);">+1.84%</span></div>
+            <div class="trader-meta-row"><span class="trader-meta-label">24h High</span><span class="trader-meta-value">67,920.55</span></div>
+            <div class="trader-meta-row"><span class="trader-meta-label">24h Low</span><span class="trader-meta-value">65,902.10</span></div>
+            <div class="trader-meta-row"><span class="trader-meta-label">Vol</span><span class="trader-meta-value">42.1k BTC</span></div>
+          </div>
+          <div class="trader-chart" aria-label="60-bar candle sketch">
+            <span class="candle" style="height:22px;"></span><span class="candle" style="height:30px;"></span><span class="candle" data-tone="down" style="height:24px;"></span><span class="candle" data-tone="down" style="height:20px;"></span><span class="candle" style="height:28px;"></span><span class="candle" style="height:34px;"></span><span class="candle" style="height:42px;"></span><span class="candle" data-tone="down" style="height:38px;"></span><span class="candle" style="height:46px;"></span><span class="candle" style="height:52px;"></span><span class="candle" data-tone="down" style="height:48px;"></span><span class="candle" data-tone="down" style="height:42px;"></span><span class="candle" style="height:50px;"></span><span class="candle" style="height:58px;"></span><span class="candle" style="height:62px;"></span><span class="candle" data-tone="down" style="height:56px;"></span><span class="candle" style="height:64px;"></span><span class="candle" style="height:70px;"></span><span class="candle" data-tone="down" style="height:66px;"></span><span class="candle" style="height:72px;"></span><span class="candle" style="height:80px;"></span><span class="candle" style="height:86px;"></span><span class="candle" data-tone="down" style="height:78px;"></span><span class="candle" style="height:82px;"></span>
+          </div>
+        </div>
+        <div class="trader-book">
+          <div class="trader-book-label">Order book · BTC/USDT</div>
+          <div class="trader-book-row" data-tone="down"><span class="price">67,510.42</span><span class="amount">0.4218</span></div>
+          <div class="trader-book-row" data-tone="down"><span class="price">67,498.66</span><span class="amount">1.0244</span></div>
+          <div class="trader-book-row" data-tone="down"><span class="price">67,490.30</span><span class="amount">0.6571</span></div>
+          <div class="trader-book-row" data-tone="down"><span class="price">67,485.12</span><span class="amount">0.1899</span></div>
+          <div class="trader-book-spread">Spread · 2.94 (0.004%)</div>
+          <div class="trader-book-row" data-tone="up"><span class="price">67,482.18</span><span class="amount">0.8520</span></div>
+          <div class="trader-book-row" data-tone="up"><span class="price">67,478.04</span><span class="amount">0.3340</span></div>
+          <div class="trader-book-row" data-tone="up"><span class="price">67,470.55</span><span class="amount">1.4022</span></div>
+          <div class="trader-book-row" data-tone="up"><span class="price">67,468.18</span><span class="amount">0.5111</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section canvas-light" aria-label="Buy crypto — transactional band">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Transactional</p>
+      <h2 class="section-title">Buy crypto in seconds.</h2>
+      <p class="section-lede">The light canvas is the brand's transactional polarity — used for buy/exchange/deposit surfaces. Yellow CTA is the same one as on the dark canvas; the system reads as continuous despite the polarity flip.</p>
+    </div>
+    <div style="max-width: 36rem; margin: 0 auto; display: flex; gap: 0.5rem; justify-content: center;">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Buy BTC</button>
+      <button class="btn" data-variant="on-light" data-size="lg" type="button">View rate</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Yellow voltage, dark canvas, trading green &amp; red.</h2>
+      <p class="section-lede">Iconic yellow (#FCD535) for every primary CTA and value-claim moment, in both polarities. Dark navy-tinted canvas and elevated cards for the default marketing surface. Trading green (up) and red (down) thread through both modes for price-direction signals.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-dark);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-card-dark);"></div><div class="swatch-role">Card</div><div class="swatch-name">--brand-surface-card-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-elevated-dark);"></div><div class="swatch-role">Elevated</div><div class="swatch-name">--brand-surface-elevated-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-light);"></div><div class="swatch-role">Transactional</div><div class="swatch-name">--brand-canvas-light</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Voltage</div><div class="swatch-name">--primary · yellow</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-trading-up);"></div><div class="swatch-role">Up</div><div class="swatch-name">--brand-trading-up</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-trading-down);"></div><div class="swatch-role">Down</div><div class="swatch-name">--brand-trading-down</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-info);"></div><div class="swatch-role">Info</div><div class="swatch-name">--brand-info</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces · Four polarities</p>
+      <h2 class="section-title">Four surfaces, one yellow.</h2>
+      <p class="section-lede">Dark canvas + elevated card for default marketing; light canvas for transactional; yellow pill for every primary CTA. The yellow is the only chromatic element that holds across both polarity tracks.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--brand-canvas-dark</span>
+        <span class="ladder-role">marketing default · footer · hero</span>
+      </div>
+      <div class="ladder-step" data-step="card">
+        <span class="ladder-num">Card</span>
+        <span class="ladder-name">--brand-surface-card-dark</span>
+        <span class="ladder-role">trading panels · feature cards</span>
+      </div>
+      <div class="ladder-step" data-step="light">
+        <span class="ladder-num">Transactional</span>
+        <span class="ladder-name">--brand-canvas-light</span>
+        <span class="ladder-role">buy · exchange · deposit</span>
+      </div>
+      <div class="ladder-step" data-step="yellow">
+        <span class="ladder-num">Voltage</span>
+        <span class="ladder-name">--primary</span>
+        <span class="ladder-role">every primary CTA · both polarities</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three tiers, one fee schedule.</h2>
+      <p class="section-lede">Pricing tiles follow the brand's hard-numbers register — tabular numerals, dense rows, yellow primary tier inverted. Sober and dense, no decorative gradient.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="on-light" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" type="button" style="background: var(--brand-canvas-dark); color: var(--brand-on-dark); border-color: var(--brand-canvas-dark);">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organisations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="on-light" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">BinanceNova at 500/700, tabular numerals.</h2>
+      <p class="section-lede">A single proprietary stack at modest mid-weights — 500 for body, 700 for display. Tabular numerals run through every price, every chip, every order-book row. Buttons are tight 4-px-radius rectangles; never round, never pill.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">BTC 67,482.18</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">BinanceNova · 700 · 28</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in BinanceNova 400 at 14 px. Body text uses --muted-foreground — readable on both polarities.</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · tight 4px rectangles · yellow primary</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Buy BTC</button>
+            <button class="btn" data-variant="on-light" type="button">View markets</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Trade chips · price-direction tone</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <span class="trade-chip" data-tone="up">▲ +1.84%</span>
+            <span class="trade-chip" data-tone="down">▼ −0.42%</span>
+            <span class="trade-chip" data-tone="up">▲ +12.06%</span>
+            <span class="trade-chip" data-tone="down">▼ −3.18%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">H</span>binance-style</a>
+      <p class="footer-tagline">A token-surface preview rendered against the dark-canonical financial-platform design system. Yellow voltage, navy-tinted dark canvas, trading green/red for direction. Halcyon-themed neutral ticker content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Markets</p>
+      <ul class="footer-list"><li><a href="#">Spot</a></li><li><a href="#">Margin</a></li><li><a href="#">Futures</a></li><li><a href="#">Options</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Earn</p>
+      <ul class="footer-list"><li><a href="#">Savings</a></li><li><a href="#">Staking</a></li><li><a href="#">Vaults</a></li><li><a href="#">DeFi</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>binance-style · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">dark canonical · yellow voltage · trading green/red · tabular numerals</span>
+  </div>
+</footer>
+
+</body>
+</html>

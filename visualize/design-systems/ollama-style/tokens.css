@@ -1,0 +1,262 @@
+/**
+ * design-systems/ollama-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Ollama is LIGHT-CANONICAL. DESIGN.md §1 documents a paper-white
+ * canvas (#ffffff) end-to-end with one inverted moment: the "Max"
+ * pricing card sitting on --brand-surface-dark (#171717) — the only
+ * documented dark surface in the system. There is no full dark-mode
+ * palette; the Max-card surface is the brand's documented dark voltage.
+ *
+ * Dark-mode strategy: synthesise a plausible dark by promoting the
+ * documented Max-card surface (--brand-surface-dark) to canvas and
+ * stepping cards up one notch. Keep the monochrome register; the
+ * brand never carries a coloured canvas at any polarity. The
+ * synthesised lightness-inversion default produced pure-black canvas
+ * + pure-white ink that read as void rather than the warm near-black
+ * Ollama's own terminal renders against. This block lifts canvas to
+ * the documented Max-card lightness and recalibrates the brand-extras
+ * family for dark contrast.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0 0 0);
+  --primary: oklch(0 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9851 0 0);
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.9851 0 0);
+  --muted-foreground: oklch(0 0 0);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9219 0 0);
+  --input: oklch(0.9219 0 0);
+  --ring: oklch(0 0 0);
+  --sidebar: oklch(0.9851 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0 0 0);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9851 0 0);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0.9219 0 0);
+  --sidebar-ring: oklch(0 0 0);
+  --chart-1: oklch(0.8100 0 0);
+  --chart-2: oklch(0.7100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.5100 0 0);
+  --chart-5: oklch(0.4200 0 0);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: ui-sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace;
+  --font-display: SF Pro Rounded;
+
+  /* type scale tokens */
+  --text-display: 36px;
+  --text-heading: 30px;
+  --text-title: 20px;
+  --text-base: 16px;
+  --leading-tight: 1.11;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-ink-deep: oklch(0.1398 0 0);
+  --brand-charcoal: oklch(0.4386 0 0);
+  --brand-body: oklch(0.5555 0 0);
+  --brand-mute: oklch(0.7155 0 0);
+  --brand-hairline-strong: oklch(0.8699 0 0);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-dark-mute: oklch(1 0 0 / 0.7000);
+  --brand-surface-dark: oklch(0.2046 0 0);
+  --brand-focus-ring: oklch(0.6231 0.1880 259.8145 / 0.5000);
+  --brand-link: oklch(0 0 0);
+  --brand-link-mute: oklch(0.5555 0 0);
+  --brand-terminal-red: oklch(0.6935 0.1965 26.6863);
+  --brand-terminal-yellow: oklch(0.8377 0.1618 81.0646);
+  --brand-terminal-green: oklch(0.7304 0.2193 144.6323);
+}
+
+/*
+ * Dark mode — hand-tuned, NOT the OKLCH lightness-inversion default.
+ *
+ * Strategy: Ollama's documented dark surface (--brand-surface-dark
+ * #171717 = oklch(0.2046 0 0)) is promoted to canvas. Cards step up
+ * one notch to a slightly-elevated dark so card edges remain visible
+ * on the near-black canvas. Primary CTA flips white-on-near-black so
+ * the high-contrast pill keeps its shape; the brand's signature
+ * inverted Max-card surface, now the canvas, no longer needs the
+ * inversion device — the dark variant is the inversion. The terminal
+ * mockup stays canvas-locked at the documented dark surface so it
+ * reads identically across both polarities (Ollama's CLI always
+ * runs against the same terminal canvas regardless of OS theme).
+ *
+ * Why each override exists:
+ *   --background         → matches --brand-surface-dark (the documented
+ *                          Max-card surface, promoted to canvas)
+ *   --card               → one tonal step up so card edges hold on
+ *                          near-black canvas (oklch 0.255)
+ *   --foreground         → --brand-on-dark (white), the documented
+ *                          inverse-of-ink token
+ *   --primary            → flips to white so the near-black primary CTA
+ *                          (whose register IS "single black pill")
+ *                          becomes a single white pill on dark canvas
+ *   --primary-foreground → flips to the canvas near-black so primary
+ *                          buttons read on the now-white primary fill
+ *   --secondary / --muted (surfaces) → match --card, the same
+ *                          slightly-elevated dark for pricing tiles,
+ *                          swatch tiles, ladder canvas-soft surfaces
+ *   --border / --input   → step up to a hairline that reads on the
+ *                          near-black canvas
+ *   --ring               → matches new --primary
+ *   --muted-foreground   → lifts to a mid-light gray that clears WCAG
+ *                          AA against canvas
+ *
+ * Brand-extras overrides (the tokens used directly in template CSS):
+ *   --brand-ink-deep     → lifts to a near-canvas tone for pressed
+ *                          states of the now-white primary
+ *   --brand-charcoal     → lifts from #525252 to a body-strong light
+ *                          gray that clears 4.5:1 against canvas
+ *   --brand-body         → lifts from #737373 to a mid-light body
+ *                          gray (body copy, FAQ answers)
+ *   --brand-mute         → lifts from #a3a3a3 to a softer caption gray
+ *   --brand-hairline-strong → lifts to a slightly-warmer hairline
+ *
+ * Polarity-locked tokens left at :root values (inherited via cascade):
+ *   --brand-surface-dark   → in dark mode IS the canvas; template CSS
+ *                            uses --background instead of this token
+ *   --brand-on-dark        → already always-white, no override needed
+ *   --brand-on-dark-mute   → already always-white-translucent
+ *   --brand-link / link-mute → polarity-flippable but inherit from
+ *                              --foreground / --brand-body, which already lift
+ *   --brand-terminal-red / yellow / green → terminal traffic-light
+ *                            dots are polarity-invariant — they look
+ *                            identical on macOS Terminal in both modes
+ *   --brand-focus-ring     → translucent blue, single tone, works on both
+ */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* shadcn-semantic core — calibrated to Ollama's documented dark surface */
+  --background: oklch(0.2046 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2550 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2550 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0.2046 0 0);
+  --secondary: oklch(0.2550 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2550 0 0);
+  --muted-foreground: oklch(0.7800 0 0);
+  --accent: oklch(0.2046 0 0);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3100 0 0);
+  --input: oklch(0.3100 0 0);
+  --ring: oklch(1 0 0);
+  --sidebar: oklch(0.2550 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(1 0 0);
+  --sidebar-primary-foreground: oklch(0.2046 0 0);
+  --sidebar-accent: oklch(0.2550 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3100 0 0);
+  --sidebar-ring: oklch(1 0 0);
+  --chart-1: oklch(0.4200 0 0);
+  --chart-2: oklch(0.5100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.7100 0 0);
+  --chart-5: oklch(0.8100 0 0);
+
+  /* brand-extras lifted for dark canvas — never lift the polarity-locked
+   * surface-dark / on-dark / terminal-traffic-light family (those stay at
+   * :root values). */
+  --brand-ink-deep: oklch(0.9200 0 0);
+  --brand-charcoal: oklch(0.8200 0 0);
+  --brand-body: oklch(0.7300 0 0);
+  --brand-mute: oklch(0.5800 0 0);
+  --brand-hairline-strong: oklch(0.3600 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2046 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2550 0 0);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2550 0 0);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(1 0 0);
+    --primary-foreground: oklch(0.2046 0 0);
+    --secondary: oklch(0.2550 0 0);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.2550 0 0);
+    --muted-foreground: oklch(0.7800 0 0);
+    --accent: oklch(0.2046 0 0);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.5308 0.2178 29.2339);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3100 0 0);
+    --input: oklch(0.3100 0 0);
+    --ring: oklch(1 0 0);
+    --sidebar: oklch(0.2550 0 0);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(1 0 0);
+    --sidebar-primary-foreground: oklch(0.2046 0 0);
+    --sidebar-accent: oklch(0.2550 0 0);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.3100 0 0);
+    --sidebar-ring: oklch(1 0 0);
+    --chart-1: oklch(0.4200 0 0);
+    --chart-2: oklch(0.5100 0 0);
+    --chart-3: oklch(0.6100 0 0);
+    --chart-4: oklch(0.7100 0 0);
+    --chart-5: oklch(0.8100 0 0);
+
+    --brand-ink-deep: oklch(0.9200 0 0);
+    --brand-charcoal: oklch(0.8200 0 0);
+    --brand-body: oklch(0.7300 0 0);
+    --brand-mute: oklch(0.5800 0 0);
+    --brand-hairline-strong: oklch(0.3600 0 0);
+  }
+}

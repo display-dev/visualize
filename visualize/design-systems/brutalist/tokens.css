@@ -1,0 +1,254 @@
+/**
+ * Brutalist theme — raw, high-contrast, grid-heavy. Light-mode-
+ * canonical. The aesthetic reference is web-brutalism's late
+ * 2010s manifesto register: pure black on pure white, a single
+ * cadmium-red accent that does ALL the colour work, hard borders
+ * at full strength, zero radius, heavy-weight display type, tight
+ * tracking.
+ *
+ * Mode priority: light-canonical. Brutalist's identity is hard
+ * monochrome contrast; dark mode inverts to pure-white-on-pure-
+ * black without compromising the raw aesthetic.
+ *
+ * Distinct from every other theme on four axes:
+ *   1. **Surfaces are 0-chroma** — like Clean, but where Clean's
+ *      foreground sits at 0.145 lightness (soft black), Brutalist's
+ *      sits at 0.10 (near-pure black). The 0.04-lightness shift is
+ *      enough to read "raw" rather than "refined."
+ *   2. **Primary is cadmium red at hue 25 chroma 0.22** — the
+ *      most chromatic primary in the catalogue. Distinct from
+ *      Paper-ink's burnt-red (hue 30 chroma 0.12, deliberately
+ *      restrained for letterpress register); Brutalist's red is
+ *      *unrestrained*, the single shout of colour against the
+ *      otherwise-monochrome page. The genre-reflex guard usually
+ *      caps chroma at 0.20; Brutalist deliberately pushes 0.22
+ *      because the high chroma is the *point* of the register.
+ *   3. **Borders carry full-strength foreground** — `--border` is
+ *      the same value as `--foreground` (oklch 0.10) rather than
+ *      a softened gray. Cards / tables / inputs read as hard-
+ *      ruled blocks, distinct from Clean's barely-there 0.92
+ *      separators.
+ *   4. **Zero radius + tightest leading** — `--radius: 0` like
+ *      Paper-ink, but Brutalist also drives `--leading-tight: 1.0`
+ *      (Deck's 1.05 was the previous tightest) and aggressive
+ *      tracking (-0.02em) for the manifesto-headline stack.
+ *
+ * Blessed templates: Pitch deck (raw register works on slide-shape
+ * marketing), Manifesto-style One-pager, Comparison (cell-state
+ * vocabulary is binary, the register suits raw decisive labels),
+ * Roadmap timeline (grid-heavy structure), Release announcement
+ * (when the brand voice is opinionated rather than warm).
+ *
+ * Discouraged: Whitepaper, Research brief, Postmortem (publishing
+ * / academic register undermined by raw aesthetic — the prose
+ * reads aggressive); Editorial-natural templates (Report); ADR
+ * (the architectural-record convention reads off-register in
+ * manifesto chrome); Meeting notes, Onboarding module
+ * (conversational warmth doesn't survive raw monochrome). The
+ * warning is "you probably didn't mean to," per the discouraged-
+ * combo rule (finding 16).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Canonical Brutalist register: pure white + near-pure black +   */
+  /* cadmium-red shout.                                              */
+
+  /* -- Surface / Foreground pairs ------------------------------ */
+  --background:              oklch(1 0 0);
+  --foreground:              oklch(0.10 0 0);     /* near-pure black */
+
+  --card:                    oklch(1 0 0);
+  --card-foreground:         oklch(0.10 0 0);
+
+  --popover:                 oklch(1 0 0);
+  --popover-foreground:      oklch(0.10 0 0);
+
+  /* Cadmium red — the single shout of colour. Chroma 0.22         */
+  /* deliberately exceeds the genre-reflex guard's usual ceiling.  */
+  --primary:                 oklch(0.55 0.22 25);
+  --primary-foreground:      oklch(1 0 0);
+
+  --secondary:               oklch(0.95 0 0);
+  --secondary-foreground:    oklch(0.10 0 0);
+
+  --muted:                   oklch(0.95 0 0);
+  --muted-foreground:        oklch(0.40 0 0);
+
+  --accent:                  oklch(0.92 0 0);
+  --accent-foreground:       oklch(0.10 0 0);
+
+  --destructive:             oklch(0.45 0.22 25);   /* same hue, deeper */
+  --destructive-foreground:  oklch(1 0 0);
+
+  /* Borders carry full-strength foreground — hard rules.          */
+  --border:                  oklch(0.10 0 0);
+  --input:                   oklch(0.10 0 0);
+  --ring:                    oklch(0.55 0.22 25);
+
+  /* Sidebar tokens (preserved for shadcn-shape parity) */
+  --sidebar:                 oklch(0.97 0 0);
+  --sidebar-foreground:      oklch(0.10 0 0);
+  --sidebar-primary:         oklch(0.55 0.22 25);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent:          oklch(0.92 0 0);
+  --sidebar-accent-foreground: oklch(0.10 0 0);
+  --sidebar-border:          oklch(0.10 0 0);
+  --sidebar-ring:            oklch(0.55 0.22 25);
+
+  /* Chart tokens — monochrome with the cadmium-red shout.          */
+  --chart-1:                 oklch(0.55 0.22 25);    /* cadmium red */
+  --chart-2:                 oklch(0.10 0 0);        /* black */
+  --chart-3:                 oklch(0.45 0 0);        /* mid-gray */
+  --chart-4:                 oklch(0.70 0 0);        /* light gray */
+  --chart-5:                 oklch(0.35 0.10 25);    /* dim red */
+
+  /* -- Typography tokens ---------------------------------------- */
+  --font-sans:  'Inter', 'Space Grotesk', 'IBM Plex Sans Condensed', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono:  'JetBrains Mono', 'Space Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Display sticks to sans — Brutalist's identity is weight +     */
+  /* tracking + scale, not face. Templates pair heavy weight       */
+  /* (700–900) on display.                                          */
+  --font-display: var(--font-sans);
+
+  /* -- Type scale tokens — largest display floor + tightest leading */
+  --text-display:  clamp(2.5rem, 6vw, 4rem);
+  --text-heading:  1.75rem;
+  --text-title:    1.125rem;
+  --text-base:     16px;
+  --leading-tight: 1.0;          /* tightest in catalogue; Deck was 1.05 */
+  --leading-normal: 1.5;
+
+  /* -- Radius — zero, brutalist has no rounded corners --------- */
+  --radius:                  0;
+  --radius-sm:               0;
+  --radius-md:               0;
+  --radius-lg:               0;
+  --radius-xl:               0;
+
+  /* -- Spacing -------------------------------------------------- */
+  --spacing:                 0.25rem;
+
+  /* -- Tracking — aggressive, manifesto-stack tightness --------- */
+  --tracking-normal:         -0.02em;
+
+  /* -- Shadow scale — flat, no glossy chrome ------------------- */
+  /* Brutalist rejects soft shadows; the scale collapses to flat   */
+  /* outlines via border-color rather than blurred drop shadows.   */
+  --shadow-2xs: 0 0 0 0 transparent;
+  --shadow-xs:  0 0 0 0 transparent;
+  --shadow-sm:  0 2px 0 0 oklch(0.10 0 0);
+  --shadow:     0 4px 0 0 oklch(0.10 0 0);
+  --shadow-md:  0 6px 0 0 oklch(0.10 0 0);
+  --shadow-lg:  0 8px 0 0 oklch(0.10 0 0);
+  --shadow-xl:  0 12px 0 0 oklch(0.10 0 0);
+  --shadow-2xl: 0 16px 0 0 oklch(0.10 0 0);
+}
+
+/* -- Dark mode -------------------------------------------------- */
+/* Inverted Brutalist register: pure black + pure white + cadmium  */
+/* red. Even harder contrast than light mode; the inversion is     */
+/* clean rather than derived because the palette is binary.        */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background:              oklch(0 0 0);          /* pure black */
+  --foreground:              oklch(1 0 0);          /* pure white */
+
+  --card:                    oklch(0 0 0);
+  --card-foreground:         oklch(1 0 0);
+
+  --popover:                 oklch(0 0 0);
+  --popover-foreground:      oklch(1 0 0);
+
+  --primary:                 oklch(0.72 0.22 25);   /* brighter cadmium */
+  --primary-foreground:      oklch(0 0 0);
+
+  --secondary:               oklch(0.18 0 0);
+  --secondary-foreground:    oklch(1 0 0);
+
+  --muted:                   oklch(0.18 0 0);
+  --muted-foreground:        oklch(0.70 0 0);
+
+  --accent:                  oklch(0.22 0 0);
+  --accent-foreground:       oklch(1 0 0);
+
+  --destructive:             oklch(0.65 0.22 25);
+  --destructive-foreground:  oklch(0 0 0);
+
+  --border:                  oklch(1 0 0);
+  --input:                   oklch(1 0 0);
+  --ring:                    oklch(0.72 0.22 25);
+
+  --sidebar:                 oklch(0.05 0 0);
+  --sidebar-foreground:      oklch(1 0 0);
+  --sidebar-primary:         oklch(0.72 0.22 25);
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent:          oklch(0.22 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border:          oklch(1 0 0);
+  --sidebar-ring:            oklch(0.72 0.22 25);
+
+  --chart-1:                 oklch(0.72 0.22 25);
+  --chart-2:                 oklch(1 0 0);
+  --chart-3:                 oklch(0.55 0 0);
+  --chart-4:                 oklch(0.32 0 0);
+  --chart-5:                 oklch(0.55 0.16 25);
+
+  --shadow-sm:  0 2px 0 0 oklch(1 0 0);
+  --shadow:     0 4px 0 0 oklch(1 0 0);
+  --shadow-md:  0 6px 0 0 oklch(1 0 0);
+  --shadow-lg:  0 8px 0 0 oklch(1 0 0);
+  --shadow-xl:  0 12px 0 0 oklch(1 0 0);
+  --shadow-2xl: 0 16px 0 0 oklch(1 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background:              oklch(0 0 0);
+    --foreground:              oklch(1 0 0);
+    --card:                    oklch(0 0 0);
+    --card-foreground:         oklch(1 0 0);
+    --popover:                 oklch(0 0 0);
+    --popover-foreground:      oklch(1 0 0);
+    --primary:                 oklch(0.72 0.22 25);
+    --primary-foreground:      oklch(0 0 0);
+    --secondary:               oklch(0.18 0 0);
+    --secondary-foreground:    oklch(1 0 0);
+    --muted:                   oklch(0.18 0 0);
+    --muted-foreground:        oklch(0.70 0 0);
+    --accent:                  oklch(0.22 0 0);
+    --accent-foreground:       oklch(1 0 0);
+    --destructive:             oklch(0.65 0.22 25);
+    --destructive-foreground:  oklch(0 0 0);
+    --border:                  oklch(1 0 0);
+    --input:                   oklch(1 0 0);
+    --ring:                    oklch(0.72 0.22 25);
+
+    --sidebar:                 oklch(0.05 0 0);
+    --sidebar-foreground:      oklch(1 0 0);
+    --sidebar-primary:         oklch(0.72 0.22 25);
+    --sidebar-primary-foreground: oklch(0 0 0);
+    --sidebar-accent:          oklch(0.22 0 0);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border:          oklch(1 0 0);
+    --sidebar-ring:            oklch(0.72 0.22 25);
+
+    --chart-1:                 oklch(0.72 0.22 25);
+    --chart-2:                 oklch(1 0 0);
+    --chart-3:                 oklch(0.55 0 0);
+    --chart-4:                 oklch(0.32 0 0);
+    --chart-5:                 oklch(0.55 0.16 25);
+
+    --shadow-sm:  0 2px 0 0 oklch(1 0 0);
+    --shadow:     0 4px 0 0 oklch(1 0 0);
+    --shadow-md:  0 6px 0 0 oklch(1 0 0);
+    --shadow-lg:  0 8px 0 0 oklch(1 0 0);
+    --shadow-xl:  0 12px 0 0 oklch(1 0 0);
+    --shadow-2xl: 0 16px 0 0 oklch(1 0 0);
+  }
+}

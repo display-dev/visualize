@@ -1,0 +1,215 @@
+/**
+ * design-systems/cyber-serif/tokens.css
+ *
+ * Hand-authored from the spec-derived Cyber Serif system documented in
+ * ./DESIGN.md. Source: temp/refs/cyber-serif/raw.md (Cyber Serif Style
+ * spec). Sourced: 2026-05-26.
+ *
+ * canonical-canvas: dark. Cyber Serif is single-polarity by construction.
+ * Both [data-theme="dark"] and @media (prefers-color-scheme: dark) blocks
+ * mirror :root verbatim — there is no light variant to ship.
+ *
+ * Surgical-emerald rule: --primary is the system's sole chromatic accent
+ * (oklch(0.6959 0.1491 162.48) = #10b981). It must never fill a large
+ * block. Token consumers should route emerald to ink (one italic word,
+ * one alternating column), 1px hover underlines, box-shadow glows,
+ * shimmer-gradient stops at 0.3 alpha, spotlight-gradient stops at 0.15
+ * alpha, atmospheric blob fills at 0.10 alpha behind a 100px blur, the
+ * 6×6 pulse dot, the focus ring. The audit catches accidental large
+ * fills only via the preview rendering — there is no token-level guard.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this system's.
+ *   - Brand-extras (--brand-*): the system's own vocabulary, surface-
+ *     named only.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+
+  --background: oklch(0.1149 0 0);                    /* #050505 — DESIGN.md §2 Canvas + neutrals */
+  --foreground: oklch(0.9401 0 0);                    /* #EBEBEB — DESIGN.md §2 Canvas + neutrals */
+  --card: oklch(0.1591 0 0);                          /* glass-1 surface, opaque equivalent of rgba(255,255,255,0.02) over canvas */
+  --card-foreground: oklch(0.9401 0 0);
+  --popover: oklch(0.1591 0 0);
+  --popover-foreground: oklch(0.9401 0 0);
+
+  --primary: oklch(0.6959 0.1491 162.48);             /* #10b981 — DESIGN.md §2 Brand primary; surgical accent only */
+  --primary-foreground: oklch(0.1149 0 0);            /* near-black ink on the rare emerald fill */
+  --secondary: oklch(0.1867 0 0);                     /* glass-2 surface */
+  --secondary-foreground: oklch(0.9401 0 0);
+  --muted: oklch(0.1867 0 0);
+  --muted-foreground: oklch(0.6650 0 0);              /* chroma-0 utility neutral; lifted so body-text consumers clear AA on glass ladder up to glass-3 */
+  --accent: oklch(0.6959 0.1491 162.48);              /* tracks --primary; emerald is the sole accent */
+  --accent-foreground: oklch(0.1149 0 0);
+  --destructive: oklch(0.6534 0.1835 23.6794);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.2850 0 0);                        /* opaque equivalent of rgba(255,255,255,0.10) — glassmorphism hairline */
+  --input: oklch(0.2850 0 0);
+  --ring: oklch(0.6959 0.1491 162.48);                /* tracks --primary; emerald focus ring */
+
+  --sidebar: oklch(0.1149 0 0);
+  --sidebar-foreground: oklch(0.9401 0 0);
+  --sidebar-primary: oklch(0.6959 0.1491 162.48);     /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.1149 0 0);
+  --sidebar-accent: oklch(0.1591 0 0);
+  --sidebar-accent-foreground: oklch(0.9401 0 0);
+  --sidebar-border: oklch(0.2850 0 0);
+  --sidebar-ring: oklch(0.6959 0.1491 162.48);        /* tracks --primary */
+
+  /* Chart palette — monochrome lightness ladder with a single emerald
+   * anchor. The system has no documented secondary chromatic identity,
+   * so the chart palette resists the multi-hue convention; emerald
+   * carries chart-1 and the remaining steps walk down through white. */
+  --chart-1: oklch(0.6959 0.1491 162.48);             /* emerald primary */
+  --chart-2: oklch(0.9401 0 0);                       /* near-white */
+  --chart-3: oklch(0.7316 0 0);                       /* ink-mute */
+  --chart-4: oklch(0.6650 0 0);                       /* ink-subtle; tracks --muted-foreground / --brand-ink-subtle */
+  --chart-5: oklch(0.3600 0 0);                       /* ink-faint */
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;                                  /* rounded-3xl — Glassmorphism / Spotlight feature card */
+
+  /* -- Typography ------------------------------------------------ */
+  /* Newsreader is the display serif (200–800, italic). Space Grotesk
+   * is positioned in the --font-mono role because the spec uses it as
+   * a technical all-caps 10px / 0.2em label face, which is mono-coded
+   * behaviour; a true monospace stack sits behind it for any code
+   * block consumer. Inter handles body. */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+  --font-serif: "Newsreader", "Source Serif 4", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "Space Grotesk", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: "Newsreader", "Source Serif 4", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+  /* -- Brand-extras ---------------------------------------------
+   * Polarity-locked: Cyber Serif ships dark-only, so every token below
+   * is fixed across all theme blocks. None should be overridden in
+   * [data-theme="dark"] or in @media (prefers-color-scheme: dark).
+   * -------------------------------------------------------------- */
+
+  /* Brand primary lineage — emerald state cycle, derived from spec's
+   * pulse-glow / pressed implications (no live state ladder shipped
+   * in the spec; documented in DESIGN.md §2). */
+  --brand-primary-deep: oklch(0.5960 0.1274 163.23);  /* #059669 — pressed-state emerald */
+  --brand-primary-soft: oklch(0.7729 0.1535 163.22);  /* #34d399 — shimmer-gradient mid-stop, hover lift */
+  --brand-primary-press: oklch(0.5781 0.1159 166.95); /* #0d8f6b — deepest pressed */
+
+  /* Polarity-locked canvas + ink */
+  --brand-canvas-night: oklch(0.1149 0 0);            /* #050505 — dominant canvas */
+  --brand-on-dark: oklch(0.9401 0 0);                 /* #EBEBEB — primary text on canvas */
+
+  /* Glassmorphism surface ladder — opaque equivalents of the spec's
+   * rgba(255,255,255, A) alpha ramp over the near-black canvas. */
+  --brand-surface-glass-1: oklch(0.1591 0 0);         /* 2% white over canvas */
+  --brand-surface-glass-2: oklch(0.1867 0 0);         /* 4% white over canvas */
+  --brand-surface-glass-3: oklch(0.2134 0 0);         /* 6% white over canvas */
+
+  /* Hairlines / dividers — two weights, both spec-cited */
+  --brand-hairline-soft: oklch(0.2178 0 0);           /* 5% white over canvas — benchmark table row dividers */
+  --brand-hairline-strong: oklch(0.2850 0 0);         /* 10% white over canvas — glassmorphism card border */
+
+  /* Body-text neutrals — chroma-zero utility ladder */
+  --brand-ink-strong: oklch(0.9401 0 0);              /* #EBEBEB; same as --foreground */
+  --brand-ink-mute: oklch(0.7316 0 0);                /* text-white/70 equivalent */
+  --brand-ink-subtle: oklch(0.6650 0 0);              /* body-text role on glass surfaces — chroma-0 utility, lifted to clear AA on canvas + glass 1/2/3 (#050505 → #191919) */
+  --brand-ink-faint: oklch(0.3600 0 0);               /* text-white/20 equivalent — inactive labels, decorative-only (never body text) */
+
+  /* Brand-specific radii — pills + rounded-3xl */
+  --brand-radius-card: 24px;                          /* rounded-3xl — Glassmorphism / Spotlight card */
+  --brand-radius-pill: 9999px;                        /* CTA buttons — full pill */
+  --brand-radius-glyph: 10px;                         /* logo mark rounded square */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Cyber Serif is dark-canonical. Every value below mirrors :root —
+ * there is no second polarity to flip to.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1149 0 0);
+  --foreground: oklch(0.9401 0 0);
+  --card: oklch(0.1591 0 0);
+  --card-foreground: oklch(0.9401 0 0);
+  --popover: oklch(0.1591 0 0);
+  --popover-foreground: oklch(0.9401 0 0);
+
+  --primary: oklch(0.6959 0.1491 162.48);
+  --primary-foreground: oklch(0.1149 0 0);
+  --secondary: oklch(0.1867 0 0);
+  --secondary-foreground: oklch(0.9401 0 0);
+  --muted: oklch(0.1867 0 0);
+  --muted-foreground: oklch(0.6650 0 0);
+  --accent: oklch(0.6959 0.1491 162.48);
+  --accent-foreground: oklch(0.1149 0 0);
+  --destructive: oklch(0.6534 0.1835 23.6794);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.2850 0 0);
+  --input: oklch(0.2850 0 0);
+  --ring: oklch(0.6959 0.1491 162.48);
+
+  --sidebar: oklch(0.1149 0 0);
+  --sidebar-foreground: oklch(0.9401 0 0);
+  --sidebar-primary: oklch(0.6959 0.1491 162.48);
+  --sidebar-primary-foreground: oklch(0.1149 0 0);
+  --sidebar-accent: oklch(0.1591 0 0);
+  --sidebar-accent-foreground: oklch(0.9401 0 0);
+  --sidebar-border: oklch(0.2850 0 0);
+  --sidebar-ring: oklch(0.6959 0.1491 162.48);
+
+  --chart-1: oklch(0.6959 0.1491 162.48);
+  --chart-2: oklch(0.9401 0 0);
+  --chart-3: oklch(0.7316 0 0);
+  --chart-4: oklch(0.6650 0 0);
+  --chart-5: oklch(0.3600 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1149 0 0);
+    --foreground: oklch(0.9401 0 0);
+    --card: oklch(0.1591 0 0);
+    --card-foreground: oklch(0.9401 0 0);
+    --popover: oklch(0.1591 0 0);
+    --popover-foreground: oklch(0.9401 0 0);
+
+    --primary: oklch(0.6959 0.1491 162.48);
+    --primary-foreground: oklch(0.1149 0 0);
+    --secondary: oklch(0.1867 0 0);
+    --secondary-foreground: oklch(0.9401 0 0);
+    --muted: oklch(0.1867 0 0);
+    --muted-foreground: oklch(0.6650 0 0);
+    --accent: oklch(0.6959 0.1491 162.48);
+    --accent-foreground: oklch(0.1149 0 0);
+    --destructive: oklch(0.6534 0.1835 23.6794);
+    --destructive-foreground: oklch(1 0 0);
+
+    --border: oklch(0.2850 0 0);
+    --input: oklch(0.2850 0 0);
+    --ring: oklch(0.6959 0.1491 162.48);
+
+    --sidebar: oklch(0.1149 0 0);
+    --sidebar-foreground: oklch(0.9401 0 0);
+    --sidebar-primary: oklch(0.6959 0.1491 162.48);
+    --sidebar-primary-foreground: oklch(0.1149 0 0);
+    --sidebar-accent: oklch(0.1591 0 0);
+    --sidebar-accent-foreground: oklch(0.9401 0 0);
+    --sidebar-border: oklch(0.2850 0 0);
+    --sidebar-ring: oklch(0.6959 0.1491 162.48);
+
+    --chart-1: oklch(0.6959 0.1491 162.48);
+    --chart-2: oklch(0.9401 0 0);
+    --chart-3: oklch(0.7316 0 0);
+    --chart-4: oklch(0.6650 0 0);
+    --chart-5: oklch(0.3600 0 0);
+  }
+}

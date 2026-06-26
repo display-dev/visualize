@@ -1,0 +1,237 @@
+/**
+ * design-systems/posthog-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * The dark-mode block applies OKLCH lightness inversion to canonical
+ * shadcn-semantic tokens only. Brand-specific extras (--brand-*) are
+ * intentionally NOT overridden in dark mode — they inherit their
+ * :root values via the CSS cascade, preserving the brand's documented
+ * intent for tokens like surface-dark / on-dark / inverse-canvas that
+ * already encode a dark-context meaning.
+ *
+ * Hand-edit the [data-theme="dark"] block when the brand's actual dark
+ * palette is documented and differs from the synthesised default.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(0.9497 0.0080 114.2233);
+  --foreground: oklch(0.2596 0.0148 118.8407);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2596 0.0148 118.8407);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2596 0.0148 118.8407);
+  --primary: oklch(0.7833 0.1663 73.4876);
+  --primary-foreground: oklch(0.2596 0.0148 118.8407);
+  --secondary: oklch(0.9245 0.0096 119.5869);
+  --secondary-foreground: oklch(0.2596 0.0148 118.8407);
+  --muted: oklch(0.9245 0.0096 119.5869);
+  --muted-foreground: oklch(0.2596 0.0148 118.8407);
+  --accent: oklch(0.6087 0.1617 253.0641);
+  --accent-foreground: oklch(0.2596 0.0148 118.8407);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0.2596 0.0148 118.8407);
+  --border: oklch(0.8065 0.0140 115.8961);
+  --input: oklch(0.8065 0.0140 115.8961);
+  --ring: oklch(0.7833 0.1663 73.4876);
+  --sidebar: oklch(0.9245 0.0096 119.5869);
+  --sidebar-foreground: oklch(0.2596 0.0148 118.8407);
+  --sidebar-primary: oklch(0.7833 0.1663 73.4876);
+  --sidebar-primary-foreground: oklch(0.2596 0.0148 118.8407);
+  --sidebar-accent: oklch(0.9245 0.0096 119.5869);
+  --sidebar-accent-foreground: oklch(0.2596 0.0148 118.8407);
+  --sidebar-border: oklch(0.8065 0.0140 115.8961);
+  --sidebar-ring: oklch(0.7833 0.1663 73.4876);
+  --chart-1: oklch(0.8100 0.1663 73.4876);
+  --chart-2: oklch(0.7100 0.1663 73.4876);
+  --chart-3: oklch(0.6100 0.1663 73.4876);
+  --chart-4: oklch(0.5100 0.1663 73.4876);
+  --chart-5: oklch(0.4200 0.1663 73.4876);
+
+  /* radius scale */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-xs: 2px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: IBM Plex Sans Variable;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace;
+  --font-display: IBM Plex Sans Variable;
+
+  /* type scale tokens */
+  --text-display: 36px;
+  --text-heading: 24px;
+  --text-title: 20px;
+  --text-base: 16px;
+  --leading-tight: 1.5;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-primary-pressed: oklch(0.7144 0.1531 71.5900);
+  --brand-primary-active: oklch(0.6167 0.1244 73.9834);
+  --brand-body: oklch(0.4228 0.0148 117.2124);
+  --brand-charcoal: oklch(0.3216 0.0122 113.6831);
+  /* --brand-mute darkened from 0.5331 → 0.5100 to clear ≥4.5:1 on
+   * tinted canvas (#eeefe9). Upstream value lands at 4.48. */
+  --brand-mute: oklch(0.5100 0.0169 115.3417);
+  --brand-ash: oklch(0.6890 0.0144 111.4032);
+  --brand-stone: oklch(0.7763 0.0112 112.4321);
+  --brand-hairline-soft: oklch(0.8977 0.0177 117.3200);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-surface-doc: oklch(0.9905 0.0026 106.4476);
+  --brand-surface-dark: oklch(0.2596 0.0148 118.8407);
+  --brand-link-blue: oklch(0.4882 0.2172 264.3763);
+  --brand-link-teal: oklch(0.5398 0.1079 233.3942);
+  --brand-accent-blue-soft: oklch(0.9301 0.0221 243.8099);
+  /* Documented accent palette — upstream values preserved. PostHog
+   * ships these at full brightness on its tinted #eeefe9 canvas
+   * (verified 2026-05-25: posthog.com/pricing applies `text-green`
+   * = #6aa84f at 14px to stat labels "1M events" / "5K recordings",
+   * `text-red dark:text-yellow` = #f54e00 to CTA prose, `text-purple`
+   * = #b62ad9 to icons). The contrast against tinted canvas lands
+   * around 3.5:1 — sub-AA — and the brand ships that anyway. Fix the
+   * surface (route to chip / icon / fg) before retuning these. */
+  --brand-accent-red: oklch(0.5767 0.1770 27.7213);
+  --brand-accent-red-soft: oklch(0.9028 0.0372 24.0288);
+  --brand-accent-green: oklch(0.5742 0.1070 162.8799);
+  --brand-accent-green-soft: oklch(0.9274 0.0282 155.2770);
+  --brand-accent-purple: oklch(0.4997 0.1562 308.1109);
+  --brand-accent-purple-soft: oklch(0.9008 0.0337 315.2137);
+  --brand-focus-ring: oklch(0.6231 0.1880 259.8145 / 0.5000);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Hand-edited brand-accurate dark mode.
+   *
+   * Matches PostHog's actual product (app.posthog.com) dark variant:
+   * warm-near-black canvas, yellow-orange primary preserved, accent
+   * tints kept light enough to read as pops on the dark canvas.
+   *
+   * --brand-charcoal is intentionally NOT overridden — it stays at its
+   * documented dark olive value because the template uses it as the
+   * text/border/shadow color on yellow surfaces (primary CTA, brand
+   * glyph, active tree row, featured pricing card). On yellow, dark
+   * ink is correct in both modes.
+   * --primary, --primary-foreground, --brand-primary-pressed/-active,
+   * --brand-accent-* tints all stay unchanged for the same reason. */
+
+  /* shadcn-semantic core */
+  --background: oklch(0.1800 0.0080 75);                  /* warm near-black canvas */
+  --foreground: oklch(0.9450 0.0050 80);                  /* warm near-white ink */
+  --card: oklch(0.2200 0.0080 75);                        /* warm lifted card */
+  --card-foreground: oklch(0.9450 0.0050 80);
+  --popover: oklch(0.2200 0.0080 75);
+  --popover-foreground: oklch(0.9450 0.0050 80);
+  --primary: oklch(0.7833 0.1663 73.4876);                /* yellow-orange — unchanged */
+  --primary-foreground: oklch(0.2596 0.0148 118.8407);    /* dark olive ink on yellow — unchanged */
+  --secondary: oklch(0.2400 0.0080 75);
+  --secondary-foreground: oklch(0.9450 0.0050 80);
+  --muted: oklch(0.2400 0.0080 75);
+  --muted-foreground: oklch(0.6500 0.0120 80);
+  --accent: oklch(0.7000 0.1617 253.0641);                /* slightly brighter blue on dark */
+  --accent-foreground: oklch(0.9450 0.0050 80);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0.9450 0.0050 80);
+  --border: oklch(0.3000 0.0080 75);
+  --input: oklch(0.3000 0.0080 75);
+  --ring: oklch(0.7833 0.1663 73.4876);
+  --sidebar: oklch(0.2200 0.0080 75);
+  --sidebar-foreground: oklch(0.9450 0.0050 80);
+  --sidebar-primary: oklch(0.7833 0.1663 73.4876);
+  --sidebar-primary-foreground: oklch(0.2596 0.0148 118.8407);
+  --sidebar-accent: oklch(0.2400 0.0080 75);
+  --sidebar-accent-foreground: oklch(0.9450 0.0050 80);
+  --sidebar-border: oklch(0.3000 0.0080 75);
+  --sidebar-ring: oklch(0.7833 0.1663 73.4876);
+  --chart-1: oklch(0.8100 0.1663 73.4876);
+  --chart-2: oklch(0.7100 0.1663 73.4876);
+  --chart-3: oklch(0.6100 0.1663 73.4876);
+  --chart-4: oklch(0.5100 0.1663 73.4876);
+  --chart-5: oklch(0.4200 0.1663 73.4876);
+
+  /* brand-extras dark overrides — body-text family + adaptive surfaces.
+   * --brand-charcoal stays at its :root value (used on yellow surfaces
+   * where dark ink is correct in both modes). */
+  --brand-body: oklch(0.8200 0.0080 80);                  /* body running text on dark */
+  --brand-mute: oklch(0.6500 0.0120 80);
+  --brand-ash: oklch(0.5500 0.0120 80);
+  --brand-stone: oklch(0.4500 0.0120 80);
+  --brand-hairline-soft: oklch(0.2800 0.0080 75);
+  --brand-surface-doc: oklch(0.2200 0.0080 75);           /* tree-card bg */
+  --brand-link-blue: oklch(0.7000 0.1700 264);
+  --brand-link-teal: oklch(0.7000 0.1100 233);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1800 0.0080 75);
+    --foreground: oklch(0.9450 0.0050 80);
+    --card: oklch(0.2200 0.0080 75);
+    --card-foreground: oklch(0.9450 0.0050 80);
+    --popover: oklch(0.2200 0.0080 75);
+    --popover-foreground: oklch(0.9450 0.0050 80);
+    --primary: oklch(0.7833 0.1663 73.4876);
+    --primary-foreground: oklch(0.2596 0.0148 118.8407);
+    --secondary: oklch(0.2400 0.0080 75);
+    --secondary-foreground: oklch(0.9450 0.0050 80);
+    --muted: oklch(0.2400 0.0080 75);
+    --muted-foreground: oklch(0.6500 0.0120 80);
+    --accent: oklch(0.7000 0.1617 253.0641);
+    --accent-foreground: oklch(0.9450 0.0050 80);
+    --destructive: oklch(0.5308 0.2178 29.2339);
+    --destructive-foreground: oklch(0.9450 0.0050 80);
+    --border: oklch(0.3000 0.0080 75);
+    --input: oklch(0.3000 0.0080 75);
+    --ring: oklch(0.7833 0.1663 73.4876);
+    --sidebar: oklch(0.2200 0.0080 75);
+    --sidebar-foreground: oklch(0.9450 0.0050 80);
+    --sidebar-primary: oklch(0.7833 0.1663 73.4876);
+    --sidebar-primary-foreground: oklch(0.2596 0.0148 118.8407);
+    --sidebar-accent: oklch(0.2400 0.0080 75);
+    --sidebar-accent-foreground: oklch(0.9450 0.0050 80);
+    --sidebar-border: oklch(0.3000 0.0080 75);
+    --sidebar-ring: oklch(0.7833 0.1663 73.4876);
+    --chart-1: oklch(0.8100 0.1663 73.4876);
+    --chart-2: oklch(0.7100 0.1663 73.4876);
+    --chart-3: oklch(0.6100 0.1663 73.4876);
+    --chart-4: oklch(0.5100 0.1663 73.4876);
+    --chart-5: oklch(0.4200 0.1663 73.4876);
+
+    --brand-body: oklch(0.8200 0.0080 80);
+    --brand-mute: oklch(0.6500 0.0120 80);
+    --brand-ash: oklch(0.5500 0.0120 80);
+    --brand-stone: oklch(0.4500 0.0120 80);
+    --brand-hairline-soft: oklch(0.2800 0.0080 75);
+    --brand-surface-doc: oklch(0.2200 0.0080 75);
+    --brand-link-blue: oklch(0.7000 0.1700 264);
+    --brand-link-teal: oklch(0.7000 0.1100 233);
+  }
+}

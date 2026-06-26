@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23171717'/%3E%3Cpath d='M16 8 L24 22 L8 22 Z' fill='%23fff'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Stark monochrome canvas + Geist sans + mesh-gradient atmosphere.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Vercel-style preview shell — stark monochrome canvas, Geist
+   geometric sans + Geist Mono technical caption, multi-stop mesh
+   gradient (cyan/blue/magenta/amber) as the sole decorative chrome,
+   100px pill CTAs, subtle stacked shadows, polarity-flipped featured
+   surface. Content is Halcyon-themed. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* -- Sticky top nav -- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--background) 80%, transparent);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.topnav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Geist', 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+.topnav-brand-mark {
+  width: 22px;
+  height: 22px;
+  background: var(--foreground);
+  clip-path: polygon(50% 12%, 95% 92%, 5% 92%);
+}
+.topnav-links { display: flex; gap: 1.5rem; font-size: 14px; }
+.topnav-links a { color: var(--brand-body, var(--muted-foreground)); text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Buttons -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--brand-radius-pill, 100px);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 100ms ease;
+}
+.btn[data-variant="primary"] { background: var(--primary); color: var(--primary-foreground); }
+.btn[data-variant="primary"]:hover { background: color-mix(in srgb, var(--primary) 85%, white); }
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--brand-hairline-strong, var(--border));
+}
+.btn[data-variant="secondary"]:hover { background: var(--brand-canvas-soft, var(--muted)); }
+.btn[data-variant="ghost"] { background: transparent; color: var(--foreground); }
+.btn[data-variant="ghost"]:hover { background: var(--brand-canvas-soft, var(--muted)); }
+.btn[data-size="lg"] { padding: 0.625rem 1.25rem; font-size: 15px; }
+
+/* -- Mesh-gradient hero band -- */
+.mesh-hero {
+  position: relative;
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.mesh-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(50% 60% at 75% 30%, var(--brand-cyan, var(--primary)) 0%, transparent 55%),
+    radial-gradient(45% 55% at 30% 25%, var(--brand-gradient-develop-start, var(--primary)) 0%, transparent 55%),
+    radial-gradient(55% 60% at 55% 70%, var(--brand-violet, var(--primary)) 0%, transparent 55%),
+    radial-gradient(50% 55% at 80% 80%, var(--brand-highlight-pink, var(--primary)) 0%, transparent 55%),
+    radial-gradient(45% 55% at 15% 75%, var(--brand-warning, var(--primary)) 0%, transparent 50%);
+  opacity: 0.35;
+  pointer-events: none;
+}
+.mesh-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--foreground) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--foreground) 6%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+.hero {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-body, var(--muted-foreground));
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 0.25rem 0.75rem;
+  margin: 0;
+}
+.hero-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-link, var(--primary)); }
+.hero-display {
+  font-family: 'Geist', 'Inter', system-ui, sans-serif;
+  font-size: clamp(2.5rem, 5.5vw, 3.75rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -2.4px;
+  margin: 0;
+  max-width: 22ch;
+}
+.hero-lede {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--brand-body, var(--muted-foreground));
+  max-width: 52ch;
+  margin: 0;
+}
+.hero-ctas { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem; }
+
+/* -- Page container -- */
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* -- Section -- */
+.section { padding: 5rem 0; border-bottom: 1px solid var(--border); }
+.section-header { margin-bottom: 2.5rem; }
+.section-eyebrow {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brand-mute, var(--muted-foreground));
+  margin: 0 0 0.75rem;
+}
+.section-title {
+  font-family: 'Geist', 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -1.28px;
+  line-height: 1.1;
+  margin: 0 0 0.75rem;
+  max-width: 22ch;
+}
+.section-lede {
+  font-size: 16px;
+  color: var(--brand-body, var(--muted-foreground));
+  max-width: 56ch;
+  margin: 0;
+}
+
+/* -- Terminal mockup -- */
+.terminal {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-radius: var(--radius-lg, 12px);
+  overflow: hidden;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.55;
+  box-shadow: 0 1px 1px hsl(0 0% 0% / 0.04), 0 2px 6px hsl(0 0% 0% / 0.06);
+}
+.terminal-bar {
+  background: color-mix(in srgb, var(--primary) 85%, var(--brand-mute, white));
+  padding: 0.625rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.terminal-dots { display: flex; gap: 0.375rem; }
+.terminal-dots span { width: 12px; height: 12px; border-radius: 50%; background: color-mix(in srgb, var(--primary) 65%, var(--brand-mute, white)); }
+.terminal-title { color: color-mix(in srgb, var(--primary-foreground) 75%, transparent); font-family: 'Geist Mono'; }
+.terminal-body { padding: 1.25rem 1.5rem; }
+.terminal-prompt { color: color-mix(in srgb, var(--brand-cyan, var(--primary-foreground)) 80%, white); }
+.terminal-cmd { color: var(--primary-foreground); }
+.terminal-out { color: color-mix(in srgb, var(--primary-foreground) 78%, transparent); }
+.terminal-ok { color: var(--brand-success, var(--primary-foreground)); }
+
+/* -- Surface ladder -- */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 12px);
+  overflow: hidden;
+}
+@media (max-width: 880px) { .surface-ladder { grid-template-columns: repeat(2, 1fr); } }
+.surface-step {
+  padding: 1.5rem;
+  border-right: 1px solid var(--border);
+  min-height: 7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.surface-step:last-child { border-right: none; }
+.surface-step[data-step="0"] { background: var(--background); color: var(--foreground); }
+.surface-step[data-step="1"] { background: var(--brand-canvas-soft, var(--muted)); color: var(--foreground); }
+.surface-step[data-step="2"] { background: var(--brand-canvas-soft-2, var(--muted)); color: var(--foreground); }
+.surface-step[data-step="3"] { background: var(--primary); color: var(--primary-foreground); }
+.surface-step-num {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, currentColor 65%, transparent);
+}
+.surface-step-name { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; }
+.surface-step-role { color: color-mix(in srgb, currentColor 70%, transparent); font-size: 13px; }
+
+/* gradient stops swatches */
+.gradient-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+.gradient-swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 8px);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--background);
+}
+.gradient-swatch-chip { height: 2.25rem; border-radius: 4px; }
+.gradient-swatch-name { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; color: var(--brand-body, var(--muted-foreground)); }
+
+/* -- Typography rows -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--brand-mute, var(--muted-foreground)); }
+.type-display-xl { font-family: 'Geist', 'Inter'; font-size: 48px; font-weight: 600; line-height: 1; letter-spacing: -2.4px; }
+.type-display-lg { font-family: 'Geist', 'Inter'; font-size: 32px; font-weight: 600; line-height: 1.25; letter-spacing: -1.28px; }
+.type-display-md { font-family: 'Geist', 'Inter'; font-size: 24px; font-weight: 600; line-height: 1.33; letter-spacing: -0.96px; }
+.type-title { font-family: 'Geist', 'Inter'; font-size: 20px; font-weight: 600; letter-spacing: -0.6px; }
+.type-body { font-size: 16px; font-weight: 400; line-height: 1.5; }
+.type-mono { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; }
+
+/* -- Components: status pill, deploy card, code block -- */
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  border-radius: 100px;
+  background: var(--brand-canvas-soft, var(--muted));
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+.status-pill-dot { width: 6px; height: 6px; border-radius: 50%; }
+.status-pill-dot[data-state="ready"] { background: var(--brand-success, var(--primary)); }
+.status-pill-dot[data-state="building"] { background: var(--brand-warning, var(--primary)); }
+.status-pill-dot[data-state="failed"] { background: var(--brand-error-deep, var(--destructive)); }
+.status-pill-dot[data-state="neutral"] { background: var(--brand-mute, var(--muted-foreground)); }
+
+.deploy-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 12px);
+  padding: 1.25rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 1.5rem;
+  align-items: center;
+  box-shadow: 0 1px 1px hsl(0 0% 0% / 0.03), 0 2px 4px hsl(0 0% 0% / 0.04);
+}
+@media (max-width: 880px) { .deploy-card { grid-template-columns: 1fr; } }
+.deploy-card-title { display: flex; flex-direction: column; gap: 0.25rem; }
+.deploy-card-name { font-size: 15px; font-weight: 500; }
+.deploy-card-meta { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: var(--brand-mute, var(--muted-foreground)); }
+.deploy-card-branch {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  background: var(--brand-canvas-soft, var(--muted));
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.125rem 0.5rem;
+}
+
+/* -- Pricing 3-up with polarity-flipped featured -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; } }
+.pricing-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 12px);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 1px 1px hsl(0 0% 0% / 0.03);
+}
+.pricing-card[data-featured="true"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: transparent;
+  box-shadow: 0 4px 12px hsl(0 0% 0% / 0.12);
+}
+.pricing-tier { font-size: 14px; font-weight: 500; color: color-mix(in srgb, currentColor 70%, transparent); }
+.pricing-price {
+  font-family: 'Geist', 'Inter';
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -1.28px;
+  line-height: 1;
+}
+.pricing-price span { font-size: 14px; opacity: 0.6; margin-left: 0.25rem; font-weight: 400; }
+.pricing-desc { margin: 0; font-size: 14px; color: color-mix(in srgb, currentColor 70%, transparent); line-height: 1.5; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  font-size: 13px;
+}
+.pricing-features li { padding-left: 1.25rem; position: relative; opacity: 0.9; }
+.pricing-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  font-weight: 500;
+  color: color-mix(in srgb, currentColor 85%, transparent);
+}
+
+/* -- Footer -- */
+.footer { padding: 4rem 0 2rem; }
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+@media (max-width: 880px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+.footer-col-title { font-size: 13px; font-weight: 500; color: var(--foreground); margin: 0 0 0.75rem; font-family: 'Geist Mono', ui-monospace, monospace; }
+.footer-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-col-list a { font-size: 13px; color: var(--brand-mute, var(--muted-foreground)); text-decoration: none; }
+.footer-col-list a:hover { color: var(--foreground); }
+.footer-legal {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--brand-mute, var(--muted-foreground));
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <span class="topnav-brand"><span class="topnav-brand-mark" aria-hidden="true"></span>__DESIGN_SYSTEM_NAME__</span>
+    <div class="topnav-links">
+      <a href="#">Tokens</a>
+      <a href="#">Typography</a>
+      <a href="#">Components</a>
+      <a href="#">Deploy</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="btn" data-variant="ghost" type="button">Log in</button>
+      <button class="btn" data-variant="primary" type="button">Sign up</button>
+    </div>
+  </div>
+</nav>
+
+<header class="mesh-hero">
+  <div class="hero">
+    <p class="hero-eyebrow"><span class="hero-eyebrow-dot" aria-hidden="true"></span>__DESIGN_SYSTEM_NAME__ &nbsp;·&nbsp; token surface</p>
+    <h1 class="hero-display">Build and ship from the agent.</h1>
+    <p class="hero-lede">A token-surface preview rendered against the design system. Stark monochrome canvas, Geist sans, mesh-gradient atmosphere — the signature moves shown on neutral content.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Start deploying</button>
+      <button class="btn" data-variant="secondary" data-size="lg" type="button">Read the docs →</button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="section" aria-label="Terminal mockup">
+    <div class="section-header">
+      <p class="section-eyebrow">// Surface · Polarity flip</p>
+      <h2 class="section-title">Ink-near-black inverts to the dark surface.</h2>
+      <p class="section-lede">A monospace terminal mockup demonstrates the polarity flip. The dark surface is <code style="font-family:'Geist Mono'; font-size:0.875em;">var(--primary)</code> — the same ink token that carries text on light.</p>
+    </div>
+    <div class="terminal" aria-label="Deploy terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+        <span class="terminal-title">~ / halcyon / app</span>
+        <span></span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="terminal-prompt">$</span> <span class="terminal-cmd">halcyon deploy --prod</span></div>
+        <div class="terminal-out">→ resolving project halcyon-api</div>
+        <div class="terminal-out">→ uploading 2,418 files (218 KB)</div>
+        <div class="terminal-out">→ building edge functions (3.2s)</div>
+        <div class="terminal-out">→ propagating to 100 regions</div>
+        <div><span class="terminal-ok">✓</span> <span class="terminal-cmd">https://halcyon-api-q7K9.halcyon.app</span></div>
+        <div class="terminal-out">  Inspect → https://app.halcyon.dev/halcyon-api/q7K9</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Surface ladder">
+    <div class="section-header">
+      <p class="section-eyebrow">// Tokens · Colour</p>
+      <h2 class="section-title">Four-step monochrome ladder, mesh as the only chrome.</h2>
+      <p class="section-lede">Canvas, canvas-soft, canvas-soft-2, ink. That's the entire surface system. Chromatic colour appears in the hero mesh and inside status indicators — never as a card fill.</p>
+    </div>
+    <div class="surface-ladder" aria-label="Surface ladder">
+      <div class="surface-step" data-step="0"><span class="surface-step-num">Floor</span><span class="surface-step-name">--background</span><span class="surface-step-role">page surface</span></div>
+      <div class="surface-step" data-step="1"><span class="surface-step-num">Lift 1</span><span class="surface-step-name">--brand-canvas-soft</span><span class="surface-step-role">body region</span></div>
+      <div class="surface-step" data-step="2"><span class="surface-step-num">Lift 2</span><span class="surface-step-name">--brand-canvas-soft-2</span><span class="surface-step-role">inset</span></div>
+      <div class="surface-step" data-step="3"><span class="surface-step-num">Flip</span><span class="surface-step-name">--primary</span><span class="surface-step-role">polarity flip</span></div>
+    </div>
+    <div class="gradient-swatches" aria-label="Mesh gradient stops">
+      <div class="gradient-swatch"><div class="gradient-swatch-chip" style="background-color: var(--brand-gradient-develop-start, var(--primary));"></div><span class="gradient-swatch-name">develop-start</span></div>
+      <div class="gradient-swatch"><div class="gradient-swatch-chip" style="background-color: var(--brand-cyan, var(--primary));"></div><span class="gradient-swatch-name">cyan</span></div>
+      <div class="gradient-swatch"><div class="gradient-swatch-chip" style="background-color: var(--brand-violet, var(--primary));"></div><span class="gradient-swatch-name">violet</span></div>
+      <div class="gradient-swatch"><div class="gradient-swatch-chip" style="background-color: var(--brand-highlight-pink, var(--primary));"></div><span class="gradient-swatch-name">highlight-pink</span></div>
+      <div class="gradient-swatch"><div class="gradient-swatch-chip" style="background-color: var(--brand-warning, var(--primary));"></div><span class="gradient-swatch-name">warning</span></div>
+      <div class="gradient-swatch"><div class="gradient-swatch-chip" style="background-color: var(--brand-success, var(--primary));"></div><span class="gradient-swatch-name">success</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography roles">
+    <div class="section-header">
+      <p class="section-eyebrow">// Tokens · Typography</p>
+      <h2 class="section-title">Geist sans + Geist Mono.</h2>
+      <p class="section-lede">Display tracks aggressively negative: −2.4px at 48px hero. Mono carries every technical label, code block, filename, status indicator. Sentence-case, no uppercase outside mono.</p>
+    </div>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Display-xl</span><span class="type-display-xl">Halcyon.</span></div>
+      <div class="type-row"><span class="type-label">Display-lg</span><span class="type-display-lg">Build and ship from the agent.</span></div>
+      <div class="type-row"><span class="type-label">Display-md</span><span class="type-display-md">Edge runtime · zero config · one push.</span></div>
+      <div class="type-row"><span class="type-label">Title</span><span class="type-title">Tokens, components, templates.</span></div>
+      <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Geist sans at 16px, line-height 1.5. The text and display cuts share a single voice — sentence-case sentences, no positive tracking, no caps outside mono.</span></div>
+      <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">$ halcyon deploy --prod → https://app.halcyon.dev</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Component vocabulary">
+    <div class="section-header">
+      <p class="section-eyebrow">// Vocabulary · Components</p>
+      <h2 class="section-title">Pill CTAs, hairline cards, mono labels.</h2>
+      <p class="section-lede">Marketing CTAs use a 100px pill, cards round at 12px, technical captions run in mono. Shadows are subtly stacked; nothing else is decorative.</p>
+    </div>
+    <div class="cmp-stack">
+      <div class="cmp-row" aria-label="Buttons">
+        <button class="btn" data-variant="primary" data-size="lg">Start deploying</button>
+        <button class="btn" data-variant="secondary" data-size="lg">Read docs</button>
+        <button class="btn" data-variant="ghost">Log in</button>
+      </div>
+
+      <div class="cmp-row" aria-label="Status pills">
+        <span class="status-pill"><span class="status-pill-dot" data-state="ready" aria-hidden="true"></span>Ready</span>
+        <span class="status-pill"><span class="status-pill-dot" data-state="building" aria-hidden="true"></span>Building</span>
+        <span class="status-pill"><span class="status-pill-dot" data-state="failed" aria-hidden="true"></span>Failed</span>
+        <span class="status-pill"><span class="status-pill-dot" data-state="neutral" aria-hidden="true"></span>Queued</span>
+      </div>
+
+      <div class="deploy-card" aria-label="Deploy card">
+        <div class="deploy-card-title">
+          <span class="deploy-card-name">halcyon-api</span>
+          <span class="deploy-card-meta">dpl_q7K9Lq3Mn · 2m ago · Jordan Kim</span>
+        </div>
+        <span class="deploy-card-branch">main · 3383613</span>
+        <span class="status-pill"><span class="status-pill-dot" data-state="ready" aria-hidden="true"></span>Ready · 38ms p50</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Pricing">
+    <div class="section-header">
+      <p class="section-eyebrow">// Pricing · Polarity flip</p>
+      <h2 class="section-title">Pro tier polarity-flips to ink.</h2>
+      <p class="section-lede">Three cards on the canvas. The featured tier inverts to <code style="font-family:'Geist Mono';">var(--primary)</code> for emphasis — same surface treatment as the terminal mockup.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <span class="pricing-tier">Hobby</span>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-desc">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal projects</li>
+          <li>Preview deployments</li>
+          <li>Best-effort support</li>
+        </ul>
+        <button class="btn" data-variant="secondary">Start free</button>
+      </div>
+      <div class="pricing-card" data-featured="true">
+        <span class="pricing-tier">Pro</span>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-desc">For teams shipping to production every day.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Priority builds + previews</li>
+          <li>Production SLA</li>
+          <li>Priority support</li>
+        </ul>
+        <button class="btn" data-variant="secondary">Start trial</button>
+      </div>
+      <div class="pricing-card">
+        <span class="pricing-tier">Enterprise</span>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-desc">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Dedicated infrastructure</li>
+          <li>Custom region + quota</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <button class="btn" data-variant="secondary">Contact sales</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-col-title">// Product</p>
+        <ul class="footer-col-list"><li><a href="#">Tokens</a></li><li><a href="#">Components</a></li><li><a href="#">Templates</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">// Resources</p>
+        <ul class="footer-col-list"><li><a href="#">Docs</a></li><li><a href="#">CLI</a></li><li><a href="#">Integrations</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">// Company</p>
+        <ul class="footer-col-list"><li><a href="#">About</a></li><li><a href="#">Customers</a></li><li><a href="#">Pricing</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">// Legal</p>
+        <ul class="footer-col-list"><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li><li><a href="#">DPA</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">// Halcyon</p>
+        <ul class="footer-col-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">hlc.so</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.22</span>
+      <span>geist · −2.4px · 100px pill · mesh atmosphere</span>
+    </div>
+  </footer>
+
+</main>
+
+</body>
+</html>

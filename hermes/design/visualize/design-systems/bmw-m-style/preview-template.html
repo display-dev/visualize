@@ -1,0 +1,890 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23000'/%3E%3Cpath d='M5 22 L8 10 L11 18 L14 10 L17 22' stroke='%23ffffff' stroke-width='1.6' fill='none' stroke-linejoin='round'/%3E%3Cpath d='M19 14 H27 M19 18 H27 M19 22 H27' stroke='%23ffffff' stroke-width='1.6' stroke-linecap='round'/%3E%3Crect x='5' y='25' width='7' height='3' fill='%23408aff'/%3E%3Crect x='12' y='25' width='7' height='3' fill='%231c4f9c'/%3E%3Crect x='19' y='25' width='8' height='3' fill='%23e02828'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Motorsport-engineering surface — near-black canvas with white UPPERCASE display headlines, M tricolor stripe signature (light blue → dark blue → red), light-to-medium type weights. Token-surface showcase, not vehicle photography.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === BMW-M-style preview shell — motorsport-engineering dark canvas.
+   Near-black canvas across both polarities; UPPERCASE BMW Type Next
+   Latin display at light-to-medium weight (European-engineered, not
+   bombastic). M tricolor stripe (light blue → dark blue → red) is
+   the recurring signature — used on logos, section dividers, and
+   ladder accents, never as a fill. Halcyon-themed neutral build /
+   deploy timing content; no vehicle imagery. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga", "tnum";
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- M tricolor stripe — the brand's signature signal. Used as a
+ * recurring divider and accent treatment. Polarity-locked. -- */
+.m-stripe {
+  height: 4px;
+  width: 56px;
+  display: inline-block;
+  background:
+    linear-gradient(90deg,
+      var(--brand-m-stripe-light-blue) 0% 33.33%,
+      var(--brand-m-stripe-violet) 33.33% 66.66%,
+      var(--brand-m-stripe-red) 66.66% 100%);
+}
+.m-stripe[data-size="full"] { width: 100%; height: 3px; }
+.m-stripe[data-size="lg"]   { width: 88px; height: 5px; }
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-strong);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: conic-gradient(from 90deg, var(--brand-m-stripe-light-blue) 0deg 120deg, var(--brand-m-stripe-violet) 120deg 240deg, var(--brand-m-stripe-red) 240deg 360deg);
+  border: 1.5px solid var(--foreground);
+  display: inline-block;
+}
+.topnav-links {
+  display: flex;
+  gap: 1.75rem;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--brand-body);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 13px;
+}
+.topnav-actions a {
+  color: var(--brand-body);
+  text-decoration: none;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.topnav-actions a:hover { color: var(--foreground); }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border-radius: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--brand-m-stripe-light-blue);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-body-strong); }
+.btn[data-variant="secondary"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+.btn[data-variant="secondary"]:hover { background: var(--foreground); color: var(--background); }
+/* On dark pricing-card surfaces, secondary button inherits the dark-canvas affordances */
+.pricing-card .btn[data-variant="secondary"] { color: var(--brand-on-dark); border-color: oklch(1 0 0 / 0.42); }
+.pricing-card .btn[data-variant="secondary"]:hover { background: var(--brand-on-dark); color: var(--foreground); border-color: var(--brand-on-dark); }
+.btn[data-size="lg"] { min-height: 48px; padding: 0 1.75rem; font-size: 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero -- */
+.hero {
+  padding: 6rem 1.5rem 5rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Dark atmospheric blobs sit in the right half (behind the dashboard
+   * mockup, which is itself dark) so the upper-left heading text region
+   * stays on clean canvas. The earlier composition put a near-black blob
+   * directly behind ENGINEERED.NOT STYLED. — black-on-dark, unreadable. */
+  background:
+    radial-gradient(45% 70% at 88% 28%, oklch(0.20 0.04 250) 0%, transparent 60%),
+    radial-gradient(40% 60% at 95% 80%, oklch(0.16 0 0) 0%, transparent 55%);
+  z-index: -1;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 960px) { .hero-inner { grid-template-columns: 1fr; gap: 2rem; } }
+.hero-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hero-display {
+  font-family: var(--font-sans);
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 14ch;
+}
+.hero-lede {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--brand-body);
+  max-width: 38rem;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* -- Track-data dashboard (signature surface). Halcyon-team deploy +
+ * build timing data, presented as a lap-time leaderboard. -- */
+/* .dash is a polarity-invariant dark surface (always renders on --brand-carbon-gray
+ * regardless of mode); text colors here are scoped to on-dark affordances so light-
+ * canonical :root foreground doesn't bleed into dark surface. */
+.dash {
+  background: var(--brand-carbon-gray);
+  border: 1px solid oklch(1 0 0 / 0.12);
+  padding: 1.5rem 1.5rem 1.25rem;
+  color: var(--brand-on-dark);
+}
+.dash-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.dash-title {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: oklch(1 0 0 / 0.72);
+}
+.dash-meta {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: oklch(1 0 0 / 0.72);
+}
+.dash-headline {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid oklch(1 0 0 / 0.12);
+}
+.dash-statlabel {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: oklch(1 0 0 / 0.72);
+  margin-bottom: 0.25rem;
+}
+.dash-statvalue {
+  font-family: var(--font-sans);
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--brand-on-dark);
+}
+.dash-statvalue .delta-up   { font-size: 14px; color: var(--brand-m-stripe-light-blue); margin-left: 0.4rem; vertical-align: 0.3em; }
+.dash-statvalue .delta-down { font-size: 14px; color: var(--brand-m-stripe-red); margin-left: 0.4rem; vertical-align: 0.3em; }
+.dash-table {
+  display: grid;
+  grid-template-columns: 28px 1fr 80px 60px;
+  gap: 0.625rem 1rem;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.dash-table-head > div {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: oklch(1 0 0 / 0.72);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid oklch(1 0 0 / 0.12);
+}
+.dash-table-head { display: contents; }
+.dash-row { display: contents; }
+.dash-row > div {
+  padding: 0.375rem 0;
+  color: var(--brand-on-dark);
+  display: flex;
+  align-items: center;
+}
+.dash-pos {
+  color: oklch(1 0 0 / 0.72);
+  justify-content: center;
+}
+.dash-pos[data-pole] {
+  position: relative;
+  font-weight: 500;
+}
+.dash-pos[data-pole]::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--brand-m-stripe-light-blue) 0%, var(--brand-m-stripe-violet) 50%, var(--brand-m-stripe-red) 100%);
+}
+.dash-name { font-family: var(--font-sans); }
+.dash-time { justify-content: flex-end; font-weight: 500; }
+.dash-delta { justify-content: flex-end; color: oklch(1 0 0 / 0.72); }
+.dash-delta[data-tone="best"] { color: var(--brand-m-stripe-light-blue); }
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; }
+.section[data-tight] { padding: 3.5rem 1.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.section-title {
+  font-family: var(--font-sans);
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.625rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-strong);
+  padding: 0.75rem;
+  background: var(--brand-surface-elevated);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.25rem;
+  border: 1px solid var(--brand-hairline-strong);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+
+/* -- Surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.625rem;
+}
+@media (max-width: 880px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--brand-hairline-strong);
+  color: var(--foreground);
+}
+.ladder-step[data-step="canvas"] { background: var(--background); }
+.ladder-step[data-step="carbon"] { background: var(--brand-carbon-gray); color: var(--brand-on-dark); border-color: oklch(1 0 0 / 0.12); }
+.ladder-step[data-step="elev"]   { background: var(--brand-surface-elevated); }
+.ladder-step[data-step="ink"]    { background: var(--foreground); color: var(--background); border-color: var(--foreground); }
+.ladder-num {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+}
+.ladder-role {
+  font-size: 13px;
+  font-weight: 300;
+  margin-top: auto;
+  line-height: 1.45;
+}
+
+/* -- Pricing -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.625rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--brand-carbon-gray);
+  border: 1px solid oklch(1 0 0 / 0.12);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--brand-on-dark);
+  position: relative;
+}
+.pricing-card[data-featured]::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand-m-stripe-light-blue) 0% 33.33%, var(--brand-m-stripe-violet) 33.33% 66.66%, var(--brand-m-stripe-red) 66.66% 100%);
+}
+.pricing-name {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.pricing-price {
+  font-family: var(--font-sans);
+  font-size: 38px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1;
+}
+.pricing-tagline {
+  font-size: 13px;
+  font-weight: 300;
+  color: oklch(1 0 0 / 0.78);
+  margin: 0;
+  line-height: 1.55;
+  min-height: 2.8em;
+}
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid oklch(1 0 0 / 0.12);
+  padding-top: 1rem;
+  font-size: 13px;
+  font-weight: 300;
+  color: oklch(1 0 0 / 0.82);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "—";
+  color: var(--brand-on-dark);
+  font-weight: 500;
+  flex-shrink: 0;
+  width: 14px;
+}
+
+/* -- Type + components -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--brand-hairline-strong);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.type-display {
+  font-family: var(--font-sans);
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: var(--font-sans);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; font-weight: 300; line-height: 1.6; color: var(--brand-body); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  width: 100%;
+}
+
+/* -- Footer -- */
+.footer {
+  border-top: 1px solid var(--brand-hairline-strong);
+  padding: 3rem 1.5rem 2rem;
+  background: var(--background);
+  color: var(--foreground);
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 13px; color: var(--brand-body); line-height: 1.55; margin: 0; font-weight: 300; }
+.footer-col-title {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 13px; font-weight: 300; color: var(--brand-body); text-decoration: none; }
+.footer-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-strong);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--brand-body);
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; letter-spacing: 0.04em; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true"></span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Engineering</a>
+      <a href="#">Performance</a>
+      <a href="#">Track</a>
+      <a href="#">Service</a>
+      <a href="#">Owners</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Configure</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow"><span class="m-stripe" aria-hidden="true"></span>Halcyon · Performance</p>
+      <h1 class="hero-display">Engineered. Not styled.</h1>
+      <p class="hero-lede">Halcyon's platform team measures performance in milliseconds. The M tricolor is the only chromatic moment; the rest of the system stays carbon-neutral to keep the data legible.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" data-size="lg" type="button">Configure</button>
+        <button class="btn" data-variant="secondary" data-size="lg" type="button">View dossier</button>
+      </div>
+    </div>
+
+    <div class="dash" role="figure" aria-label="Halcyon engineering — p50 / p95 lap times this week">
+      <div class="dash-head">
+        <span class="dash-title">Lap times · Halcyon engineering · week 21</span>
+        <span class="dash-meta">2026.05.24</span>
+      </div>
+      <div class="dash-headline">
+        <div>
+          <div class="dash-statlabel">P50 deploy</div>
+          <div class="dash-statvalue">2:48<span class="delta-up">−12s</span></div>
+        </div>
+        <div>
+          <div class="dash-statlabel">P95 deploy</div>
+          <div class="dash-statvalue">4:22<span class="delta-down">+04s</span></div>
+        </div>
+      </div>
+      <div class="dash-table" aria-label="Per-service lap times">
+        <div class="dash-table-head">
+          <div>POS</div>
+          <div>Service</div>
+          <div style="text-align:right;">Time</div>
+          <div style="text-align:right;">Δ best</div>
+        </div>
+        <div class="dash-row">
+          <div class="dash-pos" data-pole>1</div>
+          <div class="dash-name">api-worker</div>
+          <div class="dash-time">2:38.412</div>
+          <div class="dash-delta" data-tone="best">—</div>
+        </div>
+        <div class="dash-row">
+          <div class="dash-pos">2</div>
+          <div class="dash-name">api-core</div>
+          <div class="dash-time">2:42.108</div>
+          <div class="dash-delta">+3.696</div>
+        </div>
+        <div class="dash-row">
+          <div class="dash-pos">3</div>
+          <div class="dash-name">webapp</div>
+          <div class="dash-time">2:51.005</div>
+          <div class="dash-delta">+12.593</div>
+        </div>
+        <div class="dash-row">
+          <div class="dash-pos">4</div>
+          <div class="dash-name">website</div>
+          <div class="dash-time">3:04.882</div>
+          <div class="dash-delta">+26.470</div>
+        </div>
+        <div class="dash-row">
+          <div class="dash-pos">5</div>
+          <div class="dash-name">edge-worker</div>
+          <div class="dash-time">3:18.247</div>
+          <div class="dash-delta">+39.835</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow"><span class="m-stripe" aria-hidden="true"></span>Tokens · Colour</p>
+      <h2 class="section-title">Carbon palette, tricolor signal.</h2>
+      <p class="section-lede">Near-black canvas with carbon-gray surface elevation. The M tricolor — light blue, dark blue, red — appears only as a recurring divider and accent. The brand otherwise reads as engineered neutrality.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-carbon-gray);"></div><div class="swatch-role">Carbon</div><div class="swatch-name">--brand-carbon-gray</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-elevated);"></div><div class="swatch-role">Elevated</div><div class="swatch-name">--brand-surface-elevated</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-m-stripe-light-blue);"></div><div class="swatch-role">M-stripe</div><div class="swatch-name">--brand-m-stripe-light-blue</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-m-stripe-violet);"></div><div class="swatch-role">M-stripe</div><div class="swatch-name">--brand-m-stripe-violet</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-m-stripe-red);"></div><div class="swatch-role">M-stripe</div><div class="swatch-name">--brand-m-stripe-red</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow"><span class="m-stripe" aria-hidden="true"></span>Tokens · Surfaces</p>
+      <h2 class="section-title">Four steps. One canvas.</h2>
+      <p class="section-lede">Pure black canvas, carbon-gray for cards, elevated carbon for hover-up surfaces, white for inverse moments (rare). The tricolor stripe runs along the top of featured tiles as the chromatic signature.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · sections</span>
+      </div>
+      <div class="ladder-step" data-step="carbon">
+        <span class="ladder-num">Carbon</span>
+        <span class="ladder-name">--brand-carbon-gray</span>
+        <span class="ladder-role">dashboard · pricing tile</span>
+      </div>
+      <div class="ladder-step" data-step="elev">
+        <span class="ladder-num">Elevated</span>
+        <span class="ladder-name">--brand-surface-elevated</span>
+        <span class="ladder-role">swatch tile · hover-up</span>
+      </div>
+      <div class="ladder-step" data-step="ink">
+        <span class="ladder-num">Inverse</span>
+        <span class="ladder-name">--foreground</span>
+        <span class="ladder-role">primary CTA · rare</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow" style="justify-content:center;"><span class="m-stripe" aria-hidden="true"></span>Pricing</p>
+      <h2 class="section-title">Three configurations.</h2>
+      <p class="section-lede">Pricing tiles share the carbon-gray register. Featured tier carries the M tricolor stripe along its top edge — the brand's only ornament inside the dense card grid.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Start</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="primary" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organisations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow"><span class="m-stripe" aria-hidden="true"></span>Tokens · Type + components</p>
+      <h2 class="section-title">Light to medium. UPPERCASE display.</h2>
+      <p class="section-lede">BMW Type Next Latin at weight 300 body and 500 display — European-engineered, never American-bombastic. Display sizes are UPPERCASE with positive 0.5% tracking. Buttons are square-cornered with 0.12em letter-spacing.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Engineered. Not styled.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">BMW Type Next · 500 · 22</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy at 16 px BMW Type Next Latin 300, line-height 1.6. Body reads quietly so the UPPERCASE display moments hold the page rhythm.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-body" style="font-family: ui-monospace, Menlo, monospace;">2:38.412 · +3.696 · −0.224</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · square · uppercase · tracked</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Configure</button>
+            <button class="btn" data-variant="secondary" type="button">Dossier</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">M tricolor stripe · the recurring signal</span>
+          <div class="cmp-row" style="margin-top:0.5rem; flex-direction: column; align-items: flex-start; gap: 0.625rem;">
+            <span class="m-stripe" data-size="lg" aria-hidden="true"></span>
+            <span class="m-stripe" aria-hidden="true"></span>
+            <span class="m-stripe" data-size="full" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true"></span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the motorsport-engineering design system. Near-black canvas, UPPERCASE light-to-medium type, M tricolor signature. Halcyon-themed engineering lap-time content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Engineering</p>
+      <ul class="footer-list"><li><a href="#">Performance</a></li><li><a href="#">Reliability</a></li><li><a href="#">Telemetry</a></li><li><a href="#">Pipeline</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Service</p>
+      <ul class="footer-list"><li><a href="#">Track</a></li><li><a href="#">Documentation</a></li><li><a href="#">Owners</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · TOKEN SURFACE PREVIEW · 2026.05.24</span>
+    <span class="footer-legal-meta">CARBON · TRICOLOR · UPPERCASE · 500/300</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1130 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<!-- Spec-derived from temp/refs/kinetic-orange/raw.md. Signature mockup:
+     Brutalist Service Card (vertical service list) + Rotating Scroll
+     Indicator 144px SVG textPath circle — the §4 component pattern
+     that carries the brand's kinetic identity. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23FF4D00'/%3E%3Cpath d='M8 8h16v16H8z' fill='none' stroke='%23000' stroke-width='3'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Three-colour brutalism with continuous motion vocabulary — orange / black / white, 2px sharp borders, Archivo Black uppercase headlines, 12s spin indicators, infinite text marquees, -2deg skewed sections.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Kinetic-orange preview shell — three-colour brutalism with motion
+   as the identity. Orange canvas hero with Archivo Black at 14vw,
+   skewed black marquee, vertical service-list signature with index /
+   title+tags / hidden-arrow reveal + 144px rotating scroll indicator
+   on the hero metadata row. Halcyon-themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--brand-selection-bg);
+  color: var(--brand-selection-fg);
+}
+
+/* Reusable type roles --------------------------------------- */
+.display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  text-transform: uppercase;
+}
+.mono {
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
+}
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* -- Floating pill navigation --------------------------------- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  background: var(--background);
+  border-bottom: var(--brand-border-weight) solid var(--foreground);
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--foreground);
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.brand-glyph {
+  width: 32px;
+  height: 32px;
+  display: inline-grid;
+  place-items: center;
+  background: var(--brand-canvas-orange);
+  color: var(--brand-on-orange);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  border: var(--brand-border-weight) solid var(--foreground);
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.625rem 1.5rem;
+  background: var(--foreground);
+  border-radius: var(--brand-radius-pill);
+  border: var(--brand-border-weight) solid var(--foreground);
+}
+.pill a {
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-pill);
+  transition: background var(--brand-motion-hover) var(--brand-motion-curve),
+              color var(--brand-motion-hover) var(--brand-motion-curve);
+}
+.pill a:hover,
+.pill a:focus-visible {
+  background: var(--brand-on-dark);
+  color: var(--foreground);
+  outline: none;
+}
+.pill a:focus-visible {
+  box-shadow: 0 0 0 var(--brand-border-weight) var(--brand-canvas-orange);
+}
+.topnav-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+@media (max-width: 880px) {
+  .pill { display: none; }
+}
+
+/* -- Hero (orange canvas, towering uppercase Archivo Black) -- */
+.hero {
+  background: var(--brand-canvas-orange);
+  color: var(--brand-on-orange);
+  padding: 6rem 1.5rem 0;
+  overflow: hidden;
+  position: relative;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-on-orange);
+  margin: 0 0 2rem;
+}
+.hero-display {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 14vw, 12rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--brand-on-orange);
+  margin: 0;
+  max-width: 14ch;
+}
+.hero-hairline {
+  width: 100%;
+  height: var(--brand-border-weight);
+  background: var(--foreground);
+  margin: 3rem 0 0;
+}
+.hero-meta {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 2rem;
+  align-items: center;
+  padding: 2rem 0 6rem;
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-on-orange);
+}
+.hero-meta-l { text-align: left; }
+.hero-meta-r { text-align: right; line-height: 1.5; }
+.hero-meta strong {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+@media (max-width: 760px) {
+  .hero-meta { grid-template-columns: 1fr; gap: 1.5rem; text-align: center; }
+  .hero-meta-l, .hero-meta-r { text-align: center; }
+}
+
+/* -- Rotating scroll indicator (signature, 144px SVG textPath) -- */
+.scroll-indicator {
+  width: 144px;
+  height: 144px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.scroll-indicator-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: kinetic-spin var(--brand-motion-spin) linear infinite;
+}
+.scroll-indicator-arrow {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  color: var(--brand-on-orange);
+}
+@keyframes kinetic-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-indicator-svg { animation: none; }
+}
+
+/* -- Skewed marquee section (black canvas, -2deg) -- */
+.marquee-section {
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  transform: skewY(var(--brand-skew-section));
+  padding: 4rem 0;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+}
+.marquee-section > * { transform: skewY(calc(-1 * var(--brand-skew-section))); }
+.marquee {
+  display: flex;
+  gap: 4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 10vw, 9rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  padding: 1rem 0;
+}
+.marquee-track {
+  display: flex;
+  gap: 4rem;
+  flex-shrink: 0;
+  animation: kinetic-scroll var(--brand-motion-marquee) linear infinite;
+}
+.marquee-row-1 .marquee-track {
+  color: var(--brand-canvas-orange);
+}
+.marquee-row-2 {
+  opacity: 0.8;
+}
+.marquee-row-2 .marquee-track {
+  color: var(--brand-on-dark);
+  animation-direction: reverse;
+}
+.marquee-track span {
+  display: inline-block;
+}
+.marquee-track span::after {
+  content: " ✱ ";
+  display: inline-block;
+  margin: 0 1rem;
+  color: var(--brand-canvas-orange);
+}
+.marquee-row-2 .marquee-track span::after {
+  color: var(--brand-on-dark);
+}
+@keyframes kinetic-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; transform: none; }
+  .marquee { justify-content: center; }
+}
+
+/* -- SIGNATURE: Vertical service list (Brutalist Service Cards) -- */
+.services-section {
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  padding: 6rem 1.5rem;
+}
+.services-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.services-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-canvas-orange);
+  margin: 0 0 1rem;
+}
+.services-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  margin: 0 0 3rem;
+  max-width: 22ch;
+}
+.service-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--brand-hairline-on-dark);
+}
+.service-card {
+  border-bottom: 1px solid var(--brand-hairline-on-dark);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 2rem 1rem;
+  cursor: pointer;
+  transition: background var(--brand-motion-hover) var(--brand-motion-curve);
+  text-decoration: none;
+  color: inherit;
+}
+.service-card {
+  /* Scoped: 5% white wash on hover, per spec §Components 2
+     ("Background shifts to white/5% opacity"). Not a brand token —
+     consumer-side opacity application against the locked black canvas. */
+  --preview-hover-wash: oklch(1 0 0 / 0.05);
+}
+.service-card:hover,
+.service-card:focus-visible {
+  background: var(--preview-hover-wash);
+  outline: none;
+}
+.service-card:focus-visible {
+  box-shadow: inset 0 0 0 var(--brand-border-weight) var(--brand-canvas-orange);
+}
+.service-index {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--brand-canvas-orange);
+  align-self: start;
+  padding-top: 0.5rem;
+}
+.service-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.service-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 7vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  margin: 0;
+  transition: transform var(--brand-motion-hover) var(--brand-motion-curve);
+}
+.service-card:hover .service-title,
+.service-card:focus-visible .service-title {
+  transform: translateX(16px);
+}
+.service-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.service-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--brand-hairline-on-dark);
+  border-radius: var(--brand-radius-pill);
+  background: transparent;
+}
+.service-arrow {
+  width: 56px;
+  height: 56px;
+  color: var(--brand-canvas-orange);
+  opacity: 0;
+  transform: rotate(0deg);
+  transition: opacity var(--brand-motion-hover) var(--brand-motion-curve),
+              transform var(--brand-motion-hover) var(--brand-motion-curve);
+  align-self: center;
+  flex-shrink: 0;
+}
+.service-card:hover .service-arrow,
+.service-card:focus-visible .service-arrow {
+  opacity: 1;
+  transform: rotate(45deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .service-title { transition: none; }
+  .service-arrow { transition: none; }
+  .service-card:hover .service-title,
+  .service-card:focus-visible .service-title { transform: none; }
+  .service-card:hover .service-arrow,
+  .service-card:focus-visible .service-arrow { transform: none; }
+}
+@media (max-width: 720px) {
+  .service-arrow { display: none; }
+  .service-card { grid-template-columns: auto 1fr; gap: 1rem; padding: 1.5rem 0.5rem; }
+}
+
+/* -- Section frame (white canvas demos) ----------------------- */
+.section {
+  background: var(--background);
+  color: var(--foreground);
+  padding: 5rem 1.5rem;
+}
+.section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  max-width: 56rem;
+}
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5.5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0;
+}
+.section-lede {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-hairline {
+  height: var(--brand-border-weight);
+  background: var(--foreground);
+  margin: 0 0 3rem;
+}
+
+/* -- Swatch grid (colour tokens) ------------------------------ */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 0;
+  border: var(--brand-border-weight) solid var(--foreground);
+}
+.swatch {
+  padding: 1.25rem 1rem;
+  border-right: 1px solid var(--foreground);
+  border-bottom: 1px solid var(--foreground);
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 12rem;
+}
+.swatch[data-tone="orange"] {
+  background: var(--brand-canvas-orange);
+  color: var(--brand-on-orange);
+}
+.swatch[data-tone="night"] {
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+}
+.swatch-chip {
+  flex: 1;
+  border: var(--brand-border-weight) solid currentColor;
+  min-height: 3rem;
+}
+.swatch-role {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.swatch-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+/* -- Surface ladder ------------------------------------------- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: var(--brand-border-weight) solid var(--foreground);
+}
+@media (max-width: 760px) {
+  .ladder { grid-template-columns: 1fr; }
+}
+.ladder-step {
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 13rem;
+  border-right: 1px solid var(--foreground);
+  position: relative;
+}
+.ladder-step:last-child { border-right: none; }
+.ladder-step[data-step="light"] {
+  background: var(--brand-canvas-light);
+  color: var(--brand-on-light);
+}
+.ladder-step[data-step="orange"] {
+  background: var(--brand-canvas-orange);
+  color: var(--brand-on-orange);
+}
+.ladder-step[data-step="night"] {
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+}
+.ladder-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.ladder-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.ladder-role {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: auto;
+}
+
+/* -- Typography roles ----------------------------------------- */
+.type-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border: var(--brand-border-weight) solid var(--foreground);
+  padding: 2rem;
+}
+.type-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 2rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--foreground);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-display {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--foreground);
+}
+.type-mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+}
+
+/* -- Buttons + tags (component vocabulary) -------------------- */
+.cmp-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border: var(--brand-border-weight) solid var(--foreground);
+  padding: 2rem;
+}
+.cmp-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.cmp-row-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0 2rem;
+  background: var(--foreground);
+  color: var(--brand-on-dark);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--brand-radius-pill);
+  border: var(--brand-border-weight) solid var(--foreground);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--brand-motion-hover) var(--brand-motion-curve);
+}
+.btn:hover { transform: scale(1.05); }
+.btn:focus-visible {
+  outline: var(--brand-border-weight) solid var(--brand-canvas-orange);
+  outline-offset: 4px;
+}
+.btn[data-variant="primary"] {
+  background: var(--brand-canvas-orange);
+  color: var(--brand-on-orange);
+  border-color: var(--foreground);
+}
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+.btn[data-size="lg"] { min-height: 64px; padding: 0 3rem; font-size: 14px; }
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn:hover { transform: none; }
+}
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--foreground);
+  border-radius: var(--brand-radius-pill);
+  background: transparent;
+}
+.tag-pill[data-tone="orange"] {
+  background: var(--brand-canvas-orange);
+  color: var(--brand-on-orange);
+  border-color: var(--foreground);
+}
+.tag-pill[data-tone="night"] {
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  border-color: var(--foreground);
+}
+
+/* -- Giant CTA closing band ----------------------------------- */
+.cta-section {
+  background: var(--background);
+  padding: 7rem 1.5rem;
+  text-align: center;
+  border-top: var(--brand-border-weight) solid var(--foreground);
+}
+.cta-heading {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 14vw, 12rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 3rem;
+}
+
+/* -- Footer (2px black top border, Space Mono links) ---------- */
+.footer {
+  background: var(--background);
+  border-top: var(--brand-border-weight) solid var(--foreground);
+  padding: 3rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 2.5rem;
+  font-family: var(--font-mono);
+}
+@media (max-width: 880px) {
+  .footer-inner { grid-template-columns: repeat(2, 1fr); }
+}
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 32ch;
+}
+.footer-tagline {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--foreground);
+  margin: 0;
+}
+.footer-col-title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.footer-list a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.footer-list a:hover { color: var(--brand-canvas-orange); text-decoration: underline; }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--foreground);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">H</span>__DESIGN_SYSTEM_NAME__</a>
+  <div class="pill" role="navigation" aria-label="Primary categories">
+    <a href="#" aria-current="page">Workspace</a>
+    <a href="#">Reviews</a>
+    <a href="#">Threads</a>
+    <a href="#">Specs</a>
+  </div>
+  <div class="topnav-actions">
+    <button class="btn" data-variant="ghost" type="button">Sign in</button>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Halcyon · Volume 04 · MMXXVI</p>
+    <h1 class="hero-display">Loud is a decision.</h1>
+    <div class="hero-hairline" aria-hidden="true"></div>
+    <div class="hero-meta">
+      <div class="hero-meta-l">
+        <strong>Based in Berlin</strong>
+        Available worldwide
+      </div>
+      <div class="scroll-indicator" aria-hidden="true">
+        <svg class="scroll-indicator-svg" viewBox="0 0 144 144">
+          <defs>
+            <path id="kinetic-circle" d="M 72 72 m -56, 0 a 56,56 0 1,1 112,0 a 56,56 0 1,1 -112,0"/>
+          </defs>
+          <text fill="currentColor" font-family="Space Mono, monospace" font-size="9" font-weight="700" letter-spacing="0.12em">
+            <textPath href="#kinetic-circle">SCROLL DOWN · SCROLL DOWN · SCROLL DOWN · SCROLL DOWN · </textPath>
+          </text>
+        </svg>
+        <svg class="scroll-indicator-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <polyline points="19 12 12 19 5 12"/>
+        </svg>
+      </div>
+      <div class="hero-meta-r">
+        <strong>Design Studio</strong>
+        Halcyon Practice · est. MMXXIV
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="marquee-section" aria-label="Marquee">
+  <div class="marquee marquee-row-1" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Halcyon Studio</span>
+      <span>Halcyon Studio</span>
+      <span>Halcyon Studio</span>
+      <span>Halcyon Studio</span>
+      <span>Halcyon Studio</span>
+      <span>Halcyon Studio</span>
+    </div>
+  </div>
+  <div class="marquee marquee-row-2" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Practice · Berlin · MMXXVI</span>
+      <span>Practice · Berlin · MMXXVI</span>
+      <span>Practice · Berlin · MMXXVI</span>
+      <span>Practice · Berlin · MMXXVI</span>
+      <span>Practice · Berlin · MMXXVI</span>
+      <span>Practice · Berlin · MMXXVI</span>
+    </div>
+  </div>
+</section>
+
+<section class="services-section" aria-label="Services">
+  <div class="services-inner">
+    <p class="services-eyebrow">/ Practice</p>
+    <h2 class="services-title">Four ways the studio shows up for a team.</h2>
+    <ul class="service-list">
+      <li>
+        <a class="service-card" href="#">
+          <span class="service-index">/01</span>
+          <div class="service-body">
+            <h3 class="service-title">Editorial</h3>
+            <div class="service-tags">
+              <span class="service-tag">Typography</span>
+              <span class="service-tag">Hierarchy</span>
+              <span class="service-tag">Print &amp; Web</span>
+            </div>
+          </div>
+          <svg class="service-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="7" y1="17" x2="17" y2="7"/>
+            <polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a class="service-card" href="#">
+          <span class="service-index">/02</span>
+          <div class="service-body">
+            <h3 class="service-title">Identity</h3>
+            <div class="service-tags">
+              <span class="service-tag">Wordmark</span>
+              <span class="service-tag">Signal System</span>
+              <span class="service-tag">Halcyon Voice</span>
+            </div>
+          </div>
+          <svg class="service-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="7" y1="17" x2="17" y2="7"/>
+            <polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a class="service-card" href="#">
+          <span class="service-index">/03</span>
+          <div class="service-body">
+            <h3 class="service-title">Motion</h3>
+            <div class="service-tags">
+              <span class="service-tag">Rhythm</span>
+              <span class="service-tag">Marquee</span>
+              <span class="service-tag">Kinetic Type</span>
+            </div>
+          </div>
+          <svg class="service-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="7" y1="17" x2="17" y2="7"/>
+            <polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a class="service-card" href="#">
+          <span class="service-index">/04</span>
+          <div class="service-body">
+            <h3 class="service-title">Strategy</h3>
+            <div class="service-tags">
+              <span class="service-tag">Positioning</span>
+              <span class="service-tag">Field Research</span>
+              <span class="service-tag">Studio Briefs</span>
+            </div>
+          </div>
+          <svg class="service-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="7" y1="17" x2="17" y2="7"/>
+            <polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" aria-label="Colour tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">/ Tokens · Colour</p>
+      <h2 class="section-title">Three colours. No exceptions.</h2>
+      <p class="section-lede">Kinetic Orange carries the hero. Solid Black runs every divider and the marquee canvas. Pure White is the page floor and the inverted ink on dark surfaces. There are no documented secondary brand colours — every accent is one of these three at a different polarity.</p>
+    </div>
+    <div class="section-hairline" aria-hidden="true"></div>
+    <div class="swatch-grid">
+      <div class="swatch" data-tone="orange">
+        <div class="swatch-chip" style="background: var(--brand-canvas-orange); border-color: var(--brand-on-orange);"></div>
+        <div class="swatch-role">Canvas · Hero</div>
+        <div class="swatch-name">--brand-canvas-orange</div>
+      </div>
+      <div class="swatch" data-tone="night">
+        <div class="swatch-chip" style="background: var(--brand-canvas-night); border-color: var(--brand-on-dark);"></div>
+        <div class="swatch-role">Canvas · Night</div>
+        <div class="swatch-name">--brand-canvas-night</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--brand-canvas-light);"></div>
+        <div class="swatch-role">Canvas · Page</div>
+        <div class="swatch-name">--brand-canvas-light</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--foreground);"></div>
+        <div class="swatch-role">Ink · Default</div>
+        <div class="swatch-name">--foreground</div>
+      </div>
+      <div class="swatch" data-tone="night">
+        <div class="swatch-chip" style="background: var(--brand-on-dark); border-color: var(--brand-on-dark);"></div>
+        <div class="swatch-role">Ink · On Dark</div>
+        <div class="swatch-name">--brand-on-dark</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--primary);"></div>
+        <div class="swatch-role">Signal · Primary</div>
+        <div class="swatch-name">--primary</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">/ Tokens · Surfaces</p>
+      <h2 class="section-title">Three canvases. Sharp transitions.</h2>
+      <p class="section-lede">The system cycles polarity within a single layout. White is the page floor; orange is the headline ground; black is the marquee + service-list ground. No mid-tones, no glass, no gradients.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="light">
+        <span class="ladder-num">/ Light</span>
+        <span class="ladder-name">--brand-canvas-light</span>
+        <span class="ladder-role">page floor · CTA · footer · type demos</span>
+      </div>
+      <div class="ladder-step" data-step="orange">
+        <span class="ladder-num">/ Orange</span>
+        <span class="ladder-name">--brand-canvas-orange</span>
+        <span class="ladder-role">hero · brand mark · primary signal</span>
+      </div>
+      <div class="ladder-step" data-step="night">
+        <span class="ladder-num">/ Night</span>
+        <span class="ladder-name">--brand-canvas-night</span>
+        <span class="ladder-role">marquee · service list · pill nav</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography roles">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">/ Tokens · Type</p>
+      <h2 class="section-title">Archivo Black. Space Mono. Inter.</h2>
+      <p class="section-lede">Archivo Black runs every uppercase display surface, tracked tight at -0.04em with a 0.85 line-height. Space Mono runs metadata, nav links, captions, and code chrome. Inter handles body prose only — no headlines, no chrome.</p>
+    </div>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Display</span><span class="type-display">Loud is a decision.</span></div>
+      <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Archivo Black · 900 · Uppercase</span></div>
+      <div class="type-row"><span class="type-label">Title</span><span class="type-title">Section Title — 20px</span></div>
+      <div class="type-row"><span class="type-label">Body</span><span class="type-body">Body copy runs in Inter at 14–16px with line-height 1.55. The brutalist register reserves Archivo Black for shouted surfaces only — running paragraphs stay sans-serif and easy to read.</span></div>
+      <div class="type-row"><span class="type-label">Caption</span><span class="type-mono">/ Halcyon Practice · Berlin · MMXXVI ↘</span></div>
+      <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">studio.publish("/04-strategy")</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Component vocabulary">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">/ Tokens · Components</p>
+      <h2 class="section-title">Pill chrome. Sharp everything else.</h2>
+      <p class="section-lede">Pill-shaped buttons + nav + tags are the only rounded surfaces. Every other edge is a 2px solid black hairline. Hover transforms run on a 200ms ease-out curve; reduced-motion environments collapse them to instant.</p>
+    </div>
+    <div class="cmp-stack">
+      <div>
+        <span class="cmp-row-label">Pill buttons · default size 48px · large 64px</span>
+        <div class="cmp-row">
+          <button class="btn" data-size="lg" type="button">Engage studio</button>
+          <button class="btn" data-variant="primary" type="button">Brief us</button>
+          <button class="btn" data-variant="ghost" type="button">Read the field notes</button>
+        </div>
+      </div>
+      <div>
+        <span class="cmp-row-label">Tag pills · hairline default · filled signal</span>
+        <div class="cmp-row">
+          <span class="tag-pill">Editorial</span>
+          <span class="tag-pill">Identity</span>
+          <span class="tag-pill" data-tone="orange">Now booking</span>
+          <span class="tag-pill" data-tone="night">Studio brief</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" aria-label="Closing CTA">
+  <h2 class="cta-heading">Brief us.</h2>
+  <button class="btn" data-variant="primary" data-size="lg" type="button">Open a studio thread</button>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">H</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the kinetic-orange three-colour brutalism system. Halcyon-themed neutral content; not a clone of any real studio.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Studio</p>
+      <ul class="footer-list"><li><a href="#">Practice</a></li><li><a href="#">Field notes</a></li><li><a href="#">Briefs</a></li><li><a href="#">Threads</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">team@halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Elsewhere</p>
+      <ul class="footer-list"><li><a href="#">Index</a></li><li><a href="#">Cargo</a></li><li><a href="#">Are.na</a></li><li><a href="#">RSS</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.26</span>
+    <span>orange · black · white · 2px sharp</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,2055 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>bmw-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%231f2f48'/%3E%3Cpath d='M16 4 A12 12 0 0 1 28 16 L16 16 Z' fill='%231c69d4'/%3E%3Cpath d='M16 28 A12 12 0 0 1 4 16 L16 16 Z' fill='%231c69d4'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="bmw-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Measured corporate-automotive surface — cream-tinted white canvas, corporate blue primary CTA, dark navy hero band for the signature moment. Two-weight type system (700 display, 300 body).">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/bmw-style/tokens.css) === */
+/**
+ * design-systems/bmw-style/tokens.css
+ *
+ * Live-verified against bmwusa.com on 2026-05-26 (8 surfaces across
+ * homepage, /vehicles/x-models, X5 + 3-series model overviews, /owners,
+ * /explore, BMW Group global press portal, 2020 brand-redesign press
+ * release). Companion to ./DESIGN.md.
+ *
+ * canonical-canvas: light. BMW parent-brand consumer marketing and
+ * editorial surfaces render on white with full-bleed photography per
+ * the 2020 redesign direction ("pared-down and two-dimensional, visual
+ * restraint"). Dark surfaces are exclusive to the M sub-brand and live
+ * under design-systems/bmw-m-style/ — M tri-stripe tokens belong there,
+ * not in this parent-brand file.
+ *
+ * --primary is BMW corporate Bavarian Blue #0066B1 oklch(0.5027 0.1425
+ * 250.0532) — the documented brand colour. The earlier import shipped
+ * #1c69d4 (a brighter, hue-258 "tech blue") which has no documented
+ * source; reconciled to brand-truth Bavarian Blue.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2686 0 0);
+  --card: oklch(0.9851 0 0);
+  --card-foreground: oklch(0.2686 0 0);
+  --popover: oklch(0.9851 0 0);
+  --popover-foreground: oklch(0.2686 0 0);
+  --primary: oklch(0.5027 0.1425 250.0532);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9761 0 0);
+  --secondary-foreground: oklch(0.2686 0 0);
+  --muted: oklch(0.9761 0 0);
+  --muted-foreground: oklch(0.5278 0 0);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0.2686 0 0);
+  --destructive: oklch(0.5771 0.2152 27.3250);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9249 0 0);
+  --input: oklch(0.9249 0 0);
+  --ring: oklch(0.5027 0.1425 250.0532);
+  --sidebar: oklch(0.9761 0 0);
+  --sidebar-foreground: oklch(0.2686 0 0);
+  --sidebar-primary: oklch(0.5027 0.1425 250.0532);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9761 0 0);
+  --sidebar-accent-foreground: oklch(0.2686 0 0);
+  --sidebar-border: oklch(0.9249 0 0);
+  --sidebar-ring: oklch(0.5027 0.1425 250.0532);
+  /* Chart ramp: synthesised lightness ladder of Bavarian Blue (no documented
+   * marketing-tree charting palette on bmw.com; values held as a brand-coherent
+   * placeholder, same pattern as Linear's --chart-* documentation). */
+  --chart-1: oklch(0.8100 0.1425 250.0532);
+  --chart-2: oklch(0.7100 0.1425 250.0532);
+  --chart-3: oklch(0.6100 0.1425 250.0532);
+  --chart-4: oklch(0.5100 0.1425 250.0532);
+  --chart-5: oklch(0.4200 0.1425 250.0532);
+
+  /* radius scale */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-xs: 2px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens — BMW Type Next is BMW Group's brand-canonical family.
+   * The earlier 'BMW Type Next Latin' carries a packaging-label suffix, not
+   * a documented BMW cut; reconciled to the documented family name. */
+  --font-sans: 'BMW Type Next', BMWTypeNext, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'BMW Type Next', BMWTypeNext, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 64px;
+  --text-heading: 48px;
+  --text-title: 18px;
+  --text-base: 16px;
+  --leading-tight: 1.05;
+  --leading-normal: 1.55;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras */
+  /* --brand-primary-active: darker Bavarian Blue for pressed/active state.
+   * Same hue + chroma as --primary, L=0.40 (one optical stop darker). */
+  --brand-primary-active: oklch(0.4000 0.1425 250.0532);
+  --brand-primary-disabled: oklch(0.8761 0 0);
+  --brand-body: oklch(0.3562 0 0);
+  --brand-body-strong: oklch(0.2178 0 0);
+  --brand-muted-soft: oklch(0.48 0 0);
+  --brand-hairline-strong: oklch(0.8452 0 0);
+  --brand-surface-strong: oklch(0.9401 0 0);
+  --brand-surface-dark: oklch(0.2445 0.0184 251.9829);
+  --brand-surface-dark-elevated: oklch(0.2979 0.0214 254.1578);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-dark-soft: oklch(0.7921 0 0);
+  /* M sub-brand tri-stripe tokens (--brand-m-*) removed from parent-brand
+   * tokens.css — they belong to design-systems/bmw-m-style/. The parent
+   * BMW brand does not surface the M tri-stripe outside of M-specific
+   * pages, which live under the sub-brand entry. */
+  --brand-success: oklch(0.7227 0.1920 149.5793);
+  --brand-warning: oklch(0.7686 0.1647 70.0804);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Hand-edited. Synthesised inversion used pure-black canvas with
+   * sub-0.1 border — too dark for body-section legibility. Replaced
+   * with the brand's navy-tinted --brand-surface-dark as canvas (so
+   * dark-mode body shares the same navy register as the hero band)
+   * and elevated card/secondary/muted to --brand-surface-dark-elevated.
+   * Lifted --brand-body family for body-section text. Polarity-locked
+   * tokens (surface-dark, surface-dark-elevated, on-dark, on-dark-soft,
+   * m-blue-*, m-red) stay AS-IS. */
+
+  --background: oklch(0.2445 0.0184 251.9829);
+  --foreground: oklch(0.9500 0 0);
+  --card: oklch(0.2979 0.0214 254.1578);
+  --card-foreground: oklch(0.9500 0 0);
+  --popover: oklch(0.2979 0.0214 254.1578);
+  --popover-foreground: oklch(0.9500 0 0);
+  --primary: oklch(0.5027 0.1425 250.0532);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.2979 0.0214 254.1578);
+  --secondary-foreground: oklch(0.9500 0 0);
+  --muted: oklch(0.2979 0.0214 254.1578);
+  --muted-foreground: oklch(0.7500 0 0);
+  --accent: oklch(0.2979 0.0214 254.1578);
+  --accent-foreground: oklch(0.9500 0 0);
+  --destructive: oklch(0.5771 0.2152 27.3250);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3500 0.0184 251.9829);
+  --input: oklch(0.3500 0.0184 251.9829);
+  --ring: oklch(0.5027 0.1425 250.0532);
+  --sidebar: oklch(0.2445 0.0184 251.9829);
+  --sidebar-foreground: oklch(0.9500 0 0);
+  --sidebar-primary: oklch(0.5027 0.1425 250.0532);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2979 0.0214 254.1578);
+  --sidebar-accent-foreground: oklch(0.9500 0 0);
+  --sidebar-border: oklch(0.3500 0.0184 251.9829);
+  --sidebar-ring: oklch(0.5027 0.1425 250.0532);
+  --chart-1: oklch(0.8100 0.1425 250.0532);
+  --chart-2: oklch(0.7100 0.1425 250.0532);
+  --chart-3: oklch(0.6100 0.1425 250.0532);
+  --chart-4: oklch(0.5100 0.1425 250.0532);
+  --chart-5: oklch(0.4200 0.1425 250.0532);
+
+  /* brand-extras dark overrides — body / muted-soft / hairline-strong /
+   * surface-strong flip; surface-dark / surface-dark-elevated / on-dark
+   * / on-dark-soft stay polarity-locked (they encode dark-context intent). */
+  --brand-body: oklch(0.8500 0 0);
+  --brand-body-strong: oklch(0.9500 0 0);
+  --brand-muted-soft: oklch(0.7000 0 0);
+  --brand-hairline-strong: oklch(0.3500 0.0184 251.9829);
+  --brand-surface-strong: oklch(0.2979 0.0214 254.1578);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2445 0.0184 251.9829);
+    --foreground: oklch(0.9500 0 0);
+    --card: oklch(0.2979 0.0214 254.1578);
+    --card-foreground: oklch(0.9500 0 0);
+    --popover: oklch(0.2979 0.0214 254.1578);
+    --popover-foreground: oklch(0.9500 0 0);
+    --primary: oklch(0.5027 0.1425 250.0532);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.2979 0.0214 254.1578);
+    --secondary-foreground: oklch(0.9500 0 0);
+    --muted: oklch(0.2979 0.0214 254.1578);
+    --muted-foreground: oklch(0.7500 0 0);
+    --accent: oklch(0.2979 0.0214 254.1578);
+    --accent-foreground: oklch(0.9500 0 0);
+    --destructive: oklch(0.5771 0.2152 27.3250);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3500 0.0184 251.9829);
+    --input: oklch(0.3500 0.0184 251.9829);
+    --ring: oklch(0.5027 0.1425 250.0532);
+    --sidebar: oklch(0.2445 0.0184 251.9829);
+    --sidebar-foreground: oklch(0.9500 0 0);
+    --sidebar-primary: oklch(0.5027 0.1425 250.0532);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.2979 0.0214 254.1578);
+    --sidebar-accent-foreground: oklch(0.9500 0 0);
+    --sidebar-border: oklch(0.3500 0.0184 251.9829);
+    --sidebar-ring: oklch(0.5027 0.1425 250.0532);
+    --chart-1: oklch(0.8100 0.1425 250.0532);
+    --chart-2: oklch(0.7100 0.1425 250.0532);
+    --chart-3: oklch(0.6100 0.1425 250.0532);
+    --chart-4: oklch(0.5100 0.1425 250.0532);
+    --chart-5: oklch(0.4200 0.1425 250.0532);
+
+    --brand-body: oklch(0.8500 0 0);
+    --brand-body-strong: oklch(0.9500 0 0);
+    --brand-muted-soft: oklch(0.7000 0 0);
+    --brand-hairline-strong: oklch(0.3500 0.0184 251.9829);
+    --brand-surface-strong: oklch(0.2979 0.0214 254.1578);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === BMW-style preview shell — measured corporate-automotive.
+   Light cream-tinted white canvas, BMW corporate blue primary CTA,
+   dark navy hero band for the signature moment. Two-weight type
+   system: 700 display, 300 body. 4-up configuration-card grid as the
+   signature mockup. Halcyon-themed neutral content (configurations,
+   not vehicle models). */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Always-navy signature canvas (hero band). Locked across both
+ * polarities via --brand-surface-dark. -- */
+.canvas-navy {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+}
+.canvas-navy .section-title,
+.canvas-navy .section-eyebrow,
+.canvas-navy .section-lede { color: var(--brand-on-dark); }
+.canvas-navy .section-lede { color: var(--brand-on-dark-soft); }
+
+/* -- Top nav (light) -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--brand-body-strong);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-block;
+  background:
+    conic-gradient(from 90deg, var(--brand-surface-dark) 0deg 90deg, var(--primary) 90deg 180deg, var(--brand-surface-dark) 180deg 270deg, var(--primary) 270deg 360deg);
+  border: 2px solid var(--brand-surface-dark);
+  position: relative;
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 400;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--brand-body);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--brand-body-strong); }
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 14px;
+}
+.topnav-actions a {
+  color: var(--brand-body);
+  text-decoration: none;
+  font-weight: 400;
+}
+.topnav-actions a:hover { color: var(--brand-body-strong); }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border-radius: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-active); border-color: var(--brand-primary-active); }
+.btn[data-variant="secondary"] {
+  background: transparent;
+  color: var(--brand-body-strong);
+  border-color: var(--brand-body-strong);
+}
+.btn[data-variant="secondary"]:hover { background: var(--brand-body-strong); color: var(--background); }
+.btn[data-variant="on-dark"] {
+  background: transparent;
+  color: var(--brand-on-dark);
+  border-color: var(--brand-on-dark);
+}
+.btn[data-variant="on-dark"]:hover { background: var(--brand-on-dark); color: var(--brand-surface-dark); }
+.btn[data-size="lg"] { min-height: 48px; padding: 0 1.75rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (signature navy band) -- */
+.hero {
+  padding: 5rem 1.5rem 6rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(80% 100% at 75% 50%, var(--brand-surface-dark-elevated) 0%, var(--brand-surface-dark) 60%);
+  z-index: -1;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 960px) { .hero-inner { grid-template-columns: 1fr; gap: 2rem; } }
+.hero-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark-soft);
+  margin: 0 0 1.25rem;
+}
+.hero-display {
+  font-family: var(--font-sans);
+  font-size: clamp(2.75rem, 6vw, 4.25rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0;
+  color: var(--brand-on-dark);
+  margin: 0 0 1.5rem;
+  max-width: 18ch;
+}
+.hero-lede {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--brand-on-dark-soft);
+  max-width: 38rem;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+/* -- Signature: photography-style configuration render -- */
+.config-render {
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
+  background:
+    radial-gradient(50% 70% at 50% 60%, oklch(0.85 0.04 250) 0%, oklch(0.65 0.06 248) 50%, oklch(0.40 0.08 250) 100%),
+    var(--brand-surface-dark-elevated);
+  position: relative;
+  overflow: hidden;
+}
+.config-render::before {
+  content: "";
+  position: absolute;
+  inset: 30% 18% 18%;
+  border-radius: 12px;
+  background:
+    linear-gradient(120deg,
+      oklch(0.92 0 0) 0%,
+      oklch(0.82 0 0) 28%,
+      oklch(0.40 0.01 250) 60%,
+      oklch(0.25 0.02 248) 100%);
+  clip-path: polygon(0% 60%, 8% 25%, 22% 18%, 78% 18%, 92% 25%, 100% 60%, 96% 90%, 82% 100%, 18% 100%, 4% 90%);
+  box-shadow: 0 8px 24px hsl(0 0% 0% / 0.45);
+}
+.config-render::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 4% 0;
+  height: 10%;
+  background: radial-gradient(60% 100% at 50% 0%, hsl(0 0% 0% / 0.35) 0%, transparent 70%);
+}
+
+/* -- 4-up configuration grid (signature card pattern) -- */
+.config-section {
+  padding: 5rem 1.5rem;
+}
+.config-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.config-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+@media (max-width: 1080px) { .config-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .config-grid { grid-template-columns: 1fr; } }
+.config-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+.config-card-render {
+  aspect-ratio: 4 / 3;
+  background:
+    linear-gradient(180deg, oklch(0.86 0.01 250) 0%, oklch(0.74 0.02 248) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.config-card-render::before {
+  content: "";
+  position: absolute;
+  inset: 30% 16% 18%;
+  border-radius: 8px;
+  background:
+    linear-gradient(120deg,
+      oklch(0.85 0 0) 0%,
+      oklch(0.72 0 0) 30%,
+      oklch(0.40 0.01 250) 60%,
+      oklch(0.25 0.02 248) 100%);
+  clip-path: polygon(0% 60%, 8% 25%, 22% 18%, 78% 18%, 92% 25%, 100% 60%, 96% 90%, 82% 100%, 18% 100%, 4% 90%);
+  box-shadow: 0 6px 14px hsl(0 0% 0% / 0.3);
+}
+.config-card[data-tone="dark"] .config-card-render {
+  background: linear-gradient(180deg, oklch(0.30 0.02 250) 0%, oklch(0.16 0.02 248) 100%);
+}
+.config-card[data-tone="cream"] .config-card-render {
+  background: linear-gradient(180deg, oklch(0.95 0.02 70) 0%, oklch(0.86 0.04 60) 100%);
+}
+.config-card[data-tone="m-blue"] .config-card-render {
+  background: linear-gradient(180deg, oklch(0.50 0.14 250) 0%, oklch(0.35 0.16 252) 100%);
+}
+.config-card-body {
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+.config-card-name {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--brand-body-strong);
+  margin: 0 0 0.25rem;
+}
+.config-card-tag {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+  margin: 0 0 0.875rem;
+}
+.config-card-cta {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  /* Card CTA must read on both polarities. --primary is the brand corp
+   * blue but lands sub-AA on the dark card bg (oklch 0.5 blue on 0.30
+   * navy = ~3:1). Use --foreground so the link color flips with the
+   * card it sits on; corp blue stays the button voltage. */
+  color: var(--foreground);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+.config-card-cta:hover { opacity: 0.7; }
+.config-card-cta::after { content: "›"; font-size: 16px; color: var(--primary); }
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; }
+.section[data-tight] { padding: 3.5rem 1.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: var(--font-sans);
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.625rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  padding: 0.75rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border: 1px solid var(--brand-hairline-strong);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--brand-body-strong);
+}
+.swatch-role {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.625rem;
+}
+@media (max-width: 880px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--brand-body-strong); }
+.ladder-step[data-step="soft"]   { background: var(--brand-surface-strong); color: var(--brand-body-strong); }
+.ladder-step[data-step="dark"]   { background: var(--brand-surface-dark); color: var(--brand-on-dark); border-color: var(--brand-surface-dark); }
+.ladder-step[data-step="blue"]   { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+.ladder-num {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+}
+.ladder-role {
+  font-size: 13px;
+  font-weight: 300;
+  margin-top: auto;
+  line-height: 1.45;
+}
+
+/* -- Pricing tile (generic SaaS shape) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--brand-body-strong);
+}
+.pricing-card[data-featured] {
+  background: var(--brand-surface-dark);
+  border-color: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+}
+.pricing-name {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+.pricing-price {
+  font-family: var(--font-sans);
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+}
+.pricing-tagline {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--brand-body);
+  margin: 0;
+  line-height: 1.55;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--brand-on-dark-soft); }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--brand-body);
+}
+.pricing-card[data-featured] .pricing-features { border-top-color: oklch(1 0 0 / 0.18); color: var(--brand-on-dark-soft); }
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "—";
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 14px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--brand-on-dark); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+}
+.type-display {
+  font-family: var(--font-sans);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.05;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: var(--font-sans);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; font-weight: 300; line-height: 1.6; color: var(--brand-body); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+  width: 100%;
+}
+
+/* -- Footer (light) -- */
+.footer {
+  background: var(--brand-surface-strong);
+  border-top: 1px solid var(--border);
+  padding: 3rem 1.5rem 2rem;
+  color: var(--brand-body-strong);
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 13px; color: var(--brand-body); line-height: 1.55; margin: 0; font-weight: 300; }
+.footer-col-title {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-body-strong);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 13px; font-weight: 300; color: var(--brand-body); text-decoration: none; }
+.footer-list a:hover { color: var(--brand-body-strong); }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--brand-muted-soft);
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true"></span>bmw-style</a>
+    <div class="topnav-links">
+      <a href="#">Configurations</a>
+      <a href="#">Platform</a>
+      <a href="#">Operations</a>
+      <a href="#">Enterprise</a>
+      <a href="#">Resources</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Get a quote</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero canvas-navy" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Halcyon · Configurations · 2026</p>
+      <h1 class="hero-display">A measured fleet for the operating team.</h1>
+      <p class="hero-lede">Four configurations on a single platform — Performance, Reliability, Compliance, and Operations. Halcyon's team picks one tier, the rest of the stack adapts in step.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" data-size="lg" type="button">Get a quote</button>
+        <button class="btn" data-variant="on-dark" data-size="lg" type="button">Configure</button>
+      </div>
+    </div>
+    <div class="config-render" aria-hidden="true"></div>
+  </div>
+</header>
+
+<section class="config-section" aria-label="Configuration grid signature">
+  <div class="config-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Configurations · Four-up signature</p>
+      <h2 class="section-title">Pick the configuration. The stack follows.</h2>
+      <p class="section-lede">Each card carries a stylised render, a configuration name in 700-weight display, a tier tag, and a single corporate-blue "Learn more" link. The grid is the brand's signature commerce pattern.</p>
+    </div>
+
+    <div class="config-grid">
+      <article class="config-card" data-tone="light">
+        <div class="config-card-render" aria-hidden="true"></div>
+        <div class="config-card-body">
+          <h3 class="config-card-name">Performance</h3>
+          <p class="config-card-tag">Engineering · production load</p>
+          <a class="config-card-cta" href="#">Learn more</a>
+        </div>
+      </article>
+      <article class="config-card" data-tone="cream">
+        <div class="config-card-render" aria-hidden="true"></div>
+        <div class="config-card-body">
+          <h3 class="config-card-name">Reliability</h3>
+          <p class="config-card-tag">SRE · paging surfaces</p>
+          <a class="config-card-cta" href="#">Learn more</a>
+        </div>
+      </article>
+      <article class="config-card" data-tone="dark">
+        <div class="config-card-render" aria-hidden="true"></div>
+        <div class="config-card-body">
+          <h3 class="config-card-name">Compliance</h3>
+          <p class="config-card-tag">Procurement-ready · audited</p>
+          <a class="config-card-cta" href="#">Learn more</a>
+        </div>
+      </article>
+      <article class="config-card" data-tone="m-blue">
+        <div class="config-card-render" aria-hidden="true"></div>
+        <div class="config-card-body">
+          <h3 class="config-card-name">Operations</h3>
+          <p class="config-card-tag">Cross-team · scheduling</p>
+          <a class="config-card-cta" href="#">Learn more</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Corporate blue, navy band, restrained palette.</h2>
+      <p class="section-lede">Corporate blue carries every primary CTA. Navy hero band frames the signature moment. The rest of the system stays in cream-tinted neutrals; chromatic excitement is reserved for the blue voltage and the occasional M-red status accent.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-strong);"></div><div class="swatch-role">Soft</div><div class="swatch-name">--brand-surface-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-dark);"></div><div class="swatch-role">Navy</div><div class="swatch-name">--brand-surface-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-dark-elevated);"></div><div class="swatch-role">Navy-up</div><div class="swatch-name">--brand-surface-dark-elevated</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Voltage</div><div class="swatch-name">--primary · corp blue</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-m-red);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-m-red</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body-strong);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-body-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-muted-soft);"></div><div class="swatch-role">Mute</div><div class="swatch-name">--brand-muted-soft</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces · Four polarities</p>
+      <h2 class="section-title">Four surfaces, one voltage.</h2>
+      <p class="section-lede">White canvas, soft cream tile, navy hero band, corporate-blue pill. The blue is the only chromatic surface; every other position is grayscale neutrality.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · body sections</span>
+      </div>
+      <div class="ladder-step" data-step="soft">
+        <span class="ladder-num">Soft</span>
+        <span class="ladder-name">--brand-surface-strong</span>
+        <span class="ladder-role">alternating band · footer</span>
+      </div>
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">Navy</span>
+        <span class="ladder-name">--brand-surface-dark</span>
+        <span class="ladder-role">hero band · featured tier</span>
+      </div>
+      <div class="ladder-step" data-step="blue">
+        <span class="ladder-num">Voltage</span>
+        <span class="ladder-name">--primary</span>
+        <span class="ladder-role">every primary CTA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three tiers, one quote process.</h2>
+      <p class="section-lede">Pricing tiles follow the brand's settled register — no decorative gradient, no shadow, square corners. Featured tier inverted to navy with corp-blue holding the CTA inside.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="primary" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organisations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">Two weights, one type system.</h2>
+      <p class="section-lede">BMW Type Next Latin runs the entire hierarchy on two weights — heavy 700 display and light 300 body. The brand never reaches for a middle weight. Buttons are square-cornered with upper-case labels and 0.4 px tracked spacing.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Two weights, one canvas.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">BMW Type Next · 700 · 24</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy at 16 px BMW Type Next Latin 300, line-height 1.55. The light weight is unusual for a corporate site; it gives the body register a settled, measured quality.</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · square corners · upper-case</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Get a quote</button>
+            <button class="btn" data-variant="secondary" type="button">Configure</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Card CTA · corporate-blue link with chevron</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <a class="config-card-cta" href="#">Learn more</a>
+            <a class="config-card-cta" href="#">Configure</a>
+            <a class="config-card-cta" href="#">View tier</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true"></span>bmw-style</a>
+      <p class="footer-tagline">A token-surface preview rendered against the measured corporate-automotive design system. Cream-tinted white canvas, corporate-blue voltage, navy hero band. Halcyon-themed neutral configuration content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Configurations</p>
+      <ul class="footer-list"><li><a href="#">Performance</a></li><li><a href="#">Reliability</a></li><li><a href="#">Compliance</a></li><li><a href="#">Operations</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Platform</p>
+      <ul class="footer-list"><li><a href="#">Pricing</a></li><li><a href="#">Enterprise</a></li><li><a href="#">Security</a></li><li><a href="#">Status</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>bmw-style · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">cream canvas · corp-blue voltage · navy hero · type-next 700/300</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23080808'/%3E%3Cpath d='M7 10 L11 22 L14 22 L16 15 L18 22 L21 22 L25 10 L22 10 L20 18 L18 11 L14 11 L12 18 L10 10 Z' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. White canvas + near-black primary + 5-stop chromatic accent system (purple/pink/blue/orange/green) mapped to category-coded feature cards.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Webflow-style preview shell — white canvas + near-black primary
+   + 5-stop chromatic accent system (purple + pink + blue + orange +
+   green) mapped to product categories. Signature surface is a
+   category-mapped feature card grid where each card carries one
+   accent only. Inter standing in for WF Visual Sans at restrained
+   500/600 weights with negative tracking. Halcyon-themed neutral
+   content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'WF Visual Sans Variable', 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern", "liga", "ss01";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 24px; height: 24px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  display: inline-grid;
+  place-items: center;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--background);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--brand-body);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; font-size: 14px; }
+.topnav-actions a { color: var(--brand-body); text-decoration: none; font-weight: 500; }
+.topnav-actions a:hover { color: var(--foreground); }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (44 px touch, square 6 px radius) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.05px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-ink-strong); border-color: var(--brand-ink-strong); }
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+}
+.btn[data-variant="secondary"]:hover { background: var(--foreground); color: var(--background); }
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: transparent;
+}
+.btn[data-variant="ghost"]:hover { color: var(--accent); }
+.btn[data-size="lg"] { min-height: 52px; padding: 0 1.5rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (white canvas, Inter 600 display, near-black CTA) -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+}
+.eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--foreground);
+}
+.hero-display {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2.75rem, 6.5vw, 4.75rem);
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: -0.035em;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 18ch;
+}
+.hero-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body);
+  max-width: 38rem;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* -- Signature: 5-stop chromatic accent card grid -- */
+.category-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem 5rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 1080px) { .category-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 700px) { .category-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .category-grid { grid-template-columns: 1fr; } }
+.category-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 13rem;
+  position: relative;
+}
+.category-card::before {
+  content: "";
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--brand-radius-xs);
+  background: var(--category-color);
+}
+.category-card[data-cat="purple"] { --category-color: var(--accent); }
+.category-card[data-cat="pink"] { --category-color: var(--brand-accent-pink); }
+.category-card[data-cat="blue"] { --category-color: var(--brand-accent-blue); }
+.category-card[data-cat="orange"] { --category-color: var(--brand-accent-orange); }
+.category-card[data-cat="green"] { --category-color: var(--brand-accent-green); }
+.category-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--category-color);
+  margin-top: 3rem;
+}
+.category-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: var(--foreground);
+  margin: 0;
+}
+.category-body {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--brand-body);
+  margin: 0;
+  flex: 1;
+}
+.category-arrow {
+  color: var(--foreground);
+  font-size: 16px;
+}
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; background: var(--background); }
+.section[data-tight] { padding: 3rem 1.5rem; }
+.section[data-band="soft"] { background: var(--brand-band-soft); }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 36rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--brand-radius-xs);
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* Tertiary body-size labels: use --brand-body, not --brand-mute.
+   * webflow.com itself paints these in strong ink (≥12.55:1 verified);
+   * --brand-mute at 10px sub-AA against the canvas in both polarities. */
+  color: var(--brand-body);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="soft"] { background: var(--brand-band-soft); color: var(--foreground); }
+.ladder-step[data-step="dark"] { background: var(--primary); color: var(--background); border-color: var(--primary); }
+.ladder-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+}
+.ladder-role { font-size: 14px; opacity: 0.86; margin-top: auto; line-height: 1.45; }
+
+/* -- Pricing (white tiles, featured = near-black inverse) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pricing-card[data-featured] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--background);
+}
+.pricing-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-name { color: var(--background); }
+.pricing-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 44px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-price { color: var(--background); }
+.pricing-tagline {
+  font-size: 13px;
+  color: var(--brand-body);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--brand-mute-soft); }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  font-size: 13px;
+  color: var(--brand-body);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: rgba(255, 255, 255, 0.18);
+  color: var(--brand-mute-soft);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "✓";
+  color: var(--accent);
+  font-weight: 600;
+  flex-shrink: 0;
+  width: 14px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--brand-accent-green); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.type-display {
+  font-family: 'Inter', sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; line-height: 1.55; color: var(--brand-body); }
+.type-mono { font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: var(--brand-body); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  width: 100%;
+}
+
+.cat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+.cat-chip::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cat-color, var(--brand-mute));
+}
+.cat-chip[data-cat="purple"] { --cat-color: var(--accent); }
+.cat-chip[data-cat="pink"] { --cat-color: var(--brand-accent-pink); }
+.cat-chip[data-cat="blue"] { --cat-color: var(--brand-accent-blue); }
+.cat-chip[data-cat="orange"] { --cat-color: var(--brand-accent-orange); }
+.cat-chip[data-cat="green"] { --cat-color: var(--brand-accent-green); }
+
+/* -- Footer -- */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 1.5rem 2rem;
+  background: var(--background);
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 13px; color: var(--brand-body); line-height: 1.55; margin: 0; }
+.footer-col-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 14px; color: var(--brand-body); text-decoration: none; }
+.footer-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-body);
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Platform</a>
+      <a href="#">Solutions</a>
+      <a href="#">Enterprise</a>
+      <a href="#">Pricing</a>
+      <a href="#">Resources</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Get started — free</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Halcyon · Platform</p>
+    <h1 class="hero-display">Five categories. One canvas. One team.</h1>
+    <p class="hero-lede">Halcyon's product, engineering, design, ops, and research teams each work in their own category-coded surface — color-mapped, but unified by the same canvas and CTA vocabulary.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Get started — free</button>
+      <button class="btn" data-variant="secondary" data-size="lg" type="button">Watch the demo</button>
+    </div>
+  </div>
+</header>
+
+<section class="category-grid" aria-label="Category card signature">
+  <article class="category-card" data-cat="purple">
+    <span class="category-eyebrow">Product</span>
+    <h2 class="category-title">Notes, threads, specs.</h2>
+    <p class="category-body">Writing surface for the product team. Roadmap drafts, reviews, and ship notes on one canvas.</p>
+    <span class="category-arrow" aria-hidden="true">→</span>
+  </article>
+  <article class="category-card" data-cat="pink">
+    <span class="category-eyebrow">Design</span>
+    <h2 class="category-title">Critique without ceremony.</h2>
+    <p class="category-body">Design reviews threaded inline. Comments resolve into edits, edits ship with the work.</p>
+    <span class="category-arrow" aria-hidden="true">→</span>
+  </article>
+  <article class="category-card" data-cat="blue">
+    <span class="category-eyebrow">Engineering</span>
+    <h2 class="category-title">Specs that compile.</h2>
+    <p class="category-body">Engineering specs live next to the tickets they unblock — owners, due dates, the closing review on one surface.</p>
+    <span class="category-arrow" aria-hidden="true">→</span>
+  </article>
+  <article class="category-card" data-cat="orange">
+    <span class="category-eyebrow">Operations</span>
+    <h2 class="category-title">Runbooks at hand.</h2>
+    <p class="category-body">Runbooks, incident notes, and post-mortems on the same canvas as the team's roadmap.</p>
+    <span class="category-arrow" aria-hidden="true">→</span>
+  </article>
+  <article class="category-card" data-cat="green">
+    <span class="category-eyebrow">Research</span>
+    <h2 class="category-title">Notebooks, indexed.</h2>
+    <p class="category-body">Saved insights, monthly reports, and quarterly reviews — all retrievable from one workspace search.</p>
+    <span class="category-arrow" aria-hidden="true">→</span>
+  </article>
+</section>
+
+<section class="section" data-band="soft" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">White canvas, five accents.</h2>
+      <p class="section-lede">White canvas with near-black primary. Five chromatic accents (purple + pink + blue + orange + green) map to product categories — each only ever appearing one at a time on a given card or chip, never mixed in the chrome.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Primary</div><div class="swatch-name">--primary · near-black</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ink-strong);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--accent);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--accent · purple</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-pink);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-accent-pink</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-blue);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-accent-blue</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-orange);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-accent-orange</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-green);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-accent-green</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-yellow);"></div><div class="swatch-role">Status</div><div class="swatch-name">--brand-accent-yellow</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-red);"></div><div class="swatch-role">Status</div><div class="swatch-name">--brand-accent-red</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--border);"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--border</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces</p>
+      <h2 class="section-title">Three surface registers.</h2>
+      <p class="section-lede">White canvas as the page floor. Slightly off-white soft band for alternating sections. Near-black inverse surface for the featured pricing tier and any block that needs the brand's chromatic anchor.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · marketing surface</span>
+      </div>
+      <div class="ladder-step" data-step="soft">
+        <span class="ladder-num">Soft</span>
+        <span class="ladder-name">oklch(0.9851 0 0)</span>
+        <span class="ladder-role">alternating section band</span>
+      </div>
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">Inverse</span>
+        <span class="ladder-name">--primary</span>
+        <span class="ladder-role">featured tier · contrast block</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three tiers, one canvas.</h2>
+      <p class="section-lede">Flat per-workspace pricing. Featured tier inverted to near-black with the green accent on feature bullets — the only category color that crosses into pricing chrome.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" type="button" style="background: var(--background); color: var(--foreground); border-color: var(--background);">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="soft" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · type + components</p>
+      <h2 class="section-title">Inter at 500/600, restrained.</h2>
+      <p class="section-lede">Display tier at Inter weight 600 with -3.5% tracking — restrained, never heavy. Body at weight 400. Buttons square at 6 px radius. Category chips carry the 5-stop accent system in a single dot-marker each.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Five colors, one team.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Inter weight 600</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter · 500 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Inter at 14–16 pixels, line-height 1.55. Near-black foreground, mid-gray body ink for helper copy.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">workspace.categories.list()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · square 6 px, 44 px touch</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Get started — free</button>
+            <button class="btn" data-variant="secondary" type="button">Watch the demo</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Category chips · one accent each</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <span class="cat-chip" data-cat="purple">Product</span>
+            <span class="cat-chip" data-cat="pink">Design</span>
+            <span class="cat-chip" data-cat="blue">Engineering</span>
+            <span class="cat-chip" data-cat="orange">Operations</span>
+            <span class="cat-chip" data-cat="green">Research</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the white-canvas + 5-stop-accent design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Platform</p>
+      <ul class="footer-list"><li><a href="#">Workspace</a></li><li><a href="#">Categories</a></li><li><a href="#">Templates</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Solutions</p>
+      <ul class="footer-list"><li><a href="#">Product</a></li><li><a href="#">Design</a></li><li><a href="#">Engineering</a></li><li><a href="#">Operations</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">workspace.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">white canvas · near-black ink · 5-stop accent · square pills</span>
+  </div>
+</footer>
+
+</body>
+</html>

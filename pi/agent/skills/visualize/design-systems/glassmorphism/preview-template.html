@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Glassmorphism preview shell — backdrop gradient + layered glass cards === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; min-height: 100vh; }
+
+/* The backdrop — single-hue violet wash. Glass refracts an
+   intentional colour, not the chart palette unrolled into space.
+   One large soft stop + a smaller offset stop adds depth without
+   declaring "every colour in the system". */
+body {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(at 70% 0%, oklch(0.62 0.20 275 / 0.32) 0%, transparent 65%),
+    radial-gradient(at 10% 100%, oklch(0.58 0.18 275 / 0.18) 0%, transparent 55%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.shell { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+
+/* Top nav as glass bar */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1.5rem;
+  background-color: var(--card);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm), var(--glass-highlight);
+  margin-bottom: 3rem;
+}
+.nav .brand { font-weight: 700; letter-spacing: -0.01em; }
+.nav .brand-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: var(--primary); margin-right: 0.5rem; vertical-align: -1px; }
+.nav .links { display: flex; gap: 1.5rem; font-size: 0.875rem; }
+.nav .links a { color: var(--muted-foreground); text-decoration: none; }
+.nav .links a:hover { color: var(--foreground); }
+.nav .cta {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Hero glass card */
+.hero {
+  padding: 3rem 2.5rem;
+  background-color: var(--card);
+  backdrop-filter: var(--backdrop-blur-strong);
+  -webkit-backdrop-filter: var(--backdrop-blur-strong);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md), var(--glass-highlight);
+  margin-bottom: 2rem;
+}
+.hero .eyebrow {
+  /* Plain text eyebrow — no pill, no chromatic fill. Wide tracking
+     does the labeling work. */
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 1.25rem;
+}
+.hero h1 {
+  font-size: clamp(2.25rem, 5.5vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0 0 1rem 0;
+  max-width: 22ch;
+}
+/* Accent-word italicised, not coloured — the AI-template "coloured
+   keyword" move is the loudest tell. Italic carries emphasis without
+   the chromatic shout. */
+.hero h1 .accent { font-style: italic; font-weight: 400; }
+.hero .deck {
+  font-size: 1.125rem;
+  color: var(--muted-foreground);
+  line-height: 1.5;
+  max-width: 52ch;
+  margin: 0 0 2rem 0;
+}
+.hero .actions { display: flex; gap: 0.875rem; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: var(--shadow-sm);
+}
+.btn-glass {
+  background-color: var(--card);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+}
+
+/* Feature grid — 3 glass cards */
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+@media (max-width: 880px) { .features { grid-template-columns: 1fr; } }
+
+.feature {
+  padding: 1.75rem;
+  background-color: var(--card);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm), var(--glass-highlight);
+}
+.feature .icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background-color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-foreground);
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+/* Removed .feature.alt — "every 3-card grid colors the middle one
+   differently" is the AI-template tell. Uniform cards; content carries. */
+.section-h {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 1rem 0;
+}
+.feature h3 { font-size: 1.0625rem; font-weight: 600; margin: 0 0 0.5rem 0; letter-spacing: -0.005em; }
+.feature p { margin: 0; color: var(--muted-foreground); font-size: 0.9375rem; }
+
+/* Stats panel — glass row */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background-color: var(--card);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm), var(--glass-highlight);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+@media (max-width: 720px) { .stats { grid-template-columns: 1fr 1fr; } }
+.stat { padding: 1.5rem 1.25rem; border-right: 1px solid var(--border); }
+.stat:last-child { border-right: none; }
+.stat .label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted-foreground); margin-bottom: 0.5rem; }
+.stat .value { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.stat .value.accent { color: var(--primary); }
+
+footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <nav class="nav">
+    <div class="brand"><span class="brand-dot"></span>Refract</div>
+    <div class="links">
+      <a href="#">Product</a>
+      <a href="#">Pricing</a>
+      <a href="#">Customers</a>
+      <a href="#">Docs</a>
+    </div>
+    <a href="#" class="cta">Start free →</a>
+  </nav>
+
+  <section class="hero">
+    <span class="eyebrow">Now in preview</span>
+    <h1>Composable insight<br>at <span class="accent">edge speed</span>.</h1>
+    <p class="deck">Stream your warehouse straight into the surfaces your team already lives in. No copy, no replication, no second source of truth. Just queries that resolve where the data is.</p>
+    <div class="actions">
+      <a href="#" class="btn btn-primary">Start a workspace</a>
+      <a href="#" class="btn btn-glass">Read the changelog</a>
+    </div>
+  </section>
+
+  <h2 class="section-h">How it works</h2>
+  <div class="features">
+    <div class="feature">
+      <div class="icon">✦</div>
+      <h3>Edge-rendered queries</h3>
+      <p>Resolve at the nearest PoP. Median 38ms across regions.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">◊</div>
+      <h3>Composable surfaces</h3>
+      <p>Stitch sources into one canonical lens without copying.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">✺</div>
+      <h3>Live by default</h3>
+      <p>Every artifact updates as the underlying data does.</p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="label">Median p50</div>
+      <div class="value accent">38ms</div>
+    </div>
+    <div class="stat">
+      <div class="label">Active workspaces</div>
+      <div class="value">2,418</div>
+    </div>
+    <div class="stat">
+      <div class="label">Edge PoPs</div>
+      <div class="value">100</div>
+    </div>
+    <div class="stat">
+      <div class="label">Uptime 30d</div>
+      <div class="value">99.94%</div>
+    </div>
+  </div>
+
+  <footer>
+    <span>visualize · __DESIGN_SYSTEM_NAME__</span>
+    <span>backdrop refraction · glass over colour</span>
+  </footer>
+
+</div>
+</body>
+</html>

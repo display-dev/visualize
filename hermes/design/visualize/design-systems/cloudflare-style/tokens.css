@@ -1,0 +1,237 @@
+/**
+ * design-systems/cloudflare-style/tokens.css
+ *
+ * Hand-authored from live-verified cloudflare.com surfaces.
+ * Sourced: 2026-05-25 — see ./DESIGN.md (§2 Palette, §3 Typography).
+ *
+ * Cloudflare ships canonical-canvas: both. The marketing site is polarity-
+ * aware via prefers-color-scheme + ?theme= query, Kumo defines every
+ * --color-kumo-* slot via light-dark(), the developer docs ship explicit
+ * [data-theme=light] and [data-theme=dark] blocks, and the blog is
+ * white-canonical. :root carries the light branch (white canvas, near-black
+ * foreground per Kumo's color-scheme: light default and the editorial blog);
+ * [data-theme="dark"] carries the warm-charcoal marketing-skin branch
+ * (#151414 canvas, #f0e3de cream foreground). prefers-color-scheme: dark
+ * mirrors the dark block verbatim.
+ *
+ * Two oranges live alongside each other in Cloudflare's vocabulary. The
+ * marketing accent-100 (#ff5e1f) drives --primary on both polarities — it's
+ * the 2026 marketing-skin override and the colour the inline <code> tokens
+ * deploy. The Kumo canonical (#f6821f) is carried as --brand-orange-legacy
+ * — the colour the developer docs, the blog, and the FedRAMP variant all
+ * use as their primary. Downstream consumers reaching for "the Cloudflare
+ * orange" without further qualification want the legacy value.
+ *
+ * Both --primary instances stay at the same OKLCH across polarities (per
+ * the AUTHORING primary-family-asymmetry rule) — Cloudflare doesn't
+ * document a per-mode brand-orange swap.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core: names upstream, values this brand's.
+ *   - Brand-extras (--brand-*): surface-named only.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+
+  --background: oklch(1.000 0 0);                       /* #fff — Kumo color-scheme: light default; blog body */
+  --foreground: oklch(0.2686 0 0);                      /* #262626 — marketing --color-foreground-100 (light branch) */
+  --card: oklch(0.9938 0.0013 106.42);                  /* #fdfdfc — marketing --color-background-200 (light) */
+  --card-foreground: oklch(0.2686 0 0);
+  --popover: oklch(0.9938 0.0013 106.42);
+  --popover-foreground: oklch(0.2686 0 0);
+
+  --primary: oklch(0.6870 0.2075 38.79);                /* #ff5e1f marketing brand orange (--color-accent-100) */
+  --primary-foreground: oklch(0.9895 0.0090 78.28);     /* #fffbf5 cream on orange — polarity-locked foreground */
+  --secondary: oklch(0.2393 0 0);                       /* dark charcoal — inverted pill bg on light canvas */
+  --secondary-foreground: oklch(0.9895 0.0090 78.28);   /* cream text on charcoal pill */
+  --muted: oklch(0.9774 0.0025 48.72);                  /* #f9f7f6 — marketing --color-background-300 (light); section dividers */
+  --muted-foreground: oklch(0.4500 0 0);                /* mid-grey body-muted on light canvas */
+  --accent: oklch(0.9774 0.0025 48.72);                 /* same as --muted; nav-hover surface on light */
+  --accent-foreground: oklch(0.2686 0 0);
+  --destructive: oklch(0.6916 0.1988 20.19);            /* attack-red — Cloudflare reserves for security-emergency entry only; downstream consumers should treat as a brand-specific reservation, not a generic delete-row colour */
+  --destructive-foreground: oklch(0.9895 0.0090 78.28);
+
+  --border: oklch(0.2686 0 0 / 0.125);                  /* foreground-at-12.5%-alpha on light */
+  --input: oklch(0.2686 0 0 / 0.125);
+  --ring: oklch(0.6870 0.2075 38.79);                   /* tracks --primary */
+
+  --sidebar: oklch(1.000 0 0);
+  --sidebar-foreground: oklch(0.2686 0 0);
+  --sidebar-primary: oklch(0.6870 0.2075 38.79);        /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.9895 0.0090 78.28);
+  --sidebar-accent: oklch(0.9774 0.0025 48.72);
+  --sidebar-accent-foreground: oklch(0.2686 0 0);
+  --sidebar-border: oklch(0.2686 0 0 / 0.125);
+  --sidebar-ring: oklch(0.6870 0.2075 38.79);           /* tracks --primary */
+
+  /* Chart palette derived from documented secondary brand colours
+   * (marketing orange / hover orange / Kumo canonical orange /
+   * blog blue / accent yellow). */
+  --chart-1: oklch(0.6870 0.2075 38.79);                /* marketing brand orange */
+  --chart-2: oklch(0.7114 0.1877 40.38);                /* orange hover #ff7038 */
+  --chart-3: oklch(0.7235 0.1724 53.79);                /* Kumo canonical orange #f6821f */
+  --chart-4: oklch(0.7208 0.1357 237.53);               /* editorial blog blue #3eb0ef */
+  --chart-5: oklch(0.8652 0.1768 90.38);                /* accent yellow #ffcc00 */
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Kunst Grotesk is the marketing display + body. Inter is the
+   * developer-docs fallback. System fallbacks for the blog editorial
+   * canvas (where the brand ships Apple-system stack deliberately). */
+  --font-sans: 'Kunst Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'Apercu Mono Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Kunst Grotesk', 'Inter', system-ui, sans-serif;
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. Cloudflare's vocabulary covers two co-existing
+   * oranges (marketing accent + Kumo canonical), polarity-locked
+   * signature surfaces (orange CTA card, dark code-block canvas), an
+   * attack-red pair reserved for security-emergency CTAs, and pairs of
+   * hairline / on-canvas tokens for each polarity.
+   * -------------------------------------------------------------- */
+
+  /* Brand primary lineage. --brand-primary-hover is documented in the
+   * marketing CSS (--color-accent-200 #ff7038). --brand-orange-legacy is
+   * the Kumo canonical (#f6821f) — the colour the developer docs, the
+   * blog, and the FedRAMP variant all deploy as their primary. */
+  --brand-primary-hover: oklch(0.7114 0.1877 40.38);    /* #ff7038 marketing hover */
+  --brand-orange-legacy: oklch(0.7235 0.1724 53.79);    /* #f6821f Kumo canonical — dev docs / blog / FedRAMP */
+  --brand-orange-mobile: oklch(0.6629 0.2272 35.92);    /* #ff4801 mobile theme-color meta */
+
+  /* Polarity-locked signature surfaces.
+   * The orange-fill CTA card and the warm-deep code-mockup canvas don't
+   * flip with theme — they're identity surfaces. Cream-on-orange is the
+   * documented foreground inside the orange card. The code-mockup canvas
+   * stays dark even on the white-canonical blog (Ashes theme #1c2023). */
+  --brand-canvas-orange: oklch(0.6870 0.2075 38.79);    /* full-bleed orange CTA fill (= --primary) */
+  --brand-on-orange: oklch(0.9895 0.0090 78.28);        /* cream text on orange card */
+  --brand-canvas-code: oklch(0.2407 0.0083 240.23);     /* #1c2023 blog Ashes code-block backdrop */
+  --brand-code-ident: oklch(0.7548 0.0577 226.16);      /* #95aec7 Ashes pastel-blue identifier */
+  --brand-code-keyword: oklch(0.7283 0.0567 351.17);    /* #c795ae Ashes keyword pink */
+
+  /* Foreground variants (utility neutrals — chroma ≈ 0.009-0.016 carry
+   * slight warmth from the OKLCH hue; chroma ≈ 0 are pure neutrals).
+   * --brand-on-dark is the cream locked to dark surfaces; --brand-on-light
+   * is the near-black locked to light surfaces. --brand-ink-strong is the
+   * hero / H1 foreground (one step brighter than the canvas foreground). */
+  --brand-ink-strong: oklch(0.9895 0.0090 78.28);       /* cream-white #fffbf5 — strong text on dark hero */
+  --brand-on-dark: oklch(0.9895 0.0090 78.28);          /* foreground locked to dark surfaces */
+  --brand-on-light: oklch(0.2686 0 0);                  /* #262626 foreground locked to light surfaces */
+
+  /* Documented secondary brand colours.
+   * Accent-yellow is decorative-only (chart fill / stroke marker, never
+   * body text). Editorial blog blue is the post-listing link colour
+   * carried from Ghost CMS defaults. */
+  --brand-accent-yellow: oklch(0.8652 0.1768 90.38);    /* #ffcc00 */
+  --brand-blog-blue: oklch(0.7208 0.1357 237.53);       /* #3eb0ef editorial */
+  --brand-blog-grey: oklch(0.2038 0.0067 258.37);       /* #15171a editorial heading */
+
+  /* Attack-red pair. Cloudflare reserves these for security-emergency
+   * entry points ("Under attack?"); not general-purpose destructive.
+   * The Kumo --color-kumo-danger lineage (light red-500 / dark red-900)
+   * is the routine destructive surface, separate from this entry-point
+   * vocabulary. */
+  --brand-attack: oklch(0.6916 0.1988 20.19);           /* #ff5b66 attack-red link */
+
+  /* Hairlines / dividers — foreground-at-alpha on each polarity so
+   * warmth tracks the canvas automatically. */
+  --brand-hairline-soft: oklch(0.2686 0 0 / 0.125);     /* light-canvas hairline */
+  --brand-hairline-strong: oklch(0.2686 0 0 / 0.30);    /* light-canvas stronger divider */
+
+  /* Brand-specific radius extras */
+  --brand-radius-pill: 9999px;                          /* canonical button shape on every CTA */
+  --brand-radius-card: 12px;                            /* hairline tile / case-study card */
+  --brand-radius-signature: 16px;                       /* orange signature-card corner */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * The marketing skin: warm near-black canvas (#151414) with warm-cream
+ * foreground (#f0e3de). The cream tint is intentional — chroma 0.0158
+ * encodes a paper-on-charcoal aesthetic that distinguishes the marketing
+ * surface from a generic dark mode. Kumo defines every slot via
+ * light-dark() with chromaless white as the dark foreground; the
+ * marketing site overrides that to the warm cream. We follow the
+ * marketing surface for the dark branch.
+ *
+ * Chromatic brand tokens (--primary, --ring, --brand-orange-legacy,
+ * --brand-attack, etc.) stay at the :root value — Cloudflare doesn't
+ * document a per-mode orange swap. Only canvas + neutrals + hairlines
+ * flip. The orange CTA card and code-mockup canvas are polarity-locked
+ * by definition and don't appear in this block.
+ * --------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1924 0.0016 17);                /* #151414 marketing dark canvas */
+  --foreground: oklch(0.9248 0.0158 42.38);             /* #f0e3de warm-cream foreground */
+  --card: oklch(0.2098 0.0025 67.69);                   /* #191817 marketing --color-background-200 (dark) */
+  --card-foreground: oklch(0.9248 0.0158 42.38);
+  --popover: oklch(0.2098 0.0025 67.69);
+  --popover-foreground: oklch(0.9248 0.0158 42.38);
+
+  --secondary: oklch(0.9895 0.0090 78.28);              /* cream pill bg — inverted pill on dark */
+  --secondary-foreground: oklch(0.2393 0 0);            /* charcoal text on cream pill */
+  --muted: oklch(0.2812 0.0039 84.58);                  /* #2a2927 marketing --color-background-300 (dark) */
+  --muted-foreground: oklch(0.6683 0.0094 44.84);       /* muted body text on dark canvas */
+  --accent: oklch(0.2098 0.0025 67.69);                 /* same as --card; nav-hover on dark */
+  --accent-foreground: oklch(0.9895 0.0090 78.28);
+
+  --border: oklch(0.9248 0.0158 42.38 / 0.125);         /* foreground-at-12.5%-alpha; picks up canvas warmth */
+  --input: oklch(0.9248 0.0158 42.38 / 0.125);
+
+  --sidebar: oklch(0.1924 0.0016 17);
+  --sidebar-foreground: oklch(0.9248 0.0158 42.38);
+  --sidebar-accent: oklch(0.2098 0.0025 67.69);
+  --sidebar-accent-foreground: oklch(0.9895 0.0090 78.28);
+  --sidebar-border: oklch(0.9248 0.0158 42.38 / 0.125);
+
+  /* Hairlines flip to foreground-at-alpha on dark — warmth carries. */
+  --brand-hairline-soft: oklch(0.9248 0.0158 42.38 / 0.125);   /* dark-canvas hairline */
+  --brand-hairline-strong: oklch(0.9248 0.0158 42.38 / 0.30);  /* dark-canvas stronger divider */
+
+  /* --brand-on-light is documented at #fffbf5 inside the marketing
+   * --color-light-foreground token — it's the colour the hero overlay
+   * deploys for cream text on near-black. The :root variant uses the
+   * dark-charcoal foreground for light surfaces; the dark block reuses
+   * the cream because the dark canvas IS the surface being overlaid. */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1924 0.0016 17);
+    --foreground: oklch(0.9248 0.0158 42.38);
+    --card: oklch(0.2098 0.0025 67.69);
+    --card-foreground: oklch(0.9248 0.0158 42.38);
+    --popover: oklch(0.2098 0.0025 67.69);
+    --popover-foreground: oklch(0.9248 0.0158 42.38);
+
+    --secondary: oklch(0.9895 0.0090 78.28);
+    --secondary-foreground: oklch(0.2393 0 0);
+    --muted: oklch(0.2812 0.0039 84.58);
+    --muted-foreground: oklch(0.6683 0.0094 44.84);
+    --accent: oklch(0.2098 0.0025 67.69);
+    --accent-foreground: oklch(0.9895 0.0090 78.28);
+
+    --border: oklch(0.9248 0.0158 42.38 / 0.125);
+    --input: oklch(0.9248 0.0158 42.38 / 0.125);
+
+    --sidebar: oklch(0.1924 0.0016 17);
+    --sidebar-foreground: oklch(0.9248 0.0158 42.38);
+    --sidebar-accent: oklch(0.2098 0.0025 67.69);
+    --sidebar-accent-foreground: oklch(0.9895 0.0090 78.28);
+    --sidebar-border: oklch(0.9248 0.0158 42.38 / 0.125);
+
+    --brand-hairline-soft: oklch(0.9248 0.0158 42.38 / 0.125);
+    --brand-hairline-strong: oklch(0.9248 0.0158 42.38 / 0.30);
+  }
+}

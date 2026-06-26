@@ -1,0 +1,190 @@
+/**
+ * design-systems/framer-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * The dark-mode block applies OKLCH lightness inversion to canonical
+ * shadcn-semantic tokens only. Brand-specific extras (--brand-*) are
+ * intentionally NOT overridden in dark mode — they inherit their
+ * :root values via the CSS cascade, preserving the brand's documented
+ * intent for tokens like surface-dark / on-dark / inverse-canvas that
+ * already encode a dark-context meaning.
+ *
+ * Hand-edit the [data-theme="dark"] block when the brand's actual dark
+ * palette is documented and differs from the synthesised default.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(0.1398 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.1398 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.1398 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.1398 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.1398 0 0);
+  --muted-foreground: oklch(1 0 0);
+  --accent: oklch(0.6690 0.1837 248.8066);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0 0 0);
+  --border: oklch(0.2686 0 0);
+  --input: oklch(0.2686 0 0);
+  --ring: oklch(1 0 0);
+  --sidebar: oklch(0.1398 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(1 0 0);
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent: oklch(0.1398 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.2686 0 0);
+  --sidebar-ring: oklch(1 0 0);
+  --chart-1: oklch(0.8100 0 0);
+  --chart-2: oklch(0.7100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.5100 0 0);
+  --chart-5: oklch(0.4200 0 0);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 15px;
+  --radius-xl: 20px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;
+  --brand-radius-xxl: 30px;
+  --brand-radius-pill: 100px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: Inter Variable;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: GT Walsheim Framer Medium;
+
+  /* type scale tokens */
+  --text-display: 110px;
+  --text-heading: 85px;
+  --text-title: 24px;
+  --text-base: 15px;
+  --leading-tight: 0.85;
+  --leading-normal: 1.30;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-ink-muted: oklch(0.6830 0 0);
+  --brand-surface-1: oklch(0.1913 0 0);
+  --brand-surface-2: oklch(0.2264 0 0);
+  --brand-hairline-soft: oklch(0.2178 0 0);
+  --brand-inverse-canvas: oklch(1 0 0);
+  --brand-inverse-ink: oklch(0 0 0);
+  --brand-gradient-magenta: oklch(0.6671 0.2500 320.2429);
+  --brand-gradient-violet: oklch(0.5534 0.2380 283.5286);
+  --brand-gradient-orange: oklch(0.7258 0.1782 43.1889);
+  --brand-gradient-coral: oklch(0.6886 0.2054 12.6074);
+  --brand-semantic-success: oklch(0.7227 0.1920 149.5793);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Hand-edited: Framer is dark-canonical. The brand has no light
+   * marketing surface — framer.com runs on pure-near-black canvas with
+   * white display and vibrant gradient atmosphere panels. The
+   * synthesised L→1−L inversion gives a light-gray canvas which is
+   * the opposite of the brand. Mirror :root verbatim so both modes
+   * render the brand's actual identity.
+   * Both [data-theme="dark"] and the @media block mirror :root verbatim. */
+
+  --background: oklch(0.1398 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.1398 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.1398 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.1398 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.1398 0 0);
+  --muted-foreground: oklch(1 0 0);
+  --accent: oklch(0.6690 0.1837 248.8066);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0 0 0);
+  --border: oklch(0.2178 0 0);
+  --input: oklch(0.2178 0 0);
+  --ring: oklch(1 0 0);
+  --sidebar: oklch(0.1398 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(1 0 0);
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent: oklch(0.1398 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.2178 0 0);
+  --sidebar-ring: oklch(1 0 0);
+  --chart-1: oklch(0.8100 0 0);
+  --chart-2: oklch(0.7100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.5100 0 0);
+  --chart-5: oklch(0.4200 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1398 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.1398 0 0);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.1398 0 0);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(1 0 0);
+    --primary-foreground: oklch(0 0 0);
+    --secondary: oklch(0.1398 0 0);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.1398 0 0);
+    --muted-foreground: oklch(1 0 0);
+    --accent: oklch(0.6690 0.1837 248.8066);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.5308 0.2178 29.2339);
+    --destructive-foreground: oklch(0 0 0);
+    --border: oklch(0.2178 0 0);
+    --input: oklch(0.2178 0 0);
+    --ring: oklch(1 0 0);
+    --sidebar: oklch(0.1398 0 0);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(1 0 0);
+    --sidebar-primary-foreground: oklch(0 0 0);
+    --sidebar-accent: oklch(0.1398 0 0);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.2178 0 0);
+    --sidebar-ring: oklch(1 0 0);
+    --chart-1: oklch(0.8100 0 0);
+    --chart-2: oklch(0.7100 0 0);
+    --chart-3: oklch(0.6100 0 0);
+    --chart-4: oklch(0.5100 0 0);
+    --chart-5: oklch(0.4200 0 0);
+  }
+}

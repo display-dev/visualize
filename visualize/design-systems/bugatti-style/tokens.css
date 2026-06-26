@@ -1,0 +1,239 @@
+/**
+ * design-systems/bugatti-style/tokens.css
+ *
+ * Live-verified against newsroom.bugatti.com + an archived snapshot of
+ * bugatti.com (main site fortressed behind Vercel Security Checkpoint;
+ * Wayback used as primary source for dark-canonical confirmation) on
+ * 2026-05-26. Companion to ./DESIGN.md.
+ *
+ * canonical-canvas: both. Marketing surface ships #101010 off-black
+ * (Wayback + --vbox-* lightbox tokens confirm); newsroom ships pure
+ * white. Identical chromatic identity across both polarities — a
+ * genuine mixed-polarity brand, not theme-switching.
+ *
+ * Brand voltage: Bugatti Blue #004bfa (the single chromatic; confirmed
+ * via meta[name="msapplication-TileColor"]). --primary, --accent, --ring,
+ * --brand-link all anchor to this blue across both polarities. The
+ * earlier import collapsed --primary to white because Bugatti's dark-
+ * surface CTAs label in white, but the TOKEN encodes brand identity, not
+ * one polarity's text colour.
+ *
+ * Three custom families: BUGATTI_Display, BUGATTI_Text, BUGATTI_Monospace.
+ * The mono is the brand signature on every CTA + eyebrow + metadata label.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0 0 0);
+  --primary: oklch(0.5119 0.2643 263.2278);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9097 0 0);
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.9097 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.5119 0.2643 263.2278);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9097 0 0);
+  --input: oklch(0.9097 0 0);
+  --ring: oklch(0.5119 0.2643 263.2278);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0.5119 0.2643 263.2278);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9097 0 0);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0.9097 0 0);
+  --sidebar-ring: oklch(0.5119 0.2643 263.2278);
+  --chart-1: oklch(0.5119 0.2643 263.2278);
+  --chart-2: oklch(0.3677 0 0);
+  --chart-3: oklch(0.65 0 0);
+  --chart-4: oklch(0.9097 0 0);
+  --chart-5: oklch(0 0 0);
+
+  /* radius scale — Bugatti runs sharp corners by default (border-radius:0
+   * or 0.125rem max), so the catalogue's 0.625rem default is too soft.
+   * Holding the catalogue values for shadcn slot compatibility but the
+   * brand register prefers --brand-radius-none and -xs (2px) for chrome. */
+  --radius-sm: calc(0.625rem - 4px);
+  --radius-md: calc(0.625rem - 2px);
+  --radius-lg: 0.625rem;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-xs: 0.125rem;
+  --brand-radius-pill: 999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: 'BUGATTI_Text', 'BUGATTI_Text Fallback', system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'BUGATTI_Monospace', 'BUGATTI_Monospace Fallback', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  --font-display: 'BUGATTI_Display', 'BUGATTI_Display Fallback', system-ui, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 64px;
+  --text-heading: 48px;
+  --text-title: 20px;
+  --text-base: 16px;
+  --leading-tight: 1.1;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+  --tracking-mono: 0.1em; /* the brand signature on every CTA + eyebrow */
+
+  /* shadow scale — Bugatti's surfaces never ship a visible drop-shadow on
+   * live newsroom or marketing chrome. Retained for shadcn slot
+   * completeness; consumers should default to flat. */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-extras — light-mode (newsroom-canonical) values.
+   * Body ink on white = charcoal #3F3F3F (live: .hbxiq0p:hover{color:var(--_1h2qup83)}).
+   * Hairline = #E1E1E1 (live: .hbxiq04 background-token, .uv51ow7 tab strip border). */
+  --brand-body: oklch(0.3677 0 0);
+  --brand-body-strong: oklch(0 0 0);
+  /* Synthesised utility neutral. The brand has no documented mid-gray, so the
+   * muted-label slot ships a mid-tone the brand never explicitly carries.
+   * Tuned to oklch(0.54) on white canvas = 4.59:1 on #ffffff, clears AA.
+   * The dark block re-lifts to oklch(0.72) for AA on #101010 off-black. */
+  --brand-muted-soft: oklch(0.54 0 0);
+  --brand-hairline: oklch(0.9097 0 0);
+  --brand-hairline-strong: oklch(0.3677 0 0);
+  --brand-surface-elevated: oklch(0.9700 0 0);
+
+  /* Polarity-locked tokens — same value on both canvases (the brand's
+   * cross-polarity vocabulary). */
+  --brand-blue: oklch(0.5119 0.2643 263.2278);
+  --brand-canvas-night: oklch(0.1730 0 0);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-light: oklch(0 0 0);
+  --brand-on-photo: oklch(1 0 0);
+
+  /* Brand voltage. Anchors to the single chromatic identity, polarity-invariant. */
+  --brand-link: oklch(0.5119 0.2643 263.2278);
+
+  /* Synthesised — no brand authority. Bugatti's editorial surfaces ship no
+   * documented warning / success register. Retained for shadcn slot
+   * completeness only; consumers should prefer routing semantic state
+   * through neutral typography weight + the single chromatic. */
+  --brand-warning: oklch(0.7350 0.1462 84.2671); /* (synthesised) */
+  --brand-success: oklch(0.6592 0.1333 141.7997); /* (synthesised) */
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Marketing-surface dark canvas — #101010 off-black, not pure #000.
+   * Sourced from Wayback bugatti.com main capture + the --vbox-share-background
+   * / --vbox-title-background lightbox tokens. Chromatic identity holds:
+   * Bugatti Blue stays at the identical OKLCH on both polarities. */
+
+  --background: oklch(0.1730 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.1913 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.1913 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.5119 0.2643 263.2278);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.1591 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.1591 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.5119 0.2643 263.2278);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.2686 0 0);
+  --input: oklch(0.2686 0 0);
+  --ring: oklch(0.5119 0.2643 263.2278);
+  --sidebar: oklch(0.1591 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.5119 0.2643 263.2278);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.1591 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.2686 0 0);
+  --sidebar-ring: oklch(0.5119 0.2643 263.2278);
+  --chart-1: oklch(0.5119 0.2643 263.2278);
+  --chart-2: oklch(0.9097 0 0);
+  --chart-3: oklch(0.65 0 0);
+  --chart-4: oklch(0.3677 0 0);
+  --chart-5: oklch(1 0 0);
+
+  /* brand-extras — dark-mode values. Body ink on off-black canvas flips to
+   * a light neutral; hairlines move to a charcoal step above the canvas.
+   * Polarity-locked tokens (--brand-blue, --brand-canvas-night,
+   * --brand-on-dark, --brand-on-light) inherit from :root unchanged. */
+  --brand-body: oklch(0.8452 0 0);
+  --brand-body-strong: oklch(1 0 0);
+  --brand-hairline: oklch(0.2686 0 0);
+  --brand-hairline-strong: oklch(0.3485 0 0);
+  --brand-surface-elevated: oklch(0.2393 0 0);
+  /* Lift muted-soft for AA on #101010 off-black dark canvas. */
+  --brand-muted-soft: oklch(0.72 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1730 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.1913 0 0);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.1913 0 0);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(0.5119 0.2643 263.2278);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.1591 0 0);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.1591 0 0);
+    --muted-foreground: oklch(0.65 0 0);
+    --accent: oklch(0.5119 0.2643 263.2278);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.5308 0.2178 29.2339);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.2686 0 0);
+    --input: oklch(0.2686 0 0);
+    --ring: oklch(0.5119 0.2643 263.2278);
+    --sidebar: oklch(0.1591 0 0);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(0.5119 0.2643 263.2278);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.1591 0 0);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.2686 0 0);
+    --sidebar-ring: oklch(0.5119 0.2643 263.2278);
+    --chart-1: oklch(0.5119 0.2643 263.2278);
+    --chart-2: oklch(0.9097 0 0);
+    --chart-3: oklch(0.65 0 0);
+    --chart-4: oklch(0.3677 0 0);
+    --chart-5: oklch(1 0 0);
+
+    --brand-body: oklch(0.8452 0 0);
+    --brand-body-strong: oklch(1 0 0);
+    --brand-hairline: oklch(0.2686 0 0);
+    --brand-hairline-strong: oklch(0.3485 0 0);
+    --brand-surface-elevated: oklch(0.2393 0 0);
+    --brand-muted-soft: oklch(0.72 0 0);
+  }
+}

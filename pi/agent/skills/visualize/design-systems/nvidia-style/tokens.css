@@ -1,0 +1,301 @@
+/**
+ * design-systems/nvidia-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * NVIDIA-style is LIGHT-CANONICAL with a documented two-mode surface
+ * architecture: deep-black hero/footer chapters frame paper-white body
+ * sections, connected by a single saturated NVIDIA Green accent that
+ * carries every CTA, active state, and the 12×12px decorative corner
+ * square on cards. DESIGN.md §1 documents `--brand-surface-dark` (#000)
+ * for the hero/footer "frame" surface and `--brand-surface-elevated`
+ * (#1a1a1a) for nested dark panels inside the footer. These are the
+ * brand's documented dark surfaces — not a full product dark mode.
+ *
+ * Dark-mode strategy: synthesise a plausible dark by promoting the
+ * documented black-canvas family to canvas + card surfaces, then lift
+ * the body/mute/stone/ash neutrals so paragraph copy and metadata clear
+ * WCAG AA against the now-dark surfaces. The brand's green accent stays
+ * fixed (already L=0.71, lands ≥4.5:1 against both white and black
+ * canvas). The polarity-locked `--brand-on-dark*` family and the
+ * `--brand-surface-dark*` family are NOT overridden in dark mode — they
+ * inherit their `:root` values via the CSS cascade because they already
+ * encode always-light text on always-dark surfaces, and the consumer
+ * templates use them as the "polarity-fixed signature voltage" surface
+ * (footer closure, featured pricing tier inversion). Lifting them would
+ * dissolve the brand's documented "frame chapter" voltage.
+ *
+ * The synthesised OKLCH lightness-inversion default (replaced below)
+ * dropped `--background` to pure black and `--secondary` / `--border`
+ * to near-black, collapsing the body/secondary tonal step and leaving
+ * the hairline border indistinguishable from canvas. Hand-tuned values
+ * preserve the small tonal ladder the brand uses between canvas, soft
+ * surface, and hairline rule.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0 0 0);
+  --primary: oklch(0.7130 0.1942 130.8021);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.9761 0 0);
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.9761 0 0);
+  --muted-foreground: oklch(0 0 0);
+  --accent: oklch(0.9477 0.0783 94.9480);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.5898 0.2266 27.8718);
+  --destructive-foreground: oklch(0 0 0);
+  --border: oklch(0.8452 0 0);
+  --input: oklch(0.8452 0 0);
+  --ring: oklch(0.7130 0.1942 130.8021);
+  --sidebar: oklch(0.9761 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0.7130 0.1942 130.8021);
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent: oklch(0.9761 0 0);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0.8452 0 0);
+  --sidebar-ring: oklch(0.7130 0.1942 130.8021);
+  --chart-1: oklch(0.8100 0.1942 130.8021);
+  --chart-2: oklch(0.7100 0.1942 130.8021);
+  --chart-3: oklch(0.6100 0.1942 130.8021);
+  --chart-4: oklch(0.5100 0.1942 130.8021);
+  --chart-5: oklch(0.4200 0.1942 130.8021);
+
+  /* radius scale */
+  --radius-sm: 2px;
+  --radius-md: calc(0.625rem - 2px);
+  --radius-lg: 0.625rem;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-xs: 1px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: NVIDIA-EMEA;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: NVIDIA-EMEA;
+
+  /* type scale tokens */
+  --text-display: 48px;
+  --text-heading: 36px;
+  --text-title: 20px;
+  --text-base: 16px;
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-primary-dark: oklch(0.5845 0.1584 130.4585);
+  --brand-surface-dark: oklch(0 0 0);
+  --brand-surface-elevated: oklch(0.2178 0 0);
+  --brand-hairline-strong: oklch(0.4819 0 0);
+  --brand-body: oklch(0.2178 0 0);
+  --brand-mute: oklch(0.5624 0 0);
+  --brand-stone: oklch(0.6301 0 0);
+  --brand-ash: oklch(0.7284 0 0);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-dark-mute: oklch(1 0 0 / 0.7000);
+  --brand-link-blue: oklch(0.4201 0.1640 259.1449);
+  --brand-error-deep: oklch(0.3265 0.1223 27.4081);
+  --brand-warning: oklch(0.6463 0.1748 48.4470);
+  --brand-warning-bright: oklch(0.7383 0.1649 65.5828);
+  --brand-accent-purple: oklch(0.5289 0.2237 311.8150);
+  --brand-accent-purple-pale: oklch(0.9141 0.0697 321.5854);
+  --brand-accent-green-pale: oklch(0.8941 0.2101 124.2201);
+}
+
+/*
+ * Dark mode — hand-tuned, NOT the OKLCH lightness-inversion default.
+ *
+ * Strategy: promote the documented `--brand-surface-dark` family to
+ * canvas + card surfaces. The brand's recognizable "frame chapter"
+ * voltage (hero, footer, featured pricing tier inversion) stays
+ * polarity-locked to deep-black through the `--brand-surface-dark*`
+ * family inherited from `:root`. The card stack steps up to a
+ * near-1a1a1a elevated tone so hairline rules still register.
+ *
+ * Why each override exists:
+ *   --background          → flips to deep-black (the documented frame
+ *                           surface, now promoted to canvas).
+ *   --card / --popover    → step up to surface-elevated so cards lift
+ *                           off the canvas with their documented
+ *                           1px hairline rule still visible.
+ *   --foreground          → flips to white (matches the documented
+ *                           --brand-on-dark token).
+ *   --primary             → stays NVIDIA Green at the same OKLCH
+ *                           lightness (L=0.71, chroma 0.194). Lands
+ *                           ≥4.5:1 against both white and black canvas,
+ *                           so the single-accent system holds across
+ *                           polarity. --primary-foreground stays black
+ *                           (white-on-green drops to 2.9:1, fails AA).
+ *   --secondary / --muted → step up to a near-1a1a1a elevated tone so
+ *                           the soft-surface ladder doesn't collapse
+ *                           into pure black.
+ *   --border / --input    → lift to a hairline-strong tone (L≈0.27) so
+ *                           card edges remain perceptible. The brand's
+ *                           documented dark-canvas hairline is
+ *                           `--brand-hairline-strong` (L=0.4819).
+ *   --ring                → matches new --primary; the green focus
+ *                           outline reads on both canvases.
+ *   --sidebar*            → mirror the secondary/border lift.
+ *
+ * Brand-extras lifted for dark canvas:
+ *   --brand-body          → was L=0.2178 (the documented dark-body
+ *                           ink against white canvas). Lifted to a
+ *                           mid-light gray for paragraph copy against
+ *                           the now-dark card surface — clears WCAG
+ *                           AA 4.5:1 against L=0.2178 card.
+ *   --brand-mute / --brand-stone / --brand-ash → lifted in parallel so
+ *                           the metadata / secondary / disabled tier
+ *                           tonal ladder stays readable on dark.
+ *   --brand-link-blue     → was L=0.4201 (too dark to read against
+ *                           dark canvas — drops below 3:1). Lifted to
+ *                           L=0.72 with chroma preserved so inline
+ *                           anchor links remain blue rather than
+ *                           collapsing into the green accent.
+ *
+ * Polarity-locked tokens left at `:root` values (inherited via cascade):
+ *   --brand-surface-dark        → still names the brand's voltage
+ *                                  surface. In dark mode it IS the
+ *                                  canvas, but consumer template CSS
+ *                                  uses it on featured pricing card +
+ *                                  footer + utility-bar to keep those
+ *                                  surfaces locked to deep-black on
+ *                                  both polarities (the brand's
+ *                                  documented "frame chapter" register).
+ *   --brand-surface-elevated    → same — template uses it as the
+ *                                  nested elevated dark surface.
+ *   --brand-on-dark / --brand-on-dark-mute → already always-light by
+ *                                  definition; no override needed.
+ *   --brand-primary-dark        → pressed-state green stays the same
+ *                                  notch deeper than --primary on
+ *                                  both polarities.
+ *   --brand-hairline-strong     → already calibrated for dark surfaces
+ *                                  (L=0.4819); no override needed.
+ *   --brand-warning / --brand-warning-bright /
+ *   --brand-accent-purple / --brand-accent-purple-pale /
+ *   --brand-accent-green-pale → kept at `:root` values; the editorial
+ *                                  accent family is used sparingly
+ *                                  inside long-form content and reads
+ *                                  on both polarities at the documented
+ *                                  sizes.
+ *   --brand-error-deep          → pressed-state ink stays deep red on
+ *                                  both polarities.
+ */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* shadcn-semantic core — hand-tuned, promoting the documented
+   * --brand-surface-dark family to canvas + card surfaces. */
+  --background: oklch(0 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2178 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2178 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.7130 0.1942 130.8021);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.2178 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2178 0 0);
+  --muted-foreground: oklch(0.8200 0 0);
+  --accent: oklch(0.9477 0.0783 94.9480);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.5898 0.2266 27.8718);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.2700 0 0);
+  --input: oklch(0.2700 0 0);
+  --ring: oklch(0.7130 0.1942 130.8021);
+  --sidebar: oklch(0.2178 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.7130 0.1942 130.8021);
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent: oklch(0.2178 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.2700 0 0);
+  --sidebar-ring: oklch(0.7130 0.1942 130.8021);
+  --chart-1: oklch(0.8100 0.1942 130.8021);
+  --chart-2: oklch(0.7100 0.1942 130.8021);
+  --chart-3: oklch(0.6100 0.1942 130.8021);
+  --chart-4: oklch(0.5100 0.1942 130.8021);
+  --chart-5: oklch(0.4200 0.1942 130.8021);
+
+  /* brand-extras lifted for dark canvas — never lift the polarity-locked
+   * --brand-surface-dark* / --brand-on-dark* family (those stay at :root
+   * values). */
+  --brand-body: oklch(0.8800 0 0);
+  --brand-mute: oklch(0.7600 0 0);
+  --brand-stone: oklch(0.7000 0 0);
+  --brand-ash: oklch(0.5500 0 0);
+  --brand-link-blue: oklch(0.7200 0.1640 259.1449);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2178 0 0);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2178 0 0);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(0.7130 0.1942 130.8021);
+    --primary-foreground: oklch(0 0 0);
+    --secondary: oklch(0.2178 0 0);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.2178 0 0);
+    --muted-foreground: oklch(0.8200 0 0);
+    --accent: oklch(0.9477 0.0783 94.9480);
+    --accent-foreground: oklch(0 0 0);
+    --destructive: oklch(0.5898 0.2266 27.8718);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.2700 0 0);
+    --input: oklch(0.2700 0 0);
+    --ring: oklch(0.7130 0.1942 130.8021);
+    --sidebar: oklch(0.2178 0 0);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(0.7130 0.1942 130.8021);
+    --sidebar-primary-foreground: oklch(0 0 0);
+    --sidebar-accent: oklch(0.2178 0 0);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.2700 0 0);
+    --sidebar-ring: oklch(0.7130 0.1942 130.8021);
+    --chart-1: oklch(0.8100 0.1942 130.8021);
+    --chart-2: oklch(0.7100 0.1942 130.8021);
+    --chart-3: oklch(0.6100 0.1942 130.8021);
+    --chart-4: oklch(0.5100 0.1942 130.8021);
+    --chart-5: oklch(0.4200 0.1942 130.8021);
+
+    --brand-body: oklch(0.8800 0 0);
+    --brand-mute: oklch(0.7600 0 0);
+    --brand-stone: oklch(0.7000 0 0);
+    --brand-ash: oklch(0.5500 0 0);
+    --brand-link-blue: oklch(0.7200 0.1640 259.1449);
+  }
+}

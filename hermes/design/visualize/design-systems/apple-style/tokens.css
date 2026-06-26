@@ -1,0 +1,279 @@
+/**
+ * design-systems/apple-style/tokens.css
+ *
+ * Live-verified against apple.com on 2026-05-26 (homepage, /iphone, /mac,
+ * /apple-watch, /apple-vision-pro, /apple-music, /newsroom, /shop,
+ * support.apple.com, developer.apple.com, developer.apple.com/fonts).
+ * Companion to ./DESIGN.md.
+ *
+ * canonical-canvas: both. Apple ships per-tile polarity on the homepage
+ * tile sequence (light + dark tiles on the same page); the global nav
+ * natively respects prefers-color-scheme via #fafafc (light) / #161617
+ * (dark); developer.apple.com offers an explicit Light/Dark/Auto toggle.
+ * Treating either polarity alone misrepresents the live brand.
+ *
+ * Dual-blue identity: --primary is system-blue #0071e3 (CTA fill);
+ * --brand-link is link-blue #0066cc (inline-link text colour). Apple
+ * uses these distinctly — never substitute one for the other.
+ *
+ * Intentional drift: --brand-ink-muted-48 holds an AA-tuned utility
+ * neutral. Documented per DESIGN.md §2 §Drift.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2316 0.0038 286.0988);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2316 0.0038 286.0988);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2316 0.0038 286.0988);
+  /* --primary: system-blue #0071e3, Apple's CTA-fill blue (the
+   * .button-elevated background on Buy / Shop CTAs). Per DESIGN.md §2,
+   * Apple ships TWO blues — system-blue #0071e3 for filled buttons and
+   * link-blue #0066cc for body-text hyperlinks. shadcn-semantic --primary
+   * carries the CTA-fill role; the inline-link colour lives in
+   * --brand-link below. Never substitute one for the other. */
+  --primary: oklch(0.5629 0.1933 256.1557);
+  --primary-foreground: oklch(1 0 0);
+  /* --secondary / --muted: parchment #f5f5f7. Per DESIGN.md §2 §Drift
+   * item 2, Apple's marketing band-alternation surface is parchment, not
+   * pure white. --background stays white (Apple does ship pure white on
+   * /iphone, /support, /newsroom — see DESIGN.md §2); parchment is the
+   * secondary/muted band fill between tiles. */
+  --secondary: oklch(0.9707 0.0027 286.3501);
+  --secondary-foreground: oklch(0.2316 0.0038 286.0988);
+  --muted: oklch(0.9707 0.0027 286.3501);
+  --muted-foreground: oklch(0.5399 0.0077 286.1391);
+  /* --accent: localnav pressed-state fill #EDEDF2 — Apple's only
+   * documented "accent" surface beyond parchment, per DESIGN.md §2 and
+   * ac-localnav.built.css (background-active: #EDEDF2). */
+  --accent: oklch(0.9475 0.0067 286.2716);
+  --accent-foreground: oklch(0.2316 0.0038 286.0988);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9067 0 0);
+  --input: oklch(0.9067 0 0);
+  /* --ring tracks --primary (system-blue #0071e3) — Apple's focus-ring
+   * colour, per globalheader.css `outline:2px solid var(--sk-focus-color,
+   * #0071e3)`. Primary-family asymmetry rule: ring/primary/sidebar-primary
+   * /sidebar-ring move together. */
+  --ring: oklch(0.5629 0.1933 256.1557);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.2316 0.0038 286.0988);
+  --sidebar-primary: oklch(0.5629 0.1933 256.1557);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9475 0.0067 286.2716);
+  --sidebar-accent-foreground: oklch(0.2316 0.0038 286.0988);
+  --sidebar-border: oklch(0.9067 0 0);
+  --sidebar-ring: oklch(0.5629 0.1933 256.1557);
+  --chart-1: oklch(0.8147 0.0776 252.8793);
+  --chart-2: oklch(0.6690 0.1808 251.8396);
+  --chart-3: oklch(0.5629 0.1933 256.1557);
+  --chart-4: oklch(0.5220 0.1771 255.8297);
+  --chart-5: oklch(0.4523 0.2032 263.3978);
+
+  /* radius scale */
+  --radius-sm: 8px;
+  --radius-md: 11px;
+  --radius-lg: 18px;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-xs: 5px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: "SF Pro Text", system-ui, -apple-system, "Inter", sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: "SF Pro Display", system-ui, -apple-system, "Inter", sans-serif;
+
+  /* type scale tokens */
+  --text-display: 56px;
+  --text-heading: 40px;
+  --text-title: 21px;
+  --text-base: 17px;
+  --leading-tight: 1.07;
+  --leading-normal: 1.47;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* Brand-extras — Apple's own documented token surface. */
+
+  /* --brand-link: link-blue #0066cc — Apple's body-text hyperlink colour
+   * (--sk-body-link-color in main.built.css). The OTHER blue, distinct
+   * from --primary's system-blue. Use on inline links and the "Learn
+   * more ›" link-with-chevron pattern. Per DESIGN.md §2 §Drift item 1. */
+  --brand-link: oklch(0.5220 0.1771 255.8297);
+
+  /* --brand-primary-hover / --brand-primary-active: system-blue's hover
+   * and pressed states from ac-localnav.built.css's `background-hover:
+   * #0076DF` and `background-active: #006EDB`, used on the in-page
+   * sticky Buy CTA. Per DESIGN.md §2 §Drift item 6. */
+  --brand-primary-hover: oklch(0.5708 0.1825 254.1352);
+  --brand-primary-active: oklch(0.5505 0.1868 255.8249);
+
+  /* --brand-primary-focus: kept as alias of --primary (system-blue
+   * #0071e3 = Apple's --sk-focus-color outline value). Pre-refresh
+   * consumers may still reference this name. */
+  --brand-primary-focus: oklch(0.5629 0.1933 256.1557);
+
+  /* --brand-primary-on-dark: Sky Link Blue #2997ff — Apple's documented
+   * dark-canvas link colour from .ac-gf-block-dark { --sk-blocklink-color:
+   * rgb(41, 151, 255) } in ac-globalfooter.built.css. */
+  --brand-primary-on-dark: oklch(0.6690 0.1808 251.8396);
+
+  --brand-body: oklch(0.2316 0.0038 286.0988);
+  --brand-body-on-dark: oklch(1 0 0);
+  --brand-body-muted: oklch(0.8452 0 0);
+  --brand-ink-muted-80: oklch(0.3211 0 0);
+  /* --brand-ink-muted-48: utility neutral (chroma ≈ 0) holding an
+   * AA-tuned value for swatch-role + type-label use on Apple's white +
+   * parchment canvas. Per AUTHORING.md "Brand identity vs. utility
+   * neutrals" — chroma ≈ 0 lifts are permitted for utility neutrals.
+   * Documented as intentional drift per DESIGN.md §2 §Drift item 5. */
+  --brand-ink-muted-48: oklch(0.5000 0 0);
+  --brand-divider-soft: oklch(0.9551 0 0);
+
+  /* --brand-canvas-parchment / --brand-canvas-parchment-deep: Apple's
+   * two parchment surfaces. #f5f5f7 is the body bg between tiles and
+   * the lighter band-alternation fill; #EDEDF2 is the deeper parchment
+   * used as the localnav pressed-state fill and as the more visible
+   * hairline. --background stays pure white at the page-body root
+   * (Apple ships pure white on /iphone, /support, /newsroom). Per
+   * DESIGN.md §2 §Drift item 3. */
+  --brand-canvas-parchment: oklch(0.9707 0.0027 286.3501);
+  --brand-canvas-parchment-deep: oklch(0.9475 0.0067 286.2716);
+
+  --brand-surface-pearl: oklch(0.9857 0.0026 286.3511);
+  --brand-surface-tile-1: oklch(0.2735 0.0036 286.1561);
+  --brand-surface-tile-2: oklch(0.2858 0.0036 286.1692);
+  --brand-surface-tile-3: oklch(0.2653 0.0037 286.1464);
+  --brand-surface-black: oklch(0 0 0);
+  --brand-surface-chip-translucent: oklch(0.8652 0.0068 286.2561);
+  --brand-on-dark: oklch(1 0 0);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.2735 0.0036 286.1561);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2858 0.0036 286.1692);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2858 0.0036 286.1692);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.6690 0.1808 251.8396);
+  /* --primary-foreground: dark ink on Apple's Sky Link Blue dark
+   * primary (#2997ff). Apple uses #2997ff as a body-link colour on dark
+   * (per .ac-gf-block-dark { --sk-blocklink-color }) — never as a CTA
+   * fill — so there is no live-observed text-on-#2997ff colour. Dark
+   * ink mirrors Apple's near-black foreground for legibility on the
+   * lighter blue. */
+  --primary-foreground: oklch(0.1500 0.0050 286);
+  --secondary: oklch(0.2858 0.0036 286.1692);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2858 0.0036 286.1692);
+  --muted-foreground: oklch(0.7200 0.0030 286);
+  --accent: oklch(0.3200 0.0036 286);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.6200 0.2178 29);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3800 0.0036 286);
+  --input: oklch(0.3800 0.0036 286);
+  --ring: oklch(0.6690 0.1808 251.8396);
+  --sidebar: oklch(0.2653 0.0037 286.1464);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.6690 0.1808 251.8396);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.3200 0.0036 286);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3800 0.0036 286);
+  --sidebar-ring: oklch(0.6690 0.1808 251.8396);
+  --chart-1: oklch(0.8147 0.0776 252.8793);
+  --chart-2: oklch(0.6690 0.1808 251.8396);
+  --chart-3: oklch(0.5629 0.1933 256.1557);
+  --chart-4: oklch(0.5220 0.1771 255.8297);
+  --chart-5: oklch(0.4523 0.2032 263.3978);
+
+  /* Brand extras — dark-context overrides. Apple's dark-canvas link
+   * colour is Sky Link Blue #2997ff (per ac-globalfooter.built.css
+   * `.ac-gf-block-dark { --sk-blocklink-color: rgb(41, 151, 255) }`).
+   * Hover/active for system-blue on dark are not documented by Apple
+   * — fall through to the cascade rather than synthesising values. */
+  --brand-link: oklch(0.6690 0.1808 251.8396);
+  --brand-canvas-parchment: oklch(0.2653 0.0037 286.1464);
+  --brand-canvas-parchment-deep: oklch(0.2858 0.0036 286.1692);
+  --brand-surface-pearl: oklch(0.2858 0.0036 286.1692);
+  --brand-divider-soft: oklch(0.3400 0.0036 286);
+  --brand-ink-muted-80: oklch(0.7800 0.0030 286);
+  --brand-ink-muted-48: oklch(0.6800 0.0030 286);
+  --brand-body: oklch(1 0 0);
+  --brand-body-muted: oklch(0.8000 0.0030 286);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2735 0.0036 286.1561);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2858 0.0036 286.1692);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2858 0.0036 286.1692);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(0.6690 0.1808 251.8396);
+    --primary-foreground: oklch(0.1500 0.0050 286);
+    --secondary: oklch(0.2858 0.0036 286.1692);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.2858 0.0036 286.1692);
+    --muted-foreground: oklch(0.7200 0.0030 286);
+    --accent: oklch(0.3200 0.0036 286);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.6200 0.2178 29);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3800 0.0036 286);
+    --input: oklch(0.3800 0.0036 286);
+    --ring: oklch(0.6690 0.1808 251.8396);
+    --sidebar: oklch(0.2653 0.0037 286.1464);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(0.6690 0.1808 251.8396);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.3200 0.0036 286);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.3800 0.0036 286);
+    --sidebar-ring: oklch(0.6690 0.1808 251.8396);
+    --chart-1: oklch(0.8147 0.0776 252.8793);
+    --chart-2: oklch(0.6690 0.1808 251.8396);
+    --chart-3: oklch(0.5629 0.1933 256.1557);
+    --chart-4: oklch(0.5220 0.1771 255.8297);
+    --chart-5: oklch(0.4523 0.2032 263.3978);
+
+    --brand-link: oklch(0.6690 0.1808 251.8396);
+    --brand-canvas-parchment: oklch(0.2653 0.0037 286.1464);
+    --brand-canvas-parchment-deep: oklch(0.2858 0.0036 286.1692);
+    --brand-surface-pearl: oklch(0.2858 0.0036 286.1692);
+    --brand-divider-soft: oklch(0.3400 0.0036 286);
+    --brand-ink-muted-80: oklch(0.7800 0.0030 286);
+    --brand-ink-muted-48: oklch(0.6800 0.0030 286);
+    --brand-body: oklch(1 0 0);
+    --brand-body-muted: oklch(0.8000 0.0030 286);
+  }
+}

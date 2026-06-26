@@ -1,0 +1,280 @@
+/**
+ * design-systems/clickhouse-style/tokens.css
+ *
+ * Hand-authored from live-verified clickhouse.com surfaces.
+ * Sourced: 2026-05-26 (see DESIGN.md frontmatter for the full verification record).
+ *
+ * Canonical canvas: dark (single-polarity).
+ *   ClickHouse ships no light marketing surface. Both `--force-light-mode`
+ *   and `--force-dark-mode` headless captures of clickhouse.com produced
+ *   byte-identical 1.05 MB renders. The docs sun/moon toggle is present
+ *   but marketing surfaces (`/`, `/cloud`, `/pricing`, `/blog`) do not
+ *   honour `prefers-color-scheme: light`. The brand IS the dark register.
+ *
+ *   `:root` carries the canonical dark values + `color-scheme: dark`.
+ *   `[data-theme="dark"]` mirrors `:root` verbatim for explicit theme-
+ *   toggle support. **No `[data-theme="light"]` block** — providing a
+ *   synthesised light surface for catalog theme-toggle convenience
+ *   produced unusable yellow-on-cream contrast (the brand yellow at
+ *   L=0.97 has no lightness gap against any light canvas). preview.html
+ *   carries the `data-theme="light"` attribute but the lack of a
+ *   matching block means it falls through to `:root`, rendering the
+ *   brand-canonical dark in both previews. The synthesised green
+ *   `--accent` carried over from the prior third-party import was
+ *   retired — ClickHouse uses no green accent anywhere in deployed
+ *   marketing chrome; `--accent` mirrors `--primary` (yellow).
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are ClickHouse's.
+ *   - Brand-extras (--brand-*): ClickHouse's surface vocabulary —
+ *     polarity-locked yellow surfaces, hairlines, body neutrals.
+ *
+ * Inks-on-yellow trio. ClickHouse pairs the yellow primary with three
+ * distinct dark inks depending on size and context — they're not
+ * arbitrary, they're three lightness stops inside the type-on-yellow
+ * contrast envelope. All three carry yellow-axis chroma (or pure
+ * neutral for the CTA label). The trio is preserved as separate tokens
+ * so consumers can pick the right ink per surface:
+ *   --brand-on-yellow         (= #1f2014, oklch L=0.2385 c=0.0217 h=112)
+ *     Body text on the yellow customer-quote cards (`.flip-selection`).
+ *     Yellow-tinted near-black; the warmest of the trio.
+ *   --brand-on-yellow-strong  (= #161600, oklch L=0.1938 c=0.0422 h=110)
+ *     Stat-card headings on `card-stat-yellow`; the strongest tint.
+ *     Highest chroma of the trio — visibly green-tinted up close.
+ *   --primary-foreground      (= #151515, oklch L=0.1957 c=0)
+ *     CTA-button label colour on the yellow `--primary` fill.
+ *     The only ink-on-yellow that's pure neutral (chroma 0).
+ *
+ * Canvas warm tint. The body canvas at #1f1f1c is NOT pure neutral —
+ * chroma 0.0056 on hue 106.8 tints the canvas marginally toward the
+ * brand yellow's hue axis. The drift from a pure-neutral near-black
+ * is small but it's the difference between "boring near-black SaaS"
+ * and the brand's actual warmth.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are ClickHouse's. */
+
+  --background: oklch(0.2381 0.0056 106.8176);  /* #1f1f1c — warm-tinted near-black, chroma on yellow-axis */
+  --foreground: oklch(1 0 0);                    /* #ffffff — white body text on dark canvas */
+  --card: oklch(0.1913 0 0);                     /* #141414 — feature card fill (deployed as rgba(20,20,20,0.5) over canvas) */
+  --card-foreground: oklch(1 0 0);               /* #ffffff */
+  --popover: oklch(0.1913 0 0);                  /* matches --card; no popover sampled live */
+  --popover-foreground: oklch(1 0 0);
+
+  --primary: oklch(0.9686 0.1699 110.9729);      /* #faff69 — electric yellow, the brand's single chromatic accent */
+  --primary-foreground: oklch(0.1957 0 0);       /* #151515 — near-black ink on yellow CTA labels */
+  --secondary: oklch(0.1913 0 0);                /* matches --card; secondary CTAs are ghost-outlined on canvas */
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2768 0 0);                    /* #282828 — code-block fill, search-input fill */
+  --muted-foreground: oklch(0.9037 0 0);         /* #dfdfdf — pricing-label tier, the more legible muted stop */
+  --accent: oklch(0.9686 0.1699 110.9729);       /* mirrors --primary; ClickHouse uses yellow for every accent role */
+  --accent-foreground: oklch(0.1957 0 0);        /* #151515 — same ink as --primary-foreground when filled */
+  --destructive: oklch(0.6368 0.2078 25.3313);   /* synthesised; not deployed in marketing chrome */
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.3753 0 0);                   /* #414141 — card hairline (deployed as rgba(65,65,65,0.8)) */
+  --input: oklch(0.2768 0 0);                    /* #282828 — search-input + region-picker fill, no visible border */
+  --ring: oklch(0.9686 0.1699 110.9729);         /* tracks --primary — yellow focus ring per brand convention */
+
+  --sidebar: oklch(0.1913 0 0);                  /* matches --card */
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.9686 0.1699 110.9729);   /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.1957 0 0);
+  --sidebar-accent: oklch(0.2381 0.0056 106.8176);    /* matches --background */
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3753 0 0);                /* matches --border */
+  --sidebar-ring: oklch(0.9686 0.1699 110.9729);      /* tracks --primary */
+
+  /* Chart palette — yellow gradient ramp on the brand's single chromatic axis */
+  --chart-1: oklch(0.9686 0.1699 110.9729);
+  --chart-2: oklch(0.8500 0.1500 110.9729);
+  --chart-3: oklch(0.7300 0.1300 110.9729);
+  --chart-4: oklch(0.6100 0.1100 110.9729);
+  --chart-5: oklch(0.4900 0.0900 110.9729);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;       /* card / pricing-tier / docs-button radius */
+  --radius-lg: 12px;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;          /* primary CTA `.styles_button__3smpn` — squarer than card */
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Two display families: Inter does the bulk of typesetting at every
+   * size (14px → 96px) and every weight (400 → 900). Basier is reserved
+   * for hero H1 on /cloud, /blog, and select inner-product pages —
+   * recognisable by its slightly more humanist `g` and narrower `a`.
+   * The homepage hero (`The leading database for AI`) stays on Inter
+   * Black 900. JetBrains Mono replaces the live brand's system mono
+   * stack for the catalog so the mono register renders consistently
+   * across viewers. No serif. */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Basier", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* type scale tokens */
+  --text-display: 96px;        /* homepage hero Inter 900, lh 1.0 */
+  --text-heading: 36px;        /* section H2 Inter 600, lh ~1.3 */
+  --text-title: 18px;
+  --text-base: 16px;
+  --text-eyebrow: 14px;         /* yellow uppercase eyebrows */
+  --leading-tight: 1.0;
+  --leading-normal: 1.5;
+  --tracking-normal: 0em;
+
+  /* spacing */
+  --spacing: 0.25rem;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Dark-canonical shadows. Pure black drops are invisible against
+   * the near-black canvas — replaced with a yellow-tinted glow keyed
+   * to the brand hue. Used on `hover:shadow-lg` card lifts and the
+   * feature-card transition. Scaled per shadow-level. */
+  --shadow-2xs: 0 1px 2px 0px hsl(110 100% 70% / 0.04);
+  --shadow-xs:  0 1px 3px 0px hsl(110 100% 70% / 0.05);
+  --shadow-sm:  0 1px 3px 0px hsl(110 100% 70% / 0.08), 0 1px 2px -1px hsl(110 100% 70% / 0.06);
+  --shadow:     0 2px 6px 0px hsl(110 100% 70% / 0.10), 0 1px 3px -1px hsl(110 100% 70% / 0.08);
+  --shadow-md:  0 4px 10px 0px hsl(110 100% 70% / 0.10), 0 2px 4px -1px hsl(110 100% 70% / 0.08);
+  --shadow-lg:  0 8px 18px 0px hsl(110 100% 70% / 0.12), 0 4px 6px -1px hsl(110 100% 70% / 0.10);
+  --shadow-xl:  0 12px 28px 0px hsl(110 100% 70% / 0.14), 0 8px 10px -1px hsl(110 100% 70% / 0.10);
+  --shadow-2xl: 0 24px 48px 0px hsl(110 100% 70% / 0.18);
+
+  /* -- Brand-extras --------------------------------------------- */
+
+  /* Brand-primary lineage — the yellow at related stops. The disabled
+   * stop is a darkened yellow used as the inactive period-toggle on
+   * /pricing; the active stop carries a slight chromatic shift used
+   * on yellow-on-yellow hover states. */
+  --brand-primary-active: oklch(0.9091 0.1703 111.1603);
+  --brand-primary-disabled: oklch(0.3410 0.0429 108.4760);
+
+  /* Polarity-locked yellow surfaces — these stay yellow regardless of
+   * theme. ClickHouse runs three: customer-testimonial callouts
+   * (.flip-selection), stat-card row under "Why ClickHouse?", and the
+   * "Deploy your way" section canvas. The ink trio below pairs with
+   * the yellow at three lightness stops (see header comment). */
+  --brand-surface-yellow-band: oklch(0.9686 0.1699 110.9729);  /* #faff69 — full-chroma yellow */
+  --brand-on-yellow:           oklch(0.2385 0.0217 111.9115);  /* #1f2014 — yellow-tinted body ink */
+  --brand-on-yellow-strong:    oklch(0.1938 0.0422 109.7692);  /* #161600 — strongest tint for headings */
+
+  /* Polarity-locked dark inverse — white wordmarks, white code-block
+   * body. Customer wordmarks render white-only monochrome regardless
+   * of surface; they are never tinted toward the yellow accent. */
+  --brand-on-dark: oklch(1 0 0);                                /* #ffffff */
+
+  /* Hairlines / dividers */
+  --brand-hairline-strong: oklch(0.3753 0 0);                   /* #414141 — section-divider stop */
+
+  /* Surface ladder — used for card vs canvas vs elevated-button
+   * distinction. The homepage "Quick Start / Install Locally" buttons
+   * use the elevated stop one step up from canvas. */
+  --brand-surface-elevated: oklch(0.3171 0 0);                  /* #323232 — elevated dark button */
+
+  /* Body text neutrals — chroma ≈ 0 utility tokens. ClickHouse's
+   * muted vocabulary has two stops: the pricing-label tier (#dfdfdf)
+   * for inline muted labels and FAQ answer text, and the footer-link
+   * tier (#a0a0a0) for footer-level fineprint. The brand accepts the
+   * sub-AA reading on the footer-tier stop (4.0–4.2:1 on canvas) as
+   * deployed; the catalog mirrors that choice for fidelity. */
+  --brand-body:        oklch(1 0 0);                            /* #ffffff — body text */
+  --brand-body-strong: oklch(1 0 0);                            /* #ffffff */
+  --brand-muted-label: oklch(0.9037 0 0);                       /* #dfdfdf — pricing-label / FAQ-answer tier */
+  --brand-muted-soft:  oklch(0.7058 0 0);                       /* #a0a0a0 — footer-link tier (live brand stop) */
+
+  /* Documented secondary chromatic surfaces. ClickHouse's deployed
+   * marketing chrome runs monochrome plus yellow; the values here are
+   * VS Code's Dark+ palette piped through prism-react-renderer for the
+   * docs code blocks, not brand colours. Kept available so consumers
+   * can render code-block previews without inventing new tokens.
+   *   --brand-accent-blue: SQL keyword stop  (= #569cd6)
+   *   --brand-accent-rose: not deployed; retained from prior import as
+   *                        a destructive-illustration stop only.
+   * Per DESIGN.md §2: "Don't model the prism palette as a brand colour." */
+  --brand-accent-blue: oklch(0.6713 0.1118 245.5396);            /* #569cd6 — prism SQL keyword */
+  --brand-accent-rose: oklch(0.6368 0.2078 25.3313);             /* synthesised, not deployed */
+
+  /* Semantic helpers — kept available for the preview-template's
+   * stat-band consumers. Not exposed in brand chrome; ClickHouse
+   * communicates success/warning through chrome-state changes
+   * (filled checkmarks, outlined badges), not through colour. */
+  --brand-success: oklch(0.7227 0.1920 149.5793);
+  --brand-warning: oklch(0.7686 0.1647 70.0804);
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Mirrors :root verbatim — ClickHouse is dark-canonical. This block
+ * exists so explicit `data-theme="dark"` attribute switches still
+ * resolve to the brand's true identity (Linear's pattern). The
+ * synthesised L→1−L inversion that the catalogue's import-time
+ * default would otherwise apply is not used because there is no
+ * brand-supported light variant to render.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.2381 0.0056 106.8176);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.1913 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.1913 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.9686 0.1699 110.9729);
+  --primary-foreground: oklch(0.1957 0 0);
+  --secondary: oklch(0.1913 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2768 0 0);
+  --muted-foreground: oklch(0.9037 0 0);
+  --accent: oklch(0.9686 0.1699 110.9729);
+  --accent-foreground: oklch(0.1957 0 0);
+  --destructive: oklch(0.6368 0.2078 25.3313);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3753 0 0);
+  --input: oklch(0.2768 0 0);
+  --ring: oklch(0.9686 0.1699 110.9729);
+  --sidebar: oklch(0.1913 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.9686 0.1699 110.9729);
+  --sidebar-primary-foreground: oklch(0.1957 0 0);
+  --sidebar-accent: oklch(0.2381 0.0056 106.8176);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3753 0 0);
+  --sidebar-ring: oklch(0.9686 0.1699 110.9729);
+  --chart-1: oklch(0.9686 0.1699 110.9729);
+  --chart-2: oklch(0.8500 0.1500 110.9729);
+  --chart-3: oklch(0.7300 0.1300 110.9729);
+  --chart-4: oklch(0.6100 0.1100 110.9729);
+  --chart-5: oklch(0.4900 0.0900 110.9729);
+
+  /* Polarity-locked yellow surfaces and the ink trio are unchanged
+   * — they stay yellow regardless of theme by definition. */
+}
+
+/* No synthesised light theme. The catalog builds two previews per
+ * brand — preview.html with `data-theme="light"` and preview-dark.html
+ * with `data-theme="dark"`. For single-polarity-dark brands like
+ * ClickHouse, providing a synthesised `[data-theme="light"]` block
+ * produced unusable yellow-on-cream contrast (the brand yellow at
+ * L=0.97 is incompatible as text on any light canvas — no lightness
+ * gap). The brand-faithful resolution is no light override: preview.html
+ * falls through to `:root` (which carries `color-scheme: dark`), so
+ * both previews render the dark canonical surface. The catalog still
+ * generates both files, but they show the same brand identity twice. */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+    /* :root already encodes the canonical dark surface — no token
+     * overrides needed here. ClickHouse is dark-canonical, so the
+     * un-themed default resolves to the dark register. */
+  }
+}

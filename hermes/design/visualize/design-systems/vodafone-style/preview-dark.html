@@ -1,0 +1,2376 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vodafone-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23e60000'/%3E%3Cpath d='M9 11 C 9 9, 10.5 8, 12.5 8 L 14 8 L 14 11 L 12.8 11 C 12.2 11 11.8 11.4 11.8 12 L 11.8 13 L 14 13 L 13.4 16 L 11.8 16 L 11.8 22 L 9 22 Z M 17.5 11 C 17.5 9, 19 8, 21 8 L 22.5 8 L 22.5 11 L 21.3 11 C 20.7 11 20.3 11.4 20.3 12 L 20.3 13 L 22.5 13 L 21.9 16 L 20.3 16 L 20.3 22 L 17.5 22 Z' fill='%23fff'/%3E%3C/svg%3E">
+<meta property="og:title" content="vodafone-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Single red accent + massive uppercase display + pill CTAs + two-band dark/light rhythm.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/vodafone-style/tokens.css) === */
+/**
+ * design-systems/vodafone-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Vodafone's marketing canvas is light-canonical (white content bands)
+ * with a near-black hero/footer band as the secondary surface. The
+ * brand has no fully-published dark-mode marketing variant; the dark
+ * variant here is synthesised — near-pure-black canvas, light type,
+ * Vodafone Red preserved exactly, dark hero stays polarity-locked
+ * black so it remains the same "voltage band" in both themes.
+ *
+ * --primary intentionally diverges from the upstream DESIGN.md value
+ * (#e60000). vodafone.co.uk ships the deeper rgb(189,0,0) ≈ #bd0000 ≈
+ * oklch(0.49 0.20 29.2339) as the actual primary CTA in 2026; this
+ * file pins --primary to that live-brand value rather than the
+ * historical hex. Vodafone deploys this red exclusively on light
+ * canvases (white CTAs, red orb, full-bleed campaign band). Red
+ * never appears as text on dark in either vodafone.com or
+ * vodafone.co.uk's current chrome — there is no lifted/brightened
+ * variant token to synthesise here. Dark-surface eyebrows / chrome
+ * route to --brand-on-dark instead.
+ *
+ * Polarity-locked tokens (never lift in dark):
+ *   --brand-ink-locked-dark  always-black; the dark hero band + footer
+ *                            voltage. Replaces the naïve
+ *                            `background: var(--foreground)` pattern,
+ *                            which flips white in dark mode and breaks
+ *                            white-on-white contrast against
+ *                            `--brand-on-dark`.
+ *   --brand-on-dark          always-white; used on top of the locked
+ *                            dark band. Polarity-fixed by definition;
+ *                            no dark override needed.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2750 0.0070 248.0842);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2750 0.0070 248.0842);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2750 0.0070 248.0842);
+  --primary: oklch(0.4900 0.2000 29.2339);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(1 0 0);
+  --secondary-foreground: oklch(0.2750 0.0070 248.0842);
+  --muted: oklch(0.9612 0 0);
+  --muted-foreground: oklch(0.5931 0 0);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0.2750 0.0070 248.0842);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.8975 0 0);
+  --input: oklch(0.8975 0 0);
+  --ring: oklch(0.4900 0.2000 29.2339);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.2750 0.0070 248.0842);
+  --sidebar-primary: oklch(0.4900 0.2000 29.2339);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(1 0 0);
+  --sidebar-accent-foreground: oklch(0.2750 0.0070 248.0842);
+  --sidebar-border: oklch(0.8975 0 0);
+  --sidebar-ring: oklch(0.4900 0.2000 29.2339);
+  --chart-1: oklch(0.8100 0.2000 29.2339);
+  --chart-2: oklch(0.7100 0.2000 29.2339);
+  --chart-3: oklch(0.6100 0.2000 29.2339);
+  --chart-4: oklch(0.5100 0.2000 29.2339);
+  --chart-5: oklch(0.4200 0.2000 29.2339);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: calc(0.625rem - 2px);
+  --radius-lg: 0.625rem;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-xs: 1px;
+  --brand-radius-card: 6px;
+  --brand-radius-pill-md: 32px;
+  --brand-radius-pill-lg: 60px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: Vodafone, Vodafone Rg, Helvetica Neue, Arial, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: Vodafone, Vodafone Rg, Helvetica Neue, Arial, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 144px;
+  --text-heading: 126px;
+  --text-title: 32px;
+  --text-base: 18px;
+  --leading-tight: 0.79;
+  --leading-normal: 1.56;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras. --brand-body is a near-zero-chroma
+   * gray utility neutral (chroma 0), retuned from the upstream value
+   * to a value that reads on white canvas; per AUTHORING.md, utility
+   * neutrals at chroma ≈ 0 can be tuned without modifying brand
+   * identity. */
+  --brand-body: oklch(0.4700 0 0);
+  --brand-mute: oklch(0.7000 0 0);
+  --brand-canvas-soft: oklch(0.9612 0 0);
+  --brand-on-dark: oklch(1 0 0);
+
+  /* polarity-locked: always-black band the brand uses as nav / hero /
+   * footer voltage. Never flips with theme — the "dark band" stays the
+   * same band in light AND dark. */
+  --brand-ink-locked-dark: oklch(0.2750 0.0070 248.0842);
+  --brand-canvas-locked-light: oklch(1 0 0);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Hand-edited. The synthesised inversion left brand-extras
+   * (--brand-body, --brand-canvas-soft) at light-mode values that
+   * render invisibly on the dark canvas. Polarity-locked tokens
+   * (--brand-ink-locked-dark, --brand-on-dark) stay AS-IS. */
+
+  --background: oklch(0.1600 0 0);
+  --foreground: oklch(0.9450 0.0070 248.0842);
+  --card: oklch(0.2050 0 0);
+  --card-foreground: oklch(0.9450 0.0070 248.0842);
+  --popover: oklch(0.2050 0 0);
+  --popover-foreground: oklch(0.9450 0.0070 248.0842);
+  --primary: oklch(0.4900 0.2000 29.2339);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.2050 0 0);
+  --secondary-foreground: oklch(0.9450 0.0070 248.0842);
+  --muted: oklch(0.2050 0 0);
+  --muted-foreground: oklch(0.7100 0 0);
+  --accent: oklch(0.2050 0 0);
+  --accent-foreground: oklch(0.9450 0.0070 248.0842);
+  --destructive: oklch(0.4900 0.2000 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3000 0 0);
+  --input: oklch(0.3000 0 0);
+  --ring: oklch(0.4900 0.2000 29.2339);
+  --sidebar: oklch(0.2050 0 0);
+  --sidebar-foreground: oklch(0.9450 0.0070 248.0842);
+  --sidebar-primary: oklch(0.4900 0.2000 29.2339);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2050 0 0);
+  --sidebar-accent-foreground: oklch(0.9450 0.0070 248.0842);
+  --sidebar-border: oklch(0.3000 0 0);
+  --sidebar-ring: oklch(0.4900 0.2000 29.2339);
+  --chart-1: oklch(0.8100 0.2000 29.2339);
+  --chart-2: oklch(0.7100 0.2000 29.2339);
+  --chart-3: oklch(0.6100 0.2000 29.2339);
+  --chart-4: oklch(0.5100 0.2000 29.2339);
+  --chart-5: oklch(0.4200 0.2000 29.2339);
+
+  /* brand-extras dark overrides. --brand-body lifts to a mid-light
+   * gray (utility neutral, chroma 0); --brand-mute lifts to a softer
+   * mid-tone; --brand-canvas-soft flips to a near-black elevated
+   * surface (replacing the light-mode #f2f2f2 chip background).
+   * --brand-on-dark stays polarity-locked white. */
+  --brand-body: oklch(0.7400 0 0);
+  --brand-mute: oklch(0.5400 0 0);
+  --brand-canvas-soft: oklch(0.2400 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1600 0 0);
+    --foreground: oklch(0.9450 0.0070 248.0842);
+    --card: oklch(0.2050 0 0);
+    --card-foreground: oklch(0.9450 0.0070 248.0842);
+    --popover: oklch(0.2050 0 0);
+    --popover-foreground: oklch(0.9450 0.0070 248.0842);
+    --primary: oklch(0.4900 0.2000 29.2339);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.2050 0 0);
+    --secondary-foreground: oklch(0.9450 0.0070 248.0842);
+    --muted: oklch(0.2050 0 0);
+    --muted-foreground: oklch(0.7100 0 0);
+    --accent: oklch(0.2050 0 0);
+    --accent-foreground: oklch(0.9450 0.0070 248.0842);
+    --destructive: oklch(0.4900 0.2000 29.2339);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3000 0 0);
+    --input: oklch(0.3000 0 0);
+    --ring: oklch(0.4900 0.2000 29.2339);
+    --sidebar: oklch(0.2050 0 0);
+    --sidebar-foreground: oklch(0.9450 0.0070 248.0842);
+    --sidebar-primary: oklch(0.4900 0.2000 29.2339);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.2050 0 0);
+    --sidebar-accent-foreground: oklch(0.9450 0.0070 248.0842);
+    --sidebar-border: oklch(0.3000 0 0);
+    --sidebar-ring: oklch(0.4900 0.2000 29.2339);
+    --chart-1: oklch(0.8100 0.2000 29.2339);
+    --chart-2: oklch(0.7100 0.2000 29.2339);
+    --chart-3: oklch(0.6100 0.2000 29.2339);
+    --chart-4: oklch(0.5100 0.2000 29.2339);
+    --chart-5: oklch(0.4200 0.2000 29.2339);
+
+    --brand-body: oklch(0.7400 0 0);
+    --brand-mute: oklch(0.5400 0 0);
+    --brand-canvas-soft: oklch(0.2400 0 0);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Vodafone-style preview shell — telecom super-brand register.
+   Two-band rhythm: polarity-locked near-black hero/footer + light
+   content canvas. Single Vodafone Red accent everywhere — primary
+   CTA pill, speechmark orb, status-up dots. Massive uppercase
+   weight-800 display headlines paired with lighter weight-300
+   sub-displays. Pill geometry (60px) on every CTA. Content reads
+   as Halcyon's team using telecom-shape tooling — coverage tile
+   grid, region status, signal traces — not actual phone-network
+   UI. Inter is the open-source substitute for the proprietary
+   Vodafone display sans. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', var(--font-sans), system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* -- Polarity-locked dark band shared by topnav, hero, footer.
+ *    Never flips with theme — always near-black, white text. -- */
+.locked-dark {
+  background: var(--brand-ink-locked-dark);
+  color: var(--brand-on-dark);
+}
+
+/* -- Topnav (locked dark) -- */
+.topnav {
+  position: relative;
+  z-index: 3;
+}
+.topnav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.topnav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--brand-on-dark);
+}
+.topnav-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--primary);
+  border-radius: var(--radius-sm);
+  color: var(--brand-on-dark);
+  flex-shrink: 0;
+}
+.topnav-links {
+  display: flex;
+  gap: 2rem;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.topnav-links a {
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  opacity: 0.85;
+}
+.topnav-links a:hover { opacity: 1; text-decoration: underline; }
+.topnav-cta { display: inline-flex; gap: 0.75rem; align-items: center; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Hero band (locked dark, full bleed). The brand signature
+ *    moment: massive uppercase weight-800 display on near-black
+ *    canvas with a single Vodafone Red speechmark orb. -- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 5rem 2rem 6rem;
+  isolation: isolate;
+}
+.hero::before {
+  /* subtle radial vignette so the hero reads as cinematic photography
+   * rather than flat color — DESIGN.md §1 calls out editorial
+   * portraits/cabling as the brand's only decorative system */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(80% 60% at 100% 30%, color-mix(in srgb, var(--primary) 22%, transparent) 0%, transparent 60%),
+    radial-gradient(60% 50% at 10% 100%, color-mix(in srgb, var(--brand-on-dark) 6%, transparent) 0%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 3rem;
+  align-items: end;
+}
+@media (max-width: 960px) { .hero-inner { grid-template-columns: 1fr; } }
+.hero-eyebrow {
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  /* On the locked-dark hero band. Vodafone's live chrome never uses
+   * red as text on dark — eyebrow voice is carried by weight 800 +
+   * uppercase tracking, not by colour. */
+  color: var(--brand-on-dark);
+  margin: 0 0 1.5rem;
+}
+.hero-headline {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: clamp(3rem, 10vw, 7.5rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  margin: 0 0 1.5rem;
+  max-width: 14ch;
+}
+.hero-sub {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--brand-on-dark);
+  opacity: 0.85;
+  margin: 0 0 2rem;
+  max-width: 30ch;
+}
+.hero-ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+/* -- Speechmark orb — the brand's centre of gravity. -- */
+.orb {
+  width: 8rem;
+  height: 8rem;
+  background: var(--primary);
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-on-dark);
+  flex-shrink: 0;
+}
+.orb svg { width: 60%; height: 60%; display: block; }
+
+/* -- Pill button (60px radius — brand signature CTA geometry) -- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--brand-radius-pill-lg);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease;
+}
+.pill:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.pill[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.pill[data-variant="outline-red"] {
+  background: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+/* Red outline pill is a light-canvas surface (the live brand never
+ * ships red outlines on dark). On dark, the pill borrows the
+ * ink-outline variant via --foreground so the secondary CTA stays
+ * legible without a synthesised brand-red modifier. */
+[data-theme="dark"] .pill[data-variant="outline-red"] {
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .pill[data-variant="outline-red"] {
+    color: var(--foreground);
+    border-color: var(--foreground);
+  }
+}
+.pill[data-variant="outline-light"] {
+  background: transparent;
+  color: var(--brand-on-dark);
+  border-color: var(--brand-on-dark);
+}
+.pill[data-variant="outline-dark"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+.pill[data-size="sm"] {
+  min-height: 36px;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pill { transition: none; }
+}
+
+/* -- Section frame -- */
+.section { padding: 5rem 2rem; }
+.section-canvas-soft { background: var(--brand-canvas-soft); }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-eyebrow {
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  /* Eyebrow voice is carried by weight 800 + uppercase tracking per
+   * DESIGN.md §3. Colour stays at --foreground (dark on light, light
+   * on dark) — Vodafone never deploys red as text on dark. */
+  color: var(--foreground);
+  margin: 0 0 1.25rem;
+}
+.section-title {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 24ch;
+}
+.section-lede {
+  font-size: 1.125rem;
+  color: var(--brand-body);
+  max-width: 60ch;
+  margin: 0 0 3rem;
+}
+
+/* -- Signature mockup: coverage / status dashboard.
+ *    Telecom-shape tooling Halcyon's engineering team uses
+ *    internally. Not a phone-network UI. -- */
+.coverage-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-card);
+  overflow: hidden;
+}
+.coverage-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.coverage-head-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+.coverage-head-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--primary);
+  border-radius: var(--brand-radius-xs);
+  color: var(--brand-on-dark);
+}
+.coverage-head-mark svg { width: 70%; height: 70%; }
+.coverage-head-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  color: var(--brand-body);
+}
+.coverage-stat-band {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-bottom: 1px solid var(--border);
+}
+@media (max-width: 880px) { .coverage-stat-band { grid-template-columns: repeat(2, 1fr); } }
+.coverage-stat {
+  padding: 1.5rem 2rem;
+  border-right: 1px solid var(--border);
+}
+.coverage-stat:last-child { border-right: none; }
+@media (max-width: 880px) {
+  .coverage-stat:nth-child(2n) { border-right: none; }
+  .coverage-stat { border-bottom: 1px solid var(--border); }
+  .coverage-stat:nth-last-child(-n+2) { border-bottom: none; }
+}
+.coverage-stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--brand-body);
+  margin: 0 0 0.5rem;
+}
+.coverage-stat-value {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--foreground);
+}
+.coverage-stat-trend {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-top: 0.5rem;
+}
+.coverage-stat-trend[data-dir="flat"] { color: var(--brand-body); }
+
+.coverage-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+.coverage-table th,
+.coverage-table td {
+  text-align: left;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.coverage-table tbody tr:last-child td { border-bottom: none; }
+.coverage-table th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--brand-body);
+  background: var(--brand-canvas-soft);
+}
+.coverage-region {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+.coverage-flag {
+  display: inline-block;
+  width: 20px;
+  height: 14px;
+  background: var(--brand-canvas-soft);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.coverage-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.coverage-status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.coverage-status[data-state="up"] { color: var(--foreground); }
+.coverage-status[data-state="watch"] { color: var(--brand-body); }
+.coverage-traffic {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--foreground);
+}
+.coverage-spark {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 24px;
+}
+.coverage-spark span {
+  width: 4px;
+  background: var(--brand-body);
+  border-radius: 1px;
+}
+.coverage-spark span[data-active="true"] { background: var(--primary); }
+
+.coverage-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background: var(--brand-canvas-soft);
+  font-size: 0.875rem;
+  color: var(--brand-body);
+}
+
+/* -- Color swatches -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 1rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-card);
+  padding: 1rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 4rem;
+  border-radius: var(--brand-radius-xs);
+  border: 1px solid var(--border);
+}
+.swatch-role {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--brand-body);
+}
+.swatch-name {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--foreground);
+}
+
+/* -- Surface ladder (the brand's two-band rhythm) -- */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+@media (max-width: 880px) { .surface-ladder { grid-template-columns: 1fr; } }
+.surface-tile {
+  border-radius: var(--brand-radius-card);
+  padding: 2rem;
+  min-height: 12rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--border);
+}
+.surface-tile[data-surface="canvas"] { background: var(--background); color: var(--foreground); }
+.surface-tile[data-surface="canvas-soft"] { background: var(--brand-canvas-soft); color: var(--foreground); }
+.surface-tile[data-surface="ink"] {
+  background: var(--brand-ink-locked-dark);
+  color: var(--brand-on-dark);
+  border-color: var(--brand-ink-locked-dark);
+}
+.surface-tile[data-surface="red"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.surface-tile[data-surface="red"] .surface-tile-label,
+.surface-tile[data-surface="red"] .surface-tile-note {
+  opacity: 1;
+}
+.surface-tile-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.75;
+  margin: 0;
+}
+.surface-tile-name {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.surface-tile-note { font-size: 0.875rem; opacity: 0.85; margin: 0; }
+
+/* -- Typography roles -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--brand-body);
+}
+.type-display-hero {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-display-lg {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+}
+.type-display-sm {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+.type-eyebrow {
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--foreground);
+}
+.type-body { font-size: 1.125rem; font-weight: 400; line-height: 1.55; color: var(--foreground); }
+.type-caption {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--brand-body);
+}
+
+/* -- Component vocabulary -- */
+.components { display: flex; flex-direction: column; gap: 2rem; }
+.pill-row, .badge-row { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-pill-md);
+  background: var(--brand-canvas-soft);
+  color: var(--foreground);
+  font-size: 0.875rem;
+  font-weight: 700;
+  border: 1px solid var(--border);
+}
+.chip[data-tone="red"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.chip[data-tone="outline-red"] {
+  background: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+/* Same surface logic as .pill[data-variant="outline-red"]: red outline
+ * is light-canvas only; on dark, route through --foreground. */
+[data-theme="dark"] .chip[data-tone="outline-red"] {
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .chip[data-tone="outline-red"] {
+    color: var(--foreground);
+    border-color: var(--foreground);
+  }
+}
+
+.input {
+  display: inline-flex;
+  align-items: center;
+  min-width: 16rem;
+  padding: 0.75rem 1rem;
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: 1rem;
+}
+.input::placeholder { color: var(--brand-mute); }
+.input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-color: var(--primary);
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+@media (max-width: 880px) { .story-grid { grid-template-columns: 1fr; } }
+.story-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.story-thumb {
+  aspect-ratio: 16 / 9;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--primary) 14%, var(--brand-canvas-soft)) 0%, var(--brand-canvas-soft) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.story-thumb::after {
+  content: "";
+  position: absolute;
+  inset: auto -10% -20% auto;
+  width: 60%;
+  aspect-ratio: 1;
+  background: var(--primary);
+  border-radius: 50%;
+  opacity: 0.18;
+}
+.story-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.story-tag {
+  align-self: flex-start;
+  display: inline-flex;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-pill-md);
+  background: var(--brand-canvas-soft);
+  color: var(--foreground);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.story-title {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--foreground);
+  margin: 0;
+}
+.story-caption { font-size: 0.9375rem; color: var(--brand-body); margin: 0; }
+
+/* -- Red interlude — the rare full-bleed Vodafone Red campaign band.
+ *    The voltage moment uses --primary directly; white labels sit on
+ *    the brand red exactly as they do on vodafone.co.uk's red CTAs. -- */
+.red-band {
+  background: var(--primary);
+  color: var(--brand-on-dark);
+  padding: 5rem 2rem;
+}
+.red-band-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 5fr 3fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 880px) { .red-band-inner { grid-template-columns: 1fr; } }
+.red-band-headline {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: clamp(2.25rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  margin: 0 0 1.5rem;
+  max-width: 18ch;
+}
+.red-band-lede {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.45;
+  color: var(--brand-on-dark);
+  max-width: 36ch;
+  margin: 0 0 1.5rem;
+}
+.red-band-aside-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 1rem;
+  color: var(--brand-on-dark);
+}
+.red-band-aside-quote {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--brand-on-dark);
+  margin: 0 0 1rem;
+}
+.red-band-aside-attribution {
+  font-size: 0.875rem;
+  color: var(--brand-on-dark);
+  margin: 0;
+}
+
+/* -- Footer (locked dark) -- */
+.footer {
+  padding: 4rem 2rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 1rem; max-width: 32ch; }
+.footer-brand {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--brand-on-dark);
+}
+.footer-tag {
+  font-size: 0.9375rem;
+  color: var(--brand-on-dark);
+  opacity: 0.8;
+  line-height: 1.5;
+}
+.footer-col-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--brand-on-dark);
+  margin: 0 0 1rem;
+}
+.footer-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9375rem; }
+.footer-col-list a {
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  opacity: 0.85;
+}
+.footer-col-list a:hover { opacity: 1; text-decoration: underline; }
+.footer-legal {
+  max-width: 1280px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid color-mix(in srgb, var(--brand-on-dark) 22%, transparent);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+}
+</style>
+
+</head>
+<body>
+
+<header class="locked-dark">
+  <nav class="topnav" aria-label="Primary">
+    <div class="topnav-inner">
+      <span class="topnav-brand">
+        <span class="topnav-mark" aria-hidden="true">
+          <svg viewBox="0 0 36 36" fill="none" width="22" height="22">
+            <path d="M10 12 H 14 L 13 18 H 11 Z M 18 12 H 22 L 21 18 H 19 Z" fill="currentColor"/>
+          </svg>
+        </span>
+        vodafone-style
+      </span>
+      <div class="topnav-links">
+        <a href="#">Coverage</a>
+        <a href="#">Status</a>
+        <a href="#">Billing</a>
+        <a href="#">Engineering</a>
+        <a href="#">Team</a>
+      </div>
+      <div class="topnav-cta">
+        <a href="#" class="pill" data-variant="primary" data-size="sm">Sign in</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero" aria-label="Hero">
+    <div class="hero-inner">
+      <div>
+        <p class="hero-eyebrow">vodafone-style · token surface · 2026</p>
+        <h1 class="hero-headline">Every region, every minute.</h1>
+        <p class="hero-sub">Massive uppercase weight-800 display on near-black canvas. A token-surface preview rendered against the design system.</p>
+        <div class="hero-ctas">
+          <a href="#" class="pill" data-variant="primary">Read the brief</a>
+          <a href="#" class="pill" data-variant="outline-light">Watch the walkthrough</a>
+        </div>
+      </div>
+      <div class="orb" aria-hidden="true">
+        <svg viewBox="0 0 60 60" fill="none">
+          <path d="M14 18 C 14 13, 17 10, 22 10 L 26 10 L 26 18 L 23 18 C 21.6 18 21 18.9 21 20 L 21 22 L 26 22 L 24.4 28 L 21 28 L 21 42 L 14 42 Z" fill="currentColor"/>
+          <path d="M34 18 C 34 13, 37 10, 42 10 L 46 10 L 46 18 L 43 18 C 41.6 18 41 18.9 41 20 L 41 22 L 46 22 L 44.4 28 L 41 28 L 41 42 L 34 42 Z" fill="currentColor"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+</header>
+
+<main>
+  <section class="section section-canvas-soft" aria-label="Coverage dashboard">
+    <div class="section-inner">
+      <p class="section-eyebrow">Signature · multi-region dashboard</p>
+      <h2 class="section-title">A view of the surface, region by region.</h2>
+      <p class="section-lede">Telecom-shape tooling Halcyon's team uses to watch infrastructure across regions. One brand-flavoured mockup; everything else on the page is token demos.</p>
+
+      <div class="coverage-card" aria-label="Coverage status">
+        <div class="coverage-head">
+          <span class="coverage-head-title">
+            <span class="coverage-head-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M5 8 C 5 6, 6 5, 8 5 L 10 5 L 10 8 L 8.8 8 C 8.4 8 8.2 8.3 8.2 8.7 L 8.2 9.5 L 10 9.5 L 9.5 11.5 L 8.2 11.5 L 8.2 16 L 5 16 Z M 13.5 8 C 13.5 6, 14.5 5, 16.5 5 L 18.5 5 L 18.5 8 L 17.3 8 C 16.9 8 16.7 8.3 16.7 8.7 L 16.7 9.5 L 18.5 9.5 L 18 11.5 L 16.7 11.5 L 16.7 16 L 13.5 16 Z" fill="currentColor"/></svg>
+            </span>
+            Regions · Live
+          </span>
+          <span class="coverage-head-meta">
+            <span>Last sample 12s ago</span>
+            <a href="#" class="pill" data-variant="outline-dark" data-size="sm">Open in console</a>
+          </span>
+        </div>
+
+        <div class="coverage-stat-band">
+          <div class="coverage-stat">
+            <p class="coverage-stat-label">Regions online</p>
+            <p class="coverage-stat-value">18 / 18</p>
+            <p class="coverage-stat-trend">All up · 48h</p>
+          </div>
+          <div class="coverage-stat">
+            <p class="coverage-stat-label">Median p99 latency</p>
+            <p class="coverage-stat-value">142 ms</p>
+            <p class="coverage-stat-trend">−8 ms w/w</p>
+          </div>
+          <div class="coverage-stat">
+            <p class="coverage-stat-label">Throughput</p>
+            <p class="coverage-stat-value">12.4 k/s</p>
+            <p class="coverage-stat-trend">+2.1 k w/w</p>
+          </div>
+          <div class="coverage-stat">
+            <p class="coverage-stat-label">Open incidents</p>
+            <p class="coverage-stat-value">0</p>
+            <p class="coverage-stat-trend" data-dir="flat">No change</p>
+          </div>
+        </div>
+
+        <table class="coverage-table" aria-label="Regional rollup">
+          <thead>
+            <tr>
+              <th>Region</th>
+              <th>Status</th>
+              <th>p99</th>
+              <th>Traffic 24h</th>
+              <th>On call</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="coverage-region"><span class="coverage-flag" aria-hidden="true"></span>eu-west-1 · Frankfurt</span></td>
+              <td><span class="coverage-status" data-state="up">Up</span></td>
+              <td class="coverage-traffic">128 ms</td>
+              <td>
+                <span class="coverage-spark" aria-hidden="true">
+                  <span style="height: 30%"></span><span style="height: 55%"></span><span style="height: 42%"></span><span style="height: 70%"></span><span style="height: 64%"></span><span style="height: 48%"></span><span style="height: 80%" data-active="true"></span>
+                </span>
+              </td>
+              <td>Jordan Kim</td>
+            </tr>
+            <tr>
+              <td><span class="coverage-region"><span class="coverage-flag" aria-hidden="true"></span>us-east-1 · Ashburn</span></td>
+              <td><span class="coverage-status" data-state="up">Up</span></td>
+              <td class="coverage-traffic">114 ms</td>
+              <td>
+                <span class="coverage-spark" aria-hidden="true">
+                  <span style="height: 40%"></span><span style="height: 62%"></span><span style="height: 55%"></span><span style="height: 75%"></span><span style="height: 88%" data-active="true"></span><span style="height: 70%"></span><span style="height: 84%"></span>
+                </span>
+              </td>
+              <td>Morgan Lee</td>
+            </tr>
+            <tr>
+              <td><span class="coverage-region"><span class="coverage-flag" aria-hidden="true"></span>ap-southeast-1 · Singapore</span></td>
+              <td><span class="coverage-status" data-state="up">Up</span></td>
+              <td class="coverage-traffic">156 ms</td>
+              <td>
+                <span class="coverage-spark" aria-hidden="true">
+                  <span style="height: 50%"></span><span style="height: 60%"></span><span style="height: 35%"></span><span style="height: 50%"></span><span style="height: 68%"></span><span style="height: 58%" data-active="true"></span><span style="height: 55%"></span>
+                </span>
+              </td>
+              <td>Avery Park</td>
+            </tr>
+            <tr>
+              <td><span class="coverage-region"><span class="coverage-flag" aria-hidden="true"></span>sa-east-1 · São Paulo</span></td>
+              <td><span class="coverage-status" data-state="watch">Watch</span></td>
+              <td class="coverage-traffic">182 ms</td>
+              <td>
+                <span class="coverage-spark" aria-hidden="true">
+                  <span style="height: 60%"></span><span style="height: 45%"></span><span style="height: 70%"></span><span style="height: 80%"></span><span style="height: 92%" data-active="true"></span><span style="height: 76%"></span><span style="height: 70%"></span>
+                </span>
+              </td>
+              <td>Riley Chen</td>
+            </tr>
+            <tr>
+              <td><span class="coverage-region"><span class="coverage-flag" aria-hidden="true"></span>af-south-1 · Cape Town</span></td>
+              <td><span class="coverage-status" data-state="up">Up</span></td>
+              <td class="coverage-traffic">164 ms</td>
+              <td>
+                <span class="coverage-spark" aria-hidden="true">
+                  <span style="height: 35%"></span><span style="height: 45%"></span><span style="height: 50%"></span><span style="height: 42%"></span><span style="height: 55%"></span><span style="height: 60%"></span><span style="height: 50%" data-active="true"></span>
+                </span>
+              </td>
+              <td>Sam Walker</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="coverage-foot">
+          <span>Showing 5 of 18 regions · paged</span>
+          <span>halcyon-status v3.12</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Colour tokens">
+    <div class="section-inner">
+      <p class="section-eyebrow">Tokens · colour</p>
+      <h2 class="section-title">A single red, ink, canvas, mute.</h2>
+      <p class="section-lede">Vodafone Red is the only chromatic accent — every primary CTA, every speechmark, every up-state dot. Surface contrast (light canvas / locked-dark band) carries the rhythm; soft greys handle secondary text.</p>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--primary); border-color: var(--primary);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--primary</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-ink-locked-dark); border-color: var(--brand-ink-locked-dark);"></div><div class="swatch-role">Ink locked</div><div class="swatch-name">--brand-ink-locked-dark</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--background); border-color: var(--border);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-canvas-soft);"></div><div class="swatch-role">Canvas soft</div><div class="swatch-name">--brand-canvas-soft</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-body);"></div><div class="swatch-role">Body</div><div class="swatch-name">--brand-body</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-mute);"></div><div class="swatch-role">Mute</div><div class="swatch-name">--brand-mute</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--border);"></div><div class="swatch-role">Border</div><div class="swatch-name">--border</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-canvas-soft" aria-label="Surface ladder">
+    <div class="section-inner">
+      <p class="section-eyebrow">Tokens · surface</p>
+      <h2 class="section-title">Two bands, one accent.</h2>
+      <p class="section-lede">No mid-band greys; the brand uses polarity contrast for elevation. Locked-dark is polarity-locked — same near-black in both light and dark themes.</p>
+      <div class="surface-ladder">
+        <div class="surface-tile" data-surface="canvas">
+          <p class="surface-tile-label">Light surface</p>
+          <p class="surface-tile-name">Canvas</p>
+          <p class="surface-tile-note">--background · default content band</p>
+        </div>
+        <div class="surface-tile" data-surface="canvas-soft">
+          <p class="surface-tile-label">Light surface</p>
+          <p class="surface-tile-name">Canvas soft</p>
+          <p class="surface-tile-note">--brand-canvas-soft · chip background</p>
+        </div>
+        <div class="surface-tile" data-surface="ink">
+          <p class="surface-tile-label">Polarity locked</p>
+          <p class="surface-tile-name">Ink band</p>
+          <p class="surface-tile-note">--brand-ink-locked-dark · hero, footer, nav</p>
+        </div>
+        <div class="surface-tile" data-surface="red">
+          <p class="surface-tile-label">Voltage</p>
+          <p class="surface-tile-name">Red band</p>
+          <p class="surface-tile-note">--primary · rare full-bleed campaign</p>
+        </div>
+        <div class="surface-tile" data-surface="canvas">
+          <p class="surface-tile-label">Light surface</p>
+          <p class="surface-tile-name">Card</p>
+          <p class="surface-tile-note">--card · 6 px radius, hairline border</p>
+        </div>
+        <div class="surface-tile" data-surface="canvas-soft">
+          <p class="surface-tile-label">Light surface</p>
+          <p class="surface-tile-name">Muted</p>
+          <p class="surface-tile-note">--muted · table header, footer band</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography roles">
+    <div class="section-inner">
+      <p class="section-eyebrow">Tokens · type</p>
+      <h2 class="section-title">A shout, then a calm sentence.</h2>
+      <p class="section-lede">Single sans family. Weight 800 in uppercase carries hero scale. Weight 300 handles the lighter sub-display moments. Body and caption sit at 400 / 600.</p>
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display hero · 800</span><span class="type-display-hero">Every region.</span></div>
+        <div class="type-row"><span class="type-label">Display lg · 300</span><span class="type-display-lg">An editorial second voice, calmer.</span></div>
+        <div class="type-row"><span class="type-label">Display sm · 700</span><span class="type-display-sm">Story-card title</span></div>
+        <div class="type-row"><span class="type-label">Eyebrow · 800</span><span class="type-eyebrow">Caps · tracking · 0.04em</span></div>
+        <div class="type-row"><span class="type-label">Body · 400</span><span class="type-body">A standardised preview rendered against every brand-style design system. The body role is Inter at weight 400 carrying 18 px / 1.55. Tight, neutral, no stylistic ornament.</span></div>
+        <div class="type-row"><span class="type-label">Caption · 600</span><span class="type-caption">Caption · uppercase · 12 px</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-canvas-soft" aria-label="Component vocabulary">
+    <div class="section-inner">
+      <p class="section-eyebrow">Tokens · components</p>
+      <h2 class="section-title">Pills, chips, hairline cards.</h2>
+      <p class="section-lede">Pill geometry on every interactive shape (60 px CTA, 32 px chip). Cards stay gentler at 6 px. The brand never uses square corners on CTAs.</p>
+      <div class="components">
+        <div>
+          <p class="type-caption" style="margin: 0 0 0.75rem;">Buttons · pills</p>
+          <div class="pill-row" aria-label="Pill variants">
+            <button class="pill" data-variant="primary" type="button">Primary</button>
+            <button class="pill" data-variant="outline-red" type="button">Outline red</button>
+            <button class="pill" data-variant="outline-dark" type="button">Outline ink</button>
+            <button class="pill" data-variant="primary" data-size="sm" type="button">Small</button>
+            <button class="pill" data-variant="outline-red" data-size="sm" type="button">Small outline</button>
+          </div>
+        </div>
+
+        <div>
+          <p class="type-caption" style="margin: 0 0 0.75rem;">Chips · badges</p>
+          <div class="badge-row" aria-label="Chip variants">
+            <span class="chip">Free tier</span>
+            <span class="chip">Standard</span>
+            <span class="chip" data-tone="red">Featured</span>
+            <span class="chip" data-tone="outline-red">Custom</span>
+            <span class="chip">PR open</span>
+          </div>
+        </div>
+
+        <div>
+          <p class="type-caption" style="margin: 0 0 0.75rem;">Inputs · forms</p>
+          <div class="pill-row">
+            <input class="input" type="email" placeholder="team@halcyon.dev" aria-label="Email">
+            <button class="pill" data-variant="primary" type="button">Subscribe</button>
+          </div>
+        </div>
+
+        <div>
+          <p class="type-caption" style="margin: 0 0 0.75rem;">Story cards · hairline</p>
+          <div class="story-grid">
+            <article class="story-card">
+              <div class="story-thumb" aria-hidden="true"></div>
+              <div class="story-body">
+                <span class="story-tag">Engineering</span>
+                <h3 class="story-title">Pushing rollouts through a fifth region.</h3>
+                <p class="story-caption">How the Halcyon platform team brought up Cape Town behind the same provisioning script as the other four.</p>
+              </div>
+            </article>
+            <article class="story-card">
+              <div class="story-thumb" aria-hidden="true"></div>
+              <div class="story-body">
+                <span class="story-tag">Team</span>
+                <h3 class="story-title">A ritual for the weekly status review.</h3>
+                <p class="story-caption">Taylor Reyes walks through the live-dashboard pass plus the rotating regional spotlight that follows it.</p>
+              </div>
+            </article>
+            <article class="story-card">
+              <div class="story-thumb" aria-hidden="true"></div>
+              <div class="story-body">
+                <span class="story-tag">Billing</span>
+                <h3 class="story-title">Per-region invoice reconciliation.</h3>
+                <p class="story-caption">The finance and infra teams now share a single rollup; the previous two-spreadsheet reconciliation is gone.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="red-band" aria-label="Campaign band">
+    <div class="red-band-inner">
+      <div>
+        <p class="red-band-aside-eyebrow">Closing band · voltage</p>
+        <h2 class="red-band-headline">The signature accent, on its own surface.</h2>
+        <p class="red-band-lede">A rare full-bleed Vodafone Red moment — used sparingly across the brand's marketing surface, here as the closing punctuation before the locked-dark footer.</p>
+        <div class="pill-row">
+          <a href="#" class="pill" data-variant="outline-light">Read the brief</a>
+        </div>
+      </div>
+      <div>
+        <p class="red-band-aside-eyebrow">Editorial note</p>
+        <blockquote class="red-band-aside-quote">"The brand operates with red, ink, and grayscale. Surface contrast, not soft neutrals, is the depth cue."</blockquote>
+        <p class="red-band-aside-attribution">design-systems / vodafone-style · DESIGN.md</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer locked-dark">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <span class="footer-brand">vodafone-style</span>
+      <p class="footer-tag">A token-surface preview rendered against the telecom super-brand design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Surface</p>
+      <ul class="footer-col-list">
+        <li><a href="#">Coverage</a></li>
+        <li><a href="#">Status</a></li>
+        <li><a href="#">Billing</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Engineering</p>
+      <ul class="footer-col-list">
+        <li><a href="#">halcyon-api</a></li>
+        <li><a href="#">halcyon-worker</a></li>
+        <li><a href="#">halcyon-cli</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-col-list">
+        <li><a href="#">halcyon.dev</a></li>
+        <li><a href="#">app.halcyon.dev</a></li>
+        <li><a href="#">hlc.so</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Team</p>
+      <ul class="footer-col-list">
+        <li><a href="#">team@halcyon.dev</a></li>
+        <li><a href="#">@halcyon/cli</a></li>
+        <li><a href="#">Halcyon HQ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>vodafone-style · Token surface preview · 2026.05.25</span>
+    <span>Single red · uppercase 800 · pill 60px · two-band rhythm</span>
+  </div>
+</footer>
+
+</body>
+</html>

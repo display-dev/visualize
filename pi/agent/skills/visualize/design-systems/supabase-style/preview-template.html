@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231c1c1c'/%3E%3Cpath d='M11 6 L11 17 L22 17 L11 26 L11 17 Z' fill='%233ecf8e'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. White canvas, near-black ink, single emerald-green primary, composited product UI mockup, tight 6/8 px button radii, grey hairline ladder.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Supabase-style preview shell — white canvas, near-black ink,
+   single emerald-green primary, composited product UI mockup as the
+   signature surface, tight 6/8 px square-ish button radii. Inter at
+   weight 500 stands in for Circular with tight negative tracking on
+   display. Grey hairline ladder for chrome, deep canvas-night for
+   code blocks. Halcyon-themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-feature-settings: "cv11", "ss01", "kern";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-cool);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 22px; height: 22px;
+  border-radius: var(--radius-sm);
+  background: var(--brand-canvas-night);
+  display: inline-grid;
+  place-items: center;
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--primary);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 400;
+  flex: 1;
+  margin-left: 1.5rem;
+  color: var(--brand-ink-secondary);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; font-size: 14px; }
+.topnav-actions a { color: var(--brand-ink-secondary); text-decoration: none; font-weight: 400; }
+.topnav-actions a:hover { color: var(--foreground); }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (44px min touch target, focus-visible ring, square-ish 6px radius) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 36px;
+  padding: 0 1rem;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover {
+  background: var(--brand-primary-deep);
+  border-color: var(--brand-primary-deep);
+}
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--brand-hairline-strong);
+}
+.btn[data-variant="secondary"]:hover {
+  background: var(--brand-canvas-soft);
+  border-color: var(--brand-ink-mute);
+}
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--brand-ink-secondary);
+  padding: 0 0.75rem;
+}
+.btn[data-variant="ghost"]:hover { color: var(--foreground); background: var(--brand-canvas-soft); }
+.btn[data-variant="dark"] {
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  border-color: var(--brand-canvas-night);
+}
+.btn[data-variant="dark"]:hover {
+  background: var(--brand-canvas-night-soft);
+}
+.btn[data-size="lg"] { min-height: 44px; padding: 0 1.25rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (tight-tracked editorial display) -- */
+.hero {
+  padding: 5rem 1.5rem 3rem;
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--brand-ink-mute);
+  margin: 0 0 1.25rem;
+}
+.eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.hero-display {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 6.5vw, 4rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+  margin: 0 auto 1.5rem;
+  max-width: 18ch;
+}
+.hero-lede {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-ink-secondary);
+  max-width: 38rem;
+  margin: 0 auto 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* -- Signature: floating composited product UI panel (SQL editor + result table) -- */
+.product-wrap {
+  padding: 0 1.5rem 5rem;
+  position: relative;
+}
+.product-wrap::before {
+  content: "";
+  position: absolute;
+  top: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(72rem, calc(100% - 3rem));
+  height: 100%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(62, 207, 142, 0.10) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+.product-inner {
+  max-width: 64rem;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.product-panel {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-cool-3);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+.product-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: var(--brand-canvas-soft);
+  border-bottom: 1px solid var(--brand-hairline-cool);
+}
+.product-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+.product-tab {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-sm);
+  color: var(--brand-ink-mute);
+  background: transparent;
+}
+.product-tab[aria-selected="true"] {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--brand-hairline-cool);
+}
+.product-url {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--brand-ink-mute);
+}
+.product-body {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 22rem;
+}
+@media (max-width: 880px) { .product-body { grid-template-columns: 1fr; } }
+.product-sidebar {
+  background: var(--brand-canvas-soft);
+  border-right: 1px solid var(--brand-hairline-cool);
+  padding: 1rem 0.5rem;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.product-sidebar-section {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+  padding: 1rem 0.75rem 0.5rem;
+}
+.product-sidebar-section:first-child { padding-top: 0.25rem; }
+.product-sidebar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-xs);
+  color: var(--brand-ink-secondary);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+}
+.product-sidebar-row[aria-current="page"] {
+  background: var(--background);
+  color: var(--foreground);
+  font-weight: 500;
+}
+.product-sidebar-row::before {
+  content: "▸";
+  color: var(--brand-ink-mute);
+  font-family: inherit;
+  font-size: 10px;
+}
+.product-sidebar-row[aria-current="page"]::before { color: var(--primary); }
+.product-main {
+  display: flex;
+  flex-direction: column;
+}
+.product-editor {
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  padding: 1rem 1.25rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12.5px;
+  line-height: 1.65;
+  border-bottom: 1px solid var(--brand-hairline-cool);
+  overflow-x: auto;
+}
+.product-editor .ln { display: inline-block; width: 1.5rem; color: rgba(255, 255, 255, 0.30); text-align: right; margin-right: 1rem; user-select: none; }
+.product-editor .line { display: block; }
+.product-editor .kw { color: var(--brand-accent-violet); }
+.product-editor .fn { color: var(--primary); }
+.product-editor .str { color: var(--brand-accent-yellow); }
+.product-editor .com { color: rgba(255, 255, 255, 0.45); font-style: italic; }
+.product-editor .num { color: var(--brand-accent-tomato); }
+.product-result {
+  padding: 0.75rem 1rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.product-result-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--brand-ink-mute);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--brand-hairline-cool);
+}
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.product-table th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--brand-ink-mute);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--brand-hairline-cool);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+.product-table td {
+  padding: 0.5rem 0.75rem;
+  color: var(--foreground);
+  border-bottom: 1px solid var(--brand-hairline-cool-2);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+.product-table tr:last-child td { border-bottom: none; }
+.product-table .dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+.product-table .dot[data-status="active"] { background: var(--primary); }
+.product-table .dot[data-status="pending"] { background: var(--brand-accent-yellow); }
+.product-table .dot[data-status="archived"] { background: var(--brand-ink-mute-2); }
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; }
+.section[data-tight] { padding: 3rem 1.5rem; }
+.section[data-band="soft"] { background: var(--brand-canvas-soft); }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-header { max-width: 38rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--brand-ink-mute);
+  margin: 0 0 0.75rem;
+}
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 0.75rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-ink-secondary);
+  margin: 0;
+  max-width: 36rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-cool);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--brand-hairline-cool);
+}
+.swatch-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-ink-mute);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--brand-hairline-cool);
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="soft"] { background: var(--brand-canvas-soft); color: var(--foreground); }
+.ladder-step[data-step="night"] { background: var(--brand-canvas-night); color: var(--brand-on-dark); border-color: var(--brand-canvas-night); }
+.ladder-num {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+.ladder-step[data-step="night"] .ladder-num { color: rgba(255, 255, 255, 0.55); }
+.ladder-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--foreground);
+}
+.ladder-step[data-step="night"] .ladder-name { color: var(--brand-on-dark); }
+.ladder-role { font-size: 14px; color: var(--brand-ink-secondary); margin-top: auto; line-height: 1.45; }
+.ladder-step[data-step="night"] .ladder-role { color: rgba(255, 255, 255, 0.75); }
+
+/* -- Pricing (featured tier is dark canvas-night, not green) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-cool-3);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pricing-card[data-featured] {
+  background: var(--brand-canvas-night);
+  border-color: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+}
+.pricing-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-name { color: var(--brand-on-dark); }
+.pricing-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-price { color: var(--brand-on-dark); }
+.pricing-tagline {
+  font-size: 13px;
+  color: var(--brand-ink-secondary);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: rgba(255, 255, 255, 0.75); }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--brand-hairline-cool);
+  padding-top: 1rem;
+  font-size: 13px;
+  color: var(--brand-ink-secondary);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.85);
+}
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.pricing-features li::before {
+  content: "●";
+  color: var(--primary);
+  font-size: 8px;
+  line-height: 1.8;
+  flex-shrink: 0;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--primary); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--brand-hairline-cool);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+.type-display {
+  font-family: 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; line-height: 1.55; color: var(--brand-ink-secondary); }
+.type-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--brand-ink-secondary); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+  width: 100%;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--brand-radius-xs);
+  background: var(--background);
+  color: var(--brand-ink-secondary);
+  border: 1px solid var(--brand-hairline-cool-3);
+}
+.chip::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-ink-mute-2);
+}
+.chip[data-tone="active"]::before { background: var(--primary); }
+.chip[data-tone="paused"]::before { background: var(--brand-accent-yellow); }
+.chip[data-tone="error"]::before { background: var(--brand-accent-tomato); }
+
+.code-block {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+.code-block .com { color: rgba(255, 255, 255, 0.55); }
+.code-block .fn { color: var(--primary); }
+.code-block .str { color: var(--brand-accent-yellow); }
+
+/* -- Footer -- */
+.footer {
+  border-top: 1px solid var(--brand-hairline-cool);
+  padding: 3rem 1.5rem 2rem;
+  background: var(--background);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 13px; color: var(--brand-ink-secondary); line-height: 1.55; margin: 0; }
+.footer-col-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--brand-ink-mute);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 13px; color: var(--brand-ink-secondary); text-decoration: none; }
+.footer-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1200px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-cool);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-ink-mute);
+}
+.footer-legal-meta { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Product</a>
+      <a href="#">Developers</a>
+      <a href="#">Pricing</a>
+      <a href="#">Docs</a>
+      <a href="#">Blog</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Start your project</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Halcyon · workspace</p>
+    <h1 class="hero-display">Build the backend for the whole team.</h1>
+    <p class="hero-lede">Halcyon's product engineers run queries, ship migrations, and watch logs from the same workspace — a near-monochrome surface with a single emerald accent for action.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Start your project</button>
+      <button class="btn" data-variant="secondary" data-size="lg" type="button">Read the docs</button>
+    </div>
+  </div>
+</header>
+
+<section class="product-wrap" aria-label="Product UI signature mockup">
+  <div class="product-inner">
+    <article class="product-panel">
+      <header class="product-panel-head">
+        <div class="product-tabs" role="tablist">
+          <span class="product-tab">Editor</span>
+          <span class="product-tab" aria-selected="true">SQL · funnel</span>
+          <span class="product-tab">Logs</span>
+        </div>
+        <span class="product-url">workspace.halcyon.dev / sql / funnel</span>
+      </header>
+      <div class="product-body">
+        <aside class="product-sidebar" aria-label="Schema tree">
+          <span class="product-sidebar-section">Schema</span>
+          <span class="product-sidebar-row">accounts</span>
+          <span class="product-sidebar-row">members</span>
+          <span class="product-sidebar-row" aria-current="page">notes</span>
+          <span class="product-sidebar-row">threads</span>
+          <span class="product-sidebar-row">events</span>
+          <span class="product-sidebar-section">Saved queries</span>
+          <span class="product-sidebar-row">monday-review</span>
+          <span class="product-sidebar-row">team-coverage</span>
+        </aside>
+        <div class="product-main">
+          <div class="product-editor" aria-label="SQL query">
+            <span class="line"><span class="ln">1</span><span class="com">-- Notes shared with the team this week</span></span>
+            <span class="line"><span class="ln">2</span><span class="kw">select</span> n.id, n.title, m.email, n.shared_at</span>
+            <span class="line"><span class="ln">3</span><span class="kw">from</span> notes n</span>
+            <span class="line"><span class="ln">4</span><span class="kw">join</span> members m <span class="kw">on</span> m.id = n.author_id</span>
+            <span class="line"><span class="ln">5</span><span class="kw">where</span> n.shared_at &gt; <span class="fn">now</span>() - <span class="kw">interval</span> <span class="str">&apos;7 days&apos;</span></span>
+            <span class="line"><span class="ln">6</span><span class="kw">order by</span> n.shared_at <span class="kw">desc</span> <span class="kw">limit</span> <span class="num">5</span>;</span>
+          </div>
+          <div class="product-result" aria-label="Query result">
+            <div class="product-result-meta">
+              <span>5 rows · 24 ms</span>
+              <span>main · postgres-15</span>
+            </div>
+            <table class="product-table">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>title</th>
+                  <th>author</th>
+                  <th>shared</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>01H8Z4</td><td><span class="dot" data-status="active"></span>Quarterly review notes</td><td>bob@halcyon.dev</td><td>2d ago</td></tr>
+                <tr><td>01H8Y2</td><td><span class="dot" data-status="active"></span>Roadmap pass · Q3</td><td>maya@halcyon.dev</td><td>3d ago</td></tr>
+                <tr><td>01H8X1</td><td><span class="dot" data-status="pending"></span>Onboarding checklist</td><td>team@halcyon.dev</td><td>4d ago</td></tr>
+                <tr><td>01H8W0</td><td><span class="dot" data-status="active"></span>Threads · open vs resolved</td><td>maya@halcyon.dev</td><td>5d ago</td></tr>
+                <tr><td>01H8V0</td><td><span class="dot" data-status="archived"></span>Retro · prior sprint</td><td>bob@halcyon.dev</td><td>6d ago</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" data-band="soft" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">One emerald, the rest is grey.</h2>
+      <p class="section-lede">White canvas, near-black ink, a single emerald primary as the only chromatic event. Greyscale hairline ladder runs from cool light borders down to the near-black canvas-night used for code blocks and the featured pricing tier.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-soft);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--brand-canvas-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-night);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--brand-canvas-night</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-night-soft);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--brand-canvas-night-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-primary-deep);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-primary-deep</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ink-secondary);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-secondary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ink-mute);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-mute</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-hairline-strong);"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--brand-hairline-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-hairline-cool);"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--brand-hairline-cool</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-yellow);"></div><div class="swatch-role">Status</div><div class="swatch-name">--brand-accent-yellow</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces</p>
+      <h2 class="section-title">Three surface registers.</h2>
+      <p class="section-lede">White canvas for the page floor. Barely-tinted off-white for alternating section bands. Deep near-black canvas-night for code blocks, the dashboard editor pane, and the featured pricing tier. Depth comes from hairlines and a single Level-2 shadow on floating product mockups.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">pure white · page floor · marketing surfaces</span>
+      </div>
+      <div class="ladder-step" data-step="soft">
+        <span class="ladder-num">Soft</span>
+        <span class="ladder-name">--brand-canvas-soft</span>
+        <span class="ladder-role">alternating section band · sidebar fill</span>
+      </div>
+      <div class="ladder-step" data-step="night">
+        <span class="ladder-num">Night</span>
+        <span class="ladder-name">--brand-canvas-night</span>
+        <span class="ladder-role">code blocks · featured tier · editor pane</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three tiers. No seat tax.</h2>
+      <p class="section-lede">Flat per-workspace pricing. Featured tier inverted to canvas-night — the only place the system commits to dark on a marketing page.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="primary" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="soft" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · type + components</p>
+      <h2 class="section-title">Inter at weight 500, tight tracking.</h2>
+      <p class="section-lede">Display sits at weight 500 with negative letter-spacing of -3% to pull the rounded humanist letterforms into editorial density. Body at weight 400. Buttons square at 6 px radius with the lit-emerald primary carrying near-black ink.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Engineered for clarity.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Weight 500 · negative tracking</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter · medium · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Inter at 14–16 pixels, line-height 1.55. Near-black ink (#171717, never pure black) keeps the warm canvas readable; secondary ink at #707070 carries helper copy.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">select count(*) from notes;</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · square 6 px radius, 44 px touch target</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Start your project</button>
+            <button class="btn" data-variant="secondary" type="button">Read the docs</button>
+            <button class="btn" data-variant="dark" type="button">Open in dashboard</button>
+            <button class="btn" data-variant="ghost" type="button">Sign in</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Chips · dot indicator, hairline border</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <span class="chip" data-tone="active">Active</span>
+            <span class="chip" data-tone="paused">Paused</span>
+            <span class="chip" data-tone="error">Error</span>
+            <span class="chip">Default</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Mono · code block on canvas-night</span>
+          <div class="code-block" style="margin-top:0.5rem;"><span class="com">// count notes shared this week</span><br><span class="fn">await</span> halcyon.notes.<span class="fn">count</span>({ since: <span class="str">&apos;7d&apos;</span> })</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the monochrome-with-emerald design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-list"><li><a href="#">Overview</a></li><li><a href="#">Workspace</a></li><li><a href="#">Editor</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list"><li><a href="#">Docs</a></li><li><a href="#">Changelog</a></li><li><a href="#">Status</a></li><li><a href="#">Blog</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">workspace.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.23</span>
+    <span class="footer-legal-meta">white canvas · single emerald · grey hairlines · canvas-night code</span>
+  </div>
+</footer>
+
+</body>
+</html>

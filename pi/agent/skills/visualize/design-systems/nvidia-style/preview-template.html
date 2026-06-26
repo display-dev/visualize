@@ -1,0 +1,1515 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000000'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%2376b900'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Engineering-grade marketing system — deep-black frame chapters, paper-white body, single saturated NVIDIA Green accent, hyper-angular 2px geometry. Token surfaces rendered on Halcyon-themed neutral content.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === NVIDIA-style preview shell — engineering-grade marketing register.
+ * Two-mode surface architecture: deep-black hero/footer chapters
+ * frame paper-white body content, connected by a single saturated
+ * NVIDIA Green accent carrying every CTA, active state, and the
+ * 12×12px decorative corner square on cards. Hyper-angular 2px
+ * geometry across every interactive element; no shadows on cards
+ * (hairline 1px borders do the elevation work). NVIDIA-EMEA is the
+ * documented proprietary face; Inter is the documented open-source
+ * substitute (x-height + stroke contrast match within ~2% at body
+ * sizes per DESIGN.md §3 note-on-substitutes).
+ *
+ * The brand's defining "frame chapter" voltage (hero, dark CTA strip,
+ * footer) stays polarity-locked to deep-black on BOTH light and dark
+ * canvases — the documented surface mode is part of the brand's
+ * recognizable register. Body sections (swatches, ladder, pricing,
+ * type, components) flip with theme. Halcyon-themed neutral content
+ * describes how a ML/infrastructure team uses generic GPU/AI compute
+ * for training runs, inference clusters, and batch jobs. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  /* NVIDIA-EMEA is the documented proprietary face (per DESIGN.md §3);
+   * Inter is the documented open-source substitute (~2% optical match
+   * at body sizes); Arial is the documented final fallback. */
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, Helvetica, sans-serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Utility bar (32px) + primary nav (64px) — both on the documented
+ *    --brand-surface-dark "frame" surface. Polarity-locked: stays
+ *    deep-black on both polarities. -- */
+.utility-bar {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  border-bottom: 1px solid var(--brand-hairline-strong);
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+.utility-bar-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.25rem;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--brand-on-dark-mute);
+}
+.utility-bar a { color: inherit; text-decoration: none; }
+.utility-bar a:hover { color: var(--brand-on-dark); }
+
+.topnav {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--brand-on-dark);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 16px;
+  height: 16px;
+  background: var(--primary);
+  border-radius: var(--radius-sm);
+  display: inline-block;
+  flex-shrink: 0;
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 16px;
+  font-weight: 700;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--brand-on-dark);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--primary); }
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 14px;
+}
+.topnav-actions a {
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  font-weight: 700;
+}
+@media (max-width: 960px) { .topnav-links { display: none; } }
+
+/* -- Buttons (44px floor, 2px radius — the angular hard rule) --
+ * NVIDIA's documented register: primary green fill, outline with
+ * 2px green border for secondary, on-dark white outline for dark
+ * surfaces. No pill radius, no shadow elevation. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border-radius: var(--radius-sm);
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover {
+  background: var(--brand-primary-dark);
+  border-color: var(--brand-primary-dark);
+}
+.btn[data-variant="outline"] {
+  background: transparent;
+  color: var(--foreground);
+  border: 2px solid var(--primary);
+  padding: 0 1.25rem;
+}
+.btn[data-variant="outline"]:hover {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.btn[data-variant="outline-on-dark"] {
+  background: transparent;
+  color: var(--brand-on-dark);
+  border: 1px solid var(--brand-on-dark);
+}
+.btn[data-variant="outline-on-dark"]:hover {
+  background: var(--brand-on-dark);
+  color: oklch(0 0 0);
+}
+.btn[data-variant="ghost-arrow"] {
+  background: transparent;
+  /* Body text stays --foreground per DESIGN.md §6 ("Body text stays
+   * var(--foreground) or var(--brand-body) regardless of context").
+   * The arrow glyph carries the brand voltage. */
+  color: var(--foreground);
+  padding: 0;
+  min-height: 0;
+  border: none;
+  font-size: 14.4px;
+  font-weight: 700;
+  letter-spacing: 0.144px;
+  text-transform: uppercase;
+}
+.btn[data-variant="ghost-arrow"]:hover { color: var(--brand-primary-dark); }
+.btn[data-size="lg"] {
+  min-height: 48px;
+  padding: 0 1.75rem;
+  font-size: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (the brand's defining "frame chapter" — full-bleed
+ *    deep-black canvas with display-xl headline, single primary
+ *    CTA, decorative green corner square, and the signature
+ *    GPU cluster status board to the right). Polarity-locked. -- */
+.hero {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  padding: 5rem 1.5rem 6rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  /* Decorative corner-square anchor, top-left of the hero chapter */
+  content: "";
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: 12px;
+  height: 12px;
+  background: var(--primary);
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 1.5rem;
+}
+.hero-display {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0;
+  color: var(--brand-on-dark);
+  margin: 0 0 1.5rem;
+  max-width: 18ch;
+}
+.hero-lede {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-on-dark-mute);
+  max-width: 38rem;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.hero-meta {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 13px;
+  color: var(--brand-on-dark-mute);
+  flex-wrap: wrap;
+}
+.hero-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.hero-meta-item::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--primary);
+  flex-shrink: 0;
+}
+
+/* -- Signature: GPU cluster status board (hero right column).
+ *    The brand's defining surface — a dark elevated card with
+ *    monospace metrics, accelerator-node rows, a single green
+ *    progress fill on the active training run. Built from the
+ *    documented dark-elevated surface + hairline-strong rules. -- */
+.cluster-board {
+  background: var(--brand-surface-elevated);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--radius-sm);
+  padding: 1.5rem;
+  color: var(--brand-on-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+}
+.cluster-board::before {
+  /* Decorative corner-square, top-left of the signature card */
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+  background: var(--primary);
+}
+.cluster-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--brand-hairline-strong);
+}
+.cluster-eyebrow {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark-mute);
+  margin: 0 0 0.375rem;
+}
+.cluster-title {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--brand-on-dark);
+  margin: 0;
+  line-height: 1.4;
+}
+.cluster-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+.cluster-badge-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--primary);
+  border-radius: var(--brand-radius-full);
+  flex-shrink: 0;
+}
+.cluster-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--brand-hairline-strong);
+}
+.cluster-metric-label {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark-mute);
+  margin: 0 0 0.25rem;
+}
+.cluster-metric-value {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--brand-on-dark);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.cluster-metric-value[data-accent] { color: var(--primary); }
+.cluster-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.cluster-progress-head {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-on-dark-mute);
+}
+.cluster-progress-head strong {
+  color: var(--brand-on-dark);
+  font-weight: 500;
+}
+.cluster-progress-bar {
+  height: 6px;
+  background: oklch(1 0 0 / 0.12);
+  border-radius: var(--brand-radius-xs);
+  overflow: hidden;
+  position: relative;
+}
+.cluster-progress-fill {
+  position: absolute;
+  inset: 0 36% 0 0;
+  background: var(--primary);
+}
+.cluster-nodes {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.375rem;
+}
+.cluster-node {
+  aspect-ratio: 1;
+  border-radius: var(--brand-radius-xs);
+  background: oklch(1 0 0 / 0.08);
+  border: 1px solid oklch(1 0 0 / 0.12);
+}
+.cluster-node[data-state="active"] { background: var(--primary); border-color: var(--primary); }
+.cluster-node[data-state="warm"] { background: oklch(1 0 0 / 0.18); border-color: var(--brand-hairline-strong); }
+.cluster-node[data-state="reserved"] { background: transparent; border-color: var(--brand-hairline-strong); border-style: dashed; }
+.cluster-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-on-dark-mute);
+}
+.cluster-foot strong {
+  color: var(--brand-on-dark);
+  font-weight: 500;
+}
+
+/* -- Section frame -- */
+.section {
+  padding: 4rem 1.5rem;
+}
+.section[data-tight] { padding: 3rem 1.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 42rem; margin-bottom: 2.5rem; }
+.section-header[data-center] {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section-eyebrow {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* Hierarchy via weight + tracking, not via brand-tinted ink — per
+   * DESIGN.md §3: "Hierarchy is built almost entirely from size and
+   * weight — color is reserved for emphasis (var(--primary) on links
+   * over dark) and never used to separate type tiers." */
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.25;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.swatch-chip {
+  height: 3rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.swatch-role {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+}
+.swatch-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-body);
+  word-break: break-all;
+}
+
+/* -- Token demo: surface ladder (5 documented surfaces).
+ *    Step 05 (dark) is polarity-locked — stays deep-black on both
+ *    polarities because the brand's documented "frame chapter"
+ *    voltage IS the dark surface. -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 1080px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  border-radius: var(--radius-sm);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--border);
+  position: relative;
+}
+.ladder-step::before {
+  /* Tiny green corner-square marker on every ladder card */
+  content: "";
+  position: absolute;
+  top: 0.625rem;
+  right: 0.625rem;
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+}
+.ladder-step[data-step="canvas"] {
+  background: var(--background);
+  color: var(--foreground);
+}
+.ladder-step[data-step="secondary"] {
+  background: var(--secondary);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.ladder-step[data-step="card"] {
+  background: var(--card);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.ladder-step[data-step="hairline"] {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--brand-mute);
+}
+/* Polarity-locked: stays deep-black on BOTH polarities so the brand's
+ * documented "frame chapter" voltage holds. The dark step is the
+ * recognizable signature voltage; it shouldn't dissolve into the
+ * canvas in dark mode. */
+.ladder-step[data-step="dark"] {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  border-color: var(--brand-hairline-strong);
+}
+.ladder-num {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: inherit;
+  opacity: 0.78;
+}
+.ladder-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  color: inherit;
+}
+.ladder-role {
+  font-size: 13px;
+  color: inherit;
+  opacity: 0.85;
+  margin-top: auto;
+  line-height: 1.45;
+}
+.ladder-step[data-step="dark"] .ladder-num,
+.ladder-step[data-step="dark"] .ladder-role { opacity: 0.92; }
+
+/* -- Pricing tiles (Hobby / Team / Org-wide).
+ *    Featured tier inverts to the documented dark surface — polarity-
+ *    locked, same as the ladder's step 05. -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) {
+  .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; }
+}
+.pricing-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--foreground);
+  position: relative;
+}
+.pricing-card::before {
+  /* Corner-square marker on every pricing card */
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+  background: var(--primary);
+}
+.pricing-card[data-featured] {
+  background: var(--brand-surface-dark);
+  border-color: var(--brand-hairline-strong);
+  color: var(--brand-on-dark);
+}
+.pricing-name {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin: 0;
+}
+.pricing-price {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.1;
+  margin: 0.25rem 0 0;
+}
+.pricing-tagline {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--brand-body);
+  margin: 0;
+  min-height: 3em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--brand-on-dark-mute); }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--brand-body);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: var(--brand-hairline-strong);
+  color: var(--brand-on-dark-mute);
+}
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.pricing-features li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--primary);
+  flex-shrink: 0;
+  margin-top: 0.5rem;
+}
+
+/* -- Stat callouts band (NVIDIA's documented .callout-stat: massive
+ *    green numeric + body caption, no shadow, hairline border) -- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 880px) { .stat-grid { grid-template-columns: 1fr; } }
+.stat-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 2rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+.stat-card::before {
+  content: "";
+  position: absolute;
+  bottom: 0.625rem;
+  right: 0.625rem;
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+}
+.stat-value {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.1;
+  /* Body-prose numerics stay --foreground per DESIGN.md §6 Do's. The
+   * brand's documented callout-stat green is sub-3:1 on white and the
+   * live brand reserves the green for filled CTAs + active chrome,
+   * not body-size or display-size text on light canvas. */
+  color: var(--foreground);
+}
+.stat-label {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 28ch;
+}
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+}
+.type-display {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.25;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.47;
+  color: var(--foreground);
+}
+.type-body {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-body);
+}
+.type-caption {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+}
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.75rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+/* Pill-tab — NVIDIA's documented segmented control; active state
+ * inverts to foreground/on-dark per DESIGN.md §5 */
+.pill-tabs {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--background);
+  padding: 2px;
+  gap: 2px;
+}
+.pill-tab {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 14.4px;
+  font-weight: 700;
+  letter-spacing: 0.144px;
+  color: var(--foreground);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+.pill-tab[data-active] {
+  background: var(--foreground);
+  color: var(--background);
+}
+.pill-tab:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) { .pill-tab { transition: none; } }
+
+/* Badge-tag — uppercase document-type label */
+.badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  background: var(--secondary);
+  color: var(--brand-body);
+  border-radius: var(--radius-sm);
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.badge-tag[data-tone="primary"] {
+  background: transparent;
+  /* Text uses --foreground per DESIGN.md §6 Do's; border carries the
+   * brand voltage (border is non-text, 3:1 threshold and lands at
+   * 2.41:1 — still below, but the visual cue is the outline shape, not
+   * its contrast). The brand outline pattern survives via the border. */
+  color: var(--foreground);
+  border: 1px solid var(--primary);
+}
+
+/* Text input — 44px, 2px radius, 1px border lifts to 2px green on focus */
+.text-input {
+  width: 100%;
+  max-width: 22rem;
+  height: 44px;
+  padding: 0 1rem;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-sm);
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+.text-input::placeholder { color: var(--brand-stone); }
+.text-input:focus {
+  outline: none;
+  border: 2px solid var(--primary);
+  padding: 0 calc(1rem - 1px);
+}
+
+/* Feature-card — 3-up grid, icon-glyph at top in green, hairline border,
+ * decorative corner-square. NVIDIA's documented .feature-card register. */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 880px) { .feature-grid { grid-template-columns: 1fr; } }
+.feature-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--background);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
+}
+.feature-card::before {
+  /* Top-left corner-square — the brand's signature ornament */
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+  background: var(--primary);
+}
+.feature-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-grid;
+  place-items: center;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+.feature-icon svg { width: 24px; height: 24px; display: block; }
+.feature-title {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.25;
+}
+.feature-body {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-body);
+  margin: 0;
+}
+
+/* -- Dark CTA strip — the documented .cta-strip-dark. Polarity-locked
+ *    to deep-black on both polarities. Sits between content sections
+ *    as a "bridge" voltage moment before the footer. -- */
+.cta-strip {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  padding: 3rem 2.5rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  position: relative;
+  border: 1px solid var(--brand-hairline-strong);
+}
+.cta-strip::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+  background: var(--primary);
+}
+.cta-strip-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 38rem;
+}
+.cta-strip-title {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: clamp(1.5rem, 2.6vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.25;
+  color: var(--brand-on-dark);
+  margin: 0;
+}
+.cta-strip-lede {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-on-dark-mute);
+  margin: 0;
+}
+
+/* -- Footer (deep-black "frame chapter" — 5-col link grid + brand
+ *    block + legal fine-print row). Polarity-locked. -- */
+.footer {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  padding: 4rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 32ch;
+}
+.footer-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--brand-on-dark);
+  text-decoration: none;
+}
+.footer-brand-glyph {
+  width: 16px;
+  height: 16px;
+  background: var(--primary);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+.footer-tagline {
+  font-size: 13px;
+  color: var(--brand-on-dark-mute);
+  line-height: 1.55;
+  margin: 0;
+}
+.footer-col-title {
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--brand-on-dark);
+  margin: 0 0 1rem;
+}
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.footer-list a {
+  font-size: 15px;
+  color: var(--brand-on-dark-mute);
+  text-decoration: none;
+}
+.footer-list a:hover { color: var(--primary); }
+.footer-legal {
+  max-width: 1280px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-strong);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'NVIDIA-EMEA', 'Inter', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark-mute);
+}
+.footer-legal-meta {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  text-transform: none;
+  letter-spacing: 0;
+}
+</style>
+
+</head>
+<body>
+
+<div class="utility-bar" aria-label="Utility">
+  <div class="utility-bar-inner">
+    <a href="#">Account</a>
+    <a href="#">EN-US</a>
+    <a href="#">Login</a>
+  </div>
+</div>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true"></span>
+      __DESIGN_SYSTEM_NAME__
+    </a>
+    <div class="topnav-links">
+      <a href="#">Products</a>
+      <a href="#">Solutions</a>
+      <a href="#">Industries</a>
+      <a href="#">Resources</a>
+      <a href="#">Support</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="btn" data-variant="primary" type="button">Get Started</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Halcyon · Compute</p>
+      <h1 class="hero-display">Engineered for the next training run.</h1>
+      <p class="hero-lede">Halcyon's machine-learning team operates a heterogeneous accelerator pool across three regions. Reservations book on the same hour they ship; batch jobs queue behind training runs with priority lanes for production inference.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" data-size="lg" type="button">Get Started</button>
+        <button class="btn" data-variant="outline-on-dark" data-size="lg" type="button">Read the Documentation</button>
+      </div>
+      <div class="hero-meta">
+        <span class="hero-meta-item">3 regions live</span>
+        <span class="hero-meta-item">99.95% job completion</span>
+        <span class="hero-meta-item">Single-tenant reservations</span>
+      </div>
+    </div>
+
+    <aside class="cluster-board" role="figure" aria-label="GPU cluster status board signature surface">
+      <div class="cluster-head">
+        <div>
+          <p class="cluster-eyebrow">Cluster · region-east-2</p>
+          <h2 class="cluster-title">Sprint 24 · ranker fine-tune</h2>
+        </div>
+        <span class="cluster-badge"><span class="cluster-badge-dot" aria-hidden="true"></span>Running</span>
+      </div>
+
+      <div class="cluster-metrics">
+        <div>
+          <p class="cluster-metric-label">Accelerators</p>
+          <p class="cluster-metric-value" data-accent>48 / 64</p>
+        </div>
+        <div>
+          <p class="cluster-metric-label">Step / sec</p>
+          <p class="cluster-metric-value">3.42</p>
+        </div>
+        <div>
+          <p class="cluster-metric-label">ETA</p>
+          <p class="cluster-metric-value">02:14</p>
+        </div>
+      </div>
+
+      <div class="cluster-progress">
+        <div class="cluster-progress-head">
+          <span>Epoch <strong>14 / 22</strong></span>
+          <span>64% complete</span>
+        </div>
+        <div class="cluster-progress-bar" role="progressbar" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100">
+          <div class="cluster-progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="cluster-nodes" role="list" aria-label="Accelerator node grid">
+        <span class="cluster-node" data-state="active" role="listitem"></span>
+        <span class="cluster-node" data-state="active" role="listitem"></span>
+        <span class="cluster-node" data-state="active" role="listitem"></span>
+        <span class="cluster-node" data-state="active" role="listitem"></span>
+        <span class="cluster-node" data-state="active" role="listitem"></span>
+        <span class="cluster-node" data-state="active" role="listitem"></span>
+        <span class="cluster-node" data-state="warm" role="listitem"></span>
+        <span class="cluster-node" data-state="warm" role="listitem"></span>
+        <span class="cluster-node" data-state="active" role="listitem"></span>
+        <span class="cluster-node" data-state="active" role="listitem"></span>
+        <span class="cluster-node" data-state="active" role="listitem"></span>
+        <span class="cluster-node" data-state="active" role="listitem"></span>
+        <span class="cluster-node" data-state="warm" role="listitem"></span>
+        <span class="cluster-node" data-state="warm" role="listitem"></span>
+        <span class="cluster-node" data-state="warm" role="listitem"></span>
+        <span class="cluster-node" data-state="reserved" role="listitem"></span>
+      </div>
+
+      <div class="cluster-foot">
+        <span>Operator · <strong>Jordan Kim</strong></span>
+        <span>job-19284</span>
+      </div>
+    </aside>
+  </div>
+</header>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Black, white, gray, and one green.</h2>
+      <p class="section-lede">The brand reserves every chromatic moment for a single saturated voltage — every primary CTA, every active state, every decorative corner square. The body palette is monochrome ink on paper; the green is precious and never doubled.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Primary · Green</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-primary-dark);"></div><div class="swatch-role">Primary · Pressed</div><div class="swatch-name">--brand-primary-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--secondary);"></div><div class="swatch-role">Soft surface</div><div class="swatch-name">--secondary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-dark);"></div><div class="swatch-role">Frame chapter</div><div class="swatch-name">--brand-surface-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-elevated);"></div><div class="swatch-role">Elevated dark</div><div class="swatch-name">--brand-surface-elevated</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--border);"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--border</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-hairline-strong);"></div><div class="swatch-role">Hairline · Dark</div><div class="swatch-name">--brand-hairline-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Body ink</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-mute);"></div><div class="swatch-role">Mute</div><div class="swatch-name">--brand-mute</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-link-blue);"></div><div class="swatch-role">Inline link</div><div class="swatch-name">--brand-link-blue</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-purple);"></div><div class="swatch-role">Editorial · Purple</div><div class="swatch-name">--brand-accent-purple</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces · Five steps</p>
+      <h2 class="section-title">Paper-white through deep-black, the frame stays scarce.</h2>
+      <p class="section-lede">Pages rotate through canvas, soft surface, card, hairline-bounded, and the polarity-locked dark frame chapter. The dark step is reserved for hero, CTA strip, and footer — the brand's documented "frame" register. Using it elsewhere weakens the rhythm.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">01 · Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · editorial body</span>
+      </div>
+      <div class="ladder-step" data-step="secondary">
+        <span class="ladder-num">02 · Soft</span>
+        <span class="ladder-name">--secondary</span>
+        <span class="ladder-role">breadcrumb · sub-nav · alternating rows</span>
+      </div>
+      <div class="ladder-step" data-step="card">
+        <span class="ladder-num">03 · Card</span>
+        <span class="ladder-name">--card</span>
+        <span class="ladder-role">product · feature · resource cards</span>
+      </div>
+      <div class="ladder-step" data-step="hairline">
+        <span class="ladder-num">04 · Hairline</span>
+        <span class="ladder-name">--brand-mute</span>
+        <span class="ladder-role">divider · dense rule · table edge</span>
+      </div>
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">05 · Frame</span>
+        <span class="ladder-name">--brand-surface-dark</span>
+        <span class="ladder-role">hero · footer · scarce voltage</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Stat callouts">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Operating signal</p>
+      <h2 class="section-title">A week on the cluster.</h2>
+      <p class="section-lede">Massive numeric, green ink, hairline border — the brand's documented .callout-stat shape. Generic team metrics from a week of training runs and batch inference.</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <p class="stat-value">4.2&times;</p>
+        <p class="stat-label">faster fine-tune throughput vs last quarter's baseline.</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-value">99.95%</p>
+        <p class="stat-label">batch job completion across the inference pool, single-quarter rolling.</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-value">2,180</p>
+        <p class="stat-label">accelerator-hours billed against reserved capacity this week.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Feature cards">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">How the team works</p>
+      <h2 class="section-title">Three rituals, one queue.</h2>
+      <p class="section-lede">The card register — hairline border, green corner-square, 2px geometry, no shadow. The whole system reads as engineering documentation that learned graphic design.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>
+        <h3 class="feature-title">Reservation lanes</h3>
+        <p class="feature-body">Production inference, training runs, and exploratory notebooks each queue against their own reserved share. No noisy-neighbour conflicts across teams.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><polyline points="4 17 10 11 14 15 20 9"/><polyline points="14 9 20 9 20 15"/></svg></span>
+        <h3 class="feature-title">Step throughput</h3>
+        <p class="feature-body">A single weekly dashboard tracks step-per-second against checkpoint cost. The ML engineer sees the same numbers the finance team sees the next morning.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+        <h3 class="feature-title">Window pricing</h3>
+        <p class="feature-body">Off-peak hours land at a documented discount. Long training runs schedule against the curve; nightly batch jobs ride the dip without anyone hand-tuning the cron.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three tiers, one inversion.</h2>
+      <p class="section-lede">The featured tier flips to the documented dark surface — colour-block contrast does the elevation work. No accent borders, no scale shifts, no badge. The frame chapter holds the voltage.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="outline" type="button">Get Started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production together.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+          <li>Reserved capacity windows</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="primary" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Production SLA</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="outline" type="button">Talk to Sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">Brand-locked sans, weight does the work.</h2>
+      <p class="section-lede">NVIDIA-EMEA falls back to Inter; Inter to Arial. Hierarchy is built almost entirely from size and weight at 400 / 700 — colour is reserved for emphasis, never to separate type tiers. Letter-spacing stays at zero across the body roles.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display · 48</span><span class="type-display">Engineered restraint.</span></div>
+        <div class="type-row"><span class="type-label">Heading · 22</span><span class="type-heading">Hierarchy by weight, not by colour.</span></div>
+        <div class="type-row"><span class="type-label">Title · 17</span><span class="type-title">Card title · 700 weight</span></div>
+        <div class="type-row"><span class="type-label">Body · 16</span><span class="type-body">Default paragraph copy at 16 pixels, line-height 1.5, weight 400. Long-form pages stack body ink against paper-white canvas with hairline rules separating dense multi-column content.</span></div>
+        <div class="type-row"><span class="type-label">Caption · 14</span><span class="type-caption">Eyebrow over section heading</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · primary + outline pair</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" type="button">Get Started</button>
+            <button class="btn" data-variant="outline" type="button">Read the Documentation</button>
+            <button class="btn" data-variant="ghost-arrow" type="button">Learn more &rarr;</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Pill-tabs · documented segmented control</span>
+          <div class="cmp-row">
+            <div class="pill-tabs" role="tablist">
+              <button class="pill-tab" data-active role="tab" type="button">Inference</button>
+              <button class="pill-tab" role="tab" type="button">Training</button>
+              <button class="pill-tab" role="tab" type="button">Batch</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Badge-tag · document-type label</span>
+          <div class="cmp-row">
+            <span class="badge-tag">White Paper</span>
+            <span class="badge-tag">Webinar</span>
+            <span class="badge-tag">Blog</span>
+            <span class="badge-tag" data-tone="primary">Reference</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Text input · 44px floor · 2px radius · green focus</span>
+          <div class="cmp-row">
+            <input class="text-input" type="email" placeholder="you@halcyon.dev" aria-label="Email">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pre-footer CTA">
+  <div class="section-inner">
+    <div class="cta-strip">
+      <div class="cta-strip-text">
+        <h3 class="cta-strip-title">Ready to schedule a training run?</h3>
+        <p class="cta-strip-lede">The documented dark CTA bridge sits between content sections and the closing footer. One headline, one green button, the brand's recognizable voltage.</p>
+      </div>
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Get Started</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="footer-brand-mark" href="#">
+        <span class="footer-brand-glyph" aria-hidden="true"></span>
+        __DESIGN_SYSTEM_NAME__
+      </a>
+      <p class="footer-tagline">A token-surface preview rendered against the engineering-grade marketing design system. Paper-white body, deep-black frame chapters, single saturated green accent, hyper-angular 2px geometry. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Compute</p>
+      <ul class="footer-list">
+        <li><a href="#">Reservations</a></li>
+        <li><a href="#">Training pools</a></li>
+        <li><a href="#">Batch queues</a></li>
+        <li><a href="#">Inference clusters</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list">
+        <li><a href="#">Documentation</a></li>
+        <li><a href="#">Reference architectures</a></li>
+        <li><a href="#">Whitepapers</a></li>
+        <li><a href="#">Webinars</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list">
+        <li><a href="#">halcyon.dev</a></li>
+        <li><a href="#">app.halcyon.dev</a></li>
+        <li><a href="#">@halcyon/cli</a></li>
+        <li><a href="#">team@halcyon.dev</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Security</a></li>
+        <li><a href="#">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · TOKEN SURFACE PREVIEW · 2026.05.25</span>
+    <span class="footer-legal-meta">paper-white body · deep-black frame · 2px geometry · single green accent</span>
+  </div>
+</footer>
+
+</body>
+</html>

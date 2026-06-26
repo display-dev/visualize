@@ -1,0 +1,275 @@
+/**
+ * design-systems/monochrome/tokens.css
+ *
+ * Hand-authored from the spec at temp/refs/monochrome/raw.md
+ * (Superdesign "Minimalist Monochrome" — author Zhou Jason, designprompt.dev).
+ * Companion spec: ./DESIGN.md
+ * Sourced: 2026-05-26.
+ *
+ * The strictest palette in the catalogue. Every chromatic token has
+ * chroma 0.0000 — pure black, pure white, and two near-zero-chroma
+ * greys used only as muted body neutrals. The spec's rule, verbatim:
+ *
+ *   "Rule: No other colors. Ever. The palette is absolute."
+ *
+ * Synthesis anti-patterns (--brand-black-deep / --brand-black-on-dark)
+ * are structurally impossible in this system — there is nothing to
+ * lighten or darken to. The forbidden-name-shape grep is clean by
+ * construction.
+ *
+ * Two register quirks worth flagging up front:
+ *
+ *   1. Color inversion is the state-change vocabulary. Where a
+ *      conventional system uses brand-blue / brand-coral for hover
+ *      and emphasis, this system flips polarity (cards invert on
+ *      hover, the Stats section is the inverted ground, the
+ *      featured pricing tier is the inverted tile). The
+ *      polarity-locked tokens --brand-canvas-night and
+ *      --brand-on-dark carry the inverted surface and never flip
+ *      with [data-theme="dark"].
+ *
+ *   2. Elevation is rule-weight, not shadow. The brand-rule-*
+ *      ladder (1px / 2px / 4px / 8px) replaces box-shadow. There
+ *      are no shadow tokens; authors reaching for box-shadow on a
+ *      card or button are working outside the system.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are this brand's.        */
+  /* Strict palette: #FFFFFF / #000000 / #F5F5F5 / #525252 only.  */
+
+  --background: oklch(1.0000 0.0000 0);            /* #FFFFFF — pure white canvas */
+  --foreground: oklch(0.0000 0.0000 0);            /* #000000 — pure black ink */
+  --card: oklch(1.0000 0.0000 0);                  /* #FFFFFF */
+  --card-foreground: oklch(0.0000 0.0000 0);       /* #000000 */
+  --popover: oklch(1.0000 0.0000 0);               /* #FFFFFF — popovers read as sharp-edged cards */
+  --popover-foreground: oklch(0.0000 0.0000 0);    /* #000000 */
+
+  --primary: oklch(0.0000 0.0000 0);               /* #000000 — "Black IS the accent" */
+  --primary-foreground: oklch(1.0000 0.0000 0);    /* #FFFFFF — white on black */
+  --secondary: oklch(0.9702 0.0000 0);             /* #F5F5F5 — the muted surface, doubled */
+  --secondary-foreground: oklch(0.0000 0.0000 0);  /* #000000 */
+  --muted: oklch(0.9702 0.0000 0);                 /* #F5F5F5 — off-white for subtle backgrounds */
+  --muted-foreground: oklch(0.4386 0.0000 0);      /* #525252 — dark gray, secondary text only */
+  --accent: oklch(0.0000 0.0000 0);                /* #000000 — accent IS the foreground */
+  --accent-foreground: oklch(1.0000 0.0000 0);     /* #FFFFFF */
+  --destructive: oklch(0.0000 0.0000 0);           /* #000000 — destructive shares the palette; the spec admits no destructive accent */
+  --destructive-foreground: oklch(1.0000 0.0000 0);
+
+  --border: oklch(0.0000 0.0000 0);                /* #000000 — black borders, the line system */
+  --input: oklch(0.0000 0.0000 0);                 /* #000000 — 2px black input border */
+  --ring: oklch(0.0000 0.0000 0);                  /* #000000 — tracks --primary */
+
+  --sidebar: oklch(1.0000 0.0000 0);               /* #FFFFFF */
+  --sidebar-foreground: oklch(0.0000 0.0000 0);    /* #000000 */
+  --sidebar-primary: oklch(0.0000 0.0000 0);       /* tracks --primary */
+  --sidebar-primary-foreground: oklch(1.0000 0.0000 0);
+  --sidebar-accent: oklch(0.9702 0.0000 0);        /* #F5F5F5 — muted-surface sidebar accent */
+  --sidebar-accent-foreground: oklch(0.0000 0.0000 0);
+  --sidebar-border: oklch(0.9219 0.0000 0);        /* #E5E5E5 — hairline-soft for sidebar dividers */
+  --sidebar-ring: oklch(0.0000 0.0000 0);          /* tracks --primary */
+
+  /* Chart palette — greyscale stops, per §Known gaps in DESIGN.md.
+   * Data viz in this register relies on pattern fill, not chroma. */
+  --chart-1: oklch(0.0000 0.0000 0);               /* #000000 */
+  --chart-2: oklch(0.2200 0.0000 0);               /* ~near-black */
+  --chart-3: oklch(0.4386 0.0000 0);               /* #525252 */
+  --chart-4: oklch(0.7000 0.0000 0);               /* mid-grey */
+  --chart-5: oklch(0.9219 0.0000 0);               /* #E5E5E5 */
+
+  /* The spec mandates zero radius across every element. Every slot
+   * carries 0px — the shadcn-core contract still holds, the values
+   * just collapse to one. Per raw.md §"Border Radius":
+   * "ALL VALUES: 0px · No exceptions." */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Serif-as-hero trio: Playfair Display (display + headings),     */
+  /* Source Serif 4 (body), JetBrains Mono (metadata / dates).      */
+  --font-sans: 'Source Serif 4', 'Source Serif Pro', Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-serif: 'Source Serif 4', 'Source Serif Pro', Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', Times, serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* No shadow tokens. Elevation is rule-weight (see --brand-rule-*  */
+  /* below). Authors reaching for box-shadow are outside the system. */
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. No --brand-black-* tokens — there is no
+   * documented ladder for black (the spec is explicit: black is the
+   * accent, full stop).
+   * -------------------------------------------------------------- */
+
+  /* Polarity-locked surfaces — the inverted-state vocabulary.
+   * These tokens carry the dark surface used for the Stats section,
+   * the inverted card variant, the final-CTA band, and the
+   * featured-tier pricing tile. They do NOT flip with
+   * [data-theme="dark"] — the inversion is intentional within
+   * either theme, so dark mode swaps --background / --foreground
+   * but leaves these alone. */
+  --brand-canvas-night: oklch(0.0000 0.0000 0);    /* #000000 */
+  --brand-on-dark:      oklch(1.0000 0.0000 0);    /* #FFFFFF */
+  --brand-on-light:     oklch(0.0000 0.0000 0);    /* #000000 — symmetry */
+
+  /* Hairlines / dividers — the only documented near-white grey. */
+  --brand-hairline-soft: oklch(0.9219 0.0000 0);   /* #E5E5E5 — subtle dividers */
+
+  /* Rule-weight ladder — the system's elevation language. Carried
+   * as CSS custom properties so consuming surfaces can route to
+   * "the system's medium rule" rather than hard-coding "2px solid".
+   * Per raw.md §"Borders & Lines":
+   *   hairline 1px #E5E5E5 · thin 1px #000 · medium 2px #000
+   *   thick 4px #000 · ultra 8px #000 */
+  --brand-rule-hairline: 1px;
+  --brand-rule-thin: 1px;
+  --brand-rule-medium: 2px;
+  --brand-rule-thick: 4px;
+  --brand-rule-ultra: 8px;
+
+  /* Body text neutrals — chroma ≈ 0 utility tokens. Aliases for the
+   * shadcn-core slots so downstream consumers can route to body
+   * roles independently of the muted-foreground / foreground
+   * semantic names. */
+  --brand-body:        oklch(0.0000 0.0000 0);     /* #000000 */
+  --brand-body-muted:  oklch(0.4386 0.0000 0);     /* #525252 */
+
+  /* Inversion transition timing — the spec's "100ms maximum,
+   * mostly instant" rule. Carried as a custom property so every
+   * hover-flip on cards / buttons / pricing tiles routes through
+   * the same value. */
+  --brand-state-transition: 100ms;
+
+  /* Image-reveal timing — the one documented exception to 100ms.
+   * Per raw.md, blog images use 300ms for the scale + grayscale
+   * combined reveal. */
+  --brand-image-transition: 300ms;
+}
+
+/* -- Dark theme ------------------------------------------------
+ * The spec describes color inversion as the system's state-change
+ * vocabulary, not as a per-user theme preference. A coherent
+ * [data-theme="dark"] render flips --background / --foreground
+ * (and the muted neutrals) so the entire page reads on the
+ * inverted ground — same editorial register, opposite polarity.
+ *
+ * --primary, --ring, --sidebar-primary, --sidebar-ring stay at
+ * :root #000 — but on the inverted ground they're consumed against
+ * a white surface, so the visual effect is "primary actions read
+ * as black on white" rather than "primary actions retune." Same
+ * applies to --brand-canvas-night and --brand-on-dark; they're
+ * polarity-locked tokens that don't flip, by definition.
+ *
+ * The result: on light, primary buttons are black on white. On
+ * dark, primary buttons are white on black (because --background
+ * flipped and --primary's consumer surface flipped with it). The
+ * brand identity holds; the polarity inverts.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.0000 0.0000 0);            /* #000000 — inverted ground */
+  --foreground: oklch(1.0000 0.0000 0);            /* #FFFFFF — inverted ink */
+  --card: oklch(0.0000 0.0000 0);
+  --card-foreground: oklch(1.0000 0.0000 0);
+  --popover: oklch(0.0000 0.0000 0);
+  --popover-foreground: oklch(1.0000 0.0000 0);
+
+  --primary: oklch(1.0000 0.0000 0);               /* #FFFFFF — black inverts to white */
+  --primary-foreground: oklch(0.0000 0.0000 0);    /* #000000 */
+  --accent: oklch(1.0000 0.0000 0);                /* mirrors --primary */
+  --accent-foreground: oklch(0.0000 0.0000 0);
+  --destructive: oklch(1.0000 0.0000 0);
+  --destructive-foreground: oklch(0.0000 0.0000 0);
+
+  --secondary: oklch(0.2200 0.0000 0);             /* near-black secondary surface */
+  --secondary-foreground: oklch(1.0000 0.0000 0);
+  --muted: oklch(0.2200 0.0000 0);                 /* near-black muted surface */
+  --muted-foreground: oklch(0.7000 0.0000 0);      /* mid-grey ink — utility-neutral retune */
+
+  --border: oklch(1.0000 0.0000 0);                /* white borders on the inverted ground */
+  --input: oklch(1.0000 0.0000 0);
+  --ring: oklch(1.0000 0.0000 0);                  /* tracks --primary in dark */
+
+  --sidebar: oklch(0.0000 0.0000 0);
+  --sidebar-foreground: oklch(1.0000 0.0000 0);
+  --sidebar-primary: oklch(1.0000 0.0000 0);       /* tracks --primary in dark */
+  --sidebar-primary-foreground: oklch(0.0000 0.0000 0);
+  --sidebar-accent: oklch(0.2200 0.0000 0);
+  --sidebar-accent-foreground: oklch(1.0000 0.0000 0);
+  --sidebar-border: oklch(0.3500 0.0000 0);        /* mid-dark grey hairline equivalent */
+  --sidebar-ring: oklch(1.0000 0.0000 0);
+
+  /* Chart palette inverts to white-anchored greyscale. */
+  --chart-1: oklch(1.0000 0.0000 0);
+  --chart-2: oklch(0.8000 0.0000 0);
+  --chart-3: oklch(0.6000 0.0000 0);
+  --chart-4: oklch(0.4000 0.0000 0);
+  --chart-5: oklch(0.2200 0.0000 0);
+
+  /* Polarity-locked tokens — --brand-canvas-night, --brand-on-dark,
+   * --brand-on-light — are NOT overridden here. They carry the
+   * inversion vocabulary within either theme. */
+
+  /* Hairline lifts to a near-white equivalent for the inverted
+   * ground — utility-neutral retune, chroma ≈ 0. */
+  --brand-hairline-soft: oklch(0.3500 0.0000 0);
+
+  /* Body-text neutrals — utility retune for body legibility. */
+  --brand-body:        oklch(1.0000 0.0000 0);
+  --brand-body-muted:  oklch(0.7000 0.0000 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.0000 0.0000 0);
+    --foreground: oklch(1.0000 0.0000 0);
+    --card: oklch(0.0000 0.0000 0);
+    --card-foreground: oklch(1.0000 0.0000 0);
+    --popover: oklch(0.0000 0.0000 0);
+    --popover-foreground: oklch(1.0000 0.0000 0);
+
+    --primary: oklch(1.0000 0.0000 0);
+    --primary-foreground: oklch(0.0000 0.0000 0);
+    --accent: oklch(1.0000 0.0000 0);
+    --accent-foreground: oklch(0.0000 0.0000 0);
+    --destructive: oklch(1.0000 0.0000 0);
+    --destructive-foreground: oklch(0.0000 0.0000 0);
+
+    --secondary: oklch(0.2200 0.0000 0);
+    --secondary-foreground: oklch(1.0000 0.0000 0);
+    --muted: oklch(0.2200 0.0000 0);
+    --muted-foreground: oklch(0.7000 0.0000 0);
+
+    --border: oklch(1.0000 0.0000 0);
+    --input: oklch(1.0000 0.0000 0);
+    --ring: oklch(1.0000 0.0000 0);
+
+    --sidebar: oklch(0.0000 0.0000 0);
+    --sidebar-foreground: oklch(1.0000 0.0000 0);
+    --sidebar-primary: oklch(1.0000 0.0000 0);
+    --sidebar-primary-foreground: oklch(0.0000 0.0000 0);
+    --sidebar-accent: oklch(0.2200 0.0000 0);
+    --sidebar-accent-foreground: oklch(1.0000 0.0000 0);
+    --sidebar-border: oklch(0.3500 0.0000 0);
+    --sidebar-ring: oklch(1.0000 0.0000 0);
+
+    --chart-1: oklch(1.0000 0.0000 0);
+    --chart-2: oklch(0.8000 0.0000 0);
+    --chart-3: oklch(0.6000 0.0000 0);
+    --chart-4: oklch(0.4000 0.0000 0);
+    --chart-5: oklch(0.2200 0.0000 0);
+
+    --brand-hairline-soft: oklch(0.3500 0.0000 0);
+    --brand-body:        oklch(1.0000 0.0000 0);
+    --brand-body-muted:  oklch(0.7000 0.0000 0);
+  }
+}

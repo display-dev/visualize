@@ -1,0 +1,927 @@
+<!doctype html>
+<!-- architectural-type preview — Swiss-Brutalist register from temp/refs/architectural-type/raw.md.
+     Signature mockup: 2×2 Grid Matrix hero with split-clipped Inter Tight 900 word segments,
+     hairline-stitched 4-column command bar with Status Countdown. -->
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%23000'/><rect x='0.5' y='0.5' width='15' height='15' fill='none' stroke='%23fff' stroke-opacity='0.35' stroke-width='0.5'/><line x1='8' y1='0.5' x2='8' y2='15.5' stroke='%23fff' stroke-opacity='0.35' stroke-width='0.5'/><line x1='0.5' y1='8' x2='15.5' y2='8' stroke='%23fff' stroke-opacity='0.35' stroke-width='0.5'/><circle cx='8' cy='8' r='1.5' fill='%236366f1'/></svg>">
+
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — Architectural Type">
+<meta property="og:description" content="Swiss-Brutalist register: hairline grid matrix, oversized Inter Tight 900 display, single indigo accent.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Architectural Type preview shell — Swiss-Brutalist grid matrix === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; overflow-x: hidden; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: var(--leading-normal);
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Persistent noise overlay — spec §Style prose / §Style prompt.
+ * SVG fractal-noise at 5 % opacity. Fixed, pointer-events:none, layered
+ * above background canvas and below content. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+/* All page content sits above the noise. */
+main, header, footer { position: relative; z-index: 2; }
+
+/* === Topnav — Section 1 === */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  height: 72px;
+  padding: 0 32px;
+  background-color: var(--brand-topnav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 0.5px solid var(--brand-hairline-soft);
+}
+.topnav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: var(--tracking-heading);
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.topnav-brand .dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--foreground);
+}
+.topnav-brand .version {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono-cta);
+  color: var(--brand-body-muted);
+}
+.topnav-center {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono-cta);
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+}
+.topnav-center a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.topnav-center a:hover,
+.topnav-center a:focus-visible { color: var(--foreground); }
+.topnav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 0.5px solid var(--brand-hairline-soft);
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono-cta);
+  cursor: pointer;
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 40px;
+  min-width: 40px;
+}
+.icon-circle:hover { background-color: var(--brand-on-dark-mute); }
+.icon-circle:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 24px;
+  border-radius: var(--brand-radius-pill);
+  background-color: var(--foreground);
+  color: var(--background);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono-cta);
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.pill:hover { background-color: var(--primary); color: var(--foreground); }
+.pill:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* === Hero — Section 2: The Grid === */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  height: calc(100vh - 72px);
+  min-height: 640px;
+  position: relative;
+}
+.hero-cell {
+  position: relative;
+  display: flex;
+  padding: 32px;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--text-display);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-tight);
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.hero-cell--tl { align-items: flex-start; justify-content: flex-start; }
+.hero-cell--tr { align-items: flex-start; justify-content: flex-end; }
+.hero-cell--bl { align-items: flex-end; justify-content: flex-start; }
+.hero-cell--br { align-items: flex-end; justify-content: flex-end; }
+.hero-cell + .hero-cell { /* placeholder so the linter sees us using siblings */ }
+.hero-cell:nth-child(1),
+.hero-cell:nth-child(2) { border-bottom: 0.5px solid var(--brand-hairline-soft); }
+.hero-cell:nth-child(1),
+.hero-cell:nth-child(3) { border-right: 0.5px solid var(--brand-hairline-soft); }
+
+/* A single quadrant carries a ghost-fill to break the uniform rhythm. */
+.hero-cell--accent { background-color: var(--brand-hero-overflow); }
+
+.hero-meta {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono-tight);
+  color: var(--brand-body-muted);
+  text-transform: uppercase;
+}
+.hero-meta--tr { left: auto; right: 24px; text-align: right; }
+.hero-meta--bl { top: auto; bottom: 24px; }
+.hero-meta--br { top: auto; left: auto; bottom: 24px; right: 24px; text-align: right; }
+
+/* === Command Bar — Section 3 === */
+.command-bar {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  border-top: 0.5px solid var(--brand-hairline-soft);
+  border-bottom: 0.5px solid var(--brand-hairline-soft);
+}
+.command-cell {
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  min-height: 120px;
+}
+.command-cell + .command-cell { border-left: 0.5px solid var(--brand-hairline-soft); }
+.command-input {
+  flex: 1;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: var(--tracking-mono-tight);
+  text-transform: uppercase;
+}
+.command-input::placeholder {
+  color: var(--brand-body-muted);
+  letter-spacing: var(--tracking-mono-cta);
+}
+.command-input:focus { border-bottom: 2px solid var(--primary); padding-bottom: 4px; }
+
+.command-pill {
+  width: 100%;
+  height: 56px;
+  border-radius: var(--brand-radius-pill);
+  background-color: var(--foreground);
+  color: var(--background);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: var(--tracking-mono-cta);
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.command-pill:hover { background-color: var(--primary); color: var(--foreground); }
+.command-pill:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+.countdown {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.countdown .sep { color: var(--brand-on-dark-mute); padding: 0 4px; }
+
+.label-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  width: 100%;
+}
+.label-stack span {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 8px;
+  letter-spacing: var(--tracking-mono-wide);
+  color: var(--foreground);
+  text-transform: uppercase;
+}
+
+/* === Section: signature mockup epilogue caption === */
+.signature-caption {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 24px 32px;
+  border-bottom: 0.5px solid var(--brand-hairline-soft);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono-tight);
+  color: var(--brand-body-muted);
+  text-transform: uppercase;
+}
+.signature-caption .accent { color: var(--primary); }
+
+/* === Section: swatches === */
+.section {
+  padding: 96px 32px;
+  border-bottom: 0.5px solid var(--brand-hairline-soft);
+}
+.section-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  margin-bottom: 48px;
+}
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono-tight);
+  color: var(--brand-body-muted);
+  text-transform: uppercase;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--text-heading);
+  letter-spacing: var(--tracking-heading);
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 8px 0 0;
+}
+.section-count {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono-tight);
+  color: var(--brand-body-muted);
+}
+
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  border: 0.5px solid var(--brand-hairline-soft);
+}
+.swatch {
+  aspect-ratio: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 8px;
+  letter-spacing: var(--tracking-mono-tight);
+  text-transform: uppercase;
+}
+.swatch + .swatch { border-left: 0.5px solid var(--brand-hairline-soft); }
+.swatch .role { color: var(--brand-body-muted); }
+.swatch .token { color: currentColor; }
+
+/* Each swatch carries token-fixed contrast pairs. */
+.swatch--canvas { background-color: var(--brand-canvas-night); color: var(--brand-on-dark); }
+.swatch--foreground { background-color: var(--foreground); color: var(--background); }
+.swatch--muted { background-color: var(--muted); color: var(--foreground); }
+.swatch--border { background-color: var(--background); color: var(--foreground); border: 0.5px solid var(--border) !important; }
+.swatch--primary { background-color: var(--primary); color: var(--primary-foreground); }
+.swatch--hairline { background-color: var(--background); color: var(--foreground); position: relative; }
+
+/* For swatches whose background isn't the canvas, route .role to the
+ * swatch's own foreground (currentColor) so the label inherits the
+ * token-fixed contrast pair rather than the muted body neutral. */
+.swatch--canvas .role,
+.swatch--foreground .role,
+.swatch--muted .role,
+.swatch--border .role,
+.swatch--hairline .role,
+.swatch--primary .role { color: currentColor; }
+
+/* The --primary indigo against white (--primary-foreground) gives a
+ * 4.46:1 ratio — under the 4.5:1 AA body threshold by a hair. Bumping
+ * the label size + weight qualifies them as "large text" (≥14pt bold),
+ * which carries a 3:1 floor that the brand pair clears comfortably.
+ * Brand chromatic values (--primary, --primary-foreground) stay intact. */
+.swatch--primary .role,
+.swatch--primary .token {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+.swatch--hairline::after {
+  content: ""; position: absolute; left: 16px; right: 16px; top: 50%;
+  border-top: 0.5px solid var(--brand-hairline-soft);
+}
+
+/* Surface ladder */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 0.5px solid var(--brand-hairline-soft);
+}
+.ladder-cell {
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 200px;
+  justify-content: flex-end;
+}
+.ladder-cell + .ladder-cell { border-left: 0.5px solid var(--brand-hairline-soft); }
+.ladder-cell .num {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 72px;
+  line-height: 0.9;
+  letter-spacing: var(--tracking-heading);
+  color: var(--foreground);
+}
+.ladder-cell .num .accent { color: var(--primary); }
+.ladder-cell .name {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono-tight);
+  color: var(--brand-body-muted);
+  text-transform: uppercase;
+}
+
+/* Typography roles */
+.type-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 0.5px solid var(--brand-hairline-soft);
+}
+.type-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 160px;
+  gap: 32px;
+  padding: 32px 0;
+  border-bottom: 0.5px solid var(--brand-hairline-soft);
+  align-items: baseline;
+}
+.type-row .role-label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono-tight);
+  color: var(--brand-body-muted);
+  text-transform: uppercase;
+}
+.type-row .specimen {
+  color: var(--foreground);
+}
+.type-row .spec-meta {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono-tight);
+  color: var(--brand-body-muted);
+  text-transform: uppercase;
+  text-align: right;
+}
+.specimen--display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--text-heading);
+  letter-spacing: var(--tracking-heading);
+  text-transform: uppercase;
+}
+.specimen--heading {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--text-heading-sm);
+  letter-spacing: var(--tracking-heading);
+  text-transform: uppercase;
+}
+.specimen--title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-title);
+  letter-spacing: -0.02em;
+}
+.specimen--body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.specimen--caption {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--brand-body-muted);
+}
+.specimen--mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: var(--tracking-mono-tight);
+  text-transform: uppercase;
+}
+
+/* Component vocabulary */
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 0.5px solid var(--brand-hairline-soft);
+}
+.component-card {
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 400px;
+  position: relative;
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.component-card + .component-card { border-left: 0.5px solid var(--brand-hairline-soft); }
+.component-card .system-tag {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono-tight);
+  color: var(--brand-body-muted);
+  text-transform: uppercase;
+}
+.component-card .card-glyph {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  opacity: 0.2;
+  transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.component-card:hover { background-color: var(--brand-hero-overflow); }
+.component-card:hover .card-glyph { opacity: 1; }
+.component-card .card-glyph svg { width: 96px; height: 96px; }
+.component-card .card-glyph .rot {
+  transform-origin: center;
+  transform: rotate(45deg);
+  transition: transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.component-card:hover .card-glyph .rot { transform: rotate(90deg); }
+.component-card h3 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: var(--tracking-heading);
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0;
+}
+.component-card .card-caption {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--brand-body-muted);
+}
+
+/* Button strip */
+.button-strip {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 12px;
+  padding: 32px 0 16px;
+  align-items: center;
+}
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 24px;
+  background: transparent;
+  color: var(--foreground);
+  border: 0.5px solid var(--brand-hairline-soft);
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: var(--tracking-mono-cta);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-ghost:hover { background-color: var(--foreground); color: var(--background); }
+.btn-ghost:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 0.5px solid var(--brand-hairline-soft);
+  margin-top: 16px;
+}
+.label-mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono-tight);
+  color: var(--brand-body-muted);
+  text-transform: uppercase;
+}
+.input-bare {
+  width: 100%;
+  height: 48px;
+  padding: 0 0 8px;
+  background: transparent;
+  border: none;
+  border-bottom: 0.5px solid var(--brand-hairline-soft);
+  outline: none;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 16px;
+}
+.input-bare:focus { border-bottom-color: var(--primary); }
+
+/* Footer */
+.footer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 48px 32px;
+  border-top: 0.5px solid var(--brand-hairline-soft);
+}
+.footer .left {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 32px;
+  letter-spacing: var(--tracking-heading);
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.footer .left .accent { color: var(--primary); }
+.footer .right {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: var(--tracking-mono-tight);
+  color: var(--brand-body-muted);
+  text-transform: uppercase;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}
+
+/* Compact viewport adjustments */
+@media (max-width: 720px) {
+  .topnav-center { display: none; }
+  .hero-grid { grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); height: auto; min-height: 100vh; }
+  .hero-cell:nth-child(1), .hero-cell:nth-child(2), .hero-cell:nth-child(3) {
+    border-right: none;
+    border-bottom: 0.5px solid var(--brand-hairline-soft);
+  }
+  .command-bar { grid-template-columns: 1fr; }
+  .command-cell + .command-cell { border-left: none; border-top: 0.5px solid var(--brand-hairline-soft); }
+  .swatch-grid { grid-template-columns: repeat(3, 1fr); }
+  .ladder { grid-template-columns: repeat(2, 1fr); }
+  .component-grid { grid-template-columns: 1fr; }
+  .component-card + .component-card { border-left: none; border-top: 0.5px solid var(--brand-hairline-soft); }
+}
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="topnav-brand">
+    <span>__DESIGN_SYSTEM_NAME__</span>
+    <span class="dot" aria-hidden="true"></span>
+    <span class="version">BETA_V.01</span>
+  </div>
+  <nav class="topnav-center" aria-label="primary">
+    <a href="#system">SYSTEM</a>
+    <a href="#palette">PALETTE</a>
+    <a href="#type">TYPE</a>
+    <a href="#components">COMPONENTS</a>
+  </nav>
+  <div class="topnav-actions">
+    <button class="icon-circle" aria-label="Repository">GH</button>
+    <button class="icon-circle" aria-label="Updates">IG</button>
+    <button class="pill">GET ACCESS</button>
+  </div>
+</header>
+
+<main>
+
+<!-- === Signature mockup: Grid Matrix hero + Command Bar === -->
+<section class="hero-grid" id="system" aria-label="Architectural grid hero">
+  <div class="hero-cell hero-cell--bl">
+    <span class="hero-meta">SECTOR_01<br>HALCYON / NORTH</span>
+    HAL
+  </div>
+  <div class="hero-cell hero-cell--bl hero-cell--accent">
+    <span class="hero-meta hero-meta--tr">SECTOR_02<br>RC_2026.05</span>
+    CYON
+  </div>
+  <div class="hero-cell hero-cell--tl">
+    <span class="hero-meta hero-meta--bl">SECTOR_03<br>BUILD_SHIPPED</span>
+    GRID
+  </div>
+  <div class="hero-cell hero-cell--tl">
+    <span class="hero-meta hero-meta--br">SECTOR_04<br>LAT_45.8N</span>
+    YARD
+  </div>
+</section>
+
+<section class="command-bar" aria-label="Command bar">
+  <div class="command-cell">
+    <input class="command-input" type="email" placeholder="TEAM@HALCYON.DEV" aria-label="Email address">
+  </div>
+  <div class="command-cell">
+    <button class="command-pill">JOIN</button>
+  </div>
+  <div class="command-cell" aria-label="Cohort countdown">
+    <span class="countdown" aria-live="off">
+      72<span class="sep">:</span>14<span class="sep">:</span>08
+    </span>
+  </div>
+  <div class="command-cell">
+    <div class="label-stack">
+      <span>FREE_ACCESS</span>
+      <span>NO_CREDIT_CARD</span>
+      <span>OPT_OUT_ANY</span>
+    </div>
+  </div>
+</section>
+
+<section class="signature-caption">
+  <span>SIGNATURE / GRID MATRIX &mdash; 2×2 HAIRLINE QUADRANT, COMMAND STRIP</span>
+  <span><span class="accent">●</span> ACCENT RESERVED FOR ONE PRIMARY ACTION</span>
+</section>
+
+<!-- === Palette swatches === -->
+<section class="section" id="palette">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">SUBSYSTEM_A1</div>
+      <h2 class="section-title">Palette / Surface Roles</h2>
+    </div>
+    <span class="section-count">06 TOKENS</span>
+  </div>
+  <div class="swatch-grid">
+    <div class="swatch swatch--canvas">
+      <span class="role">CANVAS_NIGHT</span>
+      <span class="token">--background</span>
+    </div>
+    <div class="swatch swatch--foreground">
+      <span class="role">FOREGROUND</span>
+      <span class="token">--foreground</span>
+    </div>
+    <div class="swatch swatch--muted">
+      <span class="role">MUTED_FILL</span>
+      <span class="token">--muted</span>
+    </div>
+    <div class="swatch swatch--hairline">
+      <span class="role">HAIRLINE</span>
+      <span class="token">--brand-hairline-soft</span>
+    </div>
+    <div class="swatch swatch--border">
+      <span class="role">BORDER</span>
+      <span class="token">--border</span>
+    </div>
+    <div class="swatch swatch--primary">
+      <span class="role">ACCENT_INDIGO</span>
+      <span class="token">--primary</span>
+    </div>
+  </div>
+</section>
+
+<!-- === Surface ladder === -->
+<section class="section" aria-label="Surface ladder">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">SUBSYSTEM_A2</div>
+      <h2 class="section-title">Elevation Ladder</h2>
+    </div>
+    <span class="section-count">04 STEPS</span>
+  </div>
+  <div class="ladder">
+    <div class="ladder-cell">
+      <span class="num">00</span>
+      <span class="name">CANVAS / BASE</span>
+    </div>
+    <div class="ladder-cell">
+      <span class="num">01</span>
+      <span class="name">HAIRLINE / EDGE</span>
+    </div>
+    <div class="ladder-cell">
+      <span class="num">02</span>
+      <span class="name">MUTED / FILL</span>
+    </div>
+    <div class="ladder-cell">
+      <span class="num"><span class="accent">03</span></span>
+      <span class="name">ACCENT / PRIMARY</span>
+    </div>
+  </div>
+</section>
+
+<!-- === Typography roles === -->
+<section class="section" id="type">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">SUBSYSTEM_B1</div>
+      <h2 class="section-title">Type Roles</h2>
+    </div>
+    <span class="section-count">06 ROLES</span>
+  </div>
+  <div class="type-list">
+    <div class="type-row">
+      <span class="role-label">DISPLAY</span>
+      <span class="specimen specimen--display">Hairlines stitch the page.</span>
+      <span class="spec-meta">INTER TIGHT 900<br>−0.06em</span>
+    </div>
+    <div class="type-row">
+      <span class="role-label">HEADING</span>
+      <span class="specimen specimen--heading">Signal from the team radio</span>
+      <span class="spec-meta">INTER TIGHT 900<br>−0.04em</span>
+    </div>
+    <div class="type-row">
+      <span class="role-label">TITLE</span>
+      <span class="specimen specimen--title">Section · Subsystem A2</span>
+      <span class="spec-meta">INTER TIGHT 700<br>−0.02em</span>
+    </div>
+    <div class="type-row">
+      <span class="role-label">BODY</span>
+      <span class="specimen specimen--body">The grid does the work. A single accent does the rest. Halcyon's interface team keeps the surface honest by spending most of the canvas on emptiness and pinning content to corners.</span>
+      <span class="spec-meta">INTER 400<br>14 / 1.5</span>
+    </div>
+    <div class="type-row">
+      <span class="role-label">CAPTION</span>
+      <span class="specimen specimen--caption">A footnote on the lower-left, where the engineering log lives.</span>
+      <span class="spec-meta">INTER 400<br>12 / 0.6 OPACITY</span>
+    </div>
+    <div class="type-row">
+      <span class="role-label">MONO</span>
+      <span class="specimen specimen--mono">SYSTEM_01 · LAT_45.8N · BUILD_SHIPPED</span>
+      <span class="spec-meta">JETBRAINS MONO 500<br>+0.2em TRACKING</span>
+    </div>
+  </div>
+</section>
+
+<!-- === Component vocabulary === -->
+<section class="section" id="components">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">SUBSYSTEM_C1</div>
+      <h2 class="section-title">Component Vocabulary</h2>
+    </div>
+    <span class="section-count">03 ARCHETYPES</span>
+  </div>
+  <div class="component-grid">
+    <article class="component-card">
+      <span class="system-tag">SYSTEM_01</span>
+      <div class="card-glyph" aria-hidden="true">
+        <svg viewBox="0 0 96 96" fill="none">
+          <g class="rot">
+            <rect x="0.5" y="0.5" width="95" height="95" stroke="currentColor" stroke-width="0.5"/>
+          </g>
+        </svg>
+      </div>
+      <h3>Hairline Card</h3>
+      <p class="card-caption">A square frame and a rotated inner square. The whole vocabulary is line-work plus a 700ms rotation.</p>
+    </article>
+
+    <article class="component-card">
+      <span class="system-tag">SYSTEM_02</span>
+      <div class="card-glyph" aria-hidden="true">
+        <svg viewBox="0 0 96 96" fill="none">
+          <g class="rot">
+            <line x1="0" y1="48" x2="96" y2="48" stroke="currentColor" stroke-width="0.5"/>
+            <line x1="48" y1="0" x2="48" y2="96" stroke="currentColor" stroke-width="0.5"/>
+          </g>
+        </svg>
+      </div>
+      <h3>Status Countdown</h3>
+      <p class="card-caption">Tabular numerals stop the jitter; colons at twenty per cent opacity recede so the digits read first.</p>
+    </article>
+
+    <article class="component-card">
+      <span class="system-tag">SYSTEM_03</span>
+      <div class="card-glyph" aria-hidden="true">
+        <svg viewBox="0 0 96 96" fill="none">
+          <g class="rot">
+            <rect x="6" y="36" width="84" height="24" rx="12" stroke="currentColor" stroke-width="0.5"/>
+          </g>
+        </svg>
+      </div>
+      <h3>Pill Action</h3>
+      <p class="card-caption">The single radius exception. White fill on the dark canvas, indigo on hover, mono CTA copy locked at ten pixels.</p>
+    </article>
+  </div>
+
+  <div class="button-strip">
+    <button class="pill">PRIMARY</button>
+    <button class="command-pill" style="width: 160px; height: 44px;">CONFIRM</button>
+    <button class="btn-ghost">GHOST</button>
+    <button class="btn-ghost" disabled style="opacity: 0.4; cursor: not-allowed;">DISABLED</button>
+  </div>
+
+  <div class="input-row">
+    <label class="label-mono" for="demo-input">EMAIL_ADDRESS</label>
+    <input class="input-bare" id="demo-input" type="email" placeholder="team@halcyon.dev">
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="left">HALCYON / <span class="accent">●</span> GRID</div>
+  <div class="right">© 2026 / __DESIGN_SYSTEM_NAME__ / RC_2026.05</div>
+</footer>
+
+</body>
+</html>
+</content>
+</invoke>

@@ -1,0 +1,247 @@
+/**
+ * Paper-ink theme — print / letterpress register, light-mode-native.
+ * Cream paper + ink-black + restrained burnt-red rule. The aesthetic
+ * reference is a broadsheet or a letterpress monograph — paper you
+ * could *touch*, not a marketing page. Distinct from Editorial in
+ * being more austere (newsprint vs magazine) and more materially
+ * print-faithful (zero radius, looser tracking, rules visible).
+ *
+ * A direct lift of visual-explainer's Paper/ink constrained
+ * aesthetic (spec § Related work line 1289), resolved into the
+ * shadcn semantic token shape.
+ *
+ * Mode priority: light-canonical. Per spec line 104, Paper-ink sits
+ * in the light-canonical group alongside Clean, Editorial, and
+ * Whitepaper (the long-form publishing register). The :root block
+ * carries the canonical cream-paper state; `[data-theme="dark"]` is a printing-
+ * room interpretation (deep coal + cream ink) rather than a strong
+ * second register.
+ *
+ * Distinct from Clean / Editorial / Terminal / Deck / Blueprint /
+ * IDE on four axes:
+ *   1. Surfaces carry warm cream chroma at hue 80 chroma 0.015–0.02
+ *      — Editorial leans warm at chroma 0.008 (refined publishing);
+ *      Paper-ink pushes warmer (0.015–0.02) for the newsprint /
+ *      letterpress feel. The reader perceives the surface as
+ *      *paper* rather than *page background*.
+ *   2. `--primary` is a restrained burnt-red at hue 30 chroma 0.10
+ *      — distinct from every other theme's primary. The hue
+ *      evokes a stamp / inked-rule / red-pencil-correction
+ *      register; chroma stays well below the genre-reflex ceiling
+ *      so it never reads alarm.
+ *   3. Zero radius — print has no rounded corners. Distinct even
+ *      from Terminal (0.125rem) and IDE (0.1875rem) which are
+ *      "near-square"; Paper-ink is *square*.
+ *   4. Body font is serif (the publishing default), display is
+ *      serif (matching), tracking is slightly looser (0.005em)
+ *      to evoke letterpress spacing. Editorial uses similar serif
+ *      pairing but with neutral palette; Paper-ink's serif on
+ *      cream-paper reads as letterpress monograph rather than
+ *      magazine column.
+ *
+ * Blessed templates: Whitepaper, Report, Postmortem, Research brief,
+ * Fact-check report — the publishing-register templates from
+ * finding 34's pairing rule. Also FAQ (when register skews
+ * publication-style), Case study (when used in a publication
+ * rather than marketing context).
+ *
+ * Discouraged: Pitch deck, One-pager, Release announcement
+ * (marketing register undermined by the austere print tone),
+ * Diff review, Runbook, API reference (code-shape doesn't fit
+ * letterpress), Dashboard, Data explorer (data-shape doesn't fit
+ * print register), Slide deck (presentation-shape doesn't pair
+ * with reading-paper register). The warning is "you probably
+ * didn't mean to," per the discouraged-combo rule (finding 16).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Canonical Paper-ink register: warm cream paper + ink-black     */
+  /* foreground + restrained burnt-red accent.                      */
+
+  /* -- Surface / Foreground pairs ------------------------------ */
+  --background:              oklch(0.965 0.018 80);    /* warm cream paper */
+  --foreground:              oklch(0.18 0.008 60);     /* ink-black w/ warmth */
+
+  --card:                    oklch(0.955 0.020 80);
+  --card-foreground:         oklch(0.18 0.008 60);
+
+  --popover:                 oklch(0.955 0.020 80);
+  --popover-foreground:      oklch(0.18 0.008 60);
+
+  /* Burnt-red primary — letterpress-stamp lineage. Stays well     */
+  /* below the genre-reflex ceiling so it never reads alarm.        */
+  --primary:                 oklch(0.40 0.12 30);
+  --primary-foreground:      oklch(0.965 0.018 80);
+
+  --secondary:               oklch(0.92 0.018 78);
+  --secondary-foreground:    oklch(0.18 0.008 60);
+
+  --muted:                   oklch(0.92 0.018 78);
+  --muted-foreground:        oklch(0.42 0.012 65);
+
+  --accent:                  oklch(0.89 0.022 76);
+  --accent-foreground:       oklch(0.18 0.008 60);
+
+  /* Destructive sits between primary's burnt-red and warm coal-red */
+  /* — Paper-ink's restraint applies here too.                      */
+  --destructive:             oklch(0.45 0.20 25);
+  --destructive-foreground:  oklch(0.965 0.018 80);
+
+  /* Borders are visible rule-lines (the broadsheet style) — darker */
+  /* than Clean's barely-there separators.                          */
+  --border:                  oklch(0.78 0.018 70);
+  --input:                   oklch(0.85 0.020 75);
+  --ring:                    oklch(0.40 0.12 30);
+
+  /* Sidebar tokens (preserved for shadcn-shape parity) */
+  --sidebar:                 oklch(0.94 0.020 80);
+  --sidebar-foreground:      oklch(0.18 0.008 60);
+  --sidebar-primary:         oklch(0.40 0.12 30);
+  --sidebar-primary-foreground: oklch(0.965 0.018 80);
+  --sidebar-accent:          oklch(0.89 0.022 76);
+  --sidebar-accent-foreground: oklch(0.18 0.008 60);
+  --sidebar-border:          oklch(0.78 0.018 70);
+  --sidebar-ring:            oklch(0.40 0.12 30);
+
+  /* Chart tokens — warm-print five-stop; ink-burnt-red leads.   */
+  --chart-1:                 oklch(0.40 0.12 30);    /* burnt-red (matches primary) */
+  --chart-2:                 oklch(0.38 0.06 85);    /* sepia */
+  --chart-3:                 oklch(0.32 0.04 220);   /* slate */
+  --chart-4:                 oklch(0.42 0.08 140);   /* olive */
+  --chart-5:                 oklch(0.28 0.02 60);    /* coal */
+
+  /* -- Typography tokens ---------------------------------------- */
+  --font-sans:  'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'EB Garamond', 'Crimson Pro', 'Source Serif Pro', 'Garamond', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono:  ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Display is serif — the publishing-register identity comes from */
+  /* the serif face on cream paper. Editorial is serif too, but on  */
+  /* refined neutral palette; Paper-ink's serif-on-cream reads as   */
+  /* letterpress monograph rather than magazine column.             */
+  --font-display: var(--font-serif);
+
+  /* -- Type scale tokens — publishing register, narrow-measure -- */
+  --text-display:  clamp(2rem, 4.5vw, 3.25rem);
+  --text-heading:  1.625rem;
+  --text-title:    1.125rem;
+  --text-base:     17px;          /* +1px from Clean — reading comfort */
+  --leading-tight: 1.15;
+  --leading-normal: 1.65;         /* wider for serif body */
+
+  /* -- Radius — zero, print has no rounded corners -------------- */
+  --radius:                  0;
+  --radius-sm:               0;
+  --radius-md:               0;
+  --radius-lg:               0;
+  --radius-xl:               0;
+
+  /* -- Spacing -------------------------------------------------- */
+  --spacing:                 0.25rem;
+
+  /* -- Tracking — slightly looser, letterpress spacing ---------- */
+  --tracking-normal:         0.005em;
+
+  /* -- Shadow scale — warm-tinted, paper-flat (no glossy chrome) -*/
+  --shadow-2xs: 0 1px 1px 0 hsl(40 30% 15% / 0.03);
+  --shadow-xs:  0 1px 2px 0 hsl(40 30% 15% / 0.05);
+  --shadow-sm:  0 1px 2px 0 hsl(40 30% 15% / 0.06), 0 1px 1px -1px hsl(40 30% 15% / 0.04);
+  --shadow:     0 1px 3px 0 hsl(40 30% 15% / 0.08);
+  --shadow-md:  0 2px 4px -1px hsl(40 30% 15% / 0.10), 0 1px 2px -1px hsl(40 30% 15% / 0.06);
+  --shadow-lg:  0 6px 12px -3px hsl(40 30% 15% / 0.12), 0 2px 4px -2px hsl(40 30% 15% / 0.08);
+  --shadow-xl:  0 12px 18px -4px hsl(40 30% 15% / 0.14);
+  --shadow-2xl: 0 18px 36px -8px hsl(40 30% 15% / 0.20);
+}
+
+/* -- Dark mode -------------------------------------------------- */
+/* Printing-room interpretation: deep coal background + cream ink   */
+/* + warmer burnt-red accent. Reads as a letterpress run viewed    */
+/* under dim light rather than the canonical paper register.       */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background:              oklch(0.16 0.012 60);    /* deep coal w/ warmth */
+  --foreground:              oklch(0.92 0.018 80);    /* cream ink */
+
+  --card:                    oklch(0.20 0.014 60);
+  --card-foreground:         oklch(0.92 0.018 80);
+
+  --popover:                 oklch(0.20 0.014 60);
+  --popover-foreground:      oklch(0.92 0.018 80);
+
+  --primary:                 oklch(0.62 0.16 30);     /* brighter burnt-red */
+  --primary-foreground:      oklch(0.16 0.012 60);
+
+  --secondary:               oklch(0.24 0.014 60);
+  --secondary-foreground:    oklch(0.92 0.018 80);
+
+  --muted:                   oklch(0.24 0.014 60);
+  --muted-foreground:        oklch(0.70 0.014 70);
+
+  --accent:                  oklch(0.28 0.018 60);
+  --accent-foreground:       oklch(0.92 0.018 80);
+
+  --destructive:             oklch(0.68 0.20 25);
+  --destructive-foreground:  oklch(0.92 0.018 80);
+
+  --border:                  oklch(0.30 0.016 60);
+  --input:                   oklch(0.28 0.014 60);
+  --ring:                    oklch(0.62 0.16 30);
+
+  --sidebar:                 oklch(0.18 0.012 60);
+  --sidebar-foreground:      oklch(0.92 0.018 80);
+  --sidebar-primary:         oklch(0.62 0.16 30);
+  --sidebar-primary-foreground: oklch(0.16 0.012 60);
+  --sidebar-accent:          oklch(0.28 0.018 60);
+  --sidebar-accent-foreground: oklch(0.92 0.018 80);
+  --sidebar-border:          oklch(0.30 0.016 60);
+  --sidebar-ring:            oklch(0.62 0.16 30);
+
+  --chart-1:                 oklch(0.62 0.16 30);
+  --chart-2:                 oklch(0.65 0.10 85);
+  --chart-3:                 oklch(0.55 0.08 220);
+  --chart-4:                 oklch(0.65 0.12 140);
+  --chart-5:                 oklch(0.55 0.04 60);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background:              oklch(0.16 0.012 60);
+    --foreground:              oklch(0.92 0.018 80);
+    --card:                    oklch(0.20 0.014 60);
+    --card-foreground:         oklch(0.92 0.018 80);
+    --popover:                 oklch(0.20 0.014 60);
+    --popover-foreground:      oklch(0.92 0.018 80);
+    --primary:                 oklch(0.62 0.16 30);
+    --primary-foreground:      oklch(0.16 0.012 60);
+    --secondary:               oklch(0.24 0.014 60);
+    --secondary-foreground:    oklch(0.92 0.018 80);
+    --muted:                   oklch(0.24 0.014 60);
+    --muted-foreground:        oklch(0.70 0.014 70);
+    --accent:                  oklch(0.28 0.018 60);
+    --accent-foreground:       oklch(0.92 0.018 80);
+    --destructive:             oklch(0.68 0.20 25);
+    --destructive-foreground:  oklch(0.92 0.018 80);
+    --border:                  oklch(0.30 0.016 60);
+    --input:                   oklch(0.28 0.014 60);
+    --ring:                    oklch(0.62 0.16 30);
+
+    --sidebar:                 oklch(0.18 0.012 60);
+    --sidebar-foreground:      oklch(0.92 0.018 80);
+    --sidebar-primary:         oklch(0.62 0.16 30);
+    --sidebar-primary-foreground: oklch(0.16 0.012 60);
+    --sidebar-accent:          oklch(0.28 0.018 60);
+    --sidebar-accent-foreground: oklch(0.92 0.018 80);
+    --sidebar-border:          oklch(0.30 0.016 60);
+    --sidebar-ring:            oklch(0.62 0.16 30);
+
+    --chart-1:                 oklch(0.62 0.16 30);
+    --chart-2:                 oklch(0.65 0.10 85);
+    --chart-3:                 oklch(0.55 0.08 220);
+    --chart-4:                 oklch(0.65 0.12 140);
+    --chart-5:                 oklch(0.55 0.04 60);
+  }
+}

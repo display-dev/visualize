@@ -1,0 +1,194 @@
+/**
+ * design-systems/hyper-saturated/tokens.css
+ *
+ * Hand-authored from the Hyper-Saturated Fluid spec
+ * (temp/refs/hyper-saturated/raw.md — Zhou Jason, Superdesign library).
+ * Sourced: 2026-05-26.
+ *
+ * Register-family invention — spec-derived, no live brand site to
+ * navigate. Companion: design-systems/hyper-saturated/DESIGN.md.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this system's.
+ *   - Brand-extras (--brand-*): the system's own design-system
+ *     vocabulary. Surface-named only (-canvas-void, -canvas-shout,
+ *     -surface-charcoal, -on-void, -on-shout, -glass-*, -hairline-*).
+ *
+ * Polarity locks:
+ *   --brand-canvas-shout / --brand-canvas-void / --brand-surface-charcoal /
+ *   --brand-surface-onyx-elevated / --brand-on-void / --brand-on-shout /
+ *   --brand-glass-fill / --brand-glass-border DO NOT flip with theme.
+ *   The shout-on-void contract is the system's identity in both polarities.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+
+  --background: oklch(0.9851 0 0);                      /* #FAFAFA */
+  --foreground: oklch(0.1448 0 0);                      /* #0A0A0A — spec Deep Onyx, also light-canvas ink */
+  --card: oklch(1 0 0);                                 /* #FFFFFF */
+  --card-foreground: oklch(0.1448 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.1448 0 0);
+
+  --primary: oklch(0.9052 0.1657 98.11);                /* #FDE047 — Cyber Yellow shout */
+  --primary-foreground: oklch(0.1448 0 0);              /* #0A0A0A — locked black on yellow */
+  --secondary: oklch(0.9219 0 0);                       /* #E5E5E5 */
+  --secondary-foreground: oklch(0.1448 0 0);
+  --muted: oklch(0.9702 0 0);                           /* #F5F5F5 */
+  --muted-foreground: oklch(0.3715 0 0);                /* #404040 — utility neutral, chroma 0 */
+  --accent: oklch(0.9052 0.1657 98.11);                 /* mirrors --primary */
+  --accent-foreground: oklch(0.1448 0 0);
+  --destructive: oklch(0.5771 0.2152 27.33);            /* #DC2626 — synthesised status */
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.9219 0 0);                          /* #E5E5E5 */
+  --input: oklch(0.9219 0 0);
+  --ring: oklch(0.9052 0.1657 98.11);                   /* tracks --primary */
+
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.1448 0 0);
+  --sidebar-primary: oklch(0.9052 0.1657 98.11);        /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.1448 0 0);
+  --sidebar-accent: oklch(0.9702 0 0);
+  --sidebar-accent-foreground: oklch(0.1448 0 0);
+  --sidebar-border: oklch(0.9219 0 0);
+  --sidebar-ring: oklch(0.9052 0.1657 98.11);           /* tracks --primary */
+
+  --chart-1: oklch(0.9052 0.1657 98.11);                /* shout */
+  --chart-2: oklch(0.1448 0 0);                         /* onyx */
+  --chart-3: oklch(0.2686 0 0);                         /* deep gray */
+  --chart-4: oklch(0.5555 0 0);                         /* mid gray */
+  --chart-5: oklch(0.7155 0 0);                         /* light gray */
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 32px;                                    /* spec rounded-[32px] for glass containers */
+  --radius-xl: 9999px;                                  /* spec pill (rounded-full) — interactive default */
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: 'Inter', 'General Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Inter', 'General Sans', system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* The spec calls for shadow-2xl on glassmorphic cards (Tailwind 2xl =
+   * 0 25px 50px -12px rgb(0 0 0 / 0.25)). The pill CTA hover uses
+   * shadow-lg (0 10px 15px -3px / 0 4px 6px -4px). */
+  --shadow-card: 0 25px 50px -12px oklch(0 0 0 / 0.25);
+  --shadow-pill-hover: 0 10px 15px -3px oklch(0 0 0 / 0.18), 0 4px 6px -4px oklch(0 0 0 / 0.12);
+
+  /* -- Brand-extras --------------------------------------------- */
+
+  /* Polarity-locked shout + void surfaces (spec contract: same in both
+   * modes — the shout-on-void identity is the system's signature). */
+  --brand-canvas-shout: oklch(0.9052 0.1657 98.11);     /* #FDE047 */
+  --brand-canvas-void: oklch(0.1448 0 0);               /* #0A0A0A */
+  --brand-surface-charcoal: oklch(0.2046 0 0);          /* #171717 — spec Surface Charcoal */
+  --brand-surface-onyx-elevated: oklch(0.2686 0 0);     /* #262626 — spec Deep Gray, void UI elements */
+
+  /* Polarity-locked foregrounds (the shout-text and void-text contract) */
+  --brand-on-shout: oklch(0.1448 0 0);                  /* #0A0A0A — locked black on yellow */
+  --brand-on-void: oklch(1 0 0);                        /* #FFFFFF — locked white on onyx */
+  --brand-on-void-mute: oklch(0.7155 0 0);              /* #A3A3A3 — utility neutral, chroma 0 */
+
+  /* Glassmorphic overlay (the spec's signature floating surface) */
+  --brand-glass-fill: oklch(1 0 0 / 0.10);              /* spec bg-white/10 */
+  --brand-glass-border: oklch(1 0 0 / 0.20);            /* spec 1px white border at 20% */
+  --brand-glass-blur: 24px;                             /* spec backdrop-blur-2xl */
+
+  /* Liquid-section radii — the bimodal radii contract (pill or extreme,
+   * never the 8/12/16px middle ground per spec Don't). */
+  --brand-radius-pill: 9999px;
+  --brand-radius-card: 32px;
+  --brand-radius-liquid-major: 120px;                   /* spec rounded-b-[120px] */
+  --brand-radius-liquid-minor: 40px;                    /* spec rounded-bl-[40px] */
+
+  /* Hairlines / dividers */
+  --brand-hairline-soft: oklch(0.9219 0 0);             /* #E5E5E5 — light canvas */
+  --brand-hairline-on-void: oklch(1 0 0 / 0.10);        /* void canvas — extension of glass border */
+
+  /* Body text neutrals (chroma ≈ 0 utility) */
+  --brand-body: oklch(0.1448 0 0);                      /* light-canvas body */
+  --brand-body-muted: oklch(0.3715 0 0);                /* light-canvas muted body */
+
+  /* Motion vocabulary (the elastic liquid ease — spec §Animation) */
+  --brand-ease-elastic: cubic-bezier(0.22, 1, 0.36, 1);
+  --brand-dur-fast: 120ms;
+  --brand-dur-base: 240ms;
+  --brand-dur-slow: 480ms;
+}
+
+/* -- Dark theme ------------------------------------------------
+ * The shout-on-void contract is polarity-locked, so the hero band +
+ * void section + glassmorphic surfaces stay at :root values. Only the
+ * supporting light canvas + light card flip to onyx + charcoal for
+ * the dark mode of the token-demo surrounds.
+ *
+ * --primary stays at :root — there is no documented dark-mode variant
+ * for Cyber Yellow.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1448 0 0);                      /* mirrors --brand-canvas-void */
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2046 0 0);                            /* mirrors --brand-surface-charcoal */
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2046 0 0);
+  --popover-foreground: oklch(1 0 0);
+
+  --secondary: oklch(0.2686 0 0);                       /* mirrors --brand-surface-onyx-elevated */
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2046 0 0);
+  --muted-foreground: oklch(0.7155 0 0);                /* utility lift for dark canvas */
+
+  --border: oklch(1 0 0 / 0.10);                        /* mirrors --brand-hairline-on-void */
+  --input: oklch(1 0 0 / 0.10);
+
+  --sidebar: oklch(0.2046 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2686 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(1 0 0 / 0.10);
+
+  /* Utility neutral body inks lift in dark mode */
+  --brand-body: oklch(1 0 0);
+  --brand-body-muted: oklch(0.7155 0 0);
+  --brand-hairline-soft: oklch(1 0 0 / 0.10);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1448 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2046 0 0);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2046 0 0);
+    --popover-foreground: oklch(1 0 0);
+
+    --secondary: oklch(0.2686 0 0);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.2046 0 0);
+    --muted-foreground: oklch(0.7155 0 0);
+
+    --border: oklch(1 0 0 / 0.10);
+    --input: oklch(1 0 0 / 0.10);
+
+    --sidebar: oklch(0.2046 0 0);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.2686 0 0);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(1 0 0 / 0.10);
+
+    --brand-body: oklch(1 0 0);
+    --brand-body-muted: oklch(0.7155 0 0);
+    --brand-hairline-soft: oklch(1 0 0 / 0.10);
+  }
+}

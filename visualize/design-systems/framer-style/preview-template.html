@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23000'/%3E%3Cpath d='M9 7 L23 7 L23 13 L13 13 L18 19 L13 19 L13 25 L9 25 Z' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Dark canvas + white display + single blue link accent + vibrant gradient spotlight panels (magenta + violet + orange + coral) as the working-artboard signature.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Framer-style preview shell — dark-canonical working-artboard
+   marketing site. Pure-near-black canvas, white display with
+   aggressive negative tracking, single confident blue (oklch accent)
+   reserved for inline links and selection states. The page rhythm
+   is broken by oversized vibrant gradient atmosphere panels —
+   magenta, violet, orange, coral spotlights — that act as living
+   showcase tiles, not decoration. White pill CTAs on dark, charcoal
+   card surfaces. Inter standing in for GT Walsheim Medium. Halcyon-
+   themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'GT Walsheim Framer Medium', 'GT Walsheim Medium', 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern", "liga", "ss01";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 24px; height: 24px;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--primary-foreground);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--brand-ink-muted);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; font-size: 14px; }
+.topnav-actions a { color: var(--brand-ink-muted); text-decoration: none; font-weight: 500; }
+.topnav-actions a:hover { color: var(--foreground); }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (white pill 100 px on dark) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.1px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { background: rgba(255, 255, 255, 0.86); border-color: rgba(255, 255, 255, 0.86); }
+.btn[data-variant="secondary"] {
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.btn[data-variant="secondary"]:hover { background: var(--brand-surface-1); border-color: rgba(255, 255, 255, 0.4); }
+.btn[data-variant="inverse"] {
+  background: var(--brand-inverse-canvas);
+  color: var(--brand-inverse-ink);
+  border-color: var(--brand-inverse-canvas);
+}
+.btn[data-variant="inverse"]:hover { background: rgba(255, 255, 255, 0.86); }
+.btn[data-size="lg"] { min-height: 52px; padding: 0 1.5rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (dark canvas, oversized white display, blue link) -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -8rem;
+  right: -8rem;
+  width: 38rem;
+  height: 38rem;
+  background: radial-gradient(circle, var(--brand-gradient-violet) 0%, transparent 60%);
+  opacity: 0.45;
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: -8rem;
+  left: -6rem;
+  width: 32rem;
+  height: 32rem;
+  background: radial-gradient(circle, var(--brand-gradient-magenta) 0%, transparent 60%);
+  opacity: 0.35;
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+  margin: 0 0 1.5rem;
+}
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+.hero-display {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 16ch;
+}
+.hero-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.2px;
+  color: var(--brand-ink-muted);
+  max-width: 38rem;
+  margin: 0 0 2rem;
+}
+.hero-lede a { color: var(--accent); font-weight: 500; }
+.hero-lede a:hover { text-decoration: underline; }
+.hero-ctas {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* -- Signature: gradient spotlight panel grid (the brand's living showcase tiles) -- */
+.spotlight-section {
+  padding: 5rem 1.5rem;
+}
+.spotlight-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 1080px) { .spotlight-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .spotlight-grid { grid-template-columns: 1fr; } }
+.spotlight {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--brand-radius-xxl);
+  padding: 2.5rem 2rem;
+  min-height: 22rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  color: var(--foreground);
+}
+.spotlight[data-tone="violet"] {
+  background:
+    radial-gradient(circle at 30% 30%, var(--brand-gradient-violet) 0%, transparent 70%),
+    radial-gradient(circle at 80% 80%, var(--brand-gradient-magenta) 0%, transparent 70%),
+    var(--brand-surface-1);
+}
+.spotlight[data-tone="orange"] {
+  background:
+    radial-gradient(circle at 70% 30%, var(--brand-gradient-orange) 0%, transparent 70%),
+    radial-gradient(circle at 20% 80%, var(--brand-gradient-coral) 0%, transparent 70%),
+    var(--brand-surface-1);
+}
+.spotlight[data-tone="magenta"] {
+  background:
+    radial-gradient(circle at 50% 30%, var(--brand-gradient-magenta) 0%, transparent 70%),
+    radial-gradient(circle at 50% 90%, var(--brand-gradient-violet) 0%, transparent 70%),
+    var(--brand-surface-1);
+}
+.spotlight-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+}
+.spotlight-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 14ch;
+}
+.spotlight-body {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.86);
+  margin: 0;
+}
+.spotlight-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  padding-bottom: 0.25rem;
+  align-self: flex-start;
+}
+.spotlight-cta:hover { border-bottom-color: var(--foreground); }
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; }
+.section[data-tight] { padding: 3rem 1.5rem; }
+.section[data-band="surface-1"] { background: var(--brand-surface-1); }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 42rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--brand-ink-muted);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-lede a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--brand-surface-1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--brand-radius-xs);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--brand-radius-xxl);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="surface-1"] { background: var(--brand-surface-1); color: var(--foreground); }
+.ladder-step[data-step="surface-2"] { background: var(--brand-surface-2); color: var(--foreground); }
+.ladder-num {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+  color: var(--foreground);
+}
+.ladder-role { font-size: 14px; color: var(--brand-ink-muted); margin-top: auto; line-height: 1.45; }
+
+/* -- Pricing (charcoal tiles, featured = white inverse) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--brand-surface-1);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-xxl);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pricing-card[data-featured] {
+  background: var(--brand-inverse-canvas);
+  border-color: var(--brand-inverse-canvas);
+  color: var(--brand-inverse-ink);
+}
+.pricing-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-name { color: var(--brand-inverse-ink); }
+.pricing-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 44px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-price { color: var(--brand-inverse-ink); }
+.pricing-tagline {
+  font-size: 13px;
+  color: var(--brand-ink-muted);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: rgba(0, 0, 0, 0.66); }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding-top: 1rem;
+  font-size: 13px;
+  color: var(--brand-ink-muted);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: rgba(0, 0, 0, 0.18);
+  color: rgba(0, 0, 0, 0.82);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "→";
+  color: var(--accent);
+  flex-shrink: 0;
+  width: 14px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--brand-inverse-ink); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+}
+.type-display {
+  font-family: 'Inter', sans-serif;
+  font-size: 44px;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; line-height: 1.55; color: var(--brand-ink-muted); }
+.type-body a { color: var(--accent); }
+.type-mono { font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: var(--brand-ink-muted); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+  width: 100%;
+}
+
+/* -- Footer -- */
+.footer {
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding: 3rem 1.5rem 2rem;
+  background: var(--background);
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 13px; color: var(--brand-ink-muted); line-height: 1.55; margin: 0; }
+.footer-col-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 14px; color: var(--brand-ink-muted); text-decoration: none; }
+.footer-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-ink-muted);
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Workspace</a>
+      <a href="#">Templates</a>
+      <a href="#">Pricing</a>
+      <a href="#">Learn</a>
+      <a href="#">Updates</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Start for free</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Halcyon · workspace</p>
+    <h1 class="hero-display">A working artboard for the whole team.</h1>
+    <p class="hero-lede">Halcyon's product team treats every page like an artboard — notes, threads, and specs composited on a near-black canvas with vibrant gradient spotlights between the chapters. <a href="#">See how the rooms work →</a></p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Start for free</button>
+      <button class="btn" data-variant="secondary" data-size="lg" type="button">Open the demo</button>
+    </div>
+  </div>
+</header>
+
+<section class="spotlight-section" aria-label="Gradient spotlight signature">
+  <div class="spotlight-grid">
+    <article class="spotlight" data-tone="violet">
+      <span class="spotlight-eyebrow">Spotlight · 01</span>
+      <h2 class="spotlight-title">Composite work, not pages.</h2>
+      <p class="spotlight-body">Every note, thread, and spec lives on a single canvas — drag, layer, and re-arrange like an artboard. No documents in folders, no pages in trees.</p>
+      <a class="spotlight-cta" href="#">Read the playbook</a>
+    </article>
+    <article class="spotlight" data-tone="orange">
+      <span class="spotlight-eyebrow">Spotlight · 02</span>
+      <h2 class="spotlight-title">Ship straight from review.</h2>
+      <p class="spotlight-body">Comments resolve into edits, edits resolve into commits. Reviews compose with the work rather than chasing it.</p>
+      <a class="spotlight-cta" href="#">See the loop</a>
+    </article>
+    <article class="spotlight" data-tone="magenta">
+      <span class="spotlight-eyebrow">Spotlight · 03</span>
+      <h2 class="spotlight-title">One canvas, every team.</h2>
+      <p class="spotlight-body">Product, engineering, and ops on the same canvas — each with their own layers, each visible to the others when it matters.</p>
+      <a class="spotlight-cta" href="#">Watch the demo</a>
+    </article>
+  </div>
+</section>
+
+<section class="section" data-band="surface-1" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Black canvas, vibrant gradients.</h2>
+      <p class="section-lede">Near-pure black floor, white display, single confident blue reserved for inline links. The vibrant gradient palette (magenta + violet + orange + coral) appears only inside spotlight panels — never on chrome, never on type.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-1);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-1</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-2);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-2</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-inverse-canvas);"></div><div class="swatch-role">Inverse</div><div class="swatch-name">--brand-inverse-canvas</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--accent);"></div><div class="swatch-role">Link</div><div class="swatch-name">--accent · blue</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-gradient-magenta);"></div><div class="swatch-role">Gradient</div><div class="swatch-name">--brand-gradient-magenta</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-gradient-violet);"></div><div class="swatch-role">Gradient</div><div class="swatch-name">--brand-gradient-violet</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-gradient-orange);"></div><div class="swatch-role">Gradient</div><div class="swatch-name">--brand-gradient-orange</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-gradient-coral);"></div><div class="swatch-role">Gradient</div><div class="swatch-name">--brand-gradient-coral</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ink-muted);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-muted</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-semantic-success);"></div><div class="swatch-role">Status</div><div class="swatch-name">--brand-semantic-success</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces</p>
+      <h2 class="section-title">Three dark registers.</h2>
+      <p class="section-lede">Near-pure black canvas as the page floor. Slightly lifted surface-1 for charcoal cards and pricing tiles. Stronger surface-2 for emphasis blocks. Gradients sit on top of the lifted surfaces, never directly on the canvas.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · marketing surfaces</span>
+      </div>
+      <div class="ladder-step" data-step="surface-1">
+        <span class="ladder-num">Surface 1</span>
+        <span class="ladder-name">--brand-surface-1</span>
+        <span class="ladder-role">charcoal cards · spotlight base</span>
+      </div>
+      <div class="ladder-step" data-step="surface-2">
+        <span class="ladder-num">Surface 2</span>
+        <span class="ladder-name">--brand-surface-2</span>
+        <span class="ladder-role">emphasis · alt band</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three tiers on charcoal.</h2>
+      <p class="section-lede">Charcoal tiles with the featured tier inverted to white — the brand's polarity flip without leaving the dark canvas world.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Start for free</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" type="button" style="background: var(--brand-inverse-ink); color: var(--brand-inverse-canvas); border-color: var(--brand-inverse-ink);">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="surface-1" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · type + components</p>
+      <h2 class="section-title">Inter at weight 500, tight tracking.</h2>
+      <p class="section-lede">Display tier at Inter weight 500 with aggressive negative tracking (-4%). Body at weight 400. Buttons square-pill at 100 px radius — white on dark for primary, transparent-with-hairline for secondary. <a href="#">Blue inline links</a> only.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Working artboard.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Inter weight 500</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter · 600 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Inter at 14–16 pixels, line-height 1.55. <a href="#">Blue inline links</a> are the only chromatic departure from the white-on-dark world.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">workspace.canvas.layers</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · 100 px pill, white on dark</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Start for free</button>
+            <button class="btn" data-variant="secondary" type="button">Open the demo</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Buttons · inverse pill on dark</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="inverse" type="button">Open canvas</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the dark-canonical working-artboard design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-list"><li><a href="#">Canvas</a></li><li><a href="#">Templates</a></li><li><a href="#">Updates</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list"><li><a href="#">Docs</a></li><li><a href="#">Learn</a></li><li><a href="#">Community</a></li><li><a href="#">Blog</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">workspace.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">dark canvas · vibrant gradients · white pill · blue link</span>
+  </div>
+</footer>
+
+</body>
+</html>

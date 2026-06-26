@@ -1,0 +1,2611 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>minimax-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111111'/%3E%3Cpath d='M8 22 L8 10 L16 18 L24 10 L24 22' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<meta property="og:title" content="minimax-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Stark monochrome canvas + black-pill CTAs + a four-up vibrant gradient matrix (coral / magenta / blue / purple) carrying the brand voltage. DM Sans across every role; 80px hero display with -2px letter-spacing. Token surfaces rendered on Halcyon-themed neutral content.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/minimax-style/tokens.css) === */
+/**
+ * design-systems/minimax-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * MiniMax-style is LIGHT-CANONICAL with no documented dark mode (per
+ * DESIGN.md §6 known-gaps: "Specific dark-mode token values for canvas,
+ * surface, ink, and hairline are not surfaced on these pages; the brand
+ * has not yet shipped a published dark-mode palette"). The brand's marketing
+ * surfaces run on stark white canvas with two near-black moments — the
+ * sticky promo banner above the nav and the deep-black multi-column footer
+ * (`--brand-footer-bg`).
+ *
+ * Dark-mode strategy: synthesise a plausible dark by promoting the
+ * documented `--brand-footer-bg` (the deep black already used for the
+ * marketing footer) to canvas, with cards stepping up one tone so the
+ * documented flat-card register survives. The four vibrant brand product
+ * colours (coral / magenta / blue / purple — the model-identity gradient
+ * register documented in DESIGN.md §2 Brand & Accent) stay POLARITY-LOCKED
+ * across both modes; they're MiniMax's voltage signature and already read
+ * white-on-saturated on both polarities (mid-saturation at L=0.62-0.69).
+ *
+ * Override rationale per token:
+ *   --background      → promoted to a near-black canvas (matches the brand's
+ *                       documented footer-bg deep-black; the footer in dark
+ *                       mode becomes the canvas itself and the dark band
+ *                       reads as embossed inverse via hairline)
+ *   --card / --popover → step up one tonal notch (L=0.20) so quiet white
+ *                       documentation cards remain visible against canvas;
+ *                       preserves the brand's flat-card register (no
+ *                       shadow, just a tone step + hairline)
+ *   --foreground      → near-white inverse of the L=0.1448 ink, preserving
+ *                       the brand's "near-black anchor" register inverted
+ *   --primary         → lifts from near-black to near-white. The brand's
+ *                       dominant CTA is "black pill" — in dark canvas it
+ *                       becomes a white pill (the same scarce-monochrome
+ *                       voltage register, polarity flipped). Pair text
+ *                       lifts to near-black so the contrast holds.
+ *   --secondary / --muted → tonal step between canvas and card; used for
+ *                       documentation surface backgrounds, search-pill rest
+ *   --muted-foreground → lifts from L=0.74 (which sat on light) to L=0.74
+ *                       on dark — the original chroma was tuned for light
+ *                       canvas; on dark canvas this value still passes the
+ *                       muted-text floor
+ *   --border / --input → near-3a hairline that's visible on dark canvas
+ *
+ * Brand-extras overrides (the tokens used directly in template CSS):
+ *   --brand-charcoal  → lifts from L=0.25 to L=0.77 — used for body and
+ *                       tertiary text; on dark canvas the original near-
+ *                       black value would be invisible
+ *   --brand-slate     → lifts similarly — used for secondary metadata
+ *   --brand-steel     → lifts for caption / table-header / sidebar-inactive
+ *   --brand-stone     → lifts for muted captions / tab-inactive labels
+ *   --brand-hairline-soft → near-3a divider that works on dark canvas
+ *   --brand-surface   → step up one tone from canvas (slightly lighter than
+ *                       canvas) so it still reads as "the quieter section
+ *                       background" register the brand documents
+ *
+ * Polarity-locked tokens left at :root values (inherited via cascade):
+ *   --brand-brand-coral / --brand-brand-magenta / --brand-brand-blue /
+ *   --brand-brand-purple → the four model-identity gradient colours.
+ *                       MiniMax's voltage register — each one is a brand-
+ *                       assigned product identity (M2.7 = coral, Music =
+ *                       magenta, Hailuo = blue, Speech 2.8 = purple per
+ *                       DESIGN.md §2). Mid-saturation at L=0.62-0.69 reads
+ *                       white-on-saturated above WCAG AA on BOTH light and
+ *                       dark canvases. Lifting them would dilute the brand
+ *                       voltage and break the polarity-locked signature
+ *                       matrix surface.
+ *   --brand-brand-coral, --brand-brand-magenta, --brand-brand-purple deepened
+ *                       at :root (see below) — applies to BOTH modes.
+ *   --brand-brand-blue → kept as the single Hailuo product-card identity
+ *                       colour (deployed on the polarity-locked product-
+ *                       matrix surface only). The `-mid` / `-deep` / `-700`
+ *                       / `-200` / `-cyan` lineage was deleted: live brand
+ *                       audit (minimax.io homepage / agent / m2 pages,
+ *                       2026-05-25) shows ZERO blue ladder instances — the
+ *                       brand uses only the single Hailuo blue, never a
+ *                       depth-modified variant for form controls, badges,
+ *                       or doc tags. DESIGN.md's ladder is a stale
+ *                       import artifact synthesised from prose, not a
+ *                       deployed brand surface.
+ *   --brand-ink-strong → names the brand's "pure black for promo banners
+ *                       and hero displays"; on light canvas it's the deep
+ *                       anchor, on dark canvas it IS the canvas. Polarity-
+ *                       locked at #000 so the signature matrix surface
+ *                       (which stays canvas-locked white in BOTH variants)
+ *                       can use it for inner detail ink
+ *   --brand-on-dark    → already always-light by definition (white)
+ *   --brand-footer-bg  → polarity-locked deep-black; in dark mode it IS
+ *                       the canvas, so consumers fall through to --background
+ *                       naturally; in light mode it's the documented dark
+ *                       multi-column footer
+ *   --brand-success-bg / --brand-success-text → pastel green wash sits at
+ *                       L=0.98 / L=0.64 and the chip register reads on
+ *                       both polarities; kept at :root
+ *
+ * Signature voltage: per the single-polarity rule (AUTHORING.md
+ * "Single-polarity brands: only lock signature voltage"), only the four-up
+ * product-matrix card grid stays canvas-locked (vibrant brand colours +
+ * white ink) on BOTH polarities — every other section (swatches, ladder,
+ * type, components, closer) flips with theme so the dark variant reads as
+ * "dark mode of MiniMax" not "light page with four locked accent cards."
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.1448 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.1448 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.1448 0 0);
+  --primary: oklch(0.1448 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9640 0.0029 264.5420);
+  --secondary-foreground: oklch(0.1448 0 0);
+  --muted: oklch(0.9640 0.0029 264.5420);
+  --muted-foreground: oklch(0.5300 0.0117 274.8375);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0.1448 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9276 0.0058 264.5313);
+  --input: oklch(0.9276 0.0058 264.5313);
+  --ring: oklch(0.1448 0 0);
+  --sidebar: oklch(0.9640 0.0029 264.5420);
+  --sidebar-foreground: oklch(0.1448 0 0);
+  --sidebar-primary: oklch(0.1448 0 0);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9640 0.0029 264.5420);
+  --sidebar-accent-foreground: oklch(0.1448 0 0);
+  --sidebar-border: oklch(0.9276 0.0058 264.5313);
+  --sidebar-ring: oklch(0.1448 0 0);
+  --chart-1: oklch(0.8100 0 0);
+  --chart-2: oklch(0.7100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.5100 0 0);
+  --chart-5: oklch(0.4200 0 0);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;
+  --brand-radius-xxl: 20px;
+  --brand-radius-xxxl: 24px;
+  --brand-radius-hero: 32px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: 'DM Sans', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'DM Sans', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 80px;
+  --text-heading: 56px;
+  --text-title: 32px;
+  --text-base: 16px;
+  --leading-tight: 1.10;
+  --leading-normal: 1.50;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream).
+   * The four vibrant model-identity colours are deepened a touch from
+   * upstream values so white-on-saturated passes WCAG AA 4.5:1 across the
+   * product-matrix card surfaces in BOTH polarities. The blue family
+   * already lands inside the AA band, so it stays at upstream values. */
+  --brand-primary-soft: oklch(0.2322 0.0162 252.4609);
+  --brand-brand-coral: oklch(0.5800 0.2122 33.7723);
+  --brand-brand-magenta: oklch(0.5900 0.2034 340.7371);
+  --brand-brand-blue: oklch(0.5229 0.2390 263.1683);
+  --brand-brand-purple: oklch(0.5200 0.2325 303.9004);
+  --brand-surface: oklch(0.9789 0.0029 264.5421);
+  --brand-hairline-soft: oklch(0.9427 0.0058 264.5317);
+  --brand-ink-strong: oklch(0 0 0);
+  --brand-charcoal: oklch(0.2520 0 0);
+  --brand-slate: oklch(0.4295 0.0265 250.5283);
+  --brand-steel: oklch(0.4500 0 0);
+  --brand-stone: oklch(0.5500 0.0073 286.1930);
+  --brand-success-bg: oklch(0.9776 0.0366 147.7715);
+  --brand-success-text: oklch(0.4900 0.1355 161.7761);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-footer-bg: oklch(0.1448 0 0);
+}
+
+/*
+ * Dark mode — hand-tuned, NOT the OKLCH lightness-inversion default.
+ *
+ * Strategy: promote MiniMax's documented dark footer family
+ * (`--brand-footer-bg`, L=0.1448) to canvas; step `--card` up to a
+ * slightly elevated dark surface so cards remain visible on the canvas.
+ * Black-pill primary in light flips to a white-pill primary in dark
+ * (preserving the scarce-monochrome CTA voltage that DESIGN.md §5
+ * documents as "the dominant action across all surfaces").
+ *
+ * The four vibrant model-identity brand colours stay polarity-locked
+ * at their :root values — they're the brand's signature voltage and
+ * already read white-on-saturated above WCAG AA on dark canvas (the
+ * deepening already applied at :root makes them safe for both modes).
+ *
+ * Polarity-locked tokens left at :root values (inherited via cascade):
+ *   --brand-ink-strong         → names "pure black for promo banners and
+ *                                 hero displays" — used by the polarity-
+ *                                 locked product-matrix surface for inner
+ *                                 detail ink against the always-white
+ *                                 inner card. Stays at #000.
+ *   --brand-on-dark            → already always-light by definition
+ *   --brand-brand-coral / magenta / blue / purple → polarity-locked product
+ *                                 identity colours (see :root rationale)
+ *   --brand-footer-bg          → in dark mode this IS the canvas; in light
+ *                                 mode it's the documented dark footer band
+ *   --brand-success-bg / --brand-success-text → pastel green chip register
+ *                                 reads on both polarities
+ *   --brand-primary-soft       → deep cobalt-ink, polarity-agnostic
+ */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* shadcn-semantic core — promoted near-black canvas, white-pill primary */
+  --background: oklch(0.1448 0 0);
+  --foreground: oklch(0.9650 0 0);
+  --card: oklch(0.2000 0 0);
+  --card-foreground: oklch(0.9650 0 0);
+  --popover: oklch(0.2000 0 0);
+  --popover-foreground: oklch(0.9650 0 0);
+  --primary: oklch(0.9650 0 0);
+  --primary-foreground: oklch(0.1448 0 0);
+  --secondary: oklch(0.2200 0 0);
+  --secondary-foreground: oklch(0.9650 0 0);
+  --muted: oklch(0.2200 0 0);
+  --muted-foreground: oklch(0.7400 0.0117 274.8375);
+  --accent: oklch(0.2000 0 0);
+  --accent-foreground: oklch(0.9650 0 0);
+  --destructive: oklch(0.6500 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.2800 0.0058 264.5313);
+  --input: oklch(0.2800 0.0058 264.5313);
+  --ring: oklch(0.9650 0 0);
+  --sidebar: oklch(0.2000 0 0);
+  --sidebar-foreground: oklch(0.9650 0 0);
+  --sidebar-primary: oklch(0.9650 0 0);
+  --sidebar-primary-foreground: oklch(0.1448 0 0);
+  --sidebar-accent: oklch(0.2200 0 0);
+  --sidebar-accent-foreground: oklch(0.9650 0 0);
+  --sidebar-border: oklch(0.2800 0.0058 264.5313);
+  --sidebar-ring: oklch(0.9650 0 0);
+  --chart-1: oklch(0.4200 0 0);
+  --chart-2: oklch(0.5100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.7100 0 0);
+  --chart-5: oklch(0.8100 0 0);
+
+  /* brand-extras lifted for dark canvas — never lift the polarity-locked
+   * brand product identity colours (coral / magenta / blue / purple stay
+   * at :root). */
+  --brand-charcoal: oklch(0.7700 0 0);
+  --brand-slate: oklch(0.7400 0.0265 250.5283);
+  --brand-steel: oklch(0.7100 0 0);
+  --brand-stone: oklch(0.6700 0.0073 286.1930);
+  --brand-hairline-soft: oklch(0.2800 0.0058 264.5317);
+  --brand-surface: oklch(0.2000 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1448 0 0);
+    --foreground: oklch(0.9650 0 0);
+    --card: oklch(0.2000 0 0);
+    --card-foreground: oklch(0.9650 0 0);
+    --popover: oklch(0.2000 0 0);
+    --popover-foreground: oklch(0.9650 0 0);
+    --primary: oklch(0.9650 0 0);
+    --primary-foreground: oklch(0.1448 0 0);
+    --secondary: oklch(0.2200 0 0);
+    --secondary-foreground: oklch(0.9650 0 0);
+    --muted: oklch(0.2200 0 0);
+    --muted-foreground: oklch(0.7400 0.0117 274.8375);
+    --accent: oklch(0.2000 0 0);
+    --accent-foreground: oklch(0.9650 0 0);
+    --destructive: oklch(0.6500 0.2178 29.2339);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.2800 0.0058 264.5313);
+    --input: oklch(0.2800 0.0058 264.5313);
+    --ring: oklch(0.9650 0 0);
+    --sidebar: oklch(0.2000 0 0);
+    --sidebar-foreground: oklch(0.9650 0 0);
+    --sidebar-primary: oklch(0.9650 0 0);
+    --sidebar-primary-foreground: oklch(0.1448 0 0);
+    --sidebar-accent: oklch(0.2200 0 0);
+    --sidebar-accent-foreground: oklch(0.9650 0 0);
+    --sidebar-border: oklch(0.2800 0.0058 264.5313);
+    --sidebar-ring: oklch(0.9650 0 0);
+    --chart-1: oklch(0.4200 0 0);
+    --chart-2: oklch(0.5100 0 0);
+    --chart-3: oklch(0.6100 0 0);
+    --chart-4: oklch(0.7100 0 0);
+    --chart-5: oklch(0.8100 0 0);
+
+    --brand-charcoal: oklch(0.7700 0 0);
+    --brand-slate: oklch(0.7400 0.0265 250.5283);
+    --brand-steel: oklch(0.7100 0 0);
+    --brand-stone: oklch(0.6700 0.0073 286.1930);
+    --brand-hairline-soft: oklch(0.2800 0.0058 264.5317);
+    --brand-surface: oklch(0.2000 0 0);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === MiniMax-style preview shell — stark monochrome marketing register
+ * with a vibrant four-up brand-colour gradient matrix as the signature
+ * voltage moment. Black-pill primary CTAs (`var(--primary)` is the brand's
+ * dominant action across every surface) sit on a near-pure white canvas;
+ * the only chromatic energy enters via the polarity-locked product-matrix
+ * grid (coral / magenta / blue / purple) and the near-monochrome body
+ * ladder. DM Sans carries every role from 80px hero displays down to
+ * 12px micro labels. Halcyon-themed content describes the team using a
+ * generic AI assistant for engineering / design / research / operations
+ * workstreams — not MiniMax's product surface, not the host product's
+ * surface. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'DM Sans', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Promo banner (MiniMax's signature above-nav strip; near-black with
+ * inline coral accent CTA. Polarity-locked dark in both modes so the
+ * brand's "scarce promotional voltage" register holds.) -- */
+.promo-banner {
+  background: oklch(0.1448 0 0);
+  color: oklch(1 0 0);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  padding: 0.625rem 1.5rem;
+  text-align: center;
+}
+.promo-banner-inline {
+  color: oklch(0.6780 0.2122 33.7723);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  margin-left: 0.5rem;
+  font-weight: 600;
+}
+
+/* -- Top nav (64px, white surface, hairline divider) -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--brand-radius-full);
+  background: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  color: var(--primary-foreground);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+/* Inline-link nav (no pills — MiniMax marketing uses underlineless text) */
+.topnav-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.topnav-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+  text-decoration: none;
+  letter-spacing: -0.005em;
+  transition: opacity 120ms ease;
+}
+.topnav-link:hover { opacity: 0.7; }
+@media (prefers-reduced-motion: reduce) { .topnav-link { transition: none; } }
+@media (max-width: 1024px) { .topnav-links { display: none; } }
+
+.topnav-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* -- Buttons (44px touch floor, fully pill-shaped per DESIGN.md "pill is
+ * a brand signature; squared buttons signal third-party widget"). Three
+ * registers: black-pill primary (dominant CTA), outlined-pill secondary
+ * (paired with primary in dual-CTA hero), and white-fill tertiary. -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.625rem 1.5rem;
+  border-radius: var(--brand-radius-full);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 120ms ease, background 120ms ease, color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { opacity: 0.88; }
+.btn[data-variant="secondary"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+.btn[data-variant="secondary"]:hover { background: var(--secondary); }
+.btn[data-variant="tertiary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.btn[data-variant="tertiary"]:hover { background: var(--secondary); }
+.btn[data-variant="on-dark"] {
+  background: oklch(1 0 0);
+  color: oklch(0.1448 0 0);
+  border-color: oklch(1 0 0);
+}
+.btn[data-variant="on-dark"]:hover { opacity: 0.92; }
+.btn[data-size="lg"] {
+  min-height: 48px;
+  padding: 0.75rem 1.875rem;
+  font-size: 15px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero: centered display + dual-CTA pattern. MiniMax's documented
+ * `hero-band-marketing` shape (DESIGN.md §5). 80px display, -2px tracking,
+ * 1.10 leading — non-negotiable per "don't reduce hero leading below 1.10"
+ * (DESIGN.md §6 Don't). The display uses DM Sans 600. -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+  text-align: center;
+}
+.hero-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-charcoal);
+  padding: 0.375rem 0.875rem;
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-full);
+  background: var(--background);
+  margin: 0;
+}
+.hero-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-brand-coral);
+  flex-shrink: 0;
+}
+.hero-display {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 600;
+  line-height: 1.10;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 18ch;
+}
+.hero-lede {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  color: var(--brand-charcoal);
+  max-width: 38rem;
+  margin: 0;
+}
+.hero-ctas {
+  display: inline-flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/* -- Signature surface: four-up vibrant product-matrix grid. The brand's
+ * defining recognizable moment (DESIGN.md §5 product-matrix-grid).
+ * Coral / magenta / blue / purple gradient cards each carrying a Halcyon
+ * team workstream rather than a MiniMax model identity. 32px radius
+ * (--brand-radius-hero) — the doubled radius is the documented "this is
+ * a featured product moment" signature.
+ *
+ * Polarity-locked: stays vibrant + white ink in BOTH modes per the
+ * single-polarity-brands rule (only signature voltage stays canvas-
+ * locked across themes). */
+.matrix-section {
+  padding: 5rem 1.5rem;
+}
+.matrix-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.matrix-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.matrix-header-title-group {
+  max-width: 36rem;
+}
+.matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 1100px) { .matrix-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .matrix-grid { grid-template-columns: 1fr; } }
+
+.matrix-card {
+  position: relative;
+  border-radius: var(--brand-radius-hero);
+  padding: 1.75rem 1.5rem 1.5rem;
+  color: oklch(1 0 0);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-height: 22rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+.matrix-card[data-tone="coral"] {
+  background:
+    radial-gradient(ellipse at 18% 15%, oklch(0.7900 0.1900 50 / 0.55), transparent 60%),
+    radial-gradient(ellipse at 90% 95%, oklch(0.4400 0.1900 25 / 0.65), transparent 65%),
+    var(--brand-brand-coral);
+}
+.matrix-card[data-tone="magenta"] {
+  background:
+    radial-gradient(ellipse at 25% 10%, oklch(0.7800 0.1800 350 / 0.55), transparent 60%),
+    radial-gradient(ellipse at 95% 100%, oklch(0.4200 0.1900 330 / 0.65), transparent 65%),
+    var(--brand-brand-magenta);
+}
+.matrix-card[data-tone="blue"] {
+  background:
+    radial-gradient(ellipse at 22% 12%, oklch(0.6800 0.2000 250 / 0.55), transparent 60%),
+    radial-gradient(ellipse at 92% 96%, oklch(0.3600 0.2000 270 / 0.70), transparent 65%),
+    var(--brand-brand-blue);
+}
+.matrix-card[data-tone="purple"] {
+  background:
+    radial-gradient(ellipse at 20% 15%, oklch(0.7400 0.2000 295 / 0.55), transparent 60%),
+    radial-gradient(ellipse at 95% 95%, oklch(0.4000 0.2200 310 / 0.65), transparent 65%),
+    var(--brand-brand-purple);
+}
+.matrix-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.matrix-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 4px 10px;
+  border-radius: var(--brand-radius-full);
+  background: oklch(1 0 0 / 0.22);
+  color: oklch(1 0 0);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.matrix-card-eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: oklch(1 0 0 / 0.85);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.matrix-card-wordmark {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: oklch(1 0 0);
+  margin: 0;
+  margin-top: auto;
+}
+.matrix-card-tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: oklch(1 0 0 / 0.88);
+  margin: 0;
+  max-width: 22ch;
+}
+.matrix-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid oklch(1 0 0 / 0.22);
+}
+.matrix-card-meta {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: oklch(1 0 0 / 0.88);
+  letter-spacing: 0.02em;
+}
+.matrix-card-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: oklch(1 0 0 / 0.18);
+  display: inline-grid;
+  place-items: center;
+  color: oklch(1 0 0);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; }
+.section[data-tight] { padding: 4rem 1.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 42rem; margin-bottom: 3rem; }
+.section-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-lede {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  color: var(--brand-charcoal);
+  margin: 0;
+  max-width: 38rem;
+}
+
+/* -- Token demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--radius-xl);
+  padding: 1rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.swatch-chip {
+  height: 3.25rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-role {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+}
+.swatch-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--foreground);
+  word-break: break-all;
+}
+
+/* -- Token demo: surface ladder (5 steps) -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 1080px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  border-radius: var(--radius-xl);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 12rem;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.ladder-step[data-step="canvas"]    { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="surface"]   { background: var(--brand-surface); color: var(--foreground); border-color: var(--brand-hairline-soft); }
+.ladder-step[data-step="card"]      { background: var(--card); color: var(--foreground); }
+.ladder-step[data-step="ink"]       {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+/* The polarity-locked footer-band surface (the brand's documented dark
+ * footer color). Stays near-black in BOTH polarities so the brand's
+ * "scarce dark band" register reads consistently — in dark mode the
+ * canvas IS this same color, so the step reads as identical to canvas
+ * which is the correct register. */
+.ladder-step[data-step="footer-bg"] {
+  background: oklch(0.1448 0 0);
+  color: oklch(1 0 0);
+  border-color: oklch(0.1448 0 0);
+}
+.ladder-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.ladder-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+}
+.ladder-role {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  opacity: 0.92;
+  margin-top: auto;
+}
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2.5rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+}
+.type-display {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 56px;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.10;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-charcoal);
+}
+.type-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--brand-charcoal);
+}
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.75rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+/* Pill-tab group — brand's documented `pill-tab` segmented register */
+.pill-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 4px;
+  background: var(--secondary);
+  border-radius: var(--brand-radius-full);
+}
+.pill-group-tab {
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-full);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brand-charcoal);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+.pill-group-tab[data-active] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+@media (prefers-reduced-motion: reduce) { .pill-group-tab { transition: none; } }
+
+/* Badges — MiniMax's documented chip set (badge-success / badge-new /
+ * badge-beta / badge-code). Pill geometry universal. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 4px 10px;
+  border-radius: var(--brand-radius-full);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+.badge[data-tone="new"]     { background: var(--brand-brand-coral); color: oklch(1 0 0); }
+.badge[data-tone="success"] { background: var(--brand-success-bg); color: var(--brand-success-text); }
+.badge[data-tone="beta"]    { background: var(--secondary); color: var(--foreground); }
+.badge[data-tone="code"]    {
+  background: var(--secondary);
+  color: var(--foreground);
+  border-radius: var(--radius-sm);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  padding: 2px 8px;
+}
+.badge[data-tone="ink"]     { background: var(--primary); color: var(--primary-foreground); }
+.badge[data-tone="neutral"] { background: var(--secondary); color: var(--foreground); }
+
+/* Search-pill — MiniMax's documented documentation top-bar search */
+.search-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 22rem;
+  height: 40px;
+  padding: 0 0.875rem;
+  border-radius: var(--radius-md);
+  background: var(--brand-surface);
+  border: 1px solid var(--border);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--brand-steel);
+  cursor: text;
+}
+.search-pill-glyph {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--brand-steel);
+  position: relative;
+}
+.search-pill-glyph::after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  bottom: -3px;
+  width: 6px;
+  height: 1.5px;
+  background: var(--brand-steel);
+  transform: rotate(45deg);
+  transform-origin: 0 0;
+}
+.search-pill-shortcut {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--brand-steel);
+  padding: 2px 6px;
+  border-radius: var(--brand-radius-xs);
+  border: 1px solid var(--border);
+  background: var(--background);
+}
+
+/* Text input (44px touch floor) */
+.text-input {
+  width: 100%;
+  max-width: 22rem;
+  height: 44px;
+  padding: 0 0.875rem;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md);
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+}
+.text-input::placeholder { color: var(--brand-stone); }
+.text-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  border-width: 2px;
+  padding: 0 calc(0.875rem - 1px);
+}
+
+/* Pricing — generic SaaS-shape tiers per AUTHORING.md "never the host
+ * product's surface". Hobby / Team / Org-wide naming, no the host product
+ * differentiators (no Google + Microsoft SSO, no custom domains, no audit
+ * log), no MiniMax model names. */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 960px) { .pricing-grid { grid-template-columns: 1fr; } }
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-xxxl);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.pricing-card[data-feature] {
+  border-color: var(--primary);
+  border-width: 1.5px;
+}
+.pricing-card-top { display: flex; flex-direction: column; gap: 0.5rem; }
+.pricing-tier-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.pricing-tier-pill {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: var(--brand-radius-full);
+  background: var(--brand-brand-coral);
+  color: oklch(1 0 0);
+  text-transform: uppercase;
+}
+.pricing-tier-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-tier-amount {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--brand-charcoal);
+  margin: 0;
+}
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--brand-charcoal);
+  line-height: 1.5;
+}
+.pricing-features li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, var(--brand-success-text) 22%, transparent 24%),
+    var(--brand-success-bg);
+}
+
+/* -- Closer: dark band with dual-CTA pattern. Polarity-locked dark in
+ * both modes — MiniMax's documented promo-banner / footer register is
+ * always near-black. In dark mode the canvas IS this same colour, so
+ * the closer reads as a flat embossed inverse (the hairline border + the
+ * white-ink primary CTA carry the visual elevation). -- */
+.closer {
+  margin: 0 1.5rem;
+  background: oklch(0.1448 0 0);
+  color: oklch(1 0 0);
+  border-radius: var(--brand-radius-hero);
+  padding: 3.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  border: 1px solid oklch(0.2800 0 0);
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.closer-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  max-width: 40rem;
+}
+.closer-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* Coral lifted from the :root token's L=0.58 to L=0.72 ONLY for this
+   * label — the closer eyebrow sits on a near-black band where the
+   * matrix-locked coral falls to ~4.16:1, short of WCAG AA 4.5:1 for
+   * body-size labels. Brand-locked coral stays at :root for the matrix
+   * cards (white-on-coral); this local lift is for ink-on-dark only. */
+  color: oklch(0.7200 0.1700 33.7723);
+  margin: 0;
+}
+.closer-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: oklch(1 0 0);
+  margin: 0;
+}
+.closer-lede {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  color: oklch(1 0 0 / 0.85);
+  margin: 0;
+}
+.closer-ctas { display: inline-flex; gap: 0.75rem; flex-wrap: wrap; }
+
+.closer-section { padding: 4rem 0; }
+
+/* -- Footer (white canvas with hairline divider in light mode; flips to
+ * canvas in dark mode via --background) -- */
+.footer {
+  background: var(--background);
+  color: var(--foreground);
+  padding: 4rem 1.5rem 2rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  max-width: 32ch;
+}
+.footer-tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--brand-steel);
+  line-height: 1.55;
+  margin: 0;
+}
+.footer-col-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.footer-list a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--brand-steel);
+  text-decoration: none;
+}
+.footer-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1280px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--brand-charcoal);
+}
+.footer-legal-meta { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+</style>
+
+</head>
+<body>
+
+<div class="promo-banner" role="region" aria-label="Announcement">
+  Weekly Halcyon engineering rollup is live for Week 21
+  <a class="promo-banner-inline" href="#">Read the digest</a>
+</div>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true">H</span>
+      minimax-style
+    </a>
+    <div class="topnav-links">
+      <a class="topnav-link" href="#">Workstreams</a>
+      <a class="topnav-link" href="#">Engineering</a>
+      <a class="topnav-link" href="#">Research</a>
+      <a class="topnav-link" href="#">Company</a>
+    </div>
+    <div class="topnav-actions">
+      <a class="btn" data-variant="secondary" href="#">Sign in</a>
+      <a class="btn" data-variant="primary" href="#">Get a demo</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow"><span class="hero-eyebrow-dot" aria-hidden="true"></span>Halcyon Engineering · Week 21</p>
+    <h1 class="hero-display">An editorial canvas for a working team.</h1>
+    <p class="hero-lede">Halcyon's engineering, design, research, and operations teams share one weekly board. The assistant drafts the diff, the team signs off at the merge boundary, and Friday's rollup writes itself by the time the office closes.</p>
+    <div class="hero-ctas">
+      <a class="btn" data-variant="primary" data-size="lg" href="#">Open this week's board</a>
+      <a class="btn" data-variant="secondary" data-size="lg" href="#">Read the digest</a>
+    </div>
+  </div>
+</header>
+
+<section class="matrix-section" aria-label="Workstream matrix — signature surface">
+  <div class="matrix-inner">
+    <div class="matrix-header">
+      <div class="matrix-header-title-group">
+        <p class="section-eyebrow">Halcyon HQ · Workstreams</p>
+        <h2 class="section-title">Four boards. One rollup at the close of week.</h2>
+      </div>
+      <p class="section-lede" style="margin: 0;">Each workstream carries a colour, a current count, and a Friday handoff. The team checks in Monday and reads the digest Friday afternoon.</p>
+    </div>
+
+    <div class="matrix-grid">
+      <article class="matrix-card" data-tone="coral" aria-label="Engineering workstream card">
+        <div class="matrix-card-top">
+          <p class="matrix-card-eyebrow">01 · Engineering</p>
+          <span class="matrix-card-badge">Open</span>
+        </div>
+        <div>
+          <h3 class="matrix-card-wordmark">Diffs by Wednesday</h3>
+          <p class="matrix-card-tagline">Halcyon ships multiple PRs a day. The assistant drafts the diff and runs the tests before a human signs off at the merge boundary.</p>
+        </div>
+        <div class="matrix-card-footer">
+          <span class="matrix-card-meta">14 open · 3 review · 7 merged</span>
+          <span class="matrix-card-arrow" aria-hidden="true">&gt;</span>
+        </div>
+      </article>
+
+      <article class="matrix-card" data-tone="magenta" aria-label="Design workstream card">
+        <div class="matrix-card-top">
+          <p class="matrix-card-eyebrow">02 · Design</p>
+          <span class="matrix-card-badge">Live crit</span>
+        </div>
+        <div>
+          <h3 class="matrix-card-wordmark">Crit at noon Thursday</h3>
+          <p class="matrix-card-tagline">A weekly design crit puts work on the wall. Riley pins the brief, Avery reviews, and the team votes before lunch.</p>
+        </div>
+        <div class="matrix-card-footer">
+          <span class="matrix-card-meta">6 boards · 2 pinned · 4 ready</span>
+          <span class="matrix-card-arrow" aria-hidden="true">&gt;</span>
+        </div>
+      </article>
+
+      <article class="matrix-card" data-tone="blue" aria-label="Research workstream card">
+        <div class="matrix-card-top">
+          <p class="matrix-card-eyebrow">03 · Research</p>
+          <span class="matrix-card-badge">In flight</span>
+        </div>
+        <div>
+          <h3 class="matrix-card-wordmark">Customer reads</h3>
+          <p class="matrix-card-tagline">Sam runs the customer-interview cycle. The assistant synthesises every transcript into a single thread the team can read on a Friday afternoon.</p>
+        </div>
+        <div class="matrix-card-footer">
+          <span class="matrix-card-meta">12 interviews · 4 themes</span>
+          <span class="matrix-card-arrow" aria-hidden="true">&gt;</span>
+        </div>
+      </article>
+
+      <article class="matrix-card" data-tone="purple" aria-label="Operations workstream card">
+        <div class="matrix-card-top">
+          <p class="matrix-card-eyebrow">04 · Operations</p>
+          <span class="matrix-card-badge">Q3 plan</span>
+        </div>
+        <div>
+          <h3 class="matrix-card-wordmark">Numbers on Monday</h3>
+          <p class="matrix-card-tagline">A weekly metrics rollup lands in the team channel every Monday at nine. Morgan owns the dashboard, Taylor owns the narrative.</p>
+        </div>
+        <div class="matrix-card-footer">
+          <span class="matrix-card-meta">DAU · NPS · runway · deploys</span>
+          <span class="matrix-card-arrow" aria-hidden="true">&gt;</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Stark monochrome, scarce vibrant identity.</h2>
+      <p class="section-lede">The marketing canvas runs near-monochrome. Brand colour enters only where the page declares product identity. Coral, magenta, blue, and purple are the four documented model-identity tones — used on the matrix grid, used nowhere else.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background); border: 1px solid var(--brand-hairline-soft);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Primary · Ink pill</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: oklch(0.1448 0 0);"></div><div class="swatch-role">Footer ground</div><div class="swatch-name">--brand-footer-bg</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--secondary);"></div><div class="swatch-role">Secondary</div><div class="swatch-name">--secondary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-brand-coral);"></div><div class="swatch-role">Identity · Coral</div><div class="swatch-name">--brand-brand-coral</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-brand-magenta);"></div><div class="swatch-role">Identity · Magenta</div><div class="swatch-name">--brand-brand-magenta</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-brand-blue);"></div><div class="swatch-role">Identity · Blue</div><div class="swatch-name">--brand-brand-blue</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-brand-purple);"></div><div class="swatch-role">Identity · Purple</div><div class="swatch-name">--brand-brand-purple</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-success-bg);"></div><div class="swatch-role">Success · Wash</div><div class="swatch-name">--brand-success-bg</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-success-text);"></div><div class="swatch-role">Success · Ink</div><div class="swatch-name">--brand-success-text</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--destructive);"></div><div class="swatch-role">Destructive</div><div class="swatch-name">--destructive</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces · Five steps</p>
+      <h2 class="section-title">Canvas through ink, scarce dark band at the closer.</h2>
+      <p class="section-lede">Pages run on canvas, lift to surface for documentation backgrounds, return to card for content tiles, accept ink only at the action moment, and close on the dark footer band. The ink step is the brand's commitment voltage; the footer band is the scarce-dark register.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">01 · Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · marketing body · cards on white</span>
+      </div>
+      <div class="ladder-step" data-step="surface">
+        <span class="ladder-num">02 · Surface</span>
+        <span class="ladder-name">--brand-surface</span>
+        <span class="ladder-role">search-pill rest · sidebar active · soft section</span>
+      </div>
+      <div class="ladder-step" data-step="card">
+        <span class="ladder-num">03 · Card</span>
+        <span class="ladder-name">--card</span>
+        <span class="ladder-role">documentation card · pricing tier · table row</span>
+      </div>
+      <div class="ladder-step" data-step="ink">
+        <span class="ladder-num">04 · Ink pill</span>
+        <span class="ladder-name">--primary</span>
+        <span class="ladder-role">dominant CTA · "commit here" voltage</span>
+      </div>
+      <div class="ladder-step" data-step="footer-bg">
+        <span class="ladder-num">05 · Footer band</span>
+        <span class="ladder-name">--brand-footer-bg</span>
+        <span class="ladder-role">promo banner · multi-column footer · closer</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">DM Sans across every role, tight 1.10 leading at the display.</h2>
+      <p class="section-lede">Hero displays run DM Sans 600 with -0.04em letter-spacing and 1.10 line-height. Body settles at 16px, 1.5 leading. Buttons are universally pill-shaped, badges sit in a pill register, and the segmented pill-tab group carries the brand's documented documentation nav.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">A working canvas</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Built for a team's week</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">DM Sans 600 · 20 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in DM Sans 400 at 16 pixels, 1.5 line-height. The body register stays at charcoal weight; the heading register lifts to the near-black anchor.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">team.rollup.publish()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · dual-CTA pattern</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" type="button">Open the board</button>
+            <button class="btn" data-variant="secondary" type="button">Read the digest</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Buttons · tertiary register</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="tertiary" type="button">View archive</button>
+            <button class="btn" data-variant="tertiary" type="button">Manage team</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Pill-group · segmented nav</span>
+          <div class="cmp-row">
+            <div class="pill-group" role="tablist">
+              <button class="pill-group-tab" data-active role="tab" type="button">Engineering</button>
+              <button class="pill-group-tab" role="tab" type="button">Design</button>
+              <button class="pill-group-tab" role="tab" type="button">Research</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Badges · status pills</span>
+          <div class="cmp-row">
+            <span class="badge" data-tone="new">New</span>
+            <span class="badge" data-tone="success">Shipped</span>
+            <span class="badge" data-tone="beta">Beta</span>
+            <span class="badge" data-tone="code">API</span>
+            <span class="badge" data-tone="ink">Active</span>
+            <span class="badge" data-tone="neutral">Archived</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Search-pill · documentation top-bar</span>
+          <div class="cmp-row">
+            <span class="search-pill" role="search" aria-label="Search">
+              <span class="search-pill-glyph" aria-hidden="true"></span>
+              Search the rollup
+              <span class="search-pill-shortcut">&#8984;K</span>
+            </span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Text input · 44px · 8px radius · blue focus</span>
+          <div class="cmp-row">
+            <input class="text-input" type="email" placeholder="you@halcyon.dev" aria-label="Email">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Pricing tiers">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Pricing tiles</p>
+      <h2 class="section-title">Three shapes, one geometry.</h2>
+      <p class="section-lede">Pricing tiles use the same 24px-rounded white card geometry as the documentation register. The feature tier carries a 1.5px ink border instead of a coloured fill; the brand reserves vibrant colour for the matrix.</p>
+    </div>
+    <div class="pricing-grid">
+      <article class="pricing-card">
+        <div class="pricing-card-top">
+          <span class="pricing-tier-label">Hobby</span>
+          <h3 class="pricing-tier-name">Free</h3>
+          <p class="pricing-tier-amount">Personal use, no card on file.</p>
+        </div>
+        <ul class="pricing-features">
+          <li>Standard quota</li>
+          <li>Best-effort response</li>
+          <li>Community support</li>
+          <li>Personal workspace</li>
+        </ul>
+        <button class="btn" data-variant="tertiary" type="button">Start free</button>
+      </article>
+      <article class="pricing-card" data-feature>
+        <div class="pricing-card-top">
+          <span class="pricing-tier-label">Team <span class="pricing-tier-pill">Popular</span></span>
+          <h3 class="pricing-tier-name">Standard</h3>
+          <p class="pricing-tier-amount">Per-team plan, monthly or annual.</p>
+        </div>
+        <ul class="pricing-features">
+          <li>Increased quota</li>
+          <li>Priority response</li>
+          <li>Team workspace</li>
+          <li>Weekly digest export</li>
+        </ul>
+        <button class="btn" data-variant="primary" type="button">Choose Team</button>
+      </article>
+      <article class="pricing-card">
+        <div class="pricing-card-top">
+          <span class="pricing-tier-label">Org-wide</span>
+          <h3 class="pricing-tier-name">Custom</h3>
+          <p class="pricing-tier-amount">Org-wide deployment with paperwork.</p>
+        </div>
+        <ul class="pricing-features">
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+          <li>Production SLA</li>
+        </ul>
+        <button class="btn" data-variant="tertiary" type="button">Talk to the team</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="closer-section" aria-label="Pre-footer closer band">
+  <div class="closer">
+    <div class="closer-text">
+      <p class="closer-eyebrow">Friday rollup · Week 21</p>
+      <h3 class="closer-title">An editorial canvas for a working team.</h3>
+      <p class="closer-lede">Halcyon's engineering and design teams open Monday, close Friday, and archive the rollup. The assistant drafts the diff, the team signs off at the merge boundary, and the digest writes itself.</p>
+    </div>
+    <div class="closer-ctas">
+      <a class="btn" data-variant="on-dark" data-size="lg" href="#">Open this week</a>
+      <a class="btn" data-variant="secondary" data-size="lg" href="#" style="color: oklch(1 0 0); border-color: oklch(1 0 0);">Read the digest</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#">
+        <span class="brand-glyph" aria-hidden="true">H</span>
+        minimax-style
+      </a>
+      <p class="footer-tagline">A token-surface preview rendered against the stark monochrome design system. White canvas, black-pill CTAs, four-up vibrant matrix as the signature voltage, DM Sans across every role. Halcyon-themed neutral content; not affiliated with the upstream brand.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Workstreams</p>
+      <ul class="footer-list">
+        <li><a href="#">Engineering</a></li>
+        <li><a href="#">Design</a></li>
+        <li><a href="#">Research</a></li>
+        <li><a href="#">Operations</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Engineering</p>
+      <ul class="footer-list">
+        <li><a href="#">halcyon-api</a></li>
+        <li><a href="#">halcyon-webapp</a></li>
+        <li><a href="#">halcyon-worker</a></li>
+        <li><a href="#">halcyon-cli</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list">
+        <li><a href="#">halcyon.dev</a></li>
+        <li><a href="#">app.halcyon.dev</a></li>
+        <li><a href="#">@halcyon/cli</a></li>
+        <li><a href="#">hlc.so</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Security</a></li>
+        <li><a href="#">team@halcyon.dev</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>minimax-style · token surface preview · 2026.05.25</span>
+    <span class="footer-legal-meta">white canvas · ink pill · vibrant matrix · DM Sans</span>
+  </div>
+</footer>
+
+</body>
+</html>

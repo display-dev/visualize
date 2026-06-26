@@ -1,0 +1,233 @@
+/**
+ * design-systems/zapier-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Hand-edited 2026-05-25:
+ *
+ *   - Added brand-extras that the preview shell needs: a warm-coffee deep ink
+ *     for the polarity-flipped feature card, a deeper cream for the closing
+ *     band, polarity-locked --brand-on-coffee / --brand-on-cream ink tokens
+ *     (always-light ink for always-dark surfaces / always-dark ink for
+ *     always-light surfaces), and a two-step hairline ladder.
+ *
+ *   - Dark mode is synthesised (Zapier is light-canonical with no
+ *     documented marketing dark mode). The canvas drops to a deep warm
+ *     coffee-near-black; foreground lifts to a warm cream. Critically,
+ *     the WARMTH is preserved — the brand's whole temperature signal is
+ *     warm-cream + warm-coffee, not the cool default OKLCH-inversion
+ *     would produce. The orange CTA voltage stays identical across modes.
+ *
+ *   - Polarity-locked --brand-on-coffee + --brand-on-cream are NOT
+ *     overridden in dark — by definition they describe ink for a surface
+ *     whose polarity does NOT flip with the theme. Lifting them inverts
+ *     contrast against the locked surface (the polarity-locked trap
+ *     called out in AUTHORING.md).
+ *
+ *   - The cream ladder (--brand-canvas-soft etc) DOES flip — the section
+ *     break surface needs to track the page canvas, otherwise dark mode
+ *     reads as "light page with three locked tiles." Per AUTHORING.md's
+ *     "Single-polarity brands: only lock signature voltage" rule.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(0.9970 0.0041 91.4451);
+  --foreground: oklch(0.2100 0.0181 18.7042);
+  --card: oklch(0.9970 0.0041 91.4451);
+  --card-foreground: oklch(0.2100 0.0181 18.7042);
+  --popover: oklch(0.9970 0.0041 91.4451);
+  --popover-foreground: oklch(0.2100 0.0181 18.7042);
+  --primary: oklch(0.6696 0.2220 37.4179);
+  --primary-foreground: oklch(0.9970 0.0041 91.4451);
+  --secondary: oklch(0.9691 0.0068 67.7441);
+  --secondary-foreground: oklch(0.2100 0.0181 18.7042);
+  --muted: oklch(0.9691 0.0068 67.7441);
+  --muted-foreground: oklch(0.4777 0.0176 94.3957);
+  --accent: oklch(0.9691 0.0068 67.7441);
+  --accent-foreground: oklch(0.2100 0.0181 18.7042);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0.9970 0.0041 91.4451);
+  --border: oklch(0.8975 0.0050 91.4451);
+  --input: oklch(0.8975 0.0050 91.4451);
+  --ring: oklch(0.6696 0.2220 37.4179);
+  --sidebar: oklch(0.9970 0.0041 91.4451);
+  --sidebar-foreground: oklch(0.2100 0.0181 18.7042);
+  --sidebar-primary: oklch(0.6696 0.2220 37.4179);
+  --sidebar-primary-foreground: oklch(0.9970 0.0041 91.4451);
+  --sidebar-accent: oklch(0.9691 0.0068 67.7441);
+  --sidebar-accent-foreground: oklch(0.2100 0.0181 18.7042);
+  --sidebar-border: oklch(0.8975 0.0050 91.4451);
+  --sidebar-ring: oklch(0.6696 0.2220 37.4179);
+  --chart-1: oklch(0.8100 0.2000 37.4179);
+  --chart-2: oklch(0.7100 0.2000 37.4179);
+  --chart-3: oklch(0.6100 0.2000 37.4179);
+  --chart-4: oklch(0.5100 0.2000 37.4179);
+  --chart-5: oklch(0.4200 0.2000 37.4179);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 0.625rem;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: Inter, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: Degular Display, Inter, system-ui, -apple-system, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 56px;
+  --text-heading: 48px;
+  --text-title: 31px;
+  --text-base: 18px;
+  --leading-tight: 1.00;
+  --leading-normal: 1.50;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-ink-soft: oklch(0.2890 0.0103 61.0705);
+  --brand-ink-mid: oklch(0.3250 0.0107 91.6617);
+  --brand-body: oklch(0.4777 0.0176 94.3957);
+  --brand-body-mid: oklch(0.6524 0.0178 95.3341);
+  --brand-mute: oklch(0.8077 0.0214 91.6197);
+  --brand-canvas-soft: oklch(0.9691 0.0068 67.7441);
+
+  /* preview-shell brand extras (added 2026-05-25) */
+  --brand-canvas-cream: oklch(0.9450 0.0140 78.0000);
+  --brand-coffee-deep: oklch(0.2100 0.0181 18.7042);   /* polarity-locked dark surface */
+  --brand-coffee-soft: oklch(0.2890 0.0103 61.0705);   /* secondary dark surface */
+  --brand-on-coffee: oklch(0.9700 0.0080 78.0000);     /* polarity-locked: always-cream ink for always-coffee surfaces */
+  --brand-on-cream: oklch(0.2100 0.0181 18.7042);      /* polarity-locked: always-coffee ink for always-cream surfaces */
+  --brand-hairline-soft: oklch(0.8975 0.0050 91.4451);
+  --brand-hairline-strong: oklch(0.2100 0.0181 18.7042);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* shadcn-semantic core — hand-edited to preserve brand warmth in dark mode.
+     The canvas drops to a deep warm coffee (NOT cool near-black); the
+     foreground lifts to warm cream (NOT pure white). Hue / chroma curated,
+     not OKLCH-inverted. */
+  --background: oklch(0.1700 0.0150 30.0000);
+  --foreground: oklch(0.9550 0.0100 78.0000);
+  --card: oklch(0.2150 0.0140 32.0000);
+  --card-foreground: oklch(0.9550 0.0100 78.0000);
+  --popover: oklch(0.2150 0.0140 32.0000);
+  --popover-foreground: oklch(0.9550 0.0100 78.0000);
+  --primary: oklch(0.6696 0.2220 37.4179);
+  --primary-foreground: oklch(0.1700 0.0150 30.0000);
+  --secondary: oklch(0.2600 0.0140 35.0000);
+  --secondary-foreground: oklch(0.9550 0.0100 78.0000);
+  --muted: oklch(0.2600 0.0140 35.0000);
+  --muted-foreground: oklch(0.7400 0.0130 78.0000);
+  --accent: oklch(0.2600 0.0140 35.0000);
+  --accent-foreground: oklch(0.9550 0.0100 78.0000);
+  --destructive: oklch(0.6300 0.2100 29.0000);
+  --destructive-foreground: oklch(0.1700 0.0150 30.0000);
+  --border: oklch(0.3000 0.0130 35.0000);
+  --input: oklch(0.3000 0.0130 35.0000);
+  --ring: oklch(0.6696 0.2220 37.4179);
+  --sidebar: oklch(0.1700 0.0150 30.0000);
+  --sidebar-foreground: oklch(0.9550 0.0100 78.0000);
+  --sidebar-primary: oklch(0.6696 0.2220 37.4179);
+  --sidebar-primary-foreground: oklch(0.1700 0.0150 30.0000);
+  --sidebar-accent: oklch(0.2600 0.0140 35.0000);
+  --sidebar-accent-foreground: oklch(0.9550 0.0100 78.0000);
+  --sidebar-border: oklch(0.3000 0.0130 35.0000);
+  --sidebar-ring: oklch(0.6696 0.2220 37.4179);
+  --chart-1: oklch(0.8100 0.2000 37.4179);
+  --chart-2: oklch(0.7100 0.2000 37.4179);
+  --chart-3: oklch(0.6100 0.2000 37.4179);
+  --chart-4: oklch(0.5100 0.2000 37.4179);
+  --chart-5: oklch(0.4200 0.2000 37.4179);
+
+  /* brand-extras lifted in dark — these flip with theme. The cream ladder
+     becomes a coffee ladder; the body/ink ladder lifts; the hairline lifts.
+     --brand-on-coffee + --brand-on-cream are polarity-locked and NOT
+     overridden (see :root for rationale). */
+  --brand-ink-soft: oklch(0.9200 0.0090 78.0000);
+  --brand-ink-mid: oklch(0.8400 0.0110 78.0000);
+  --brand-body: oklch(0.7400 0.0130 78.0000);
+  --brand-body-mid: oklch(0.6200 0.0150 78.0000);
+  --brand-mute: oklch(0.4400 0.0140 35.0000);
+  --brand-canvas-soft: oklch(0.2150 0.0140 32.0000);
+  --brand-canvas-cream: oklch(0.2600 0.0140 35.0000);
+  --brand-hairline-soft: oklch(0.3000 0.0130 35.0000);
+  --brand-hairline-strong: oklch(0.4400 0.0140 35.0000);
+  /* --brand-coffee-deep, --brand-coffee-soft, --brand-on-coffee,
+     --brand-on-cream stay at :root values (polarity-locked) */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1700 0.0150 30.0000);
+    --foreground: oklch(0.9550 0.0100 78.0000);
+    --card: oklch(0.2150 0.0140 32.0000);
+    --card-foreground: oklch(0.9550 0.0100 78.0000);
+    --popover: oklch(0.2150 0.0140 32.0000);
+    --popover-foreground: oklch(0.9550 0.0100 78.0000);
+    --primary: oklch(0.6696 0.2220 37.4179);
+    --primary-foreground: oklch(0.1700 0.0150 30.0000);
+    --secondary: oklch(0.2600 0.0140 35.0000);
+    --secondary-foreground: oklch(0.9550 0.0100 78.0000);
+    --muted: oklch(0.2600 0.0140 35.0000);
+    --muted-foreground: oklch(0.7400 0.0130 78.0000);
+    --accent: oklch(0.2600 0.0140 35.0000);
+    --accent-foreground: oklch(0.9550 0.0100 78.0000);
+    --destructive: oklch(0.6300 0.2100 29.0000);
+    --destructive-foreground: oklch(0.1700 0.0150 30.0000);
+    --border: oklch(0.3000 0.0130 35.0000);
+    --input: oklch(0.3000 0.0130 35.0000);
+    --ring: oklch(0.6696 0.2220 37.4179);
+    --sidebar: oklch(0.1700 0.0150 30.0000);
+    --sidebar-foreground: oklch(0.9550 0.0100 78.0000);
+    --sidebar-primary: oklch(0.6696 0.2220 37.4179);
+    --sidebar-primary-foreground: oklch(0.1700 0.0150 30.0000);
+    --sidebar-accent: oklch(0.2600 0.0140 35.0000);
+    --sidebar-accent-foreground: oklch(0.9550 0.0100 78.0000);
+    --sidebar-border: oklch(0.3000 0.0130 35.0000);
+    --sidebar-ring: oklch(0.6696 0.2220 37.4179);
+    --chart-1: oklch(0.8100 0.2000 37.4179);
+    --chart-2: oklch(0.7100 0.2000 37.4179);
+    --chart-3: oklch(0.6100 0.2000 37.4179);
+    --chart-4: oklch(0.5100 0.2000 37.4179);
+    --chart-5: oklch(0.4200 0.2000 37.4179);
+
+    --brand-ink-soft: oklch(0.9200 0.0090 78.0000);
+    --brand-ink-mid: oklch(0.8400 0.0110 78.0000);
+    --brand-body: oklch(0.7400 0.0130 78.0000);
+    --brand-body-mid: oklch(0.6200 0.0150 78.0000);
+    --brand-mute: oklch(0.4400 0.0140 35.0000);
+    --brand-canvas-soft: oklch(0.2150 0.0140 32.0000);
+    --brand-canvas-cream: oklch(0.2600 0.0140 35.0000);
+    --brand-hairline-soft: oklch(0.3000 0.0130 35.0000);
+    --brand-hairline-strong: oklch(0.4400 0.0140 35.0000);
+  }
+}
+</content>
+</invoke>

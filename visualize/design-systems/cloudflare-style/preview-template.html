@@ -1,0 +1,1168 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23ff5e1f'/%3E%3Cpath d='M21 13.2 C20 11.5 18 10.5 16 10.5 C13.5 10.5 11.4 12.2 10.8 14.5 C9.5 14.7 8.5 15.8 8.5 17.1 C8.5 18.5 9.7 19.7 11.1 19.7 L21.5 19.7 C22.6 19.7 23.5 18.8 23.5 17.6 C23.5 16.5 22.7 15.6 21.6 15.5 C21.8 14.7 21.6 13.8 21 13.2 Z' fill='%23fffbf5'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Polarity-aware canvas, full-bleed orange signature card, pill geometry, hairline tiles, mono accent code register.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Cloudflare-style preview shell — polarity-aware (both modes
+   render through this same template). Canvas + neutrals flip via the
+   shadcn-core tokens; the orange signature card is polarity-locked at
+   render time (background = --brand-canvas-orange, internal text colour
+   = the documented charcoal-on-orange foreground that clears AA at body
+   size; cream on orange lands at 2.96 which fails both body 4.5:1 and
+   large-text 3:1). The dark code-block surface is also polarity-locked
+   (--brand-canvas-code). Everything else routes through --foreground /
+   --background / --card / --muted so the two polarities both clear AA
+   without separate templates. Kunst Grotesk → Inter substitute. Halcyon
+   neutral content throughout. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Kunst Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -- Top nav (transparent over canvas, sticky with hairline on scroll) -- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  height: 72px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  font-size: 16px;
+}
+.topnav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  color: var(--foreground);
+}
+/* Topnav brand mark — a small orange tile with a cream cloud-shape glyph.
+   Polarity-locked: orange-on-cream regardless of canvas. */
+.topnav-brand-mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: var(--brand-canvas-orange);
+  display: inline-grid;
+  place-items: center;
+}
+.topnav-brand-mark::after {
+  content: "";
+  width: 10px;
+  height: 7px;
+  border-radius: 4px 4px 7px 7px;
+  background: var(--brand-on-orange);
+  box-shadow: -3px -1px 0 -1px var(--brand-on-orange);
+}
+.topnav-links { display: flex; gap: 1.25rem; align-items: center; font-size: 15px; font-weight: 500; }
+.topnav-links a {
+  color: var(--foreground);
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+}
+.topnav-links a:hover { background: var(--muted); }
+.topnav-attack {
+  color: var(--brand-attack);
+  font-weight: 500;
+}
+.topnav-attack:hover { background: color-mix(in oklch, var(--brand-attack) 12%, transparent); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; }
+@media (max-width: 1000px) { .topnav-links { display: none; } }
+
+/* -- Pill button (canonical Cloudflare shape: 9999px radius) -- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: -0.1px;
+  transition: background 120ms ease, border-color 120ms ease, transform 120ms ease;
+  white-space: nowrap;
+}
+/* Primary pill: brand orange fill, charcoal foreground for AA at body
+   size (cream-on-orange = 2.96 fails both body 4.5 and large 3.0;
+   charcoal-on-orange = 4.95 clears body). Polarity-locked: the orange
+   fill is the brand voltage and stays orange in both modes. */
+.pill[data-variant="primary"] {
+  background: var(--brand-canvas-orange);
+  color: var(--brand-on-light);
+  border-color: var(--brand-canvas-orange);
+}
+.pill[data-variant="primary"]:hover {
+  background: var(--brand-primary-hover);
+  border-color: var(--brand-primary-hover);
+}
+.pill[data-variant="primary"]:active { transform: translateY(1px) scale(0.98); }
+.pill[data-variant="secondary"] {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  border-color: var(--secondary);
+}
+.pill[data-variant="secondary"]:hover { background: color-mix(in oklch, var(--secondary) 88%, var(--foreground)); }
+.pill[data-variant="outline"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--brand-hairline-strong);
+}
+.pill[data-variant="outline"]:hover {
+  background: var(--muted);
+  border-color: var(--foreground);
+  color: var(--brand-canvas-orange);
+}
+.pill[data-size="sm"] { min-height: 36px; padding: 0.5rem 0.75rem; font-size: 13px; }
+.pill:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.pill .arrow { font-size: 14px; line-height: 1; transition: transform 150ms ease; }
+.pill:hover .arrow { transform: translateX(2px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pill, .pill .arrow { transition: none; }
+  .pill:hover .arrow { transform: none; }
+  .pill[data-variant="primary"]:active { transform: none; }
+}
+
+/* -- Page container -- */
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* -- Hero -- */
+.hero {
+  padding: 4rem 0 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--muted-foreground);
+  margin: 0;
+  text-transform: uppercase;
+}
+.eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand-canvas-orange);
+}
+.hero-display {
+  font-family: inherit;
+  font-size: clamp(2.5rem, 5.5vw, 3.5rem);
+  font-weight: 500;
+  line-height: 0.99;
+  letter-spacing: -1.4px;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 20ch;
+}
+.hero-lede {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--foreground);
+  max-width: 52ch;
+  margin: 0;
+}
+.hero-lede code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.875em;
+  color: var(--foreground);
+  font-weight: 500;
+  background: var(--muted);
+  border: 1px solid var(--brand-hairline-soft);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+.hero-ctas { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+
+/* -- Signature orange card (the brand's voltage moment) --
+   Full-bleed orange fill with inline counter tile. Polarity-locked:
+   the orange canvas stays at full saturation across modes; foreground
+   ink is charcoal (--brand-on-light) for AA at body size, since cream
+   on orange lands at 2.96. The H2 title uses the same charcoal so it
+   reads strongly against orange.
+
+   Inside the orange card sits a dark "pocket" tile (--brand-canvas-code,
+   the polarity-locked deep navy from the blog Ashes theme) carrying
+   the team metrics. Dark-on-orange pocket → cream text reads sharply.
+   The pocket is polarity-locked too: dark in both modes by design. */
+.signature-card {
+  background: var(--brand-canvas-orange);
+  color: var(--brand-on-light);
+  border-radius: var(--brand-radius-signature);
+  padding: 3rem;
+  margin: 0 0 5rem;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.signature-card::before {
+  /* Subtle radial gradient overlay using the hover-orange to give the
+     card a "glow" texture without breaking AA. The gradient stays
+     orange-on-orange so foreground inks aren't compromised. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 80% at 12% 30%, color-mix(in oklch, var(--brand-primary-hover) 60%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.signature-card > * { position: relative; z-index: 1; }
+@media (max-width: 880px) { .signature-card { grid-template-columns: 1fr; padding: 2rem; gap: 2rem; } }
+.signature-eyebrow {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-on-light);
+  margin: 0 0 1rem;
+}
+.signature-title {
+  font-family: inherit;
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -1.2px;
+  color: var(--brand-on-light);
+  margin: 0 0 1rem;
+  max-width: 14ch;
+  /* Subtle outline echoing Cloudflare's 4-direction text-shadow signature
+     — but in the charcoal that owns this surface, not orange. */
+  text-shadow:
+    -1px -1px 0 color-mix(in oklch, var(--brand-on-light) 20%, transparent),
+    1px -1px 0 color-mix(in oklch, var(--brand-on-light) 20%, transparent),
+    -1px 1px 0 color-mix(in oklch, var(--brand-on-light) 20%, transparent),
+    1px 1px 0 color-mix(in oklch, var(--brand-on-light) 20%, transparent);
+}
+.signature-body {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--brand-on-light);
+  max-width: 36ch;
+  margin: 0 0 1.5rem;
+  font-weight: 500;
+}
+.signature-card .pill[data-variant="filled-dark"] {
+  background: var(--brand-canvas-code);
+  color: var(--brand-on-dark);
+  border-color: var(--brand-canvas-code);
+}
+.signature-card .pill[data-variant="filled-dark"]:hover {
+  background: color-mix(in oklch, var(--brand-canvas-code) 88%, black);
+  border-color: color-mix(in oklch, var(--brand-canvas-code) 88%, black);
+}
+.signature-card .pill[data-variant="ghost-on-orange"] {
+  background: transparent;
+  color: var(--brand-on-light);
+  border-color: color-mix(in oklch, var(--brand-on-light) 40%, transparent);
+}
+.signature-card .pill[data-variant="ghost-on-orange"]:hover {
+  background: color-mix(in oklch, var(--brand-on-light) 8%, transparent);
+  border-color: var(--brand-on-light);
+}
+
+/* Inline metrics tile inside the orange card. Polarity-locked dark
+   surface so foreground cream stays sharp on both modes. */
+.deploy-tile {
+  background: var(--brand-canvas-code);
+  border: 1px solid color-mix(in oklch, var(--brand-on-dark) 12%, transparent);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: var(--brand-on-dark);
+}
+.deploy-tile-label {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.85;
+}
+.deploy-tile-value {
+  font-family: inherit;
+  font-size: 48px;
+  font-weight: 500;
+  letter-spacing: -1.2px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--brand-on-dark);
+}
+.deploy-tile-trend {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: var(--brand-canvas-orange);
+  font-weight: 500;
+}
+.deploy-tile-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 0.5rem;
+  font-size: 13px;
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  color: var(--brand-on-dark);
+}
+.deploy-tile-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-top: 1px solid color-mix(in oklch, var(--brand-on-dark) 18%, transparent);
+}
+.deploy-tile-row > span:first-child { opacity: 0.78; }
+
+/* -- Section frame -- */
+.section { padding: 5rem 0; border-top: 1px solid var(--brand-hairline-soft); }
+.section-header { margin-bottom: 2.5rem; max-width: 60ch; }
+.section-title {
+  font-family: inherit;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -1.2px;
+  line-height: 1;
+  color: var(--foreground);
+  margin: 0.75rem 0;
+  max-width: 22ch;
+}
+.section-lede {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--foreground);
+  max-width: 56ch;
+  margin: 0;
+  opacity: 0.85;
+}
+.section-lede code {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 0.875em;
+  font-weight: 500;
+  color: var(--foreground);
+  background: var(--muted);
+  border: 1px solid var(--brand-hairline-soft);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+
+/* -- Surface elevation ladder -- */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-card);
+  overflow: hidden;
+}
+@media (max-width: 880px) { .surface-ladder { grid-template-columns: 1fr; } }
+.surface-step {
+  padding: 1.5rem;
+  font-size: 13px;
+  border-right: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 8rem;
+}
+.surface-step:last-child { border-right: none; }
+@media (max-width: 880px) {
+  .surface-step { border-right: none; border-bottom: 1px solid var(--brand-hairline-soft); }
+  .surface-step:last-child { border-bottom: none; }
+}
+.surface-step[data-step="0"] { background: var(--background); }
+.surface-step[data-step="1"] { background: var(--card); }
+.surface-step[data-step="2"] { background: var(--muted); }
+.surface-step-num {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+.surface-step-name { font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace; font-size: 13px; color: var(--foreground); font-weight: 500; }
+.surface-step-role { font-size: 13px; color: var(--foreground); line-height: 1.45; opacity: 0.85; }
+
+/* -- Color swatches -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-name { font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace; font-size: 12px; color: var(--foreground); font-weight: 500; }
+.swatch-role {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+
+/* -- Typography roles -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+.type-display { font-family: inherit; font-size: 56px; font-weight: 500; letter-spacing: -1.4px; line-height: 0.99; color: var(--foreground); }
+.type-heading { font-family: inherit; font-size: 40px; font-weight: 500; letter-spacing: -1.0px; line-height: 1; color: var(--foreground); }
+.type-quote { font-family: inherit; font-size: 24px; font-weight: 500; letter-spacing: -0.6px; line-height: 1.15; color: var(--foreground); }
+.type-title { font-family: inherit; font-size: 18px; font-weight: 500; letter-spacing: -0.45px; line-height: 1.2; color: var(--foreground); }
+.type-body { font-size: 16px; font-weight: 400; line-height: 1.5; color: var(--foreground); }
+.type-mono { font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: var(--foreground); }
+
+.inline-code {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 0.92em;
+  font-weight: 500;
+  color: var(--foreground);
+  background: var(--muted);
+  border: 1px solid var(--brand-hairline-soft);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+
+/* -- Component vocabulary -- */
+.components-stack { display: flex; flex-direction: column; gap: 2rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+
+/* Pill-tab segmented control */
+.tab-group {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--brand-radius-pill);
+  background: var(--muted);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.tab {
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--foreground);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  min-height: 36px;
+  letter-spacing: -0.1px;
+}
+.tab[aria-selected="true"] {
+  background: var(--background);
+  border: 1px solid var(--brand-hairline-soft);
+  color: var(--foreground);
+}
+.tab:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Hairline tile cards */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 880px) { .tile-grid { grid-template-columns: 1fr; } }
+.tile {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-card);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.tile:hover {
+  border-color: var(--brand-canvas-orange);
+  box-shadow: 0 0 0 1px var(--brand-canvas-orange);
+}
+.tile-eyebrow {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.tile-title {
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.45px;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.2;
+}
+.tile-body { font-size: 14px; line-height: 1.5; color: var(--foreground); margin: 0; opacity: 0.85; }
+.tile-meta {
+  margin-top: auto;
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--muted-foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile { transition: none; }
+}
+
+/* Code-display register — polarity-locked dark surface, the Ashes theme
+   pastel pallete on the dark canvas-code background. Stays dark in
+   both modes by design (Cloudflare's blog renders code dark on a
+   white-canonical canvas — code is always dark). */
+.code-card {
+  background: var(--brand-canvas-code);
+  border: 1px solid color-mix(in oklch, var(--brand-on-dark) 10%, transparent);
+  border-radius: var(--brand-radius-card);
+  overflow: hidden;
+}
+.code-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid color-mix(in oklch, var(--brand-on-dark) 10%, transparent);
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-on-dark);
+}
+.code-card-head-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-canvas-orange);
+}
+.code-card-head-name { opacity: 0.85; }
+.code-card-body {
+  margin: 0;
+  padding: 1.25rem 1.25rem 1.5rem;
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--brand-on-dark);
+  white-space: pre;
+  overflow-x: auto;
+}
+.code-line { display: block; }
+.code-ident { color: var(--brand-code-ident); }
+.code-key { color: var(--brand-code-keyword); }
+.code-str { color: var(--brand-accent-yellow); }
+.code-num { color: var(--brand-blog-blue); }
+.code-comment { color: var(--brand-on-dark); opacity: 0.5; }
+.code-call { color: var(--brand-canvas-orange); }
+
+/* Status badges. Bg routes through canvas-mixed neutrals; foreground
+   uses canvas-flipping --foreground or canvas-locked brand chroma
+   verified for AA on both modes. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--brand-radius-pill);
+  border: 1px solid transparent;
+}
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.85;
+}
+/* Orange badge: dark-on-orange in both modes (orange surface is the
+   identity; charcoal foreground clears body AA at 4.95). */
+.badge[data-tone="orange"] {
+  background: var(--brand-canvas-orange);
+  color: var(--brand-on-light);
+  border-color: var(--brand-canvas-orange);
+}
+/* Legacy-orange (Kumo canonical) — same charcoal-on-orange treatment. */
+.badge[data-tone="legacy"] {
+  background: var(--brand-orange-legacy);
+  color: var(--brand-on-light);
+  border-color: var(--brand-orange-legacy);
+}
+/* Yellow badge: dark-on-yellow. Yellow is decorative-only per DESIGN.md
+   §6; treat as a chip surface, not a foreground. */
+.badge[data-tone="yellow"] {
+  background: var(--brand-accent-yellow);
+  color: var(--brand-on-light);
+  border-color: var(--brand-accent-yellow);
+}
+/* Attack badge: tinted orange (the brand reserves attack-red itself for
+   security-emergency entry only; for routine "rolled back" use the
+   chip-form here). */
+.badge[data-tone="red"] {
+  background: var(--brand-attack);
+  color: var(--brand-on-light);
+  border-color: var(--brand-attack);
+}
+/* Neutral badge: muted bg + foreground — flips with theme. */
+.badge[data-tone="neutral"] {
+  background: var(--muted);
+  color: var(--foreground);
+  border-color: var(--brand-hairline-soft);
+}
+/* Blog-blue badge: pastel cyan bg (editorial palette) + dark charcoal
+   foreground. The pastel surface lands light enough on both modes; the
+   foreground is the polarity-locked --brand-on-light dark. */
+.badge[data-tone="blue"] {
+  background: var(--brand-blog-blue);
+  color: var(--brand-on-light);
+  border-color: var(--brand-blog-blue);
+}
+
+/* Input register */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 14rem;
+}
+.field-label {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+.field-input {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-radius-pill);
+  padding: 0.75rem 1rem;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--foreground);
+  min-height: 44px;
+}
+.field-input::placeholder { color: var(--muted-foreground); }
+.field-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 1px;
+  border-color: var(--brand-canvas-orange);
+}
+
+/* Bar-graph row */
+.bar-rows { display: flex; flex-direction: column; gap: 0.75rem; }
+.bar-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr 5rem;
+  gap: 1rem;
+  align-items: center;
+  font-size: 13px;
+}
+.bar-row-label { color: var(--foreground); font-weight: 500; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; }
+.bar-track {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--muted);
+  overflow: hidden;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.bar-fill {
+  height: 100%;
+  background: var(--brand-canvas-orange);
+  border-radius: 3px;
+}
+.bar-row-num {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 12px;
+  text-align: right;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* Pull-quote card */
+.quote-card {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-card);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.quote-mark {
+  font-family: inherit;
+  font-size: 40px;
+  line-height: 0.8;
+  font-weight: 500;
+  color: var(--brand-canvas-orange);
+}
+.quote-body {
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 44ch;
+}
+.quote-byline {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+.quote-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--muted);
+  border: 1px solid var(--brand-hairline-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* -- Stats strip -- */
+.stats-strip {
+  background: var(--card);
+  border-top: 1px solid var(--brand-hairline-soft);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.stats-row {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 880px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.stat-value {
+  font-family: inherit;
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.8px;
+  line-height: 1;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+.stat-trend {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* -- Footer -- */
+.footer {
+  padding: 4rem 0 2rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+@media (max-width: 880px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+.footer-col-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+.footer-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-col-list a { font-size: 14px; color: var(--foreground); text-decoration: none; opacity: 0.85; }
+.footer-col-list a:hover { color: var(--brand-canvas-orange); text-decoration: underline; opacity: 1; }
+.footer-legal {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'JetBrains Mono', 'Apercu Mono Pro', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--muted-foreground);
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding-top: 1.5rem;
+  letter-spacing: 0.04em;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <span class="topnav-brand"><span class="topnav-brand-mark" aria-hidden="true"></span>__DESIGN_SYSTEM_NAME__</span>
+    <div class="topnav-links">
+      <a href="#">Surfaces</a>
+      <a href="#">Vocabulary</a>
+      <a href="#">Typography</a>
+      <a href="#">Components</a>
+      <a class="topnav-attack" href="#">Status?</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="pill" data-variant="outline" data-size="sm" type="button">Sign in</button>
+      <button class="pill" data-variant="primary" data-size="sm" type="button">Start exploring <span class="arrow" aria-hidden="true">&rsaquo;</span></button>
+    </div>
+  </div>
+</nav>
+
+<main class="page">
+
+  <section class="hero" aria-label="Hero">
+    <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>__DESIGN_SYSTEM_NAME__ &middot; token surface &middot; 2026.05.25</p>
+    <h1 class="hero-display">Paper, charcoal, cut by orange.</h1>
+    <p class="hero-lede">A token-surface preview rendered against the design system on both polarities. Canvas + neutrals flip with theme; the orange signature card and the dark code register stay locked. Pill geometry on every CTA, hairline tiles on canvas, mono accent <code>--brand-canvas-orange</code> for the voltage moments.</p>
+    <div class="hero-ctas">
+      <button class="pill" data-variant="primary" type="button">Start exploring <span class="arrow" aria-hidden="true">&rsaquo;</span></button>
+      <button class="pill" data-variant="outline" type="button">Read the changelog</button>
+    </div>
+  </section>
+
+  <section class="signature-card" aria-label="Signature surface — orange voltage card">
+    <div>
+      <p class="signature-eyebrow">Voltage &middot; one surface carries the brand</p>
+      <h2 class="signature-title">One full-bleed orange, on every canvas.</h2>
+      <p class="signature-body">Polarity-locked: the orange card holds across light and dark because it is the identity. Inside it, a dark pocket carries the team metrics; the foreground stays charcoal so the headline clears body AA without retuning the orange.</p>
+      <div class="cmp-row">
+        <button class="pill" data-variant="filled-dark" type="button">Open the brief <span class="arrow" aria-hidden="true">&rsaquo;</span></button>
+        <button class="pill" data-variant="ghost-on-orange" type="button">Read the changelog</button>
+      </div>
+    </div>
+    <aside class="deploy-tile" aria-label="Team metrics">
+      <span class="deploy-tile-label">Ship cadence &middot; trailing 7 days</span>
+      <span class="deploy-tile-value">147</span>
+      <span class="deploy-tile-trend">&uarr; 22% vs. trailing week</span>
+      <div class="deploy-tile-rows">
+        <div class="deploy-tile-row"><span>PRs merged</span><span>89</span></div>
+        <div class="deploy-tile-row"><span>Deploys</span><span>147</span></div>
+        <div class="deploy-tile-row"><span>Mean lead time</span><span>2h 14m</span></div>
+        <div class="deploy-tile-row"><span>Rollbacks</span><span>2</span></div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="section" aria-label="Colour tokens">
+    <header class="section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens &middot; Colour</p>
+      <h2 class="section-title">Two oranges, neutrals everywhere else.</h2>
+      <p class="section-lede">Marketing-skin orange drives <code>--primary</code>. The legacy Kumo orange lives on as <code>--brand-orange-legacy</code> for downstream surfaces. Everything else holds in canvas, card, muted, and foreground on both polarities.</p>
+    </header>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--background);"></div><span class="swatch-role">Canvas</span><span class="swatch-name">--background</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--card);"></div><span class="swatch-role">Surface</span><span class="swatch-name">--card</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--muted);"></div><span class="swatch-role">Surface</span><span class="swatch-name">--muted</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--foreground);"></div><span class="swatch-role">Ink</span><span class="swatch-name">--foreground</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--muted-foreground);"></div><span class="swatch-role">Ink</span><span class="swatch-name">--muted-foreground</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-canvas-orange);"></div><span class="swatch-role">Voltage</span><span class="swatch-name">--brand-canvas-orange</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-primary-hover);"></div><span class="swatch-role">Voltage</span><span class="swatch-name">--brand-primary-hover</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-orange-legacy);"></div><span class="swatch-role">Legacy</span><span class="swatch-name">--brand-orange-legacy</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-accent-yellow);"></div><span class="swatch-role">Accent</span><span class="swatch-name">--brand-accent-yellow</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-blog-blue);"></div><span class="swatch-role">Editorial</span><span class="swatch-name">--brand-blog-blue</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-attack);"></div><span class="swatch-role">Reserved</span><span class="swatch-name">--brand-attack</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-canvas-code);"></div><span class="swatch-role">Code</span><span class="swatch-name">--brand-canvas-code</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Surface ladder">
+    <header class="section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens &middot; Surfaces</p>
+      <h2 class="section-title">Three steps from the floor.</h2>
+      <p class="section-lede">Hairlines carry depth on both polarities &mdash; foreground-at-alpha so warmth tracks the canvas automatically. No shadows on canvas cards; elevation reads through the hairline alone.</p>
+    </header>
+    <div class="surface-ladder" aria-label="Surface ladder">
+      <div class="surface-step" data-step="0"><span class="surface-step-num">Floor &middot; Canvas</span><span class="surface-step-name">--background</span><span class="surface-step-role">Page bed</span></div>
+      <div class="surface-step" data-step="1"><span class="surface-step-num">Lift 1 &middot; Card</span><span class="surface-step-name">--card</span><span class="surface-step-role">Pricing tiles, pop surfaces, hairline cards</span></div>
+      <div class="surface-step" data-step="2"><span class="surface-step-num">Lift 2 &middot; Muted</span><span class="surface-step-name">--muted</span><span class="surface-step-role">Recessed pill rails, segmented controls, status bands</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography roles">
+    <header class="section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens &middot; Typography</p>
+      <h2 class="section-title">Weight five hundred, tight tracking.</h2>
+      <p class="section-lede">Headings never reach bold. Hero sits at fifty-six pixels with negative tracking of one point four; calmness comes from medium weight plus the cut, not from bold.</p>
+    </header>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Display &middot; 56</span><span class="type-display">Paper on charcoal.</span></div>
+      <div class="type-row"><span class="type-label">Heading &middot; 40</span><span class="type-heading">One accent carries the brand.</span></div>
+      <div class="type-row"><span class="type-label">Quote &middot; 24</span><span class="type-quote">&ldquo;Most of our cost is people; the rest is electricity.&rdquo;</span></div>
+      <div class="type-row"><span class="type-label">Title &middot; 18</span><span class="type-title">Hairline tiles on canvas</span></div>
+      <div class="type-row"><span class="type-label">Body &middot; 16</span><span class="type-body">Default paragraph copy at sixteen pixels with line-height one point five. The humanist grotesque carries the body voice. Inline tokens such as <span class="inline-code">data-theme</span> sit in a muted chip so they read against the surrounding text without competing for attention.</span></div>
+      <div class="type-row"><span class="type-label">Mono &middot; 14</span><span class="type-mono">await deploys.commit({ ref: &apos;main&apos;, region: &apos;iad&apos; })</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Component vocabulary">
+    <header class="section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Vocabulary &middot; Components</p>
+      <h2 class="section-title">Pill is the canonical shape.</h2>
+      <p class="section-lede">Every CTA carries the nine-thousand-nine-hundred-ninety-nine-pixel radius. Cards stay at twelve pixels for editorial surfaces and sixteen for the signature orange tile. Hairline tiles never lift on shadow &mdash; only on the orange ring.</p>
+    </header>
+    <div class="components-stack">
+
+      <div class="cmp-row" aria-label="Pill variants">
+        <button class="pill" data-variant="primary" type="button">Primary &middot; orange</button>
+        <button class="pill" data-variant="secondary" type="button">Secondary &middot; inverse</button>
+        <button class="pill" data-variant="outline" type="button">Outline &middot; hairline</button>
+        <button class="pill" data-variant="primary" data-size="sm" type="button">Small</button>
+        <button class="pill" data-variant="outline" data-size="sm" type="button">Small outline</button>
+      </div>
+
+      <div class="cmp-row" aria-label="Segmented pill control">
+        <div class="tab-group" role="tablist">
+          <button class="tab" role="tab" aria-selected="true" type="button">Overview</button>
+          <button class="tab" role="tab" aria-selected="false" type="button">Surfaces</button>
+          <button class="tab" role="tab" aria-selected="false" type="button">Tokens</button>
+          <button class="tab" role="tab" aria-selected="false" type="button">Components</button>
+        </div>
+      </div>
+
+      <div class="cmp-row" aria-label="Status badges">
+        <span class="badge" data-tone="orange"><span class="badge-dot" aria-hidden="true"></span>Shipped</span>
+        <span class="badge" data-tone="legacy">In review</span>
+        <span class="badge" data-tone="blue">Editorial</span>
+        <span class="badge" data-tone="yellow">Drafting</span>
+        <span class="badge" data-tone="red">Rolled back</span>
+        <span class="badge" data-tone="neutral">Archived</span>
+      </div>
+
+      <div class="cmp-row" aria-label="Form input">
+        <div class="field">
+          <label class="field-label" for="email-input">Team email</label>
+          <input class="field-input" id="email-input" type="email" placeholder="team@halcyon.dev" autocomplete="off">
+        </div>
+        <div class="field">
+          <label class="field-label" for="region-input">Region</label>
+          <input class="field-input" id="region-input" type="text" value="iad &middot; primary" readonly>
+        </div>
+      </div>
+
+      <div class="tile-grid" aria-label="Hairline tile cards">
+        <article class="tile">
+          <span class="tile-eyebrow">Engineering &middot; Sprint 42</span>
+          <h3 class="tile-title">Inbox triage runs at lunch.</h3>
+          <p class="tile-body">Open issues drop twenty per cent by the time the team finishes lunch. Throughput is steady &mdash; backlog stays bounded without weekend work.</p>
+          <span class="tile-meta">Updated 2h ago &middot; Jordan Kim</span>
+        </article>
+        <article class="tile">
+          <span class="tile-eyebrow">Design &middot; Crit 18</span>
+          <h3 class="tile-title">Pill geometry sticks.</h3>
+          <p class="tile-body">The capsule shape is recognisable across every CTA. Outline pills do the heavy lifting in the nav; primary pills get reserved for one moment per page.</p>
+          <span class="tile-meta">Updated 5h ago &middot; Morgan Lee</span>
+        </article>
+        <article class="tile">
+          <span class="tile-eyebrow">Customer interviews &middot; W21</span>
+          <h3 class="tile-title">Dashboards get checked once.</h3>
+          <p class="tile-body">Teams glance at the aggregate view in the morning and trust the alerts after that. The board earns its real estate by being legible at a glance.</p>
+          <span class="tile-meta">Updated 1d ago &middot; Avery Park</span>
+        </article>
+      </div>
+
+      <div class="bar-rows" aria-label="Resource usage bars">
+        <div class="bar-row">
+          <span class="bar-row-label">iad &middot; bandwidth</span>
+          <span class="bar-track"><span class="bar-fill" style="width: 78%;"></span></span>
+          <span class="bar-row-num">78%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-row-label">dub &middot; bandwidth</span>
+          <span class="bar-track"><span class="bar-fill" style="width: 52%;"></span></span>
+          <span class="bar-row-num">52%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-row-label">sin &middot; bandwidth</span>
+          <span class="bar-track"><span class="bar-fill" style="width: 31%;"></span></span>
+          <span class="bar-row-num">31%</span>
+        </div>
+      </div>
+
+      <div class="code-card" aria-label="Code-display register">
+        <div class="code-card-head">
+          <span class="code-card-head-dot" aria-hidden="true"></span>
+          <span class="code-card-head-name">halcyon-api &middot; src/routes/health.ts</span>
+        </div>
+        <pre class="code-card-body"><span class="code-line"><span class="code-comment">// halcyon health check &mdash; runs on every deploy across regions</span></span><span class="code-line"><span class="code-key">export default</span> {</span><span class="code-line">  <span class="code-key">async</span> <span class="code-call">fetch</span>(<span class="code-ident">request</span>, <span class="code-ident">env</span>) {</span><span class="code-line">    <span class="code-key">const</span> <span class="code-ident">status</span> = <span class="code-key">await</span> <span class="code-ident">env</span>.<span class="code-ident">db</span>.<span class="code-call">ping</span>();</span><span class="code-line">    <span class="code-key">return</span> <span class="code-ident">Response</span>.<span class="code-call">json</span>({ ok: <span class="code-str">true</span>, region: <span class="code-str">"iad"</span>, latency: <span class="code-num">42</span> });</span><span class="code-line">  },</span><span class="code-line">};</span></pre>
+      </div>
+
+      <article class="quote-card" aria-label="Pull quote">
+        <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+        <p class="quote-body">A token surface is the smallest set of decisions a design system commits to. Everything downstream &mdash; components, templates, outputs &mdash; composes against it.</p>
+        <div class="quote-byline">
+          <span class="quote-avatar" aria-hidden="true">RC</span>
+          <span>Riley Chen &middot; Halcyon design</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+</main>
+
+<section class="stats-strip" aria-label="Team metrics">
+  <div class="stats-row">
+    <div class="stat"><span class="stat-label">PRs &middot; sprint 42</span><span class="stat-value">312</span><span class="stat-trend">&uarr; 18 vs. sprint 41</span></div>
+    <div class="stat"><span class="stat-label">Specs in review</span><span class="stat-value">24</span><span class="stat-trend">&uarr; 4 since Monday</span></div>
+    <div class="stat"><span class="stat-label">Deploys per day</span><span class="stat-value">21</span><span class="stat-trend">&uarr; 2 vs. trailing 7d</span></div>
+    <div class="stat"><span class="stat-label">Mean lead time</span><span class="stat-value">2h 14m</span><span class="stat-trend">&darr; 8m vs. last week</span></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="page">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-col-title">Surfaces</p>
+        <ul class="footer-col-list"><li><a href="#">Canvas</a></li><li><a href="#">Cards</a></li><li><a href="#">Code register</a></li><li><a href="#">Signature card</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Tokens</p>
+        <ul class="footer-col-list"><li><a href="#">Colour</a></li><li><a href="#">Type scale</a></li><li><a href="#">Radii</a></li><li><a href="#">Hairlines</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Components</p>
+        <ul class="footer-col-list"><li><a href="#">Pills</a></li><li><a href="#">Badges</a></li><li><a href="#">Hairline tiles</a></li><li><a href="#">Bar rows</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Halcyon</p>
+        <ul class="footer-col-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">&commat;halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>__DESIGN_SYSTEM_NAME__ &middot; token surface preview &middot; 2026.05.25</span>
+      <span>paper on charcoal &middot; weight 500 &middot; pill geometry &middot; brand orange voltage</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

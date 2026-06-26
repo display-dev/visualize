@@ -1,0 +1,337 @@
+/**
+ * design-systems/expo-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Expo is LIGHT-CANONICAL with a documented dark-surface family.
+ * DESIGN.md names `--brand-surface-dark` (#171717) and
+ * `--brand-surface-dark-elevated` (#1a1a1a) as the brand's authored
+ * dark inks — used for dark feature cards, code blocks, IDE mockups,
+ * the featured pricing tier, and dark band closures. They're the
+ * documented basis for a calibrated product dark mode rather than the
+ * synthesised OKLCH lightness-inversion default.
+ *
+ * Dark-mode strategy (matches the Cal-style pattern): promote the
+ * documented dark-surface family to canvas + card, keep the monochrome
+ * primary CTA register (primary flips to white so the high-contrast
+ * filled-pill shape holds), and lift body / muted / hairline tokens so
+ * they read on the near-black canvas. The sky-blue atmospheric
+ * gradient is a hero-only decorative wash — not a brand action color —
+ * so the gradient tokens stay at :root and the hero's <style>-scoped
+ * overlay simply attenuates against the canvas in dark mode.
+ *
+ * Polarity-locked tokens (left at :root, inherited via cascade):
+ *   --brand-surface-dark / --brand-surface-dark-elevated
+ *       → these *name* the brand's dark surface; in dark mode they
+ *         already ARE the canvas. Template CSS uses --background /
+ *         --card instead. Lifting them would invert against their
+ *         documented intent.
+ *   --brand-on-dark / --brand-on-dark-soft
+ *       → already always-light by definition (white + light slate);
+ *         used wherever ink lands on a documented-dark surface.
+ *   --brand-text-link-secondary / --brand-accent-link-bright
+ *       → DESIGN.md scopes the secondary to footer-legal links only
+ *         (a stronger blue at L≈0.59 that clears both polarities) and
+ *         the bright-cyan to docs widget links only (L≈0.77, already
+ *         light enough for dark canvas).
+ *   --brand-gradient-sky-light / --brand-gradient-sky-mid
+ *       → hero-only atmospheric wash, not a body surface. The hero
+ *         block attenuates the wash against the dark canvas via
+ *         opacity, so the token's :root value is the right anchor.
+ *   --accent (oklch 0.5706 0.1291 63.94, the docs-callout warning
+ *         amber)
+ *       → DESIGN.md scopes it to docs callouts only — not a CTA, not
+ *         a chrome surface. Brand intent reads on both polarities at
+ *         the documented lightness.
+ *
+ * Tokens that DO lift in dark (lines below): the canonical canvas /
+ * card / popover / primary / muted / border family, plus the body /
+ * muted-soft / hairline-soft / canvas-soft / surface-strong brand
+ * extras that template CSS uses directly for running text and section
+ * dividers. Also lifted: the three pigment-ink tokens (--brand-text-
+ * link, --brand-semantic-success, --brand-accent-preview) that
+ * template CSS uses as ink colors on tinted-bg badges and on the dark
+ * canvas — the upstream :root values sit in the L=0.5-0.6 contrast-
+ * pinch zone and miss WCAG AA on the dark canvas; lifted to L≈0.75-0.78
+ * with chroma preserved, they clear 4.5:1 without losing brand-blue/
+ * green/purple identity.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2046 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2046 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2046 0 0);
+  --primary: oklch(0 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9851 0 0);
+  --secondary-foreground: oklch(0.2046 0 0);
+  --muted: oklch(0.9851 0 0);
+  --muted-foreground: oklch(0.5025 0.0136 264.4450);
+  --accent: oklch(0.5706 0.1291 63.9379);
+  --accent-foreground: oklch(0.2046 0 0);
+  --destructive: oklch(0.7443 0.1133 18.7529);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9560 0.0040 286.3239);
+  --input: oklch(0.9560 0.0040 286.3239);
+  --ring: oklch(0 0 0);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.2046 0 0);
+  --sidebar-primary: oklch(0 0 0);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(1 0 0);
+  --sidebar-accent-foreground: oklch(0.2046 0 0);
+  --sidebar-border: oklch(0.9560 0.0040 286.3239);
+  --sidebar-ring: oklch(0 0 0);
+  --chart-1: oklch(0.8100 0 0);
+  --chart-2: oklch(0.7100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.5100 0 0);
+  --chart-5: oklch(0.4200 0 0);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-xs: 4px;
+  --brand-radius-xxl: 24px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-display: 'Inter', -apple-system, system-ui, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 64px;
+  --text-heading: 48px;
+  --text-title: 18px;
+  --text-base: 16px;
+  --leading-tight: 1.05;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-primary-active: oklch(0.2178 0 0);
+  --brand-text-link: oklch(0.5558 0.1622 252.1947);
+  --brand-text-link-secondary: oklch(0.5913 0.2219 268.0496);
+  --brand-body: oklch(0.5025 0.0136 264.4450);
+  --brand-body-strong: oklch(0.2046 0 0);
+  --brand-muted-soft: oklch(0.8452 0 0);
+  --brand-hairline-soft: oklch(0.9707 0.0027 286.3501);
+  --brand-hairline-strong: oklch(0.8996 0.0035 247.8621);
+  --brand-canvas-soft: oklch(0.9851 0 0);
+  --brand-surface-strong: oklch(0.9560 0.0040 286.3239);
+  --brand-surface-dark: oklch(0.2046 0 0);
+  --brand-surface-dark-elevated: oklch(0.2178 0 0);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-dark-soft: oklch(0.7686 0.0096 258.3419);
+  --brand-gradient-sky-light: oklch(0.9178 0.0416 248.2800);
+  --brand-gradient-sky-mid: oklch(0.8200 0.0569 248.5227);
+  --brand-accent-preview: oklch(0.5168 0.1733 305.8771);
+  --brand-accent-link-bright: oklch(0.7717 0.1376 234.4486);
+  --brand-semantic-success: oklch(0.6271 0.1699 149.2138);
+}
+
+/*
+ * Dark mode — hand-tuned, NOT the OKLCH lightness-inversion default.
+ *
+ * Why each override exists:
+ *   --background          → matches the documented --brand-surface-dark
+ *                           (#171717) — the dark family Expo documents
+ *                           for code blocks + featured tiers, now
+ *                           promoted to canvas
+ *   --card                → matches --brand-surface-dark-elevated
+ *                           (#1a1a1a) — one tonal step up, the
+ *                           documented "one step lighter inside dark
+ *                           cards" surface
+ *   --popover             → same as --card, mirrors the elevation
+ *                           contract
+ *   --foreground          → --brand-on-dark (white)
+ *   --primary             → flips to white. Expo's primary register IS
+ *                           "high-contrast filled pill" and the
+ *                           near-black fill stops reading on a dark
+ *                           canvas; flipping to white preserves the
+ *                           shape with the same voltage
+ *   --primary-foreground  → flips to near-black so the white-fill pill
+ *                           carries dark ink
+ *   --secondary / --muted → near-canvas with a hint of separation
+ *                           (~0.22 lightness), so soft section bands +
+ *                           pill groups stay distinguishable
+ *   --muted-foreground    → lifts to --brand-on-dark-soft (light
+ *                           slate, ~0.77 lightness) — the documented
+ *                           dark-context muted ink, clears 4.5:1
+ *                           against the dark canvas
+ *   --border / --input    → step up to a near-#2a hairline (~0.27
+ *                           lightness) so card edges remain perceptible
+ *                           on the near-black canvas
+ *   --ring                → flips to white to track the new --primary
+ *   --sidebar family      → tracks card/border so nested sidebar
+ *                           surfaces hold tonal step on dark
+ *   --chart-*             → reversed monochrome ramp (light→dark on
+ *                           light becomes dark→light on dark) so the
+ *                           same chart reads on either polarity
+ *
+ * Brand-extras overrides (template CSS reads these directly):
+ *   --brand-body          → lifts to ~0.80 lightness (was 0.50 slate-
+ *                           cool gray that would be invisible on the
+ *                           near-black canvas). Calibrated to clear
+ *                           4.5:1 against both --background and --card.
+ *   --brand-body-strong   → lifts to white, mirroring --foreground
+ *   --brand-muted-soft    → lifts to ~0.62 (was 0.84, an on-light
+ *                           tertiary tone that vanishes on dark);
+ *                           used for caption / fine-print
+ *   --brand-hairline-soft → flips to a near-#27 dark hairline, matches
+ *                           --border so on-dark dividers stay visible
+ *   --brand-hairline-strong → flips to a slightly stronger dark
+ *                           hairline (~#3a) for the panel-outline use
+ *   --brand-canvas-soft   → flips to the elevated dark surface so any
+ *                           "subtle alternating band" reads as a soft
+ *                           lift, not a near-invisible echo
+ *   --brand-surface-strong → flips to the same elevated dark surface
+ *                           so badge / ecosystem-tile fills stay
+ *                           separated from canvas
+ *   --brand-primary-active → lifts to ~0.88 so the pressed-state lift
+ *                           on the now-white primary still reads
+ *
+ * Polarity-locked tokens (intentionally NOT overridden):
+ *   --brand-surface-dark / --brand-surface-dark-elevated
+ *   --brand-on-dark / --brand-on-dark-soft
+ *   --brand-text-link / --brand-text-link-secondary
+ *   --brand-accent-link-bright / --brand-accent-preview
+ *   --brand-semantic-success
+ *   --brand-gradient-sky-light / --brand-gradient-sky-mid
+ *   --accent (docs callout warning amber)
+ * Rationale for each one is listed in the header block above.
+ */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* shadcn-semantic core — calibrated to Expo's documented dark family */
+  --background: oklch(0.2046 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2178 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2178 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0.2046 0 0);
+  --secondary: oklch(0.2178 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2178 0 0);
+  --muted-foreground: oklch(0.7686 0.0096 258.3419);
+  --accent: oklch(0.5706 0.1291 63.9379);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.7443 0.1133 18.7529);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.2700 0 0);
+  --input: oklch(0.2700 0 0);
+  --ring: oklch(1 0 0);
+  --sidebar: oklch(0.2178 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(1 0 0);
+  --sidebar-primary-foreground: oklch(0.2046 0 0);
+  --sidebar-accent: oklch(0.2178 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.2700 0 0);
+  --sidebar-ring: oklch(1 0 0);
+  --chart-1: oklch(0.4200 0 0);
+  --chart-2: oklch(0.5100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.7100 0 0);
+  --chart-5: oklch(0.8100 0 0);
+
+  /* brand-extras lifted for the dark canvas — never lift the polarity-
+   * locked dark-surface / on-dark / docs-warning-amber family. */
+  --brand-body: oklch(0.8000 0.0136 264.4450);
+  --brand-body-strong: oklch(1 0 0);
+  --brand-muted-soft: oklch(0.6200 0 0);
+  --brand-hairline-soft: oklch(0.2700 0 0);
+  --brand-hairline-strong: oklch(0.3500 0 0);
+  --brand-canvas-soft: oklch(0.2178 0 0);
+  --brand-surface-strong: oklch(0.2700 0 0);
+  --brand-primary-active: oklch(0.8800 0 0);
+
+  /* Pigment-ink lift: text-link / success / preview need higher
+   * lightness on the dark canvas to clear WCAG AA. Chroma preserved
+   * (hue retained); only L moves from ~0.55 to ~0.78. */
+  --brand-text-link: oklch(0.7800 0.1450 234);
+  --brand-semantic-success: oklch(0.7900 0.1700 149);
+  --brand-accent-preview: oklch(0.7600 0.1500 305);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2046 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2178 0 0);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2178 0 0);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(1 0 0);
+    --primary-foreground: oklch(0.2046 0 0);
+    --secondary: oklch(0.2178 0 0);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.2178 0 0);
+    --muted-foreground: oklch(0.7686 0.0096 258.3419);
+    --accent: oklch(0.5706 0.1291 63.9379);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.7443 0.1133 18.7529);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.2700 0 0);
+    --input: oklch(0.2700 0 0);
+    --ring: oklch(1 0 0);
+    --sidebar: oklch(0.2178 0 0);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(1 0 0);
+    --sidebar-primary-foreground: oklch(0.2046 0 0);
+    --sidebar-accent: oklch(0.2178 0 0);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.2700 0 0);
+    --sidebar-ring: oklch(1 0 0);
+    --chart-1: oklch(0.4200 0 0);
+    --chart-2: oklch(0.5100 0 0);
+    --chart-3: oklch(0.6100 0 0);
+    --chart-4: oklch(0.7100 0 0);
+    --chart-5: oklch(0.8100 0 0);
+
+    --brand-body: oklch(0.8000 0.0136 264.4450);
+    --brand-body-strong: oklch(1 0 0);
+    --brand-muted-soft: oklch(0.6200 0 0);
+    --brand-hairline-soft: oklch(0.2700 0 0);
+    --brand-hairline-strong: oklch(0.3500 0 0);
+    --brand-canvas-soft: oklch(0.2178 0 0);
+    --brand-surface-strong: oklch(0.2700 0 0);
+    --brand-primary-active: oklch(0.8800 0 0);
+
+    --brand-text-link: oklch(0.7800 0.1450 234);
+    --brand-semantic-success: oklch(0.7900 0.1700 149);
+    --brand-accent-preview: oklch(0.7600 0.1500 305);
+  }
+}

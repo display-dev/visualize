@@ -1,0 +1,2601 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>swiss — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ffffff'/%3E%3Crect x='4' y='4' width='24' height='24' fill='none' stroke='%23000' stroke-width='2'/%3E%3Ccircle cx='20' cy='12' r='5' fill='%23ff3000'/%3E%3Crect x='6' y='18' width='8' height='10' fill='%23000'/%3E%3C/svg%3E">
+<meta property="og:title" content="swiss — token-surface preview">
+<meta property="og:description" content="International Typographic Style preview from visualize. Pure white canvas + grotesque sans + single Swiss Red signal + four CSS pattern textures + asymmetric Bauhaus composition.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/swiss/tokens.css) === */
+/**
+ * design-systems/swiss/tokens.css
+ *
+ * Hand-authored from the spec at temp/refs/swiss/raw.md
+ * (Superdesign library entry "Swiss Style", International Typographic
+ * Style, attributed to Zhou Jason via designprompts.dev).
+ * See companion file DESIGN.md.
+ * Sourced: 2026-05-26.
+ *
+ * Single-polarity light register. Swiss Red (#FF3000 → oklch(0.6444
+ * 0.2426 32.25)) is the system's only chromatic value and the spec is
+ * explicit it is "never decorative fill" — every other token routes
+ * through pure white, pure black, or a single muted gray (#F2F2F2).
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are Swiss's.
+ *   - Brand-extras (--brand-*): surface-named Swiss vocabulary —
+ *     hairline weights, polarity-locked canvases, pattern alpha values.
+ *     Never colour-with-modifier — Swiss carries no chromatic ladder
+ *     beyond the single signal red.
+ *
+ * The dark-variant block is catalog-level courtesy — Swiss is a
+ * documented single-polarity light register with no canonical dark
+ * mode. The signal red holds its :root value across themes.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are Swiss's. */
+
+  --background: oklch(1.0000 0 0);              /* #FFFFFF — pure-white canvas */
+  --foreground: oklch(0 0 0);                   /* #000000 — text is absolute */
+  --card: oklch(1.0000 0 0);                    /* #FFFFFF — default card surface */
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1.0000 0 0);
+  --popover-foreground: oklch(0 0 0);
+
+  --primary: oklch(0.6444 0.2426 32.25);        /* #FF3000 — Swiss Red, single signal colour */
+  --primary-foreground: oklch(1.0000 0 0);      /* white text on the red signal */
+  --secondary: oklch(0 0 0);                    /* #000000 — solid black button surface */
+  --secondary-foreground: oklch(1.0000 0 0);
+  --muted: oklch(0.9612 0 0);                   /* #F2F2F2 — light gray rhythm band */
+  --muted-foreground: oklch(0.2178 0 0);        /* synthesised near-black mute on the rhythm band */
+  --accent: oklch(0.6444 0.2426 32.25);         /* tracks --primary — system carries one accent */
+  --accent-foreground: oklch(1.0000 0 0);
+  --destructive: oklch(0.6444 0.2426 32.25);    /* tracks --primary — Swiss Red is the stop sign */
+  --destructive-foreground: oklch(1.0000 0 0);
+
+  --border: oklch(0 0 0);                       /* #000000 — structure is visible */
+  --input: oklch(0 0 0);                        /* same hairline as every other surface */
+  --ring: oklch(0.6444 0.2426 32.25);           /* tracks --primary — focus ring is red */
+
+  --sidebar: oklch(1.0000 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0.6444 0.2426 32.25);
+  --sidebar-primary-foreground: oklch(1.0000 0 0);
+  --sidebar-accent: oklch(0.9612 0 0);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0 0 0);
+  --sidebar-ring: oklch(0.6444 0.2426 32.25);
+
+  /* Monochrome chart ladder + one Swiss Red highlight. Spec is silent
+   * on multi-series palettes; the "no decorative colour" rule
+   * constrains data viz to the system's only chromatic value. */
+  --chart-1: oklch(0 0 0);
+  --chart-2: oklch(0.2178 0 0);
+  --chart-3: oklch(0.4500 0 0);
+  --chart-4: oklch(0.6800 0 0);
+  --chart-5: oklch(0.6444 0.2426 32.25);
+
+  /* Strictly rectangular — spec §"Radius & Border" — 0px. */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Spec: Inter (Google Font), "ideally closest to Helvetica /
+   * Akzidenz-Grotesk." Grotesque sans-serif with high x-heights. */
+  --font-sans: 'Inter', 'Helvetica Neue', 'Helvetica', 'Akzidenz-Grotesk', Arial, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Inter', 'Helvetica Neue', 'Helvetica', 'Akzidenz-Grotesk', Arial, system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Spec §"Shadows & Effects" — "No drop shadows. The design
+   * maintains flatness." The only documented "shadow" is the 8px
+   * translucent red ring around hero red discs (compositional
+   * geometry, not elevation), parked at --brand-ring-red-halo below. */
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. Swiss carries no chromatic ladder beyond
+   * the single signal red, so this section is shorter than most
+   * brands.
+   * -------------------------------------------------------------- */
+
+  /* Polarity-locked surfaces (Bauhaus hero composition area, signal
+   * red — these do not flip with theme). */
+  --brand-canvas-paper: oklch(1.0000 0 0);      /* hero composition canvas — paper white */
+  --brand-canvas-muted: oklch(0.9612 0 0);      /* #F2F2F2 rhythm band — flips in dark variant */
+  --brand-on-light: oklch(0 0 0);
+  --brand-on-dark: oklch(1.0000 0 0);
+
+  /* Hairlines / dividers — same hue, distinguished by width at the
+   * consumer (1px fine vs 2-4px strong). Spec §"Radius & Border"
+   * — "Thick, visible borders (border-2 or border-4)." */
+  --brand-hairline-fine: oklch(0 0 0);          /* 1px section dividers */
+  --brand-hairline-strong: oklch(0 0 0);        /* 2-4px grid-defining borders */
+
+  /* The 8px translucent red ring around hero red discs — spec
+   * §"Shadows & Effects" — "shadow-[0_0_0_8px_rgba(255,48,0,0.1)]
+   * for accent circles." Compositional geometry, not elevation. */
+  --brand-ring-red-halo: oklch(0.6444 0.2426 32.25 / 0.1);
+
+  /* Pattern texture alpha values — four CSS pattern overlays
+   * documented in spec §"Textures & Patterns." Each value is the
+   * fixed opacity at which the pattern renders. */
+  --brand-pattern-grid-alpha: 0.03;             /* 24×24px grid lines */
+  --brand-pattern-dots-alpha: 0.04;             /* 16×16px radial dots */
+  --brand-pattern-diagonal-alpha: 0.02;         /* 45° lines @ 10px spacing */
+  --brand-pattern-noise-alpha: 0.015;           /* fractal SVG noise overlay */
+
+  /* Body text neutrals — chroma ≈ 0 utility tokens. The spec ships
+   * only pure black for body; --brand-body-muted is a near-black
+   * mute used for secondary captions on the rhythm band. */
+  --brand-body: oklch(0 0 0);
+  --brand-body-muted: oklch(0.2178 0 0);
+
+  /* Motion vocabulary — spec §"Transitions" — "duration-200
+   * ease-out or duration-150 ease-linear for rapid feedback. No
+   * elastic or spring animations." */
+  --brand-motion-snap: 150ms linear;
+  --brand-motion-mechanical: 200ms ease-out;
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Swiss is a documented single-polarity light register; this block
+ * exists as catalog-level courtesy so theme-toggling consumers
+ * don't crash into white surfaces in dark UA preference.
+ *
+ * Canvas + body ink + hairlines invert; muted band flips to a
+ * dark neutral so its texture overlays still read. Swiss Red holds
+ * at its :root value — it is the system's polarity-locked
+ * chromatic anchor.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0 0 0);                   /* pure-black canvas */
+  --foreground: oklch(1.0000 0 0);              /* pure-white ink */
+  --card: oklch(0 0 0);
+  --card-foreground: oklch(1.0000 0 0);
+  --popover: oklch(0 0 0);
+  --popover-foreground: oklch(1.0000 0 0);
+
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring stay at
+   * :root — Swiss Red is the single chromatic anchor across themes. */
+
+  --secondary: oklch(1.0000 0 0);               /* button surface flips: white bg on black canvas */
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.1800 0 0);                   /* dark-side rhythm band — hosts texture overlays */
+  --muted-foreground: oklch(0.7500 0 0);
+
+  --border: oklch(1.0000 0 0);                  /* white hairlines on black canvas */
+  --input: oklch(1.0000 0 0);
+
+  --sidebar: oklch(0 0 0);
+  --sidebar-foreground: oklch(1.0000 0 0);
+  --sidebar-accent: oklch(0.1800 0 0);
+  --sidebar-accent-foreground: oklch(1.0000 0 0);
+  --sidebar-border: oklch(1.0000 0 0);
+
+  /* Chart ladder inverts with the canvas; the Swiss Red highlight
+   * still anchors at the bright end. */
+  --chart-1: oklch(1.0000 0 0);
+  --chart-2: oklch(0.7800 0 0);
+  --chart-3: oklch(0.5500 0 0);
+  --chart-4: oklch(0.3200 0 0);
+  --chart-5: oklch(0.6444 0.2426 32.25);
+
+  /* Brand-extras — canvas-muted flips, hairline hue follows ink. */
+  --brand-canvas-muted: oklch(0.1800 0 0);
+  --brand-hairline-fine: oklch(1.0000 0 0);
+  --brand-hairline-strong: oklch(1.0000 0 0);
+  --brand-body: oklch(1.0000 0 0);
+  --brand-body-muted: oklch(0.7500 0 0);
+
+  /* Pattern alphas keep their spec values — texture overlays
+   * remain subtle regardless of canvas polarity. */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0 0 0);
+    --foreground: oklch(1.0000 0 0);
+    --card: oklch(0 0 0);
+    --card-foreground: oklch(1.0000 0 0);
+    --popover: oklch(0 0 0);
+    --popover-foreground: oklch(1.0000 0 0);
+
+    --secondary: oklch(1.0000 0 0);
+    --secondary-foreground: oklch(0 0 0);
+    --muted: oklch(0.1800 0 0);
+    --muted-foreground: oklch(0.7500 0 0);
+
+    --border: oklch(1.0000 0 0);
+    --input: oklch(1.0000 0 0);
+
+    --sidebar: oklch(0 0 0);
+    --sidebar-foreground: oklch(1.0000 0 0);
+    --sidebar-accent: oklch(0.1800 0 0);
+    --sidebar-accent-foreground: oklch(1.0000 0 0);
+    --sidebar-border: oklch(1.0000 0 0);
+
+    --chart-1: oklch(1.0000 0 0);
+    --chart-2: oklch(0.7800 0 0);
+    --chart-3: oklch(0.5500 0 0);
+    --chart-4: oklch(0.3200 0 0);
+    --chart-5: oklch(0.6444 0.2426 32.25);
+
+    --brand-canvas-muted: oklch(0.1800 0 0);
+    --brand-hairline-fine: oklch(1.0000 0 0);
+    --brand-hairline-strong: oklch(1.0000 0 0);
+    --brand-body: oklch(1.0000 0 0);
+    --brand-body-muted: oklch(0.7500 0 0);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Swiss preview shell — token-surface showcase for the
+   International Typographic Style register. One signature mockup
+   combines the system's three voltage moments: a Massive Responsive
+   Headline at the hero scale, a Layered Geometric Composition
+   (Bauhaus circles + rectangles + lines with the lone red disc and
+   its 8px translucent halo), and the four pattern texture surfaces
+   (24px grid, 16px dots, 45° diagonals, fractal noise) rendered as
+   the compositional ground. Everything else is token demo. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+/* Body-level fractal noise overlay — the global texture per spec.
+   1.5% opacity, fixed across the viewport. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: var(--brand-pattern-noise-alpha);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+main, .topnav, .footer { position: relative; z-index: 2; }
+
+/* === Sticky top nav — grid-defined === */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 64px;
+  background: var(--background);
+  border-bottom: 4px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topnav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.topnav-brand-mark {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  border: 2px solid var(--foreground);
+}
+.topnav-brand-mark::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+}
+.topnav-links {
+  display: flex;
+  gap: 2rem;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.topnav-links a {
+  color: var(--foreground);
+  text-decoration: none;
+  position: relative;
+  padding: 0.5rem 0;
+}
+.topnav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width var(--brand-motion-mechanical);
+}
+.topnav-links a:hover::after { width: 100%; }
+.topnav-links a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.topnav-actions { display: flex; gap: 0.75rem; align-items: center; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* === Buttons === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0;
+  font-family: inherit;
+  /* Large-text floor (14px + 700) — keeps the signal variant
+     readable; white-on-red is sub-body but clears large-text. */
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--brand-motion-snap), color var(--brand-motion-snap);
+}
+.btn[data-variant="primary"] {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  border-color: var(--secondary);
+}
+.btn[data-variant="primary"]:hover {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+.btn[data-variant="secondary"]:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+.btn[data-variant="signal"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+  font-size: 19px;
+}
+.btn[data-variant="signal"]:hover {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* === Numbered section label === */
+.section-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+/* Enumerator stays on --foreground at body sizes — the brand red
+   only earns its presence on accent surfaces (hero headline, signal
+   button, stat highlights), not on body-size enumerator labels. */
+.section-label .num {
+  color: var(--foreground);
+}
+.section-label .word {
+  color: var(--foreground);
+}
+
+/* === SIGNATURE — hero composition with massive headline + Bauhaus geometry === */
+.hero {
+  position: relative;
+  border-bottom: 4px solid var(--border);
+  overflow: hidden;
+  /* 24px grid pattern at 3% opacity — applied to the hero
+     composition area per spec. */
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-grid-alpha) * 100%), transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-grid-alpha) * 100%), transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-color: var(--background);
+}
+.hero-inner {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 5rem 2rem 6rem;
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 3rem;
+  min-height: 640px;
+}
+@media (max-width: 880px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    padding: 3rem 1.5rem 4rem;
+    min-height: auto;
+  }
+}
+
+.hero-content { position: relative; z-index: 3; }
+.hero-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--foreground);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.hero-eyebrow .num { color: var(--primary); }
+.hero-eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: var(--foreground);
+  max-width: 200px;
+}
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 12vw, 10rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  margin: 0 0 2rem;
+  color: var(--foreground);
+}
+.hero-headline .signal {
+  color: var(--primary);
+  display: inline-block;
+}
+.hero-lede {
+  max-width: 28rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0 0 2.5rem;
+  color: var(--foreground);
+}
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.hero-meta {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--foreground);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.hero-meta-row dt {
+  font-weight: 500;
+  color: var(--brand-body-muted);
+  margin-bottom: 0.25rem;
+}
+.hero-meta-row dd {
+  margin: 0;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+/* Bauhaus composition — the system's voltage moment.
+   Red disc (with 8px translucent halo) + black tall rectangle +
+   thin diagonal line + secondary off-axis ring. Asymmetric
+   placement per spec §"The Grid as Law." */
+.hero-composition {
+  position: relative;
+  z-index: 2;
+  min-height: 480px;
+}
+@media (max-width: 880px) {
+  .hero-composition {
+    min-height: 320px;
+    margin-top: 2rem;
+  }
+}
+.shape-disc {
+  position: absolute;
+  top: 12%;
+  right: 8%;
+  width: 220px;
+  height: 220px;
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 0 8px var(--brand-ring-red-halo);
+}
+.shape-rect-tall {
+  position: absolute;
+  top: 0;
+  right: 32%;
+  width: 64px;
+  height: 100%;
+  background: var(--foreground);
+}
+.shape-ring {
+  position: absolute;
+  bottom: 8%;
+  right: 28%;
+  width: 96px;
+  height: 96px;
+  border: 4px solid var(--foreground);
+  border-radius: 50%;
+}
+.shape-diagonal {
+  position: absolute;
+  top: 38%;
+  right: -8%;
+  width: 320px;
+  height: 4px;
+  background: var(--primary);
+  transform: rotate(-32deg);
+  transform-origin: right center;
+}
+.shape-square {
+  position: absolute;
+  bottom: 20%;
+  right: 56%;
+  width: 56px;
+  height: 56px;
+  background: var(--background);
+  border: 2px solid var(--foreground);
+}
+
+/* === Token demo: colour swatch band === */
+.swatches {
+  border-bottom: 4px solid var(--border);
+  padding: 4rem 0;
+  background: var(--background);
+}
+.swatches-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.swatches-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border: 2px solid var(--foreground);
+}
+@media (max-width: 880px) {
+  .swatches-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.swatch {
+  padding: 2rem 1.5rem;
+  border-right: 2px solid var(--foreground);
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.swatch:last-child { border-right: none; }
+/* Surface is polarity-locked white; ink is always-black so the dark
+   theme doesn't render white-on-white. */
+.swatch-paper { background: var(--brand-canvas-paper); color: oklch(0 0 0); }
+.swatch-ink { background: var(--foreground); color: var(--background); }
+.swatch-muted { background: var(--brand-canvas-muted); color: var(--foreground); }
+/* Signal swatch demoes the brand red — fill is sacrosanct. Pair with
+   always-black ink so small mono labels (10-11px) clear body 4.5:1
+   instead of the 3.70:1 white-on-red would deliver. */
+.swatch-signal { background: var(--primary); color: oklch(0 0 0); }
+.swatch-frame { background: var(--background); color: var(--foreground); border: 4px solid var(--foreground); border-right-width: 2px; }
+.swatch-frame:last-child { border-right-width: 4px; }
+.swatch-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  /* 0.85 keeps the muted-rhythm look while ink-on-red clears 4.5:1. */
+  opacity: 0.85;
+}
+.swatch-name {
+  /* 14px/700 qualifies large-text 3:1 — keeps the swatch name
+     readable on the signal red fill. */
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.swatch-token {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  margin-top: 0.5rem;
+  opacity: 0.85;
+}
+
+/* === Token demo: pattern texture surfaces 2×2 === */
+.patterns {
+  border-bottom: 4px solid var(--border);
+  padding: 4rem 0;
+  background: var(--background);
+}
+.patterns-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.patterns-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border: 4px solid var(--foreground);
+}
+@media (max-width: 720px) {
+  .patterns-grid { grid-template-columns: 1fr; }
+}
+.pattern-cell {
+  position: relative;
+  min-height: 220px;
+  padding: 2rem;
+  background: var(--brand-canvas-muted);
+  border-right: 4px solid var(--foreground);
+  border-bottom: 4px solid var(--foreground);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.pattern-cell:nth-child(2n) { border-right: none; }
+.pattern-cell:nth-last-child(-n+2) { border-bottom: none; }
+@media (max-width: 720px) {
+  .pattern-cell { border-right: none; }
+  .pattern-cell:not(:last-child) { border-bottom: 4px solid var(--foreground); }
+}
+
+.pattern-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-grid-alpha) * 100%), transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-grid-alpha) * 100%), transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.pattern-dots::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-dots-alpha) * 100%), transparent) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+}
+.pattern-diagonal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(45deg, color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-diagonal-alpha) * 100%), transparent) 0 1px, transparent 1px 10px);
+}
+.pattern-noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: var(--brand-pattern-noise-alpha);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.pattern-cell > * { position: relative; z-index: 2; }
+
+.pattern-cell-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+.pattern-cell-head .num { color: var(--foreground); }
+.pattern-cell-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.pattern-cell-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--brand-body-muted);
+  letter-spacing: 0.02em;
+}
+
+/* === Token demo: surface elevation ladder (hairlines only) === */
+.ladder {
+  border-bottom: 4px solid var(--border);
+  padding: 4rem 0;
+  background: var(--brand-canvas-muted);
+  position: relative;
+  overflow: hidden;
+}
+.ladder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-grid-alpha) * 100%), transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-grid-alpha) * 100%), transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.ladder-inner {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.ladder-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 2rem;
+}
+@media (max-width: 880px) {
+  .ladder-grid { grid-template-columns: 1fr; }
+}
+.ladder-card {
+  background: var(--background);
+  border: 2px solid var(--foreground);
+  padding: 2rem;
+}
+.ladder-card.is-strong { border-width: 4px; }
+.ladder-card.is-signal {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.ladder-card.is-inverted {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+.ladder-card-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+}
+.ladder-card-body {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.ladder-card-foot {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+.ladder-stack {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0;
+  border: 4px solid var(--foreground);
+}
+.ladder-stack-row {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--foreground);
+  font-size: 13px;
+  font-weight: 500;
+}
+.ladder-stack-row:last-child { border-bottom: none; }
+.ladder-stack-row .num {
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+/* === Typography roles === */
+.type {
+  border-bottom: 4px solid var(--border);
+  padding: 4rem 0;
+  background: var(--background);
+}
+.type-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.type-rows {
+  margin-top: 2rem;
+  border-top: 4px solid var(--foreground);
+}
+.type-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 240px;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 2px solid var(--foreground);
+  align-items: baseline;
+}
+@media (max-width: 880px) {
+  .type-row { grid-template-columns: 1fr; gap: 0.75rem; padding: 1.5rem 0; }
+}
+.type-row-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--foreground);
+}
+/* Enumerator on --foreground — matches .section-label .num. */
+.type-row-label .num { color: var(--foreground); }
+.type-row-sample {
+  font-family: var(--font-display);
+  color: var(--foreground);
+}
+.type-row-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--brand-body-muted);
+  letter-spacing: 0.02em;
+}
+.type-display {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+.type-heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+.type-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.type-body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.type-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.type-mono {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+/* === Component vocabulary band === */
+.components {
+  border-bottom: 4px solid var(--border);
+  padding: 4rem 0;
+  background: var(--background);
+}
+.components-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.components-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 0;
+  border: 4px solid var(--foreground);
+}
+@media (max-width: 880px) {
+  .components-grid { grid-template-columns: 1fr; }
+}
+.components-cell {
+  padding: 2.5rem;
+  border-right: 4px solid var(--foreground);
+  background: var(--background);
+}
+.components-cell:last-child { border-right: none; }
+@media (max-width: 880px) {
+  .components-cell { border-right: none; border-bottom: 4px solid var(--foreground); }
+  .components-cell:last-child { border-bottom: none; }
+}
+.components-cell.is-muted {
+  background: var(--brand-canvas-muted);
+  position: relative;
+  overflow: hidden;
+}
+.components-cell.is-muted::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-dots-alpha) * 100%), transparent) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+  pointer-events: none;
+}
+.components-cell > * { position: relative; z-index: 2; }
+.components-cell-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+.components-cell-title .num { color: var(--foreground); }
+.button-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.input-stack {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.input-field {
+  display: grid;
+  gap: 0.5rem;
+}
+.input-field label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--foreground);
+}
+.input-underline {
+  border: none;
+  border-bottom: 2px solid var(--foreground);
+  background: transparent;
+  padding: 0.5rem 0;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--foreground);
+}
+.input-underline::placeholder { color: var(--brand-body-muted); }
+.input-underline:focus { outline: none; border-bottom-color: var(--primary); }
+.input-box {
+  border: 2px solid var(--foreground);
+  background: var(--background);
+  padding: 0.75rem;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--foreground);
+  border-radius: 0;
+}
+.input-box:focus { outline: none; border-color: var(--primary); }
+
+.card-demo {
+  border: 2px solid var(--foreground);
+  background: var(--background);
+  padding: 1.5rem;
+  transition: background var(--brand-motion-snap), color var(--brand-motion-snap);
+}
+.card-demo:hover {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.card-demo-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--brand-body-muted);
+  margin-bottom: 0.75rem;
+}
+.card-demo:hover .card-demo-eyebrow { color: var(--primary-foreground); }
+.card-demo-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+}
+.card-demo-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.card-arrow {
+  display: inline-block;
+  transform: rotate(-45deg);
+  transition: transform var(--brand-motion-mechanical);
+  font-size: 14px;
+}
+.card-demo:hover .card-arrow { transform: rotate(0deg); }
+@media (prefers-reduced-motion: reduce) {
+  .card-demo, .card-arrow { transition: none; }
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  margin-top: 1.5rem;
+  border: 2px solid var(--foreground);
+}
+.stat-cell {
+  padding: 1.5rem;
+  border-right: 2px solid var(--foreground);
+  border-bottom: 2px solid var(--foreground);
+  background: var(--background);
+}
+.stat-cell:nth-child(2n) { border-right: none; }
+.stat-cell:nth-last-child(-n+2) { border-bottom: none; }
+.stat-cell-num {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+.stat-cell-num .signal { color: var(--primary); }
+.stat-cell-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--foreground);
+}
+
+/* === Footer === */
+.footer {
+  border-top: 4px solid var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
+  padding: 3rem 0 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 3rem;
+}
+@media (max-width: 880px) {
+  .footer-inner { grid-template-columns: 1fr; }
+}
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.footer-mark {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.footer-mark .signal { color: var(--primary); }
+.footer-meta {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  color: var(--background);
+  opacity: 0.7;
+}
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 640px) {
+  .footer-links { grid-template-columns: repeat(2, 1fr); }
+}
+.footer-column h4 {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  /* Footer canvas is --foreground; subhead routes to --background
+     (inverse-canvas, 21:1) — red-on-black would land 3.70:1. */
+  color: var(--background);
+  margin: 0 0 1rem;
+}
+.footer-column ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.footer-column a {
+  font-size: 13px;
+  color: var(--background);
+  text-decoration: none;
+  font-weight: 500;
+}
+.footer-column a:hover { color: var(--primary); }
+.footer-column a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  border-bottom: 4px solid var(--foreground);
+  padding-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.section-head-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.section-head-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--brand-body-muted);
+  letter-spacing: 0.05em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- === Sticky top nav ============================================== -->
+<header class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="#">
+      <span class="topnav-brand-mark" aria-hidden="true"></span>
+      <span>swiss</span>
+    </a>
+    <nav class="topnav-links" aria-label="Primary">
+      <a href="#system">01. System</a>
+      <a href="#method">02. Method</a>
+      <a href="#advantages">03. Advantages</a>
+      <a href="#journal">04. Journal</a>
+    </nav>
+    <div class="topnav-actions">
+      <a class="btn" data-variant="secondary" href="#">Read</a>
+      <a class="btn" data-variant="primary" href="#">Open</a>
+    </div>
+  </div>
+</header>
+
+<!-- === SIGNATURE — hero: massive headline + Bauhaus composition over 24px grid pattern ===
+     Combines spec voltage moments: Massive Responsive Headline +
+     Layered Geometric Composition + Pattern-Based Texture. -->
+<main>
+<section class="hero" aria-labelledby="hero-headline">
+  <div class="hero-inner">
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">
+        <span class="num">01.</span>
+        <span>System &nbsp;/&nbsp; swiss &nbsp;/&nbsp; Edition 12</span>
+      </p>
+
+      <h1 id="hero-headline" class="hero-headline">
+        Order is<br>
+        <span class="signal">a tool,</span><br>
+        not a style.
+      </h1>
+
+      <p class="hero-lede">
+        A token surface for teams that treat layout as logic. Grid is law, ink is absolute, and the signal colour earns its presence one decision at a time.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn" data-variant="primary" href="#">Read the system</a>
+        <a class="btn" data-variant="secondary" href="#">Specimen pack</a>
+        <a class="btn" data-variant="signal" href="#">02. Method</a>
+      </div>
+
+      <dl class="hero-meta">
+        <div class="hero-meta-row">
+          <dt>Family</dt>
+          <dd>Inter / Helvetica</dd>
+        </div>
+        <div class="hero-meta-row">
+          <dt>Signal</dt>
+          <dd>#FF3000</dd>
+        </div>
+        <div class="hero-meta-row">
+          <dt>Grid</dt>
+          <dd>24 / 16 / 10px</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="hero-composition" aria-hidden="true">
+      <span class="shape-rect-tall"></span>
+      <span class="shape-disc"></span>
+      <span class="shape-diagonal"></span>
+      <span class="shape-ring"></span>
+      <span class="shape-square"></span>
+    </div>
+
+  </div>
+</section>
+
+<!-- === Colour swatch band ============================================= -->
+<section class="swatches" id="system" aria-labelledby="swatches-head">
+  <div class="swatches-inner">
+    <div class="section-head">
+      <div>
+        <p class="section-label"><span class="num">01.</span><span class="word">System</span></p>
+        <h2 id="swatches-head" class="section-head-title">Five values.<br>No decoration.</h2>
+      </div>
+      <p class="section-head-meta">
+        TOKENS<br>
+        --background / --foreground / --muted /<br>
+        --primary / --border
+      </p>
+    </div>
+
+    <div class="swatches-grid">
+      <div class="swatch swatch-paper">
+        <p class="swatch-num">01</p>
+        <div>
+          <p class="swatch-name">Paper</p>
+          <p class="swatch-token">--background · #FFFFFF</p>
+        </div>
+      </div>
+      <div class="swatch swatch-ink">
+        <p class="swatch-num">02</p>
+        <div>
+          <p class="swatch-name">Ink</p>
+          <p class="swatch-token">--foreground · #000000</p>
+        </div>
+      </div>
+      <div class="swatch swatch-muted">
+        <p class="swatch-num">03</p>
+        <div>
+          <p class="swatch-name">Muted</p>
+          <p class="swatch-token">--muted · #F2F2F2</p>
+        </div>
+      </div>
+      <div class="swatch swatch-signal">
+        <p class="swatch-num">04</p>
+        <div>
+          <p class="swatch-name">Signal</p>
+          <p class="swatch-token">--primary · #FF3000</p>
+        </div>
+      </div>
+      <div class="swatch swatch-frame">
+        <p class="swatch-num">05</p>
+        <div>
+          <p class="swatch-name">Border</p>
+          <p class="swatch-token">--border · #000000</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === Pattern texture 2×2 ============================================= -->
+<section class="patterns" id="method" aria-labelledby="patterns-head">
+  <div class="patterns-inner">
+    <div class="section-head">
+      <div>
+        <p class="section-label"><span class="num">02.</span><span class="word">Method</span></p>
+        <h2 id="patterns-head" class="section-head-title">Depth from<br>pattern, not shadow.</h2>
+      </div>
+      <p class="section-head-meta">
+        FOUR SURFACES<br>
+        Grid · Dots · Diagonal · Noise
+      </p>
+    </div>
+
+    <div class="patterns-grid">
+      <article class="pattern-cell pattern-grid">
+        <p class="pattern-cell-head"><span class="num">A.</span><span>Grid · 24px</span></p>
+        <div>
+          <h3 class="pattern-cell-name">Skeleton<br>of structure</h3>
+          <p class="pattern-cell-meta">opacity 3.0% / linear 24×24 / orthogonal</p>
+        </div>
+      </article>
+      <article class="pattern-cell pattern-dots">
+        <p class="pattern-cell-head"><span class="num">B.</span><span>Dots · 16px</span></p>
+        <div>
+          <h3 class="pattern-cell-name">Print<br>halftone</h3>
+          <p class="pattern-cell-meta">opacity 4.0% / radial 16×16 / matrix</p>
+        </div>
+      </article>
+      <article class="pattern-cell pattern-diagonal">
+        <p class="pattern-cell-head"><span class="num">C.</span><span>Diagonal · 10px</span></p>
+        <div>
+          <h3 class="pattern-cell-name">Direction<br>without arrow</h3>
+          <p class="pattern-cell-meta">opacity 2.0% / repeating 45° / 10px stride</p>
+        </div>
+      </article>
+      <article class="pattern-cell pattern-noise">
+        <p class="pattern-cell-head"><span class="num">D.</span><span>Noise · global</span></p>
+        <div>
+          <h3 class="pattern-cell-name">Paper<br>grain</h3>
+          <p class="pattern-cell-meta">opacity 1.5% / fractal SVG / fixed</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- === Surface ladder ================================================= -->
+<section class="ladder" id="advantages" aria-labelledby="ladder-head">
+  <div class="ladder-inner">
+    <div class="section-head">
+      <div>
+        <p class="section-label"><span class="num">03.</span><span class="word">Advantages</span></p>
+        <h2 id="ladder-head" class="section-head-title">Hairlines,<br>not elevation.</h2>
+      </div>
+      <p class="section-head-meta">
+        BORDERS DEFINE THE GRID<br>
+        2px fine / 4px strong
+      </p>
+    </div>
+
+    <div class="ladder-grid">
+      <div class="ladder-card is-strong">
+        <p class="ladder-card-title">Paper surface · 4px frame</p>
+        <p class="ladder-card-body">The frame is the elevation.</p>
+        <div class="ladder-card-foot">
+          <span>--background · --border</span>
+          <span>01 / 04</span>
+        </div>
+      </div>
+
+      <div class="ladder-stack">
+        <div class="ladder-stack-row">
+          <span>Paper surface · 2px hairline</span>
+          <span class="num">A. fine</span>
+        </div>
+        <div class="ladder-stack-row" style="background: var(--brand-canvas-muted);">
+          <span>Muted band · 2px hairline</span>
+          <span class="num">B. rhythm</span>
+        </div>
+        <div class="ladder-stack-row" style="background: var(--foreground); color: var(--background);">
+          <span>Inverted surface · 2px hairline</span>
+          <span class="num" style="color: var(--primary);">C. signal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === Typography roles =============================================== -->
+<section class="type" aria-labelledby="type-head">
+  <div class="type-inner">
+    <div class="section-head">
+      <div>
+        <p class="section-label"><span class="num">04.</span><span class="word">Journal</span></p>
+        <h2 id="type-head" class="section-head-title">Type does<br>the work.</h2>
+      </div>
+      <p class="section-head-meta">
+        SIX ROLES<br>
+        Inter · 400 / 500 / 700 / 900
+      </p>
+    </div>
+
+    <div class="type-rows">
+
+      <div class="type-row">
+        <p class="type-row-label"><span class="num">A.</span> Display · 900</p>
+        <p class="type-row-sample type-display">Universal Clarity</p>
+        <p class="type-row-meta">clamp(3rem, 12vw, 10rem) / -0.04em / 0.85</p>
+      </div>
+
+      <div class="type-row">
+        <p class="type-row-label"><span class="num">B.</span> Heading · 700</p>
+        <p class="type-row-sample type-heading">The grid is the law.</p>
+        <p class="type-row-meta">clamp(2rem, 5vw, 4rem) / -0.02em / 0.95</p>
+      </div>
+
+      <div class="type-row">
+        <p class="type-row-label"><span class="num">C.</span> Title · 700</p>
+        <p class="type-row-sample type-title">Structure is visible.</p>
+        <p class="type-row-meta">1.5rem / -0.01em / 1.1</p>
+      </div>
+
+      <div class="type-row">
+        <p class="type-row-label"><span class="num">D.</span> Body · 400</p>
+        <p class="type-row-sample type-body">A token-surface preview should feel like a well-engineered building — every element justified by the content's needs, every line carrying its share of the structure. White space is active. Type is the interface. The signal colour earns its placement once per surface.</p>
+        <p class="type-row-meta">1rem / 0 / 1.5</p>
+      </div>
+
+      <div class="type-row">
+        <p class="type-row-label"><span class="num">E.</span> Label · 500</p>
+        <p class="type-row-sample type-label">UPPERCASE · TRACKING-WIDEST · 12PX</p>
+        <p class="type-row-meta">0.75rem / 0.1em / 1.2</p>
+      </div>
+
+      <div class="type-row">
+        <p class="type-row-label"><span class="num">F.</span> Mono · 400</p>
+        <p class="type-row-sample type-mono">/etc/system/tokens · sha256:7b9c41…</p>
+        <p class="type-row-meta">0.875rem / 0 / 1.5</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- === Component vocabulary =========================================== -->
+<section class="components" aria-labelledby="components-head">
+  <div class="components-inner">
+    <div class="section-head">
+      <div>
+        <p class="section-label"><span class="num">05.</span><span class="word">Parts</span></p>
+        <h2 id="components-head" class="section-head-title">Pieces, not<br>flourishes.</h2>
+      </div>
+      <p class="section-head-meta">
+        BUTTONS · INPUTS · CARDS · STATS<br>
+        rect, 0px, 2-4px border
+      </p>
+    </div>
+
+    <div class="components-grid">
+
+      <div class="components-cell">
+        <p class="components-cell-title"><span class="num">A.</span><span>Buttons &amp; inputs</span></p>
+
+        <div class="button-row">
+          <button class="btn" data-variant="primary" type="button">Primary</button>
+          <button class="btn" data-variant="secondary" type="button">Secondary</button>
+          <button class="btn" data-variant="signal" type="button">Signal</button>
+        </div>
+
+        <div class="input-stack">
+          <div class="input-field">
+            <label for="ifu">Underlined</label>
+            <input id="ifu" class="input-underline" type="text" placeholder="Type a section number">
+          </div>
+          <div class="input-field">
+            <label for="ifb">Bordered</label>
+            <input id="ifb" class="input-box" type="text" placeholder="Type a token name">
+          </div>
+        </div>
+      </div>
+
+      <div class="components-cell is-muted">
+        <p class="components-cell-title"><span class="num">B.</span><span>Cards &amp; stats</span></p>
+
+        <div class="card-demo">
+          <p class="card-demo-eyebrow">Specimen · 01</p>
+          <h3 class="card-demo-title">Hover inverts.<br>Snap, not fade.</h3>
+          <div class="card-demo-meta">
+            <span>Mechanical · 200ms ease-out</span>
+            <span class="card-arrow" aria-hidden="true">&rarr;</span>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-cell">
+            <p class="stat-cell-num">21<span class="signal">:1</span></p>
+            <p class="stat-cell-label">Ink ratio</p>
+          </div>
+          <div class="stat-cell">
+            <p class="stat-cell-num">04</p>
+            <p class="stat-cell-label">Pattern surfaces</p>
+          </div>
+          <div class="stat-cell">
+            <p class="stat-cell-num">0<span class="signal">px</span></p>
+            <p class="stat-cell-label">Corner radius</p>
+          </div>
+          <div class="stat-cell">
+            <p class="stat-cell-num">200<span class="signal">ms</span></p>
+            <p class="stat-cell-label">Snap interval</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- === Footer ========================================================= -->
+<footer class="footer" id="journal">
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <h2 class="footer-mark">
+        swiss<br>
+        <span class="signal">— a system, not a style.</span>
+      </h2>
+      <p class="footer-meta">
+        Edition 12 &nbsp;·&nbsp; ISBN 0-000-00012-7 &nbsp;·&nbsp; halcyon.dev
+      </p>
+    </div>
+
+    <div class="footer-links">
+
+      <div class="footer-column">
+        <h4>01. System</h4>
+        <ul>
+          <li><a href="#">Tokens</a></li>
+          <li><a href="#">Grid</a></li>
+          <li><a href="#">Type ladder</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>02. Method</h4>
+        <ul>
+          <li><a href="#">Pattern surfaces</a></li>
+          <li><a href="#">Compositions</a></li>
+          <li><a href="#">Motion vocabulary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>03. Journal</h4>
+        <ul>
+          <li><a href="#">Specimen pack</a></li>
+          <li><a href="#">Field notes</a></li>
+          <li><a href="#">team@halcyon.dev</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,234 @@
+/**
+ * design-systems/wise-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Dark-mode block hand-edited. Wise is light-canonical with sage canvas
+ * + lime CTA in marketing, and ships a documented product dark mode in
+ * the app (warm-near-black with the same lime CTA). The synthesised OKLCH
+ * lightness inversion produced black-on-cool-white that lost both the
+ * warm olive cast and the sage-tinted surface ladder — the brand's hero
+ * mood. Overrides match Wise's app dark register:
+ *   --background       → warm near-black with olive cast (oklch(0.18 0.006 130))
+ *   --foreground       → olive-tinted off-white (oklch(0.93 0.006 130))
+ *   --card             → near-canvas lift, one-step elevated dark
+ *   --primary          → preserved (lime green is the brand stamp; lifts
+ *                        identically in both polarities)
+ *   --primary-foreground → preserved (dark ink on lime stays dark)
+ *   --accent           → peach preserved (still light against dark canvas)
+ *   --accent-foreground → dark ink (peach surface stays light-content)
+ *   --border / --input → dim warm border
+ *   --muted-foreground → olive-mid mute that passes AA on near-black
+ *
+ * Brand-specific extras (--brand-*) are intentionally NOT overridden in
+ * dark mode. They encode polarity-locked relationships:
+ *   --brand-ink-deep      → forest-green ink ON --brand-primary-pale
+ *                           (light-green pill). Surface AND ink polarity-
+ *                           locked to light; lifting breaks contrast.
+ *   --brand-canvas-soft   → sage canvas, light-canonical surface. Stays
+ *                           sage so the documented hero band still reads
+ *                           as the brand mood in dark mode — surface is
+ *                           polarity-locked. (When the preview uses it on
+ *                           dark, it appears as a sage accent card, not
+ *                           the canvas itself.)
+ *   --brand-primary-pale  → soft-green light surface. Polarity-locked.
+ *   --brand-primary-neutral, --brand-primary-active → light-green light
+ *                           surfaces. Same.
+ *   --brand-positive-deep → ink on light positive surfaces. Locked.
+ *   --brand-negative-bg   → already-dark maroon callout bg. Locked.
+ *   --brand-body / --brand-mute → light-canvas body inks. Use
+ *                           --muted-foreground for theme-flipping body
+ *                           mute on the dark canvas instead.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.1660 0.0063 122.1118);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.1660 0.0063 122.1118);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.1660 0.0063 122.1118);
+  --primary: oklch(0.8570 0.1698 134.5554);
+  --primary-foreground: oklch(0.1660 0.0063 122.1118);
+  --secondary: oklch(0.9364 0.0074 132.4175);
+  --secondary-foreground: oklch(0.1660 0.0063 122.1118);
+  --muted: oklch(0.9364 0.0074 132.4175);
+  --muted-foreground: oklch(0.3953 0.0042 145.4951);
+  --accent: oklch(0.8544 0.0951 57.7803);
+  --accent-foreground: oklch(0.1660 0.0063 122.1118);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.8975 0 0);
+  --input: oklch(0.8975 0 0);
+  --ring: oklch(0.8570 0.1698 134.5554);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.1660 0.0063 122.1118);
+  --sidebar-primary: oklch(0.8570 0.1698 134.5554);
+  --sidebar-primary-foreground: oklch(0.1660 0.0063 122.1118);
+  --sidebar-accent: oklch(0.9364 0.0074 132.4175);
+  --sidebar-accent-foreground: oklch(0.1660 0.0063 122.1118);
+  --sidebar-border: oklch(0.8975 0 0);
+  --sidebar-ring: oklch(0.8570 0.1698 134.5554);
+  --chart-1: oklch(0.8100 0.1698 134.5554);
+  --chart-2: oklch(0.7100 0.1698 134.5554);
+  --chart-3: oklch(0.6100 0.1698 134.5554);
+  --chart-4: oklch(0.5100 0.1698 134.5554);
+  --chart-5: oklch(0.4200 0.1698 134.5554);
+
+  /* radius scale */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: Inter, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: Wise Sans, Inter, system-ui, -apple-system, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 126px;
+  --text-heading: 96px;
+  --text-title: 32px;
+  --text-base: 16px;
+  --leading-tight: 0.85;
+  --leading-normal: 1.50;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-primary-active: oklch(0.9459 0.1182 133.7308);
+  --brand-primary-neutral: oklch(0.9014 0.0968 133.4435);
+  --brand-primary-pale: oklch(0.9497 0.0484 132.9691);
+  --brand-ink-deep: oklch(0.2869 0.0839 135.0504);
+  --brand-body: oklch(0.3953 0.0042 145.4951);
+  --brand-mute: oklch(0.6197 0.0015 106.4427);
+  --brand-canvas-soft: oklch(0.9364 0.0074 132.4175);
+  --brand-positive: oklch(0.6583 0.1758 146.9943);
+  --brand-positive-deep: oklch(0.3699 0.0908 153.7308);
+  --brand-warning: oklch(0.8754 0.1752 92.2301);
+  --brand-warning-deep: oklch(0.5937 0.1384 60.6170);
+  --brand-warning-content: oklch(0.3609 0.0509 83.9366);
+  --brand-negative: oklch(0.5662 0.1941 24.2427);
+  --brand-negative-deep: oklch(0.4753 0.1700 24.3993);
+  --brand-negative-darkest: oklch(0.4580 0.1869 27.3767);
+  --brand-negative-bg: oklch(0.2121 0.0693 25.3461);
+  --brand-accent-cyan: oklch(0.7820 0.1401 229.0638);
+
+  /* preview-only extras — warm near-black surface ladder for dark mode.
+   * Declared at :root so light mode can reference the same dark-canvas
+   * accent card (the polarity-flipped --brand-canvas-night-* tokens
+   * carry the brand's dark-mode equivalent of the sage canvas). */
+  --brand-canvas-night: oklch(0.1800 0.0060 130);
+  --brand-canvas-night-soft: oklch(0.2200 0.0070 132);
+  --brand-canvas-night-elevated: oklch(0.2600 0.0070 132);
+  --brand-on-dark: oklch(0.9300 0.0060 130);
+  --brand-on-dark-mute: oklch(0.7400 0.0060 130);
+  --brand-hairline-dark: oklch(1 0 0 / 0.1100);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Hand-edited. Synthesised dark mirroring Wise's app dark register —
+   * warm-near-black canvas with the brand's olive cast, lime --primary
+   * preserved as the single brand stamp lifting identically across both
+   * polarities, peach --accent preserved as the illustrative-tertiary.
+   * Brand-extras (--brand-canvas-soft, --brand-primary-pale, --brand-
+   * primary-neutral, --brand-primary-active, --brand-ink-deep, --brand-
+   * positive-deep, --brand-negative-bg) are polarity-locked AS-IS — the
+   * surfaces they pair with don't flip with theme. */
+
+  --background: oklch(0.1800 0.0060 130);
+  --foreground: oklch(0.9300 0.0060 130);
+  --card: oklch(0.2200 0.0070 132);
+  --card-foreground: oklch(0.9300 0.0060 130);
+  --popover: oklch(0.2200 0.0070 132);
+  --popover-foreground: oklch(0.9300 0.0060 130);
+  --primary: oklch(0.8570 0.1698 134.5554);
+  --primary-foreground: oklch(0.1660 0.0063 122.1118);
+  --secondary: oklch(0.2600 0.0070 132);
+  --secondary-foreground: oklch(0.9300 0.0060 130);
+  --muted: oklch(0.2600 0.0070 132);
+  --muted-foreground: oklch(0.7400 0.0060 130);
+  --accent: oklch(0.8544 0.0951 57.7803);
+  --accent-foreground: oklch(0.1660 0.0063 122.1118);
+  --destructive: oklch(0.6500 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(1 0 0 / 0.1100);
+  --input: oklch(1 0 0 / 0.1100);
+  --ring: oklch(0.8570 0.1698 134.5554);
+  --sidebar: oklch(0.2200 0.0070 132);
+  --sidebar-foreground: oklch(0.9300 0.0060 130);
+  --sidebar-primary: oklch(0.8570 0.1698 134.5554);
+  --sidebar-primary-foreground: oklch(0.1660 0.0063 122.1118);
+  --sidebar-accent: oklch(0.2600 0.0070 132);
+  --sidebar-accent-foreground: oklch(0.9300 0.0060 130);
+  --sidebar-border: oklch(1 0 0 / 0.1100);
+  --sidebar-ring: oklch(0.8570 0.1698 134.5554);
+  --chart-1: oklch(0.8570 0.1698 134.5554);
+  --chart-2: oklch(0.7500 0.1698 134.5554);
+  --chart-3: oklch(0.6500 0.1698 134.5554);
+  --chart-4: oklch(0.5500 0.1698 134.5554);
+  --chart-5: oklch(0.4500 0.1698 134.5554);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1800 0.0060 130);
+    --foreground: oklch(0.9300 0.0060 130);
+    --card: oklch(0.2200 0.0070 132);
+    --card-foreground: oklch(0.9300 0.0060 130);
+    --popover: oklch(0.2200 0.0070 132);
+    --popover-foreground: oklch(0.9300 0.0060 130);
+    --primary: oklch(0.8570 0.1698 134.5554);
+    --primary-foreground: oklch(0.1660 0.0063 122.1118);
+    --secondary: oklch(0.2600 0.0070 132);
+    --secondary-foreground: oklch(0.9300 0.0060 130);
+    --muted: oklch(0.2600 0.0070 132);
+    --muted-foreground: oklch(0.7400 0.0060 130);
+    --accent: oklch(0.8544 0.0951 57.7803);
+    --accent-foreground: oklch(0.1660 0.0063 122.1118);
+    --destructive: oklch(0.6500 0.2178 29.2339);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(1 0 0 / 0.1100);
+    --input: oklch(1 0 0 / 0.1100);
+    --ring: oklch(0.8570 0.1698 134.5554);
+    --sidebar: oklch(0.2200 0.0070 132);
+    --sidebar-foreground: oklch(0.9300 0.0060 130);
+    --sidebar-primary: oklch(0.8570 0.1698 134.5554);
+    --sidebar-primary-foreground: oklch(0.1660 0.0063 122.1118);
+    --sidebar-accent: oklch(0.2600 0.0070 132);
+    --sidebar-accent-foreground: oklch(0.9300 0.0060 130);
+    --sidebar-border: oklch(1 0 0 / 0.1100);
+    --sidebar-ring: oklch(0.8570 0.1698 134.5554);
+    --chart-1: oklch(0.8570 0.1698 134.5554);
+    --chart-2: oklch(0.7500 0.1698 134.5554);
+    --chart-3: oklch(0.6500 0.1698 134.5554);
+    --chart-4: oklch(0.5500 0.1698 134.5554);
+    --chart-5: oklch(0.4500 0.1698 134.5554);
+  }
+}

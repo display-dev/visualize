@@ -1,0 +1,2433 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lookbook — preview</title>
+
+<!--
+  Lookbook preview shell — industrial-utilitarian / fashion-archive register.
+  Source spec: visualize/temp/refs/lookbook/spec.md (via DESIGN.md §1-§6).
+
+  Signature mockup: Split-Indented Headline hero with persistent SVG
+  fractalNoise grain overlay + a featured product card carrying the
+  grayscale-to-colour reveal and Neon Interaction Badge — the three
+  declared verbatim components in spec.md §"Components" composed into
+  one surface. Everything below the hero is token demo (swatch band,
+  surface elevation, six type roles, component vocabulary, technical-
+  metadata stats band, footer).
+-->
+
+<meta property="og:title" content="lookbook — preview">
+<meta property="og:description" content="Lookbook design system — industrial-utilitarian fashion-archive register on warm-beige paper with neon-green micro-interactions.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23E3E2DE'/><text x='16' y='23' font-family='monospace' font-size='20' font-weight='700' text-anchor='middle' fill='%231B0E0D'>L</text></svg>">
+
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@700,500&f[]=general-sans@400,500&display=swap">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/lookbook/tokens.css) === */
+/**
+ * design-systems/lookbook/tokens.css
+ *
+ * Hand-authored from the lookbook spec — single-polarity warm-beige register.
+ * Companion: design-systems/lookbook/DESIGN.md
+ * Source spec: /Users/carl/Development/visualize/temp/refs/lookbook/spec.md
+ * Verified: 2026-05-26.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this brand's.
+ *     Never rename, never add to, never delete from per-brand.
+ *   - Brand-extras (--brand-*): the brand's own design-system vocabulary.
+ *     Surface-named only (-canvas, -ink, -on-paper, -hairline, etc.).
+ *     Never colour-with-modifier (-coral-ink, -red-deep) — those are the
+ *     synthesis anti-pattern in name form.
+ *
+ * Register-specific notes:
+ *   - The two-accent palette (burnt-red action + acid-green dissent) is
+ *     the lookbook register move. The neon is a STATE colour, never wired
+ *     to a primary fill slot. See `--brand-accent-neon` comment below.
+ *   - `--destructive` collapses into `--primary`. The register carries one
+ *     chromatic action colour; destructive states reuse it. Semantic
+ *     differentiation lives in copy + iconography, not hue.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are this brand's. */
+
+  --background: oklch(0.9124 0.0055 95.10);
+  --foreground: oklch(0.1819 0.0226 24.36);
+  --card: oklch(0.9124 0.0055 95.10);
+  --card-foreground: oklch(0.1819 0.0226 24.36);
+  --popover: oklch(0.9124 0.0055 95.10);
+  --popover-foreground: oklch(0.1819 0.0226 24.36);
+
+  --primary: oklch(0.5398 0.1964 32.54);     /* burnt red — sole chromatic action colour */
+  --primary-foreground: oklch(0.9124 0.0055 95.10);
+  --secondary: oklch(0.1819 0.0226 24.36);
+  --secondary-foreground: oklch(0.9124 0.0055 95.10);
+  --muted: oklch(0.86 0.006 95);
+  --muted-foreground: oklch(0.42 0.012 24);
+  --accent: oklch(0.8290 0.2745 141.53);     /* mirrors --brand-accent-neon — state colour, not a fill */
+  --accent-foreground: oklch(0.1819 0.0226 24.36);
+  --destructive: oklch(0.5398 0.1964 32.54); /* mirrors --primary — one chromatic action colour */
+  --destructive-foreground: oklch(0.9124 0.0055 95.10);
+
+  --border: oklch(0.55 0.01 24);
+  --input: oklch(0.55 0.01 24);
+  --ring: oklch(0.5398 0.1964 32.54);        /* tracks --primary */
+
+  --sidebar: oklch(0.9124 0.0055 95.10);
+  --sidebar-foreground: oklch(0.1819 0.0226 24.36);
+  --sidebar-primary: oklch(0.5398 0.1964 32.54);   /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.9124 0.0055 95.10);
+  --sidebar-accent: oklch(0.8290 0.2745 141.53);
+  --sidebar-accent-foreground: oklch(0.1819 0.0226 24.36);
+  --sidebar-border: oklch(0.55 0.01 24);
+  --sidebar-ring: oklch(0.5398 0.1964 32.54);      /* tracks --primary */
+
+  --chart-1: oklch(0.5398 0.1964 32.54);
+  --chart-2: oklch(0.8290 0.2745 141.53);
+  --chart-3: oklch(0.1819 0.0226 24.36);
+  --chart-4: oklch(0.42 0.012 24);
+  --chart-5: oklch(0.55 0.01 24);
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Clash Grotesk + General Sans load from Fontshare CDN — see
+   * preview-template.html for the loader. JetBrains Mono is in the
+   * catalogue's shared Google Fonts loader. */
+  --font-sans: 'General Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Clash Grotesk', 'Inter', system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Register is flat. No drop shadows; chrome is defined by hairlines
+   * + whitespace + the persistent noise overlay. */
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. See AUTHORING "Token naming conventions"
+   * for the taxonomy and forbidden suffix list.
+   * -------------------------------------------------------------- */
+
+  /* Polarity-locked canvas + ink. The warm-beige paper canvas and its
+   * paired brown-black ink carry the register's identity; they do NOT
+   * flip with theme (see DESIGN.md §Polarity-locked surfaces). */
+  --brand-canvas: oklch(0.9124 0.0055 95.10);
+  --brand-canvas-paper: oklch(0.9124 0.0055 95.10);
+  --brand-paper-soft: oklch(0.86 0.006 95);
+  --brand-on-paper: oklch(0.1819 0.0226 24.36);
+
+  /* Brand ink lineage — documented primary + a single muted role.
+   * Hue-anchored body-text role along the foreground hue 24; not a
+   * colour-with-modifier (per AUTHORING). */
+  --brand-ink: oklch(0.1819 0.0226 24.36);
+  --brand-ink-strong: oklch(0.1819 0.0226 24.36);
+  --brand-ink-mute: oklch(0.32 0.018 24);
+
+  /* Hairlines / dividers — defined as structural register chrome
+   * (input bottom-borders, manifesto separators, footer rules). */
+  --brand-hairline-soft: oklch(0.78 0.005 95);
+  --brand-hairline-strong: oklch(0.55 0.01 24);
+
+  /* Documented chromatic accents — both verbatim from spec §"Palette". */
+
+  /* Burnt red — mirror of --primary. The single chromatic action colour
+   * (CTA fill, headline colour-split, scrollbar thumb, category-divider
+   * type fill, key chip background). */
+  --brand-accent-burnt-red: oklch(0.5398 0.1964 32.54);
+
+  /* Acid neon green — STATE / MICRO-INTERACTION ONLY. This token is
+   * deliberately NOT wired to --primary, --ring, --sidebar-primary, or
+   * --sidebar-ring (those carry the burnt-red primary). The neon only
+   * appears on link-hover underline scale-ins, the Neon Interaction
+   * Badge on product card hover, ::selection background, focus rings on
+   * form inputs, and active-state flip on tag/chip components. Wiring
+   * it to a primary fill slot collapses the register's two-accent
+   * dissent move into a generic "green is the brand colour" treatment.
+   * See DESIGN.md §2 + §6 "Two-accent palette is the register move". */
+  --brand-accent-neon: oklch(0.8290 0.2745 141.53);
+
+  /* Texture overlay opacity — the persistent fractalNoise grain that
+   * unifies the register reads at 0.08 over the warm-beige canvas.
+   * Higher reads as digital filter; lower loses paper-texture identity. */
+  --brand-noise-overlay-opacity: 0.08;
+}
+
+/* -- Dark theme ------------------------------------------------
+ * lookbook is single-polarity (canonical-canvas: light); dark block
+ * mirrors :root per DESIGN.md §Known gaps. A future dark variant
+ * would require re-derivation (dark-warm-charcoal canvas, brightened
+ * neon, dropped grain opacity) — not a tokens-only inversion.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: light;
+
+  --background: oklch(0.9124 0.0055 95.10);
+  --foreground: oklch(0.1819 0.0226 24.36);
+  --card: oklch(0.9124 0.0055 95.10);
+  --card-foreground: oklch(0.1819 0.0226 24.36);
+  --popover: oklch(0.9124 0.0055 95.10);
+  --popover-foreground: oklch(0.1819 0.0226 24.36);
+
+  --primary: oklch(0.5398 0.1964 32.54);
+  --primary-foreground: oklch(0.9124 0.0055 95.10);
+  --secondary: oklch(0.1819 0.0226 24.36);
+  --secondary-foreground: oklch(0.9124 0.0055 95.10);
+  --muted: oklch(0.86 0.006 95);
+  --muted-foreground: oklch(0.42 0.012 24);
+  --accent: oklch(0.8290 0.2745 141.53);
+  --accent-foreground: oklch(0.1819 0.0226 24.36);
+  --destructive: oklch(0.5398 0.1964 32.54);
+  --destructive-foreground: oklch(0.9124 0.0055 95.10);
+
+  --border: oklch(0.55 0.01 24);
+  --input: oklch(0.55 0.01 24);
+  --ring: oklch(0.5398 0.1964 32.54);
+
+  --sidebar: oklch(0.9124 0.0055 95.10);
+  --sidebar-foreground: oklch(0.1819 0.0226 24.36);
+  --sidebar-primary: oklch(0.5398 0.1964 32.54);
+  --sidebar-primary-foreground: oklch(0.9124 0.0055 95.10);
+  --sidebar-accent: oklch(0.8290 0.2745 141.53);
+  --sidebar-accent-foreground: oklch(0.1819 0.0226 24.36);
+  --sidebar-border: oklch(0.55 0.01 24);
+  --sidebar-ring: oklch(0.5398 0.1964 32.54);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: light;
+
+    --background: oklch(0.9124 0.0055 95.10);
+    --foreground: oklch(0.1819 0.0226 24.36);
+    --card: oklch(0.9124 0.0055 95.10);
+    --card-foreground: oklch(0.1819 0.0226 24.36);
+    --popover: oklch(0.9124 0.0055 95.10);
+    --popover-foreground: oklch(0.1819 0.0226 24.36);
+
+    --primary: oklch(0.5398 0.1964 32.54);
+    --primary-foreground: oklch(0.9124 0.0055 95.10);
+    --secondary: oklch(0.1819 0.0226 24.36);
+    --secondary-foreground: oklch(0.9124 0.0055 95.10);
+    --muted: oklch(0.86 0.006 95);
+    --muted-foreground: oklch(0.42 0.012 24);
+    --accent: oklch(0.8290 0.2745 141.53);
+    --accent-foreground: oklch(0.1819 0.0226 24.36);
+    --destructive: oklch(0.5398 0.1964 32.54);
+    --destructive-foreground: oklch(0.9124 0.0055 95.10);
+
+    --border: oklch(0.55 0.01 24);
+    --input: oklch(0.55 0.01 24);
+    --ring: oklch(0.5398 0.1964 32.54);
+
+    --sidebar: oklch(0.9124 0.0055 95.10);
+    --sidebar-foreground: oklch(0.1819 0.0226 24.36);
+    --sidebar-primary: oklch(0.5398 0.1964 32.54);
+    --sidebar-primary-foreground: oklch(0.9124 0.0055 95.10);
+    --sidebar-accent: oklch(0.8290 0.2745 141.53);
+    --sidebar-accent-foreground: oklch(0.1819 0.0226 24.36);
+    --sidebar-border: oklch(0.55 0.01 24);
+    --sidebar-ring: oklch(0.5398 0.1964 32.54);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Lookbook preview shell — warm-beige paper canvas with persistent
+       SVG fractalNoise grain. Two-accent register: burnt-red as the
+       single chromatic action colour, neon-green as state-only micro-
+       interaction. ============================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom selection — the register's rare flip of neon as fill rather
+   than as outline (spec §"Custom selection + scrollbar"). */
+::selection { background: var(--brand-accent-neon); color: var(--foreground); }
+
+/* Custom scrollbar — burnt-red thumb on warm-beige track. */
+html { scrollbar-color: var(--primary) var(--background); scrollbar-width: thin; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: var(--primary); }
+::-webkit-scrollbar-thumb:hover { background: var(--foreground); }
+
+/* === Persistent noise overlay — the canvas's identity-defining sibling.
+       Inline SVG fractalNoise filter referenced via CSS filter on a fixed
+       pointer-events-none div. opacity 0.08, mix-blend-mode multiply
+       (spec §"Components" entry 1). ============================== */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: var(--brand-noise-overlay-opacity, 0.08);
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='grain'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23grain)' /></svg>");
+  background-repeat: repeat;
+}
+
+/* All real content sits above the overlay. */
+.page { position: relative; z-index: 2; }
+
+/* === Layout container === */
+.frame {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+@media (max-width: 720px) { .frame { padding: 0 1.5rem; } }
+
+/* === Top navigation — uppercase mono labels + nav links with neon
+       underline scale-in on hover (spec §"Motion"). ============== */
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.topnav .wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.topnav .wordmark .dot { color: var(--primary); }
+.topnav nav { display: flex; gap: 2rem; align-items: center; }
+@media (max-width: 720px) { .topnav nav { gap: 1.25rem; } .topnav nav .hide-narrow { display: none; } }
+
+.nav-link {
+  position: relative;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  display: inline-block;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background-color: var(--brand-accent-neon);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after { transform: scaleX(1); }
+.nav-link:focus-visible {
+  outline: 2px solid var(--brand-accent-neon);
+  outline-offset: 4px;
+}
+
+.topnav .basket {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+  letter-spacing: 0.05em;
+}
+
+/* === SIGNATURE — Split-Indented Headline hero with featured card ====== */
+.hero {
+  padding: 4rem 0 6rem;
+  position: relative;
+}
+
+.hero .eyebrow-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 3rem;
+  gap: 1rem;
+}
+/* Eyebrow at 13px on canvas — small-text on warm beige. Burnt-red
+   reads at 4.30:1 (under WCAG AA 4.5:1 small-text floor). Per AUTHORING
+   "fix the surface, not the colour", small-text eyebrows route to
+   --foreground; differentiation lives in uppercase + tracking + weight.
+   The brand still carries burnt-red where the surface earns it: as a
+   button fill, as the category divider's massive type (large-text 3:1
+   floor), and inside the colour-split second line of the headline. */
+.hero .eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.hero .meta-mono {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Split-Indented Headline override per spec §"Components" entry 3:
+   leading 0.75 + tracking -0.05em (tighter than the display-role
+   defaults of 0.85 / -0.04em). Override does not propagate to other
+   display elements (category dividers stay at the looser default). */
+.split-headline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(4rem, 13.5vw, 11rem);
+  line-height: 0.75;
+  letter-spacing: -0.05em;
+  color: var(--foreground);
+  margin: 0;
+  text-transform: none;
+}
+.split-headline .indent {
+  display: block;
+  margin-left: 20vw;
+  color: var(--primary);
+}
+@media (max-width: 720px) {
+  .split-headline { font-size: clamp(3rem, 18vw, 5rem); }
+  .split-headline .indent { margin-left: 8vw; }
+}
+
+.hero .deck {
+  margin: 3rem 0 0;
+  max-width: 36ch;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--brand-ink-mute);
+}
+
+.hero-rule {
+  border: none;
+  border-top: 1px solid var(--brand-hairline-strong);
+  margin: 3rem 0 2rem;
+}
+
+/* Featured product card — borderless, photography-led, with grayscale
+   default + Neon Interaction Badge that fades in on container hover.
+   Composes the three declared verbatim components (grain + headline +
+   badge + card-image reveal) in one signature surface. */
+.featured-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+@media (max-width: 960px) { .featured-row { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+.product-card {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: var(--foreground);
+}
+.product-card .image-frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background-color: var(--brand-paper-soft);
+}
+.product-card .image-frame::before,
+.product-card .image-frame::after {
+  /* Two layered abstract photographic surrogates — silhouette plate
+     (::before) + warm-shadow plate (::after). Together they read as
+     a stylised product still. Filter grayscale(1) by default, lifts
+     to grayscale(0) on container hover (spec §"Motion"). */
+  content: "";
+  position: absolute;
+  inset: 0;
+  filter: grayscale(1);
+  transition: filter 0.4s ease-out, transform 0.4s ease-out;
+}
+.product-card .image-frame::before {
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 65%, var(--brand-ink-mute) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 60% at 50% 100%, var(--foreground) 0%, transparent 70%),
+    linear-gradient(180deg, var(--muted) 0%, var(--brand-paper-soft) 100%);
+}
+.product-card .image-frame::after {
+  background:
+    radial-gradient(circle 30% at 30% 30%, var(--primary) 0%, transparent 55%),
+    radial-gradient(circle 40% at 70% 70%, var(--brand-ink-strong) 0%, transparent 50%);
+  mix-blend-mode: multiply;
+  opacity: 0.45;
+}
+.product-card:hover .image-frame::before,
+.product-card:focus-visible .image-frame::before,
+.product-card:hover .image-frame::after,
+.product-card:focus-visible .image-frame::after {
+  filter: grayscale(0);
+  transform: scale(1.05);
+}
+.product-card:focus-visible .image-frame {
+  outline: 2px solid var(--brand-accent-neon);
+  outline-offset: 2px;
+}
+
+/* Neon Interaction Badge — sharp rectangle, neon-green fill, brown-
+   black uppercase 10px text. opacity 0 default; 1 on container hover
+   with 300ms ease-out (spec §"Components" entry 2). */
+.product-card .neon-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background-color: var(--brand-accent-neon);
+  color: var(--foreground);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+.product-card:hover .neon-badge,
+.product-card:focus-visible .neon-badge { opacity: 1; }
+
+/* Mono caption below the image — name + season + price. The register's
+   quiet move: technical metadata in mono, not in a generic sans
+   caption (DESIGN.md §3 / §6). */
+.product-card .caption {
+  padding-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem 1rem;
+  align-items: baseline;
+}
+.product-card .caption .name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.125rem;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+}
+.product-card .caption .price {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--foreground);
+  letter-spacing: 0.05em;
+}
+.product-card .caption .sku {
+  grid-column: 1 / 2;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.product-card .caption .qty {
+  grid-column: 2 / 3;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+/* === Manifesto block — full-width body prose with mono eyebrow.
+       Not optional for any non-trivial template (DESIGN.md §4). === */
+.manifesto {
+  padding: 6rem 0 5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.manifesto .eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 2rem;
+  display: block;
+}
+.manifesto p {
+  max-width: 48ch;
+  font-size: 1.25rem;
+  line-height: 1.7;
+  margin: 0 0 1.5rem;
+  color: var(--foreground);
+}
+.manifesto p:last-child { margin-bottom: 0; }
+/* Manifesto inline em — body-scale prose; routes to --foreground with
+   the burnt-red carried by uppercase + tracking on the surrounding
+   chrome rather than as small inline colour (per AUTHORING). */
+.manifesto p em {
+  font-style: normal;
+  color: var(--foreground);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--primary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+/* === Token demo — colour swatch band ============================== */
+.section {
+  padding: 5rem 0;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.section-eyebrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0 0 2rem;
+  gap: 1rem;
+}
+.section-eyebrow .label {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.section-eyebrow .index {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+  margin: 0 0 3rem;
+}
+
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 960px) { .swatch-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 480px) { .swatch-grid { grid-template-columns: repeat(2, 1fr); } }
+.swatch {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.swatch .chip {
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch .name {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--foreground);
+  text-transform: uppercase;
+}
+.swatch .value {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--muted-foreground);
+  letter-spacing: 0.02em;
+}
+
+.chip-canvas { background-color: var(--background); }
+.chip-ink { background-color: var(--foreground); }
+.chip-primary { background-color: var(--primary); }
+.chip-neon { background-color: var(--brand-accent-neon); }
+.chip-paper-soft { background-color: var(--brand-paper-soft); }
+.chip-hairline { background-color: var(--brand-hairline-strong); }
+
+/* === Token demo — surface elevation ladder ====================== */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 720px) { .surface-ladder { grid-template-columns: repeat(2, 1fr); } }
+.surface-tile {
+  padding: 1.5rem;
+  min-height: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.surface-tile .role {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.surface-tile .name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.125rem;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+}
+.surface-1 { background-color: var(--background); }
+.surface-2 { background-color: var(--brand-paper-soft); }
+.surface-3 { background-color: var(--muted); }
+.surface-4 {
+  background-color: var(--foreground);
+  border-color: var(--foreground);
+}
+.surface-4 .role { color: var(--brand-paper-soft); }
+.surface-4 .name { color: var(--background); }
+
+/* === Token demo — typography roles (six max per DESIGN.md §3) === */
+.type-stack {
+  display: grid;
+  gap: 2.5rem;
+}
+.type-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 2rem;
+  align-items: baseline;
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding-top: 1.5rem;
+}
+.type-row:first-child { border-top: none; padding-top: 0; }
+@media (max-width: 720px) { .type-row { grid-template-columns: 1fr; gap: 0.75rem; } }
+.type-row .role {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.type-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  margin: 0;
+}
+.type-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+  margin: 0;
+}
+.type-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.125rem, 1.5vw, 1.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0;
+}
+.type-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 56ch;
+}
+.type-caption {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  color: var(--muted-foreground);
+  margin: 0;
+}
+.type-mono {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--foreground);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* === Component vocabulary — buttons, tags, input, badge, divider == */
+.components-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+}
+@media (max-width: 720px) { .components-grid { grid-template-columns: 1fr; } }
+.component-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.component-block .label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* Buttons — rectangular, zero radius. Primary = burnt-red fill;
+   secondary = type-only with neon underline scale-in on hover.
+   Hover polarity flip + 44px min-height per WCAG AA (DESIGN.md §4). */
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+/* Buttons land at the WCAG large-bold-text threshold (weight 700,
+   ≥ 14pt = 18.67px) so the burnt-red + canvas pairing (4.30:1) clears
+   the 3:1 large-text floor. The spec's documented button shape
+   ("General Sans 500-700") allows the upper weight; uppercase + tracking
+   + a generous padding pair the size up cleanly without breaking the
+   register. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 1rem 1.75rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s ease-out, color 0.2s ease-out;
+}
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--background);
+}
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background-color: var(--foreground);
+  color: var(--background);
+}
+.btn-primary:focus-visible {
+  outline: 2px solid var(--brand-accent-neon);
+  outline-offset: 2px;
+}
+.btn-secondary {
+  background-color: transparent;
+  color: var(--foreground);
+}
+.btn-secondary::after {
+  content: "";
+  position: absolute;
+  left: 1.75rem;
+  right: 1.75rem;
+  bottom: 0.75rem;
+  height: 2px;
+  background-color: var(--brand-accent-neon);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.btn-secondary:hover::after,
+.btn-secondary:focus-visible::after { transform: scaleX(1); }
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--brand-accent-neon);
+  outline-offset: 2px;
+}
+
+/* Tags / chips — outlined default, foreground-fill + neon-text active.
+   The rare place neon appears as text colour (DESIGN.md §4). */
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--foreground);
+  background: transparent;
+  color: var(--foreground);
+  cursor: pointer;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.2s ease-out, color 0.2s ease-out;
+}
+.tag:hover { background-color: var(--muted); }
+.tag.active {
+  background-color: var(--foreground);
+  color: var(--brand-accent-neon);
+}
+.tag:focus-visible {
+  outline: 2px solid var(--brand-accent-neon);
+  outline-offset: 2px;
+}
+
+/* Inputs — borderless except single bottom hairline. Neon focus ring
+   via thickened bottom hairline (DESIGN.md §4). */
+.input-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.input-group label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+/* Hairline rides a box-shadow under the input rather than a real border,
+   so focus-state thickening doesn't reflow surrounding layout. */
+.input-field {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--foreground);
+  background: transparent;
+  border: 0;
+  padding: 0.75rem 0;
+  width: 100%;
+  border-radius: 0;
+  outline: none;
+  box-shadow: inset 0 -1px 0 0 var(--brand-hairline-strong);
+  transition: box-shadow 0.2s ease-out;
+}
+.input-field::placeholder { color: var(--muted-foreground); }
+.input-field:hover { box-shadow: inset 0 -1px 0 0 var(--foreground); }
+.input-field:focus,
+.input-field:focus-visible {
+  box-shadow: inset 0 -2px 0 0 var(--brand-accent-neon);
+}
+
+/* Standalone Neon Interaction Badge demo — sits flat for documentation
+   rather than fading in from container-hover state. */
+.badge-demo {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--brand-accent-neon);
+  color: var(--foreground);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* === Category divider — massive screen-filling Clash Grotesk type
+       break. Display-role defaults apply here (leading 0.85 + tracking
+       -0.04em), NOT the Split-Indented override (DESIGN.md §4). === */
+.category-divider {
+  padding: 2rem 0 1rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.category-divider .word {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3rem, 9vw, 8rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--primary);
+  margin: 0;
+  text-transform: lowercase;
+}
+
+/* === Technical metadata stats band — mono prices, dates, coords ==== */
+.stats-band {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background-color: var(--brand-hairline-soft);
+  border-top: 1px solid var(--brand-hairline-soft);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+@media (max-width: 720px) { .stats-band { grid-template-columns: repeat(2, 1fr); } }
+.stat-cell {
+  background-color: var(--background);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+.stat-cell .stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.stat-cell .stat-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+}
+.stat-cell .stat-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+}
+
+/* === Footer ===================================================== */
+.footer {
+  padding: 4rem 0 3rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--brand-hairline-strong);
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+@media (max-width: 720px) { .footer { grid-template-columns: 1fr 1fr; } }
+.footer .col-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  grid-column: 1 / -1;
+}
+@media (min-width: 721px) { .footer .col-brand { grid-column: auto; } }
+.footer .wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.footer .wordmark .dot { color: var(--primary); }
+.footer .tagline {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  max-width: 28ch;
+  line-height: 1.5;
+}
+.footer .col h3 {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer .col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.footer .col a {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--foreground);
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  padding: 0.125rem 0;
+}
+.footer .col a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--brand-accent-neon);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.footer .col a:hover::after,
+.footer .col a:focus-visible::after { transform: scaleX(1); }
+.footer .col a:focus-visible {
+  outline: 2px solid var(--brand-accent-neon);
+  outline-offset: 2px;
+}
+
+.colophon {
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding: 1.5rem 0 3rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+@media (max-width: 720px) { .colophon { flex-direction: column; } }
+
+/* === Reduced motion overrides — disable every hover transform,
+       opacity transition, and scaling. Badges render at static
+       opacity 1 on hover; underlines write at full width with no
+       transform; images stay grayscale at scale 1. =============== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .nav-link::after,
+  .btn-secondary::after,
+  .footer .col a::after { transition: none; }
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after,
+  .btn-secondary:hover::after,
+  .btn-secondary:focus-visible::after,
+  .footer .col a:hover::after,
+  .footer .col a:focus-visible::after { transform: scaleX(1); }
+  .product-card .image-frame::before,
+  .product-card .image-frame::after { transition: none; }
+  .product-card:hover .image-frame::before,
+  .product-card:focus-visible .image-frame::before,
+  .product-card:hover .image-frame::after,
+  .product-card:focus-visible .image-frame::after {
+    filter: grayscale(1);
+    transform: none;
+  }
+  .product-card .neon-badge { transition: none; }
+  .product-card:hover .neon-badge,
+  .product-card:focus-visible .neon-badge { opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- Persistent grain overlay — render once, sits above all surfaces
+     and below all content. Inline SVG fractalNoise filter (DESIGN.md §4). -->
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<div class="page">
+
+  <header class="topnav">
+    <a href="#" class="wordmark">lookbook<span class="dot">.</span></a>
+    <nav>
+      <a href="#" class="nav-link">Index</a>
+      <a href="#" class="nav-link hide-narrow">Manifesto</a>
+      <a href="#" class="nav-link hide-narrow">Atelier</a>
+      <a href="#" class="nav-link">Journal</a>
+      <span class="basket">02 / 12</span>
+    </nav>
+  </header>
+
+  <!-- ============================================================
+       SIGNATURE MOCKUP — Split-Indented Headline hero + featured
+       product cards with neon badges and grayscale-to-colour reveal.
+       Single brand-flavoured surface; everything below is token demo.
+       ============================================================ -->
+  <section class="hero frame">
+    <div class="eyebrow-row">
+      <span class="eyebrow">Volume 04 · Field study</span>
+      <span class="meta-mono">2026 / spring · 12 entries</span>
+    </div>
+
+    <h1 class="split-headline">
+      <span>field</span>
+      <span class="indent">guide</span>
+    </h1>
+
+    <p class="deck">A working catalogue from the halcyon studio. Twelve objects, indexed and dated, photographed in the room they were used.</p>
+
+    <hr class="hero-rule" />
+
+    <div class="featured-row">
+      <a href="#" class="product-card">
+        <div class="image-frame" aria-hidden="true">
+          <span class="neon-badge">View entry</span>
+        </div>
+        <div class="caption">
+          <span class="name">Workshop coat</span>
+          <span class="price">€ 248</span>
+          <span class="sku">SKU 04-A-117 / heavy canvas</span>
+          <span class="qty">3 sizes</span>
+        </div>
+      </a>
+      <a href="#" class="product-card">
+        <div class="image-frame" aria-hidden="true">
+          <span class="neon-badge">View entry</span>
+        </div>
+        <div class="caption">
+          <span class="name">Field notebook</span>
+          <span class="price">€ 32</span>
+          <span class="sku">SKU 04-B-021 / 192pp grid</span>
+          <span class="qty">5 covers</span>
+        </div>
+      </a>
+      <a href="#" class="product-card">
+        <div class="image-frame" aria-hidden="true">
+          <span class="neon-badge">View entry</span>
+        </div>
+        <div class="caption">
+          <span class="name">Studio cup</span>
+          <span class="price">€ 18</span>
+          <span class="sku">SKU 04-C-008 / unglazed clay</span>
+          <span class="qty">2 sizes</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MANIFESTO — editorial pulse. Not optional for non-trivial
+       templates (DESIGN.md §4 / §6).
+       ============================================================ -->
+  <section class="manifesto frame">
+    <span class="eyebrow">A note from the studio</span>
+    <p>We started cataloguing the things in the studio for ourselves. A coat that survived four winters of darkroom work. A cup that held coffee through every print run since 2022. A notebook that kept track of every roll of film we developed in the spring of <em>last year</em>.</p>
+    <p>The catalogue is not a shop. It is a record of the objects we trust enough to use every day. Each entry is photographed in the room it lives in, dated to the week it joined the working set, and priced at the cost of replacing it.</p>
+  </section>
+
+  <!-- ============================================================
+       TOKEN DEMO — colour swatches.
+       ============================================================ -->
+  <section class="section frame">
+    <div class="section-eyebrow">
+      <span class="label">Palette</span>
+      <span class="index">01 / 05</span>
+    </div>
+    <h2 class="section-title">Two accents,<br>one record.</h2>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="chip chip-canvas"></div>
+        <span class="name">Canvas</span>
+        <span class="value">--background</span>
+      </div>
+      <div class="swatch">
+        <div class="chip chip-ink"></div>
+        <span class="name">Ink</span>
+        <span class="value">--foreground</span>
+      </div>
+      <div class="swatch">
+        <div class="chip chip-primary"></div>
+        <span class="name">Burnt red</span>
+        <span class="value">--primary</span>
+      </div>
+      <div class="swatch">
+        <div class="chip chip-neon"></div>
+        <span class="name">Neon</span>
+        <span class="value">--brand-accent-neon</span>
+      </div>
+      <div class="swatch">
+        <div class="chip chip-paper-soft"></div>
+        <span class="name">Paper soft</span>
+        <span class="value">--brand-paper-soft</span>
+      </div>
+      <div class="swatch">
+        <div class="chip chip-hairline"></div>
+        <span class="name">Hairline</span>
+        <span class="value">--brand-hairline-strong</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TOKEN DEMO — surface elevation ladder.
+       ============================================================ -->
+  <section class="section frame">
+    <div class="section-eyebrow">
+      <span class="label">Surfaces</span>
+      <span class="index">02 / 05</span>
+    </div>
+    <h2 class="section-title">Hairlines, not shadows.</h2>
+    <div class="surface-ladder">
+      <div class="surface-tile surface-1">
+        <span class="role">Base</span>
+        <span class="name">Canvas</span>
+      </div>
+      <div class="surface-tile surface-2">
+        <span class="role">Recess</span>
+        <span class="name">Paper soft</span>
+      </div>
+      <div class="surface-tile surface-3">
+        <span class="role">Muted</span>
+        <span class="name">Code wash</span>
+      </div>
+      <div class="surface-tile surface-4">
+        <span class="role">Inverse</span>
+        <span class="name">Ink</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TOKEN DEMO — typography roles (six max per DESIGN.md §3).
+       ============================================================ -->
+  <section class="section frame">
+    <div class="section-eyebrow">
+      <span class="label">Typography</span>
+      <span class="index">03 / 05</span>
+    </div>
+    <h2 class="section-title">Clash Grotesk,<br>General Sans,<br>JetBrains Mono.</h2>
+    <div class="type-stack">
+      <div class="type-row">
+        <span class="role">Display</span>
+        <p class="type-display">Field guide.</p>
+      </div>
+      <div class="type-row">
+        <span class="role">Heading</span>
+        <h3 class="type-heading">A working catalogue.</h3>
+      </div>
+      <div class="type-row">
+        <span class="role">Title</span>
+        <h4 class="type-title">Workshop coat, heavy canvas, four winters.</h4>
+      </div>
+      <div class="type-row">
+        <span class="role">Body</span>
+        <p class="type-body">We started cataloguing the things in the studio for ourselves. A coat that survived four winters of darkroom work, a cup that held coffee through every print run since the room was first opened.</p>
+      </div>
+      <div class="type-row">
+        <span class="role">Caption</span>
+        <p class="type-caption">Photographed on the morning of the fourth Tuesday in March.</p>
+      </div>
+      <div class="type-row">
+        <span class="role">Mono</span>
+        <p class="type-mono">SKU 04-A-117 / SS26 / EUR 248</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TOKEN DEMO — component vocabulary.
+       ============================================================ -->
+  <section class="section frame">
+    <div class="section-eyebrow">
+      <span class="label">Components</span>
+      <span class="index">04 / 05</span>
+    </div>
+    <h2 class="section-title">Rectangular,<br>borderless,<br>typed.</h2>
+    <div class="components-grid">
+
+      <div class="component-block">
+        <span class="label">Buttons</span>
+        <div class="btn-row">
+          <a href="#" class="btn btn-primary">Reserve entry</a>
+          <a href="#" class="btn btn-secondary">Read the note</a>
+        </div>
+      </div>
+
+      <div class="component-block">
+        <span class="label">Filters · tags</span>
+        <div class="tag-row">
+          <button class="tag active" type="button">All</button>
+          <button class="tag" type="button">Studio</button>
+          <button class="tag" type="button">Darkroom</button>
+          <button class="tag" type="button">Workshop</button>
+          <button class="tag" type="button">Field</button>
+        </div>
+      </div>
+
+      <div class="component-block">
+        <span class="label">Input</span>
+        <div class="input-group">
+          <label for="lookbook-search">Search the catalogue</label>
+          <input id="lookbook-search" class="input-field" type="text" placeholder="Workshop coat, field notebook, studio cup…" />
+        </div>
+      </div>
+
+      <div class="component-block">
+        <span class="label">Neon interaction badge</span>
+        <div class="btn-row">
+          <span class="badge-demo">View entry</span>
+          <span class="badge-demo">New for spring</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CATEGORY DIVIDER — massive screen-filling Clash type break.
+       Display-role defaults (leading 0.85 / tracking -0.04em), NOT
+       the Split-Indented Headline override.
+       ============================================================ -->
+  <section class="frame">
+    <div class="category-divider">
+      <p class="word">spring index</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TOKEN DEMO — stats band (mono prices / dates / coords).
+       ============================================================ -->
+  <section class="section frame" style="padding-top: 4rem;">
+    <div class="section-eyebrow">
+      <span class="label">Volume 04 / by the numbers</span>
+      <span class="index">05 / 05</span>
+    </div>
+    <div class="stats-band">
+      <div class="stat-cell">
+        <span class="stat-label">Entries</span>
+        <span class="stat-value">12</span>
+        <span class="stat-meta">Indexed</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-label">Rooms</span>
+        <span class="stat-value">04</span>
+        <span class="stat-meta">Studio · Darkroom · Workshop · Field</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-label">Weeks in use</span>
+        <span class="stat-value">198</span>
+        <span class="stat-meta">Average across all entries</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-label">Photographed</span>
+        <span class="stat-value">03/26</span>
+        <span class="stat-meta">Tuesday morning, north light</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER — closing band.
+       ============================================================ -->
+  <footer class="frame">
+    <div class="footer">
+      <div class="col-brand">
+        <a href="#" class="wordmark">lookbook<span class="dot">.</span></a>
+        <p class="tagline">A working catalogue from the halcyon studio. Photographed in the room each object lives in.</p>
+      </div>
+      <div class="col">
+        <h3>Catalogue</h3>
+        <ul>
+          <li><a href="#">Index</a></li>
+          <li><a href="#">Atelier</a></li>
+          <li><a href="#">Field guide</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Studio</h3>
+        <ul>
+          <li><a href="#">Manifesto</a></li>
+          <li><a href="#">Journal</a></li>
+          <li><a href="#">Visit</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Record</h3>
+        <ul>
+          <li><a href="#">Past volumes</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>halcyon.dev · volume 04</span>
+      <span>Set in Clash Grotesk &amp; General Sans</span>
+      <span>visualize / lookbook</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

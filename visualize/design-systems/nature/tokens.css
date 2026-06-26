@@ -1,0 +1,212 @@
+/**
+ * design-systems/nature/tokens.css
+ *
+ * Hand-authored from the spec at temp/refs/nature/raw.md (Superdesign
+ * "Nature Inspired Style" by Shirley Lou — Organic Brutalist).
+ * Sourced: 2026-05-26.
+ * Companion: design-systems/nature/DESIGN.md
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this system's.
+ *   - Brand-extras (--brand-*): surface-named only. Identity-defining
+ *     motion + texture + rounding tokens live here.
+ *
+ * Identity locks (don't retune):
+ *   - Five-colour palette: Forest #01472e, Sage #ccd5ae, Olive #e9edc9,
+ *     Cream #fefae0, Moss #a3b18a. No decorative accent outside this set.
+ *   - Dark text is always Forest, never pure black (per spec §Notes).
+ *   - 5rem section rounding is identity — the system is NOT zero-radius.
+ *   - 4% SVG noise overlay is always-on.
+ *   - Motion uses cubic-bezier(0.16, 1, 0.3, 1) over 1.2s — single curve.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are this system's. */
+
+  --background: oklch(0.9814 0.0342 99.83);          /* Cream #fefae0 */
+  --foreground: oklch(0.3519 0.0770 161.65);         /* Forest #01472e — dark text is always Forest per spec */
+  --card: oklch(0.9338 0.0475 112.47);               /* Olive #e9edc9 */
+  --card-foreground: oklch(0.3519 0.0770 161.65);    /* Forest */
+  --popover: oklch(0.9814 0.0342 99.83);             /* Cream */
+  --popover-foreground: oklch(0.3519 0.0770 161.65); /* Forest */
+
+  --primary: oklch(0.3519 0.0770 161.65);            /* Forest #01472e — primary CTAs + ink anchor */
+  --primary-foreground: oklch(0.9814 0.0342 99.83);  /* Cream on Forest */
+  --secondary: oklch(0.9338 0.0475 112.47);          /* Olive */
+  --secondary-foreground: oklch(0.3519 0.0770 161.65); /* Forest */
+  --muted: oklch(0.8560 0.0532 118.09);              /* Sage #ccd5ae */
+  --muted-foreground: oklch(0.4935 0.0371 131.01);   /* Mid-Moss utility neutral — body-muted helper */
+  --accent: oklch(0.7390 0.0564 123.81);             /* Moss #a3b18a */
+  --accent-foreground: oklch(0.3519 0.0770 161.65);  /* Forest */
+  --destructive: oklch(0.3519 0.0770 161.65);        /* Forest — locked palette has no red; destructive routes through Forest + label per §6 */
+  --destructive-foreground: oklch(0.9814 0.0342 99.83); /* Cream */
+
+  --border: oklch(0.8755 0.0277 93.13);              /* Warm graygreen hairline — utility neutral */
+  --input: oklch(0.8755 0.0277 93.13);
+  --ring: oklch(0.3519 0.0770 161.65);               /* Forest — tracks --primary */
+
+  --sidebar: oklch(0.9814 0.0342 99.83);             /* Cream */
+  --sidebar-foreground: oklch(0.3519 0.0770 161.65); /* Forest */
+  --sidebar-primary: oklch(0.3519 0.0770 161.65);    /* Forest — tracks --primary */
+  --sidebar-primary-foreground: oklch(0.9814 0.0342 99.83); /* Cream */
+  --sidebar-accent: oklch(0.8560 0.0532 118.09);     /* Sage */
+  --sidebar-accent-foreground: oklch(0.3519 0.0770 161.65); /* Forest */
+  --sidebar-border: oklch(0.8755 0.0277 93.13);
+  --sidebar-ring: oklch(0.3519 0.0770 161.65);       /* Forest — tracks --primary */
+
+  --chart-1: oklch(0.3519 0.0770 161.65);            /* Forest */
+  --chart-2: oklch(0.7390 0.0564 123.81);            /* Moss */
+  --chart-3: oklch(0.8560 0.0532 118.09);            /* Sage */
+  --chart-4: oklch(0.9338 0.0475 112.47);            /* Olive */
+  --chart-5: oklch(0.6601 0.0460 128.00);            /* Hairline-strong Moss-darker */
+
+  --radius-sm: 0.75rem;                              /* 12px — tight chips */
+  --radius-md: 1.25rem;                              /* 20px — inputs, small buttons */
+  --radius-lg: 2.5rem;                               /* 40px — cards (matches spec card radius) */
+  --radius-xl: 5rem;                                 /* 80px — sections (identity radius) */
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Anton', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Forest-tinted deep shadow on floating elements (spec §Texture). */
+  --shadow-lg: 0 25px 50px -12px rgba(1, 71, 46, 0.2);
+
+  /* -- Brand-extras --------------------------------------------- */
+
+  /* Documented secondary brand colours — full chroma. */
+  --brand-accent-sage:  oklch(0.8560 0.0532 118.09); /* Sage #ccd5ae — hero canvas */
+  --brand-accent-olive: oklch(0.9338 0.0475 112.47); /* Olive #e9edc9 — grid canvas */
+  --brand-accent-moss:  oklch(0.7390 0.0564 123.81); /* Moss #a3b18a — mid-tone */
+
+  /* Polarity-locked surfaces — Forest footer with Sage text holds across
+   * all themes per DESIGN.md §6. */
+  --brand-canvas-night: oklch(0.3519 0.0770 161.65); /* Forest — footer canvas */
+  --brand-on-dark:      oklch(0.8560 0.0532 118.09); /* Sage — text on Forest footer */
+  --brand-on-light:     oklch(0.3519 0.0770 161.65); /* Forest — text on light canvases */
+
+  /* Hairlines / dividers — utility neutrals. */
+  --brand-hairline-soft:   oklch(0.8755 0.0277 93.13); /* Warm graygreen */
+  --brand-hairline-strong: oklch(0.6601 0.0460 128.00); /* Moss-darker */
+
+  /* Body neutrals (chroma ≈ 0.04 — utility-neutral exception per AUTHORING). */
+  --brand-body:        oklch(0.3519 0.0770 161.65); /* Forest body ink */
+  --brand-body-muted:  oklch(0.4935 0.0371 131.01); /* Moss-leaning helper text */
+  --brand-muted-soft:  oklch(0.6601 0.0460 128.00); /* Strong-muted footer legal */
+
+  /* Radii — identity-defining ladder. */
+  --brand-radius-section: 5rem;                       /* Section corners — identity */
+  --brand-radius-card:    2.5rem;                     /* Cards / images */
+  --brand-radius-organic: 3rem;                       /* Floating Organic Cards */
+  --brand-radius-pill:    9999px;                     /* Nav pill, button pill, chip */
+  --brand-radius-xs:      0.75rem;                    /* Swatch corners */
+
+  /* Texture identity — always-on viewport overlay. */
+  --brand-noise-opacity: 0.04;
+
+  /* Motion identity — single curve, single duration. */
+  --brand-motion-curve:    cubic-bezier(0.16, 1, 0.3, 1);
+  --brand-motion-duration: 1200ms;
+
+  /* Shadow identity — Forest-tinted deep drop on floating elements. */
+  --brand-shadow-deep: 0 25px 50px -12px rgba(1, 71, 46, 0.2);
+  --brand-shadow-card: 0 12px 28px -8px rgba(1, 71, 46, 0.18);
+}
+
+/* -- Dark theme ------------------------------------------------
+ * The spec documents no native dark mode — system canonical canvas is
+ * light. The synthesis below deepens the warm earth canvases into a
+ * Forest-family family rather than flipping to neutral near-black,
+ * keeping the system's olive-green chroma identity intact.
+ *
+ * Forest, Sage, Olive, Moss themselves stay at :root chromatic values —
+ * they're documented brand identity. Only the canvas + neutrals flip.
+ * The footer polarity lock means --brand-canvas-night / --brand-on-dark
+ * stay at :root by definition.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.2131 0.0420 167.43);         /* Deep forest canvas */
+  --foreground: oklch(0.8560 0.0532 118.09);         /* Sage — readable on deep forest */
+  --card: oklch(0.2530 0.0521 165.10);               /* Slightly lifted forest card */
+  --card-foreground: oklch(0.8560 0.0532 118.09);    /* Sage */
+  --popover: oklch(0.2530 0.0521 165.10);
+  --popover-foreground: oklch(0.8560 0.0532 118.09);
+
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring stay at :root —
+   * Forest is the brand identity primary. On the deep-forest dark canvas
+   * we route filled CTAs through the on-dark surface instead (handled in
+   * the preview template via data-variant flips). */
+
+  --secondary: oklch(0.2530 0.0521 165.10);          /* Lifted forest */
+  --secondary-foreground: oklch(0.8560 0.0532 118.09); /* Sage */
+  --muted: oklch(0.2530 0.0521 165.10);
+  --muted-foreground: oklch(0.7390 0.0564 123.81);   /* Moss on deep forest */
+  --accent: oklch(0.7390 0.0564 123.81);             /* Moss accent — stays full chroma */
+  --accent-foreground: oklch(0.3519 0.0770 161.65);  /* Forest on Moss */
+
+  --border: oklch(0.3519 0.0770 161.65);             /* Forest at deeper position becomes the hairline */
+  --input: oklch(0.3519 0.0770 161.65);
+
+  --sidebar: oklch(0.2131 0.0420 167.43);
+  --sidebar-foreground: oklch(0.8560 0.0532 118.09);
+  --sidebar-accent: oklch(0.2530 0.0521 165.10);
+  --sidebar-accent-foreground: oklch(0.8560 0.0532 118.09);
+  --sidebar-border: oklch(0.3519 0.0770 161.65);
+
+  /* Utility neutrals — chroma-aligned lift for the deep-forest canvas. */
+  --brand-body:        oklch(0.8560 0.0532 118.09);  /* Sage body ink on dark */
+  --brand-body-muted:  oklch(0.7390 0.0564 123.81);  /* Moss for helper text */
+  --brand-muted-soft:  oklch(0.6601 0.0460 128.00);  /* Footer legal */
+
+  --brand-hairline-soft:   oklch(0.3519 0.0770 161.65); /* Forest hairline on deep forest */
+  --brand-hairline-strong: oklch(0.4935 0.0371 131.01); /* Moss-mid hairline */
+
+  /* Polarity-locked brand-extras (--brand-canvas-night, --brand-on-dark,
+   * --brand-on-light, --brand-accent-*, --brand-radius-*, --brand-noise-*,
+   * --brand-motion-*, --brand-shadow-*) stay at :root by definition. */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2131 0.0420 167.43);
+    --foreground: oklch(0.8560 0.0532 118.09);
+    --card: oklch(0.2530 0.0521 165.10);
+    --card-foreground: oklch(0.8560 0.0532 118.09);
+    --popover: oklch(0.2530 0.0521 165.10);
+    --popover-foreground: oklch(0.8560 0.0532 118.09);
+
+    --secondary: oklch(0.2530 0.0521 165.10);
+    --secondary-foreground: oklch(0.8560 0.0532 118.09);
+    --muted: oklch(0.2530 0.0521 165.10);
+    --muted-foreground: oklch(0.7390 0.0564 123.81);
+    --accent: oklch(0.7390 0.0564 123.81);
+    --accent-foreground: oklch(0.3519 0.0770 161.65);
+
+    --border: oklch(0.3519 0.0770 161.65);
+    --input: oklch(0.3519 0.0770 161.65);
+
+    --sidebar: oklch(0.2131 0.0420 167.43);
+    --sidebar-foreground: oklch(0.8560 0.0532 118.09);
+    --sidebar-accent: oklch(0.2530 0.0521 165.10);
+    --sidebar-accent-foreground: oklch(0.8560 0.0532 118.09);
+    --sidebar-border: oklch(0.3519 0.0770 161.65);
+
+    --brand-body:        oklch(0.8560 0.0532 118.09);
+    --brand-body-muted:  oklch(0.7390 0.0564 123.81);
+    --brand-muted-soft:  oklch(0.6601 0.0460 128.00);
+
+    --brand-hairline-soft:   oklch(0.3519 0.0770 161.65);
+    --brand-hairline-strong: oklch(0.4935 0.0371 131.01);
+  }
+}

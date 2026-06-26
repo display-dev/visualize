@@ -1,0 +1,2536 @@
+<!-- Per-system preview shell — monochrome.
+     Signature mockup: elevated pricing-tier table with serif-as-hero
+     typography and a featured tier that inverts polarity (the system's
+     two most-defining moves in one surface). Source: temp/refs/monochrome/raw.md. -->
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>monochrome — preview</title>
+<meta name="description" content="Token-surface showcase for the monochrome design system — editorial-luxury monochrome with serif-as-hero typography and color inversion as the state-change vocabulary.">
+<meta property="og:title" content="monochrome — preview">
+<meta property="og:description" content="Token-surface showcase for the monochrome design system.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='20' font-weight='700' fill='%23fff' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/monochrome/tokens.css) === */
+/**
+ * design-systems/monochrome/tokens.css
+ *
+ * Hand-authored from the spec at temp/refs/monochrome/raw.md
+ * (Superdesign "Minimalist Monochrome" — author Zhou Jason, designprompt.dev).
+ * Companion spec: ./DESIGN.md
+ * Sourced: 2026-05-26.
+ *
+ * The strictest palette in the catalogue. Every chromatic token has
+ * chroma 0.0000 — pure black, pure white, and two near-zero-chroma
+ * greys used only as muted body neutrals. The spec's rule, verbatim:
+ *
+ *   "Rule: No other colors. Ever. The palette is absolute."
+ *
+ * Synthesis anti-patterns (--brand-black-deep / --brand-black-on-dark)
+ * are structurally impossible in this system — there is nothing to
+ * lighten or darken to. The forbidden-name-shape grep is clean by
+ * construction.
+ *
+ * Two register quirks worth flagging up front:
+ *
+ *   1. Color inversion is the state-change vocabulary. Where a
+ *      conventional system uses brand-blue / brand-coral for hover
+ *      and emphasis, this system flips polarity (cards invert on
+ *      hover, the Stats section is the inverted ground, the
+ *      featured pricing tier is the inverted tile). The
+ *      polarity-locked tokens --brand-canvas-night and
+ *      --brand-on-dark carry the inverted surface and never flip
+ *      with [data-theme="dark"].
+ *
+ *   2. Elevation is rule-weight, not shadow. The brand-rule-*
+ *      ladder (1px / 2px / 4px / 8px) replaces box-shadow. There
+ *      are no shadow tokens; authors reaching for box-shadow on a
+ *      card or button are working outside the system.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are this brand's.        */
+  /* Strict palette: #FFFFFF / #000000 / #F5F5F5 / #525252 only.  */
+
+  --background: oklch(1.0000 0.0000 0);            /* #FFFFFF — pure white canvas */
+  --foreground: oklch(0.0000 0.0000 0);            /* #000000 — pure black ink */
+  --card: oklch(1.0000 0.0000 0);                  /* #FFFFFF */
+  --card-foreground: oklch(0.0000 0.0000 0);       /* #000000 */
+  --popover: oklch(1.0000 0.0000 0);               /* #FFFFFF — popovers read as sharp-edged cards */
+  --popover-foreground: oklch(0.0000 0.0000 0);    /* #000000 */
+
+  --primary: oklch(0.0000 0.0000 0);               /* #000000 — "Black IS the accent" */
+  --primary-foreground: oklch(1.0000 0.0000 0);    /* #FFFFFF — white on black */
+  --secondary: oklch(0.9702 0.0000 0);             /* #F5F5F5 — the muted surface, doubled */
+  --secondary-foreground: oklch(0.0000 0.0000 0);  /* #000000 */
+  --muted: oklch(0.9702 0.0000 0);                 /* #F5F5F5 — off-white for subtle backgrounds */
+  --muted-foreground: oklch(0.4386 0.0000 0);      /* #525252 — dark gray, secondary text only */
+  --accent: oklch(0.0000 0.0000 0);                /* #000000 — accent IS the foreground */
+  --accent-foreground: oklch(1.0000 0.0000 0);     /* #FFFFFF */
+  --destructive: oklch(0.0000 0.0000 0);           /* #000000 — destructive shares the palette; the spec admits no destructive accent */
+  --destructive-foreground: oklch(1.0000 0.0000 0);
+
+  --border: oklch(0.0000 0.0000 0);                /* #000000 — black borders, the line system */
+  --input: oklch(0.0000 0.0000 0);                 /* #000000 — 2px black input border */
+  --ring: oklch(0.0000 0.0000 0);                  /* #000000 — tracks --primary */
+
+  --sidebar: oklch(1.0000 0.0000 0);               /* #FFFFFF */
+  --sidebar-foreground: oklch(0.0000 0.0000 0);    /* #000000 */
+  --sidebar-primary: oklch(0.0000 0.0000 0);       /* tracks --primary */
+  --sidebar-primary-foreground: oklch(1.0000 0.0000 0);
+  --sidebar-accent: oklch(0.9702 0.0000 0);        /* #F5F5F5 — muted-surface sidebar accent */
+  --sidebar-accent-foreground: oklch(0.0000 0.0000 0);
+  --sidebar-border: oklch(0.9219 0.0000 0);        /* #E5E5E5 — hairline-soft for sidebar dividers */
+  --sidebar-ring: oklch(0.0000 0.0000 0);          /* tracks --primary */
+
+  /* Chart palette — greyscale stops, per §Known gaps in DESIGN.md.
+   * Data viz in this register relies on pattern fill, not chroma. */
+  --chart-1: oklch(0.0000 0.0000 0);               /* #000000 */
+  --chart-2: oklch(0.2200 0.0000 0);               /* ~near-black */
+  --chart-3: oklch(0.4386 0.0000 0);               /* #525252 */
+  --chart-4: oklch(0.7000 0.0000 0);               /* mid-grey */
+  --chart-5: oklch(0.9219 0.0000 0);               /* #E5E5E5 */
+
+  /* The spec mandates zero radius across every element. Every slot
+   * carries 0px — the shadcn-core contract still holds, the values
+   * just collapse to one. Per raw.md §"Border Radius":
+   * "ALL VALUES: 0px · No exceptions." */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Serif-as-hero trio: Playfair Display (display + headings),     */
+  /* Source Serif 4 (body), JetBrains Mono (metadata / dates).      */
+  --font-sans: 'Source Serif 4', 'Source Serif Pro', Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-serif: 'Source Serif 4', 'Source Serif Pro', Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', Times, serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* No shadow tokens. Elevation is rule-weight (see --brand-rule-*  */
+  /* below). Authors reaching for box-shadow are outside the system. */
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. No --brand-black-* tokens — there is no
+   * documented ladder for black (the spec is explicit: black is the
+   * accent, full stop).
+   * -------------------------------------------------------------- */
+
+  /* Polarity-locked surfaces — the inverted-state vocabulary.
+   * These tokens carry the dark surface used for the Stats section,
+   * the inverted card variant, the final-CTA band, and the
+   * featured-tier pricing tile. They do NOT flip with
+   * [data-theme="dark"] — the inversion is intentional within
+   * either theme, so dark mode swaps --background / --foreground
+   * but leaves these alone. */
+  --brand-canvas-night: oklch(0.0000 0.0000 0);    /* #000000 */
+  --brand-on-dark:      oklch(1.0000 0.0000 0);    /* #FFFFFF */
+  --brand-on-light:     oklch(0.0000 0.0000 0);    /* #000000 — symmetry */
+
+  /* Hairlines / dividers — the only documented near-white grey. */
+  --brand-hairline-soft: oklch(0.9219 0.0000 0);   /* #E5E5E5 — subtle dividers */
+
+  /* Rule-weight ladder — the system's elevation language. Carried
+   * as CSS custom properties so consuming surfaces can route to
+   * "the system's medium rule" rather than hard-coding "2px solid".
+   * Per raw.md §"Borders & Lines":
+   *   hairline 1px #E5E5E5 · thin 1px #000 · medium 2px #000
+   *   thick 4px #000 · ultra 8px #000 */
+  --brand-rule-hairline: 1px;
+  --brand-rule-thin: 1px;
+  --brand-rule-medium: 2px;
+  --brand-rule-thick: 4px;
+  --brand-rule-ultra: 8px;
+
+  /* Body text neutrals — chroma ≈ 0 utility tokens. Aliases for the
+   * shadcn-core slots so downstream consumers can route to body
+   * roles independently of the muted-foreground / foreground
+   * semantic names. */
+  --brand-body:        oklch(0.0000 0.0000 0);     /* #000000 */
+  --brand-body-muted:  oklch(0.4386 0.0000 0);     /* #525252 */
+
+  /* Inversion transition timing — the spec's "100ms maximum,
+   * mostly instant" rule. Carried as a custom property so every
+   * hover-flip on cards / buttons / pricing tiles routes through
+   * the same value. */
+  --brand-state-transition: 100ms;
+
+  /* Image-reveal timing — the one documented exception to 100ms.
+   * Per raw.md, blog images use 300ms for the scale + grayscale
+   * combined reveal. */
+  --brand-image-transition: 300ms;
+}
+
+/* -- Dark theme ------------------------------------------------
+ * The spec describes color inversion as the system's state-change
+ * vocabulary, not as a per-user theme preference. A coherent
+ * [data-theme="dark"] render flips --background / --foreground
+ * (and the muted neutrals) so the entire page reads on the
+ * inverted ground — same editorial register, opposite polarity.
+ *
+ * --primary, --ring, --sidebar-primary, --sidebar-ring stay at
+ * :root #000 — but on the inverted ground they're consumed against
+ * a white surface, so the visual effect is "primary actions read
+ * as black on white" rather than "primary actions retune." Same
+ * applies to --brand-canvas-night and --brand-on-dark; they're
+ * polarity-locked tokens that don't flip, by definition.
+ *
+ * The result: on light, primary buttons are black on white. On
+ * dark, primary buttons are white on black (because --background
+ * flipped and --primary's consumer surface flipped with it). The
+ * brand identity holds; the polarity inverts.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.0000 0.0000 0);            /* #000000 — inverted ground */
+  --foreground: oklch(1.0000 0.0000 0);            /* #FFFFFF — inverted ink */
+  --card: oklch(0.0000 0.0000 0);
+  --card-foreground: oklch(1.0000 0.0000 0);
+  --popover: oklch(0.0000 0.0000 0);
+  --popover-foreground: oklch(1.0000 0.0000 0);
+
+  --primary: oklch(1.0000 0.0000 0);               /* #FFFFFF — black inverts to white */
+  --primary-foreground: oklch(0.0000 0.0000 0);    /* #000000 */
+  --accent: oklch(1.0000 0.0000 0);                /* mirrors --primary */
+  --accent-foreground: oklch(0.0000 0.0000 0);
+  --destructive: oklch(1.0000 0.0000 0);
+  --destructive-foreground: oklch(0.0000 0.0000 0);
+
+  --secondary: oklch(0.2200 0.0000 0);             /* near-black secondary surface */
+  --secondary-foreground: oklch(1.0000 0.0000 0);
+  --muted: oklch(0.2200 0.0000 0);                 /* near-black muted surface */
+  --muted-foreground: oklch(0.7000 0.0000 0);      /* mid-grey ink — utility-neutral retune */
+
+  --border: oklch(1.0000 0.0000 0);                /* white borders on the inverted ground */
+  --input: oklch(1.0000 0.0000 0);
+  --ring: oklch(1.0000 0.0000 0);                  /* tracks --primary in dark */
+
+  --sidebar: oklch(0.0000 0.0000 0);
+  --sidebar-foreground: oklch(1.0000 0.0000 0);
+  --sidebar-primary: oklch(1.0000 0.0000 0);       /* tracks --primary in dark */
+  --sidebar-primary-foreground: oklch(0.0000 0.0000 0);
+  --sidebar-accent: oklch(0.2200 0.0000 0);
+  --sidebar-accent-foreground: oklch(1.0000 0.0000 0);
+  --sidebar-border: oklch(0.3500 0.0000 0);        /* mid-dark grey hairline equivalent */
+  --sidebar-ring: oklch(1.0000 0.0000 0);
+
+  /* Chart palette inverts to white-anchored greyscale. */
+  --chart-1: oklch(1.0000 0.0000 0);
+  --chart-2: oklch(0.8000 0.0000 0);
+  --chart-3: oklch(0.6000 0.0000 0);
+  --chart-4: oklch(0.4000 0.0000 0);
+  --chart-5: oklch(0.2200 0.0000 0);
+
+  /* Polarity-locked tokens — --brand-canvas-night, --brand-on-dark,
+   * --brand-on-light — are NOT overridden here. They carry the
+   * inversion vocabulary within either theme. */
+
+  /* Hairline lifts to a near-white equivalent for the inverted
+   * ground — utility-neutral retune, chroma ≈ 0. */
+  --brand-hairline-soft: oklch(0.3500 0.0000 0);
+
+  /* Body-text neutrals — utility retune for body legibility. */
+  --brand-body:        oklch(1.0000 0.0000 0);
+  --brand-body-muted:  oklch(0.7000 0.0000 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.0000 0.0000 0);
+    --foreground: oklch(1.0000 0.0000 0);
+    --card: oklch(0.0000 0.0000 0);
+    --card-foreground: oklch(1.0000 0.0000 0);
+    --popover: oklch(0.0000 0.0000 0);
+    --popover-foreground: oklch(1.0000 0.0000 0);
+
+    --primary: oklch(1.0000 0.0000 0);
+    --primary-foreground: oklch(0.0000 0.0000 0);
+    --accent: oklch(1.0000 0.0000 0);
+    --accent-foreground: oklch(0.0000 0.0000 0);
+    --destructive: oklch(1.0000 0.0000 0);
+    --destructive-foreground: oklch(0.0000 0.0000 0);
+
+    --secondary: oklch(0.2200 0.0000 0);
+    --secondary-foreground: oklch(1.0000 0.0000 0);
+    --muted: oklch(0.2200 0.0000 0);
+    --muted-foreground: oklch(0.7000 0.0000 0);
+
+    --border: oklch(1.0000 0.0000 0);
+    --input: oklch(1.0000 0.0000 0);
+    --ring: oklch(1.0000 0.0000 0);
+
+    --sidebar: oklch(0.0000 0.0000 0);
+    --sidebar-foreground: oklch(1.0000 0.0000 0);
+    --sidebar-primary: oklch(1.0000 0.0000 0);
+    --sidebar-primary-foreground: oklch(0.0000 0.0000 0);
+    --sidebar-accent: oklch(0.2200 0.0000 0);
+    --sidebar-accent-foreground: oklch(1.0000 0.0000 0);
+    --sidebar-border: oklch(0.3500 0.0000 0);
+    --sidebar-ring: oklch(1.0000 0.0000 0);
+
+    --chart-1: oklch(1.0000 0.0000 0);
+    --chart-2: oklch(0.8000 0.0000 0);
+    --chart-3: oklch(0.6000 0.0000 0);
+    --chart-4: oklch(0.4000 0.0000 0);
+    --chart-5: oklch(0.2200 0.0000 0);
+
+    --brand-hairline-soft: oklch(0.3500 0.0000 0);
+    --brand-body:        oklch(1.0000 0.0000 0);
+    --brand-body-muted:  oklch(0.7000 0.0000 0);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Monochrome preview shell — editorial-luxury, serif-as-hero, no chroma === */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.625;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  position: relative;
+}
+
+/* Global horizontal-lines texture (1.5% opacity) — the spec's
+ * "REQUIRED" surface treatment to prevent flat-design fatigue. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    var(--foreground) 1px,
+    var(--foreground) 2px
+  );
+  background-size: 100% 4px;
+  opacity: 0.015;
+}
+
+main, header, footer { position: relative; z-index: 1; }
+
+a { color: inherit; text-decoration: none; }
+
+/* ========== Topnav + hero ============================ */
+.topnav {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: var(--brand-rule-thin) solid var(--foreground);
+}
+.topnav .brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.015em;
+}
+.topnav .brand sup {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  vertical-align: super;
+  margin-left: 0.25rem;
+  color: var(--muted-foreground);
+}
+.topnav .nav-links {
+  display: flex;
+  gap: 2.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.topnav .nav-links a {
+  border-bottom: var(--brand-rule-thin) solid transparent;
+  padding-bottom: 0.25rem;
+  transition: border-color var(--brand-state-transition) linear;
+}
+.topnav .nav-links a:hover,
+.topnav .nav-links a:focus-visible {
+  border-bottom-color: var(--foreground);
+  outline: none;
+}
+.topnav .nav-links a:focus-visible {
+  outline: var(--brand-rule-thick) solid var(--foreground);
+  outline-offset: 3px;
+}
+
+.hero {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6rem 3rem 5rem;
+  border-bottom: var(--brand-rule-thick) solid var(--foreground);
+}
+.hero .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hero .eyebrow::after {
+  content: "";
+  display: inline-block;
+  width: 64px;
+  height: 1px;
+  background: var(--foreground);
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3.5rem, 10vw, 10rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  margin: 2rem 0 0;
+  max-width: 14ch;
+}
+.hero h1 em {
+  font-style: italic;
+  font-weight: 400;
+}
+.hero .lede {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.5rem;
+  line-height: 1.35;
+  margin: 2rem 0 0;
+  max-width: 38rem;
+  color: var(--muted-foreground);
+}
+.hero .meta {
+  display: flex;
+  gap: 3rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: var(--brand-rule-hairline) solid var(--brand-hairline-soft);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.hero .meta strong {
+  display: block;
+  color: var(--foreground);
+  font-weight: 600;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  letter-spacing: 0;
+  font-family: var(--font-display);
+  text-transform: none;
+}
+
+/* ========== Section primitive ======================== */
+.section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6rem 3rem;
+  border-bottom: var(--brand-rule-thick) solid var(--foreground);
+}
+.section.tight { padding: 4rem 3rem; }
+.section .section-head {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  padding-bottom: 1.5rem;
+  border-bottom: var(--brand-rule-hairline) solid var(--brand-hairline-soft);
+  align-items: end;
+}
+.section .section-head .num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.section .section-head h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0;
+  max-width: 32ch;
+}
+.section .section-head h2 em { font-style: italic; }
+
+/* ========== Signature: elevated pricing-tier mockup === */
+/* The single brand-flavoured signature surface — the spec's
+ * "Elevated Pricing Tier: Highlighted tier extends vertically
+ * on desktop", combined with serif-as-hero typography and the
+ * featured-tier polarity flip. */
+
+.pricing {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: var(--brand-rule-thin) solid var(--foreground);
+}
+.tier {
+  padding: 3rem 2rem;
+  background: var(--card);
+  color: var(--card-foreground);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-right: var(--brand-rule-thin) solid var(--foreground);
+}
+.tier:last-child { border-right: none; }
+.tier .tier-name {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.tier .price {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 5rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin: 1.25rem 0 0.25rem;
+}
+.tier .price small {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  display: block;
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+.tier .tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.4;
+  margin: 1.5rem 0 2rem;
+  color: var(--muted-foreground);
+  max-width: 22ch;
+}
+.tier ul {
+  list-style: none;
+  margin: 0 0 2.5rem;
+  padding: 0;
+  flex-grow: 1;
+}
+.tier ul li {
+  display: grid;
+  grid-template-columns: 1rem 1fr;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  border-bottom: var(--brand-rule-hairline) solid var(--brand-hairline-soft);
+}
+.tier ul li::before {
+  content: "—";
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: currentColor;
+}
+.tier ul li:last-child { border-bottom: none; }
+.tier .tier-cta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  color: var(--foreground);
+  border: var(--brand-rule-medium) solid var(--foreground);
+  cursor: pointer;
+  transition:
+    background-color var(--brand-state-transition) linear,
+    color var(--brand-state-transition) linear;
+  min-height: 44px;
+  text-align: center;
+}
+.tier .tier-cta:hover,
+.tier .tier-cta:focus-visible {
+  background: var(--foreground);
+  color: var(--background);
+  outline: none;
+}
+.tier .tier-cta:focus-visible {
+  outline: var(--brand-rule-thick) solid var(--foreground);
+  outline-offset: 3px;
+}
+
+/* Featured tier — the elevated, inverted moment. Extends 16px
+ * above and below the row, inverts the polarity, drops the
+ * grid border-right separators on its sides. */
+.tier.featured {
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  margin: -16px 0;
+  padding: 4rem 2rem;
+  border-right: none;
+  border-left: none;
+  position: relative;
+  z-index: 2;
+}
+.tier.featured .tier-name {
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+}
+.tier.featured .price small,
+.tier.featured .tagline {
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+}
+.tier.featured ul li {
+  border-bottom-color: var(--brand-on-dark);
+  border-bottom-style: solid;
+  border-bottom-width: var(--brand-rule-hairline);
+  opacity: 0.92;
+}
+.tier.featured .tier-cta {
+  background: var(--brand-on-dark);
+  color: var(--brand-canvas-night);
+  border-color: var(--brand-on-dark);
+}
+.tier.featured .tier-cta:hover,
+.tier.featured .tier-cta:focus-visible {
+  background: transparent;
+  color: var(--brand-on-dark);
+}
+.tier.featured .featured-flag {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  background: var(--brand-on-dark);
+  color: var(--brand-canvas-night);
+  padding: 0.5rem 1rem;
+  border: var(--brand-rule-thin) solid var(--brand-canvas-night);
+}
+
+/* ========== Colour swatch band ======================== */
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.swatch {
+  border: var(--brand-rule-thin) solid var(--foreground);
+}
+.swatch .chip {
+  height: 12rem;
+}
+.swatch.bg-canvas .chip { background: var(--background); border-bottom: var(--brand-rule-thin) solid var(--foreground); }
+.swatch.bg-ink .chip { background: var(--foreground); }
+.swatch.bg-muted .chip { background: var(--muted); border-bottom: var(--brand-rule-thin) solid var(--foreground); }
+.swatch.bg-hairline .chip { background: var(--brand-hairline-soft); border-bottom: var(--brand-rule-thin) solid var(--foreground); }
+.swatch .meta {
+  padding: 1.25rem 1.25rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.swatch .meta strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--foreground);
+  text-transform: none;
+  margin-bottom: 0.25rem;
+}
+
+/* ========== Rule-weight ladder ======================== */
+.rule-ladder {
+  display: grid;
+  grid-template-columns: 12rem 1fr 6rem;
+  gap: 2rem;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.rule-ladder + .rule-ladder { margin-top: 2rem; }
+.rule-ladder .label {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  text-transform: none;
+  color: var(--foreground);
+}
+.rule-ladder .specimen {
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.rule-ladder .specimen .line {
+  display: block;
+  width: 100%;
+  background: var(--foreground);
+}
+.rule-ladder.r-hairline .line { height: 1px; background: var(--brand-hairline-soft); }
+.rule-ladder.r-thin .line { height: 1px; }
+.rule-ladder.r-medium .line { height: 2px; }
+.rule-ladder.r-thick .line { height: 4px; }
+.rule-ladder.r-ultra .line { height: 8px; }
+.rule-ladder .value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========== Typography roles ========================== */
+.type-table {
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+  row-gap: 3rem;
+  column-gap: 3rem;
+  align-items: baseline;
+}
+.type-table .role {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.type-table .role small {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--muted-foreground);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+.type-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+.type-display em { font-style: italic; }
+.type-heading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.type-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+.type-body {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.625;
+  max-width: 38rem;
+}
+.type-caption {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+  max-width: 38rem;
+}
+.type-mono {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+
+/* ========== Component vocabulary ====================== */
+.components-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+}
+.spec-card {
+  border: var(--brand-rule-thin) solid var(--foreground);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: var(--card);
+}
+.spec-card .spec-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.spec-card .spec-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.625rem;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.spec-card .spec-demo {
+  padding: 1.5rem 0;
+  border-top: var(--brand-rule-hairline) solid var(--brand-hairline-soft);
+  border-bottom: var(--brand-rule-hairline) solid var(--brand-hairline-soft);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+.spec-card .spec-note {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+/* Primary button */
+.btn-primary {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: var(--foreground);
+  color: var(--background);
+  border: var(--brand-rule-medium) solid var(--foreground);
+  padding: 1rem 2rem;
+  cursor: pointer;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition:
+    background-color var(--brand-state-transition) linear,
+    color var(--brand-state-transition) linear;
+}
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--background);
+  color: var(--foreground);
+  outline: none;
+}
+.btn-primary:focus-visible {
+  outline: var(--brand-rule-thick) solid var(--foreground);
+  outline-offset: 3px;
+}
+.btn-primary .arrow { font-family: var(--font-display); font-weight: 400; font-size: 1rem; line-height: 1; }
+
+/* Secondary button */
+.btn-secondary {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--foreground);
+  border: var(--brand-rule-medium) solid var(--foreground);
+  padding: 1rem 2rem;
+  cursor: pointer;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition:
+    background-color var(--brand-state-transition) linear,
+    color var(--brand-state-transition) linear;
+}
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  background: var(--foreground);
+  color: var(--background);
+  outline: none;
+}
+.btn-secondary:focus-visible {
+  outline: var(--brand-rule-thick) solid var(--foreground);
+  outline-offset: 3px;
+}
+
+/* Ghost button */
+.btn-ghost {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  background: transparent;
+  color: var(--foreground);
+  border: none;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  border-bottom: var(--brand-rule-thin) solid transparent;
+  transition: border-color var(--brand-state-transition) linear;
+}
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  border-bottom-color: var(--foreground);
+  outline: none;
+}
+.btn-ghost:focus-visible {
+  outline: var(--brand-rule-thick) solid var(--foreground);
+  outline-offset: 2px;
+}
+
+/* Input */
+.input {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  background: var(--background);
+  color: var(--foreground);
+  border: var(--brand-rule-medium) solid var(--foreground);
+  padding: 0.875rem 1rem;
+  width: 100%;
+  max-width: 24rem;
+  transition: border-width var(--brand-state-transition) linear;
+}
+.input::placeholder {
+  color: var(--muted-foreground);
+  font-style: italic;
+}
+.input:focus {
+  outline: none;
+  border-width: var(--brand-rule-thick);
+}
+
+/* Inline label / chip */
+.chip-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.75rem;
+  border: var(--brand-rule-thin) solid var(--foreground);
+  color: var(--foreground);
+}
+.chip-label.solid {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+/* ========== Inverted stats band ======================= */
+/* The spec's "Inverted Stats Section: Black background, white
+ * text, with subtle vertical line texture" — rendered with
+ * polarity-locked tokens so this section reads as canvas-night
+ * in either theme (a deliberate section-as-state-change). */
+
+.section.stats {
+  max-width: none;
+  margin: 0;
+  padding: 6rem 0;
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  border-bottom: var(--brand-rule-thick) solid var(--foreground);
+  position: relative;
+}
+.section.stats::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 1px,
+    var(--brand-on-dark) 1px,
+    var(--brand-on-dark) 2px
+  );
+  background-size: 4px 100%;
+  opacity: 0.04;
+  pointer-events: none;
+}
+.section.stats .stats-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 3rem;
+  position: relative;
+}
+.section.stats .stats-head {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  padding-bottom: 1.5rem;
+  border-bottom: var(--brand-rule-hairline) solid var(--brand-on-dark);
+  align-items: end;
+}
+.section.stats .stats-head .num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+}
+.section.stats .stats-head h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0;
+  color: var(--brand-on-dark);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.stat {
+  padding: 0 2rem;
+  border-left: var(--brand-rule-hairline) solid var(--brand-on-dark);
+}
+.stat:first-child { border-left: none; padding-left: 0; }
+.stat .number {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(4rem, 8vw, 7.5rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--brand-on-dark);
+}
+.stat .number em { font-style: italic; font-weight: 400; }
+.stat .number sup {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  vertical-align: super;
+  margin-left: 0.25rem;
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+}
+.stat .caption {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.8;
+  margin-top: 1.5rem;
+  max-width: 16ch;
+  line-height: 1.5;
+}
+
+/* ========== Pull quote ================================ */
+.pullquote {
+  max-width: 64rem;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  padding: 4rem 3rem;
+  border-top: var(--brand-rule-thin) solid var(--foreground);
+  border-bottom: var(--brand-rule-thin) solid var(--foreground);
+}
+.pullquote::before,
+.pullquote::after {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 8rem;
+  line-height: 0.6;
+  color: var(--foreground);
+  opacity: 0.15;
+  position: absolute;
+}
+.pullquote::before {
+  content: "\201C";
+  top: 1.5rem;
+  left: 1.5rem;
+}
+.pullquote::after {
+  content: "\201D";
+  bottom: -0.5rem;
+  right: 1.5rem;
+}
+.pullquote q {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  display: block;
+  quotes: none;
+  position: relative;
+}
+.pullquote cite {
+  display: block;
+  margin-top: 2rem;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* ========== Footer ==================================== */
+footer {
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  padding: 5rem 0 3rem;
+}
+footer .footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+footer .footer-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 3rem;
+  border-bottom: var(--brand-rule-hairline) solid var(--brand-on-dark);
+}
+footer .footer-head .wordmark {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--brand-on-dark);
+}
+footer .footer-head .meta {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+  text-align: right;
+}
+footer .footer-cols {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+  padding: 3rem 0;
+  border-bottom: var(--brand-rule-hairline) solid var(--brand-on-dark);
+}
+footer .footer-col h3 {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+  margin: 0 0 1.25rem;
+}
+footer .footer-col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+footer .footer-col li {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 2;
+  color: var(--brand-on-dark);
+}
+footer .colophon {
+  padding-top: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* ========== Responsive ================================ */
+@media (max-width: 920px) {
+  .topnav { padding: 1.25rem 1.5rem; }
+  .topnav .nav-links { display: none; }
+  .hero { padding: 4rem 1.5rem 3rem; }
+  .hero h1 { font-size: clamp(2.75rem, 12vw, 5rem); letter-spacing: -0.035em; }
+  .section { padding: 4rem 1.5rem; }
+  .section .section-head { grid-template-columns: 1fr; gap: 1rem; }
+  .pricing { grid-template-columns: 1fr; }
+  .tier { border-right: none; border-bottom: var(--brand-rule-thin) solid var(--foreground); }
+  .tier:last-child { border-bottom: none; }
+  .tier.featured { margin: 0; }
+  .swatches, .components-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat { border-left: none; padding: 0; }
+  .stat + .stat { margin-top: 2rem; }
+  .type-table { grid-template-columns: 1fr; row-gap: 1.5rem; }
+  .type-table .role { padding-bottom: 0.5rem; }
+  .rule-ladder { grid-template-columns: 1fr; gap: 0.75rem; }
+  footer .footer-cols { grid-template-columns: repeat(2, 1fr); }
+  footer .footer-head { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+}
+
+/* ========== Reduced motion ============================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="brand">monochrome <sup>halcyon</sup></div>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#pricing">Tiers</a>
+    <a href="#palette">Palette</a>
+    <a href="#typography">Type</a>
+    <a href="#components">Components</a>
+    <a href="#colophon">Colophon</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <span class="eyebrow">Issue 09 · Spring</span>
+  <h1>Restraint <em>as</em> the loudest argument.</h1>
+  <p class="lede">A token surface built for editorial work. Black and white only, scaled until the typography reads as the entire interface, with the polarity flipping wherever the page wants emphasis.</p>
+  <div class="meta">
+    <div>Published<strong>21 May 2026</strong></div>
+    <div>Set in<strong>Playfair · Source Serif 4</strong></div>
+    <div>Engraving<strong>1 px · 2 px · 4 px · 8 px</strong></div>
+  </div>
+</section>
+
+<main>
+
+<!-- ============ Signature: elevated pricing ============ -->
+<section class="section" id="pricing">
+  <div class="section-head">
+    <span class="num">§01 · Signature</span>
+    <h2>The Halcyon team negotiates plans in <em>three columns</em>, and the middle one takes the page.</h2>
+  </div>
+  <div class="pricing">
+    <div class="tier">
+      <span class="tier-name">Personal</span>
+      <div class="price">—<small>For the long Sunday read</small></div>
+      <p class="tagline">A reader's account. One desk, one tab open, one slow page at a time.</p>
+      <ul>
+        <li>Solo workspace</li>
+        <li>Standard reading queue</li>
+        <li>Mono-printer export</li>
+        <li>Best-effort responses</li>
+      </ul>
+      <button class="tier-cta" type="button">Begin reading</button>
+    </div>
+
+    <div class="tier featured">
+      <span class="featured-flag">Recommended</span>
+      <span class="tier-name">Editor</span>
+      <div class="price"><em>x</em><small>For the working desk</small></div>
+      <p class="tagline">For the team that has decided slow is a feature. Italic when it matters.</p>
+      <ul>
+        <li>Up to twelve desks</li>
+        <li>Editorial review queue</li>
+        <li>Priority production line</li>
+        <li>Letterpress export, archive-ready</li>
+        <li>Quarterly volume bound to order</li>
+      </ul>
+      <button class="tier-cta" type="button">Commission a desk</button>
+    </div>
+
+    <div class="tier">
+      <span class="tier-name">Institute</span>
+      <div class="price">—<small>For the standing order</small></div>
+      <p class="tagline">For the institute, the practice, the press that needs a continuing room.</p>
+      <ul>
+        <li>Unlimited desks</li>
+        <li>Custom production schedule</li>
+        <li>Dedicated lead editor</li>
+        <li>Annual paperwork prepared</li>
+      </ul>
+      <button class="tier-cta" type="button">Open a room</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Palette swatches ======================== -->
+<section class="section" id="palette">
+  <div class="section-head">
+    <span class="num">§02 · Palette</span>
+    <h2>Four values. <em>Two</em> are the page, two are the body.</h2>
+  </div>
+  <div class="swatches">
+    <div class="swatch bg-canvas">
+      <div class="chip"></div>
+      <div class="meta">
+        <strong>Canvas</strong>
+        --background · #FFFFFF
+      </div>
+    </div>
+    <div class="swatch bg-ink">
+      <div class="chip"></div>
+      <div class="meta">
+        <strong>Ink</strong>
+        --foreground · #000000
+      </div>
+    </div>
+    <div class="swatch bg-muted">
+      <div class="chip"></div>
+      <div class="meta">
+        <strong>Muted</strong>
+        --muted · #F5F5F5
+      </div>
+    </div>
+    <div class="swatch bg-hairline">
+      <div class="chip"></div>
+      <div class="meta">
+        <strong>Hairline</strong>
+        --brand-hairline-soft · #E5E5E5
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Rule-weight ladder ====================== -->
+<section class="section tight" id="rules">
+  <div class="section-head">
+    <span class="num">§03 · Rule-weight ladder</span>
+    <h2>Elevation here is engraving. Four weights, all in <em>ink</em>.</h2>
+  </div>
+  <div class="rule-ladder r-hairline">
+    <div class="label">Hairline</div>
+    <div class="specimen"><span class="line"></span></div>
+    <div class="value">1 px · soft</div>
+  </div>
+  <div class="rule-ladder r-thin">
+    <div class="label">Thin</div>
+    <div class="specimen"><span class="line"></span></div>
+    <div class="value">1 px</div>
+  </div>
+  <div class="rule-ladder r-medium">
+    <div class="label">Medium</div>
+    <div class="specimen"><span class="line"></span></div>
+    <div class="value">2 px</div>
+  </div>
+  <div class="rule-ladder r-thick">
+    <div class="label">Thick</div>
+    <div class="specimen"><span class="line"></span></div>
+    <div class="value">4 px</div>
+  </div>
+  <div class="rule-ladder r-ultra">
+    <div class="label">Ultra</div>
+    <div class="specimen"><span class="line"></span></div>
+    <div class="value">8 px</div>
+  </div>
+</section>
+
+<!-- ============ Inverted stats band ===================== -->
+<section class="section stats" id="stats">
+  <div class="stats-inner">
+    <div class="stats-head">
+      <span class="num">§04 · Stats</span>
+      <h2>The same numbers, set on the <em>other side</em> of the page.</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="number">86<sup>p99</sup></div>
+        <div class="caption">milliseconds, region weighted</div>
+      </div>
+      <div class="stat">
+        <div class="number"><em>4</em>k</div>
+        <div class="caption">words shipped this issue</div>
+      </div>
+      <div class="stat">
+        <div class="number">12</div>
+        <div class="caption">desks on the standing order</div>
+      </div>
+      <div class="stat">
+        <div class="number">9.4<sup>×</sup></div>
+        <div class="caption">return on the second reading</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Typography roles ======================== -->
+<section class="section" id="typography">
+  <div class="section-head">
+    <span class="num">§05 · Typography</span>
+    <h2>Three families, six <em>working</em> roles.</h2>
+  </div>
+  <div class="type-table">
+    <div class="role">Display<small>Playfair Display · 400 · 9–10rem · tracking -0.05em</small></div>
+    <div class="type-display">Margins, <em>quietly</em></div>
+
+    <div class="role">Heading<small>Playfair Display · 600 · 3–4rem · tracking -0.025em</small></div>
+    <div class="type-heading">The page is the entire argument</div>
+
+    <div class="role">Title<small>Playfair Display · 600 · 1.75rem · tracking -0.015em</small></div>
+    <div class="type-title">A section needs a name, not a graphic</div>
+
+    <div class="role">Body<small>Source Serif 4 · 400 · 1.125rem · leading 1.625</small></div>
+    <div class="type-body">Body text reads at the same lightness as the headings. Differentiation is carried by weight, by size, and by the rules above and below — not by lifting the type into a softer grey, because softer grey is a step toward the chromatic palette this system refuses to keep.</div>
+
+    <div class="role">Caption<small>Source Serif 4 italic · 400 · 1rem · muted</small></div>
+    <div class="type-caption">Italic small body for asides, byline meta, footnote text, and figure captions. The italics in Source Serif 4 are the second most-used face in the system.</div>
+
+    <div class="role">Mono<small>JetBrains Mono · 500 · 0.875rem · uppercase · tracking 0.1em</small></div>
+    <div class="type-mono">DATES · LABELS · SECTION NUMBERS · TIER NAMES</div>
+  </div>
+</section>
+
+<!-- ============ Component vocabulary ==================== -->
+<section class="section" id="components">
+  <div class="section-head">
+    <span class="num">§06 · Components</span>
+    <h2>Buttons, fields, chips. <em>No</em> radius, no shadow, no second colour.</h2>
+  </div>
+  <div class="components-grid">
+    <article class="spec-card">
+      <span class="spec-label">Primary button</span>
+      <h3 class="spec-title">Ink fill, instant inversion on hover.</h3>
+      <div class="spec-demo">
+        <button class="btn-primary" type="button">Commission <span class="arrow">&rarr;</span></button>
+        <button class="btn-primary" type="button">Subscribe</button>
+      </div>
+      <p class="spec-note">Black fill, white text, uppercase mono label, generous padding, 100 ms transition. Hover inverts to white fill with a 2 px black border. Focus-visible outline at 3 px, offset 3 px.</p>
+    </article>
+
+    <article class="spec-card">
+      <span class="spec-label">Secondary button</span>
+      <h3 class="spec-title">Transparent fill, 2 px ink border.</h3>
+      <div class="spec-demo">
+        <button class="btn-secondary" type="button">Read sample</button>
+        <button class="btn-secondary" type="button">Archive</button>
+      </div>
+      <p class="spec-note">The outline variant. Inverts to the primary register on hover — both buttons land at the same destination state, so a secondary placed beside a primary in a row reads as a deliberate choice, not a hierarchy slip.</p>
+    </article>
+
+    <article class="spec-card">
+      <span class="spec-label">Ghost button</span>
+      <h3 class="spec-title">Reads as a text link.</h3>
+      <div class="spec-demo">
+        <button class="btn-ghost" type="button">View standing order</button>
+        <button class="btn-ghost" type="button">Past issues</button>
+      </div>
+      <p class="spec-note">No border, no background. Underline appears on hover (instant). For inline interactive language inside body copy where the primary or secondary register would read as too heavy.</p>
+    </article>
+
+    <article class="spec-card">
+      <span class="spec-label">Input field</span>
+      <h3 class="spec-title">Border thickens on focus — no coloured ring.</h3>
+      <div class="spec-demo">
+        <input class="input" type="email" placeholder="reader@halcyon.dev">
+      </div>
+      <p class="spec-note">2 px ink border at rest, thickens to 4 px on focus. Italic placeholder at <code>--muted-foreground</code>. The border-weight change is the entire focus indicator — no outline ring, no underline, no halo.</p>
+    </article>
+
+    <article class="spec-card">
+      <span class="spec-label">Chip · label</span>
+      <h3 class="spec-title">Bordered or solid. Always mono, always tracking-widest.</h3>
+      <div class="spec-demo">
+        <span class="chip-label">Volume 09</span>
+        <span class="chip-label solid">Bound</span>
+        <span class="chip-label">Quarterly</span>
+      </div>
+      <p class="spec-note">Sharp-cornered, no fill or solid black. The solid variant is the inversion-as-chip — same shape, opposite polarity, used for status that needs to feel decided.</p>
+    </article>
+
+    <article class="spec-card">
+      <span class="spec-label">Pull quote</span>
+      <h3 class="spec-title">Italic serif, oversized quotation marks.</h3>
+      <div class="spec-demo" style="flex-direction: column; align-items: flex-start;">
+        <blockquote class="pullquote" style="padding: 2rem 2rem; max-width: 100%;">
+          <q>The page is the argument. Everything else is the room the page is being read in.</q>
+          <cite>— Mira Allende, Issue 09</cite>
+        </blockquote>
+      </div>
+      <p class="spec-note">Title-scale Playfair Display italic, flanked by 8rem decorative quotation marks at 15 % opacity. Top and bottom 1 px rules bracket the quote.</p>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<footer id="colophon">
+  <div class="footer-inner">
+    <div class="footer-head">
+      <div class="wordmark">monochrome</div>
+      <div class="meta">
+        Set in Playfair · Source Serif 4 · JetBrains Mono<br>
+        Printed on Halcyon Mohawk Superfine
+      </div>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h3>Production</h3>
+        <ul>
+          <li>Standing order</li>
+          <li>Quarterly volume</li>
+          <li>Past issues</li>
+          <li>Archive room</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>The desk</h3>
+        <ul>
+          <li>Editorial slate</li>
+          <li>Reader's account</li>
+          <li>Contributors</li>
+          <li>Letters to the editor</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Practice</h3>
+        <ul>
+          <li>Type specimens</li>
+          <li>Production notes</li>
+          <li>Colophon &amp; press</li>
+          <li>Reprint policy</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Correspondence</h3>
+        <ul>
+          <li>team@halcyon.dev</li>
+          <li>halcyon.dev</li>
+          <li>The standing order</li>
+          <li>Subscribe</li>
+        </ul>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>visualize · monochrome</span>
+      <span>Vol 09 · ISSN 2563-9981</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

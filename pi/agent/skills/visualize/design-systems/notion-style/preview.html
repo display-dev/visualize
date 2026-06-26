@@ -1,0 +1,2492 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>notion-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23ffffff' stroke='%23e5e3df' stroke-width='1'/%3E%3Cpath d='M9 8 L9 24 L11.4 24 L11.4 12.6 L20.2 24 L23 24 L23 8 L20.6 8 L20.6 19.2 L12 8 Z' fill='%23191717'/%3E%3C/svg%3E">
+<meta property="og:title" content="notion-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Deep navy hero band, purple pill CTA, pastel feature cards, 4-tier pricing.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/notion-style/tokens.css) === */
+/**
+ * design-systems/notion-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * The dark-mode block applies OKLCH lightness inversion to canonical
+ * shadcn-semantic tokens only. Brand-specific extras (--brand-*) are
+ * intentionally NOT overridden in dark mode — they inherit their
+ * :root values via the CSS cascade, preserving the brand's documented
+ * intent for tokens like surface-dark / on-dark / inverse-canvas that
+ * already encode a dark-context meaning.
+ *
+ * Hand-edit the [data-theme="dark"] block when the brand's actual dark
+ * palette is documented and differs from the synthesised default.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2178 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2178 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2178 0 0);
+  --primary: oklch(0.4989 0.2092 281.0430);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9848 0.0013 106.4238);
+  --secondary-foreground: oklch(0.2178 0 0);
+  --muted: oklch(0.9848 0.0013 106.4238);
+  --muted-foreground: oklch(0.7830 0.0103 87.4846);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0.2178 0 0);
+  --destructive: oklch(0.5928 0.2106 26.5316);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9163 0.0058 84.5672);
+  --input: oklch(0.9163 0.0058 84.5672);
+  --ring: oklch(0.4989 0.2092 281.0430);
+  --sidebar: oklch(0.9848 0.0013 106.4238);
+  --sidebar-foreground: oklch(0.2178 0 0);
+  --sidebar-primary: oklch(0.4989 0.2092 281.0430);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9848 0.0013 106.4238);
+  --sidebar-accent-foreground: oklch(0.2178 0 0);
+  --sidebar-border: oklch(0.9163 0.0058 84.5672);
+  --sidebar-ring: oklch(0.4989 0.2092 281.0430);
+  --chart-1: oklch(0.8100 0.2000 281.0430);
+  --chart-2: oklch(0.7100 0.2000 281.0430);
+  --chart-3: oklch(0.6100 0.2000 281.0430);
+  --chart-4: oklch(0.5100 0.2000 281.0430);
+  --chart-5: oklch(0.4200 0.2000 281.0430);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;
+  --brand-radius-xxl: 20px;
+  --brand-radius-xxxl: 24px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: Notion Sans;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: Notion Sans;
+
+  /* type scale tokens */
+  --text-display: 80px;
+  --text-heading: 56px;
+  --text-title: 36px;
+  --text-base: 16px;
+  --leading-tight: 1.05;
+  --leading-normal: 1.55;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-primary-pressed: oklch(0.4305 0.1903 280.8792);
+  --brand-primary-deep: oklch(0.3820 0.1707 281.1831);
+  --brand-brand-navy: oklch(0.2033 0.0561 265.1245);
+  --brand-brand-navy-deep: oklch(0.1743 0.0453 265.6717);
+  --brand-brand-navy-mid: oklch(0.2946 0.0758 265.5839);
+  /* --brand-link-blue is Notion's documented inline-link colour (live
+   * verified 2026-05-25: rgb(0, 117, 222) = #0075DE on white canvas
+   * across /, /product, /pricing, /enterprise — matches the upstream
+   * OKLCH below). Notion has no documented hover/pressed colour shift
+   * on links; hover uses opacity/underline. Per AUTHORING.md "Brand
+   * colours are sacrosanct" — do not retint to win AA on specific
+   * surfaces; re-home the consuming element instead.
+   *
+   * Deleted 2026-05-25 (second-pass audit) — five forbidden-shape
+   * tokens from the legacy synthesis with no live deployment:
+   *   * --brand-link-blue-pressed (oklch 0.4727 …) — forbidden
+   *     `-pressed` shape on a chromatic hue. Notion's hover is
+   *     opacity/underline; rgb(0,79,160) appears zero times across
+   *     /, /enterprise, /pricing, /product/ai. /pricing renders 2
+   *     instances of rgb(0,91,171) on a footer-policy link — a
+   *     darker blue, but a *different* value and not the brand
+   *     pressed-state DESIGN.md claims.
+   *   * --brand-brand-orange-deep (oklch 0.4128 …) — zero hits at
+   *     rgb~(135,69,29). /product/ai renders rgb(255,109,0) (the
+   *     canonical --brand-brand-orange) and rgb(156,112,84) (warm
+   *     mid-brown for testimonial slate / brand-brown), no darker
+   *     orange variant.
+   *   * --brand-brand-pink-deep (oklch 0.4936 …) — zero hits at
+   *     rgb~(160,49,93) anywhere. Notion's pink badges deploy the
+   *     bright canonical --brand-brand-pink as a fill; tag text on
+   *     pink/rose surfaces uses near-black ink, not a darker pink.
+   *   * --brand-brand-purple-300 (oklch 0.8254 …) — zero hits, no
+   *     consumer in template either. Dead token from import.
+   *   * --brand-brand-purple-800 (oklch 0.2998 …) — zero hits at
+   *     rgb~(74,30,116). Purple text on lavender chips renders at
+   *     near-black ink across notion.com kanban / database property
+   *     surfaces; the canonical brand-purple rgb(152,73,232) is
+   *     fill-only.
+   *
+   * All five had DESIGN.md descriptions calling them "deeper" /
+   * "pressed" / "tag text" — legacy synthesis-time prose from
+   * synthesised values, not from a Notion-shipped ladder. */
+  --brand-link-blue: oklch(0.5679 0.1824 254.2703);
+  --brand-brand-orange: oklch(0.6293 0.1805 44.8300);
+  --brand-brand-pink: oklch(0.7299 0.2149 344.1173);
+  --brand-brand-purple: oklch(0.5500 0.2470 291.3376);
+  --brand-brand-teal: oklch(0.6338 0.0985 191.4736);
+  --brand-brand-green: oklch(0.6556 0.1957 145.4099);
+  --brand-brand-yellow: oklch(0.8818 0.1426 95.3724);
+  --brand-brand-brown: oklch(0.3536 0.0656 67.2789);
+  --brand-card-tint-peach: oklch(0.9443 0.0366 63.3978);
+  --brand-card-tint-rose: oklch(0.9338 0.0354 350.8713);
+  --brand-card-tint-mint: oklch(0.9403 0.0363 155.4171);
+  --brand-card-tint-lavender: oklch(0.9177 0.0290 298.8685);
+  --brand-card-tint-sky: oklch(0.9354 0.0255 244.4283);
+  --brand-card-tint-yellow: oklch(0.9731 0.0436 97.2418);
+  --brand-card-tint-yellow-bold: oklch(0.9262 0.0928 95.7873);
+  --brand-card-tint-cream: oklch(0.9689 0.0174 96.1022);
+  --brand-card-tint-gray: oklch(0.9501 0.0034 67.7818);
+  --brand-surface: oklch(0.9706 0.0017 67.8019);
+  --brand-hairline-soft: oklch(0.9357 0.0080 73.7416);
+  --brand-hairline-strong: oklch(0.8218 0.0094 78.2737);
+  --brand-ink-deep: oklch(0 0 0);
+  --brand-charcoal: oklch(0.3289 0.0107 91.6587);
+  --brand-slate: oklch(0.4708 0.0113 93.7034);
+  --brand-steel: oklch(0.5660 0.0080 88.6813);
+  --brand-stone: oklch(0.7065 0.0137 86.8507);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-dark-muted: oklch(0.7065 0.0137 86.8507);
+  --brand-semantic-success: oklch(0.6556 0.1957 145.4099);
+  --brand-semantic-warning: oklch(0.6293 0.1805 44.8300);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Hand-edited brand-accurate dark mode.
+   *
+   * Notion's actual product dark mode is a warm gray near-black, NOT
+   * the navy of the homepage marketing band. The navy is a marquee-only
+   * surface (homepage hero only); /enterprise, /product/ai, /pricing,
+   * /startups, /product/agents all use white/cream canvas. Extending
+   * navy across the dark canvas misrepresents the brand.
+   *
+   * Warm-gray canvas: oklch(0.18 0.008 75) → close to Notion app's
+   * dark-mode page background. The navy hero-band tokens (--brand-brand-navy*)
+   * stay unchanged so the navy CTA card preserves its documented signature.
+   *
+   * Pastel feature-card tints (--brand-card-tint-*) intentionally stay
+   * light in dark mode — they read as decorative islands on the warm-
+   * gray canvas, matching the pastel-on-dark product chrome. Their text
+   * uses --brand-ink-deep in the template (fixed pure-black).
+   *
+   * The signature purple --primary is preserved across both modes. */
+
+  /* shadcn-semantic core (warm-near-black, matches Notion's actual app dark) */
+  --background: oklch(0.1800 0.0080 75);                  /* warm near-black canvas */
+  --foreground: oklch(0.9450 0.0050 80);                  /* warm near-white */
+  --card: oklch(0.2200 0.0080 75);                        /* warm lifted card */
+  --card-foreground: oklch(0.9450 0.0050 80);
+  --popover: oklch(0.2200 0.0080 75);
+  --popover-foreground: oklch(0.9450 0.0050 80);
+  --primary: oklch(0.4989 0.2092 281.0430);               /* signature purple — unchanged */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.2600 0.0080 75);                   /* warm secondary surface */
+  --secondary-foreground: oklch(0.9450 0.0050 80);
+  --muted: oklch(0.2600 0.0080 75);
+  --muted-foreground: oklch(0.7000 0.0120 80);
+  --accent: oklch(0.2600 0.0080 75);
+  --accent-foreground: oklch(0.9450 0.0050 80);
+  --destructive: oklch(0.5928 0.2106 26.5316);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3000 0.0080 75);
+  --input: oklch(0.3000 0.0080 75);
+  --ring: oklch(0.4989 0.2092 281.0430);
+  --sidebar: oklch(0.2200 0.0080 75);
+  --sidebar-foreground: oklch(0.9450 0.0050 80);
+  --sidebar-primary: oklch(0.4989 0.2092 281.0430);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2600 0.0080 75);
+  --sidebar-accent-foreground: oklch(0.9450 0.0050 80);
+  --sidebar-border: oklch(0.3000 0.0080 75);
+  --sidebar-ring: oklch(0.4989 0.2092 281.0430);
+  --chart-1: oklch(0.8100 0.2000 281.0430);
+  --chart-2: oklch(0.7100 0.2000 281.0430);
+  --chart-3: oklch(0.6100 0.2000 281.0430);
+  --chart-4: oklch(0.5100 0.2000 281.0430);
+  --chart-5: oklch(0.4200 0.2000 281.0430);
+
+  /* brand-extras dark overrides — body-text family + adaptive warm surfaces.
+   * Pastel card tints (--brand-card-tint-*), brand colours (pink/orange/
+   * green/teal/etc.), --brand-ink-deep, --brand-on-dark, and the hero-band
+   * navy tokens are intentionally NOT overridden — they preserve their
+   * documented intent across both modes. */
+  --brand-charcoal: oklch(0.8800 0.0080 80);     /* body text on dark canvas */
+  --brand-slate: oklch(0.7800 0.0080 80);
+  --brand-steel: oklch(0.6500 0.0080 80);
+  --brand-stone: oklch(0.5500 0.0100 86);
+  --brand-surface: oklch(0.2200 0.0080 75);                /* promo banner, stat strip, featured pricing */
+  --brand-hairline-soft: oklch(0.2700 0.0080 75);
+  --brand-hairline-strong: oklch(0.3600 0.0080 75);
+  /* --brand-link-blue intentionally NOT overridden in dark.
+   * Notion's documented brand link colour (#0075DE / oklch(0.5679 ...))
+   * is preserved across both modes — verified 2026-05-25 by inspecting
+   * notion.com under prefers-color-scheme: dark (homepage bg becomes
+   * rgb(25,25,24), inline links remain rgb(0, 117, 222)). Per
+   * AUTHORING.md, lift the surface or re-home the consumer rather
+   * than retinting the brand colour. */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1800 0.0080 75);
+    --foreground: oklch(0.9450 0.0050 80);
+    --card: oklch(0.2200 0.0080 75);
+    --card-foreground: oklch(0.9450 0.0050 80);
+    --popover: oklch(0.2200 0.0080 75);
+    --popover-foreground: oklch(0.9450 0.0050 80);
+    --primary: oklch(0.4989 0.2092 281.0430);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.2600 0.0080 75);
+    --secondary-foreground: oklch(0.9450 0.0050 80);
+    --muted: oklch(0.2600 0.0080 75);
+    --muted-foreground: oklch(0.7000 0.0120 80);
+    --accent: oklch(0.2600 0.0080 75);
+    --accent-foreground: oklch(0.9450 0.0050 80);
+    --destructive: oklch(0.5928 0.2106 26.5316);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3000 0.0080 75);
+    --input: oklch(0.3000 0.0080 75);
+    --ring: oklch(0.4989 0.2092 281.0430);
+    --sidebar: oklch(0.2200 0.0080 75);
+    --sidebar-foreground: oklch(0.9450 0.0050 80);
+    --sidebar-primary: oklch(0.4989 0.2092 281.0430);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.2600 0.0080 75);
+    --sidebar-accent-foreground: oklch(0.9450 0.0050 80);
+    --sidebar-border: oklch(0.3000 0.0080 75);
+    --sidebar-ring: oklch(0.4989 0.2092 281.0430);
+    --chart-1: oklch(0.8100 0.2000 281.0430);
+    --chart-2: oklch(0.7100 0.2000 281.0430);
+    --chart-3: oklch(0.6100 0.2000 281.0430);
+    --chart-4: oklch(0.5100 0.2000 281.0430);
+    --chart-5: oklch(0.4200 0.2000 281.0430);
+
+    --brand-charcoal: oklch(0.8800 0.0080 80);
+    --brand-slate: oklch(0.7800 0.0080 80);
+    --brand-steel: oklch(0.6500 0.0080 80);
+    --brand-stone: oklch(0.5500 0.0100 86);
+    --brand-surface: oklch(0.2200 0.0080 75);
+    --brand-hairline-soft: oklch(0.2700 0.0080 75);
+    --brand-hairline-strong: oklch(0.3600 0.0080 75);
+    /* --brand-link-blue intentionally NOT overridden in dark — see
+     * the [data-theme="dark"] block above for live-brand evidence. */
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Notion-style preview shell — deep navy hero band with scattered
+   sticky-note dot decoration, embedded workspace mockup, purple pill
+   CTA, pastel feature card palette (peach/rose/mint/lavender/sky/yellow),
+   bold yellow callout banner, 4-tier pricing comparison. 8px-rounded
+   buttons (NOT pills), 12px-rounded cards. Notion Sans → Inter
+   substitute. Halcyon-themed Halcyon HQ kanban inside the hero. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Notion Sans', 'Inter', -apple-system, system-ui, 'Segoe UI', Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -- Promo banner (above nav) -- */
+.promo {
+  /* Surface = white so Notion's documented link blue (#0075DE) clears AA
+   * (ratio 4.57 vs. 4.19 on the upstream --brand-surface neutral).
+   * AUTHORING: fix the surface, not the colour. */
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  padding: 0.5rem 1.5rem;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+.promo a { color: var(--brand-link-blue); text-decoration: none; font-weight: 500; }
+/* Notion's documented hover is opacity/underline (no pressed colour
+ * shift on links). Matches live behaviour on notion.com 2026-05-25. */
+.promo a:hover { text-decoration: underline; opacity: 0.85; }
+/* Notion has no documented dark-mode link colour; the dark canvas is
+ * a hand-synthesized warm-near-black where #0075DE lands at 4.12 vs.
+ * AA 4.5. Re-home the link to --foreground in dark — the surface is
+ * synthesized, not the brand colour. */
+[data-theme="dark"] .promo a,
+[data-theme="dark"] .promo a:hover { color: var(--foreground); text-decoration: underline; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .promo a,
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .promo a:hover { color: var(--foreground); text-decoration: underline; }
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--background);
+  display: inline-grid;
+  place-items: center;
+  font-family: 'Times New Roman', Georgia, serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--foreground);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 1.5rem;
+}
+.topnav-links a { color: var(--brand-charcoal); text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (8px radius — Notion's sober rectangle, NOT pills) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn[data-variant="primary"] { background: var(--primary); color: var(--primary-foreground); }
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-pressed); }
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--brand-hairline-strong);
+}
+.btn[data-variant="secondary"]:hover { background: var(--brand-surface); }
+.btn[data-variant="dark"] { background: var(--brand-ink-deep); color: var(--brand-on-dark); }
+.btn[data-variant="on-dark"] { background: var(--brand-on-dark); color: var(--foreground); }
+.btn[data-variant="secondary-on-dark"] {
+  background: transparent;
+  color: var(--brand-on-dark);
+  border-color: var(--brand-on-dark-muted);
+}
+.btn[data-variant="secondary-on-dark"]:hover { background: rgba(255, 255, 255, 0.08); }
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--brand-charcoal);
+  padding: 0.5rem 0.75rem;
+}
+.btn[data-variant="ghost"]:hover { background: var(--brand-surface); }
+.btn[data-size="lg"] { padding: 0.75rem 1.25rem; font-size: 15px; }
+
+/* -- Hero (white canvas, centered, with floating sticky-note dot decoration —
+   matches the dominant Notion surface pattern across /product/ai, /enterprise,
+   /pricing. Navy is reserved for a smaller CTA band lower on the page.) -- */
+.hero-light {
+  position: relative;
+  background: var(--background);
+  color: var(--foreground);
+  padding: 6rem 1.5rem 5rem;
+  overflow: hidden;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brand-steel);
+  margin: 0;
+}
+.hero-eyebrow > .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--primary); }
+.hero-display {
+  font-family: inherit;
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 16ch;
+}
+.hero-lede {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-charcoal);
+  max-width: 56ch;
+  margin: 0;
+}
+.hero-ctas { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem; }
+
+/* Sticky-note dots — scattered around the white hero, brand colors on white
+   canvas with a stronger shadow so they read as "stuck to the page" */
+.sticky-dot {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  box-shadow: 0 6px 18px rgba(15, 15, 15, 0.12), 0 1px 2px rgba(15, 15, 15, 0.08);
+  z-index: 2;
+}
+.sticky-dot[data-color="peach"] { background: var(--brand-brand-orange); }
+.sticky-dot[data-color="rose"] { background: var(--brand-brand-pink); }
+.sticky-dot[data-color="mint"] { background: var(--brand-brand-green); }
+.sticky-dot[data-color="lavender"] { background: var(--brand-brand-purple); }
+.sticky-dot[data-color="sky"] { background: var(--brand-link-blue); }
+.sticky-dot[data-color="yellow"] { background: var(--brand-brand-yellow); }
+.sticky-dot[data-color="teal"] { background: var(--brand-brand-teal); }
+.sticky-dot[data-pos="tl"] { top: 18%; left: 8%; transform: rotate(-9deg); }
+.sticky-dot[data-pos="tr"] { top: 12%; right: 9%; transform: rotate(8deg); }
+.sticky-dot[data-pos="ml"] { top: 48%; left: 4%; transform: rotate(7deg); }
+.sticky-dot[data-pos="mr"] { top: 38%; right: 6%; transform: rotate(-6deg); }
+.sticky-dot[data-pos="bl"] { bottom: 22%; left: 12%; transform: rotate(11deg); }
+.sticky-dot[data-pos="br"] { bottom: 18%; right: 13%; transform: rotate(-10deg); }
+@media (max-width: 900px) { .sticky-dot { width: 42px; height: 42px; font-size: 20px; border-radius: 11px; } }
+
+/* -- Workspace mockup card (sits naturally below the white hero) -- */
+.workspace-wrap {
+  position: relative;
+  z-index: 3;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 0;
+}
+.workspace-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: rgba(15, 15, 15, 0.20) 0px 24px 48px -8px, rgba(15, 15, 15, 0.10) 0px 8px 16px -8px;
+  overflow: hidden;
+}
+.workspace-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  background: var(--background);
+}
+.workspace-crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brand-charcoal);
+}
+.workspace-icon {
+  width: 18px; height: 18px; border-radius: 4px;
+  background: var(--brand-brand-pink);
+  display: inline-grid; place-items: center;
+  font-size: 11px;
+  color: var(--brand-on-dark);
+  font-weight: 600;
+}
+.workspace-tabs {
+  display: flex;
+  gap: 1rem;
+  font-size: 13px;
+  color: var(--brand-steel);
+}
+.workspace-tabs > span[aria-current="page"] {
+  color: var(--foreground);
+  font-weight: 500;
+  position: relative;
+}
+.workspace-tabs > span[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -0.75rem;
+  height: 2px;
+  background: var(--foreground);
+}
+.workspace-body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: var(--secondary);
+}
+@media (max-width: 720px) { .workspace-body { grid-template-columns: 1fr; } }
+.kanban-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.kanban-col-head {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand-charcoal);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem;
+}
+.kanban-col-count {
+  display: inline-grid; place-items: center;
+  min-width: 18px; height: 18px;
+  padding: 0 0.5rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--brand-card-tint-lavender);
+  color: var(--brand-ink-deep);
+  font-size: 11px;
+  font-weight: 600;
+}
+.kanban-card {
+  background: var(--background);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: rgba(15, 15, 15, 0.04) 0px 1px 2px 0px;
+}
+.kanban-card-title { font-size: 13px; font-weight: 500; color: var(--foreground); line-height: 1.35; }
+.kanban-card-tags { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+.kanban-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: var(--brand-radius-xs);
+  font-weight: 500;
+}
+/* Tag text on light tint chips routes to near-black ink (Notion's
+ * documented behaviour — rgb(28,28,30) on the live kanban / database
+ * property chips). The "deeper variant per colour" DESIGN.md pattern
+ * was stale snapshot synthesis. */
+.kanban-tag[data-color="purple"] { background: var(--brand-card-tint-lavender); color: var(--brand-ink-deep); }
+.kanban-tag[data-color="orange"] { background: var(--brand-card-tint-peach); color: var(--brand-ink-deep); }
+.kanban-tag[data-color="green"] { background: var(--brand-card-tint-mint); color: var(--brand-ink-deep); }
+.kanban-tag[data-color="pink"] { background: var(--brand-card-tint-rose); color: var(--brand-ink-deep); }
+.kanban-tag[data-color="sky"] { background: var(--brand-card-tint-sky); color: var(--brand-ink-deep); }
+.kanban-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--brand-steel);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+.kanban-avatars { display: flex; }
+.kanban-avatar {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--background);
+  display: inline-grid;
+  place-items: center;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--brand-on-dark);
+  margin-left: -6px;
+}
+.kanban-avatar:first-child { margin-left: 0; }
+/* Avatar bg uses canonical brand colours (no `-deep` ladder on the
+ * live site). Foreground routes to dark ink so the brand colour sits
+ * at its documented chroma without needing a synthesised darker fill. */
+.kanban-avatar[data-color="purple"] { background: var(--brand-brand-purple); }
+.kanban-avatar[data-color="orange"] { background: var(--brand-brand-orange); color: var(--brand-ink-deep); }
+.kanban-avatar[data-color="pink"] { background: var(--brand-brand-pink); color: var(--brand-ink-deep); }
+.kanban-avatar[data-color="green"] { background: var(--brand-brand-green); color: var(--brand-ink-deep); }
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; }
+.section[data-tight] { padding: 3.5rem 1.5rem; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-header { max-width: 60ch; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+  margin: 0 0 0.75rem;
+}
+.eyebrow-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.section-title {
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 600;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 0.5rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--brand-charcoal);
+  margin: 0;
+  max-width: 60ch;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Stat strip -- */
+.stat-strip {
+  background: var(--brand-surface);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 880px) { .stat-strip { grid-template-columns: repeat(2, 1fr); padding: 1.5rem; } }
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.stat-value {
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  color: var(--foreground);
+  font-feature-settings: "tnum";
+}
+.stat-value > .stat-suffix { font-size: 18px; color: var(--brand-steel); font-weight: 500; margin-left: 0.25rem; letter-spacing: 0; }
+.stat-label {
+  font-size: 13px;
+  color: var(--brand-charcoal);
+  font-weight: 400;
+}
+
+/* -- Pastel feature card grid -- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 960px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .feature-grid { grid-template-columns: 1fr; } }
+.feature-card {
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  color: var(--brand-ink-deep);
+  min-height: 14rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+.feature-card[data-tint="peach"] { background: var(--brand-card-tint-peach); }
+.feature-card[data-tint="rose"] { background: var(--brand-card-tint-rose); }
+.feature-card[data-tint="mint"] { background: var(--brand-card-tint-mint); }
+.feature-card[data-tint="lavender"] { background: var(--brand-card-tint-lavender); }
+.feature-card[data-tint="sky"] { background: var(--brand-card-tint-sky); }
+.feature-card[data-tint="yellow"] { background: var(--brand-card-tint-yellow); }
+.feature-card[data-tint="cream"] { background: var(--brand-card-tint-cream); }
+.feature-card[data-tint="gray"] { background: var(--brand-card-tint-gray); }
+.feature-icon {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--background);
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  box-shadow: rgba(15, 15, 15, 0.06) 0px 1px 3px 0px;
+}
+.feature-card-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  color: var(--brand-ink-deep);
+  margin: 0;
+}
+.feature-card-body { font-size: 14px; line-height: 1.55; color: var(--brand-ink-deep); opacity: 0.78; margin: 0; }
+
+/* -- Bold yellow banner (Notion's "Ask your on-demand assistants" surface) -- */
+.yellow-banner {
+  background: var(--brand-card-tint-yellow-bold);
+  border-radius: var(--radius-xl);
+  padding: 3rem 2.5rem;
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 1rem;
+  color: var(--brand-ink-deep);
+}
+@media (max-width: 880px) { .yellow-banner { grid-template-columns: 1fr; padding: 2rem 1.5rem; gap: 2rem; } }
+.yellow-banner .eyebrow { color: var(--brand-ink-deep); opacity: 0.7; }
+.yellow-banner-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin: 0 0 1rem;
+  color: var(--brand-ink-deep);
+}
+.yellow-banner-body { font-size: 16px; line-height: 1.55; color: var(--brand-ink-deep); opacity: 0.82; margin: 0 0 1.25rem; }
+.yellow-banner-mock {
+  background: var(--brand-on-dark);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: rgba(15, 15, 15, 0.08) 0px 4px 12px 0px;
+}
+.assistant-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
+  background: var(--brand-card-tint-gray);
+  font-size: 13px;
+  color: var(--brand-ink-deep);
+}
+.assistant-pill > .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.assistant-pill[data-tone="purple"] > .dot { background: var(--brand-brand-purple); }
+.assistant-pill[data-tone="orange"] > .dot { background: var(--brand-brand-orange); }
+.assistant-pill[data-tone="green"] > .dot { background: var(--brand-brand-green); }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--brand-radius-xs);
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-steel);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 10rem;
+}
+.ladder-step[data-step="floor"] {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--brand-hairline-strong);
+}
+.ladder-step[data-step="pastel"] {
+  background: var(--brand-card-tint-lavender);
+  color: var(--brand-ink-deep);
+}
+.ladder-step[data-step="navy"] {
+  background: var(--brand-brand-navy);
+  color: var(--brand-on-dark);
+}
+.ladder-num {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.78;
+}
+.ladder-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+}
+.ladder-role { font-size: 14px; opacity: 0.86; margin-top: auto; }
+
+/* -- Pricing -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  align-items: stretch;
+}
+@media (max-width: 1024px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .pricing-grid { grid-template-columns: 1fr; } }
+.pricing-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+.pricing-card[data-featured] {
+  background: var(--brand-surface);
+  border: 2px solid var(--primary);
+}
+.pricing-popular {
+  position: absolute;
+  top: -0.5rem;
+  right: 1rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--brand-radius-full);
+  letter-spacing: 0.5px;
+}
+.pricing-name { font-size: 18px; font-weight: 600; color: var(--foreground); margin: 0; }
+.pricing-price {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--foreground);
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  font-feature-settings: "tnum";
+}
+.pricing-price > .pricing-period { font-size: 14px; color: var(--brand-steel); font-weight: 400; }
+.pricing-tagline { font-size: 13px; color: var(--brand-charcoal); margin: 0; line-height: 1.45; min-height: 2.7em; }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding-top: 1rem;
+  font-size: 13px;
+  color: var(--brand-charcoal);
+}
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.pricing-features li::before {
+  content: "✓";
+  color: var(--brand-semantic-success);
+  font-weight: 600;
+  flex-shrink: 0;
+  width: 14px;
+}
+
+/* -- Type & components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+}
+.type-display { font-size: 44px; font-weight: 600; letter-spacing: -1.5px; line-height: 1.05; color: var(--foreground); }
+.type-heading { font-size: 28px; font-weight: 600; letter-spacing: -0.6px; line-height: 1.2; color: var(--foreground); }
+.type-title { font-size: 18px; font-weight: 600; line-height: 1.4; color: var(--foreground); }
+.type-body { font-size: 14px; line-height: 1.55; color: var(--brand-charcoal); }
+.type-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--foreground); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--brand-steel);
+  width: 100%;
+  margin-bottom: -0.25rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--brand-radius-full);
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+/* Badges use canonical brand colours as fill + near-black ink — Notion
+ * ships no documented darker variant for pink/orange/green. */
+.badge[data-color="pink"] { background: var(--brand-brand-pink); color: var(--brand-ink-deep); }
+.badge[data-color="orange"] { background: var(--brand-brand-orange); color: var(--brand-ink-deep); }
+.badge[data-color="green"] { background: var(--brand-brand-green); color: var(--brand-ink-deep); }
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--brand-radius-xs);
+}
+/* Tag text on light tint chips routes to near-black ink across every
+ * tint — matches notion.com live behaviour (no per-colour deep text). */
+.tag[data-tint="lavender"] { background: var(--brand-card-tint-lavender); color: var(--brand-ink-deep); }
+.tag[data-tint="peach"] { background: var(--brand-card-tint-peach); color: var(--brand-ink-deep); }
+.tag[data-tint="mint"] { background: var(--brand-card-tint-mint); color: var(--brand-ink-deep); }
+.tag[data-tint="rose"] { background: var(--brand-card-tint-rose); color: var(--brand-ink-deep); }
+.tag[data-tint="sky"] { background: var(--brand-card-tint-sky); color: var(--brand-ink-deep); }
+
+/* -- Navy CTA card (punctuation before the footer — single section
+   carrying the brand's signature navy + decorative dots) -- */
+.navy-cta {
+  position: relative;
+  background: var(--brand-brand-navy);
+  color: var(--brand-on-dark);
+  border-radius: var(--radius-xl);
+  padding: 3.5rem 2.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  overflow: hidden;
+}
+.navy-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(35% 60% at 10% 50%, color-mix(in oklch, var(--brand-brand-navy-mid) 65%, transparent) 0%, transparent 70%),
+    radial-gradient(30% 60% at 92% 35%, color-mix(in oklch, var(--brand-brand-purple) 50%, transparent) 0%, transparent 70%);
+  pointer-events: none;
+}
+.navy-cta > * { position: relative; z-index: 1; }
+.navy-cta-dot {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  z-index: 1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+.navy-cta-dot[data-color="peach"] { background: var(--brand-brand-orange); top: 18%; left: 6%; transform: rotate(-8deg); }
+.navy-cta-dot[data-color="lavender"] { background: var(--brand-brand-purple); bottom: 22%; left: 10%; transform: rotate(9deg); }
+.navy-cta-dot[data-color="mint"] { background: var(--brand-brand-green); top: 20%; right: 8%; transform: rotate(7deg); }
+.navy-cta-dot[data-color="rose"] { background: var(--brand-brand-pink); bottom: 20%; right: 6%; transform: rotate(-10deg); }
+.navy-cta-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin: 0;
+  color: var(--brand-on-dark);
+  max-width: 22ch;
+}
+.navy-cta-lede {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-on-dark);
+  opacity: 0.86;
+  max-width: 50ch;
+  margin: 0;
+}
+.navy-cta-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem; }
+
+/* -- Footer -- */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 4rem 1.5rem 2.5rem;
+  background: var(--background);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr repeat(5, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 960px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 24ch; }
+.footer-tagline { font-size: 13px; color: var(--brand-charcoal); line-height: 1.55; margin: 0; }
+.footer-col-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.2px;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 13px; color: var(--brand-steel); text-decoration: none; }
+.footer-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1200px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-steel);
+}
+.footer-legal-meta { font-family: 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 0.04em; }
+</style>
+
+</head>
+<body>
+
+<div class="promo" role="note">
+  Halcyon API v2 is in public beta — <a href="#">read the changelog</a>
+</div>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">N</span>notion-style</a>
+    <div class="topnav-links">
+      <a href="#">Product</a>
+      <a href="#">AI</a>
+      <a href="#">Solutions</a>
+      <a href="#">Resources</a>
+      <a href="#">Enterprise</a>
+      <a href="#">Pricing</a>
+      <a href="#">Request a demo</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="btn" data-variant="ghost" type="button">Log in</button>
+      <button class="btn" data-variant="primary" type="button">Get Halcyon free</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero-light" aria-label="Hero">
+  <span class="sticky-dot" data-color="peach" data-pos="tl" aria-hidden="true">✏️</span>
+  <span class="sticky-dot" data-color="rose" data-pos="tr" aria-hidden="true">💬</span>
+  <span class="sticky-dot" data-color="lavender" data-pos="ml" aria-hidden="true">📎</span>
+  <span class="sticky-dot" data-color="mint" data-pos="mr" aria-hidden="true">✓</span>
+  <span class="sticky-dot" data-color="sky" data-pos="bl" aria-hidden="true">⚡</span>
+  <span class="sticky-dot" data-color="yellow" data-pos="br" aria-hidden="true">💡</span>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow"><span class="dot" aria-hidden="true"></span>Halcyon · team workspace</p>
+    <h1 class="hero-display">Where the night work gets done.</h1>
+    <p class="hero-lede">Halcyon's team writes specs, plans quarters, runs design crits, and tracks customer interviews — all linked through one workspace per team.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Get Halcyon free</button>
+      <button class="btn" data-variant="secondary" data-size="lg" type="button">Request a demo</button>
+    </div>
+  </div>
+</header>
+
+<div class="workspace-wrap">
+  <article class="workspace-card" aria-label="Workspace mockup">
+    <div class="workspace-head">
+      <span class="workspace-crumb"><span class="workspace-icon" aria-hidden="true">H</span>Halcyon HQ · Marketing Q3</span>
+      <div class="workspace-tabs" role="tablist">
+        <span>List</span>
+        <span aria-current="page">Board</span>
+        <span>Calendar</span>
+        <span>Timeline</span>
+      </div>
+    </div>
+    <div class="workspace-body">
+
+      <div class="kanban-col">
+        <div class="kanban-col-head">Drafting <span class="kanban-col-count">4</span></div>
+        <div class="kanban-card">
+          <div class="kanban-card-tags">
+            <span class="kanban-tag" data-color="purple">Strategy</span>
+            <span class="kanban-tag" data-color="sky">Q3</span>
+          </div>
+          <div class="kanban-card-title">Q3 board deck — runway + hiring narrative</div>
+          <div class="kanban-card-meta"><div class="kanban-avatars"><span class="kanban-avatar" data-color="purple">CR</span><span class="kanban-avatar" data-color="orange">OT</span></div><span>Due May 28</span></div>
+        </div>
+        <div class="kanban-card">
+          <div class="kanban-card-tags">
+            <span class="kanban-tag" data-color="orange">Marketing</span>
+          </div>
+          <div class="kanban-card-title">Launch post — autumn release</div>
+          <div class="kanban-card-meta"><div class="kanban-avatars"><span class="kanban-avatar" data-color="pink">JL</span></div><span>Due May 24</span></div>
+        </div>
+      </div>
+
+      <div class="kanban-col">
+        <div class="kanban-col-head">In review <span class="kanban-col-count">3</span></div>
+        <div class="kanban-card">
+          <div class="kanban-card-tags">
+            <span class="kanban-tag" data-color="pink">Customer</span>
+            <span class="kanban-tag" data-color="green">Live</span>
+          </div>
+          <div class="kanban-card-title">Acme Corp — onboarding playbook (v3)</div>
+          <div class="kanban-card-meta"><div class="kanban-avatars"><span class="kanban-avatar" data-color="green">AM</span><span class="kanban-avatar" data-color="purple">CR</span></div><span>3 comments</span></div>
+        </div>
+        <div class="kanban-card">
+          <div class="kanban-card-tags">
+            <span class="kanban-tag" data-color="purple">Research</span>
+          </div>
+          <div class="kanban-card-title">Competitor sweep — Q3 landscape</div>
+          <div class="kanban-card-meta"><div class="kanban-avatars"><span class="kanban-avatar" data-color="orange">OT</span></div><span>1 comment</span></div>
+        </div>
+      </div>
+
+      <div class="kanban-col">
+        <div class="kanban-col-head">Published <span class="kanban-col-count">12</span></div>
+        <div class="kanban-card">
+          <div class="kanban-card-tags">
+            <span class="kanban-tag" data-color="green">Live</span>
+            <span class="kanban-tag" data-color="sky">Public</span>
+          </div>
+          <div class="kanban-card-title">Engineering blog — multi-instance safety</div>
+          <div class="kanban-card-meta"><div class="kanban-avatars"><span class="kanban-avatar" data-color="purple">CR</span></div><span>halcyon.dev/blog</span></div>
+        </div>
+        <div class="kanban-card">
+          <div class="kanban-card-tags">
+            <span class="kanban-tag" data-color="green">Live</span>
+          </div>
+          <div class="kanban-card-title">Product video script — autumn launch</div>
+          <div class="kanban-card-meta"><div class="kanban-avatars"><span class="kanban-avatar" data-color="pink">JL</span><span class="kanban-avatar" data-color="green">AM</span></div><span>hlc.so/YQyXggrM</span></div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+</div>
+
+<section class="section" data-tight aria-label="Stats">
+  <div class="section-inner">
+    <div class="stat-strip">
+      <div class="stat">
+        <div class="stat-value">1,284</div>
+        <div class="stat-label">Pages updated this week</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">418</div>
+        <div class="stat-label">Inline comments resolved</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">184</div>
+        <div class="stat-label">Specs reviewed this quarter</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">92<span class="stat-suffix">%</span></div>
+        <div class="stat-label">Cross-team adoption</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens · Colour</p>
+      <h2 class="section-title">Pastel palette, indexed.</h2>
+      <p class="section-lede">A signature purple primary CTA paired with a six-tint pastel ladder (peach, rose, mint, lavender, sky, yellow) used as decorative surface accents. Every chip resolves from <code style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.875em;">tokens.css</code>.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Action</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-primary-pressed);"></div><div class="swatch-role">Action</div><div class="swatch-name">--brand-primary-pressed</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-card-tint-peach);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--brand-card-tint-peach</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-card-tint-rose);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--brand-card-tint-rose</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-card-tint-mint);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--brand-card-tint-mint</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-card-tint-lavender);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--brand-card-tint-lavender</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-card-tint-sky);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--brand-card-tint-sky</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-card-tint-yellow);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--brand-card-tint-yellow</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-card-tint-yellow-bold);"></div><div class="swatch-role">Highlight</div><div class="swatch-name">--brand-card-tint-yellow-bold</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-brand-navy);"></div><div class="swatch-role">Inverse</div><div class="swatch-name">--brand-brand-navy</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ink-deep);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-deep</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-charcoal);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-charcoal</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens · Surfaces</p>
+      <h2 class="section-title">Three surface registers.</h2>
+      <p class="section-lede">White canvas as the page floor. Pastel tints as decorative accent surfaces. Deep navy as the inverse band for the closing CTA. Pastel tints stay decorative; never carry body text.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="floor">
+        <span class="ladder-num">Floor</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">white canvas · body region</span>
+      </div>
+      <div class="ladder-step" data-step="pastel">
+        <span class="ladder-num">Accent</span>
+        <span class="ladder-name">--brand-card-tint-*</span>
+        <span class="ladder-role">six pastels · decorative only</span>
+      </div>
+      <div class="ladder-step" data-step="navy">
+        <span class="ladder-num">Inverse</span>
+        <span class="ladder-name">--brand-brand-navy</span>
+        <span class="ladder-role">hero · closing CTA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Pricing · 4 tiers</p>
+      <h2 class="section-title">Pick a plan. Change it later.</h2>
+      <p class="section-lede">Flat per-workspace pricing. SSO included on Pro. No seat tax, no usage meter, no annual contract.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Start free</button></div>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Solo</h3>
+        <div class="pricing-price">Plus</div>
+        <p class="pricing-tagline">For one person who needs more space and support.</p>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Start Solo</button></div>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Increased quota</li>
+          <li>Email support</li>
+          <li>Daily backups</li>
+        </ul>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <span class="pricing-popular">Most popular</span>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <div class="pricing-cta"><button class="btn" data-variant="primary" type="button">Start Team</button></div>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+          <li>Production SLA</li>
+        </ul>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to us</button></div>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens · Type + components</p>
+      <h2 class="section-title">Notion Sans, humanist-geometric.</h2>
+      <p class="section-lede">Notion's custom Inter-based variable typeface. 600 weight for headlines, 500 for buttons, 400 for body. Negative tracking on display sizes. Cards round at 12px, buttons at 8px — rectangular sober, not pill-shaped.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Meet the night shift.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Keep work moving 24/7</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">An always-on workspace</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Notion Sans (Inter substitute) at 16px, line-height 1.55. Humanist-geometric character pairs with the colorful illustration palette for the brand's distinctive editorial register.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">tenants.find({ domain: "halcyon.dev" })</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · 8px radius (not pills)</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Get Halcyon free</button>
+            <button class="btn" data-variant="dark" type="button">Continue</button>
+            <button class="btn" data-variant="secondary" type="button">Request a demo</button>
+            <button class="btn" data-variant="ghost" type="button">Log in</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Status badges · pill radius</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <span class="badge">Most popular</span>
+            <span class="badge" data-color="pink">New</span>
+            <span class="badge" data-color="orange">Beta</span>
+            <span class="badge" data-color="green">Live</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Feature tags · 4px radius, soft tint</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <span class="tag" data-tint="lavender">Strategy</span>
+            <span class="tag" data-tint="peach">Marketing</span>
+            <span class="tag" data-tint="mint">Customer</span>
+            <span class="tag" data-tint="rose">Design</span>
+            <span class="tag" data-tint="sky">Engineering</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Get started">
+  <div class="section-inner">
+    <div class="navy-cta">
+      <span class="navy-cta-dot" data-color="peach" aria-hidden="true"></span>
+      <span class="navy-cta-dot" data-color="lavender" aria-hidden="true"></span>
+      <span class="navy-cta-dot" data-color="mint" aria-hidden="true"></span>
+      <span class="navy-cta-dot" data-color="rose" aria-hidden="true"></span>
+      <h3 class="navy-cta-title">Bring the night shift in-house.</h3>
+      <p class="navy-cta-lede">Free in 60 seconds. SSO and priority support when the team grows. No seat tax, no annual contract.</p>
+      <div class="navy-cta-actions">
+        <button class="btn" data-variant="primary" data-size="lg" type="button">Get Halcyon free</button>
+        <button class="btn" data-variant="secondary-on-dark" data-size="lg" type="button">Request a demo</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">N</span>notion-style</a>
+      <p class="footer-tagline">A token-surface preview rendered against the all-in-one workspace design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-list"><li><a href="#">Notion AI</a></li><li><a href="#">Wikis</a></li><li><a href="#">Projects</a></li><li><a href="#">Docs</a></li><li><a href="#">Calendar</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Download</p>
+      <ul class="footer-list"><li><a href="#">iOS &amp; Android</a></li><li><a href="#">Mac &amp; Windows</a></li><li><a href="#">Web Clipper</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list"><li><a href="#">Help center</a></li><li><a href="#">Pricing</a></li><li><a href="#">Blog</a></li><li><a href="#">Community</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Status</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>notion-style · token surface preview · 2026.05.22</span>
+    <span class="footer-legal-meta">deep navy hero · pastel cards · purple pill CTA · 8px buttons</span>
+  </div>
+</footer>
+
+</body>
+</html>

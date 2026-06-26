@@ -1,0 +1,224 @@
+/**
+ * design-systems/vodafone-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Vodafone's marketing canvas is light-canonical (white content bands)
+ * with a near-black hero/footer band as the secondary surface. The
+ * brand has no fully-published dark-mode marketing variant; the dark
+ * variant here is synthesised — near-pure-black canvas, light type,
+ * Vodafone Red preserved exactly, dark hero stays polarity-locked
+ * black so it remains the same "voltage band" in both themes.
+ *
+ * --primary intentionally diverges from the upstream DESIGN.md value
+ * (#e60000). vodafone.co.uk ships the deeper rgb(189,0,0) ≈ #bd0000 ≈
+ * oklch(0.49 0.20 29.2339) as the actual primary CTA in 2026; this
+ * file pins --primary to that live-brand value rather than the
+ * historical hex. Vodafone deploys this red exclusively on light
+ * canvases (white CTAs, red orb, full-bleed campaign band). Red
+ * never appears as text on dark in either vodafone.com or
+ * vodafone.co.uk's current chrome — there is no lifted/brightened
+ * variant token to synthesise here. Dark-surface eyebrows / chrome
+ * route to --brand-on-dark instead.
+ *
+ * Polarity-locked tokens (never lift in dark):
+ *   --brand-ink-locked-dark  always-black; the dark hero band + footer
+ *                            voltage. Replaces the naïve
+ *                            `background: var(--foreground)` pattern,
+ *                            which flips white in dark mode and breaks
+ *                            white-on-white contrast against
+ *                            `--brand-on-dark`.
+ *   --brand-on-dark          always-white; used on top of the locked
+ *                            dark band. Polarity-fixed by definition;
+ *                            no dark override needed.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2750 0.0070 248.0842);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2750 0.0070 248.0842);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2750 0.0070 248.0842);
+  --primary: oklch(0.4900 0.2000 29.2339);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(1 0 0);
+  --secondary-foreground: oklch(0.2750 0.0070 248.0842);
+  --muted: oklch(0.9612 0 0);
+  --muted-foreground: oklch(0.5931 0 0);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0.2750 0.0070 248.0842);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.8975 0 0);
+  --input: oklch(0.8975 0 0);
+  --ring: oklch(0.4900 0.2000 29.2339);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.2750 0.0070 248.0842);
+  --sidebar-primary: oklch(0.4900 0.2000 29.2339);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(1 0 0);
+  --sidebar-accent-foreground: oklch(0.2750 0.0070 248.0842);
+  --sidebar-border: oklch(0.8975 0 0);
+  --sidebar-ring: oklch(0.4900 0.2000 29.2339);
+  --chart-1: oklch(0.8100 0.2000 29.2339);
+  --chart-2: oklch(0.7100 0.2000 29.2339);
+  --chart-3: oklch(0.6100 0.2000 29.2339);
+  --chart-4: oklch(0.5100 0.2000 29.2339);
+  --chart-5: oklch(0.4200 0.2000 29.2339);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: calc(0.625rem - 2px);
+  --radius-lg: 0.625rem;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-xs: 1px;
+  --brand-radius-card: 6px;
+  --brand-radius-pill-md: 32px;
+  --brand-radius-pill-lg: 60px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: Vodafone, Vodafone Rg, Helvetica Neue, Arial, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: Vodafone, Vodafone Rg, Helvetica Neue, Arial, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 144px;
+  --text-heading: 126px;
+  --text-title: 32px;
+  --text-base: 18px;
+  --leading-tight: 0.79;
+  --leading-normal: 1.56;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras. --brand-body is a near-zero-chroma
+   * gray utility neutral (chroma 0), retuned from the upstream value
+   * to a value that reads on white canvas; per AUTHORING.md, utility
+   * neutrals at chroma ≈ 0 can be tuned without modifying brand
+   * identity. */
+  --brand-body: oklch(0.4700 0 0);
+  --brand-mute: oklch(0.7000 0 0);
+  --brand-canvas-soft: oklch(0.9612 0 0);
+  --brand-on-dark: oklch(1 0 0);
+
+  /* polarity-locked: always-black band the brand uses as nav / hero /
+   * footer voltage. Never flips with theme — the "dark band" stays the
+   * same band in light AND dark. */
+  --brand-ink-locked-dark: oklch(0.2750 0.0070 248.0842);
+  --brand-canvas-locked-light: oklch(1 0 0);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Hand-edited. The synthesised inversion left brand-extras
+   * (--brand-body, --brand-canvas-soft) at light-mode values that
+   * render invisibly on the dark canvas. Polarity-locked tokens
+   * (--brand-ink-locked-dark, --brand-on-dark) stay AS-IS. */
+
+  --background: oklch(0.1600 0 0);
+  --foreground: oklch(0.9450 0.0070 248.0842);
+  --card: oklch(0.2050 0 0);
+  --card-foreground: oklch(0.9450 0.0070 248.0842);
+  --popover: oklch(0.2050 0 0);
+  --popover-foreground: oklch(0.9450 0.0070 248.0842);
+  --primary: oklch(0.4900 0.2000 29.2339);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.2050 0 0);
+  --secondary-foreground: oklch(0.9450 0.0070 248.0842);
+  --muted: oklch(0.2050 0 0);
+  --muted-foreground: oklch(0.7100 0 0);
+  --accent: oklch(0.2050 0 0);
+  --accent-foreground: oklch(0.9450 0.0070 248.0842);
+  --destructive: oklch(0.4900 0.2000 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3000 0 0);
+  --input: oklch(0.3000 0 0);
+  --ring: oklch(0.4900 0.2000 29.2339);
+  --sidebar: oklch(0.2050 0 0);
+  --sidebar-foreground: oklch(0.9450 0.0070 248.0842);
+  --sidebar-primary: oklch(0.4900 0.2000 29.2339);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2050 0 0);
+  --sidebar-accent-foreground: oklch(0.9450 0.0070 248.0842);
+  --sidebar-border: oklch(0.3000 0 0);
+  --sidebar-ring: oklch(0.4900 0.2000 29.2339);
+  --chart-1: oklch(0.8100 0.2000 29.2339);
+  --chart-2: oklch(0.7100 0.2000 29.2339);
+  --chart-3: oklch(0.6100 0.2000 29.2339);
+  --chart-4: oklch(0.5100 0.2000 29.2339);
+  --chart-5: oklch(0.4200 0.2000 29.2339);
+
+  /* brand-extras dark overrides. --brand-body lifts to a mid-light
+   * gray (utility neutral, chroma 0); --brand-mute lifts to a softer
+   * mid-tone; --brand-canvas-soft flips to a near-black elevated
+   * surface (replacing the light-mode #f2f2f2 chip background).
+   * --brand-on-dark stays polarity-locked white. */
+  --brand-body: oklch(0.7400 0 0);
+  --brand-mute: oklch(0.5400 0 0);
+  --brand-canvas-soft: oklch(0.2400 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1600 0 0);
+    --foreground: oklch(0.9450 0.0070 248.0842);
+    --card: oklch(0.2050 0 0);
+    --card-foreground: oklch(0.9450 0.0070 248.0842);
+    --popover: oklch(0.2050 0 0);
+    --popover-foreground: oklch(0.9450 0.0070 248.0842);
+    --primary: oklch(0.4900 0.2000 29.2339);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.2050 0 0);
+    --secondary-foreground: oklch(0.9450 0.0070 248.0842);
+    --muted: oklch(0.2050 0 0);
+    --muted-foreground: oklch(0.7100 0 0);
+    --accent: oklch(0.2050 0 0);
+    --accent-foreground: oklch(0.9450 0.0070 248.0842);
+    --destructive: oklch(0.4900 0.2000 29.2339);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3000 0 0);
+    --input: oklch(0.3000 0 0);
+    --ring: oklch(0.4900 0.2000 29.2339);
+    --sidebar: oklch(0.2050 0 0);
+    --sidebar-foreground: oklch(0.9450 0.0070 248.0842);
+    --sidebar-primary: oklch(0.4900 0.2000 29.2339);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.2050 0 0);
+    --sidebar-accent-foreground: oklch(0.9450 0.0070 248.0842);
+    --sidebar-border: oklch(0.3000 0 0);
+    --sidebar-ring: oklch(0.4900 0.2000 29.2339);
+    --chart-1: oklch(0.8100 0.2000 29.2339);
+    --chart-2: oklch(0.7100 0.2000 29.2339);
+    --chart-3: oklch(0.6100 0.2000 29.2339);
+    --chart-4: oklch(0.5100 0.2000 29.2339);
+    --chart-5: oklch(0.4200 0.2000 29.2339);
+
+    --brand-body: oklch(0.7400 0 0);
+    --brand-mute: oklch(0.5400 0 0);
+    --brand-canvas-soft: oklch(0.2400 0 0);
+  }
+}

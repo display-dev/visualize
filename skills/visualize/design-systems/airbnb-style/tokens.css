@@ -1,0 +1,241 @@
+/**
+ * design-systems/airbnb-style/tokens.css
+ *
+ * Live-verified against airbnb.com on 2026-05-25 (homepage, /experiences,
+ * /host/homes, /host/experiences, /rooms/51429977 listing detail, /help,
+ * /aircover-for-hosts). Companion to ./DESIGN.md.
+ *
+ * canonical-canvas: light. Airbnb does not ship a dark-mode marketing
+ * surface as of the verification date; the [data-theme="dark"] block
+ * applies the catalog's generic-theme tuning (canvas + neutrals only;
+ * brand chromatic values inherit from :root per the documented intent).
+ *
+ * Brand-primary shape: a three-stop horizontal gradient is the dominant
+ * CTA chrome (Bellini → Babu Pink → deeper Babu), live on listing-detail
+ * reservation buttons, host-page Get-started, and AirCover List-your-home.
+ * Solid Rausch (#ff385c) survives as the SEARCH-PILL submit orb, rating-
+ * star fill, category-tab dot, and brand glyph — never as a CTA fill on
+ * a conversion-page button. Both are first-class tokens; consumers choose
+ * based on the surface, not based on which is "the primary."
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2520 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2520 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2520 0 0);
+  /* Rausch #ff385c — the discrete-hue identity used in narrow spots:
+   * homepage and /help search-pill submit orb, rating-star fill, the dot
+   * on category-tab labels, and the Bélo brand glyph. NOT a CTA fill on
+   * conversion-page buttons — those use --brand-cta-gradient below.
+   * Live: airbnb.com/ (search orb), /help (search orb), every page (Bélo). */
+  --primary: oklch(0.6579 0.2309 17.0745);
+  /* Dark ink as the contrast-pair foreground for surfaces where --primary
+   * is the fill. Live brand uses white-on-Rausch on the CTA gradient; the
+   * preview's conversion-page buttons consume --brand-cta-gradient +
+   * --brand-on-dark for that surface. */
+  --primary-foreground: oklch(0.1500 0 0);
+  --secondary: oklch(0.9761 0 0);
+  --secondary-foreground: oklch(0.2520 0 0);
+  --muted: oklch(0.9761 0 0);
+  --muted-foreground: oklch(0.5243 0 0);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0.2520 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.8975 0 0);
+  --input: oklch(0.8975 0 0);
+  --ring: oklch(0.6579 0.2309 17.0745);
+  --sidebar: oklch(0.9761 0 0);
+  --sidebar-foreground: oklch(0.2520 0 0);
+  --sidebar-primary: oklch(0.6579 0.2309 17.0745);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9761 0 0);
+  --sidebar-accent-foreground: oklch(0.2520 0 0);
+  --sidebar-border: oklch(0.8975 0 0);
+  --sidebar-ring: oklch(0.6579 0.2309 17.0745);
+  --chart-1: oklch(0.8100 0.2000 17.0745);
+  --chart-2: oklch(0.7100 0.2000 17.0745);
+  --chart-3: oklch(0.6100 0.2000 17.0745);
+  --chart-4: oklch(0.5100 0.2000 17.0745);
+  --chart-5: oklch(0.4200 0.2000 17.0745);
+
+  /* radius scale */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-xs: 4px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens — Airbnb Cereal VF (commissioned 2018, replacing
+   * Circular). Both still referenced as fallbacks for older devices.
+   * --font-display aliases to --font-sans; display weight is 600 (typical)
+   * or 700 (host pages only) of the same family. DESIGN.md §3. */
+  --font-sans: 'Airbnb Cereal VF', 'Circular', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Airbnb Cereal VF', 'Circular', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+
+  /* type scale tokens */
+  --text-display: 28px;
+  --text-heading: 22px;
+  --text-title: 16px;
+  --text-base: 16px;
+  --leading-tight: 1.43;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras */
+
+  /* Brand primary — three-stop horizontal gradient (Bellini → Babu Pink → deeper Babu).
+   * Live: /rooms/51429977 reservation button, /host/homes Get started,
+   * /aircover-for-hosts List your home. The dominant CTA chrome on every
+   * host- and conversion-page surface. */
+  --brand-cta-gradient-start: oklch(0.5870 0.2330 13.5);   /* Bellini #E61E4D */
+  --brand-cta-gradient-mid: oklch(0.5790 0.2390 6.3);      /* Babu Pink #E31C5F */
+  --brand-cta-gradient-end: oklch(0.5260 0.2540 0.5);      /* deeper Babu #D70466 */
+  --brand-cta-gradient: linear-gradient(to right,
+    var(--brand-cta-gradient-start) 0%,
+    var(--brand-cta-gradient-mid) 50%,
+    var(--brand-cta-gradient-end) 100%);
+
+  /* Rausch hover/pressed state — observed on the homepage search-pill submit
+   * orb on press (DESIGN.md §2 line 53). */
+  --brand-primary-active: oklch(0.5769 0.2277 18.4974);
+  /* Lightened Rausch tint; notional disabled-state value retained from prior
+   * catalog — not observed inline on a sampled surface (DESIGN.md §2 line 54). */
+  --brand-primary-disabled: oklch(0.9026 0.0529 5.0203);
+  --brand-error-text: oklch(0.5392 0.1816 33.7195);
+  --brand-error-text-hover: oklch(0.4990 0.1815 32.8403);
+  /* Status: not-observed-2026-05. Airbnb Luxe sub-brand surface sunset;
+   * retained for archival purposes per DESIGN.md §2. */
+  --brand-luxe: oklch(0.3252 0.1677 301.7108);
+  /* Status: not-observed-2026-05. Airbnb Plus sub-brand surface sunset;
+   * retained for archival purposes per DESIGN.md §2. */
+  --brand-plus: oklch(0.4383 0.1608 0.8397);
+  --brand-body: oklch(0.3677 0 0);
+  /* --brand-muted-soft: intentional drift from the 0.66 lightness in
+   * Airbnb's documented utility-neutral ladder to 0.52, signed against
+   * DESIGN.md §2 line 85 (2026-05-25). Utility-neutral AA tune; the
+   * brand-identity Rausch + gradient stops are untouched. */
+  --brand-muted-soft: oklch(0.5200 0 0);
+  --brand-hairline-soft: oklch(0.9401 0 0);
+  --brand-border-strong: oklch(0.8109 0 0);
+  --brand-surface-strong: oklch(0.9612 0 0);
+  /* Polarity-locked white — Save chip label on photo-scrim, gradient-CTA
+   * button label. Live brand never lifts this; do not override in dark. */
+  --brand-on-dark: oklch(1 0 0);
+  --brand-legal-link: oklch(0.6501 0.1874 259.3973);
+  /* Ink black filled star — Airbnb's rating glyph is monochrome, not gold
+   * and not Rausch. DESIGN.md §2 line 94. */
+  --brand-star-rating: oklch(0.2520 0 0);
+  /* Photo overlay tint — heart-icon hover, host-page modal scrim. */
+  --brand-scrim: oklch(0 0 0);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Airbnb does not ship a dark-mode marketing surface as of the
+   * 2026-05-25 verification (DESIGN.md §1, §Notes). The product app
+   * behind sign-in is also light-canonical in current builds. This
+   * block is a generic-theme tuning of canvas + utility neutrals only:
+   * brand chromatic values (--primary, --ring, sidebar-primary/ring,
+   * chart-*, --brand-cta-gradient stops, --brand-on-dark, --brand-scrim,
+   * --brand-star-rating, --brand-legal-link) inherit from :root via the
+   * cascade. */
+
+  --background: oklch(0.1700 0 0);
+  --foreground: oklch(0.9700 0 0);
+  --card: oklch(0.2200 0 0);
+  --card-foreground: oklch(0.9700 0 0);
+  --popover: oklch(0.2200 0 0);
+  --popover-foreground: oklch(0.9700 0 0);
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring intentionally
+   * unset — inherit Rausch from :root per the brand-chromatic rule. */
+  --primary-foreground: oklch(0.1500 0 0);
+  --secondary: oklch(0.2500 0 0);
+  --secondary-foreground: oklch(0.9700 0 0);
+  --muted: oklch(0.2500 0 0);
+  --muted-foreground: oklch(0.7400 0 0);
+  --accent: oklch(0.2500 0 0);
+  --accent-foreground: oklch(0.9700 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3000 0 0);
+  --input: oklch(0.3000 0 0);
+  --sidebar: oklch(0.2200 0 0);
+  --sidebar-foreground: oklch(0.9700 0 0);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2500 0 0);
+  --sidebar-accent-foreground: oklch(0.9700 0 0);
+  --sidebar-border: oklch(0.3000 0 0);
+
+  /* brand-extras dark overrides — utility neutrals only */
+  --brand-body: oklch(0.8200 0 0);
+  --brand-muted-soft: oklch(0.7000 0 0);
+  --brand-hairline-soft: oklch(0.2800 0 0);
+  --brand-border-strong: oklch(0.3400 0 0);
+  --brand-surface-strong: oklch(0.2500 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    /* Mirror of [data-theme="dark"] above — canvas + utility neutrals
+     * only. Brand chromatic values inherit from :root. */
+
+    --background: oklch(0.1700 0 0);
+    --foreground: oklch(0.9700 0 0);
+    --card: oklch(0.2200 0 0);
+    --card-foreground: oklch(0.9700 0 0);
+    --popover: oklch(0.2200 0 0);
+    --popover-foreground: oklch(0.9700 0 0);
+    --primary-foreground: oklch(0.1500 0 0);
+    --secondary: oklch(0.2500 0 0);
+    --secondary-foreground: oklch(0.9700 0 0);
+    --muted: oklch(0.2500 0 0);
+    --muted-foreground: oklch(0.7400 0 0);
+    --accent: oklch(0.2500 0 0);
+    --accent-foreground: oklch(0.9700 0 0);
+    --destructive: oklch(0.5308 0.2178 29.2339);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3000 0 0);
+    --input: oklch(0.3000 0 0);
+    --sidebar: oklch(0.2200 0 0);
+    --sidebar-foreground: oklch(0.9700 0 0);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.2500 0 0);
+    --sidebar-accent-foreground: oklch(0.9700 0 0);
+    --sidebar-border: oklch(0.3000 0 0);
+
+    --brand-body: oklch(0.8200 0 0);
+    --brand-muted-soft: oklch(0.7000 0 0);
+    --brand-hairline-soft: oklch(0.2800 0 0);
+    --brand-border-strong: oklch(0.3400 0 0);
+    --brand-surface-strong: oklch(0.2500 0 0);
+  }
+}

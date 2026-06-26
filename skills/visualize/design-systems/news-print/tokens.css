@@ -1,0 +1,240 @@
+/**
+ * design-systems/news-print/tokens.css
+ *
+ * Spec-derived from the news-print prompt (Zhou Jason, credited to
+ * designprompts.dev), captured at temp/refs/news-print/raw.md.
+ * Sourced: 2026-05-26.
+ *
+ * Broadsheet-journalism register: massive Playfair headlines, 12-column
+ * collapsed-border grids, uppercase mono labels, edition metadata,
+ * Editorial Red used in roughly 1% of the surface for breaking-news
+ * badges and CTA underlines. Zero border radius anywhere. See
+ * DESIGN.md for citation-per-value and the full component vocabulary.
+ *
+ * Permanent light mode by spec ("Mode: Light - Permanent, no dark
+ * mode"). The [data-theme="dark"] block below exists only because the
+ * catalog build script generates a paired dark preview; values there
+ * are synthesised inversions of canvas and neutrals. The chromatic
+ * Editorial Red identity stays locked at :root across both modes, and
+ * the Ink Black polarity-locked tokens (--brand-canvas-night,
+ * --brand-on-dark) do not flip.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core: names are the upstream contract; values
+ *     are this system's.
+ *   - Brand-extras (--brand-*): surface-named only — no
+ *     colour-with-modifier shapes.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+
+  /* Newsprint Off-White #F9F9F7 — warm off-white that mimics aged paper. */
+  --background: oklch(0.9816 0.0026 106.45);
+  /* Ink Black #111111 — deep but not pure black, all text and borders. */
+  --foreground: oklch(0.1776 0 0);
+
+  --card: oklch(0.9816 0.0026 106.45);
+  --card-foreground: oklch(0.1776 0 0);
+  --popover: oklch(0.9816 0.0026 106.45);
+  --popover-foreground: oklch(0.1776 0 0);
+
+  /* Editorial Red #CC0000 — the 1% accent. Breaking-news badges, CTA
+   * underlines, focus accents. Never a flood. */
+  --primary: oklch(0.5308 0.2178 29.23);
+  --primary-foreground: oklch(0.9816 0.0026 106.45);
+
+  /* Secondary surface — Divider Grey #E5E5E0 for subtle backgrounds. */
+  --secondary: oklch(0.9205 0.0067 106.53);
+  --secondary-foreground: oklch(0.1776 0 0);
+
+  /* Muted — same Divider Grey for borders and quiet fills. */
+  --muted: oklch(0.9205 0.0067 106.53);
+  /* Body-text variant neutral #525252. */
+  --muted-foreground: oklch(0.4386 0 0);
+
+  /* Accent surface — Neutral-100 #F5F5F5 for hover backgrounds on cards. */
+  --accent: oklch(0.9702 0 0);
+  --accent-foreground: oklch(0.1776 0 0);
+
+  /* Destructive aligns with Editorial Red — the system carries one
+   * documented red and re-uses it for destructive-action signaling. */
+  --destructive: oklch(0.5308 0.2178 29.23);
+  --destructive-foreground: oklch(0.9816 0.0026 106.45);
+
+  /* Borders ARE Ink Black by design — the grid is the chrome. */
+  --border: oklch(0.1776 0 0);
+  --input: oklch(0.1776 0 0);
+  --ring: oklch(0.5308 0.2178 29.23);
+
+  --sidebar: oklch(0.9816 0.0026 106.45);
+  --sidebar-foreground: oklch(0.1776 0 0);
+  --sidebar-primary: oklch(0.5308 0.2178 29.23);
+  --sidebar-primary-foreground: oklch(0.9816 0.0026 106.45);
+  --sidebar-accent: oklch(0.9702 0 0);
+  --sidebar-accent-foreground: oklch(0.1776 0 0);
+  --sidebar-border: oklch(0.1776 0 0);
+  --sidebar-ring: oklch(0.5308 0.2178 29.23);
+
+  /* Chart ladder: spec does not document data-viz colours. Default to
+   * a grayscale ramp with Editorial Red as the highlighted series —
+   * matches the monochrome-with-1%-accent discipline. */
+  --chart-1: oklch(0.1776 0 0);
+  --chart-2: oklch(0.3715 0 0);
+  --chart-3: oklch(0.5555 0 0);
+  --chart-4: oklch(0.7155 0 0);
+  --chart-5: oklch(0.5308 0.2178 29.23);
+
+  /* Sharp corners enforced. Zero radius is non-negotiable per spec. */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius: 0px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Four families per spec §2 Typography: Playfair Display (display +
+   * headlines), Lora (body long-form), Inter (UI / labels),
+   * JetBrains Mono (data / metadata / edition strips). */
+  --font-sans: 'Inter', 'Helvetica Neue', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Playfair Display', 'Times New Roman', ui-serif, Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', ui-monospace, Menlo, Monaco, monospace;
+  --font-display: 'Playfair Display', 'Times New Roman', ui-serif, Georgia, serif;
+  --font-body: 'Lora', Georgia, 'Times New Roman', serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Spec ships zero soft shadows. The only elevation vocabulary is the
+   * hard offset shadow on hover — 4px 4px 0 0 Ink Black paired with a
+   * 2px translate. Encoded here for consumers. */
+  --brand-shadow-hard: 4px 4px 0 0 oklch(0.1776 0 0);
+  --brand-shadow-hard-translate: translate(-2px, -2px);
+
+  /* -- Brand-extras ---------------------------------------------- */
+
+  /* Neutral ladder — spec §2 Colors neutral-100 through neutral-700.
+   * Utility neutrals (chroma ≈ 0), used for hover backgrounds, image
+   * placeholders, metadata text, body variations, secondary headings. */
+  --brand-neutral-100: oklch(0.9702 0 0);
+  --brand-neutral-200: oklch(0.9219 0 0);
+  --brand-neutral-400: oklch(0.7155 0 0);
+  --brand-neutral-500: oklch(0.5555 0 0);
+  --brand-neutral-600: oklch(0.4386 0 0);
+  --brand-neutral-700: oklch(0.3715 0 0);
+
+  /* Input focus background — Neutral #F0F0F0, only on :focus-visible. */
+  --brand-input-focus: oklch(0.9551 0 0);
+
+  /* Polarity-locked surfaces. The inverted section and the marquee
+   * ticker both ride on Ink Black with off-white text regardless of
+   * the page mode — they do not flip in [data-theme="dark"]. */
+  --brand-canvas-night: oklch(0.1776 0 0);
+  --brand-on-dark: oklch(0.9816 0.0026 106.45);
+  --brand-on-light: oklch(0.1776 0 0);
+
+  /* Hairline weights. Borders are always Ink Black; the variation is
+   * width — 1px standard, 2px on input underlines, 4px on major
+   * section dividers. Tokens carry the weight, not the colour. */
+  --brand-hairline-soft: 1px solid oklch(0.1776 0 0);
+  --brand-hairline-strong: 4px solid oklch(0.1776 0 0);
+
+  /* Body text neutrals — chroma-zero utility tokens. */
+  --brand-body: oklch(0.1776 0 0);
+  --brand-body-muted: oklch(0.4386 0 0);
+  --brand-muted-soft: oklch(0.5555 0 0);
+}
+
+/* -- Dark theme ------------------------------------------------ */
+/* Spec is explicit: "Mode: Light (Permanent - no dark mode)." This
+ * block exists only because the catalog build script regenerates a
+ * paired dark preview. Treat the dark variant as the inverted-section
+ * register at full-page scale, not a real product dark mode.
+ *
+ * Editorial Red stays at its :root value (single chromatic identity
+ * across modes). Polarity-locked Ink Black surfaces do NOT lift here
+ * — --brand-canvas-night, --brand-on-dark stay fixed. Only canvas +
+ * neutrals invert. */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1776 0 0);
+  --foreground: oklch(0.9816 0.0026 106.45);
+  --card: oklch(0.1776 0 0);
+  --card-foreground: oklch(0.9816 0.0026 106.45);
+  --popover: oklch(0.1776 0 0);
+  --popover-foreground: oklch(0.9816 0.0026 106.45);
+
+  --secondary: oklch(0.3715 0 0);
+  --secondary-foreground: oklch(0.9816 0.0026 106.45);
+  --muted: oklch(0.3715 0 0);
+  --muted-foreground: oklch(0.7155 0 0);
+  --accent: oklch(0.3715 0 0);
+  --accent-foreground: oklch(0.9816 0.0026 106.45);
+
+  --border: oklch(0.9816 0.0026 106.45);
+  --input: oklch(0.9816 0.0026 106.45);
+
+  --sidebar: oklch(0.1776 0 0);
+  --sidebar-foreground: oklch(0.9816 0.0026 106.45);
+  --sidebar-accent: oklch(0.3715 0 0);
+  --sidebar-accent-foreground: oklch(0.9816 0.0026 106.45);
+  --sidebar-border: oklch(0.9816 0.0026 106.45);
+
+  /* Utility neutrals flip for body text against the inverted canvas. */
+  --brand-body: oklch(0.9816 0.0026 106.45);
+  --brand-body-muted: oklch(0.7155 0 0);
+  --brand-muted-soft: oklch(0.5555 0 0);
+
+  /* Hard offset shadow flips to off-white so the silhouette stays
+   * visible against the inverted canvas. */
+  --brand-shadow-hard: 4px 4px 0 0 oklch(0.9816 0.0026 106.45);
+
+  /* Chart ladder flips its grayscale ends; Editorial Red stays. */
+  --chart-1: oklch(0.9816 0.0026 106.45);
+  --chart-2: oklch(0.7155 0 0);
+  --chart-3: oklch(0.5555 0 0);
+  --chart-4: oklch(0.3715 0 0);
+  --chart-5: oklch(0.5308 0.2178 29.23);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1776 0 0);
+    --foreground: oklch(0.9816 0.0026 106.45);
+    --card: oklch(0.1776 0 0);
+    --card-foreground: oklch(0.9816 0.0026 106.45);
+    --popover: oklch(0.1776 0 0);
+    --popover-foreground: oklch(0.9816 0.0026 106.45);
+
+    --secondary: oklch(0.3715 0 0);
+    --secondary-foreground: oklch(0.9816 0.0026 106.45);
+    --muted: oklch(0.3715 0 0);
+    --muted-foreground: oklch(0.7155 0 0);
+    --accent: oklch(0.3715 0 0);
+    --accent-foreground: oklch(0.9816 0.0026 106.45);
+
+    --border: oklch(0.9816 0.0026 106.45);
+    --input: oklch(0.9816 0.0026 106.45);
+
+    --sidebar: oklch(0.1776 0 0);
+    --sidebar-foreground: oklch(0.9816 0.0026 106.45);
+    --sidebar-accent: oklch(0.3715 0 0);
+    --sidebar-accent-foreground: oklch(0.9816 0.0026 106.45);
+    --sidebar-border: oklch(0.9816 0.0026 106.45);
+
+    --brand-body: oklch(0.9816 0.0026 106.45);
+    --brand-body-muted: oklch(0.7155 0 0);
+    --brand-muted-soft: oklch(0.5555 0 0);
+
+    --brand-shadow-hard: 4px 4px 0 0 oklch(0.9816 0.0026 106.45);
+
+    --chart-1: oklch(0.9816 0.0026 106.45);
+    --chart-2: oklch(0.7155 0 0);
+    --chart-3: oklch(0.5555 0 0);
+    --chart-4: oklch(0.3715 0 0);
+    --chart-5: oklch(0.5308 0.2178 29.23);
+  }
+}

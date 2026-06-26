@@ -1,0 +1,1800 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ferrari-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23181818'/%3E%3Cpath d='M8 24 L16 6 L24 24 Z' fill='%23da291c'/%3E%3C/svg%3E">
+<meta property="og:title" content="ferrari-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Near-black canvas + Rosso Corsa CTA + cinematic editorial layout.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/ferrari-style/tokens.css) === */
+/**
+ * design-systems/ferrari-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Ferrari is dark-canonical on marketing surfaces (DESIGN.md §1:
+ * "base canvas is near-black holding pure white display type; white-
+ * canvas bands appear only inside specific editorial contexts"). :root
+ * already encodes the dark marketing canvas; [data-theme="dark"] mirrors
+ * it. The light shop / preowned variant is preserved as
+ * --brand-canvas-light / --brand-surface-*-light for any consumer that
+ * wants it.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(0.2090 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.3092 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.3092 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.5746 0.2126 29.5530);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.2090 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2090 0 0);
+  --muted-foreground: oklch(0.62 0 0);
+  --accent: oklch(0.9412 0.2004 105.6889);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3092 0 0);
+  --input: oklch(0.3092 0 0);
+  --ring: oklch(0.5746 0.2126 29.5530);
+  --sidebar: oklch(0.2090 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.5746 0.2126 29.5530);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2090 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3092 0 0);
+  --sidebar-ring: oklch(0.5746 0.2126 29.5530);
+  --chart-1: oklch(0.8100 0.2000 29.5530);
+  --chart-2: oklch(0.7100 0.2000 29.5530);
+  --chart-3: oklch(0.6100 0.2000 29.5530);
+  --chart-4: oklch(0.5100 0.2000 29.5530);
+  --chart-5: oklch(0.4200 0.2000 29.5530);
+
+  /* radius scale */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-xs: 2px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: 'FerrariSans', sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'FerrariSans', -apple-system, system-ui, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 80px;
+  --text-heading: 56px;
+  --text-title: 18px;
+  --text-base: 14px;
+  --leading-tight: 1.05;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-primary-active: oklch(0.4885 0.1828 31.0323);
+  --brand-primary-hover: oklch(0.4560 0.1614 31.2072);
+  --brand-body: oklch(0.75 0 0);
+  --brand-body-strong: oklch(1 0 0);
+  --brand-body-on-light: oklch(0.2090 0 0);
+  --brand-muted-soft: oklch(0.75 0 0);
+  /* Rosso Corsa #DA291C (oklch(0.5746 0.2126 29.55)) — verified against
+   * ferrari.com: red is reserved for accent (CTA backgrounds, gradient
+   * stops, decorative outlines), never used as body text on dark
+   * canvases. Text on dark surfaces routes through --foreground (white).
+   * Do not introduce a lighter "red ink" variant to win red-on-dark
+   * contrast — that's the wrong fix; Ferrari doesn't use red text on
+   * black. */
+  --brand-hairline-on-light: oklch(0.8638 0 0);
+  --brand-hairline-soft: oklch(0.9401 0 0);
+  --brand-canvas-elevated: oklch(0.3092 0 0);
+  --brand-canvas-light: oklch(1 0 0);
+  --brand-surface-soft-light: oklch(0.9761 0 0);
+  --brand-surface-strong-light: oklch(0.9401 0 0);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-light: oklch(0.2090 0 0);
+  --brand-accent-yellow: oklch(0.9068 0.1916 104.1118);
+  --brand-semantic-info: oklch(0.6446 0.0898 228.8209);
+  --brand-semantic-success: oklch(0.5727 0.1486 152.4142);
+  --brand-semantic-warning: oklch(0.6290 0.2206 29.2719);
+}
+
+/* Both modes mirror :root — Ferrari marketing is dark-canonical. */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.2090 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.3092 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.3092 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.5746 0.2126 29.5530);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.2090 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2090 0 0);
+  --muted-foreground: oklch(0.62 0 0);
+  --accent: oklch(0.9412 0.2004 105.6889);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3092 0 0);
+  --input: oklch(0.3092 0 0);
+  --ring: oklch(0.5746 0.2126 29.5530);
+  --sidebar: oklch(0.2090 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.5746 0.2126 29.5530);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2090 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3092 0 0);
+  --sidebar-ring: oklch(0.5746 0.2126 29.5530);
+  --chart-1: oklch(0.8100 0.2000 29.5530);
+  --chart-2: oklch(0.7100 0.2000 29.5530);
+  --chart-3: oklch(0.6100 0.2000 29.5530);
+  --chart-4: oklch(0.5100 0.2000 29.5530);
+  --chart-5: oklch(0.4200 0.2000 29.5530);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Ferrari-style preview shell — cinematic luxury-automotive editorial.
+   Near-black canvas (#181818, never pure black), Rosso Corsa CTA, single
+   FerrariSans-substitute family (Inter humanist sans), display weight 500
+   only, uppercase button labels with 1.4px tracking, sharp 0-radius
+   corners, explicit 8px spacing ladder, full-bleed cinematic hero panel.
+   Halcyon-themed luxury edition content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+/* Decorative cinematic-photo stops scoped to this preview shell —
+ * simulate trackside sunset / car silhouette photography. Per brand
+ * DESIGN.md, atmosphere comes from full-bleed photography rather than
+ * tokenised gradients. */
+:root {
+  --preview-sunset-deep: oklch(0.2700 0.0900 35);
+  --preview-sunset-warm: oklch(0.4500 0.1500 40);
+  --preview-track-shadow: oklch(0.1400 0.0300 30);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'FerrariSans', 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.topnav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.topnav-mark {
+  width: 22px;
+  height: 22px;
+  background: var(--primary);
+  clip-path: polygon(50% 6%, 100% 100%, 0 100%);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.65px;
+  text-transform: uppercase;
+}
+.topnav-links a { color: var(--brand-body, var(--muted-foreground)); text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Buttons (uppercase, tracked, sharp corners) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.75rem;
+  border-radius: var(--brand-radius-none, 0);
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 100ms ease;
+}
+.btn[data-variant="primary"] { background: var(--primary); color: var(--primary-foreground); }
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-active, var(--primary)); }
+.btn[data-variant="outline"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+.btn[data-variant="outline"]:hover { background: var(--foreground); color: var(--background); }
+.btn[data-variant="ghost"] { background: transparent; color: var(--foreground); padding-left: 0; padding-right: 0; }
+.btn[data-variant="ghost"]:hover { color: var(--brand-accent-yellow); }
+
+/* -- Cinematic hero -- */
+.hero {
+  position: relative;
+  min-height: 38rem;
+  display: flex;
+  align-items: flex-end;
+  padding: 8rem 2rem 3rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70% 60% at 50% 100%, color-mix(in srgb, var(--preview-sunset-warm) 60%, transparent) 0%, transparent 60%),
+    radial-gradient(80% 70% at 70% 80%, color-mix(in srgb, var(--preview-sunset-deep) 50%, transparent) 0%, transparent 65%),
+    linear-gradient(180deg, var(--background) 0%, color-mix(in srgb, var(--preview-track-shadow) 70%, var(--background)) 60%, var(--background) 100%);
+  z-index: -2;
+}
+/* Car silhouette suggestion */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 14rem;
+  background:
+    radial-gradient(120% 100% at 50% 100%, color-mix(in srgb, var(--background) 92%, transparent) 0%, transparent 70%);
+  z-index: -1;
+}
+.hero-inner {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.eyebrow {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0;
+}
+.hero-display {
+  font-family: 'FerrariSans', 'Inter', system-ui, sans-serif;
+  font-size: clamp(2.75rem, 6vw, 5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -1.6px;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 22ch;
+}
+.hero-lede {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-body, var(--muted-foreground));
+  max-width: 52ch;
+  margin: 0;
+}
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem; }
+
+/* -- Page container -- */
+.page {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* -- Section -- */
+.section { padding: 6rem 0; border-top: 1px solid var(--border); }
+.section-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 3rem; align-items: end; }
+@media (max-width: 880px) { .section-header { grid-template-columns: 1fr; gap: 1rem; } }
+.section-title {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 500;
+  letter-spacing: -1.12px;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0.5rem 0;
+  max-width: 22ch;
+}
+.section-lede {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--brand-body, var(--muted-foreground));
+  max-width: 52ch;
+  margin: 0;
+}
+
+/* -- Performance specs (giant numbers) -- */
+.spec-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+@media (max-width: 880px) { .spec-row { grid-template-columns: repeat(2, 1fr); } }
+.spec-cell {
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.spec-cell:last-child { border-right: none; }
+.spec-label {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft, var(--muted-foreground));
+  margin: 0;
+}
+.spec-value {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -1.6px;
+  color: var(--foreground);
+  margin: 0;
+}
+.spec-unit {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.65px;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft, var(--muted-foreground));
+  margin-left: 0.625rem;
+}
+
+/* -- Model lineup (3-up cards) -- */
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+@media (max-width: 880px) { .model-grid { grid-template-columns: 1fr; } }
+.model-card {
+  background: var(--brand-canvas-elevated, var(--card));
+  border-radius: var(--brand-radius-none, 0);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.model-card-stage {
+  height: 12rem;
+  background:
+    radial-gradient(80% 100% at 50% 100%, color-mix(in srgb, var(--preview-sunset-warm) 35%, transparent) 0%, transparent 70%),
+    linear-gradient(180deg, color-mix(in srgb, var(--brand-canvas-elevated, var(--card)) 80%, var(--background)) 0%, var(--brand-canvas-elevated, var(--card)) 100%);
+  position: relative;
+}
+.model-card-stage::after {
+  content: "";
+  position: absolute;
+  inset: 70% 12% 8% 12%;
+  background: color-mix(in srgb, var(--background) 80%, transparent);
+  border-radius: 8px;
+  filter: blur(8px);
+}
+.model-card-body { padding: 2rem; display: flex; flex-direction: column; gap: 1rem; flex: 1; }
+.model-card-eyebrow {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0;
+}
+.model-card-name {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0;
+}
+.model-card-desc { font-size: 14px; color: var(--brand-body, var(--muted-foreground)); margin: 0; line-height: 1.5; }
+.model-card-meta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  margin-top: 0.5rem;
+}
+.model-card-meta-label {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft, var(--muted-foreground));
+  margin-bottom: 0.125rem;
+}
+.model-card-meta-value { font-size: 14px; font-weight: 700; color: var(--foreground); }
+
+/* -- F1-style standings (race position highlights in Rosso Corsa) -- */
+.standings {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.standings-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr 8rem 6rem 5rem;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.125rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.standings-row:last-child { border-bottom: none; }
+.standings-row[data-head="true"] {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft, var(--muted-foreground));
+  padding: 1rem 1.5rem;
+}
+@media (max-width: 880px) { .standings-row { grid-template-columns: 3rem 1fr 4rem; } .standings-row > :nth-child(4), .standings-row > :nth-child(5) { display: none; } }
+.standings-pos {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--foreground);
+}
+.standings-pos[data-highlight="true"] { color: var(--brand-accent-yellow); }
+.standings-driver {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--foreground);
+}
+.standings-team, .standings-time {
+  font-size: 13px;
+  color: var(--brand-body, var(--muted-foreground));
+  letter-spacing: 0.3px;
+}
+.standings-points {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: right;
+  color: var(--foreground);
+}
+.standings-points[data-highlight="true"] { color: var(--brand-accent-yellow); }
+
+/* -- Typography roles -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft, var(--muted-foreground));
+}
+.type-display-mega { font-family: 'FerrariSans', 'Inter', sans-serif; font-size: 80px; font-weight: 500; line-height: 1.05; letter-spacing: -1.6px; color: var(--foreground); }
+.type-display-xl { font-family: 'FerrariSans', 'Inter', sans-serif; font-size: 56px; font-weight: 500; line-height: 1.1; letter-spacing: -1.12px; color: var(--foreground); }
+.type-display-lg { font-family: 'FerrariSans', 'Inter', sans-serif; font-size: 36px; font-weight: 500; line-height: 1.2; letter-spacing: -0.36px; color: var(--foreground); }
+.type-title { font-family: 'FerrariSans', 'Inter', sans-serif; font-size: 18px; font-weight: 700; line-height: 1.2; color: var(--foreground); }
+.type-body { font-size: 14px; font-weight: 400; line-height: 1.5; color: var(--brand-body, var(--muted-foreground)); }
+.type-button { font-family: 'FerrariSans', 'Inter', sans-serif; font-size: 14px; font-weight: 700; line-height: 1; letter-spacing: 1.4px; text-transform: uppercase; color: var(--foreground); }
+.type-caption { font-family: 'FerrariSans', 'Inter', sans-serif; font-size: 11px; font-weight: 600; line-height: 1.4; letter-spacing: 1.1px; text-transform: uppercase; color: var(--brand-muted-soft, var(--muted-foreground)); }
+
+/* -- Footer -- */
+.footer { padding: 4rem 2rem 2rem; border-top: 1px solid var(--border); }
+.footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 1rem; max-width: 32ch; }
+.footer-brand {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.footer-tag { font-size: 13px; color: var(--brand-body, var(--muted-foreground)); line-height: 1.5; }
+.footer-col-title {
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft, var(--muted-foreground));
+  margin: 0 0 1rem;
+}
+.footer-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.625rem; font-size: 13px; }
+.footer-col-list a {
+  color: var(--foreground);
+  text-decoration: none;
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-weight: 500;
+}
+.footer-col-list a:hover { color: var(--brand-accent-yellow); }
+.footer-legal {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'FerrariSans', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft, var(--muted-foreground));
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <span class="topnav-brand"><span class="topnav-mark" aria-hidden="true"></span>ferrari-style</span>
+    <div class="topnav-links">
+      <a href="#">Models</a>
+      <a href="#">Configurator</a>
+      <a href="#">Performance</a>
+      <a href="#">Racing</a>
+      <a href="#">Owners</a>
+    </div>
+    <button class="btn" data-variant="primary" type="button">Reserve</button>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="eyebrow">ferrari-style · token surface · 2026</p>
+    <h1 class="hero-display">Halcyon SF · Edizione Speciale</h1>
+    <p class="hero-lede">A token-surface preview rendered against the design system. Near-black cinematic canvas, single Rosso Corsa accent, sharp 0-radius corners, uppercase-tracked CTAs — the signature moves on neutral content.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" type="button">Configure</button>
+      <button class="btn" data-variant="outline" type="button">Reserve a viewing</button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="section" aria-label="Performance">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Performance · Specifications</p>
+        <h2 class="section-title">The numbers do the talking.</h2>
+      </div>
+      <p class="section-lede">Sharp 0-radius cells, oversized weight-700 numerals at −1.6px tracking, and small uppercase-tracked labels. Every cell is the same cinematic editorial register.</p>
+    </div>
+    <div class="spec-row" aria-label="Vehicle specifications">
+      <div class="spec-cell">
+        <p class="spec-label">Top speed</p>
+        <p class="spec-value">340<span class="spec-unit">km/h</span></p>
+      </div>
+      <div class="spec-cell">
+        <p class="spec-label">0 — 100 km/h</p>
+        <p class="spec-value">2.9<span class="spec-unit">s</span></p>
+      </div>
+      <div class="spec-cell">
+        <p class="spec-label">Power output</p>
+        <p class="spec-value">830<span class="spec-unit">cv</span></p>
+      </div>
+      <div class="spec-cell">
+        <p class="spec-label">Edizione</p>
+        <p class="spec-value">499<span class="spec-unit">units</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Model lineup">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Lineup · 2026</p>
+        <h2 class="section-title">A range built around speed and weight.</h2>
+      </div>
+      <p class="section-lede">Three model surfaces share the same chrome: cinematic stage, eyebrow in Rosso Corsa, weight-500 display name, two-up technical meta on a hairline rule.</p>
+    </div>
+    <div class="model-grid">
+      <div class="model-card">
+        <div class="model-card-stage" aria-hidden="true"></div>
+        <div class="model-card-body">
+          <p class="model-card-eyebrow">Grand tourer · V12</p>
+          <h3 class="model-card-name">Halcyon SF</h3>
+          <p class="model-card-desc">Twelve-cylinder grand tourer with the flagship's electronic architecture and a 350 km/h top end.</p>
+          <div class="model-card-meta">
+            <div><p class="model-card-meta-label">Power</p><span class="model-card-meta-value">830 cv</span></div>
+            <div><p class="model-card-meta-label">Edition</p><span class="model-card-meta-value">499 units</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="model-card">
+        <div class="model-card-stage" aria-hidden="true"></div>
+        <div class="model-card-body">
+          <p class="model-card-eyebrow">Mid-engine · V8 hybrid</p>
+          <h3 class="model-card-name">Halcyon 296 Halo</h3>
+          <p class="model-card-desc">Plug-in hybrid mid-engine berlinetta. Electric-only short-range, 830-horsepower combined output.</p>
+          <div class="model-card-meta">
+            <div><p class="model-card-meta-label">Power</p><span class="model-card-meta-value">830 cv</span></div>
+            <div><p class="model-card-meta-label">Range</p><span class="model-card-meta-value">25 km EV</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="model-card">
+        <div class="model-card-stage" aria-hidden="true"></div>
+        <div class="model-card-body">
+          <p class="model-card-eyebrow">Track car · V12</p>
+          <h3 class="model-card-name">Halcyon XX Stradale</h3>
+          <p class="model-card-desc">Limited-series track car homologated for the road. Active aerodynamics and a dedicated Fiorano programme.</p>
+          <div class="model-card-meta">
+            <div><p class="model-card-meta-label">Power</p><span class="model-card-meta-value">1,030 cv</span></div>
+            <div><p class="model-card-meta-label">Edition</p><span class="model-card-meta-value">99 units</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Standings">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">F1 · Drivers' standings</p>
+        <h2 class="section-title">Race position is a brand voltage.</h2>
+      </div>
+      <p class="section-lede">Rosso Corsa marks the team's drivers in the table — the same accent that carries the primary CTA, the brand mark, and the F1 driver-position highlights. Used scarcely.</p>
+    </div>
+    <div class="standings" aria-label="Drivers standings">
+      <div class="standings-row" data-head="true">
+        <span>Pos</span>
+        <span>Driver</span>
+        <span>Team</span>
+        <span>Gap</span>
+        <span style="text-align: right;">Pts</span>
+      </div>
+      <div class="standings-row">
+        <span class="standings-pos">1</span>
+        <span class="standings-driver">N. Verstappen</span>
+        <span class="standings-team">Red Bull · 2026</span>
+        <span class="standings-time">—</span>
+        <span class="standings-points">412</span>
+      </div>
+      <div class="standings-row">
+        <span class="standings-pos" data-highlight="true">2</span>
+        <span class="standings-driver">C. Halcyon</span>
+        <span class="standings-team">Halcyon SF · 2026</span>
+        <span class="standings-time">+38</span>
+        <span class="standings-points" data-highlight="true">374</span>
+      </div>
+      <div class="standings-row">
+        <span class="standings-pos" data-highlight="true">3</span>
+        <span class="standings-driver">L. Hamilton</span>
+        <span class="standings-team">Halcyon SF · 2026</span>
+        <span class="standings-time">+62</span>
+        <span class="standings-points" data-highlight="true">350</span>
+      </div>
+      <div class="standings-row">
+        <span class="standings-pos">4</span>
+        <span class="standings-driver">L. Norris</span>
+        <span class="standings-team">McLaren · 2026</span>
+        <span class="standings-time">+89</span>
+        <span class="standings-points">323</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Tokens · Typography</p>
+        <h2 class="section-title">Single sans, modest weights.</h2>
+      </div>
+      <p class="section-lede">FerrariSans (Inter substitute) carries every role. Display holds at weight 500 and never goes bombastic; body sits at 400. CTA and caption labels render uppercase with positive tracking — 1.4px on buttons, 1.1px on captions.</p>
+    </div>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Display Mega</span><span class="type-display-mega">Halcyon SF</span></div>
+      <div class="type-row"><span class="type-label">Display XL</span><span class="type-display-xl">Edizione Speciale 2026</span></div>
+      <div class="type-row"><span class="type-label">Display LG</span><span class="type-display-lg">Twelve-cylinder grand tourer.</span></div>
+      <div class="type-row"><span class="type-label">Title</span><span class="type-title">Power output · Range · Weight</span></div>
+      <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy at 14 pixels, weight 400. Single sans family. The brand never uses bold display weights — modest 500 carries every headline up to 80px.</span></div>
+      <div class="type-row"><span class="type-label">Button</span><span class="type-button">Configure your halcyon</span></div>
+      <div class="type-row"><span class="type-label">Caption</span><span class="type-caption">Eyebrow · Caption · F1 race position</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <span class="footer-brand">ferrari-style</span>
+      <p class="footer-tag">A token-surface preview rendered against the cinematic-editorial luxury-automotive design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Auto</p>
+      <ul class="footer-col-list"><li><a href="#">Models</a></li><li><a href="#">Configurator</a></li><li><a href="#">Preowned</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Racing</p>
+      <ul class="footer-col-list"><li><a href="#">F1</a></li><li><a href="#">Endurance</a></li><li><a href="#">Halcyon Challenge</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Owners</p>
+      <ul class="footer-col-list"><li><a href="#">Services</a></li><li><a href="#">Classiche</a></li><li><a href="#">Programmes</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-col-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">app.halcyon.dev</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>ferrari-style · Token surface preview · 2026.05.22</span>
+    <span>Rosso corsa · 0-radius · uppercase tracked · cinematic</span>
+  </div>
+</footer>
+
+</body>
+</html>

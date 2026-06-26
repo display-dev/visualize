@@ -1,0 +1,167 @@
+/**
+ * design-systems/neon-velocity/tokens.css
+ *
+ * Hand-authored from the Neon Velocity spec at temp/refs/neon-velocity/raw.md
+ * (originally Shirley Lou's "Neon Velocity Countdown" Superdesign entry).
+ * Spec-derived; no live deployment exists. Sourced: 2026-05-26.
+ *
+ * Companion: ./DESIGN.md.
+ *
+ * The system is single-polarity dark by intent. Near-black `#050505` ground
+ * for a 3% SVG fractal-noise overlay, a single chromatic lime accent
+ * (`#BFFF00`) carrying every accent surface, brutalist headline mass over
+ * 3D glass depth, mixed-radius signature (0px sharp hero frame + 2rem
+ * rounded bento cards). [data-theme="dark"] mirrors :root verbatim; a
+ * light variant would erase the system's identity (glow, noise, contrast).
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core: names are the upstream contract.
+ *   - Brand-extras (--brand-*): surface-named only.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+
+  --background: oklch(0.1149 0 0);                  /* #050505 — spec Primary Background */
+  --foreground: oklch(1 0 0);                       /* #FFFFFF — spec Text Primary */
+  --card: oklch(0.1149 0 0);                        /* glass-over-canvas; no separate card colour */
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.1149 0 0);
+  --popover-foreground: oklch(1 0 0);
+
+  --primary: oklch(0.9225 0.2345 125.89);           /* #BFFF00 — spec Accent Green */
+  --primary-foreground: oklch(0 0 0);               /* #000000 — spec Laser Button color */
+  --secondary: oklch(0.1448 0 0);                   /* lifted-black surface */
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.1448 0 0);                       /* mobile-nav base #0A0A0A */
+  --muted-foreground: oklch(0.65 0 0);              /* chroma-0 utility neutral, retuned for AA on #050505/#0A0A0A */
+  --accent: oklch(0.9225 0.2345 125.89);            /* tracks --primary; single chromatic identity */
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.65 0.21 28);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.235 0 0);                       /* spec Borders rgba(255,255,255,0.1) composited */
+  --input: oklch(0.235 0 0);
+  --ring: oklch(0.9225 0.2345 125.89);              /* tracks --primary */
+
+  --sidebar: oklch(0.1149 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.9225 0.2345 125.89);   /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent: oklch(0.1448 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.235 0 0);
+  --sidebar-ring: oklch(0.9225 0.2345 125.89);      /* tracks --primary */
+
+  --chart-1: oklch(0.9225 0.2345 125.89);           /* lime */
+  --chart-2: oklch(0.78 0.18 140);                  /* shifted lime-green for series differentiation */
+  --chart-3: oklch(0.65 0.14 155);
+  --chart-4: oklch(0.5208 0 0);                     /* mid grey */
+  --chart-5: oklch(0.85 0.05 130);                  /* pale lime tint */
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 32px;                                /* tracks --brand-card-radius (bento 2rem) */
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* No baseline drop-shadow; elevation is hairline + glow only. */
+
+  /* -- Brand-extras --------------------------------------------- */
+
+  /* Polarity-locked surfaces (single-polarity dark system; these stay
+   * at :root value in [data-theme="dark"] by definition). */
+  --brand-canvas-night: oklch(0.1149 0 0);          /* #050505 */
+  --brand-canvas-lift: oklch(0.1448 0 0);           /* #0A0A0A — mobile-nav base */
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-primary: oklch(0 0 0);                 /* black ink on lime fill */
+
+  /* Hairlines / dividers — composited resolutions of white-over-near-black */
+  --brand-hairline-soft: oklch(0.18 0 0);           /* rgba(255,255,255,0.05) over #050505 */
+  --brand-hairline-glass: oklch(0.2134 0 0);        /* rgba(255,255,255,0.08) — glassmorphism border */
+  --brand-hairline-strong: oklch(0.235 0 0);        /* rgba(255,255,255,0.1) — standard divider */
+
+  /* Brutalist signature surface dimensions */
+  --brand-hero-frame-width: 12px;                   /* spec MUST */
+  --brand-hero-frame-radius: 0;                     /* spec MUST — sharp corners on hero */
+  --brand-card-radius: 2rem;                        /* spec — Luminosity Card */
+  --brand-pill-radius: 9999px;                      /* spec — Laser Button + form pill + bottom-nav */
+
+  /* Glow + atmospherics */
+  --brand-glow-primary: oklch(0.9225 0.2345 125.89 / 0.30);    /* Laser Button shadow */
+  --brand-glow-refraction: oklch(0.9225 0.2345 125.89 / 0.15); /* ambient backdrop wash */
+  --brand-glow-soft: oklch(1 0 0 / 0.03);                      /* Luminosity Card top-left radial */
+  --brand-glass-fill: oklch(1 0 0 / 0.02);                     /* 3D glass card body */
+  --brand-glow-hover: oklch(0.9225 0.2345 125.89 / 0.05);      /* Luminosity Card hover-state radial */
+
+  /* Typography neutrals (chroma ≈ 0 utility tokens; retuned for AA on canvas-night #050505 + canvas-lift #0A0A0A) */
+  --brand-body: oklch(1 0 0);
+  --brand-body-muted: oklch(0.65 0 0);
+  --brand-mono-meta: oklch(0.65 0 0);
+
+  /* Motion */
+  --brand-ease-velocity: cubic-bezier(0.16, 1, 0.3, 1);        /* spec — all transitions */
+  --brand-sweep-duration: 0.6s;                                /* spec — Laser Button hover */
+  --brand-card-transition: 0.5s;                               /* spec — Luminosity Card */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Single-polarity dark system. The [data-theme="dark"] block exists
+ * for shadcn-core completeness; values mirror :root because the
+ * system has no light variant by intent.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1149 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.1149 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.1149 0 0);
+  --popover-foreground: oklch(1 0 0);
+
+  --secondary: oklch(0.1448 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.1448 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+
+  --border: oklch(0.235 0 0);
+  --input: oklch(0.235 0 0);
+
+  --sidebar: oklch(0.1149 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.235 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1149 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.1149 0 0);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.1149 0 0);
+    --popover-foreground: oklch(1 0 0);
+
+    --secondary: oklch(0.1448 0 0);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.1448 0 0);
+    --muted-foreground: oklch(0.65 0 0);
+
+    --border: oklch(0.235 0 0);
+    --input: oklch(0.235 0 0);
+
+    --sidebar: oklch(0.1149 0 0);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.235 0 0);
+  }
+}

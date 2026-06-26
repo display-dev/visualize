@@ -1,0 +1,329 @@
+/**
+ * design-systems/minimax-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * MiniMax-style is LIGHT-CANONICAL with no documented dark mode (per
+ * DESIGN.md §6 known-gaps: "Specific dark-mode token values for canvas,
+ * surface, ink, and hairline are not surfaced on these pages; the brand
+ * has not yet shipped a published dark-mode palette"). The brand's marketing
+ * surfaces run on stark white canvas with two near-black moments — the
+ * sticky promo banner above the nav and the deep-black multi-column footer
+ * (`--brand-footer-bg`).
+ *
+ * Dark-mode strategy: synthesise a plausible dark by promoting the
+ * documented `--brand-footer-bg` (the deep black already used for the
+ * marketing footer) to canvas, with cards stepping up one tone so the
+ * documented flat-card register survives. The four vibrant brand product
+ * colours (coral / magenta / blue / purple — the model-identity gradient
+ * register documented in DESIGN.md §2 Brand & Accent) stay POLARITY-LOCKED
+ * across both modes; they're MiniMax's voltage signature and already read
+ * white-on-saturated on both polarities (mid-saturation at L=0.62-0.69).
+ *
+ * Override rationale per token:
+ *   --background      → promoted to a near-black canvas (matches the brand's
+ *                       documented footer-bg deep-black; the footer in dark
+ *                       mode becomes the canvas itself and the dark band
+ *                       reads as embossed inverse via hairline)
+ *   --card / --popover → step up one tonal notch (L=0.20) so quiet white
+ *                       documentation cards remain visible against canvas;
+ *                       preserves the brand's flat-card register (no
+ *                       shadow, just a tone step + hairline)
+ *   --foreground      → near-white inverse of the L=0.1448 ink, preserving
+ *                       the brand's "near-black anchor" register inverted
+ *   --primary         → lifts from near-black to near-white. The brand's
+ *                       dominant CTA is "black pill" — in dark canvas it
+ *                       becomes a white pill (the same scarce-monochrome
+ *                       voltage register, polarity flipped). Pair text
+ *                       lifts to near-black so the contrast holds.
+ *   --secondary / --muted → tonal step between canvas and card; used for
+ *                       documentation surface backgrounds, search-pill rest
+ *   --muted-foreground → lifts from L=0.74 (which sat on light) to L=0.74
+ *                       on dark — the original chroma was tuned for light
+ *                       canvas; on dark canvas this value still passes the
+ *                       muted-text floor
+ *   --border / --input → near-3a hairline that's visible on dark canvas
+ *
+ * Brand-extras overrides (the tokens used directly in template CSS):
+ *   --brand-charcoal  → lifts from L=0.25 to L=0.77 — used for body and
+ *                       tertiary text; on dark canvas the original near-
+ *                       black value would be invisible
+ *   --brand-slate     → lifts similarly — used for secondary metadata
+ *   --brand-steel     → lifts for caption / table-header / sidebar-inactive
+ *   --brand-stone     → lifts for muted captions / tab-inactive labels
+ *   --brand-hairline-soft → near-3a divider that works on dark canvas
+ *   --brand-surface   → step up one tone from canvas (slightly lighter than
+ *                       canvas) so it still reads as "the quieter section
+ *                       background" register the brand documents
+ *
+ * Polarity-locked tokens left at :root values (inherited via cascade):
+ *   --brand-brand-coral / --brand-brand-magenta / --brand-brand-blue /
+ *   --brand-brand-purple → the four model-identity gradient colours.
+ *                       MiniMax's voltage register — each one is a brand-
+ *                       assigned product identity (M2.7 = coral, Music =
+ *                       magenta, Hailuo = blue, Speech 2.8 = purple per
+ *                       DESIGN.md §2). Mid-saturation at L=0.62-0.69 reads
+ *                       white-on-saturated above WCAG AA on BOTH light and
+ *                       dark canvases. Lifting them would dilute the brand
+ *                       voltage and break the polarity-locked signature
+ *                       matrix surface.
+ *   --brand-brand-coral, --brand-brand-magenta, --brand-brand-purple deepened
+ *                       at :root (see below) — applies to BOTH modes.
+ *   --brand-brand-blue → kept as the single Hailuo product-card identity
+ *                       colour (deployed on the polarity-locked product-
+ *                       matrix surface only). The `-mid` / `-deep` / `-700`
+ *                       / `-200` / `-cyan` lineage was deleted: live brand
+ *                       audit (minimax.io homepage / agent / m2 pages,
+ *                       2026-05-25) shows ZERO blue ladder instances — the
+ *                       brand uses only the single Hailuo blue, never a
+ *                       depth-modified variant for form controls, badges,
+ *                       or doc tags. DESIGN.md's ladder is a stale
+ *                       import artifact synthesised from prose, not a
+ *                       deployed brand surface.
+ *   --brand-ink-strong → names the brand's "pure black for promo banners
+ *                       and hero displays"; on light canvas it's the deep
+ *                       anchor, on dark canvas it IS the canvas. Polarity-
+ *                       locked at #000 so the signature matrix surface
+ *                       (which stays canvas-locked white in BOTH variants)
+ *                       can use it for inner detail ink
+ *   --brand-on-dark    → already always-light by definition (white)
+ *   --brand-footer-bg  → polarity-locked deep-black; in dark mode it IS
+ *                       the canvas, so consumers fall through to --background
+ *                       naturally; in light mode it's the documented dark
+ *                       multi-column footer
+ *   --brand-success-bg / --brand-success-text → pastel green wash sits at
+ *                       L=0.98 / L=0.64 and the chip register reads on
+ *                       both polarities; kept at :root
+ *
+ * Signature voltage: per the single-polarity rule (AUTHORING.md
+ * "Single-polarity brands: only lock signature voltage"), only the four-up
+ * product-matrix card grid stays canvas-locked (vibrant brand colours +
+ * white ink) on BOTH polarities — every other section (swatches, ladder,
+ * type, components, closer) flips with theme so the dark variant reads as
+ * "dark mode of MiniMax" not "light page with four locked accent cards."
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.1448 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.1448 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.1448 0 0);
+  --primary: oklch(0.1448 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9640 0.0029 264.5420);
+  --secondary-foreground: oklch(0.1448 0 0);
+  --muted: oklch(0.9640 0.0029 264.5420);
+  --muted-foreground: oklch(0.5300 0.0117 274.8375);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0.1448 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9276 0.0058 264.5313);
+  --input: oklch(0.9276 0.0058 264.5313);
+  --ring: oklch(0.1448 0 0);
+  --sidebar: oklch(0.9640 0.0029 264.5420);
+  --sidebar-foreground: oklch(0.1448 0 0);
+  --sidebar-primary: oklch(0.1448 0 0);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9640 0.0029 264.5420);
+  --sidebar-accent-foreground: oklch(0.1448 0 0);
+  --sidebar-border: oklch(0.9276 0.0058 264.5313);
+  --sidebar-ring: oklch(0.1448 0 0);
+  --chart-1: oklch(0.8100 0 0);
+  --chart-2: oklch(0.7100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.5100 0 0);
+  --chart-5: oklch(0.4200 0 0);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;
+  --brand-radius-xxl: 20px;
+  --brand-radius-xxxl: 24px;
+  --brand-radius-hero: 32px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: 'DM Sans', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'DM Sans', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 80px;
+  --text-heading: 56px;
+  --text-title: 32px;
+  --text-base: 16px;
+  --leading-tight: 1.10;
+  --leading-normal: 1.50;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream).
+   * The four vibrant model-identity colours are deepened a touch from
+   * upstream values so white-on-saturated passes WCAG AA 4.5:1 across the
+   * product-matrix card surfaces in BOTH polarities. The blue family
+   * already lands inside the AA band, so it stays at upstream values. */
+  --brand-primary-soft: oklch(0.2322 0.0162 252.4609);
+  --brand-brand-coral: oklch(0.5800 0.2122 33.7723);
+  --brand-brand-magenta: oklch(0.5900 0.2034 340.7371);
+  --brand-brand-blue: oklch(0.5229 0.2390 263.1683);
+  --brand-brand-purple: oklch(0.5200 0.2325 303.9004);
+  --brand-surface: oklch(0.9789 0.0029 264.5421);
+  --brand-hairline-soft: oklch(0.9427 0.0058 264.5317);
+  --brand-ink-strong: oklch(0 0 0);
+  --brand-charcoal: oklch(0.2520 0 0);
+  --brand-slate: oklch(0.4295 0.0265 250.5283);
+  --brand-steel: oklch(0.4500 0 0);
+  --brand-stone: oklch(0.5500 0.0073 286.1930);
+  --brand-success-bg: oklch(0.9776 0.0366 147.7715);
+  --brand-success-text: oklch(0.4900 0.1355 161.7761);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-footer-bg: oklch(0.1448 0 0);
+}
+
+/*
+ * Dark mode — hand-tuned, NOT the OKLCH lightness-inversion default.
+ *
+ * Strategy: promote MiniMax's documented dark footer family
+ * (`--brand-footer-bg`, L=0.1448) to canvas; step `--card` up to a
+ * slightly elevated dark surface so cards remain visible on the canvas.
+ * Black-pill primary in light flips to a white-pill primary in dark
+ * (preserving the scarce-monochrome CTA voltage that DESIGN.md §5
+ * documents as "the dominant action across all surfaces").
+ *
+ * The four vibrant model-identity brand colours stay polarity-locked
+ * at their :root values — they're the brand's signature voltage and
+ * already read white-on-saturated above WCAG AA on dark canvas (the
+ * deepening already applied at :root makes them safe for both modes).
+ *
+ * Polarity-locked tokens left at :root values (inherited via cascade):
+ *   --brand-ink-strong         → names "pure black for promo banners and
+ *                                 hero displays" — used by the polarity-
+ *                                 locked product-matrix surface for inner
+ *                                 detail ink against the always-white
+ *                                 inner card. Stays at #000.
+ *   --brand-on-dark            → already always-light by definition
+ *   --brand-brand-coral / magenta / blue / purple → polarity-locked product
+ *                                 identity colours (see :root rationale)
+ *   --brand-footer-bg          → in dark mode this IS the canvas; in light
+ *                                 mode it's the documented dark footer band
+ *   --brand-success-bg / --brand-success-text → pastel green chip register
+ *                                 reads on both polarities
+ *   --brand-primary-soft       → deep cobalt-ink, polarity-agnostic
+ */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* shadcn-semantic core — promoted near-black canvas, white-pill primary */
+  --background: oklch(0.1448 0 0);
+  --foreground: oklch(0.9650 0 0);
+  --card: oklch(0.2000 0 0);
+  --card-foreground: oklch(0.9650 0 0);
+  --popover: oklch(0.2000 0 0);
+  --popover-foreground: oklch(0.9650 0 0);
+  --primary: oklch(0.9650 0 0);
+  --primary-foreground: oklch(0.1448 0 0);
+  --secondary: oklch(0.2200 0 0);
+  --secondary-foreground: oklch(0.9650 0 0);
+  --muted: oklch(0.2200 0 0);
+  --muted-foreground: oklch(0.7400 0.0117 274.8375);
+  --accent: oklch(0.2000 0 0);
+  --accent-foreground: oklch(0.9650 0 0);
+  --destructive: oklch(0.6500 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.2800 0.0058 264.5313);
+  --input: oklch(0.2800 0.0058 264.5313);
+  --ring: oklch(0.9650 0 0);
+  --sidebar: oklch(0.2000 0 0);
+  --sidebar-foreground: oklch(0.9650 0 0);
+  --sidebar-primary: oklch(0.9650 0 0);
+  --sidebar-primary-foreground: oklch(0.1448 0 0);
+  --sidebar-accent: oklch(0.2200 0 0);
+  --sidebar-accent-foreground: oklch(0.9650 0 0);
+  --sidebar-border: oklch(0.2800 0.0058 264.5313);
+  --sidebar-ring: oklch(0.9650 0 0);
+  --chart-1: oklch(0.4200 0 0);
+  --chart-2: oklch(0.5100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.7100 0 0);
+  --chart-5: oklch(0.8100 0 0);
+
+  /* brand-extras lifted for dark canvas — never lift the polarity-locked
+   * brand product identity colours (coral / magenta / blue / purple stay
+   * at :root). */
+  --brand-charcoal: oklch(0.7700 0 0);
+  --brand-slate: oklch(0.7400 0.0265 250.5283);
+  --brand-steel: oklch(0.7100 0 0);
+  --brand-stone: oklch(0.6700 0.0073 286.1930);
+  --brand-hairline-soft: oklch(0.2800 0.0058 264.5317);
+  --brand-surface: oklch(0.2000 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1448 0 0);
+    --foreground: oklch(0.9650 0 0);
+    --card: oklch(0.2000 0 0);
+    --card-foreground: oklch(0.9650 0 0);
+    --popover: oklch(0.2000 0 0);
+    --popover-foreground: oklch(0.9650 0 0);
+    --primary: oklch(0.9650 0 0);
+    --primary-foreground: oklch(0.1448 0 0);
+    --secondary: oklch(0.2200 0 0);
+    --secondary-foreground: oklch(0.9650 0 0);
+    --muted: oklch(0.2200 0 0);
+    --muted-foreground: oklch(0.7400 0.0117 274.8375);
+    --accent: oklch(0.2000 0 0);
+    --accent-foreground: oklch(0.9650 0 0);
+    --destructive: oklch(0.6500 0.2178 29.2339);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.2800 0.0058 264.5313);
+    --input: oklch(0.2800 0.0058 264.5313);
+    --ring: oklch(0.9650 0 0);
+    --sidebar: oklch(0.2000 0 0);
+    --sidebar-foreground: oklch(0.9650 0 0);
+    --sidebar-primary: oklch(0.9650 0 0);
+    --sidebar-primary-foreground: oklch(0.1448 0 0);
+    --sidebar-accent: oklch(0.2200 0 0);
+    --sidebar-accent-foreground: oklch(0.9650 0 0);
+    --sidebar-border: oklch(0.2800 0.0058 264.5313);
+    --sidebar-ring: oklch(0.9650 0 0);
+    --chart-1: oklch(0.4200 0 0);
+    --chart-2: oklch(0.5100 0 0);
+    --chart-3: oklch(0.6100 0 0);
+    --chart-4: oklch(0.7100 0 0);
+    --chart-5: oklch(0.8100 0 0);
+
+    --brand-charcoal: oklch(0.7700 0 0);
+    --brand-slate: oklch(0.7400 0.0265 250.5283);
+    --brand-steel: oklch(0.7100 0 0);
+    --brand-stone: oklch(0.6700 0.0073 286.1930);
+    --brand-hairline-soft: oklch(0.2800 0.0058 264.5317);
+    --brand-surface: oklch(0.2000 0 0);
+  }
+}

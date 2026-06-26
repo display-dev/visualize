@@ -1,0 +1,249 @@
+/**
+ * Whitepaper theme — institutional / academic / formal-report
+ * register, light-mode-native. Cool slate off-white + deep
+ * institutional-navy ink + restrained navy primary. The aesthetic
+ * reference is a Bloomberg / McKinsey / university press report —
+ * the kind of document that wants to look *authoritative*, not
+ * *warm*.
+ *
+ * Mode priority: light-canonical. Per spec line 104, Whitepaper
+ * sits in the light-canonical group alongside Clean, Editorial,
+ * and Paper-ink. The :root block carries the canonical institutional
+ * register; `[data-theme="dark"]` is a boardroom-at-night interpretation (deep
+ * slate + cool ink + brighter navy CTA).
+ *
+ * Three serif-display themes now ship — Editorial (magazine-
+ * publishing register), Paper-ink (letterpress-monograph register),
+ * Whitepaper (institutional-academic register). They split by
+ * surface temperature + primary hue + radius:
+ *
+ *   - Editorial:  warm-neutral 0.008 chroma, deep-navy CTA,
+ *                 0.5rem radius (refined publishing).
+ *   - Paper-ink:  warm-cream 0.018 chroma, burnt-red CTA, 0
+ *                 radius (letterpress / broadsheet).
+ *   - Whitepaper: cool-slate 0.004 chroma (hue 230–240),
+ *                 institutional-navy CTA, 0.125rem radius
+ *                 (formal report / academic press).
+ *
+ * The cool-slate surface is what reads "institutional" rather than
+ * "publishing." Same serif typography, but the surface temperature
+ * pins the register. Reader pre-training pins cool-slate to
+ * authority registers (banking, government, academic press) and
+ * warm tones to reading-for-pleasure registers (magazine, novel,
+ * broadsheet).
+ *
+ * Distinct from Clean / Editorial / Terminal / Deck / Blueprint /
+ * IDE / Paper-ink on three axes:
+ *   1. Surfaces carry cool-slate chroma at hue 230–240 — the
+ *      only theme whose light-mode surface leans cool rather
+ *      than warm or neutral. Distinct from Blueprint's
+ *      cool-blue navy (hue 245–250) which is more saturated
+ *      and reads as drawing-paper, not formal-report.
+ *   2. Primary is institutional slate-navy at hue 245 chroma
+ *      0.13. Deeper / cooler than Editorial's potentially-
+ *      warmer navy; distinct hue family from Blueprint's
+ *      warm gold and IDE's vibrant cyan-blue.
+ *   3. Tighter type scale + tighter leading (1.6 vs Editorial's
+ *      1.65, Paper-ink's 1.65) — formal-report register reads
+ *      slightly denser; academic press doesn't waste page-real-
+ *      estate the way a magazine column does.
+ *
+ * Blessed templates: Whitepaper (canonical pairing), Report,
+ * Research brief, Postmortem, ADR, Comparison — the formal /
+ * document-register templates from finding 34.
+ *
+ * Discouraged: Pitch deck, One-pager, Release announcement
+ * (marketing register undermined by formal-report tone); Diff
+ * review, Runbook, API reference (dev-doc register reads dry-
+ * formal in this chrome); Dashboard, Data explorer (data-shape
+ * doesn't fit the prose-driven academic register); Meeting notes,
+ * Onboarding module (conversational warmth doesn't survive
+ * institutional cast). The warning is "you probably didn't mean
+ * to," per the discouraged-combo rule (finding 16).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Canonical Whitepaper register: cool-slate off-white + deep    */
+  /* institutional-navy ink + restrained navy primary.              */
+
+  /* -- Surface / Foreground pairs ------------------------------ */
+  --background:              oklch(0.98 0.004 232);    /* cool slate off-white */
+  --foreground:              oklch(0.20 0.020 245);    /* deep slate-navy ink */
+
+  --card:                    oklch(0.985 0.004 232);
+  --card-foreground:         oklch(0.20 0.020 245);
+
+  --popover:                 oklch(0.985 0.004 232);
+  --popover-foreground:      oklch(0.20 0.020 245);
+
+  /* Institutional slate-navy primary — deeper / cooler than       */
+  /* Editorial's navy. Reads "authority" rather than "publishing." */
+  --primary:                 oklch(0.36 0.13 245);
+  --primary-foreground:      oklch(0.98 0.004 232);
+
+  --secondary:               oklch(0.94 0.006 232);
+  --secondary-foreground:    oklch(0.20 0.020 245);
+
+  --muted:                   oklch(0.94 0.006 232);
+  --muted-foreground:        oklch(0.46 0.018 240);
+
+  --accent:                  oklch(0.91 0.008 232);
+  --accent-foreground:       oklch(0.20 0.020 245);
+
+  --destructive:             oklch(0.50 0.20 25);
+  --destructive-foreground:  oklch(0.98 0.004 232);
+
+  --border:                  oklch(0.86 0.012 232);
+  --input:                   oklch(0.86 0.012 232);
+  --ring:                    oklch(0.36 0.13 245);
+
+  /* Sidebar tokens (preserved for shadcn-shape parity) */
+  --sidebar:                 oklch(0.96 0.006 232);
+  --sidebar-foreground:      oklch(0.20 0.020 245);
+  --sidebar-primary:         oklch(0.36 0.13 245);
+  --sidebar-primary-foreground: oklch(0.98 0.004 232);
+  --sidebar-accent:          oklch(0.91 0.008 232);
+  --sidebar-accent-foreground: oklch(0.20 0.020 245);
+  --sidebar-border:          oklch(0.86 0.012 232);
+  --sidebar-ring:            oklch(0.36 0.13 245);
+
+  /* Chart tokens — institutional restrained five-stop.            */
+  --chart-1:                 oklch(0.36 0.13 245);    /* institutional navy */
+  --chart-2:                 oklch(0.45 0.08 220);    /* slate-blue */
+  --chart-3:                 oklch(0.40 0.06 60);     /* sepia */
+  --chart-4:                 oklch(0.42 0.10 145);    /* muted teal-green */
+  --chart-5:                 oklch(0.45 0.06 300);    /* dim plum */
+
+  /* -- Typography tokens ---------------------------------------- */
+  --font-sans:  'Inter', 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Source Serif Pro', 'Crimson Pro', 'EB Garamond', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono:  'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Display is serif — academic / formal-report convention. The   */
+  /* serif heading on a cool-slate surface reads as institutional. */
+  --font-display: var(--font-serif);
+
+  /* -- Type scale tokens — formal report, denser than publishing  */
+  --text-display:  clamp(1.875rem, 4vw, 2.875rem);
+  --text-heading:  1.5rem;
+  --text-title:    1.0625rem;
+  --text-base:     16.5px;       /* between Clean (16) and Paper-ink (17) */
+  --leading-tight: 1.15;
+  --leading-normal: 1.6;         /* tighter than Editorial/Paper-ink */
+
+  /* -- Radius — minimal, formal-report (slightly above Terminal's */
+  /* near-square; well below Clean's 0.625rem). ------------------- */
+  --radius:                  0.125rem;
+  --radius-sm:               0;
+  --radius-md:               var(--radius);
+  --radius-lg:               calc(var(--radius) + 2px);
+  --radius-xl:               calc(var(--radius) + 4px);
+
+  /* -- Spacing -------------------------------------------------- */
+  --spacing:                 0.25rem;
+
+  /* -- Tracking — neutral, formal (no letterpress looseness) ---- */
+  --tracking-normal:         0em;
+
+  /* -- Shadow scale — cool-slate-tinted, restrained ------------ */
+  --shadow-2xs: 0 1px 1px 0 hsl(230 30% 12% / 0.03);
+  --shadow-xs:  0 1px 2px 0 hsl(230 30% 12% / 0.05);
+  --shadow-sm:  0 1px 3px 0 hsl(230 30% 12% / 0.06), 0 1px 2px -1px hsl(230 30% 12% / 0.05);
+  --shadow:     0 2px 4px -1px hsl(230 30% 12% / 0.08);
+  --shadow-md:  0 4px 8px -2px hsl(230 30% 12% / 0.10), 0 2px 4px -2px hsl(230 30% 12% / 0.07);
+  --shadow-lg:  0 8px 16px -4px hsl(230 30% 12% / 0.12), 0 4px 8px -4px hsl(230 30% 12% / 0.08);
+  --shadow-xl:  0 16px 24px -6px hsl(230 30% 12% / 0.16);
+  --shadow-2xl: 0 24px 48px -12px hsl(230 30% 12% / 0.22);
+}
+
+/* -- Dark mode -------------------------------------------------- */
+/* Boardroom-at-night interpretation: deep slate background + cool */
+/* ink foreground + brighter institutional navy accent.            */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background:              oklch(0.16 0.014 240);    /* deep slate */
+  --foreground:              oklch(0.93 0.010 232);    /* cool near-white */
+
+  --card:                    oklch(0.20 0.014 240);
+  --card-foreground:         oklch(0.93 0.010 232);
+
+  --popover:                 oklch(0.20 0.014 240);
+  --popover-foreground:      oklch(0.93 0.010 232);
+
+  --primary:                 oklch(0.65 0.14 245);     /* brighter institutional navy */
+  --primary-foreground:      oklch(0.16 0.014 240);
+
+  --secondary:               oklch(0.24 0.014 240);
+  --secondary-foreground:    oklch(0.93 0.010 232);
+
+  --muted:                   oklch(0.24 0.014 240);
+  --muted-foreground:        oklch(0.70 0.014 232);
+
+  --accent:                  oklch(0.28 0.020 240);
+  --accent-foreground:       oklch(0.93 0.010 232);
+
+  --destructive:             oklch(0.68 0.20 25);
+  --destructive-foreground:  oklch(0.93 0.010 232);
+
+  --border:                  oklch(0.30 0.018 235);
+  --input:                   oklch(0.28 0.016 235);
+  --ring:                    oklch(0.65 0.14 245);
+
+  --sidebar:                 oklch(0.18 0.014 240);
+  --sidebar-foreground:      oklch(0.93 0.010 232);
+  --sidebar-primary:         oklch(0.65 0.14 245);
+  --sidebar-primary-foreground: oklch(0.16 0.014 240);
+  --sidebar-accent:          oklch(0.28 0.020 240);
+  --sidebar-accent-foreground: oklch(0.93 0.010 232);
+  --sidebar-border:          oklch(0.30 0.018 235);
+  --sidebar-ring:            oklch(0.65 0.14 245);
+
+  --chart-1:                 oklch(0.65 0.14 245);
+  --chart-2:                 oklch(0.65 0.10 220);
+  --chart-3:                 oklch(0.65 0.08 60);
+  --chart-4:                 oklch(0.65 0.12 145);
+  --chart-5:                 oklch(0.65 0.08 300);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background:              oklch(0.16 0.014 240);
+    --foreground:              oklch(0.93 0.010 232);
+    --card:                    oklch(0.20 0.014 240);
+    --card-foreground:         oklch(0.93 0.010 232);
+    --popover:                 oklch(0.20 0.014 240);
+    --popover-foreground:      oklch(0.93 0.010 232);
+    --primary:                 oklch(0.65 0.14 245);
+    --primary-foreground:      oklch(0.16 0.014 240);
+    --secondary:               oklch(0.24 0.014 240);
+    --secondary-foreground:    oklch(0.93 0.010 232);
+    --muted:                   oklch(0.24 0.014 240);
+    --muted-foreground:        oklch(0.70 0.014 232);
+    --accent:                  oklch(0.28 0.020 240);
+    --accent-foreground:       oklch(0.93 0.010 232);
+    --destructive:             oklch(0.68 0.20 25);
+    --destructive-foreground:  oklch(0.93 0.010 232);
+    --border:                  oklch(0.30 0.018 235);
+    --input:                   oklch(0.28 0.016 235);
+    --ring:                    oklch(0.65 0.14 245);
+
+    --sidebar:                 oklch(0.18 0.014 240);
+    --sidebar-foreground:      oklch(0.93 0.010 232);
+    --sidebar-primary:         oklch(0.65 0.14 245);
+    --sidebar-primary-foreground: oklch(0.16 0.014 240);
+    --sidebar-accent:          oklch(0.28 0.020 240);
+    --sidebar-accent-foreground: oklch(0.93 0.010 232);
+    --sidebar-border:          oklch(0.30 0.018 235);
+    --sidebar-ring:            oklch(0.65 0.14 245);
+
+    --chart-1:                 oklch(0.65 0.14 245);
+    --chart-2:                 oklch(0.65 0.10 220);
+    --chart-3:                 oklch(0.65 0.08 60);
+    --chart-4:                 oklch(0.65 0.12 145);
+    --chart-5:                 oklch(0.65 0.08 300);
+  }
+}

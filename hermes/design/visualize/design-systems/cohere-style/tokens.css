@@ -1,0 +1,408 @@
+/**
+ * design-systems/cohere-style/tokens.css
+ *
+ * Live-verified against the cohere.com surface family on 2026-05-27 —
+ * see `DESIGN.md` (frontmatter `verified-at`) for the URL list and the
+ * computed-style sources for every token.
+ *
+ * Canonical canvas: `both`. Cohere is multi-polarity by design — the
+ * marketing identity alternates between four canvases section-by-section,
+ * and there is no single dark-mode toggle. The four canvases:
+ *
+ *   1. Light marketing (`cohere.com`, `/pricing`, `/blog`) — pure-white
+ *      canvas `#FFFFFF` with hairline borders and near-black CTAs.
+ *   2. Warm editorial (`/about`, `/careers`) — soft-stone canvas
+ *      `#F0EEE9` with 3D-blob photographic decoration.
+ *   3. Polarity-locked dark bands — deep-green `#00211E` (`/command`),
+ *      royal-blue `#2D4CB9` (`/research`), navy `#061324` (`/north`
+ *      cards), and docs-black `#0F0F0F` (`docs.cohere.com`, `/404`).
+ *   4. Dashboard form canvas (`dashboard.cohere.com/welcome/login`) —
+ *      `#FAFAFA` with forest-green CTA at `#39594D`.
+ *
+ * The brand's chromatic identity is the tri-color gradient ribbon
+ * `coral → violet → action-blue`, not any single canvas. The ribbon
+ * appears as tab-indicator underlines, pricing-tier strokes, FAQ
+ * dividers, and carousel-progress bars. See the `--brand-gradient-
+ * ribbon-*` token family below for the documented stops.
+ *
+ * Dark-mode strategy: `:root` carries the white marketing canonical
+ * (the homepage anchor). `[data-theme="dark"]` carries the `docs-black`
+ * #0F0F0F variant — the brand's actual deployed near-black product
+ * surface (used on `docs.cohere.com` and the 404 page), not a
+ * synthesised lightness-inversion. Polarity-locked surfaces (the
+ * deep-green band, royal-blue research band, navy north cards,
+ * soft-stone editorial canvas) stay at `:root` values regardless
+ * of theme — they live as section-band fills, not as canvas toggles.
+ *
+ * Three Cohere proprietary typefaces are documented:
+ *   - CohereText (marquee h1, 72–96px display)
+ *   - Unica77 Cohere Web (everything else: body, headings, eyebrows)
+ *   - CohereVariable (blog wordmark only, narrower variable-axis cut)
+ * Each is reserved for a surface role; the brand never blurs the
+ * CohereText / Unica77 distinction.
+ *
+ * Brand colours are sacrosanct (AUTHORING.md "Brand colours …"):
+ * chromatic `--brand-*` tokens carry live-observed OKLCH values; do
+ * NOT introduce lifted -ink / -on-dark / -deep variants to win text
+ * contrast. The fix is the surface. Chroma-0 utility neutrals
+ * (`--muted-foreground`, `--brand-body-muted`) ARE retuned for AA on
+ * white — see the comment at each retune site for the exception
+ * rationale.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core --------------------------------------- */
+  --background: oklch(1 0 0);                        /* #FFFFFF — homepage marketing canvas */
+  --foreground: oklch(0.2478 0 0);                   /* #212121 — h1 ink, body */
+  --card: oklch(1 0 0);                              /* #FFFFFF — pricing tier-card body */
+  --card-foreground: oklch(0.2478 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2478 0 0);
+
+  --primary: oklch(0.2069 0.0098 285.5081);          /* #17171C — every solid CTA across marketing */
+  --primary-foreground: oklch(1 0 0);                /* white on near-black; 17.86:1 — trivial AA */
+  --secondary: oklch(1 0 0);                         /* white card-on-white pattern */
+  --secondary-foreground: oklch(0.2478 0 0);
+
+  --muted: oklch(0.9612 0 0);                        /* #F2F2F2 — pricing band wash + hairline */
+  /* --muted-foreground × --background lands at 4.06:1 with the live
+   * brand value oklch(0.5931 0 0) (#7E7E7E) — fails AA body by 0.44.
+   * The chroma-0 utility-neutral exception (AUTHORING.md "Brand
+   * identity vs utility neutrals") permits retuning here. Lifted to
+   * oklch(0.5650 0 0) = #767676, clearing at 4.56:1 against white.
+   * The brand's #7E7E7E live observation (cohere.com/north secondary
+   * explainer) was sampled against the deep-green band — passes
+   * easily on dark canvases. --brand-body-muted carries the same
+   * retuned value for the same reason. */
+  --muted-foreground: oklch(0.5650 0 0);             /* #767676 — utility-neutral, AA on white */
+
+  --accent: oklch(0.9493 0.0070 88.6436);            /* #F0EEE9 — warm-stone editorial accent surface */
+  --accent-foreground: oklch(0.2478 0 0);
+
+  --destructive: oklch(0.4815 0.1976 29.2339);       /* synthesised — Cohere does not surface an error red */
+  --destructive-foreground: oklch(1 0 0);            /* white × #B30000 = 7.20:1 */
+
+  --border: oklch(0.9612 0 0);                       /* #F2F2F2 — pricing tooltip border */
+  --input: oklch(0.9276 0.0058 264.5313);            /* #E5E7EB — dashboard input outline */
+  --ring: oklch(0.5785 0.1857 268.1837);             /* #4C6EE6 — action-blue focus ring */
+
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.2478 0 0);
+  --sidebar-primary: oklch(0.2069 0.0098 285.5081);  /* tracks --primary */
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9493 0.0070 88.6436);
+  --sidebar-accent-foreground: oklch(0.2478 0 0);
+  --sidebar-border: oklch(0.9276 0.0058 264.5313);
+  --sidebar-ring: oklch(0.5785 0.1857 268.1837);     /* tracks --ring */
+
+  /* Charts tuned to the brand's documented secondary palette: the
+   * gradient ribbon stops + research-blue + warm-mint accent. */
+  --chart-1: oklch(0.7248 0.1724 33.8588);           /* coral */
+  --chart-2: oklch(0.5887 0.1276 284.9797);          /* violet-mid */
+  --chart-3: oklch(0.5785 0.1857 268.1837);          /* action-blue */
+  --chart-4: oklch(0.7849 0.1324 161.5567);          /* ready-mint */
+  --chart-5: oklch(0.7426 0.1373 319.3420);          /* quartz-pink */
+
+  /* -- Radii ------------------------------------------------------ */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;
+  --brand-radius-pill: 32px;
+  --brand-radius-full: 9999px;
+
+  /* -- Typography ------------------------------------------------- */
+  /* Three proprietary families per DESIGN.md §3. The fallback chains
+   * are conservative humanist sans (NOT mono — CohereText is not
+   * monospaced, despite its compact aesthetic). */
+  --font-display: "CohereText", "Space Grotesk", Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Unica77 Cohere Web", "Unica77", Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-display-editorial: "CohereVariable", "CohereText", "Unica77 Cohere Web", Inter, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* -- Type scale ------------------------------------------------- */
+  --text-display: 96px;
+  --text-heading: 48px;
+  --text-title: 31px;
+  --text-base: 16px;
+  --leading-tight: 1;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* -- Shadows ---------------------------------------------------- */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* -- Brand-extras: primary lineage ----------------------------- */
+  /* Cohere documents one CTA black; no published pressed-state ladder.
+   * Marketing CTAs flip to white-on-dark when nested in dark cards,
+   * not a lifted near-black variant. */
+  --brand-cohere-black: oklch(0 0 0);
+  --brand-primary-press: oklch(0.2069 0.0098 285.5081);  /* same as --primary; no separate pressed step */
+
+  /* -- Brand-extras: documented secondary colours ----------------- */
+  /* Coral — category-pill fill, status indicator, footer slogan. Live:
+   * cohere.com/blog "All" chip; cohere.com agent-console READY dot.
+   * Fill-only across all sampled surfaces; never body text. */
+  --brand-coral: oklch(0.7248 0.1724 33.8588);            /* #FF7759 */
+  --brand-coral-soft: oklch(0.8225 0.1005 32.9018);       /* #FFAD9B — high-lightness anchor of from-coral-500 to-quartz-500 */
+
+  /* Action blue — only documented in-body link colour. Live:
+   * cohere.com/pricing tier-stroke terminal stop; cohere.com/blog
+   * "READ FULL ARTICLE →"; docs.cohere.com "GET STARTED →".
+   * Hue updated from the prior 260° to the live 268° — a warmer-violet
+   * cast that holds with the gradient-ribbon family. */
+  --brand-action-blue: oklch(0.5785 0.1857 268.1837);     /* #4C6EE6 */
+
+  /* Focus-ring routes to action-blue. Kept as a named alias so the
+   * preview-template's `outline: 2px solid var(--brand-focus-blue)`
+   * remains a stable consumer. */
+  --brand-focus-blue: oklch(0.5785 0.1857 268.1837);      /* alias of --brand-action-blue */
+
+  /* Violet-mid — the middle stop of the brand-ribbon gradient. Live:
+   * cohere.com/pricing computed `rgb(118, 112, 197)`. */
+  --brand-violet-mid: oklch(0.5887 0.1276 284.9797);      /* #7670C5 */
+
+  /* Quartz pink — warm anchor of the secondary `from-coral-500
+   * to-quartz-500` two-stop gradient on the homepage rounded-button
+   * cluster. Live: cohere.com computed `rgb(209, 142, 226)`. */
+  --brand-quartz-pink: oklch(0.7426 0.1373 319.3420);     /* #D18EE2 */
+
+  /* Lavender photo — the closing-band lavender on the homepage
+   * "Ready to put AI to work?" surface. Live: cohere.com section
+   * `background-color: rgb(155, 96, 170)`. The prior --brand-form-
+   * focus token misnamed this colour; renamed to the surface role. */
+  --brand-lavender-photo: oklch(0.5820 0.1272 319.2925);  /* #9B60AA */
+
+  /* Brand greens — two live values that previous tokens.css revs
+   * collapsed into one synthesised mid-shade (#36544D). Live keeps
+   * them separate; each lives on a distinct surface. */
+  --brand-deep-green-marketing: oklch(0.2230 0.0391 186.1723);   /* #00211E — /command band */
+  --brand-deep-green-dashboard: oklch(0.4352 0.0428 168.8022);   /* #39594D — dashboard.cohere.com Log in CTA */
+  --brand-deep-green-north: oklch(0.2636 0.0461 171.3884);       /* #062C22 — /north hero band */
+  /* Backward-compat alias. The preview-template consumes `--brand-
+   * deep-green` directly; the dispatcher's Step 3 inline pass will
+   * choose between -marketing and -dashboard per surface. Until then,
+   * the alias preserves stable token resolution. */
+  --brand-deep-green: oklch(0.2230 0.0391 186.1723);              /* alias of --brand-deep-green-marketing */
+
+  /* Dark navy — north-page agent-console panel + feature-block bg.
+   * Live: cohere.com/north sampled `rgb(6, 19, 36)`. Updated from
+   * the prior `oklch(0.2044 0.0412 250.1540)` to the live darker
+   * + cooler value. */
+  --brand-dark-navy: oklch(0.1851 0.0399 255.0451);       /* #061324 */
+
+  /* Research blue — full-bleed band on cohere.com/research. A darker
+   * action-blue cousin used at the bleed scale. */
+  --brand-research-blue: oklch(0.4624 0.1758 267.0077);   /* #2D4CB9 */
+
+  /* Ready mint — reserved for the status-on-dark accent inside the
+   * Financial Analysis Agent mockup. Not used elsewhere — keep
+   * status-dot only. */
+  --brand-ready-mint: oklch(0.7849 0.1324 161.5567);      /* #5DD39E */
+
+  /* -- Brand-extras: gradient ribbon stops ------------------------ */
+  /* The brand's signature chromatic moment is the three-stop
+   * horizontal gradient `coral → violet → action-blue`. The Tailwind
+   * source class is `from-coral-500 via-violet-500 to-blue-500`.
+   * Consumers compose the ribbon via `linear-gradient(to right,
+   * var(--brand-gradient-ribbon-coral), var(--brand-gradient-ribbon-
+   * violet), var(--brand-gradient-ribbon-blue))`. */
+  --brand-gradient-ribbon-coral: oklch(0.7248 0.1724 33.8588);    /* alias of --brand-coral */
+  --brand-gradient-ribbon-violet: oklch(0.5887 0.1276 284.9797);  /* alias of --brand-violet-mid */
+  --brand-gradient-ribbon-blue: oklch(0.5785 0.1857 268.1837);    /* alias of --brand-action-blue */
+
+  /* -- Brand-extras: canvas + neutrals ---------------------------- */
+  /* Warm-stone editorial canvas — /about + /careers. Lifted from the
+   * prior `oklch(0.9432 0.0070 88.6440)` (#EFEBE2) to the live value. */
+  --brand-soft-stone: oklch(0.9493 0.0070 88.6436);       /* #F0EEE9 */
+
+  /* Form canvas — dashboard.cohere.com surrounding canvas + input
+   * field background. Also doubles as the soft-white anchor on
+   * "deal sizes / pipeline momentum" callout pills in the homepage
+   * Financial Analysis Agent mockup. */
+  --brand-form-canvas: oklch(0.9851 0 0);                 /* #FAFAFA */
+
+  /* Secondary ink — cookie-banner secondary text + topnav link hover. */
+  --brand-secondary-ink: oklch(0.3012 0 0);               /* #2E2E2E */
+
+  /* Body-muted utility neutral. Live brand observation is #7E7E7E,
+   * sampled on /north secondary explainer (dark canvas). Against
+   * white this lands at 4.06:1 — sub-AA body. Routed to the lifted
+   * neutral oklch(0.5650 0 0) = #767676 (the same value as
+   * --muted-foreground) so light-canvas consumers clear AA. The
+   * brand-faithful live value is preserved on dark canvases — see
+   * the [data-theme="dark"] block which carries the higher-L variant
+   * for AA on near-black. */
+  --brand-body-muted: oklch(0.5650 0 0);                  /* #767676 — utility-neutral, AA on white */
+
+  /* Slate retuned from the prior cool-violet (oklch(0.5200 0.0321
+   * 285.3362)) to a true achromatic mid-gray. Live observation on
+   * cohere.com (per DESIGN.md drift table) is `#7E7E7E` with chroma
+   * 0 — the prior cool-violet tint is not on-brand. The chroma-0
+   * utility exception applies here too; routed to the same #767676
+   * value so light-canvas consumers clear AA. */
+  --brand-slate: oklch(0.5650 0 0);                       /* #767676 — achromatic, retuned for AA */
+
+  /* Documented pastel-on-dark accents (docs entry tiles + dashboard
+   * decoration). Preserved from upstream — DESIGN.md drift report
+   * keeps these as "matches live observation closely enough." */
+  --brand-pale-green: oklch(0.9748 0.0296 139.1003);
+  --brand-pale-blue: oklch(0.9700 0.0140 268.4943);
+
+  /* -- Brand-extras: hairlines + card borders --------------------- */
+  --brand-hairline-soft: oklch(0.9612 0 0);               /* #F2F2F2 — section-separator on light */
+  --brand-hairline-strong: oklch(0.8941 0.0059 264.5303); /* #DADCE0 — dashboard input divider */
+  --brand-card-border: oklch(0.9612 0 0);                 /* #F2F2F2 — alias of hairline-soft */
+  --brand-card-border-strong: oklch(0.9276 0.0058 264.5313);  /* #E5E7EB — topnav hover border */
+  --brand-card-border-input: oklch(0.8941 0.0059 264.5303);   /* #DADCE0 — dashboard OAuth tile border */
+  --brand-border-light: oklch(0.9276 0.0058 264.5313);    /* #E5E7EB — alias */
+
+  /* -- Brand-extras: polarity-locked surfaces --------------------- */
+  /* These surfaces stay at their :root value regardless of theme
+   * (AUTHORING.md "Polarity-locked tokens: never lift in dark").
+   * Each lives as a section-band fill on a specific cohere.com page;
+   * the brand transitions BETWEEN them rather than inverting them. */
+  --brand-canvas-night: oklch(0.2069 0.0098 285.5081);    /* #17171C — announce bar, footer band */
+  --brand-canvas-deep-green: oklch(0.2230 0.0391 186.1723);  /* #00211E — /command band, locked */
+  --brand-canvas-docs-black: oklch(0.1684 0 0);           /* #0F0F0F — docs canvas + 404 surface */
+  --brand-canvas-research-blue: oklch(0.4624 0.1758 267.0077);  /* #2D4CB9 — /research band, locked */
+  --brand-on-dark: oklch(1 0 0);                          /* white on every locked-dark surface */
+  --brand-on-dark-soft: oklch(0.9851 0 0);                /* #FAFAFA — secondary callout pills on dark */
+  --brand-on-dark-faint: oklch(0.7800 0 0);               /* mid-gray inks against locked-dark surfaces */
+  --brand-pricing-name-on-dark: oklch(0.7248 0.1724 33.8588);  /* coral tier label on dark-tier card */
+}
+
+/* -- Dark theme --------------------------------------------------
+ * Cohere's actual deployed near-black product surface is the
+ * `docs.cohere.com` + 404 docs-black `#0F0F0F`, not a synthesised
+ * lightness-inversion of the marketing white. The product surface
+ * (dashboard.cohere.com) uses near-white forms, so there is no
+ * documented dark-mode-of-the-dashboard variant — this block
+ * synthesises the docs-black canvas as the catalog's dark choice.
+ *
+ * Polarity-locked extras (--brand-canvas-deep-green, --brand-canvas-
+ * docs-black, --brand-canvas-research-blue, --brand-soft-stone,
+ * --brand-on-dark, --brand-gradient-ribbon-*) intentionally do NOT
+ * appear here — they live on canvas-locked surfaces, not on the
+ * theme-flipping editorial body.
+ * --------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* shadcn-semantic core — sampled from docs.cohere.com canvas */
+  --background: oklch(0.1684 0 0);                   /* #0F0F0F — docs canvas */
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2069 0.0098 285.5081);             /* #17171C — elevated card, brand near-black */
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2069 0.0098 285.5081);
+  --popover-foreground: oklch(1 0 0);
+
+  --primary: oklch(1 0 0);                           /* white CTA on dark (white outline-pill) */
+  --primary-foreground: oklch(0.1684 0 0);
+
+  --secondary: oklch(0.2069 0.0098 285.5081);
+  --secondary-foreground: oklch(1 0 0);
+
+  --muted: oklch(0.2400 0.0098 285.5081);            /* one step above card */
+  /* Lifted utility neutral — #~B7B7B7 vs #0F0F0F lands at 8.61:1
+   * (clears AA Large + small body). Brand-faithful to the docs-
+   * sidebar mid-gray section-label tone. */
+  --muted-foreground: oklch(0.7500 0 0);
+
+  --accent: oklch(0.2400 0.0098 285.5081);
+  --accent-foreground: oklch(1 0 0);
+
+  --destructive: oklch(0.4815 0.1976 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.2700 0 0);                       /* faint white-overlay on dark */
+  --input: oklch(0.2700 0 0);
+  --ring: oklch(0.5785 0.1857 268.1837);             /* action-blue preserved as focus ring */
+
+  --sidebar: oklch(0.2069 0.0098 285.5081);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(1 0 0);
+  --sidebar-primary-foreground: oklch(0.1684 0 0);
+  --sidebar-accent: oklch(0.2400 0.0098 285.5081);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.2700 0 0);
+  --sidebar-ring: oklch(0.5785 0.1857 268.1837);
+
+  /* Charts unchanged — gradient-ribbon stops are brand identity. */
+  --chart-1: oklch(0.7248 0.1724 33.8588);
+  --chart-2: oklch(0.5887 0.1276 284.9797);
+  --chart-3: oklch(0.5785 0.1857 268.1837);
+  --chart-4: oklch(0.7849 0.1324 161.5567);
+  --chart-5: oklch(0.7426 0.1373 319.3420);
+
+  /* Utility-neutral brand-extras lifted for AA on docs-black. The
+   * brand's live `#7E7E7E` body-muted observation was sampled on
+   * `/north` (deep-green canvas) — lifting against `#0F0F0F`
+   * preserves the same "achromatic mid-gray body-muted" intent at
+   * the higher lightness the new canvas requires.
+   * Polarity-locked extras (--brand-canvas-*, --brand-on-dark) stay
+   * at :root. */
+  --brand-body-muted: oklch(0.7500 0 0);
+  --brand-slate: oklch(0.7500 0 0);
+  --brand-secondary-ink: oklch(0.8500 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1684 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2069 0.0098 285.5081);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2069 0.0098 285.5081);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(1 0 0);
+    --primary-foreground: oklch(0.1684 0 0);
+    --secondary: oklch(0.2069 0.0098 285.5081);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.2400 0.0098 285.5081);
+    --muted-foreground: oklch(0.7500 0 0);
+    --accent: oklch(0.2400 0.0098 285.5081);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.4815 0.1976 29.2339);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.2700 0 0);
+    --input: oklch(0.2700 0 0);
+    --ring: oklch(0.5785 0.1857 268.1837);
+    --sidebar: oklch(0.2069 0.0098 285.5081);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(1 0 0);
+    --sidebar-primary-foreground: oklch(0.1684 0 0);
+    --sidebar-accent: oklch(0.2400 0.0098 285.5081);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.2700 0 0);
+    --sidebar-ring: oklch(0.5785 0.1857 268.1837);
+
+    --chart-1: oklch(0.7248 0.1724 33.8588);
+    --chart-2: oklch(0.5887 0.1276 284.9797);
+    --chart-3: oklch(0.5785 0.1857 268.1837);
+    --chart-4: oklch(0.7849 0.1324 161.5567);
+    --chart-5: oklch(0.7426 0.1373 319.3420);
+
+    --brand-body-muted: oklch(0.7500 0 0);
+    --brand-slate: oklch(0.7500 0 0);
+    --brand-secondary-ink: oklch(0.8500 0 0);
+  }
+}

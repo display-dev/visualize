@@ -1,0 +1,1115 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000000'/%3E%3Cpath d='M11 7l5 0 0 18-2.2 0 0-15.6-2.8 0z M19 13.5l3 0 0 11.5-3 0z M14 17l4 0 0 1.5-4 0z' fill='%230070d1'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Three-canvas chapter system (black + white + blue), pill CTAs, 8px-radius tiles, PlayStation SST display at weight 300.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === PlayStation-style preview shell — three-canvas chapter system.
+   Signature surface: a dark hero band with a 4-up tile grid carrying
+   abstract gradient placeholders for Halcyon team training modules /
+   KB sections (NOT game covers). Pills at 9999px radius. Weight-300
+   display. 8px tile radius. The brand-extras dark surface family
+   (--brand-canvas-dark, --brand-surface-dark-elevated,
+   --brand-surface-dark-card) carries the signature regardless of
+   light/dark theme — they're polarity-locked brand voltage. Demo
+   sections (swatches, ladder, type, components, pricing) flip with
+   theme. Halcyon-themed neutral content; no real names. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'PlayStation SST', 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -- Local preview-only tokens -- */
+:root {
+  --preview-tile-shadow: rgba(0, 0, 0, 0.32);
+  --preview-focus-ring: var(--ring);
+}
+[data-theme="dark"] {
+  --preview-tile-shadow: rgba(0, 0, 0, 0.6);
+}
+
+/* -- Top nav: dark canvas, dropped on the hero band -- */
+.topnav {
+  position: relative;
+  z-index: 5;
+  background: var(--brand-canvas-dark);
+  color: var(--brand-on-dark);
+}
+.topnav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1.5rem;
+  height: 48px;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.brand-glyph {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background: var(--primary);
+  color: var(--brand-on-dark);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  flex: 1;
+  margin-left: 1.5rem;
+  color: var(--brand-on-dark);
+}
+.topnav-links a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.86;
+  white-space: nowrap;
+}
+.topnav-links a:hover { opacity: 1; }
+.topnav-links a[data-active] { opacity: 1; }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; }
+@media (max-width: 960px) { .topnav-links { display: none; } }
+
+/* -- Buttons: pill geometry (9999px radius), 48px min height -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--brand-radius-full);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.045em;
+  line-height: 1.25;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--preview-focus-ring);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-pressed); }
+.btn[data-variant="commerce"] {
+  background: var(--brand-commerce);
+  color: var(--brand-on-commerce);
+}
+.btn[data-variant="commerce"]:hover { background: var(--brand-commerce-pressed); }
+.btn[data-variant="ghost-on-dark"] {
+  background: transparent;
+  color: var(--brand-on-dark);
+  border-color: rgba(255, 255, 255, 0.32);
+}
+.btn[data-variant="ghost-on-dark"]:hover { background: rgba(255, 255, 255, 0.08); }
+.btn[data-variant="ghost-on-light"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--brand-ash-light);
+}
+.btn[data-variant="ghost-on-light"]:hover { background: var(--brand-hairline-light); }
+.btn[data-variant="ghost-on-blue"] {
+  background: transparent;
+  color: var(--brand-on-dark);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+.btn[data-variant="ghost-on-blue"]:hover { background: rgba(255, 255, 255, 0.12); }
+.btn[data-size="sm"] {
+  min-height: 36px;
+  padding: 0.4rem 1rem;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Filter / tab pills -- */
+.pill-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0.4rem 1rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--brand-surface-filter);
+  color: var(--brand-body-light);
+  border: 1px solid transparent;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-decoration: none;
+}
+.chip:focus-visible {
+  outline: 2px solid var(--preview-focus-ring);
+  outline-offset: 3px;
+}
+.chip[data-active] {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+.chip[data-on="dark"] {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--brand-on-dark);
+}
+.chip[data-on="dark"][data-active] {
+  background: var(--brand-on-dark);
+  color: var(--brand-canvas-dark);
+}
+
+/* -- Hero band: dark canvas signature ----------------------------------- */
+.hero {
+  position: relative;
+  background: var(--brand-canvas-dark);
+  color: var(--brand-on-dark);
+  overflow: hidden;
+}
+.hero::after {
+  /* subtle vignette toward the bottom — the documented section gradient */
+  content: "";
+  position: absolute;
+  inset: 60% 0 0 0;
+  background: linear-gradient(180deg, transparent 0%, var(--brand-surface-dark-elevated) 100%);
+  pointer-events: none;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.hero-eyebrow {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+  margin: 0;
+}
+.hero-display {
+  font-family: inherit;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.005em;
+  color: var(--brand-on-dark);
+  margin: 0;
+  max-width: 18ch;
+}
+.hero-lede {
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-on-dark);
+  opacity: 0.86;
+  max-width: 52ch;
+  margin: 0;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+/* -- Signature surface: 4-up tile grid (abstract gradient placeholders) -- */
+.tile-band {
+  position: relative;
+  z-index: 2;
+  background: var(--brand-canvas-dark);
+  padding: 0 1.5rem 6rem;
+}
+.tile-band-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.tile-band-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.tile-band-title {
+  font-family: inherit;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+  color: var(--brand-on-dark);
+  margin: 0;
+  max-width: 24ch;
+}
+.tile-band-filter { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 1080px) { .tile-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px) { .tile-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .tile-grid { grid-template-columns: 1fr; } }
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--brand-surface-dark-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  position: relative;
+}
+.tile:focus-visible {
+  outline: 2px solid var(--preview-focus-ring);
+  outline-offset: 3px;
+}
+.tile-art {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.tile-art::after {
+  /* faint inset hairline for definition against the dark surface */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+}
+.tile-art[data-art="onboarding"] {
+  background:
+    radial-gradient(70% 80% at 22% 28%, oklch(0.65 0.18 254) 0%, transparent 62%),
+    radial-gradient(60% 70% at 78% 72%, oklch(0.42 0.16 252) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.30 0.10 250) 0%, oklch(0.18 0.04 258) 100%);
+}
+.tile-art[data-art="incidents"] {
+  background:
+    radial-gradient(65% 75% at 30% 80%, oklch(0.55 0.20 36) 0%, transparent 60%),
+    radial-gradient(50% 60% at 72% 28%, oklch(0.35 0.15 38) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.22 0.06 38) 0%, oklch(0.18 0.04 32) 100%);
+}
+.tile-art[data-art="design-crit"] {
+  background:
+    radial-gradient(70% 80% at 70% 30%, oklch(0.62 0.14 88) 0%, transparent 60%),
+    radial-gradient(55% 65% at 22% 78%, oklch(0.78 0.16 72) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.32 0.08 70) 0%, oklch(0.20 0.05 60) 100%);
+}
+.tile-art[data-art="security"] {
+  background:
+    radial-gradient(72% 80% at 26% 30%, oklch(0.48 0.14 165) 0%, transparent 60%),
+    radial-gradient(58% 68% at 78% 76%, oklch(0.32 0.10 162) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.24 0.06 168) 0%, oklch(0.16 0.04 172) 100%);
+}
+.tile-art[data-art="sprints"] {
+  background:
+    radial-gradient(68% 78% at 22% 72%, oklch(0.58 0.16 290) 0%, transparent 60%),
+    radial-gradient(54% 64% at 80% 26%, oklch(0.42 0.13 288) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.28 0.08 286) 0%, oklch(0.18 0.05 290) 100%);
+}
+.tile-art[data-art="hiring"] {
+  background:
+    radial-gradient(70% 80% at 78% 24%, oklch(0.52 0.16 320) 0%, transparent 60%),
+    radial-gradient(56% 66% at 24% 78%, oklch(0.36 0.12 322) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.24 0.07 320) 0%, oklch(0.17 0.05 324) 100%);
+}
+.tile-art[data-art="planning"] {
+  background:
+    radial-gradient(68% 80% at 28% 26%, oklch(0.6 0.14 220) 0%, transparent 60%),
+    radial-gradient(54% 64% at 76% 78%, oklch(0.38 0.12 218) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.26 0.07 222) 0%, oklch(0.18 0.04 224) 100%);
+}
+.tile-art[data-art="research"] {
+  background:
+    radial-gradient(72% 82% at 24% 78%, oklch(0.5 0.14 12) 0%, transparent 60%),
+    radial-gradient(56% 66% at 78% 24%, oklch(0.32 0.10 14) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.22 0.06 16) 0%, oklch(0.16 0.04 18) 100%);
+}
+.tile-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--brand-radius-full);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
+.tile-badge[data-tone="commerce"] { background: var(--brand-commerce); color: var(--brand-on-commerce); }
+.tile-badge[data-tone="ghost"] {
+  background: var(--brand-surface-dark-elevated);
+  color: var(--brand-on-dark);
+}
+.tile-body { padding: 1rem 1.25rem 1.25rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.tile-meta {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--brand-on-dark-mute);
+}
+.tile-title {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--brand-on-dark);
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* -- Section frame (theme-flipping demo bands) -- */
+.section { padding: 5rem 1.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.eyebrow {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-mute-light);
+  margin: 0 0 0.75rem;
+}
+.section-title {
+  font-family: inherit;
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  font-weight: 300;
+  letter-spacing: 0.005em;
+  line-height: 1.15;
+  color: var(--foreground);
+  margin: 0 0 0.5rem;
+  max-width: 22ch;
+}
+.section-lede {
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-body-light);
+  max-width: 56ch;
+  margin: 0 0 2.5rem;
+}
+
+/* -- Color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-light);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--brand-hairline-light);
+}
+.swatch-role {
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mute-light);
+}
+.swatch-name {
+  font-family: 'PlayStation SST', 'Inter', system-ui, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--foreground);
+  word-break: break-all;
+}
+
+/* -- Surface ladder (three locked canvas modes) -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--radius-md);
+  padding: 2.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+}
+.ladder-step[data-step="dark"] {
+  background: var(--brand-canvas-dark);
+  color: var(--brand-on-dark);
+}
+.ladder-step[data-step="light"] {
+  background: var(--brand-canvas-light);
+  color: oklch(0 0 0);
+  border: 1px solid var(--brand-hairline-light);
+}
+.ladder-step[data-step="blue"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.ladder-num {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ladder-name {
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 0.005em;
+  line-height: 1.15;
+}
+.ladder-role {
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: auto;
+}
+.ladder-step[data-step="dark"] .ladder-num,
+.ladder-step[data-step="dark"] .ladder-role { color: var(--brand-on-dark-mute); }
+/* Locked-white ladder step — labels must use an always-dark ink because
+ * the step's white surface doesn't flip with theme. Using a theme-flipping
+ * token (--brand-body-light, --brand-mute-light) inverts contrast in dark
+ * mode because the override flips the ink to a light grey while the
+ * surface stays white. */
+.ladder-step[data-step="light"] .ladder-num,
+.ladder-step[data-step="light"] .ladder-role { color: oklch(0 0 0 / 0.7); }
+.ladder-step[data-step="blue"] .ladder-num,
+.ladder-step[data-step="blue"] .ladder-role { color: var(--primary-foreground); }
+
+/* -- Type stack -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--brand-hairline-light);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mute-light);
+}
+.type-display { font-family: inherit; font-size: 48px; font-weight: 300; letter-spacing: -0.005em; line-height: 1.05; color: var(--foreground); }
+.type-heading { font-family: inherit; font-size: 36px; font-weight: 300; letter-spacing: 0.005em; line-height: 1.15; color: var(--foreground); }
+.type-title { font-family: inherit; font-size: 18px; font-weight: 600; letter-spacing: 0; line-height: 1.3; color: var(--foreground); }
+.type-body { font-family: inherit; font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: 0.005em; color: var(--brand-body-light); }
+.type-button { font-family: inherit; font-size: 14px; font-weight: 700; letter-spacing: 0.045em; line-height: 1.25; color: var(--foreground); }
+.type-caption { font-family: inherit; font-size: 12px; font-weight: 500; letter-spacing: 0; line-height: 1.5; color: var(--brand-mute-light); }
+
+/* -- Component vocabulary -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.cmp-stack { display: flex; flex-direction: column; gap: 2rem; }
+.cmp-block { display: flex; flex-direction: column; gap: 0.75rem; }
+.cmp-block-label {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mute-light);
+}
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  line-height: 1.5;
+}
+.badge[data-tone="commerce"] { background: var(--brand-commerce); color: var(--brand-on-commerce); }
+.badge[data-tone="ghost-on-light"] {
+  background: var(--brand-hairline-light);
+  color: var(--foreground);
+}
+
+/* -- Pricing tiers -- */
+.pricing-band { background: var(--card); }
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--background);
+  border: 1px solid var(--brand-hairline-light);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.pricing-card[data-featured] {
+  border-color: var(--primary);
+  border-width: 2px;
+}
+.pricing-name {
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 0.005em;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-price {
+  font-family: inherit;
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 0;
+  color: var(--foreground);
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  line-height: 1;
+}
+.pricing-tagline {
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--brand-body-light);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 3em;
+}
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--brand-hairline-light);
+  padding-top: 1.25rem;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--brand-body-light);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.75rem; line-height: 1.5; }
+.pricing-features li::before {
+  content: "›";
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 1rem;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* -- Blue closing band (the system's "we're done" anchor) -- */
+.blue-band {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 5rem 1.5rem 4rem;
+  text-align: center;
+}
+.blue-band-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.blue-band-eyebrow {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary-foreground);
+  margin: 0;
+}
+.blue-band-title {
+  font-family: inherit;
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  font-weight: 300;
+  letter-spacing: 0.005em;
+  line-height: 1.15;
+  color: var(--primary-foreground);
+  margin: 0 0 0.25rem;
+  max-width: 22ch;
+}
+.blue-band-lede {
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--primary-foreground);
+  max-width: 52ch;
+  margin: 0 0 1.25rem;
+}
+
+/* -- Footer: blue surface anchor -- */
+.footer {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 3rem 1.5rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline {
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--primary-foreground);
+  margin: 0;
+}
+.footer-col-title {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--primary-foreground);
+  margin: 0 0 0.75rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a {
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--primary-foreground);
+  text-decoration: none;
+}
+.footer-list a:hover { text-decoration: underline; }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.32);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--primary-foreground);
+  letter-spacing: 0.03em;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true">H</span>
+      __DESIGN_SYSTEM_NAME__
+    </a>
+    <div class="topnav-links">
+      <a href="#" data-active>Modules</a>
+      <a href="#">Library</a>
+      <a href="#">Subscriptions</a>
+      <a href="#">News</a>
+      <a href="#">Support</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="btn" data-variant="ghost-on-dark" data-size="sm" type="button">Sign in</button>
+      <button class="btn" data-variant="primary" data-size="sm" type="button">Get started</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">__DESIGN_SYSTEM_NAME__ · token surface</p>
+    <h1 class="hero-display">Three canvases. One quiet system.</h1>
+    <p class="hero-lede">A token-surface preview rendered against the design system. Black, white, and a single saturated blue stack as full-bleed chapters; the proprietary display face holds at weight 300 so the chrome stays out of the way of the content.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" type="button">Open the catalogue</button>
+      <button class="btn" data-variant="ghost-on-dark" type="button">Read the docs</button>
+    </div>
+  </div>
+</header>
+
+<section class="tile-band" aria-label="Module grid">
+  <div class="tile-band-inner">
+    <div class="tile-band-head">
+      <h2 class="tile-band-title">The Halcyon team's training library, indexed.</h2>
+      <div class="tile-band-filter pill-row">
+        <button class="chip" data-on="dark" data-active type="button">All</button>
+        <button class="chip" data-on="dark" type="button">Engineering</button>
+        <button class="chip" data-on="dark" type="button">Design</button>
+        <button class="chip" data-on="dark" type="button">Operations</button>
+      </div>
+    </div>
+
+    <div class="tile-grid">
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="onboarding" aria-hidden="true">
+          <span class="tile-badge">New</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">Module · Engineering</span>
+          <h3 class="tile-title">Onboarding for the on-call rotation</h3>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="incidents" aria-hidden="true">
+          <span class="tile-badge" data-tone="commerce">Updated</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">Runbook · SRE</span>
+          <h3 class="tile-title">Incident response, end to end</h3>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="design-crit" aria-hidden="true">
+          <span class="tile-badge" data-tone="ghost">Weekly</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">Ritual · Design</span>
+          <h3 class="tile-title">Design crit, Thursdays at 14:00</h3>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="security" aria-hidden="true">
+          <span class="tile-badge" data-tone="ghost">Required</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">Compliance · Security</span>
+          <h3 class="tile-title">Annual security refresher</h3>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="sprints" aria-hidden="true">
+          <span class="tile-badge" data-tone="ghost">Cycle 14</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">Planning · Product</span>
+          <h3 class="tile-title">Sprint planning, the short version</h3>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="hiring" aria-hidden="true">
+          <span class="tile-badge" data-tone="ghost">Hiring</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">People · Hiring</span>
+          <h3 class="tile-title">Interview loop, by role</h3>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="planning" aria-hidden="true">
+          <span class="tile-badge" data-tone="ghost">Q3</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">Strategy · Leadership</span>
+          <h3 class="tile-title">Quarterly planning, the long version</h3>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="research" aria-hidden="true">
+          <span class="tile-badge" data-tone="ghost">Research</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">Discovery · Product</span>
+          <h3 class="tile-title">Customer interviews, synthesised</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · color</p>
+    <h2 class="section-title">Two surfaces. One action color.</h2>
+    <p class="section-lede">PlayStation Blue is the universal primary; commerce orange handles store actions; everything else holds in black, white, and a small ink ladder. Every chip resolves from <code style="font-family:var(--font-mono); font-size:0.875em;">tokens.css</code>.</p>
+    <div class="swatch-grid" aria-label="Color swatches">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Action</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-primary-pressed);"></div><div class="swatch-role">Action</div><div class="swatch-name">--brand-primary-pressed</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-primary-active);"></div><div class="swatch-role">Action</div><div class="swatch-name">--brand-primary-active</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-commerce);"></div><div class="swatch-role">Commerce</div><div class="swatch-name">--brand-commerce</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-dark);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-dark-elevated);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-dark-elevated</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-dark-card);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-dark-card</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-light);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-light</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ps-plus-gold-start);"></div><div class="swatch-role">Tier</div><div class="swatch-name">--brand-ps-plus-gold-start</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ps-plus-gold-mid);"></div><div class="swatch-role">Tier</div><div class="swatch-name">--brand-ps-plus-gold-mid</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ps-plus-gold-end);"></div><div class="swatch-role">Tier</div><div class="swatch-name">--brand-ps-plus-gold-end</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-warning);"></div><div class="swatch-role">State</div><div class="swatch-name">--brand-warning</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section pricing-band" aria-label="Surface ladder">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · surface</p>
+    <h2 class="section-title">Three canvas modes, alternating.</h2>
+    <p class="section-lede">Black for editorial product moments; white for utility surfaces; PlayStation Blue for the action moment of the page. Each band runs edge to edge; the section transition is the canvas change.</p>
+    <div class="ladder">
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">Chapter 1</span>
+        <span class="ladder-name">Canvas dark</span>
+        <span class="ladder-role">Hero · tile grid · footer wordmark</span>
+      </div>
+      <div class="ladder-step" data-step="light">
+        <span class="ladder-num">Chapter 2</span>
+        <span class="ladder-name">Canvas light</span>
+        <span class="ladder-role">Library listing · support · news strip</span>
+      </div>
+      <div class="ladder-step" data-step="blue">
+        <span class="ladder-num">Chapter 3</span>
+        <span class="ladder-name">Canvas blue</span>
+        <span class="ladder-role">Closing band · footer · action moment</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · type · components</p>
+    <h2 class="section-title">Weight 300 is the voice.</h2>
+    <p class="section-lede">Display tier holds at weight 300; chrome at weight 700; body at weight 400 with 1.5 line-height. The contrast between feather-light display and heavy CTA gives the system its editorial gaming-magazine feel.</p>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Quietly shipping.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">The team ships on Thursdays.</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Module title, 18px, weight 600.</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy at 16 pixels, line-height 1.5. The light display weight and the heavy button weight bracket every chrome line.</span></div>
+        <div class="type-row"><span class="type-label">Button</span><span class="type-button">PRIMARY CTA · 14 / 700 / +0.045em</span></div>
+        <div class="type-row"><span class="type-label">Caption</span><span class="type-caption">Footer / metadata · 12 / 500</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div class="cmp-block">
+          <span class="cmp-block-label">Buttons · 9999px radius, 48px height</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" type="button">Primary</button>
+            <button class="btn" data-variant="commerce" type="button">Commerce</button>
+            <button class="btn" data-variant="ghost-on-light" type="button">Secondary</button>
+          </div>
+        </div>
+        <div class="cmp-block">
+          <span class="cmp-block-label">Filter chips · light canvas</span>
+          <div class="cmp-row">
+            <button class="chip" data-active type="button">All</button>
+            <button class="chip" type="button">Coming Soon</button>
+            <button class="chip" type="button">Recently Released</button>
+            <button class="chip" type="button">Subscriptions</button>
+          </div>
+        </div>
+        <div class="cmp-block">
+          <span class="cmp-block-label">Badges · pill, 11px / 700</span>
+          <div class="cmp-row">
+            <span class="badge">New</span>
+            <span class="badge" data-tone="commerce">Updated</span>
+            <span class="badge" data-tone="ghost-on-light">Required</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pricing-band" aria-label="Pricing">
+  <div class="section-inner">
+    <h2 class="section-title" style="text-align: center; max-width: 22ch; margin: 0 auto 1rem;">Three plans, no seat tax.</h2>
+    <p class="section-lede" style="text-align: center; margin-left: auto; margin-right: auto;">Token-surface previews stay free; the team and org-wide plans pick up custom quotas and procurement paperwork.</p>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">Personal use, weekend explorations, and reading-room access.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <button class="btn" data-variant="ghost-on-light" type="button">Start free</button>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">Small teams shipping into production with a shared catalogue.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+          <li>Production SLA</li>
+        </ul>
+        <button class="btn" data-variant="primary" type="button">Start a team</button>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">Procurement-ready paperwork, dedicated success, and regional residency.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota and region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <button class="btn" data-variant="ghost-on-light" type="button">Talk to us</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blue-band" aria-label="Closing band">
+  <div class="blue-band-inner">
+    <p class="blue-band-eyebrow">__DESIGN_SYSTEM_NAME__</p>
+    <h2 class="blue-band-title">The action moment of the page.</h2>
+    <p class="blue-band-lede">PlayStation Blue is the universal primary and the closing canvas. One full-bleed blue band per page; this is it.</p>
+    <div class="hero-ctas" style="justify-content: center;">
+      <button class="btn" data-variant="ghost-on-blue" type="button">Open the catalogue</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#" style="color: var(--primary-foreground);">
+        <span class="brand-glyph" aria-hidden="true" style="background: var(--primary-foreground); color: var(--primary);">H</span>
+        __DESIGN_SYSTEM_NAME__
+      </a>
+      <p class="footer-tagline">A token-surface preview rendered against the three-canvas chapter system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Catalogue</p>
+      <ul class="footer-list"><li><a href="#">Modules</a></li><li><a href="#">Runbooks</a></li><li><a href="#">Rituals</a></li><li><a href="#">Library</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list"><li><a href="#">Docs</a></li><li><a href="#">Changelog</a></li><li><a href="#">Research</a></li><li><a href="#">Status</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">app.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Press</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.25</span>
+    <span>three-canvas · pill CTA · weight-300 display · 8px tile</span>
+  </div>
+</footer>
+
+</body>
+</html>

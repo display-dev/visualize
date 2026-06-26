@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<!-- Grunge Collage preview shell · spec-derived from temp/refs/grunge-collage/raw.md
+     Signature mockup: Hero Banner with distressed text block + central halftone
+     graphic + brush-script overlay. All distress effects are CSS-only and gated
+     by prefers-reduced-motion to disable jitter / drift / flicker. -->
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F0EAD6'/%3E%3Crect x='2' y='10' width='28' height='12' fill='%23DC143C'/%3E%3Crect x='6' y='12' width='2' height='8' fill='%23F0EAD6'/%3E%3Crect x='10' y='12' width='2' height='8' fill='%23F0EAD6'/%3E%3Crect x='14' y='12' width='2' height='8' fill='%23F0EAD6'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — preview">
+<meta property="og:description" content="Grunge collage register — punk-zine paper, charcoal ink, crimson banners, brush-script overlays.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Permanent+Marker&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Grunge Collage preview shell === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Global paper-grit overlay — fixed, non-interactive. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  background-image:
+    radial-gradient(circle at 17% 23%, var(--brand-hairline-soft) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 73% 81%, var(--brand-hairline-soft) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 42% 67%, var(--brand-hairline-soft) 0.3px, transparent 0.3px),
+    radial-gradient(circle at 89% 12%, var(--brand-hairline-soft) 0.4px, transparent 0.4px);
+  background-size: 4px 4px, 5px 5px, 3px 3px, 6px 6px;
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+}
+
+.page { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+/* Display register — Oswald / Impact heavy block. */
+.display-block {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  line-height: 1.0;
+}
+.mono {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* === Hero Banner — crimson edge-to-edge with mono repeat === */
+.hero-banner {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  padding: 0.5rem 0;
+  overflow: hidden;
+  position: relative;
+  border-top: var(--border-width) solid var(--foreground);
+  border-bottom: var(--border-width) solid var(--foreground);
+}
+.hero-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 3px,
+      var(--brand-canvas-ink) 3px 3.5px,
+      transparent 3.5px 7px
+    );
+  opacity: 0.25;
+  mix-blend-mode: multiply;
+}
+.hero-banner .scroll-track {
+  display: flex;
+  gap: 2.5rem;
+  white-space: nowrap;
+  animation: banner-scroll 28s linear infinite, banner-jitter 0.18s steps(2) infinite;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.hero-banner .scroll-track span::before { content: "▲ "; }
+@keyframes banner-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes banner-jitter {
+  0%   { transform: translateX(0)    translateY(0); }
+  50%  { transform: translateX(-50%) translateY(-1px); }
+  100% { transform: translateX(0)    translateY(1px); }
+}
+
+/* === Masthead bar === */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: var(--border-width) solid var(--foreground);
+  margin-bottom: 2.5rem;
+}
+.masthead .mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.masthead .meta {
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* === Signature hero — distressed text block + central graphic + script overlay === */
+.signature {
+  position: relative;
+  padding: 2rem 0 3rem;
+  margin-bottom: 4rem;
+  border-bottom: var(--border-width) solid var(--foreground);
+}
+.signature .eyebrow {
+  display: inline-block;
+  background-color: var(--brand-canvas-ink);
+  color: var(--brand-on-ink);
+  padding: 0.25rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+/* Distressed text block — three lines, each letter offset + ink-bleed shadow */
+.distressed-block {
+  margin: 0 0 1.5rem 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3rem, 11vw, 7rem);
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.distressed-block .ln {
+  display: block;
+  position: relative;
+}
+.distressed-block .ln.shift { transform: translateX(-0.5rem) rotate(-0.5deg); }
+.distressed-block .ln.red   { color: var(--primary); }
+.distressed-block .ln span {
+  display: inline-block;
+  animation: letter-jitter 0.12s steps(2) infinite;
+}
+.distressed-block .ln span:nth-child(2n)  { animation-duration: 0.16s; transform: translateY(-1px) rotate(0.5deg); }
+.distressed-block .ln span:nth-child(3n)  { animation-duration: 0.14s; transform: translateY(1px) rotate(-0.4deg); }
+.distressed-block .ln span:nth-child(5n)  { animation-duration: 0.18s; transform: translateY(-0.5px) rotate(0.3deg); }
+.distressed-block .ln span:nth-child(7n)  { animation-duration: 0.20s; transform: translateY(0.5px) rotate(-0.6deg); }
+.distressed-block .ln span {
+  text-shadow:
+    1px 0 0 var(--brand-hairline-soft),
+    -1px 0 0 var(--brand-hairline-soft),
+    0 1px 0 var(--brand-hairline-soft);
+}
+@keyframes letter-jitter {
+  0%   { transform: translate(0, 0)    rotate(0); }
+  33%  { transform: translate(-0.5px, 0.5px) rotate(-0.3deg); }
+  66%  { transform: translate(0.5px, -0.5px) rotate(0.3deg); }
+  100% { transform: translate(0, 0)    rotate(0); }
+}
+
+/* Central halftone graphic — picsum photo behind a CSS dot mask + crimson ribbon */
+.collage-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+@media (max-width: 740px) {
+  .collage-row { grid-template-columns: 1fr; }
+}
+.collage-graphic {
+  position: relative;
+  aspect-ratio: 1;
+  background-color: var(--foreground);
+  border: var(--border-width) solid var(--foreground);
+  overflow: hidden;
+}
+.collage-graphic .photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Halftone effect: high contrast B/W base for CSS dot mask above */
+  filter: grayscale(1) contrast(1.5);
+  z-index: 0;
+}
+.collage-graphic::before {
+  /* Halftone dot pattern — CSS-driven mask layered atop the photo */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at center, var(--brand-on-ink) 30%, transparent 32%);
+  background-size: 8px 8px;
+  background-position: 0 0;
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+  animation: graphic-drift 0.6s steps(4) infinite;
+  z-index: 1;
+}
+.collage-graphic::after {
+  /* Stripe overlay to break the halftone into "ribbon" zones */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(
+      170deg,
+      transparent 0 36%,
+      var(--primary) 36% 56%,
+      transparent 56% 100%
+    );
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+  z-index: 2;
+}
+.collage-graphic .annotations,
+.collage-graphic .script-overlay { z-index: 3; }
+.collage-graphic .annotations {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.collage-graphic .ann {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background-color: var(--brand-canvas-ink);
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--accent);
+}
+.collage-graphic .ann.a1 { top: 12%; left: 8%; }
+.collage-graphic .ann.a2 { bottom: 14%; right: 10%; }
+.collage-graphic .ann.a3 { top: 48%; left: 70%; }
+.collage-graphic .ann.line {
+  width: 24%;
+  height: 2px;
+  background-color: var(--accent);
+  border: none;
+  padding: 0;
+  top: 50%;
+  left: 16%;
+}
+.collage-graphic .script-overlay {
+  position: absolute;
+  bottom: -0.5rem;
+  left: -0.5rem;
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: var(--primary);
+  transform: rotate(-6deg);
+  text-shadow: 2px 2px 0 var(--brand-canvas-paper);
+  pointer-events: none;
+  line-height: 1;
+}
+@keyframes graphic-drift {
+  0%   { background-position: 0 0; }
+  25%  { background-position: 1px -1px; }
+  50%  { background-position: -1px 1px; }
+  75%  { background-position: 0.5px 0.5px; }
+  100% { background-position: 0 0; }
+}
+
+.collage-copy h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 0 0 1rem 0;
+}
+.collage-copy .lede {
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0 0 1.25rem 0;
+}
+.collage-copy .tech-block {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--brand-body-muted);
+  border-left: var(--border-width) solid var(--foreground);
+  padding: 0.5rem 0 0.5rem 1rem;
+  margin: 1rem 0;
+  white-space: pre-line;
+}
+
+/* === Section title === */
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.75vw, 2rem);
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 0 0 1.5rem 0;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.section-title::before {
+  content: "■";
+  color: var(--primary);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 0.5rem 0;
+}
+
+section { margin-bottom: 4rem; }
+
+/* === Color swatches === */
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 740px) { .swatches { grid-template-columns: repeat(2, 1fr); } }
+.swatch {
+  border: var(--border-width) solid var(--foreground);
+  background-color: var(--card);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.swatch .chip {
+  height: 96px;
+  position: relative;
+}
+.swatch .chip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at center, transparent 40%, var(--brand-hairline-soft) 40.5%);
+  background-size: 6px 6px;
+  opacity: 0.20;
+  mix-blend-mode: multiply;
+}
+.swatch.paper .chip { background-color: var(--brand-canvas-paper); }
+.swatch.ink   .chip { background-color: var(--brand-canvas-ink); }
+.swatch.crimson .chip { background-color: var(--primary); }
+.swatch.gold .chip { background-color: var(--accent); }
+.swatch .label {
+  padding: 0.75rem 1rem;
+  border-top: var(--border-width) solid var(--foreground);
+}
+.swatch .label .name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin: 0 0 0.25rem 0;
+}
+.swatch .label .hex {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* === Surface ladder === */
+.ladder {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: var(--border-width) solid var(--foreground);
+}
+.rung {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: var(--border-width) solid var(--foreground);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+}
+.rung:last-child { border-bottom: none; }
+.rung.r1 { background-color: var(--background); color: var(--foreground); }
+.rung.r2 { background-color: var(--muted); color: var(--foreground); }
+.rung.r3 { background-color: var(--card); color: var(--foreground); }
+.rung.r4 { background-color: var(--accent); color: var(--accent-foreground); }
+.rung.r5 { background-color: var(--primary); color: var(--primary-foreground); }
+.rung.r6 { background-color: var(--secondary); color: var(--secondary-foreground); }
+.rung .role { font-weight: 700; text-transform: uppercase; }
+.rung .tok  { font-size: 0.75rem; }
+.rung .use  { text-align: right; font-size: 0.75rem; }
+
+/* === Typography demo === */
+.type-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-top: var(--border-width) solid var(--foreground);
+  padding-top: 1.5rem;
+}
+.type-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; }
+.type-row .role {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.type-row .sample.display { font-family: var(--font-display); font-weight: 700; font-size: 2.5rem; line-height: 0.95; letter-spacing: -0.02em; text-transform: uppercase; }
+.type-row .sample.heading { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; line-height: 1.05; text-transform: uppercase; }
+.type-row .sample.script  { font-family: var(--font-script); font-weight: 400; font-size: 2.25rem; line-height: 1.0; color: var(--primary); }
+.type-row .sample.body    { font-family: var(--font-sans); font-size: 1rem; line-height: 1.55; color: var(--brand-body); }
+.type-row .sample.mono    { font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.4; letter-spacing: 0.06em; text-transform: uppercase; }
+.type-row .sample.label   { font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; line-height: 1.0; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-foreground); }
+
+/* === Component vocabulary === */
+.components-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+@media (max-width: 740px) { .components-grid { grid-template-columns: 1fr; } }
+.component-card {
+  border: var(--border-width) solid var(--foreground);
+  background-color: var(--card);
+  padding: 1.5rem;
+}
+.component-card .card-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 1rem 0;
+}
+.component-card .demo-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 0 0.75rem 0;
+}
+
+/* Buttons — bordered, no radius, ink-edge */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: var(--border-width) solid var(--foreground);
+  border-radius: 0;
+  cursor: pointer;
+  background-color: var(--card);
+  color: var(--foreground);
+  position: relative;
+  box-shadow: 4px 4px 0 0 var(--foreground);
+  transition: transform 0.04s steps(2), box-shadow 0.04s steps(2);
+}
+.btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--foreground); }
+.btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 0 var(--foreground); }
+.btn:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 3px;
+}
+.btn-primary { background-color: var(--primary); color: var(--primary-foreground); }
+.btn-accent  { background-color: var(--accent); color: var(--accent-foreground); }
+.btn-ink     { background-color: var(--brand-canvas-ink); color: var(--brand-on-ink); }
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: var(--border-width) solid var(--foreground);
+}
+.badge-paper { background-color: var(--brand-canvas-paper); color: var(--brand-on-paper); }
+.badge-ink   { background-color: var(--brand-canvas-ink); color: var(--brand-on-ink); }
+.badge-red   { background-color: var(--primary); color: var(--primary-foreground); }
+.badge-gold  { background-color: var(--accent); color: var(--accent-foreground); }
+
+/* Inputs */
+.input-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.input-row label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.input-row .input {
+  background-color: var(--brand-canvas-paper);
+  border: var(--border-width) solid var(--foreground);
+  border-radius: 0;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--foreground);
+  min-height: 44px;
+}
+.input-row .input:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Tape strip — punk-zine "evidence tape" footer */
+.tape {
+  position: relative;
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 2rem 0;
+  transform: rotate(-0.5deg);
+  border-top: var(--border-width) solid var(--foreground);
+  border-bottom: var(--border-width) solid var(--foreground);
+}
+.tape::before,
+.tape::after {
+  content: "× × × × × × × × × × ×";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  overflow: hidden;
+  color: var(--accent-foreground);
+  opacity: 0.45;
+}
+.tape::before { top: -0.6rem; }
+.tape::after  { bottom: -0.6rem; }
+
+/* Footer */
+.zine-footer {
+  border-top: var(--border-width) solid var(--foreground);
+  padding-top: 1.5rem;
+  margin-top: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.zine-footer .mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+.zine-footer .colophon {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  text-align: right;
+}
+
+/* === Motion gate — disable all stop-motion / jitter / drift effects.
+ *    The grunge-collage register is motion-heavy and high-frequency by
+ *    design. For users with prefers-reduced-motion, every animated
+ *    effect collapses to a static frame. The visual identity survives
+ *    through typography, colour, and torn-paper layout — motion is
+ *    voltage, not necessity. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .hero-banner .scroll-track { animation: none !important; }
+  .collage-graphic::before   { animation: none !important; }
+  .distressed-block .ln span { animation: none !important; transform: none !important; }
+  .btn:hover { transform: none; box-shadow: 4px 4px 0 0 var(--foreground); }
+}
+</style>
+</head>
+<body>
+
+  <!-- Hero banner — crimson edge-to-edge with mono repeat (the signature
+       marquee animation, gated by prefers-reduced-motion below) -->
+  <div class="hero-banner" role="presentation" aria-hidden="true">
+    <div class="scroll-track">
+      <span>Press run 23</span>
+      <span>Cycle 0x2A — paper grain heavy</span>
+      <span>Issue 04 · spring 2026</span>
+      <span>Trim 8.5 × 11 · no bleed</span>
+      <span>Press run 23</span>
+      <span>Cycle 0x2A — paper grain heavy</span>
+      <span>Issue 04 · spring 2026</span>
+      <span>Trim 8.5 × 11 · no bleed</span>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <div class="masthead">
+      <div class="mark">__DESIGN_SYSTEM_NAME__</div>
+      <div class="meta">
+        <span>Vol. 04</span>
+        <span>Spring 2026</span>
+        <span>Halcyon Press</span>
+      </div>
+    </div>
+
+    <!-- === SIGNATURE MOCKUP === Hero banner + distressed text block +
+         central halftone graphic + brush-script overlay. The voltage
+         moment for this register. -->
+    <section class="signature" aria-labelledby="signature-title">
+      <span class="eyebrow">Cover spread · S3</span>
+      <h1 class="distressed-block" id="signature-title">
+        <span class="ln"><span>P</span><span>R</span><span>I</span><span>N</span><span>T</span></span>
+        <span class="ln shift red"><span>L</span><span>O</span><span>U</span><span>D</span></span>
+        <span class="ln"><span>E</span><span>D</span><span>I</span><span>T</span><span>&nbsp;</span><span>Q</span><span>U</span><span>I</span><span>E</span><span>T</span></span>
+      </h1>
+
+      <div class="collage-row">
+        <div class="collage-graphic" role="img" aria-label="Halftone press photograph with crimson stripe and technical annotations">
+          <img class="photo" src="https://picsum.photos/seed/grunge-press-23/800/800" alt="" aria-hidden="true" loading="lazy" decoding="async">
+          <div class="annotations">
+            <span class="ann a1">B1 · plate</span>
+            <span class="ann a2">L2 · ink</span>
+            <span class="ann a3">S3</span>
+            <span class="ann line" aria-hidden="true"></span>
+          </div>
+          <span class="script-overlay" aria-hidden="true">raw cut</span>
+        </div>
+
+        <div class="collage-copy">
+          <h2>The press doesn&rsquo;t need permission</h2>
+          <p class="lede">Halcyon&rsquo;s zine team prints a weekly issue on the same risograph the engineering room uses for spec drafts. The crimson plate runs first, the charcoal text block lands second, and the script overlay goes on by brush. Nothing is centred. Nothing is symmetrical.</p>
+          <div class="tech-block">PLATE B1  ·  crimson, run 23, 280 sheets
+LAYER L2  ·  charcoal block, no kerning
+TRIM      ·  8.5 × 11 in, no bleed, full edge</div>
+          <a href="#" class="btn btn-primary">Read issue 04 →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Colour swatch band — token demo -->
+    <section aria-labelledby="palette-title">
+      <p class="section-eyebrow">Palette · the four-colour press kit</p>
+      <h2 class="section-title" id="palette-title">Ink, paper, crimson, gold</h2>
+      <div class="swatches">
+        <div class="swatch paper">
+          <div class="chip"></div>
+          <div class="label">
+            <p class="name">Off-white paper</p>
+            <p class="hex">#F0EAD6 · canvas</p>
+          </div>
+        </div>
+        <div class="swatch ink">
+          <div class="chip"></div>
+          <div class="label">
+            <p class="name">Charcoal ink</p>
+            <p class="hex">#1A1A1A · foreground</p>
+          </div>
+        </div>
+        <div class="swatch crimson">
+          <div class="chip"></div>
+          <div class="label">
+            <p class="name">Crimson</p>
+            <p class="hex">#DC143C · primary</p>
+          </div>
+        </div>
+        <div class="swatch gold">
+          <div class="chip"></div>
+          <div class="label">
+            <p class="name">Muted gold</p>
+            <p class="hex">#C5A945 · accent</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Surface ladder — token demo -->
+    <section aria-labelledby="ladder-title">
+      <p class="section-eyebrow">Surface ladder · how the press stacks paper</p>
+      <h2 class="section-title" id="ladder-title">From paper to crimson plate</h2>
+      <div class="ladder">
+        <div class="rung r1"><span class="role">Canvas</span><span class="tok">--background</span><span class="use">Page ground</span></div>
+        <div class="rung r2"><span class="role">Muted wash</span><span class="tok">--muted</span><span class="use">Paper-edge tint</span></div>
+        <div class="rung r3"><span class="role">Card</span><span class="tok">--card</span><span class="use">Torn-paper insert</span></div>
+        <div class="rung r4"><span class="role">Accent fill</span><span class="tok">--accent</span><span class="use">Gold tape strip</span></div>
+        <div class="rung r5"><span class="role">Primary</span><span class="tok">--primary</span><span class="use">Crimson banner</span></div>
+        <div class="rung r6"><span class="role">Secondary</span><span class="tok">--secondary</span><span class="use">Charcoal panel</span></div>
+      </div>
+    </section>
+
+    <!-- Typography demo — six roles -->
+    <section aria-labelledby="type-title">
+      <p class="section-eyebrow">Typography · three families, one chorus</p>
+      <h2 class="section-title" id="type-title">Block, brush, mono</h2>
+      <div class="type-rows">
+        <div class="type-row">
+          <span class="role">Display</span>
+          <span class="sample display">Strike the plate</span>
+        </div>
+        <div class="type-row">
+          <span class="role">Heading</span>
+          <span class="sample heading">Issue four ships Friday</span>
+        </div>
+        <div class="type-row">
+          <span class="role">Script</span>
+          <span class="sample script">first ink, then breath</span>
+        </div>
+        <div class="type-row">
+          <span class="role">Body</span>
+          <span class="sample body">The Halcyon zine room runs three editions a quarter. Each one is hand-stitched on Friday afternoon. The ink dries through the weekend; the issue lands in the mailbox by Tuesday.</span>
+        </div>
+        <div class="type-row">
+          <span class="role">Mono</span>
+          <span class="sample mono">Plate B1 · ink B-23 · trim 8.5 × 11</span>
+        </div>
+        <div class="type-row">
+          <span class="role">Label</span>
+          <span class="sample label">Cycle 0x2A · press run · 280 sheets</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Component vocabulary -->
+    <section aria-labelledby="components-title">
+      <p class="section-eyebrow">Components · ink-edge primitives</p>
+      <h2 class="section-title" id="components-title">Buttons, badges, inputs</h2>
+      <div class="components-grid">
+        <div class="component-card">
+          <p class="card-label">Buttons</p>
+          <div class="demo-row">
+            <a href="#" class="btn btn-primary">Run plate</a>
+            <a href="#" class="btn btn-accent">Save proof</a>
+            <a href="#" class="btn btn-ink">Cancel run</a>
+            <a href="#" class="btn">Reset</a>
+          </div>
+        </div>
+
+        <div class="component-card">
+          <p class="card-label">Badges</p>
+          <div class="demo-row">
+            <span class="badge badge-paper">Draft</span>
+            <span class="badge badge-ink">In press</span>
+            <span class="badge badge-red">Live</span>
+            <span class="badge badge-gold">Archive</span>
+          </div>
+        </div>
+
+        <div class="component-card">
+          <p class="card-label">Inputs</p>
+          <div class="input-row">
+            <label for="run">Press-run target</label>
+            <input id="run" class="input" type="text" value="280 sheets · plate B1" />
+          </div>
+        </div>
+
+        <div class="component-card">
+          <p class="card-label">Tape strip</p>
+          <div class="tape">Evidence tape · cycle 0x2A · do not cross</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="zine-footer">
+      <div class="mark">__DESIGN_SYSTEM_NAME__</div>
+      <div class="colophon">
+        <div>Halcyon Press · Issue 04</div>
+        <div>Set in Oswald / Permanent Marker / JetBrains Mono</div>
+        <div>Printed paper-on-crimson, edge to edge</div>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

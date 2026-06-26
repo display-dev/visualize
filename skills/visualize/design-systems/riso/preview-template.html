@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Riso preview shell — zine-poster single-page essay === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.55;
+}
+.page { max-width: 880px; margin: 0 auto; padding: 4rem 2rem; }
+
+/* Chunky display serif — Riso's identity */
+.serif-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+}
+.serif-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+/* All-caps tracked labels — zine voice in miniature */
+.label-cap {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Issue header */
+.issue {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: var(--border-width, 2px) solid var(--foreground);
+  margin-bottom: 2.5rem;
+}
+.issue .name { font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; }
+.issue .meta { color: var(--muted-foreground); font-family: var(--font-sans); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Hero */
+.hero { margin-bottom: 3rem; }
+/* Eyebrow at 13px reads as small-text — small fluorescent pink on
+ * cream paper sits at 3.32:1 (below WCAG AA 4.5:1 body floor). The
+ * print register carries differentiation through uppercase + 0.1em
+ * tracking + weight 700; route to --foreground rather than synthesise
+ * a darkened pink. */
+.hero .eyebrow {
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.75rem, 7vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  margin: 0 0 1.5rem 0;
+}
+/* H1 accent letters: pink carries the fluorescent voltage at display
+ * scale (≥44px bold, WCAG 3:1 large-text floor with --primary at 3.32:1).
+ * Teal at canonical L 0.65 reads at 2.43:1 on cream — below the
+ * large-text floor too. Per the AUTHORING rule "fix the surface, not
+ * the colour", the teal letter re-homes to --foreground (ink), which
+ * matches the headline copy: "Print loudly. Edit quietly." — pink as
+ * voltage, ink as restraint. The fluorescent teal voltage still appears
+ * as a full panel fill on .spot-teal where the surface inverts. */
+.hero h1 .pink { color: var(--primary); }
+.hero h1 .teal { color: var(--foreground); }
+.hero .deck {
+  font-size: 1.25rem;
+  line-height: 1.45;
+  color: var(--foreground);
+  max-width: 32em;
+  margin: 0;
+}
+
+/* Section ruling — heavy 2px line replaces decorative dividers */
+.rule {
+  border: none;
+  border-top: var(--border-width, 2px) solid var(--foreground);
+  margin: 3rem 0 2rem;
+}
+
+/* Bordered cards — Riso elevates with 2px borders, not lift */
+.bordered-card {
+  border: var(--border-width, 2px) solid var(--foreground);
+  background-color: var(--card);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+/* Bordered-card label is small-text on cream — print-ink, not pink-ink. */
+.bordered-card .label-cap { color: var(--foreground); margin-bottom: 0.625rem; display: block; }
+.bordered-card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.625rem;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.625rem 0;
+}
+.bordered-card p { margin: 0; }
+
+/* Pink callout — primary as a panel. Dark ink on saturated pink
+ * (8:1) rather than paper-on-pink (3.32) which fails WCAG AA. */
+.spot-pink {
+  background-color: var(--primary);
+  color: var(--brand-ink-on-spot);
+  border: var(--border-width, 2px) solid var(--foreground);
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+.spot-pink .label-cap { color: var(--brand-ink-on-spot); margin-bottom: 0.625rem; display: block; }
+.spot-pink h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.05;
+  margin: 0 0 0.75rem 0;
+  color: var(--brand-ink-on-spot);
+}
+
+/* Teal callout — accent as a panel. Dark ink (8.4:1) rather than paper
+ * (2.43) — teal is the worst-failing combo with paper text. */
+.spot-teal {
+  background-color: var(--accent);
+  color: var(--brand-ink-on-spot);
+  border: var(--border-width, 2px) solid var(--foreground);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.spot-teal .label-cap { color: var(--brand-ink-on-spot); margin-bottom: 0.5rem; display: block; }
+
+/* Three-up grid for principles */
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+@media (max-width: 720px) { .principles { grid-template-columns: 1fr; } }
+.principle {
+  border: var(--border-width, 2px) solid var(--foreground);
+  padding: 1.25rem;
+  background-color: var(--card);
+}
+.principle .num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.5rem;
+  /* Display-scale (40px weight 700) — fluorescent pink at WCAG 3:1
+   * large-text floor. */
+  color: var(--primary);
+  line-height: 1;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.principle h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.15;
+  margin: 0 0 0.5rem 0;
+}
+.principle p { font-size: 0.9375rem; line-height: 1.5; margin: 0; }
+
+/* Buttons — bordered, never round */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--brand-ink-on-spot);
+  border: var(--border-width, 2px) solid var(--foreground);
+}
+.btn-outline {
+  background-color: transparent;
+  color: var(--foreground);
+  border: var(--border-width, 2px) solid var(--foreground);
+}
+.btn-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: var(--border-width, 2px) solid var(--foreground);
+  display: flex;
+  justify-content: space-between;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="issue">
+    <span class="name">visualize zine</span>
+    <span class="meta">№ 21 · May 2026</span>
+  </div>
+
+  <div class="hero">
+    <span class="eyebrow">Manifesto / single-page essay</span>
+    <h1>Print <span class="pink">loudly</span>.<br>Edit <span class="teal">quietly</span>.</h1>
+    <p class="deck">The cheapest way to be opinionated on the internet is to print a zine, scan it, and post the JPEG. Riso lets you skip the scanner.</p>
+  </div>
+
+  <hr class="rule" />
+
+  <div class="spot-pink">
+    <span class="label-cap">// Section 01</span>
+    <h3>Constraints become the identity.</h3>
+    <p>Two spot colours. No grey ramp. Zero radius. Chunky display at weight 700 with leading 1.0. The risograph printer in the basement had three ink drums and a temperamental drum cleaner — the operator decided which constraints to fight and which to let define the issue.</p>
+  </div>
+
+  <div class="bordered-card">
+    <span class="label-cap">Body copy</span>
+    <h3>Sans for legibility, serif for shout.</h3>
+    <p>The body is system sans at 17px with 1.55 leading — generous enough to read a 1,200-word essay without strain. The display serif is chunky enough to anchor a 4.5rem headline at the top of a print-shape page without looking spindly. Mixing weights between display and body is the slow-pace signal that says <em>this took someone an afternoon to write</em>, not five minutes to prompt-engineer.</p>
+  </div>
+
+  <div class="spot-teal">
+    <span class="label-cap">// Aside</span>
+    <p style="margin: 0; font-size: 1.0625rem; line-height: 1.5;">Riso skipped the muted-grey ramp entirely. Every grey beat is warm-tinted near-paper or near-print. The two-spot constraint extends into the chrome of the page itself — the same restraint, all the way down.</p>
+  </div>
+
+  <hr class="rule" />
+
+  <span class="label-cap" style="color: var(--foreground);">// Three principles for an opinion-loaded artifact</span>
+
+  <div class="principles">
+    <div class="principle">
+      <span class="num">01</span>
+      <h4>Don't apologise.</h4>
+      <p>If the page can't hold its position, the position wasn't the right one. The chrome shouldn't soften the prose.</p>
+    </div>
+    <div class="principle">
+      <span class="num">02</span>
+      <h4>Pick one shout.</h4>
+      <p>The pink is the voltage. The teal grounds it. A third colour would dilute both — print a second zine instead.</p>
+    </div>
+    <div class="principle">
+      <span class="num">03</span>
+      <h4>Edit on paper.</h4>
+      <p>Drafts in a doc, final pass on a printed proof. The medium changes which sentences feel right.</p>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <a href="#" class="btn btn-primary">Get a copy</a>
+    <a href="#" class="btn btn-outline">Past issues</a>
+  </div>
+
+  <footer>
+    <span>// visualize · __DESIGN_SYSTEM_NAME__</span>
+    <span>// two spots, no greys</span>
+  </footer>
+
+</div>
+</body>
+</html>

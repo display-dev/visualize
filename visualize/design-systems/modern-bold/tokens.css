@@ -1,0 +1,185 @@
+/**
+ * design-systems/modern-bold/tokens.css
+ *
+ * Spec-derived from temp/refs/modern-bold/raw.md (Bold Typography Design
+ * System, originally referenced via app.superdesign.dev/library/modern-bold,
+ * attribution: Zhou Jason via designprompts.dev).
+ * Sourced: 2026-05-26. Companion: ./DESIGN.md.
+ *
+ * Canonical canvas: dark only. The system documents no light mode; the
+ * vermillion-on-near-black contrast logic is the design, not a default
+ * to be inverted. [data-theme="dark"] and the prefers-color-scheme block
+ * mirror :root verbatim — both modes render the same canvas.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core: names are upstream contract, values from
+ *     DESIGN.md §2.
+ *   - Brand-extras: surface-named only (-canvas-night, -on-dark,
+ *     -hairline, -accent-bar). No --brand-<colour>-ink / -on-dark / -deep.
+ *
+ * Single chromatic accent: vermillion #FF3D00. Destructive collapses to
+ * the same accent — spec ships one chromatic hue and the system reads
+ * as poster-design when nothing competes with it.
+ *
+ * Strict zero-radius, zero-shadow per raw.md "Radius & Border" /
+ * "Shadows & Effects".
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are spec-derived from DESIGN.md §2. */
+
+  --background: oklch(0.1448 0 0);              /* #0A0A0A near-black canvas */
+  --foreground: oklch(0.9851 0 0);              /* #FAFAFA warm white */
+  --card: oklch(0.1684 0 0);                    /* #0F0F0F slight elevation */
+  --card-foreground: oklch(0.9851 0 0);         /* #FAFAFA */
+  --popover: oklch(0.1684 0 0);                 /* mirrors --card */
+  --popover-foreground: oklch(0.9851 0 0);
+
+  --primary: oklch(0.6535 0.2348 34.04);        /* #FF3D00 vermillion */
+  --primary-foreground: oklch(0.1448 0 0);      /* #0A0A0A — accent-foreground from spec */
+  --secondary: oklch(0.2178 0 0);               /* #1A1A1A muted surface */
+  --secondary-foreground: oklch(0.9851 0 0);    /* #FAFAFA */
+  --muted: oklch(0.2178 0 0);                   /* #1A1A1A */
+  --muted-foreground: oklch(0.6200 0 0);        /* #8A8A8A secondary text — retuned from #737373 (oklch 0.5555) to clear WCAG AA 4.5:1 on near-black canvas / lift-1 / lift-2; chroma-0 utility neutral, per AUTHORING.md "Brand identity vs. utility neutrals". */
+  --accent: oklch(0.6535 0.2348 34.04);         /* #FF3D00 — same vermillion */
+  --accent-foreground: oklch(0.1448 0 0);       /* #0A0A0A */
+  --destructive: oklch(0.6535 0.2348 34.04);    /* collapses to accent — single-hue system */
+  --destructive-foreground: oklch(0.1448 0 0);
+
+  --border: oklch(0.2686 0 0);                  /* #262626 barely-there divider */
+  --input: oklch(0.2178 0 0);                   /* #1A1A1A input fill */
+  --ring: oklch(0.6535 0.2348 34.04);           /* #FF3D00 — tracks --primary */
+
+  --sidebar: oklch(0.1448 0 0);                 /* tracks --background */
+  --sidebar-foreground: oklch(0.9851 0 0);
+  --sidebar-primary: oklch(0.6535 0.2348 34.04); /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.1448 0 0);
+  --sidebar-accent: oklch(0.2178 0 0);
+  --sidebar-accent-foreground: oklch(0.9851 0 0);
+  --sidebar-border: oklch(0.2686 0 0);
+  --sidebar-ring: oklch(0.6535 0.2348 34.04);   /* tracks --primary */
+
+  --chart-1: oklch(0.6535 0.2348 34.04);        /* vermillion accent for primary series */
+  --chart-2: oklch(0.9851 0 0);                 /* white for secondary series */
+  --chart-3: oklch(0.5555 0 0);                 /* muted-foreground for tertiary */
+  --chart-4: oklch(0.2686 0 0);                 /* border for grid */
+  --chart-5: oklch(0.2178 0 0);                 /* muted surface */
+
+  /* Strict zero-radius rule from raw.md "radius: 0px // No border-radius
+   * anywhere. Sharp edges only." The system has no radius scale — sharp
+   * corners are the design. */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Three families with strict role separation (see DESIGN.md §3):
+   *   - Inter Tight: primary UI + headlines (tighter default tracking)
+   *   - Playfair Display: pull quotes + testimonials ONLY
+   *   - JetBrains Mono: labels, stats, technical captions
+   */
+  --font-sans: 'Inter Tight', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: 'Inter Tight', 'Inter', system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Strict zero-shadow rule from raw.md "Shadows & Effects":
+   * "No traditional shadows. Depth comes from: Layered type, Underlines,
+   * Dividers." The system has no shadow scale by design. */
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. The spec documents one chromatic accent
+   * (vermillion); brand-extras here name the SURFACE ROLES the spec
+   * describes textually — canvas, on-dark, hairline, accent-bar.
+   * -------------------------------------------------------------- */
+
+  /* Polarity-locked surfaces (single-polarity dark — these don't flip) */
+  --brand-canvas-night: oklch(0.1448 0 0);      /* #0A0A0A — same as --background */
+  --brand-on-dark: oklch(0.9851 0 0);           /* #FAFAFA — foreground on canvas */
+  --brand-on-dark-mute: oklch(0.6200 0 0);      /* #8A8A8A — secondary text on canvas; retuned from #737373 to clear AA 4.5:1 on dark backgrounds (chroma-0 utility neutral per AUTHORING.md). */
+
+  /* Surface lift for cards / inset / muted alternation */
+  --brand-surface-1: oklch(0.1684 0 0);         /* #0F0F0F — slight elevation */
+  --brand-surface-2: oklch(0.2178 0 0);         /* #1A1A1A — muted block */
+
+  /* Hairlines / dividers — raw.md "Border: 1px // Thin, precise dividers" */
+  --brand-hairline-soft: oklch(0.2686 0 0);     /* #262626 — same as --border */
+  --brand-hairline-strong: oklch(0.5555 0 0);   /* #737373 — full-width section divider weight */
+
+  /* Documented accent-bar role — raw.md "Accent bars: thin horizontal
+   * accent-colored bars (h-1, w-16) as visual anchors on key elements." */
+  --brand-accent-bar: oklch(0.6535 0.2348 34.04); /* #FF3D00 vermillion */
+
+  /* Body text neutrals — chroma ≈ 0, role-named not colour-named */
+  --brand-body: oklch(0.9851 0 0);              /* #FAFAFA — default body weight */
+  --brand-body-muted: oklch(0.6200 0 0);        /* #8A8A8A — secondary body weight; retuned from #737373 to clear AA 4.5:1 on dark backgrounds (chroma-0 utility neutral per AUTHORING.md). */
+
+  /* Inverted-section surfaces — raw.md "Special case (Final CTA inverted
+   * section)". The page flips canvas for one section: white bg + dark ink. */
+  --brand-canvas-invert: oklch(0.9851 0 0);     /* #FAFAFA — inverted-section canvas */
+  --brand-on-invert: oklch(0.1448 0 0);         /* #0A0A0A — ink on inverted canvas */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Single-polarity dark — :root IS dark. The [data-theme="dark"] block
+ * mirrors :root verbatim so the same render appears regardless of which
+ * theme attribute the host page sets. There is no light variant to override.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1448 0 0);
+  --foreground: oklch(0.9851 0 0);
+  --card: oklch(0.1684 0 0);
+  --card-foreground: oklch(0.9851 0 0);
+  --popover: oklch(0.1684 0 0);
+  --popover-foreground: oklch(0.9851 0 0);
+
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring stay at :root
+   * — vermillion is the brand identity, not theme-dependent. */
+
+  --secondary: oklch(0.2178 0 0);
+  --secondary-foreground: oklch(0.9851 0 0);
+  --muted: oklch(0.2178 0 0);
+  --muted-foreground: oklch(0.6200 0 0);
+
+  --border: oklch(0.2686 0 0);
+  --input: oklch(0.2178 0 0);
+
+  --sidebar: oklch(0.1448 0 0);
+  --sidebar-foreground: oklch(0.9851 0 0);
+  --sidebar-border: oklch(0.2686 0 0);
+
+  /* Polarity-locked brand-extras (--brand-canvas-night, --brand-on-dark,
+   * --brand-accent-bar) stay at :root by definition. */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1448 0 0);
+    --foreground: oklch(0.9851 0 0);
+    --card: oklch(0.1684 0 0);
+    --card-foreground: oklch(0.9851 0 0);
+    --popover: oklch(0.1684 0 0);
+    --popover-foreground: oklch(0.9851 0 0);
+
+    --secondary: oklch(0.2178 0 0);
+    --secondary-foreground: oklch(0.9851 0 0);
+    --muted: oklch(0.2178 0 0);
+    --muted-foreground: oklch(0.6200 0 0);
+
+    --border: oklch(0.2686 0 0);
+    --input: oklch(0.2178 0 0);
+
+    --sidebar: oklch(0.1448 0 0);
+    --sidebar-foreground: oklch(0.9851 0 0);
+    --sidebar-border: oklch(0.2686 0 0);
+  }
+}

@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Cpath d='M6 22 L16 8 L26 22 Z' fill='none' stroke='%23fff' stroke-width='1.5'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Pure-black canvas + uppercase condensed display + ghost-outlined CTA.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === SpaceX-style preview shell — dark-canonical marketing surface.
+   Pure-black canvas, white text, uppercase condensed display sans
+   (D-DIN-Bold via Oswald substitute) with positive letter-spacing,
+   ghost-outlined pill CTA, photographic-feel hero panel, mission-spec
+   data table. Halcyon-themed content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+/* Decorative photographic-gradient stops, scoped to this preview shell.
+ * Per brand DESIGN.md, atmosphere comes from photography rather than
+ * tokenised gradients — these stops simulate a launch-sunset backdrop. */
+:root {
+  --preview-burn: oklch(0.7300 0.2000 50);
+  --preview-burn-shadow: oklch(0.3300 0.0700 40);
+  --preview-burn-deep: oklch(0.1700 0.0400 30);
+}
+
+body {
+  background: var(--brand-canvas-night);
+  color: var(--foreground);
+  font-family: 'D-DIN', 'Inter', Arial, Verdana, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.32px;
+}
+
+/* -- Top nav (fixed, overlaid) -- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--brand-canvas-night);
+  height: 56px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.topnav-brand {
+  font-family: 'D-DIN-Bold', 'Oswald', 'Arial Narrow', Arial, Verdana, sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.topnav-links { display: flex; gap: 1.75rem; }
+.topnav-links a {
+  font-family: 'D-DIN', 'Inter', Arial, Verdana, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  color: var(--foreground);
+  text-decoration: none;
+  opacity: 0.92;
+}
+.topnav-links a:hover { opacity: 1; }
+.topnav-stamp {
+  font-family: 'D-DIN', 'Inter', monospace;
+  font-size: 12px;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  color: var(--brand-on-primary-mute);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.topnav-stamp::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--foreground);
+  border-radius: 50%;
+  display: inline-block;
+}
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Ghost pill button (the only CTA grammar) -- */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--brand-radius-pill, 32px);
+  font-family: 'D-DIN', 'Inter', Arial, Verdana, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 0.94;
+  letter-spacing: 1.17px;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease;
+}
+.btn-ghost:hover {
+  background: var(--foreground);
+  color: var(--brand-canvas-night);
+}
+
+/* -- Hero panel — photographic-feel backdrop -- */
+.hero {
+  position: relative;
+  min-height: 32rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 8rem 2rem 5rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 80% at 50% 95%, color-mix(in srgb, var(--preview-burn) 70%, transparent) 0%, transparent 55%),
+    radial-gradient(80% 70% at 50% 85%, color-mix(in srgb, var(--preview-burn-shadow) 60%, transparent) 0%, transparent 65%),
+    linear-gradient(to bottom, var(--brand-canvas-night) 0%, color-mix(in srgb, var(--preview-burn-deep) 80%, var(--brand-canvas-night)) 70%, var(--brand-canvas-night) 100%);
+  z-index: -2;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 40%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 80% 60%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 35% 30%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1.5px 1.5px at 45% 10%, rgba(255,255,255,0.55), transparent),
+    radial-gradient(1px 1px at 90% 35%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 12% 65%, rgba(255,255,255,0.45), transparent);
+  z-index: -1;
+  opacity: 0.7;
+}
+.hero-inner {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.hero-eyebrow {
+  font-family: 'D-DIN', 'Inter', monospace;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0;
+  opacity: 0.92;
+}
+.hero-display {
+  font-family: 'D-DIN-Bold', 'Oswald', 'Arial Narrow', Arial, Verdana, sans-serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  margin: 0;
+  max-width: 20ch;
+}
+.hero-meta {
+  font-family: 'D-DIN', 'Inter', monospace;
+  font-size: 12px;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin: 0;
+}
+.hero-ctas { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
+
+/* -- Page container -- */
+.page {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* -- Section -- */
+.section { padding: 5rem 0; border-top: 1px solid var(--brand-hairline-on-dark); }
+.section-eyebrow {
+  font-family: 'D-DIN', 'Inter', monospace;
+  font-size: 12px;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  color: var(--brand-on-primary-mute);
+  opacity: 0.7;
+  margin: 0 0 0.75rem;
+}
+.section-title {
+  font-family: 'D-DIN-Bold', 'Oswald', 'Arial Narrow', Arial, Verdana, sans-serif;
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+  max-width: 20ch;
+}
+.section-lede {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: 0.32px;
+  color: var(--brand-on-primary-mute);
+  opacity: 0.85;
+  max-width: 56ch;
+  margin: 0;
+}
+.section-header { margin-bottom: 3rem; }
+
+/* -- Mission-spec data -- */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--brand-hairline-on-dark);
+  border-bottom: 1px solid var(--brand-hairline-on-dark);
+}
+@media (max-width: 880px) { .spec-grid { grid-template-columns: repeat(2, 1fr); } }
+.spec-cell {
+  padding: 1.5rem 0;
+  border-right: 1px solid var(--brand-hairline-on-dark);
+  padding-left: 1.25rem;
+}
+.spec-cell:last-child { border-right: none; }
+.spec-label {
+  font-family: 'D-DIN', 'Inter', monospace;
+  font-size: 11px;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  color: var(--brand-on-primary-mute);
+  opacity: 0.7;
+  margin: 0 0 0.5rem;
+}
+.spec-value {
+  font-family: 'D-DIN-Bold', 'Oswald', 'Arial Narrow', Arial, Verdana, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin: 0;
+}
+.spec-unit {
+  font-family: 'D-DIN', 'Inter', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.32px;
+  opacity: 0.7;
+  margin-left: 0.5rem;
+  text-transform: none;
+}
+
+/* -- Type roles -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-on-dark);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'D-DIN', 'Inter', monospace;
+  font-size: 11px;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+.type-display-xxl { font-family: 'D-DIN-Bold', 'Oswald', sans-serif; font-size: 80px; font-weight: 700; line-height: 0.95; letter-spacing: 1.6px; text-transform: uppercase; }
+.type-display-xl { font-family: 'D-DIN-Bold', 'Oswald', sans-serif; font-size: 60px; font-weight: 700; line-height: 1.2; letter-spacing: 1.2px; text-transform: uppercase; }
+.type-display-lg { font-family: 'D-DIN-Bold', 'Oswald', sans-serif; font-size: 48px; font-weight: 700; line-height: 1.25; letter-spacing: 0.96px; text-transform: uppercase; }
+.type-body { font-size: 16px; font-weight: 400; line-height: 1.7; letter-spacing: 0.32px; }
+.type-cap { font-family: 'D-DIN', 'Inter', sans-serif; font-size: 13px; font-weight: 700; line-height: 0.94; letter-spacing: 1.17px; text-transform: uppercase; }
+.type-micro { font-family: 'D-DIN', 'Inter', sans-serif; font-size: 12px; font-weight: 400; line-height: 2; letter-spacing: 0.96px; text-transform: uppercase; opacity: 0.85; }
+
+/* -- Launches table — mission manifest -- */
+.manifest {
+  border-top: 1px solid var(--brand-hairline-on-dark);
+  border-bottom: 1px solid var(--brand-hairline-on-dark);
+}
+.manifest-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr 12rem 8rem 6rem;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid var(--brand-hairline-on-dark);
+}
+.manifest-row:last-child { border-bottom: none; }
+.manifest-row[data-head="true"] {
+  font-family: 'D-DIN', 'Inter', monospace;
+  font-size: 11px;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  opacity: 0.65;
+  padding: 1rem;
+}
+@media (max-width: 880px) { .manifest-row { grid-template-columns: 1fr; gap: 0.5rem; } }
+.manifest-date {
+  font-family: 'D-DIN', 'Inter', monospace;
+  font-size: 12px;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.manifest-mission {
+  font-family: 'D-DIN-Bold', 'Oswald', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+.manifest-vehicle, .manifest-pad {
+  font-family: 'D-DIN', 'Inter', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.32px;
+  opacity: 0.85;
+}
+.manifest-status {
+  font-family: 'D-DIN', 'Inter', monospace;
+  font-size: 11px;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--foreground);
+  border-radius: var(--brand-radius-pill, 32px);
+  text-align: center;
+}
+.manifest-status[data-state="hold"] { opacity: 0.5; border-color: var(--brand-hairline-on-dark); }
+.manifest-status[data-state="success"] { border-color: var(--foreground); }
+
+/* -- Surface ladder -- */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--brand-hairline-on-dark);
+}
+@media (max-width: 880px) { .surface-ladder { grid-template-columns: 1fr; } }
+.surface-step {
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--brand-hairline-on-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 8rem;
+}
+.surface-step:last-child { border-right: none; }
+.surface-step[data-step="0"] { background: var(--brand-canvas-night); }
+.surface-step[data-step="1"] { background: var(--brand-canvas-night-soft); }
+.surface-step[data-step="2"] { background: var(--foreground); color: var(--brand-canvas-night); }
+.surface-step-num {
+  font-family: 'D-DIN', 'Inter', monospace;
+  font-size: 11px;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.surface-step-name { font-family: 'D-DIN', 'Inter', monospace; font-size: 13px; letter-spacing: 0.5px; }
+.surface-step-role { font-size: 13px; opacity: 0.75; }
+
+/* -- Footer -- */
+.footer { padding: 4rem 0 2rem; border-top: 1px solid var(--brand-hairline-on-dark); }
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-family: 'D-DIN', 'Inter', monospace;
+  font-size: 11px;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <span class="topnav-brand">__DESIGN_SYSTEM_NAME__</span>
+    <div class="topnav-links">
+      <a href="#">Tokens</a>
+      <a href="#">Typography</a>
+      <a href="#">Vehicles</a>
+      <a href="#">Manifest</a>
+      <a href="#">Mission</a>
+    </div>
+    <span class="topnav-stamp">Upcoming Launch · T−02:38:14</span>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">T−02:38:14 · __DESIGN_SYSTEM_NAME__ · Token surface</p>
+    <h1 class="hero-display">Halcyon Mission 04 — Edge Deploy</h1>
+    <p class="hero-meta">Vehicle · halcyon-api · Pad · LC-39A · Payload · 218 KB</p>
+    <div class="hero-ctas">
+      <button class="btn-ghost" type="button">Watch live</button>
+      <button class="btn-ghost" type="button">Mission brief →</button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="section" aria-label="Mission spec">
+    <div class="section-header">
+      <p class="section-eyebrow">// Spec · Vehicle</p>
+      <h2 class="section-title">Engineering register, not editorial.</h2>
+      <p class="section-lede">Tight vertical leading, wide horizontal tracking, uppercase across display. The numbers are the brand — every cell renders condensed industrial sans on the dark canvas.</p>
+    </div>
+    <div class="spec-grid" aria-label="Vehicle specs">
+      <div class="spec-cell">
+        <p class="spec-label">Payload</p>
+        <p class="spec-value">218 <span class="spec-unit">KB</span></p>
+      </div>
+      <div class="spec-cell">
+        <p class="spec-label">Regions</p>
+        <p class="spec-value">100<span class="spec-unit">PoP</span></p>
+      </div>
+      <div class="spec-cell">
+        <p class="spec-label">Edge p50</p>
+        <p class="spec-value">38 <span class="spec-unit">ms</span></p>
+      </div>
+      <div class="spec-cell">
+        <p class="spec-label">Uptime 30d</p>
+        <p class="spec-value">99.94<span class="spec-unit">%</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Surface ladder">
+    <div class="section-header">
+      <p class="section-eyebrow">// Tokens · Surface</p>
+      <h2 class="section-title">Pure black. Barely-lifted soft. White inverse.</h2>
+      <p class="section-lede">Black-and-white do all the chromatic work in the system. Photography supplies every other hue; the surface palette stops at three steps.</p>
+    </div>
+    <div class="surface-ladder">
+      <div class="surface-step" data-step="0"><span class="surface-step-num">Floor</span><span class="surface-step-name">--brand-canvas-night</span><span class="surface-step-role">marketing canvas · pure black</span></div>
+      <div class="surface-step" data-step="1"><span class="surface-step-num">Lift</span><span class="surface-step-name">--brand-canvas-night-soft</span><span class="surface-step-role">barely-separated near-black</span></div>
+      <div class="surface-step" data-step="2"><span class="surface-step-num">Inverse</span><span class="surface-step-name">--brand-canvas-light</span><span class="surface-step-role">shop site · light surface</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography">
+    <div class="section-header">
+      <p class="section-eyebrow">// Tokens · Typography</p>
+      <h2 class="section-title">D-DIN Bold uppercase, condensed industrial.</h2>
+      <p class="section-lede">Display sizes hold at 700 with 1.6px positive tracking and 0.95 line-height. Body at 16px with 0.32px tracking. Every chrome label runs all-caps. No mono — code isn't part of the system.</p>
+    </div>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Display-xxl</span><span class="type-display-xxl">Mission 04</span></div>
+      <div class="type-row"><span class="type-label">Display-xl</span><span class="type-display-xl">Edge Deploy · 38ms p50</span></div>
+      <div class="type-row"><span class="type-label">Display-lg</span><span class="type-display-lg">Halcyon-api · main · 3383613</span></div>
+      <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy at 16 pixels, weight 400, line-height 1.7, letter-spacing 0.32 px. The body cut is D-DIN regular — the same family as display at standard width.</span></div>
+      <div class="type-row"><span class="type-label">Button cap</span><span class="type-cap">Watch live · Mission brief · Launch manifest</span></div>
+      <div class="type-row"><span class="type-label">Micro cap</span><span class="type-micro">T−02:38:14 · Vehicle · halcyon-api · Pad · LC-39A</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Mission manifest">
+    <div class="section-header">
+      <p class="section-eyebrow">// Manifest · Recent</p>
+      <h2 class="section-title">Launch manifest.</h2>
+      <p class="section-lede">Every mission renders as a line: date, name, vehicle, pad, status. Pill outlines mark state. The table IS the catalogue.</p>
+    </div>
+    <div class="manifest" aria-label="Mission table">
+      <div class="manifest-row" data-head="true">
+        <span class="manifest-date">Date · UTC</span>
+        <span class="manifest-mission">Mission</span>
+        <span class="manifest-vehicle">Vehicle</span>
+        <span class="manifest-pad">Pad</span>
+        <span class="manifest-status">Status</span>
+      </div>
+      <div class="manifest-row">
+        <span class="manifest-date">2026.05.22</span>
+        <span class="manifest-mission">Halcyon Mission 04</span>
+        <span class="manifest-vehicle">halcyon-api · main</span>
+        <span class="manifest-pad">LC-39A</span>
+        <span class="manifest-status" data-state="success">Holding</span>
+      </div>
+      <div class="manifest-row">
+        <span class="manifest-date">2026.05.21</span>
+        <span class="manifest-mission">Halcyon Mission 03</span>
+        <span class="manifest-vehicle">halcyon-worker · main</span>
+        <span class="manifest-pad">CCSFS</span>
+        <span class="manifest-status" data-state="success">Success</span>
+      </div>
+      <div class="manifest-row">
+        <span class="manifest-date">2026.05.19</span>
+        <span class="manifest-mission">Halcyon Mission 02</span>
+        <span class="manifest-vehicle">halcyon-webapp · main</span>
+        <span class="manifest-pad">VSFB</span>
+        <span class="manifest-status" data-state="success">Success</span>
+      </div>
+      <div class="manifest-row">
+        <span class="manifest-date">2026.05.17</span>
+        <span class="manifest-mission">Halcyon Mission 01</span>
+        <span class="manifest-vehicle">halcyon-cli · main</span>
+        <span class="manifest-pad">SLC-40</span>
+        <span class="manifest-status" data-state="hold">Scrubbed</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="page footer-inner">
+    <span>__DESIGN_SYSTEM_NAME__ · Token surface preview · 2026.05.22</span>
+    <span>D-DIN Bold · 1.6px tracking · 0.95 leading · Ghost pill</span>
+  </div>
+</footer>
+
+</body>
+</html>

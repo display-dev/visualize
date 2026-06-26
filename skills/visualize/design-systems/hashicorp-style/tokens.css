@@ -1,0 +1,211 @@
+/**
+ * design-systems/hashicorp-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * The dark-mode block applies OKLCH lightness inversion to canonical
+ * shadcn-semantic tokens only. Brand-specific extras (--brand-*) are
+ * intentionally NOT overridden in dark mode — they inherit their
+ * :root values via the CSS cascade, preserving the brand's documented
+ * intent for tokens like surface-dark / on-dark / inverse-canvas that
+ * already encode a dark-context meaning.
+ *
+ * Hand-edit the [data-theme="dark"] block when the brand's actual dark
+ * palette is documented and differs from the synthesised default.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(0 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0 0 0);
+  --muted-foreground: oklch(1 0 0);
+  --accent: oklch(0.6395 0.1954 256.5730);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5977 0.2219 29.4651);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3612 0.0140 274.5258);
+  --input: oklch(0.3612 0.0140 274.5258);
+  --ring: oklch(0 0 0);
+  --sidebar: oklch(0 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0 0 0);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3612 0.0140 274.5258);
+  --sidebar-ring: oklch(0 0 0);
+  --chart-1: oklch(0.8100 0 0);
+  --chart-2: oklch(0.7100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.5100 0 0);
+  --chart-5: oklch(0.4200 0 0);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;
+  --brand-radius-xxl: 24px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: hashicorpSans;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: hashicorpSans;
+
+  /* type scale tokens */
+  --text-display: 80px;
+  --text-heading: 56px;
+  --text-title: 20px;
+  --text-base: 16px;
+  --leading-tight: 1.17;
+  --leading-normal: 1.50;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  /* --brand-ink-subtle lifted from 0.5242 → 0.6500. HashiCorp is dark-
+   * canonical and the upstream value (#656a76) lands at 3.28:1 on its
+   * #15181e canvas, below WCAG AA. */
+  --brand-ink-muted: oklch(0.7752 0.0109 261.7847);
+  --brand-ink-subtle: oklch(0.6500 0.0198 267.6317);
+  --brand-surface-1: oklch(0.2086 0.0128 264.2461);
+  --brand-surface-2: oklch(0.2556 0.0162 264.2320);
+  --brand-surface-3: oklch(0.3612 0.0140 274.5258);
+  --brand-hairline-soft: oklch(0.2772 0.0154 269.1227);
+  --brand-inverse-canvas: oklch(1 0 0);
+  --brand-inverse-ink: oklch(0 0 0);
+  --brand-product-terraform: oklch(0.5107 0.1841 301.6497);
+  /* --brand-product-terraform-bright lifted from 0.5422 → 0.6800 so the
+   * Terraform purple eyebrow (#911ced upstream) clears WCAG AA on
+   * HashiCorp's dark canvas. */
+  --brand-product-terraform-bright: oklch(0.6800 0.2400 302);
+  --brand-product-vault: oklch(0.8718 0.1713 90.9099);
+  --brand-product-consul: oklch(0.5977 0.2219 29.4651);
+  --brand-product-waypoint: oklch(0.7512 0.1255 198.1010);
+  --brand-product-waypoint-deep: oklch(0.7057 0.1178 198.3742);
+  --brand-product-vagrant: oklch(0.5589 0.2204 260.9937);
+  --brand-product-nomad: oklch(0.7422 0.1602 163.0915);
+  --brand-product-boundary: oklch(0.6518 0.2020 22.5152);
+  /* --brand-amber-100 / -200 / --brand-blue-7 deleted 2026-05-25:
+   * dead legacy synthesiss with zero template consumers. amber-100
+   * and -200 are documented HashiCorp Helios scale stops; if a future
+   * surface needs them, restore with a comment citing the Helios
+   * source. blue-7 was a synthesized variant with no documented
+   * counterpart. */
+  --brand-semantic-success: oklch(0.7422 0.1602 163.0915);
+  --brand-semantic-warning: oklch(0.8718 0.1713 90.9099);
+  --brand-semantic-visited: oklch(0.6012 0.2719 304.4309);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Hand-edited: HashiCorp is dark-canonical. The brand has no light
+   * marketing surface — hashicorp.com is pure-black with per-product
+   * accent identity tokens. Synthesised L→1−L inversion gives a white
+   * canvas + black ink which is the opposite of the brand. Mirror :root
+   * verbatim so both modes render the brand's actual identity (same
+   * pattern as Resend / ClickHouse / Framer).
+   * Both [data-theme="dark"] and the @media block mirror :root verbatim. */
+
+  --background: oklch(0 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0 0 0);
+  --muted-foreground: oklch(1 0 0);
+  --accent: oklch(0.6395 0.1954 256.5730);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5977 0.2219 29.4651);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3612 0.0140 274.5258);
+  --input: oklch(0.3612 0.0140 274.5258);
+  --ring: oklch(0 0 0);
+  --sidebar: oklch(0 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0 0 0);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3612 0.0140 274.5258);
+  --sidebar-ring: oklch(0 0 0);
+  --chart-1: oklch(0.8100 0 0);
+  --chart-2: oklch(0.7100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.5100 0 0);
+  --chart-5: oklch(0.4200 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0 0 0);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0 0 0);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(0 0 0);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0 0 0);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0 0 0);
+    --muted-foreground: oklch(1 0 0);
+    --accent: oklch(0.6395 0.1954 256.5730);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.5977 0.2219 29.4651);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3612 0.0140 274.5258);
+    --input: oklch(0.3612 0.0140 274.5258);
+    --ring: oklch(0 0 0);
+    --sidebar: oklch(0 0 0);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(0 0 0);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0 0 0);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.3612 0.0140 274.5258);
+    --sidebar-ring: oklch(0 0 0);
+    --chart-1: oklch(0.8100 0 0);
+    --chart-2: oklch(0.7100 0 0);
+    --chart-3: oklch(0.6100 0 0);
+    --chart-4: oklch(0.5100 0 0);
+    --chart-5: oklch(0.4200 0 0);
+  }
+}

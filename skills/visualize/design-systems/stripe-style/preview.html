@@ -1,0 +1,1757 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>stripe-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23533afd'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='-apple-system,system-ui,sans-serif' font-weight='300' font-size='20' fill='%23fff'%3E%24%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="stripe-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Tokens, typography, components rendered against tokens.css.">
+<meta name="twitter:card" content="summary">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/stripe-style/tokens.css) === */
+/**
+ * design-systems/stripe-style/tokens.css
+ *
+ * Live-verified against stripe.com + docs.stripe.com + press.stripe.com on
+ * 2026-05-26 via Stripe HDS (Houston Design System) bundle inspection at
+ * b.stripecdn.com/mkt-ssr-statics/.../static/css/f577e6782212f424.css and
+ * /docs-statics-srv/.../docs.03612dca15058d0ce76a.css. Companion to ./DESIGN.md.
+ *
+ * canonical-canvas: both. :root is HDS marketing light (#fff canvas with
+ * #f6f9fc / #f8fafd band alternation, Slate body ink, brand-600 #533afd
+ * "blurple" indigo as --primary). [data-theme="dark"] anchors to HDS
+ * neutralDark-900 (#182659) — Stripe's documented Dashboard chrome
+ * polarity — not a synthesised inversion. The brand ships both polarities
+ * deliberately (light marketing + dark Dashboard share one HDS contract).
+ *
+ * Two intentional drifts are documented inline:
+ *   1. --brand-ink-mute darkened from HDS neutral-500 (L=0.5552) to L=0.5200
+ *      to clear WCAG AA 4.5:1 against canvas-soft (#f6f9fc). Utility neutral,
+ *      retune-permitted per AUTHORING.md "Brand identity vs utility neutrals".
+ *   2. --brand-canvas-cream is preview-only decoration (not shipped by HDS;
+ *      see DESIGN.md §2 Drift). Stripe's neutral palette is cool-blue-tinted
+ *      across the live brand; the warm-cream interlude is a preview affordance.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2591 0.0544 250.7200);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2591 0.0544 250.7200);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2591 0.0544 250.7200);
+  --primary: oklch(0.5211 0.2679 277.4312);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(1 0 0);
+  --secondary-foreground: oklch(0.2591 0.0544 250.7200);
+  --muted: oklch(1 0 0);
+  --muted-foreground: oklch(0.2591 0.0544 250.7200);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0.2591 0.0544 250.7200);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9289 0.0097 252.8143);
+  --input: oklch(0.9289 0.0097 252.8143);
+  --ring: oklch(0.5211 0.2679 277.4312);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.2591 0.0544 250.7200);
+  --sidebar-primary: oklch(0.5211 0.2679 277.4312);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(1 0 0);
+  --sidebar-accent-foreground: oklch(0.2591 0.0544 250.7200);
+  --sidebar-border: oklch(0.9289 0.0097 252.8143);
+  --sidebar-ring: oklch(0.5211 0.2679 277.4312);
+  --chart-1: oklch(0.8100 0.2000 277.4312);
+  --chart-2: oklch(0.7100 0.2000 277.4312);
+  --chart-3: oklch(0.6100 0.2000 277.4312);
+  --chart-4: oklch(0.5100 0.2000 277.4312);
+  --chart-5: oklch(0.4200 0.2000 277.4312);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;
+  --brand-radius-pill: 9999px;
+
+  /* typography tokens
+   * Live HDS ships sohne-var (proprietary) as the first family, with
+   * "Helvetica Neue", Arial, sans-serif as the fallback chain. sohne-var
+   * won't load in this preview (Stripe-licensed), but listing it first
+   * keeps the documented stack visible. SF Pro is appended as the
+   * preview-bench fallback ahead of system-ui. */
+  --font-sans: sohne-var, 'Helvetica Neue', 'SF Pro Display', Arial, system-ui, -apple-system, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: sohne-var, 'Helvetica Neue', 'SF Pro Display', Arial, system-ui, -apple-system, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 56px;
+  --text-heading: 48px;
+  --text-title: 20px;
+  --text-base: 15px;
+  --leading-tight: 1.03;
+  --leading-normal: 1.4;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (HDS brand-600 ladder, live-verified
+   * 2026-05-26 in f577e6782212f424.css) */
+  /* "Blurple" #533afd (oklch(0.5211 0.2679 277.4312)) — HDS brand-600,
+   * the value bound to --primary above. Per press.stripe.com/brand-assets:
+   * "Use slate and blurple on light backgrounds, white on dark backgrounds.
+   * Do not use any other colour for the wordmark." Blurple is the brand
+   * fill on CTA backgrounds (.hero-section__button), focus rings
+   * (--hds-color-action-border-solid), and gradient-mesh stops; paired
+   * with white foreground when fill, slate when on light canvas. Stripe
+   * never puts blurple text on dark or on cream canvas at body-text size.
+   * Do not introduce a darkened or lightened "eyebrow ink" variant to win
+   * blurple-on-cream / blurple-on-dark contrast — route eyebrows + small
+   * accent labels to --foreground (slate on light, white on dark). Size,
+   * tracking, and uppercase carry the role. See DESIGN.md §2 "Brand primary
+   * — Blurple" for the full ladder citation. */
+  --brand-primary-deep: oklch(0.3614 0.1551 276.67);     /* HDS brand-800 (#2e2b8c) */
+  --brand-primary-press: oklch(0.4446 0.2187 276.88);    /* HDS brand-700 (#4032c8) */
+  --brand-primary-soft: oklch(0.5836 0.2283 278.87);     /* HDS brand-500 (#665efd) */
+  --brand-primary-bg-subdued-hover: oklch(0.8085 0.0899 284.2092);
+  /* Polarity-locked Dashboard canvas — HDS neutralDark-900 (#182659).
+   * Stays fixed across [data-theme="dark"]; appears in marketing-embedded
+   * dashboard mockups across stripe.com/billing, /connect, /payments.
+   * Surface-named per DESIGN.md §2 polarity-locked surfaces. */
+  --brand-canvas-night: oklch(0.2895 0.0936 268.41);
+  --brand-ink-secondary: oklch(0.3405 0.0485 255.8659);
+  /* Intentional drift — utility neutral retuned per AUTHORING.md §"Brand
+   * identity vs utility neutrals". Live HDS neutral-500 ships at
+   * L=0.5552 (= #64748d), which lands at 4.49:1 on canvas-soft (#f6f9fc)
+   * — sub-AA at body size. Darkened to L=0.5200 to clear 4.5:1. Live
+   * verification 2026-05-26 against HDS palette in f577e6782212f424.css;
+   * see DESIGN.md §2 Drift row "--brand-ink-mute". */
+  --brand-ink-mute: oklch(0.5200 0.0435 259.2395);
+  --brand-ink-mute-2: oklch(0.5200 0.0437 259.2360);
+  --brand-canvas-soft: oklch(0.9807 0.0051 247.8763);  /* HDS surface-bg-subdued #f6f9fc */
+  /* Preview-only decoration — not shipped by HDS. Stripe's live neutral
+   * palette is consistently cool-blue-tinted (#f6f9fc / #f8fafd / #e5edf5);
+   * no warm-canvas band appears in marketing or docs. Retained because
+   * the preview-template's mesh-hero and cream-band consumers reference
+   * it. See DESIGN.md §2 Drift row "--brand-canvas-cream". */
+  --brand-canvas-cream: oklch(0.9380 0.0307 81.7535);
+  --brand-hairline-input: oklch(0.8060 0.0483 248.4257);
+  --brand-ruby: oklch(0.6093 0.2282 10.7618);
+  --brand-magenta: oklch(0.7461 0.2276 330.6809);
+  --brand-lemon: oklch(0.5596 0.1016 68.3868);
+  --brand-shadow-blue: oklch(0.3415 0.1116 254.7931);
+}
+
+/* Brand-accurate dark palette — anchored to live HDS Dashboard chrome,
+ * not a synthesised OKLCH inversion. Live verification 2026-05-26: the
+ * Dashboard canvas (#182659, HDS neutralDark-900) appears across
+ * marketing-embedded dashboard mockups on stripe.com/billing, /connect,
+ * /payments — Stripe ships this polarity deliberately as the brand's
+ * documented dark surface. Primary stays at HDS brand-600 (#533afd) per
+ * HDS's documented dual-polarity contract: brand-600 == brandDark-600,
+ * the brand colour doesn't shift across modes (see DESIGN.md §2 Drift
+ * row "[data-theme="dark"] --primary"). Brand-extras --brand-canvas-soft
+ * and --brand-canvas-cream are overridden so the preview's interlude
+ * bands render as legible dark surfaces, not light-mode leaks. */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* HDS neutralDark-900 #182659 — the polarity-locked Dashboard canvas. */
+  --background: oklch(0.2895 0.0936 268.41);
+  --foreground: oklch(0.9600 0.0050 250);
+  /* Elevated card surface: small lift above neutralDark-900 to preserve
+   * card-vs-canvas elevation; matches the prior +0.06 lift relationship. */
+  --card: oklch(0.3495 0.0936 268.41);
+  --card-foreground: oklch(0.9600 0.0050 250);
+  --popover: oklch(0.3495 0.0936 268.41);
+  --popover-foreground: oklch(0.9600 0.0050 250);
+  /* HDS brand-600 #533afd — same value as :root --primary. brand-600 ==
+   * brandDark-600 per HDS dual-polarity contract; the brand doesn't
+   * shift indigo across modes. */
+  --primary: oklch(0.5211 0.2679 277.4312);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.3495 0.0936 268.41);
+  --secondary-foreground: oklch(0.9600 0.0050 250);
+  --muted: oklch(0.3495 0.0936 268.41);
+  --muted-foreground: oklch(0.6800 0.0400 260);
+  --accent: oklch(0.3200 0.0900 278);
+  --accent-foreground: oklch(0.9600 0.0050 250);
+  /* HDS error-400 #f3432a — documented dark-mode destructive in the
+   * Dashboard chrome (see DESIGN.md §2 Drift row "--destructive dark"). */
+  --destructive: oklch(0.6399 0.2160 31.29);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3400 0.0600 276);
+  --input: oklch(0.3400 0.0600 276);
+  --ring: oklch(0.5211 0.2679 277.4312);
+  /* HDS neutralDark-990 #0d1738 — Dashboard sidebar resting state. */
+  --sidebar: oklch(0.2175 0.0657 267.92);
+  --sidebar-foreground: oklch(0.9600 0.0050 250);
+  --sidebar-primary: oklch(0.5211 0.2679 277.4312);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.3200 0.0900 278);
+  --sidebar-accent-foreground: oklch(0.9600 0.0050 250);
+  --sidebar-border: oklch(0.3400 0.0600 276);
+  --sidebar-ring: oklch(0.5211 0.2679 277.4312);
+  --chart-1: oklch(0.8100 0.2000 277.4312);
+  --chart-2: oklch(0.7100 0.2000 277.4312);
+  --chart-3: oklch(0.6100 0.2000 277.4312);
+  --chart-4: oklch(0.5100 0.2000 277.4312);
+  --chart-5: oklch(0.4200 0.2000 277.4312);
+
+  /* Brand extras — overridden for dark context so the preview's interlude
+   * bands and helper inks render as legible dark surfaces. */
+  --brand-canvas-soft: oklch(0.3495 0.0936 268.41);
+  --brand-canvas-cream: oklch(0.3400 0.0500 60);
+  --brand-ink-secondary: oklch(0.8200 0.0300 260);
+  --brand-ink-mute: oklch(0.7400 0.0400 260);
+  --brand-ink-mute-2: oklch(0.7400 0.0400 260);
+  --brand-primary-bg-subdued-hover: oklch(0.3400 0.1500 280);
+  --brand-primary-deep: oklch(0.7800 0.2000 277);
+  --brand-primary-press: oklch(0.5600 0.2400 277);
+  --brand-hairline-input: oklch(0.4000 0.0700 250);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    /* Mirror of [data-theme="dark"] verbatim — see that block for the
+     * live-verification citations + intentional-drift markers. */
+    --background: oklch(0.2895 0.0936 268.41);
+    --foreground: oklch(0.9600 0.0050 250);
+    --card: oklch(0.3495 0.0936 268.41);
+    --card-foreground: oklch(0.9600 0.0050 250);
+    --popover: oklch(0.3495 0.0936 268.41);
+    --popover-foreground: oklch(0.9600 0.0050 250);
+    --primary: oklch(0.5211 0.2679 277.4312);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.3495 0.0936 268.41);
+    --secondary-foreground: oklch(0.9600 0.0050 250);
+    --muted: oklch(0.3495 0.0936 268.41);
+    --muted-foreground: oklch(0.6800 0.0400 260);
+    --accent: oklch(0.3200 0.0900 278);
+    --accent-foreground: oklch(0.9600 0.0050 250);
+    --destructive: oklch(0.6399 0.2160 31.29);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3400 0.0600 276);
+    --input: oklch(0.3400 0.0600 276);
+    --ring: oklch(0.5211 0.2679 277.4312);
+    --sidebar: oklch(0.2175 0.0657 267.92);
+    --sidebar-foreground: oklch(0.9600 0.0050 250);
+    --sidebar-primary: oklch(0.5211 0.2679 277.4312);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.3200 0.0900 278);
+    --sidebar-accent-foreground: oklch(0.9600 0.0050 250);
+    --sidebar-border: oklch(0.3400 0.0600 276);
+    --sidebar-ring: oklch(0.5211 0.2679 277.4312);
+    --chart-1: oklch(0.8100 0.2000 277.4312);
+    --chart-2: oklch(0.7100 0.2000 277.4312);
+    --chart-3: oklch(0.6100 0.2000 277.4312);
+    --chart-4: oklch(0.5100 0.2000 277.4312);
+    --chart-5: oklch(0.4200 0.2000 277.4312);
+
+    --brand-canvas-soft: oklch(0.3495 0.0936 268.41);
+    --brand-canvas-cream: oklch(0.3400 0.0500 60);
+    --brand-ink-secondary: oklch(0.8200 0.0300 260);
+    --brand-ink-mute: oklch(0.7400 0.0400 260);
+    --brand-ink-mute-2: oklch(0.7400 0.0400 260);
+    --brand-primary-bg-subdued-hover: oklch(0.3400 0.1500 280);
+    --brand-primary-deep: oklch(0.7800 0.2000 277);
+    --brand-primary-press: oklch(0.5600 0.2400 277);
+    --brand-hairline-input: oklch(0.4000 0.0700 250);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Stripe-style preview shell — token-surface preview with the brand's
+   signature moves: gradient mesh atmosphere, Inter-thin display with
+   negative tracking, indigo pill CTA, tabular-figure money, hairline
+   cards on canvas-soft, warm canvas-cream interlude. Content is
+   Halcyon-themed (the catalogue's fictional brand), not a clone of
+   stripe.com. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', var(--font-sans, sohne-var), system-ui, sans-serif;
+  font-feature-settings: "ss01";
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+/* -- Mesh hero band -- */
+/* Mesh stops cluster in the upper-right quadrant so the hero text (which
+ * sits at lower-left) lands on a near-white wash. The bottom fade extends
+ * upward to cover the text region, mirroring how Stripe's live marquee
+ * lets the gradient frame the page rather than sit underneath the words. */
+.mesh-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(45% 55% at 92% 18%, var(--brand-magenta) 0%, transparent 60%),
+    radial-gradient(40% 50% at 76% 10%, var(--brand-ruby) 0%, transparent 60%),
+    radial-gradient(50% 60% at 68% 22%, var(--primary) 0%, transparent 60%),
+    radial-gradient(45% 55% at 88% 32%, var(--brand-primary-soft) 0%, transparent 60%),
+    radial-gradient(55% 65% at 30% 12%, var(--brand-canvas-cream) 0%, transparent 65%),
+    radial-gradient(40% 50% at 8% 8%, var(--brand-lemon) 0%, transparent 55%),
+    var(--background);
+}
+.mesh-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Polarity-aware wash: fades to the live canvas color (white in light,
+   * HDS neutralDark-900 in dark) so the text region sits on the brand's
+   * actual canvas rather than a hardcoded white. */
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 30%,
+    color-mix(in oklch, var(--background) 60%, transparent) 55%,
+    var(--background) 80%
+  );
+  pointer-events: none;
+}
+
+.bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2.5rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.bar-brand { font-size: 1.0625rem; font-weight: 500; letter-spacing: -0.015em; color: var(--foreground); }
+.bar-meta {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute, var(--muted-foreground));
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 2.5rem 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.hero-eyebrow {
+  font-size: 0.8125rem;
+  color: var(--foreground);
+  opacity: 0.7;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+.hero-headline {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 300;
+  line-height: 1.03;
+  letter-spacing: -0.04em;
+  margin: 0;
+  max-width: 16ch;
+}
+.hero-lede {
+  font-size: 1.1875rem;
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  color: var(--foreground);
+  opacity: 0.85;
+  max-width: 42ch;
+  margin: 0;
+}
+.hero-ctas { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+
+/* -- Pill button (Stripe signature: 9999px radius) -- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-pill, 9999px);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease;
+}
+.pill[data-variant="primary"] { background: var(--primary); color: var(--primary-foreground); }
+.pill[data-variant="primary"]:hover { background: var(--brand-primary-deep, var(--primary)); }
+.pill[data-variant="ghost"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.pill[data-variant="dark"] {
+  background: var(--brand-canvas-night, var(--foreground));
+  color: var(--primary-foreground);
+}
+.pill[data-size="sm"] { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+
+/* -- Section frame -- */
+.section { padding: 5rem 2.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 0.75rem;
+  font-weight: 500;
+}
+.section-title {
+  font-size: 1.625rem;
+  font-weight: 300;
+  letter-spacing: -0.022em;
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
+}
+.section-lede {
+  font-size: 1rem;
+  color: var(--brand-ink-secondary, var(--foreground));
+  opacity: 0.78;
+  max-width: 56ch;
+  margin: 0 0 2.5rem;
+}
+
+/* -- Stat row (canvas-soft band) — Stripe's quiet financial signal -- */
+.stats-band { background: var(--brand-canvas-soft, var(--muted)); }
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+@media (max-width: 880px) { .stat-row { grid-template-columns: repeat(2, 1fr); } }
+.stat {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+}
+.stat-label {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-ink-mute, var(--muted-foreground));
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+.stat-value {
+  font-size: 1.875rem;
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  font-feature-settings: "tnum";
+  color: var(--foreground);
+}
+.stat-trend { font-size: 0.8125rem; color: var(--foreground); font-weight: 500; margin-top: 0.25rem; font-feature-settings: "tnum"; }
+.stat-trend[data-dir="down"] { color: var(--brand-ink-mute, var(--muted-foreground)); font-weight: 400; }
+
+/* -- Color swatches -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--brand-radius-xs, 4px);
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-ink-mute, var(--muted-foreground));
+}
+
+/* -- Typography scale -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px dashed var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-ink-mute, var(--muted-foreground));
+}
+.type-display { font-size: 3rem; font-weight: 300; letter-spacing: -0.04em; line-height: 1.03; }
+.type-heading { font-size: 2rem; font-weight: 300; letter-spacing: -0.025em; line-height: 1.1; }
+.type-title { font-size: 1.25rem; font-weight: 300; letter-spacing: -0.012em; line-height: 1.35; }
+.type-body { font-size: 0.9375rem; font-weight: 300; line-height: 1.5; }
+.type-tnum { font-size: 0.9375rem; font-feature-settings: "tnum"; letter-spacing: -0.02em; }
+.type-mono { font-family: var(--font-mono); font-size: 0.8125rem; }
+
+/* -- Components row -- */
+.components { display: flex; flex-direction: column; gap: 1.5rem; }
+.pill-row, .badge-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.6875rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-pill, 9999px);
+  background: var(--brand-primary-bg-subdued-hover, var(--muted));
+  color: var(--foreground);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+/* Tinted-pill badges: fg darkened (L ~0.30) for ≥4.5:1 on tinted bg.
+ * Upstream values land in the 3.2–3.6 pinch zone — barely tinted-on-tinted. */
+.badge[data-tone="success"] { background: oklch(0.95 0.06 145 / 0.85); color: oklch(0.30 0.10 145); }
+.badge[data-tone="warn"] { background: oklch(0.93 0.07 81 / 0.85); color: oklch(0.30 0.08 81); }
+.badge[data-tone="neutral"] { background: var(--brand-canvas-soft, var(--muted)); color: var(--brand-ink-secondary, var(--foreground)); }
+
+/* hairline transactions table */
+.txn-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  font-feature-settings: "tnum";
+}
+.txn-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--brand-canvas-soft, var(--muted));
+}
+.txn-head-title { font-size: 0.875rem; font-weight: 500; }
+.txn-head-meta { font-size: 0.75rem; color: var(--brand-ink-mute, var(--muted-foreground)); font-family: var(--font-mono); letter-spacing: 0.04em; }
+.txn-table { width: 100%; font-size: 0.875rem; border-collapse: collapse; }
+.txn-table th, .txn-table td { text-align: left; padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--border); }
+.txn-table tbody tr:last-child td { border-bottom: none; }
+.txn-table th {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-ink-mute, var(--muted-foreground));
+}
+.txn-table td.amount { text-align: right; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+/* -- Cream interlude — a single signature surface, not a marketing band -- */
+.cream-band { background: var(--brand-canvas-cream, var(--muted)); }
+.cream-card {
+  background: var(--brand-canvas-cream, var(--muted));
+  display: grid;
+  grid-template-columns: 5fr 3fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 880px) { .cream-card { grid-template-columns: 1fr; } }
+.cream-quote {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  max-width: 32ch;
+  margin: 0;
+}
+.cream-attribution {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute, var(--muted-foreground));
+  margin-top: 1rem;
+}
+.cream-aside {
+  font-size: 0.9375rem;
+  color: var(--brand-ink-secondary, var(--foreground));
+  opacity: 0.85;
+  line-height: 1.55;
+}
+
+/* -- Footer -- */
+.footer {
+  padding: 3rem 2.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--brand-ink-mute, var(--muted-foreground));
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+</style>
+
+</head>
+<body>
+
+<header class="mesh-hero">
+  <div class="bar" role="banner">
+    <span class="bar-brand">stripe-style</span>
+    <span class="bar-meta">token surface · preview · 2026.05.22</span>
+  </div>
+
+  <section class="hero">
+    <p class="hero-eyebrow">Inter thin · ss01 · tabular nums · 9999px radius</p>
+    <h1 class="hero-headline">Edge revenue, settled at the close of business.</h1>
+    <p class="hero-lede">A token-surface preview rendered against the design system. Gradient mesh, indigo pill, hairline cards, and tabular figures — the signature moves shown on neutral content.</p>
+    <div class="hero-ctas">
+      <button class="pill" data-variant="primary" type="button">Start now <span aria-hidden="true">›</span></button>
+      <button class="pill" data-variant="ghost" type="button">Read the docs</button>
+    </div>
+  </section>
+</header>
+
+<section class="section stats-band" aria-label="Tabular figures">
+  <div class="section-inner">
+    <p class="eyebrow">tnum · numeric</p>
+    <h2 class="section-title">Numerics, set in the brand's hand.</h2>
+    <p class="section-lede">Every cell that carries money or counts uses <code style="font-family:var(--font-mono); font-size:0.875em;">font-feature-settings: "tnum"</code> plus a tightening of letter-spacing — the brand's quiet financial signal.</p>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-label">Gross volume</div>
+        <div class="stat-value">$1,284,920.42</div>
+        <div class="stat-trend">+12.4% w/w</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Successful charges</div>
+        <div class="stat-value">8,204</div>
+        <div class="stat-trend">+318 in 24h</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Dispute rate</div>
+        <div class="stat-value">0.04%</div>
+        <div class="stat-trend" data-dir="down">−0.01pp</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Median net</div>
+        <div class="stat-value">$156.40</div>
+        <div class="stat-trend">+$2.10</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Colour tokens">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · colour</p>
+    <h2 class="section-title">Surface, ink, action, state.</h2>
+    <p class="section-lede">CSS custom properties resolved from <code style="font-family:var(--font-mono); font-size:0.875em;">tokens.css</code>. Indigo is the sole action color; everything else holds in ink and canvas tones, with a warm cream break-out for emphasis.</p>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--background); border-color: var(--border);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-canvas-soft, var(--muted));"></div><div class="swatch-role">Surface</div><div class="swatch-name">--brand-canvas-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-canvas-cream, var(--muted));"></div><div class="swatch-role">Surface</div><div class="swatch-name">--brand-canvas-cream</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-ink-secondary, var(--foreground));"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-secondary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-ink-mute, var(--muted-foreground));"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-mute</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--primary);"></div><div class="swatch-role">Action</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-primary-deep, var(--primary));"></div><div class="swatch-role">Action</div><div class="swatch-name">--brand-primary-deep</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-primary-soft, var(--primary));"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-primary-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-magenta, var(--primary));"></div><div class="swatch-role">Mesh</div><div class="swatch-name">--brand-magenta</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-ruby, var(--primary));"></div><div class="swatch-role">Mesh</div><div class="swatch-name">--brand-ruby</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-lemon, var(--primary));"></div><div class="swatch-role">Mesh</div><div class="swatch-name">--brand-lemon</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section stats-band" aria-label="Typography roles">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · type</p>
+    <h2 class="section-title">Thin weight is the brand.</h2>
+    <p class="section-lede">Display tier holds at weight 300 with negative tracking from −1.4px at hero scale down to −0.2px at title scale. Body is 15px/1.4. Tabular figures carry money.</p>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Display</span><span class="type-display">Edge revenue, settled.</span></div>
+      <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Hairline cards on canvas-soft</span></div>
+      <div class="type-row"><span class="type-label">Title</span><span class="type-title">Token surface preview</span></div>
+      <div class="type-row"><span class="type-label">Body</span><span class="type-body">A standardised preview rendered against every brand-style design system. The body role is Inter at 300 weight, 15px, 1.4 line-height, with ss01 enabled for the single-story 'a'.</span></div>
+      <div class="type-row"><span class="type-label">Tabular</span><span class="type-tnum">$1,284,920.42 · 8,204 charges · 0.04% disputes</span></div>
+      <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">await payments.charges.create({ amount: 12840 })</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Component vocabulary">
+  <div class="section-inner">
+    <p class="eyebrow">vocabulary · components</p>
+    <h2 class="section-title">Pills, badges, hairlines.</h2>
+    <p class="section-lede">The brand's pill geometry is 9999px with 8×16 padding. One filled indigo pill per band — primary; ghost and dark are the alternates.</p>
+    <div class="components">
+      <div class="pill-row" aria-label="Pill variants">
+        <button class="pill" data-variant="primary" type="button">Primary</button>
+        <button class="pill" data-variant="ghost" type="button">Ghost</button>
+        <button class="pill" data-variant="dark" type="button">On dark</button>
+        <button class="pill" data-variant="primary" data-size="sm" type="button">Small</button>
+        <button class="pill" data-variant="ghost" data-size="sm" type="button">Small ghost</button>
+      </div>
+      <div class="badge-row" aria-label="Status badges">
+        <span class="badge">indigo</span>
+        <span class="badge" data-tone="success">paid</span>
+        <span class="badge" data-tone="warn">processing</span>
+        <span class="badge" data-tone="neutral">draft</span>
+      </div>
+
+      <div class="txn-card" aria-label="Transactions">
+        <div class="txn-head">
+          <span class="txn-head-title">Recent transactions</span>
+          <span class="txn-head-meta">Live · USD</span>
+        </div>
+        <table class="txn-table">
+          <thead>
+            <tr><th>Customer</th><th>Method</th><th>Status</th><th class="amount">Amount</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>halcyon.dev</td><td>Visa · 4242</td><td><span class="badge" data-tone="success">paid</span></td><td class="amount">$12,840.00</td></tr>
+            <tr><td>app.halcyon.dev</td><td>ACH</td><td><span class="badge" data-tone="success">paid</span></td><td class="amount">$48,200.00</td></tr>
+            <tr><td>halcyon-api</td><td>Mastercard · 0091</td><td><span class="badge" data-tone="warn">processing</span></td><td class="amount">$2,140.00</td></tr>
+            <tr><td>hlc.so</td><td>Apple Pay</td><td><span class="badge" data-tone="success">paid</span></td><td class="amount">$890.00</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section cream-band" aria-label="Cream interlude">
+  <div class="section-inner cream-card">
+    <div>
+      <p class="eyebrow">tokens · surface</p>
+      <blockquote class="cream-quote">"A token surface is the smallest set of CSS custom properties a design system commits to. Everything downstream — components, templates, outputs — composes against it."</blockquote>
+      <div class="cream-attribution">design-systems / _doc.md</div>
+    </div>
+    <p class="cream-aside">The cream interlude breaks the indigo/white rhythm with warmth — a chromatic palate-cleanser between cool surface bands. Used sparingly; not every section gets one.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>// visualize · stripe-style</span>
+    <span>// inter thin · ss01 · tnum · mesh · indigo pill</span>
+  </div>
+</footer>
+
+</body>
+</html>

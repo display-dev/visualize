@@ -1,0 +1,231 @@
+/**
+ * design-systems/airtable-style/tokens.css
+ *
+ * Live-verified against airtable.com on 2026-05-26 (8 marketing + product
+ * surfaces + first-party CSS bundles brandkit-font.css / pricing.css /
+ * helpers.css at static.airtable.com). Companion to ./DESIGN.md.
+ *
+ * canonical-canvas: both. Airtable's pricing CSS bundle ships a complete
+ * .theme-dark { ... } block re-resolving every --colors-* semantic alias —
+ * the product surface is first-party bi-polar even though the marketing
+ * skin presents as light-canonical. [data-theme="dark"] anchors to deep
+ * slate-navy with near-white ink; brand-blue holds across both polarities.
+ *
+ * Brand voltage: field-type rainbow palette (ten hues × six lightness
+ * stops). Light2 fill + Dark1 ink pairing is the recognizability anchor.
+ *
+ * Three concurrent display families documented (HaasDisplay marketing,
+ * Inter Display current heading, GT Eesti Display legacy fallback).
+ * Body defaults to system stack — HaasText only on marketing chrome.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2398 0.0119 270.8831);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2398 0.0119 270.8831);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2398 0.0119 270.8831);
+  --primary: oklch(0.5573 0.1921 257.9488);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9668 0.0058 264.5324);
+  --secondary-foreground: oklch(0.2398 0.0119 270.8831);
+  --muted: oklch(0.9668 0.0058 264.5324);
+  --muted-foreground: oklch(0.5094 0.0170 264.4134);
+  --accent: oklch(0.9787 0.0057 264.5327);
+  --accent-foreground: oklch(0.2398 0.0119 270.8831);
+  --destructive: oklch(0.4895 0.1885 12.8578);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0 0 0 / 0.05);
+  --input: oklch(0 0 0 / 0.05);
+  --ring: oklch(0.5573 0.1921 257.9488);
+  --sidebar: oklch(0.9668 0.0058 264.5324);
+  --sidebar-foreground: oklch(0.2398 0.0119 270.8831);
+  --sidebar-primary: oklch(0.5573 0.1921 257.9488);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9787 0.0057 264.5327);
+  --sidebar-accent-foreground: oklch(0.2398 0.0119 270.8831);
+  --sidebar-border: oklch(0 0 0 / 0.05);
+  --sidebar-ring: oklch(0.5573 0.1921 257.9488);
+  --chart-1: oklch(0.5573 0.1921 257.9488);
+  --chart-2: oklch(0.7867 0.1390 227.8985);
+  --chart-3: oklch(0.8310 0.1708 81.4330);
+  --chart-4: oklch(0.5884 0.1910 38.2861);
+  --chart-5: oklch(0.5400 0.2514 292.9484);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 2px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Inter Display', 'HaasDisplay', system-ui, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 48px;
+  --text-heading: 40px;
+  --text-title: 20px;
+  --text-base: 13px;
+  --leading-tight: 1.1;
+  --leading-normal: 1.25;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (documented brand-doc values) */
+  --brand-primary-active: oklch(0.4548 0.1580 258.0044);
+  --brand-primary-soft: oklch(0.8197 0.0907 258.3247);
+  --brand-primary-tint: oklch(0.9700 0.0140 268.4943);
+  --brand-body: oklch(0.5094 0.0170 264.4134);
+  --brand-border-strong: oklch(0.6665 0.0000 0.0000);
+  --brand-surface-strong: oklch(0.9668 0.0058 264.5324);
+  --brand-surface-dark: oklch(0.2398 0.0119 270.8831);
+  --brand-surface-dark-elevated: oklch(0.3287 0.0169 266.4281);
+  --brand-signature-coral: oklch(0.4894 0.1675 36.0214);
+  --brand-signature-forest: oklch(0.2667 0.0693 145.1375);
+  --brand-signature-cream: oklch(0.9705 0.0180 89.3563);
+  --brand-signature-peach: oklch(0.8092 0.1158 52.1184);
+  --brand-signature-mint: oklch(0.8800 0.0820 190.0000);
+  --brand-signature-yellow: oklch(0.8310 0.1708 81.4330);
+  --brand-signature-mustard: oklch(0.8175 0.1606 77.5964);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-link: oklch(0.5573 0.1921 257.9488);
+  --brand-link-active: oklch(0.4548 0.1580 258.0044);
+  --brand-info: oklch(0.4553 0.1579 263.3369);
+  --brand-info-border: oklch(0.6594 0.1821 258.6609);
+  --brand-success: oklch(0.5496 0.1826 142.9867);
+  --brand-success-border: oklch(0.7080 0.1990 144.3638);
+  --brand-hairline-soft: oklch(0 0 0 / 0.05);
+  --brand-hairline-strong: oklch(0.6665 0.0000 0.0000);
+  --brand-pricing-ink: oklch(0.2398 0.0119 270.8831);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Real dark-theme block, mirroring Airtable's .theme-dark in pricing.css.
+   * Canvas anchors to gray800 (#1D1F25); foreground to near-white; borders
+   * become opacity-lightened white per the opacity-based hairline pattern.
+   * Brand-blue (--primary, --ring, --sidebar-primary, --sidebar-ring) HOLDS
+   * across polarities — Airtable's design system keeps --colors-border-focus
+   * = --palette-blue-blue in both themes. Polarity-locked signature
+   * surfaces (coral / forest / cream / peach / mint / yellow / mustard /
+   * pricing-ink / surface-dark) intentionally NOT overridden — they ARE
+   * the brand's voltage, locked across modes. */
+
+  --background: oklch(0.2398 0.0119 270.8831);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2398 0.0119 270.8831);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2398 0.0119 270.8831);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.5573 0.1921 257.9488);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.3287 0.0169 266.4281);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.3287 0.0169 266.4281);
+  --muted-foreground: oklch(0.6856 0.0094 264.5039);
+  --accent: oklch(0 0 0);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.4895 0.1885 12.8578);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(1 1 1 / 0.05);
+  --input: oklch(1 1 1 / 0.05);
+  --ring: oklch(0.5573 0.1921 257.9488);
+  --sidebar: oklch(0.2398 0.0119 270.8831);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.5573 0.1921 257.9488);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(1 1 1 / 0.05);
+  --sidebar-ring: oklch(0.5573 0.1921 257.9488);
+  --chart-1: oklch(0.8197 0.0907 258.3247);
+  --chart-2: oklch(0.7867 0.1390 227.8985);
+  --chart-3: oklch(0.8310 0.1708 81.4330);
+  --chart-4: oklch(0.5884 0.1910 38.2861);
+  --chart-5: oklch(0.5400 0.2514 292.9484);
+
+  /* brand-extras dark overrides. --brand-body lifts for editorial body
+   * text on the dark canvas; --brand-surface-strong flips to gray700
+   * elevated band; --brand-border-strong + --brand-hairline-strong shift
+   * to opacity-lightened white per Airtable's opacity-based border
+   * pattern (--colors-border-emphasis dark = rgba(255,255,255,0.25)).
+   * --brand-pricing-ink intentionally NOT overridden — it's the
+   * always-dark ink for polarity-locked light surfaces (db grid,
+   * pricing tiles, swatches, footer). Same applies to --brand-on-dark
+   * (always white by definition) and signature surfaces. */
+  --brand-body: oklch(0.6856 0.0094 264.5039);
+  --brand-border-strong: oklch(1 1 1 / 0.25);
+  --brand-surface-strong: oklch(0.3287 0.0169 266.4281);
+  --brand-hairline-soft: oklch(1 1 1 / 0.05);
+  --brand-hairline-strong: oklch(1 1 1 / 0.25);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2398 0.0119 270.8831);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2398 0.0119 270.8831);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2398 0.0119 270.8831);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(0.5573 0.1921 257.9488);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.3287 0.0169 266.4281);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.3287 0.0169 266.4281);
+    --muted-foreground: oklch(0.6856 0.0094 264.5039);
+    --accent: oklch(0 0 0);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.4895 0.1885 12.8578);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(1 1 1 / 0.05);
+    --input: oklch(1 1 1 / 0.05);
+    --ring: oklch(0.5573 0.1921 257.9488);
+    --sidebar: oklch(0.2398 0.0119 270.8831);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(0.5573 0.1921 257.9488);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0 0 0);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(1 1 1 / 0.05);
+    --sidebar-ring: oklch(0.5573 0.1921 257.9488);
+    --chart-1: oklch(0.8197 0.0907 258.3247);
+    --chart-2: oklch(0.7867 0.1390 227.8985);
+    --chart-3: oklch(0.8310 0.1708 81.4330);
+    --chart-4: oklch(0.5884 0.1910 38.2861);
+    --chart-5: oklch(0.5400 0.2514 292.9484);
+
+    --brand-body: oklch(0.6856 0.0094 264.5039);
+    --brand-border-strong: oklch(1 1 1 / 0.25);
+    --brand-surface-strong: oklch(0.3287 0.0169 266.4281);
+    --brand-hairline-soft: oklch(1 1 1 / 0.05);
+    --brand-hairline-strong: oklch(1 1 1 / 0.25);
+  }
+}

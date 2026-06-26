@@ -1,0 +1,270 @@
+/**
+ * design-systems/stripe-style/tokens.css
+ *
+ * Live-verified against stripe.com + docs.stripe.com + press.stripe.com on
+ * 2026-05-26 via Stripe HDS (Houston Design System) bundle inspection at
+ * b.stripecdn.com/mkt-ssr-statics/.../static/css/f577e6782212f424.css and
+ * /docs-statics-srv/.../docs.03612dca15058d0ce76a.css. Companion to ./DESIGN.md.
+ *
+ * canonical-canvas: both. :root is HDS marketing light (#fff canvas with
+ * #f6f9fc / #f8fafd band alternation, Slate body ink, brand-600 #533afd
+ * "blurple" indigo as --primary). [data-theme="dark"] anchors to HDS
+ * neutralDark-900 (#182659) — Stripe's documented Dashboard chrome
+ * polarity — not a synthesised inversion. The brand ships both polarities
+ * deliberately (light marketing + dark Dashboard share one HDS contract).
+ *
+ * Two intentional drifts are documented inline:
+ *   1. --brand-ink-mute darkened from HDS neutral-500 (L=0.5552) to L=0.5200
+ *      to clear WCAG AA 4.5:1 against canvas-soft (#f6f9fc). Utility neutral,
+ *      retune-permitted per AUTHORING.md "Brand identity vs utility neutrals".
+ *   2. --brand-canvas-cream is preview-only decoration (not shipped by HDS;
+ *      see DESIGN.md §2 Drift). Stripe's neutral palette is cool-blue-tinted
+ *      across the live brand; the warm-cream interlude is a preview affordance.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2591 0.0544 250.7200);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2591 0.0544 250.7200);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2591 0.0544 250.7200);
+  --primary: oklch(0.5211 0.2679 277.4312);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(1 0 0);
+  --secondary-foreground: oklch(0.2591 0.0544 250.7200);
+  --muted: oklch(1 0 0);
+  --muted-foreground: oklch(0.2591 0.0544 250.7200);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0.2591 0.0544 250.7200);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9289 0.0097 252.8143);
+  --input: oklch(0.9289 0.0097 252.8143);
+  --ring: oklch(0.5211 0.2679 277.4312);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.2591 0.0544 250.7200);
+  --sidebar-primary: oklch(0.5211 0.2679 277.4312);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(1 0 0);
+  --sidebar-accent-foreground: oklch(0.2591 0.0544 250.7200);
+  --sidebar-border: oklch(0.9289 0.0097 252.8143);
+  --sidebar-ring: oklch(0.5211 0.2679 277.4312);
+  --chart-1: oklch(0.8100 0.2000 277.4312);
+  --chart-2: oklch(0.7100 0.2000 277.4312);
+  --chart-3: oklch(0.6100 0.2000 277.4312);
+  --chart-4: oklch(0.5100 0.2000 277.4312);
+  --chart-5: oklch(0.4200 0.2000 277.4312);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;
+  --brand-radius-pill: 9999px;
+
+  /* typography tokens
+   * Live HDS ships sohne-var (proprietary) as the first family, with
+   * "Helvetica Neue", Arial, sans-serif as the fallback chain. sohne-var
+   * won't load in this preview (Stripe-licensed), but listing it first
+   * keeps the documented stack visible. SF Pro is appended as the
+   * preview-bench fallback ahead of system-ui. */
+  --font-sans: sohne-var, 'Helvetica Neue', 'SF Pro Display', Arial, system-ui, -apple-system, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: sohne-var, 'Helvetica Neue', 'SF Pro Display', Arial, system-ui, -apple-system, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 56px;
+  --text-heading: 48px;
+  --text-title: 20px;
+  --text-base: 15px;
+  --leading-tight: 1.03;
+  --leading-normal: 1.4;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (HDS brand-600 ladder, live-verified
+   * 2026-05-26 in f577e6782212f424.css) */
+  /* "Blurple" #533afd (oklch(0.5211 0.2679 277.4312)) — HDS brand-600,
+   * the value bound to --primary above. Per press.stripe.com/brand-assets:
+   * "Use slate and blurple on light backgrounds, white on dark backgrounds.
+   * Do not use any other colour for the wordmark." Blurple is the brand
+   * fill on CTA backgrounds (.hero-section__button), focus rings
+   * (--hds-color-action-border-solid), and gradient-mesh stops; paired
+   * with white foreground when fill, slate when on light canvas. Stripe
+   * never puts blurple text on dark or on cream canvas at body-text size.
+   * Do not introduce a darkened or lightened "eyebrow ink" variant to win
+   * blurple-on-cream / blurple-on-dark contrast — route eyebrows + small
+   * accent labels to --foreground (slate on light, white on dark). Size,
+   * tracking, and uppercase carry the role. See DESIGN.md §2 "Brand primary
+   * — Blurple" for the full ladder citation. */
+  --brand-primary-deep: oklch(0.3614 0.1551 276.67);     /* HDS brand-800 (#2e2b8c) */
+  --brand-primary-press: oklch(0.4446 0.2187 276.88);    /* HDS brand-700 (#4032c8) */
+  --brand-primary-soft: oklch(0.5836 0.2283 278.87);     /* HDS brand-500 (#665efd) */
+  --brand-primary-bg-subdued-hover: oklch(0.8085 0.0899 284.2092);
+  /* Polarity-locked Dashboard canvas — HDS neutralDark-900 (#182659).
+   * Stays fixed across [data-theme="dark"]; appears in marketing-embedded
+   * dashboard mockups across stripe.com/billing, /connect, /payments.
+   * Surface-named per DESIGN.md §2 polarity-locked surfaces. */
+  --brand-canvas-night: oklch(0.2895 0.0936 268.41);
+  --brand-ink-secondary: oklch(0.3405 0.0485 255.8659);
+  /* Intentional drift — utility neutral retuned per AUTHORING.md §"Brand
+   * identity vs utility neutrals". Live HDS neutral-500 ships at
+   * L=0.5552 (= #64748d), which lands at 4.49:1 on canvas-soft (#f6f9fc)
+   * — sub-AA at body size. Darkened to L=0.5200 to clear 4.5:1. Live
+   * verification 2026-05-26 against HDS palette in f577e6782212f424.css;
+   * see DESIGN.md §2 Drift row "--brand-ink-mute". */
+  --brand-ink-mute: oklch(0.5200 0.0435 259.2395);
+  --brand-ink-mute-2: oklch(0.5200 0.0437 259.2360);
+  --brand-canvas-soft: oklch(0.9807 0.0051 247.8763);  /* HDS surface-bg-subdued #f6f9fc */
+  /* Preview-only decoration — not shipped by HDS. Stripe's live neutral
+   * palette is consistently cool-blue-tinted (#f6f9fc / #f8fafd / #e5edf5);
+   * no warm-canvas band appears in marketing or docs. Retained because
+   * the preview-template's mesh-hero and cream-band consumers reference
+   * it. See DESIGN.md §2 Drift row "--brand-canvas-cream". */
+  --brand-canvas-cream: oklch(0.9380 0.0307 81.7535);
+  --brand-hairline-input: oklch(0.8060 0.0483 248.4257);
+  --brand-ruby: oklch(0.6093 0.2282 10.7618);
+  --brand-magenta: oklch(0.7461 0.2276 330.6809);
+  --brand-lemon: oklch(0.5596 0.1016 68.3868);
+  --brand-shadow-blue: oklch(0.3415 0.1116 254.7931);
+}
+
+/* Brand-accurate dark palette — anchored to live HDS Dashboard chrome,
+ * not a synthesised OKLCH inversion. Live verification 2026-05-26: the
+ * Dashboard canvas (#182659, HDS neutralDark-900) appears across
+ * marketing-embedded dashboard mockups on stripe.com/billing, /connect,
+ * /payments — Stripe ships this polarity deliberately as the brand's
+ * documented dark surface. Primary stays at HDS brand-600 (#533afd) per
+ * HDS's documented dual-polarity contract: brand-600 == brandDark-600,
+ * the brand colour doesn't shift across modes (see DESIGN.md §2 Drift
+ * row "[data-theme="dark"] --primary"). Brand-extras --brand-canvas-soft
+ * and --brand-canvas-cream are overridden so the preview's interlude
+ * bands render as legible dark surfaces, not light-mode leaks. */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* HDS neutralDark-900 #182659 — the polarity-locked Dashboard canvas. */
+  --background: oklch(0.2895 0.0936 268.41);
+  --foreground: oklch(0.9600 0.0050 250);
+  /* Elevated card surface: small lift above neutralDark-900 to preserve
+   * card-vs-canvas elevation; matches the prior +0.06 lift relationship. */
+  --card: oklch(0.3495 0.0936 268.41);
+  --card-foreground: oklch(0.9600 0.0050 250);
+  --popover: oklch(0.3495 0.0936 268.41);
+  --popover-foreground: oklch(0.9600 0.0050 250);
+  /* HDS brand-600 #533afd — same value as :root --primary. brand-600 ==
+   * brandDark-600 per HDS dual-polarity contract; the brand doesn't
+   * shift indigo across modes. */
+  --primary: oklch(0.5211 0.2679 277.4312);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.3495 0.0936 268.41);
+  --secondary-foreground: oklch(0.9600 0.0050 250);
+  --muted: oklch(0.3495 0.0936 268.41);
+  --muted-foreground: oklch(0.6800 0.0400 260);
+  --accent: oklch(0.3200 0.0900 278);
+  --accent-foreground: oklch(0.9600 0.0050 250);
+  /* HDS error-400 #f3432a — documented dark-mode destructive in the
+   * Dashboard chrome (see DESIGN.md §2 Drift row "--destructive dark"). */
+  --destructive: oklch(0.6399 0.2160 31.29);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3400 0.0600 276);
+  --input: oklch(0.3400 0.0600 276);
+  --ring: oklch(0.5211 0.2679 277.4312);
+  /* HDS neutralDark-990 #0d1738 — Dashboard sidebar resting state. */
+  --sidebar: oklch(0.2175 0.0657 267.92);
+  --sidebar-foreground: oklch(0.9600 0.0050 250);
+  --sidebar-primary: oklch(0.5211 0.2679 277.4312);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.3200 0.0900 278);
+  --sidebar-accent-foreground: oklch(0.9600 0.0050 250);
+  --sidebar-border: oklch(0.3400 0.0600 276);
+  --sidebar-ring: oklch(0.5211 0.2679 277.4312);
+  --chart-1: oklch(0.8100 0.2000 277.4312);
+  --chart-2: oklch(0.7100 0.2000 277.4312);
+  --chart-3: oklch(0.6100 0.2000 277.4312);
+  --chart-4: oklch(0.5100 0.2000 277.4312);
+  --chart-5: oklch(0.4200 0.2000 277.4312);
+
+  /* Brand extras — overridden for dark context so the preview's interlude
+   * bands and helper inks render as legible dark surfaces. */
+  --brand-canvas-soft: oklch(0.3495 0.0936 268.41);
+  --brand-canvas-cream: oklch(0.3400 0.0500 60);
+  --brand-ink-secondary: oklch(0.8200 0.0300 260);
+  --brand-ink-mute: oklch(0.7400 0.0400 260);
+  --brand-ink-mute-2: oklch(0.7400 0.0400 260);
+  --brand-primary-bg-subdued-hover: oklch(0.3400 0.1500 280);
+  --brand-primary-deep: oklch(0.7800 0.2000 277);
+  --brand-primary-press: oklch(0.5600 0.2400 277);
+  --brand-hairline-input: oklch(0.4000 0.0700 250);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    /* Mirror of [data-theme="dark"] verbatim — see that block for the
+     * live-verification citations + intentional-drift markers. */
+    --background: oklch(0.2895 0.0936 268.41);
+    --foreground: oklch(0.9600 0.0050 250);
+    --card: oklch(0.3495 0.0936 268.41);
+    --card-foreground: oklch(0.9600 0.0050 250);
+    --popover: oklch(0.3495 0.0936 268.41);
+    --popover-foreground: oklch(0.9600 0.0050 250);
+    --primary: oklch(0.5211 0.2679 277.4312);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.3495 0.0936 268.41);
+    --secondary-foreground: oklch(0.9600 0.0050 250);
+    --muted: oklch(0.3495 0.0936 268.41);
+    --muted-foreground: oklch(0.6800 0.0400 260);
+    --accent: oklch(0.3200 0.0900 278);
+    --accent-foreground: oklch(0.9600 0.0050 250);
+    --destructive: oklch(0.6399 0.2160 31.29);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3400 0.0600 276);
+    --input: oklch(0.3400 0.0600 276);
+    --ring: oklch(0.5211 0.2679 277.4312);
+    --sidebar: oklch(0.2175 0.0657 267.92);
+    --sidebar-foreground: oklch(0.9600 0.0050 250);
+    --sidebar-primary: oklch(0.5211 0.2679 277.4312);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.3200 0.0900 278);
+    --sidebar-accent-foreground: oklch(0.9600 0.0050 250);
+    --sidebar-border: oklch(0.3400 0.0600 276);
+    --sidebar-ring: oklch(0.5211 0.2679 277.4312);
+    --chart-1: oklch(0.8100 0.2000 277.4312);
+    --chart-2: oklch(0.7100 0.2000 277.4312);
+    --chart-3: oklch(0.6100 0.2000 277.4312);
+    --chart-4: oklch(0.5100 0.2000 277.4312);
+    --chart-5: oklch(0.4200 0.2000 277.4312);
+
+    --brand-canvas-soft: oklch(0.3495 0.0936 268.41);
+    --brand-canvas-cream: oklch(0.3400 0.0500 60);
+    --brand-ink-secondary: oklch(0.8200 0.0300 260);
+    --brand-ink-mute: oklch(0.7400 0.0400 260);
+    --brand-ink-mute-2: oklch(0.7400 0.0400 260);
+    --brand-primary-bg-subdued-hover: oklch(0.3400 0.1500 280);
+    --brand-primary-deep: oklch(0.7800 0.2000 277);
+    --brand-primary-press: oklch(0.5600 0.2400 277);
+    --brand-hairline-input: oklch(0.4000 0.0700 250);
+  }
+}

@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23292524'/%3E%3Cpath d='M9 12 L9 20 M13 9 L13 23 M17 11 L17 21 M21 8 L21 24 M25 13 L25 19' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Off-white editorial canvas with pastel gradient orbs (mint / peach / lavender / sky / rose) as the only chromatic event, Fraunces serif display standing in for Waldenburg Light, near-black ink pill CTAs.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,200;9..144,300;9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === ElevenLabs-style preview shell — quietly editorial voice-AI
+   surface. Off-white canvas, warm near-black ink, pastel atmospheric
+   gradient orbs (mint + peach + lavender + sky + rose) as the only
+   chromatic moment. Fraunces (variable optical-size serif) standing
+   in for Waldenburg Light at weight 300. Inter for body, navigation,
+   captions. Subtle near-black ink pill primary CTA; transparent
+   outline secondary. Voice waveform card as the signature surface.
+   Halcyon-themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern", "liga", "ss01";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Fraunces', 'Waldenburg', 'Times New Roman', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 24px; height: 24px;
+  border-radius: var(--radius-sm);
+  background: var(--foreground);
+  display: inline-grid;
+  place-items: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--background);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 400;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--brand-body);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; font-size: 14px; }
+.topnav-actions a { color: var(--brand-body); text-decoration: none; font-weight: 400; }
+.topnav-actions a:hover { color: var(--foreground); }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (pill, 44 px touch, near-black ink primary) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.1px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-active); border-color: var(--brand-primary-active); opacity: 0.92; }
+.btn[data-variant="secondary"] {
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--brand-hairline-strong);
+}
+.btn[data-variant="secondary"]:hover { background: var(--card); border-color: var(--foreground); }
+.btn[data-size="lg"] { min-height: 52px; padding: 0 1.75rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (off-white canvas with drifting pastel gradient orbs) -- */
+.hero {
+  padding: 6rem 1.5rem 5rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero::before {
+  top: -10rem;
+  left: -6rem;
+  width: 32rem;
+  height: 32rem;
+  background: radial-gradient(circle, var(--brand-gradient-mint) 0%, transparent 70%);
+  opacity: 0.6;
+}
+.hero::after {
+  top: -4rem;
+  right: -8rem;
+  width: 36rem;
+  height: 36rem;
+  background: radial-gradient(circle, var(--brand-gradient-peach) 0%, var(--brand-gradient-lavender) 50%, transparent 80%);
+  opacity: 0.55;
+}
+.hero-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-radius-pill);
+  margin: 0 0 1.5rem;
+}
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-gradient-mint);
+}
+.hero-display {
+  font-family: 'Fraunces', 'Waldenburg', 'Times New Roman', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: clamp(2.75rem, 7vw, 5rem);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  margin: 0 auto 1.5rem;
+  max-width: 22ch;
+}
+.hero-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-body);
+  max-width: 38rem;
+  margin: 0 auto 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* -- Signature: voice waveform card -- */
+.voice-wrap {
+  padding: 0 1.5rem 5rem;
+  position: relative;
+}
+.voice-wrap::before {
+  content: "";
+  position: absolute;
+  bottom: -6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48rem;
+  height: 20rem;
+  background: radial-gradient(circle at 50% 50%, var(--brand-gradient-sky) 0%, var(--brand-gradient-lavender) 50%, transparent 80%);
+  opacity: 0.4;
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+}
+.voice-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.voice-card {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-radius-xxl);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.voice-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--brand-muted-soft);
+  letter-spacing: 0.02em;
+}
+.voice-meta-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--brand-canvas-soft);
+  color: var(--brand-body);
+  font-weight: 500;
+}
+.voice-title {
+  font-family: 'Fraunces', 'Waldenburg', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: 26px;
+  font-weight: 300;
+  letter-spacing: -0.4px;
+  color: var(--foreground);
+  margin: 0;
+}
+.voice-quote {
+  font-family: 'Fraunces', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--brand-body-strong);
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--brand-gradient-mint);
+}
+.waveform {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 4rem;
+  padding: 0.5rem 0;
+}
+.waveform-bar {
+  flex: 1;
+  background: var(--foreground);
+  border-radius: var(--brand-radius-xs);
+  min-height: 8%;
+  opacity: 0.85;
+}
+.waveform-bar.is-played { opacity: 0.4; }
+.voice-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.voice-time {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--brand-muted-soft);
+  letter-spacing: 0.02em;
+}
+.voice-play {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--foreground);
+  color: var(--background);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; background: var(--background); }
+.section[data-tight] { padding: 3rem 1.5rem; }
+.section[data-band="soft"] { background: var(--brand-canvas-soft); }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'Fraunces', 'Waldenburg', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 36rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-xs);
+  padding: 0.75rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--brand-radius-xs);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+}
+
+/* -- Token-demo: surface ladder (4 surfaces — including the deep dark) -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 880px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--brand-radius-xxl);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--brand-hairline-strong);
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="soft"] { background: var(--brand-canvas-soft); color: var(--foreground); }
+.ladder-step[data-step="card"] { background: var(--card); color: var(--foreground); }
+.ladder-step[data-step="deep"] { background: var(--brand-canvas-deep); color: var(--brand-on-dark); border-color: var(--brand-canvas-deep); }
+.ladder-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 12px;
+}
+.ladder-role { font-size: 14px; opacity: 0.86; margin-top: auto; line-height: 1.45; }
+
+/* -- Pricing (card-on-soft tiles, featured = dark inverse) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-radius-xxl);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pricing-card[data-featured] {
+  background: var(--brand-canvas-deep);
+  border-color: var(--brand-canvas-deep);
+  color: var(--brand-on-dark);
+}
+.pricing-name {
+  font-family: 'Fraunces', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: -0.3px;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-name { color: var(--brand-on-dark); }
+.pricing-price {
+  font-family: 'Fraunces', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: 44px;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-price { color: var(--brand-on-dark); }
+.pricing-tagline {
+  font-size: 13px;
+  color: var(--brand-body);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--brand-on-dark-soft); }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding-top: 1rem;
+  font-size: 13px;
+  color: var(--brand-body);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: rgba(255, 255, 255, 0.18);
+  color: var(--brand-on-dark-soft);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "—";
+  color: var(--foreground);
+  flex-shrink: 0;
+  width: 16px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--brand-on-dark); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+}
+.type-display {
+  font-family: 'Fraunces', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: 42px;
+  font-weight: 300;
+  letter-spacing: -0.025em;
+  line-height: 1.0;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Fraunces', serif;
+  font-variation-settings: "opsz" 144;
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; line-height: 1.55; color: var(--brand-body); }
+.type-mono { font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: var(--brand-body); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+  width: 100%;
+}
+
+/* -- Footer (dark canvas-deep — Eleven's documented footer pattern) -- */
+.footer {
+  background: var(--brand-canvas-deep);
+  color: var(--brand-on-dark);
+  padding: 4rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer .brand-mark { color: var(--brand-on-dark); }
+.footer .brand-glyph { background: var(--brand-on-dark); color: var(--brand-canvas-deep); }
+.footer-tagline { font-size: 13px; color: var(--brand-on-dark-soft); line-height: 1.55; margin: 0; }
+.footer-col-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 14px; color: var(--brand-on-dark-soft); text-decoration: none; }
+.footer-list a:hover { color: var(--brand-on-dark); }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-on-dark-soft);
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Voices</a>
+      <a href="#">Studio</a>
+      <a href="#">Speech</a>
+      <a href="#">Pricing</a>
+      <a href="#">Research</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Get started</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Halcyon · workspace</p>
+    <h1 class="hero-display">A quiet editorial canvas for the whole&nbsp;team.</h1>
+    <p class="hero-lede">Halcyon's product team writes notes, ships specs, and shares reviews on an off-white editorial surface — with pastel atmospherics drifting through and the editorial serif carrying every heading.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Get started</button>
+      <button class="btn" data-variant="secondary" data-size="lg" type="button">Watch the demo</button>
+    </div>
+  </div>
+</header>
+
+<section class="voice-wrap" aria-label="Voice waveform signature">
+  <div class="voice-inner">
+    <article class="voice-card" aria-label="Voice playback mockup">
+      <header class="voice-meta">
+        <span class="voice-meta-tag">Review · q3-roadmap</span>
+        <span>by maya@halcyon.dev · 0:42</span>
+      </header>
+      <h2 class="voice-title">Maya's voice note on the Q3 roadmap.</h2>
+      <p class="voice-quote">&ldquo;The launch sequence reads right — let&apos;s lean into the inline-comments thread and ship the editorial pass on Friday before noon.&rdquo;</p>
+      <div class="waveform" aria-hidden="true">
+        <span class="waveform-bar is-played" style="height: 18%;"></span>
+        <span class="waveform-bar is-played" style="height: 32%;"></span>
+        <span class="waveform-bar is-played" style="height: 24%;"></span>
+        <span class="waveform-bar is-played" style="height: 48%;"></span>
+        <span class="waveform-bar is-played" style="height: 65%;"></span>
+        <span class="waveform-bar is-played" style="height: 52%;"></span>
+        <span class="waveform-bar is-played" style="height: 88%;"></span>
+        <span class="waveform-bar is-played" style="height: 72%;"></span>
+        <span class="waveform-bar" style="height: 95%;"></span>
+        <span class="waveform-bar" style="height: 78%;"></span>
+        <span class="waveform-bar" style="height: 60%;"></span>
+        <span class="waveform-bar" style="height: 84%;"></span>
+        <span class="waveform-bar" style="height: 92%;"></span>
+        <span class="waveform-bar" style="height: 72%;"></span>
+        <span class="waveform-bar" style="height: 55%;"></span>
+        <span class="waveform-bar" style="height: 68%;"></span>
+        <span class="waveform-bar" style="height: 40%;"></span>
+        <span class="waveform-bar" style="height: 52%;"></span>
+        <span class="waveform-bar" style="height: 35%;"></span>
+        <span class="waveform-bar" style="height: 28%;"></span>
+        <span class="waveform-bar" style="height: 18%;"></span>
+        <span class="waveform-bar" style="height: 12%;"></span>
+      </div>
+      <footer class="voice-controls">
+        <span class="voice-time">0:18 / 0:42</span>
+        <button class="voice-play" type="button" aria-label="Play voice note">▶</button>
+        <span class="voice-time">Auto-transcribe · on</span>
+      </footer>
+    </article>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Off-white canvas, five pastel atmospherics.</h2>
+      <p class="section-lede">The brand voltage is photographic, not chromatic — soft pastel gradient orbs (mint, peach, lavender, sky, rose) drift through hero and signature surfaces as the only colour moments. No neon accent, no saturated CTA, no developer-tools dark canvas.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-soft);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--card);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--card</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-deep);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-deep</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-gradient-mint);"></div><div class="swatch-role">Gradient</div><div class="swatch-name">--brand-gradient-mint</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-gradient-peach);"></div><div class="swatch-role">Gradient</div><div class="swatch-name">--brand-gradient-peach</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-gradient-lavender);"></div><div class="swatch-role">Gradient</div><div class="swatch-name">--brand-gradient-lavender</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-gradient-sky);"></div><div class="swatch-role">Gradient</div><div class="swatch-name">--brand-gradient-sky</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-gradient-rose);"></div><div class="swatch-role">Gradient</div><div class="swatch-name">--brand-gradient-rose</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-muted-soft);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-muted-soft</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="soft" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces</p>
+      <h2 class="section-title">Four quiet registers.</h2>
+      <p class="section-lede">Off-white canvas as the page floor. Pure white card lifted above canvas. Soft cream alternating band. Warm near-black for the footer and the featured pricing tier — the only deep moment in an otherwise quiet system.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · off-white</span>
+      </div>
+      <div class="ladder-step" data-step="soft">
+        <span class="ladder-num">Soft</span>
+        <span class="ladder-name">--brand-canvas-soft</span>
+        <span class="ladder-role">alternating band</span>
+      </div>
+      <div class="ladder-step" data-step="card">
+        <span class="ladder-num">Card</span>
+        <span class="ladder-name">--card</span>
+        <span class="ladder-role">lifted card · pricing tile</span>
+      </div>
+      <div class="ladder-step" data-step="deep">
+        <span class="ladder-num">Deep</span>
+        <span class="ladder-name">--brand-canvas-deep</span>
+        <span class="ladder-role">footer · featured tier</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three quiet tiers.</h2>
+      <p class="section-lede">White-card tiles on the off-white canvas. Featured tier inverted to warm near-black — the only place the system commits to a contrast moment.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" type="button" style="background: var(--brand-on-dark); color: var(--brand-canvas-deep); border-color: var(--brand-on-dark);">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="soft" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · type + components</p>
+      <h2 class="section-title">Fraunces 300, Inter 400.</h2>
+      <p class="section-lede">Display tier in Fraunces (variable optical-size serif) at weight 300 — standing in for Waldenburg Light. Inter at weight 400/500 for body and UI. Subtle near-black ink pill primary; transparent outline secondary. No saturated CTA, no neon accent.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Quietly editorial.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Fraunces weight 300</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter · 500 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Inter at 14–16 pixels, line-height 1.55. Brand-body is mid-gray for body running text; brand-body-strong is the warm near-black for emphasis.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">workspace.notes.share()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · pill, ink primary</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Get started</button>
+            <button class="btn" data-variant="secondary" type="button">Watch the demo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the quietly-editorial pastel-atmospherics design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-list"><li><a href="#">Voices</a></li><li><a href="#">Studio</a></li><li><a href="#">Speech</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list"><li><a href="#">Docs</a></li><li><a href="#">Research</a></li><li><a href="#">Blog</a></li><li><a href="#">Status</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">workspace.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">off-white canvas · pastel orbs · serif display · ink pill</span>
+  </div>
+</footer>
+
+</body>
+</html>

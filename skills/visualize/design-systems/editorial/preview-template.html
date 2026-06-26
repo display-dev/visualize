@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Editorial preview shell — magazine long-form === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans, ui-sans-serif);
+  font-size: 18px;
+  line-height: 1.65;
+}
+.masthead {
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-display);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.masthead .pub { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.005em; }
+.masthead .nav {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  display: flex;
+  gap: 1.5rem;
+}
+.masthead .nav a { color: inherit; text-decoration: none; }
+
+.article {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.section-tag {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.25rem 0;
+}
+
+.standfirst {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.3125rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+  margin: 0 0 2rem 0;
+  letter-spacing: -0.005em;
+}
+
+.byline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+}
+.byline .author { font-weight: 600; }
+.byline .author span { color: var(--muted-foreground); font-weight: 400; }
+.byline .meta { color: var(--muted-foreground); }
+
+.prose p { margin: 0 0 1.5rem 0; }
+.prose a { color: var(--primary); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.prose p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 5rem;
+  float: left;
+  line-height: 0.85;
+  margin: 0.3rem 0.6rem -0.25rem 0;
+  color: var(--primary);
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.625rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 2.5rem 0 1rem 0;
+}
+
+.pullquote {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.75rem;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  text-align: center;
+  margin: 2.5rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  color: var(--foreground);
+}
+.pullquote cite {
+  display: block;
+  margin-top: 0.75rem;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.related {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.related .label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin-bottom: 1rem;
+}
+.related h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  margin: 0 0 0.5rem 0;
+}
+.related .meta {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+
+footer {
+  max-width: 1100px;
+  margin: 3rem auto 0;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <span class="pub">Quarterly</span>
+  <nav class="nav">
+    <a href="#">Reportage</a>
+    <a href="#">Essay</a>
+    <a href="#">Letters</a>
+    <a href="#">Subscribe</a>
+  </nav>
+</div>
+
+<article class="article">
+  <span class="section-tag">Essay · 4,200 words</span>
+  <h1>The persistence of the long page</h1>
+  <p class="standfirst">For ten years, every prediction has said the web would shrink to the size of a tweet. Instead the long-form essay survived — and not by accident.</p>
+
+  <div class="byline">
+    <span class="author">Mira Allende · <span>Contributing editor</span></span>
+    <span class="meta">21 May 2026 · Reading time 17 min</span>
+  </div>
+
+  <div class="prose">
+    <p>The argument against the long-form essay has been made every spring for a decade. The attention span is shrinking. The form is dying. The reader has migrated to vertical video. Every prediction has been wrong, and the longform essay has not just survived — it has become, somehow, the most-trusted unit of writing on the open internet.</p>
+    <p>Part of the explanation is structural. The long page is the only writing that pays the reader back at the rate the reader wants to be paid. The tweet rewards the writer; the carousel rewards the platform; the essay rewards the reader. When the algorithmic feeds collapsed into one another in 2024 and 2025, the place that held its shape was the slow page <a href="#">that respects the reader's time as a real cost</a>.</p>
+
+    <blockquote class="pullquote">
+      The long page rewards the reader.<br>The short post rewards the writer. The reader, eventually, notices the difference.
+      <cite>— Mira Allende, 2026</cite>
+    </blockquote>
+
+    <h2>A market for slowness</h2>
+    <p>Every publishing platform that survived the contraction has the same shape underneath: a single canonical URL, a generous body type, and an author who took time to write. The fast tools — the brief generators, the carousel-makers, the auto-summarisers — survive too, but they have become tools for working on the long page, not replacements for it.</p>
+    <p>There is a class of work that cannot be done quickly. Investigative reporting, sustained argument, technical depth, the slow accumulation of a body of thought across a career — all of these need the long page to make them legible to a reader. The platforms that bet against the long page bet against this class of work, and the work continues to be done.</p>
+  </div>
+
+  <div class="related">
+    <div class="label">Related · From the archive</div>
+    <h3>On returning to your own out-of-print writing</h3>
+    <div class="meta">Mira Allende · Quarterly, Issue 14, 2024</div>
+  </div>
+</article>
+
+<footer>
+  <span>Quarterly · est. 2018</span>
+  <span>visualize · __DESIGN_SYSTEM_NAME__</span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Bento preview shell — modular grid as the spatial primitive === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.shell { max-width: 1200px; margin: 0 auto; padding: var(--space-lg, 2rem); }
+.title-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--space-md, 1.25rem); }
+.title-row h1 { font-size: 1.875rem; font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+.title-row .meta { color: var(--muted-foreground); font-size: 0.875rem; font-weight: 500; }
+
+/* The grid — 4-column desktop, 2-column tablet, 1-column mobile. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md, 1.25rem);
+}
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+
+.tile {
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 1rem);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.tile.span-2 { grid-column: span 2; }
+.tile.span-4 { grid-column: span 4; }
+.tile.row-2 { grid-row: span 2; }
+.tile-accent { background-color: var(--accent); color: var(--accent-foreground); }
+.tile-primary { background-color: var(--primary); color: var(--primary-foreground); }
+.tile-muted { background-color: var(--muted); color: var(--foreground); }
+
+.tile h2 { font-size: 1.25rem; font-weight: 600; margin: 0; }
+.tile .label { font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.005em; color: var(--muted-foreground); text-transform: uppercase; }
+.tile-accent .label, .tile-primary .label { color: inherit; opacity: 0.85; }
+.tile .stat { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.tile .stat-row { display: flex; align-items: baseline; gap: 0.5rem; }
+.tile .delta { font-size: 0.875rem; font-weight: 600; color: var(--primary); }
+.tile-accent .delta, .tile-primary .delta { color: inherit; }
+
+.tile p { margin: 0; color: var(--foreground); }
+.tile-accent p, .tile-primary p { color: inherit; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.125rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius-md, 0.625rem);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  align-self: flex-start;
+}
+.btn-primary { background-color: var(--primary); color: var(--primary-foreground); }
+.btn-on-primary { background-color: var(--primary-foreground); color: var(--primary); }
+.btn-secondary { background-color: var(--secondary); color: var(--secondary-foreground); }
+
+.metric-list { display: flex; flex-direction: column; gap: 0.625rem; }
+.metric-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.metric-row .name { font-size: 0.9375rem; color: var(--foreground); }
+.metric-row .value { font-size: 0.9375rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.bar { height: 6px; background-color: var(--muted); border-radius: 999px; overflow: hidden; margin-top: 0.5rem; }
+.bar > span { display: block; height: 100%; background-color: var(--primary); border-radius: 999px; }
+.tile-accent .bar { background-color: rgb(0 0 0 / 0.15); }
+.tile-accent .bar > span { background-color: var(--accent-foreground); }
+
+.spark { display: flex; align-items: flex-end; gap: 4px; height: 56px; margin-top: 0.5rem; }
+.spark > span { flex: 1; background-color: var(--primary); border-radius: 2px 2px 0 0; opacity: 0.85; }
+.spark > span:hover { opacity: 1; }
+.spark.accent > span { background-color: var(--accent); }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  align-self: flex-start;
+}
+.tile-accent .badge { background-color: rgb(0 0 0 / 0.15); color: inherit; }
+.badge-accent { background-color: var(--accent); color: var(--accent-foreground); }
+
+.hero-stat { display: flex; flex-direction: column; gap: 0.25rem; }
+.hero-stat .stat { font-size: 3rem; }
+
+footer { margin-top: var(--space-xl, 3rem); padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted-foreground); font-size: 0.8125rem; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+<div class="title-row">
+  <h1>Q1 2026 — product OKRs</h1>
+  <span class="meta">Updated 21 May · acme-pro</span>
+</div>
+
+<div class="grid">
+
+  <!-- Hero tile: dominant 2x2 -->
+  <div class="tile span-2 row-2 tile-primary">
+    <span class="label">North star</span>
+    <div class="hero-stat">
+      <span class="stat">38.2%</span>
+      <span class="label" style="opacity: 0.9">activation in week-1 cohort</span>
+    </div>
+    <p>Up 6.4 points QoQ. The Tuesday-cohort experiment converted at 41.7% — promoting the prompt to all signups next sprint.</p>
+    <a href="#" class="btn btn-on-primary">View activation funnel →</a>
+  </div>
+
+  <!-- Standard metric tile -->
+  <div class="tile">
+    <span class="label">Artifacts</span>
+    <div class="stat-row"><span class="stat">24.8k</span><span class="delta">+12%</span></div>
+    <div class="spark"><span style="height: 60%"></span><span style="height: 72%"></span><span style="height: 68%"></span><span style="height: 80%"></span><span style="height: 75%"></span><span style="height: 88%"></span><span style="height: 95%"></span></div>
+  </div>
+
+  <!-- Standard metric tile -->
+  <div class="tile">
+    <span class="label">Median TTFR</span>
+    <div class="stat-row"><span class="stat">142<span style="font-size: 1.25rem; color: var(--muted-foreground)">ms</span></span><span class="delta">−18ms</span></div>
+    <div class="spark accent"><span style="height: 85%"></span><span style="height: 78%"></span><span style="height: 72%"></span><span style="height: 68%"></span><span style="height: 60%"></span><span style="height: 55%"></span><span style="height: 48%"></span></div>
+  </div>
+
+  <!-- Accent tile -->
+  <div class="tile tile-accent span-2">
+    <span class="badge">In flight</span>
+    <h2>SSO discovery flow</h2>
+    <p>Pilot with three Series-B teams. Drop-off at the IdP-select step is the next thing to fix.</p>
+    <a href="#" class="btn btn-on-primary">Open spec →</a>
+  </div>
+
+  <!-- KR progress tile -->
+  <div class="tile tile-muted span-2">
+    <span class="label">KR progress</span>
+    <div class="metric-list">
+      <div>
+        <div class="metric-row"><span class="name">Activation: week-1 cohort &gt;40%</span><span class="value">38.2 / 40</span></div>
+        <div class="bar"><span style="width: 96%"></span></div>
+      </div>
+      <div>
+        <div class="metric-row"><span class="name">Self-serve revenue &gt;$120k MRR</span><span class="value">$104k</span></div>
+        <div class="bar"><span style="width: 87%"></span></div>
+      </div>
+      <div>
+        <div class="metric-row"><span class="name">P95 publish latency &lt;200ms</span><span class="value">186ms</span></div>
+        <div class="bar"><span style="width: 78%"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standard tile -->
+  <div class="tile">
+    <span class="label">Active orgs</span>
+    <div class="stat-row"><span class="stat">1,204</span></div>
+    <p style="color: var(--muted-foreground); font-size: 0.875rem;">52 added this week. Cohort retention at week 8: 64%.</p>
+  </div>
+
+  <!-- Standard tile -->
+  <div class="tile">
+    <span class="label">Top spec</span>
+    <h2>feat-comments-thread-resolve</h2>
+    <span class="badge badge-accent">Phase 3 · in review</span>
+  </div>
+
+  <!-- Wide footer tile -->
+  <div class="tile span-4">
+    <span class="label">Last 7 days · shipped</span>
+    <div class="metric-list">
+      <div class="metric-row"><span class="name">Email notifications — list-unsubscribe header for one-click</span><span class="value">21 May</span></div>
+      <div class="metric-row"><span class="name">Worker theme — data-theme attribute cutover (W5)</span><span class="value">20 May</span></div>
+      <div class="metric-row"><span class="name">Settings telemetry — free-tier carrier event</span><span class="value">19 May</span></div>
+      <div class="metric-row"><span class="name">Edge origin — shared-secret rotation</span><span class="value">18 May</span></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span>visualize · __DESIGN_SYSTEM_NAME__</span>
+  <span>Modular grid · cards as the spatial primitive</span>
+</footer>
+
+</div>
+</body>
+</html>

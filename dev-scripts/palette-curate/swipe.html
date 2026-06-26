@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>seed swipe</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font: 14px/1.45 ui-monospace, "SF Mono", Menlo, monospace; background: #ececeb; color: #1c1c1b; padding: 24px; }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+  header h1 { font-size: 15px; font-weight: 600; }
+  .meta { color: #6b6b68; font-size: 12.5px; }
+  .meta b { color: #1c1c1b; }
+  .card { background: #fff; border: 1px solid #d6d6d3; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+  .cardhead { display: flex; gap: 10px; align-items: center; padding: 12px 16px; border-bottom: 1px solid #ececea; font-size: 12.5px; }
+  .swatch { width: 26px; height: 26px; border-radius: 6px; border: 1px solid rgba(0,0,0,.12); }
+  .chip { background: #f1f1ef; border-radius: 99px; padding: 2px 9px; color: #555; }
+  .oklch { color: #6b6b68; }
+  .panels { display: grid; grid-template-columns: 1fr 1fr; min-height: 320px; }
+  .panel { padding: 26px 28px; display: flex; flex-direction: column; gap: 14px; }
+  .panel .rule { width: 44px; height: 4px; border-radius: 2px; }
+  .panel h2 { font-size: 21px; line-height: 1.2; font-weight: 700; letter-spacing: -0.01em; }
+  .panel p { font-size: 13px; max-width: 34ch; }
+  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .btn { border: 0; border-radius: 7px; padding: 8px 16px; font: 600 13px/1 inherit; cursor: default; }
+  .pill { border-radius: 99px; padding: 4px 11px; font-size: 12px; border: 1.5px solid; }
+  .lnk { font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+  .zonectx { padding: 10px 16px; border-top: 1px solid #ececea; display: flex; gap: 8px; align-items: center; font-size: 12px; color: #6b6b68; }
+  .dot { width: 16px; height: 16px; border-radius: 4px; border: 1px solid rgba(0,0,0,.15); }
+  .controls { display: flex; justify-content: center; gap: 14px; margin-top: 16px; }
+  .controls button { font: 600 13px/1 inherit; padding: 10px 22px; border-radius: 8px; border: 1px solid #c9c9c6; background: #fff; cursor: pointer; }
+  .controls button:hover { background: #f5f5f3; }
+  .controls .keep { border-color: #2c7a3f; color: #2c7a3f; }
+  .controls .kill { border-color: #a33; color: #a33; }
+  .hint { text-align: center; color: #8a8a86; font-size: 12px; margin-top: 10px; }
+  .done { background: #fff; border: 1px solid #d6d6d3; border-radius: 10px; padding: 28px; }
+  .done h2 { margin-bottom: 12px; }
+  table { border-collapse: collapse; font-size: 12.5px; margin-top: 8px; }
+  td, th { padding: 3px 12px 3px 0; text-align: left; }
+  .flash { position: fixed; inset: 0; pointer-events: none; opacity: 0; }
+  .flash.keep { background: rgba(44,122,63,.12); } .flash.kill { background: rgba(170,51,51,.12); }
+  .flash.show { opacity: 1; transition: none; } .flash.fade { opacity: 0; transition: opacity .25s; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>seed swipe</h1>
+    <div class="meta" id="progress"></div>
+  </header>
+  <div id="stage"></div>
+  <div class="hint">← kill &nbsp;·&nbsp; → keep &nbsp;·&nbsp; z undo &nbsp;·&nbsp; judged in context: committed primary on the light and dark scaffolds it would actually get</div>
+</div>
+<div class="flash" id="flash"></div>
+<script>
+let queue = [], judgedStack = [], all = [], verdicts = {}, existing = [];
+
+async function load() {
+  const s = await (await fetch('/api/state')).json();
+  all = s.candidates; verdicts = s.verdicts; existing = s.existing;
+  queue = all.filter((c) => !(c.id in verdicts));
+  judgedStack = s.lastJudged ? [s.lastJudged] : [];
+  render();
+}
+
+function parseOklch(str) {
+  const m = /oklch\(([\d.]+) ([\d.]+) ([\d.]+)\)/.exec(str);
+  return { L: +m[1], C: +m[2], H: +m[3] };
+}
+
+function card(c) {
+  const { L, C, H } = parseOklch(c.oklch);
+  const n = c.neutralChroma;
+  const seed = c.oklch;
+  const onSeed = c.textOnSolid === 'white' ? 'oklch(0.99 0.005 ' + H + ')' : 'oklch(0.18 0.012 ' + H + ')';
+  const lightInk = `oklch(0.26 ${n} ${H})`;
+  const lightMuted = `oklch(0.54 ${n} ${H})`;
+  const darkBg = `oklch(0.19 ${n} ${H})`;
+  const darkInk = `oklch(0.93 0.01 ${H})`;
+  const darkMuted = `oklch(0.78 0.015 ${H})`;
+  const zoneSeeds = existing.filter((s) => s.zone === c.zone);
+  const kept = all.filter((x) => verdicts[x.id] === 'keep' && x.zone === c.zone);
+  return `
+  <div class="card">
+    <div class="cardhead">
+      <div class="swatch" style="background:${seed}"></div>
+      <span class="oklch">${seed}</span>
+      <span class="chip">${c.zone} · ${c.band}</span>
+      <span class="chip">text-on-fill: ${c.textOnSolid}</span>
+      <span class="chip">${c.id}</span>
+    </div>
+    <div class="panels">
+      <div class="panel" style="background:#fff;color:${lightInk}">
+        <div class="rule" style="background:${seed}"></div>
+        <h2>Quarterly platform review</h2>
+        <p style="color:${lightMuted}">Body copy sits in the tinted neutral this seed would derive. The seed itself carries identity.</p>
+        <div class="row">
+          <button class="btn" style="background:${seed};color:${onSeed}">Primary action</button>
+          <span class="pill" style="border-color:${seed};color:${seed}">status: live</span>
+          <span class="lnk" style="color:${seed}">Read the change</span>
+        </div>
+      </div>
+      <div class="panel" style="background:${darkBg};color:${darkInk}">
+        <div class="rule" style="background:${seed}"></div>
+        <h2>Quarterly platform review</h2>
+        <p style="color:${darkMuted}">Same seed on the dark scaffold — raw, before the dark-mode remap softens it.</p>
+        <div class="row">
+          <button class="btn" style="background:${seed};color:${onSeed}">Primary action</button>
+          <span class="pill" style="border-color:${seed};color:${seed}">status: live</span>
+          <span class="lnk" style="color:${seed}">Read the change</span>
+        </div>
+      </div>
+    </div>
+    <div class="zonectx">
+      <span>${c.zone} zone today:</span>
+      ${zoneSeeds.map((s) => `<span class="dot" title="${s.id}" style="background:${s.oklch}"></span>`).join('')}
+      <span>${zoneSeeds.map((s) => s.id).join(', ') || 'empty'}</span>
+      <span style="margin-left:auto">kept this zone: <b>${kept.length}</b></span>
+    </div>
+  </div>
+  <div class="controls">
+    <button class="kill" onclick="judge('kill')">← kill</button>
+    <button onclick="undo()">z undo</button>
+    <button class="keep" onclick="judge('keep')">keep →</button>
+  </div>`;
+}
+
+function doneScreen() {
+  const zones = {};
+  for (const c of all) {
+    zones[c.zone] = zones[c.zone] || { keep: 0, kill: 0 };
+    if (verdicts[c.id]) zones[c.zone][verdicts[c.id]]++;
+  }
+  const keeps = Object.values(verdicts).filter((v) => v === 'keep').length;
+  const rows = Object.entries(zones).map(([z, n]) =>
+    `<tr><td>${z}</td><td>${n.keep}</td><td>${n.kill}</td></tr>`).join('');
+  return `<div class="done">
+    <h2>Done — ${keeps} keeps of ${all.length}</h2>
+    <table><tr><th>zone</th><th>keep</th><th>kill</th></tr>${rows}</table>
+    <p style="margin-top:14px;color:#6b6b68">Verdicts are in dev-scripts/palette-curate/data/verdicts.jsonl.<br>
+    Next: hand the keeps back to Claude for mood/strategy authoring and the library PR. (z still undoes.)</p>
+  </div>`;
+}
+
+function render() {
+  const judged = Object.keys(verdicts).length;
+  const keeps = Object.values(verdicts).filter((v) => v === 'keep').length;
+  document.getElementById('progress').innerHTML =
+    `<b>${judged}</b>/${all.length} judged · <b>${keeps}</b> kept · ${queue.length} to go`;
+  document.getElementById('stage').innerHTML = queue.length ? card(queue[0]) : doneScreen();
+}
+
+async function judge(verdict) {
+  if (!queue.length) return;
+  const c = queue.shift();
+  verdicts[c.id] = verdict;
+  judgedStack.push(c.id);
+  flash(verdict);
+  render();
+  await fetch('/api/verdict', { method: 'POST', body: JSON.stringify({ id: c.id, verdict }) });
+}
+
+async function undo() {
+  const id = judgedStack.pop();
+  if (!id) return;
+  delete verdicts[id];
+  const c = all.find((x) => x.id === id);
+  queue.unshift(c);
+  render();
+  await fetch('/api/verdict', { method: 'POST', body: JSON.stringify({ id, verdict: 'undo' }) });
+}
+
+function flash(kind) {
+  const el = document.getElementById('flash');
+  el.className = 'flash ' + kind + ' show';
+  requestAnimationFrame(() => requestAnimationFrame(() => { el.className = 'flash ' + kind + ' fade'; }));
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') judge('keep');
+  else if (e.key === 'ArrowLeft') judge('kill');
+  else if (e.key === 'z') undo();
+});
+
+load();
+</script>
+</body>
+</html>

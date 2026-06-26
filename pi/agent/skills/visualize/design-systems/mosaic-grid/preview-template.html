@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231A3C2B'/%3E%3Cpath d='M9 9h6v6H9zM17 9h6v6h-6zM9 17h6v6H9zM17 17h6v6h-6z' fill='%23F7F7F5' opacity='0.92'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Technical Minimalist register — paper-cream canvas, forest-green primary, grid-gray hairlines, zero shadows, mosaic-panel SVG background, L-shaped corner markers on form containers, JetBrains Mono numerical-index nav labels, 2x2 bento grid with monospaced mockup cells. Token surfaces on Halcyon-themed neutral content.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Mosaic Grid preview shell — Technical Minimalist register.
+ * Signature mockup: 2x2 Bento Feature Grid framed by L-shaped corner
+ * markers (per DESIGN §4: Technical Form CTA + Bento Feature Grid).
+ * Each cell carries a JetBrains Mono header with a coloured
+ * left-border accent (coral / mint / gold) and an inner mockup box
+ * simulating a code snippet, status indicator, or config row.
+ * Bento sits on the mosaic-panel SVG background; corner markers
+ * frame the entire bento as one composite voltage moment. Numerical-
+ * index nav labels (01. PRICING) and Space Grotesk display headline
+ * carry the editorial-typographic identity. Content is Halcyon-team
+ * neutral SaaS work, not any product surface. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Mosaic background pattern (spec §"Section 1") -- */
+.mosaic-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-color: var(--brand-canvas-paper);
+  background-image:
+    linear-gradient(to right, var(--brand-hairline-strong) 0.5px, transparent 0.5px),
+    linear-gradient(to bottom, var(--brand-hairline-strong) 0.5px, transparent 0.5px);
+  background-size: 96px 96px, 96px 96px;
+  background-position: 0 0, 0 0;
+  opacity: 1;
+}
+.mosaic-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--brand-hairline-strong) 0.5px, transparent 0.5px),
+    linear-gradient(to bottom, var(--brand-hairline-strong) 0.5px, transparent 0.5px);
+  background-size: 192px 288px, 288px 192px;
+  background-position: 48px 64px, 64px 48px;
+}
+
+/* -- Topnav (spec §"Section 2") -- */
+.topnav {
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  background: var(--background);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--foreground);
+}
+.brand-glyph {
+  width: 32px;
+  height: 32px;
+  background: var(--brand-ink-forest);
+  display: inline-grid;
+  place-items: center;
+}
+.brand-glyph svg { display: block; }
+.brand-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  text-decoration: none;
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  min-height: 44px;
+  padding: 12px 0;
+}
+.nav-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+}
+.nav-link .idx { color: var(--brand-muted-soft); }
+.nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+/* -- Buttons (spec §"Section 2") -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--brand-radius-xs);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 150ms linear;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.btn-primary {
+  background: var(--brand-ink-forest);
+  color: var(--primary-foreground);
+  border: 1px solid var(--brand-ink-forest);
+}
+.btn-primary:hover { opacity: 0.88; }
+.btn-ghost {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+}
+.btn-ghost:hover { background: color-mix(in oklch, var(--foreground) 8%, transparent); }
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (spec §"Section 3") -- */
+.hero {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 1.5rem 5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  padding-left: 1rem;
+  border-left: 1px solid var(--foreground);
+  margin-bottom: 2rem;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 6.5vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+}
+.hero h1 em {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--brand-muted-soft);
+}
+.hero p.lede {
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  max-width: 36rem;
+  color: var(--foreground);
+  margin: 0 0 2rem;
+}
+.hero-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+/* Hero abstract wireframe graphic — square + dashed orbit */
+.hero-fig {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-width: 380px;
+  margin-left: auto;
+  border: 1px solid var(--brand-ink-grid);
+  background: var(--brand-canvas-paper);
+  display: grid;
+  place-items: center;
+}
+.hero-fig::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px dashed var(--brand-hairline-strong);
+  border-radius: 50%;
+  margin: 12%;
+}
+.hero-fig-img {
+  width: 60%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  mix-blend-mode: luminosity;
+  opacity: 0.9;
+  transition: opacity 200ms ease-out, filter 200ms ease-out;
+}
+.hero-fig-img:hover { mix-blend-mode: normal; opacity: 1; }
+.hero-fig-tag {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-ink-grid);
+}
+@media (max-width: 880px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-fig { margin: 0 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-fig-img { transition: none; }
+}
+
+/* -- SIGNATURE MOCKUP: Bento Feature Grid framed by L-corner-markers
+ *    (combines spec §"Section 4: Bento Feature Grid" with spec
+ *    §"Section 5: Technical Form CTA" corner-marker treatment — the
+ *    bento sits inside a corner-marked frame, which is the system's
+ *    voltage moment) -- */
+.signature {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.signature-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.signature-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.signature-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.signature-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 38rem;
+}
+
+.bento-frame {
+  position: relative;
+  padding: 1.5rem;
+  background: transparent;
+}
+.bento-frame::before,
+.bento-frame::after,
+.bento-frame > .corner-tl,
+.bento-frame > .corner-br {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--foreground);
+  border-style: solid;
+}
+.bento-frame::before { top: 0; left: 0; border-width: 2px 0 0 2px; }
+.bento-frame::after  { top: 0; right: 0; border-width: 2px 2px 0 0; }
+.bento-frame > .corner-tl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+.bento-frame > .corner-br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+
+.bento {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--brand-ink-grid);
+  border: 1px solid var(--brand-ink-grid);
+}
+@media (max-width: 760px) { .bento { grid-template-columns: 1fr; } }
+
+.bento-cell {
+  background: var(--brand-canvas-paper);
+  padding: 2rem;
+  border-left: 4px solid var(--cell-accent, var(--brand-ink-forest));
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 240px;
+}
+.bento-cell .label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-ink-grid);
+}
+.bento-cell .label .num { opacity: 0.55; margin-right: 0.5rem; }
+.bento-cell h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--brand-ink-forest);
+  margin: 0;
+}
+.bento-cell p {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--brand-ink-grid);
+  margin: 0;
+}
+
+.cell-coral { --cell-accent: var(--brand-accent-coral); }
+.cell-mint  { --cell-accent: var(--brand-accent-mint); }
+.cell-gold  { --cell-accent: var(--brand-accent-gold); }
+.cell-forest { --cell-accent: var(--brand-ink-forest); }
+
+/* Mockup box — monospaced wireframe of UI fragments (spec §"Section 4") */
+.mockup {
+  border: 1px solid var(--brand-hairline-soft);
+  background: var(--brand-canvas-paper);
+  padding: 1rem;
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--brand-ink-grid);
+}
+.mockup .row { display: flex; align-items: center; gap: 0.5rem; }
+.mockup .chip {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--chip-color, var(--brand-ink-forest));
+  flex-shrink: 0;
+}
+.mockup .k { color: var(--brand-ink-forest); font-weight: 500; }
+.mockup .v { color: var(--brand-ink-grid); }
+.mockup .comment { color: var(--brand-ink-grid); opacity: 0.55; }
+.mockup .ok { --chip-color: var(--brand-ink-forest); }
+.mockup .warn { --chip-color: var(--brand-accent-coral); }
+.mockup .info { --chip-color: var(--brand-accent-gold); }
+.mockup .neutral { --chip-color: var(--brand-ink-grid); }
+
+/* -- Status badge (spec §"Components 1") -- */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 4px 12px;
+  border: 1px solid color-mix(in oklch, var(--foreground) 24%, transparent);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.status-badge::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: var(--foreground);
+}
+
+/* -- Token-demo sections -- */
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 2.6vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 2rem;
+}
+
+/* Colour swatches */
+.swatches { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--brand-ink-grid); border: 1px solid var(--brand-ink-grid); }
+@media (max-width: 880px) { .swatches { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 480px) { .swatches { grid-template-columns: repeat(2, 1fr); } }
+.swatch {
+  background: var(--brand-canvas-paper);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 160px;
+}
+.swatch .chip {
+  width: 100%;
+  height: 64px;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch .name { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brand-ink-forest); }
+.swatch .val { font-family: var(--font-mono); font-size: 9.5px; color: var(--brand-muted-on-paper); word-break: break-all; }
+
+/* Surface ladder */
+.ladder { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-card {
+  border: 1px solid var(--brand-ink-grid);
+  padding: 2rem;
+  background: var(--brand-canvas-paper);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.ladder-card .num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-ink-grid);
+}
+.ladder-card .title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--brand-ink-forest);
+}
+.ladder-card .body { font-family: var(--font-sans); font-size: 14px; line-height: 1.55; color: var(--brand-ink-grid); margin: 0; }
+
+/* Typography roles */
+.type-roles { display: grid; gap: 2rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: 0; }
+.type-row .role {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-sample-display { font-family: var(--font-display); font-size: 3rem; font-weight: 700; letter-spacing: -0.02em; line-height: 0.95; color: var(--foreground); }
+.type-sample-heading { font-family: var(--font-display); font-size: 2rem; font-weight: 600; letter-spacing: -0.015em; line-height: 1.1; color: var(--foreground); }
+.type-sample-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; color: var(--foreground); }
+.type-sample-body { font-family: var(--font-sans); font-size: 1rem; line-height: 1.6; color: var(--foreground); }
+.type-sample-label { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--foreground); }
+.type-sample-mono { font-family: var(--font-mono); font-size: 13px; line-height: 1.6; color: var(--foreground); }
+@media (max-width: 700px) { .type-row { grid-template-columns: 1fr; gap: 0.5rem; } }
+
+/* Component vocabulary */
+.components { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+@media (max-width: 760px) { .components { grid-template-columns: 1fr; } }
+.component-block { border: 1px solid var(--brand-ink-grid); padding: 2rem; background: var(--brand-canvas-paper); display: flex; flex-direction: column; gap: 1.5rem; }
+.component-block .heading { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand-ink-grid); }
+.component-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+
+.input-row { display: flex; flex-direction: column; gap: 0.5rem; max-width: 320px; }
+.input-row label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-ink-grid);
+}
+.input-row input {
+  background: var(--brand-canvas-paper);
+  border: 1px solid var(--brand-ink-grid);
+  border-radius: var(--brand-radius-xs);
+  padding: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--brand-ink-forest);
+  min-height: 44px;
+}
+.input-row input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 1px;
+  border-color: var(--brand-ink-forest);
+}
+
+/* Testimonial card (spec §"Components 3") */
+.testimonial-band {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.testimonial-band-inner { max-width: 720px; margin: 0 auto; }
+.testimonial {
+  border: 1px solid var(--brand-ink-grid);
+  background: var(--brand-canvas-paper);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.testimonial-top { display: flex; align-items: center; justify-content: space-between; }
+.testimonial-quote {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--brand-ink-forest);
+  line-height: 1;
+}
+.testimonial-stars { display: inline-flex; gap: 2px; }
+.testimonial-stars span {
+  width: 10px;
+  height: 10px;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--brand-ink-forest);
+}
+.testimonial-body {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--brand-ink-grid);
+  margin: 0;
+}
+.testimonial-foot {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.testimonial-avatar {
+  width: 36px;
+  height: 36px;
+  background: var(--brand-ink-forest);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--primary-foreground);
+}
+.testimonial-meta { display: flex; flex-direction: column; gap: 2px; }
+.testimonial-name { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand-ink-forest); }
+.testimonial-title { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--brand-muted-on-paper); }
+
+/* Footer */
+.footer {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 1.5rem 2.5rem;
+  background: var(--background);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.footer-mark { display: flex; align-items: center; gap: 0.75rem; }
+.footer-meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand-muted-soft); }
+
+</style>
+</head>
+<body>
+
+<div class="mosaic-bg" aria-hidden="true"></div>
+
+<!-- Topnav: square logo box, numerical-index nav, ghost + solid buttons -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="#" class="brand-mark">
+      <span class="brand-glyph" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="1" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+          <rect x="9" y="1" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+          <rect x="1" y="9" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+          <rect x="9" y="9" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+        </svg>
+      </span>
+      <span class="brand-name">__DESIGN_SYSTEM_NAME__</span>
+    </a>
+    <ul class="nav-links" aria-label="Primary">
+      <li><a class="nav-link" href="#"><span class="idx">01.</span>Atlas</a></li>
+      <li><a class="nav-link" href="#"><span class="idx">02.</span>Methods</a></li>
+      <li><a class="nav-link" href="#"><span class="idx">03.</span>Tooling</a></li>
+      <li><a class="nav-link" href="#"><span class="idx">04.</span>Library</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#" class="btn btn-ghost">Sign in</a>
+      <a href="#" class="btn btn-primary">Request access</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero: large editorial headline + wireframe orbit graphic -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <span>Edition</span>
+        <span>·</span>
+        <span>26 — Architecture</span>
+      </div>
+      <h1>
+        Drawn in <em>plan view</em>,<br>
+        built for the page.
+      </h1>
+      <p class="lede">
+        A token surface for technical writing, engineering specs, and product teardowns.
+        Halcyon's research desk runs every weekly memo through this register — paper
+        canvas, forest ink, hairline gutters. Nothing decorative, everything load-balanced.
+      </p>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-primary">Open atlas</a>
+        <a href="#" class="btn btn-ghost">Read brief</a>
+      </div>
+    </div>
+    <figure class="hero-fig" aria-label="Abstract orbit wireframe">
+      <img class="hero-fig-img" src="https://picsum.photos/seed/mosaic-grid-orbit-140r/600/600" alt="" aria-hidden="true" loading="lazy" />
+      <span class="hero-fig-tag">FIG 01 · ORBIT 140R</span>
+    </figure>
+  </div>
+</section>
+
+<!-- SIGNATURE MOCKUP: Bento Feature Grid framed by L-shaped corner markers -->
+<section class="signature">
+  <div class="signature-inner">
+    <header class="signature-header">
+      <span class="signature-eyebrow">§ 04 · Workbench Grid</span>
+      <h2 class="signature-title">Four cells, four registers, one hairline rule.</h2>
+      <span class="status-badge">Live · v2.6</span>
+    </header>
+
+    <div class="bento-frame">
+      <span class="corner-tl" aria-hidden="true"></span>
+      <span class="corner-br" aria-hidden="true"></span>
+
+      <div class="bento" role="list">
+        <article class="bento-cell cell-coral" role="listitem">
+          <span class="label"><span class="num">01.</span>Tenant Bootstrap</span>
+          <h3>Provisioning</h3>
+          <p>Halcyon's onboarding pipeline reads the org slug, allocates a row, mounts the workspace. Two-step audit, no human in the path.</p>
+          <div class="mockup" aria-hidden="true">
+            <div class="row"><span class="chip ok"></span><span class="k">tenant.slug</span><span class="v">= "halcyon-research"</span></div>
+            <div class="row"><span class="chip ok"></span><span class="k">region</span><span class="v">= "eu-fra-1"</span></div>
+            <div class="row"><span class="chip info"></span><span class="k">status</span><span class="v">= READY</span></div>
+            <div class="row"><span class="comment"># bootstrap.ts · 14ms</span></div>
+          </div>
+        </article>
+
+        <article class="bento-cell cell-mint" role="listitem">
+          <span class="label"><span class="num">02.</span>Spec Index</span>
+          <h3>Engineering memos</h3>
+          <p>Halcyon's research team writes every spec on paper canvas. Twelve memos a week, indexed by quarter, referenced by row id.</p>
+          <div class="mockup" aria-hidden="true">
+            <div class="row"><span class="chip neutral"></span><span class="k">SPEC-0148</span><span class="v">Edge cache · draft</span></div>
+            <div class="row"><span class="chip ok"></span><span class="k">SPEC-0147</span><span class="v">Topology v3 · merged</span></div>
+            <div class="row"><span class="chip info"></span><span class="k">SPEC-0146</span><span class="v">Retry budget · review</span></div>
+            <div class="row"><span class="chip neutral"></span><span class="k">SPEC-0145</span><span class="v">Quota model · merged</span></div>
+          </div>
+        </article>
+
+        <article class="bento-cell cell-gold" role="listitem">
+          <span class="label"><span class="num">03.</span>Deploy Ledger</span>
+          <h3>Release timeline</h3>
+          <p>Friday cuts, Monday rollouts, weekly retrospectives. The ledger reads like a plan-view of the quarter — every cell time-stamped, every line accounted for.</p>
+          <div class="mockup" aria-hidden="true">
+            <div class="row"><span class="chip ok"></span><span class="k">14:02 UTC</span><span class="v">v2.6.1 → prod</span></div>
+            <div class="row"><span class="chip ok"></span><span class="k">12:18 UTC</span><span class="v">v2.6.0 → staging</span></div>
+            <div class="row"><span class="chip warn"></span><span class="k">09:44 UTC</span><span class="v">migrate · paused</span></div>
+            <div class="row"><span class="comment"># ledger.tail · 06:00</span></div>
+          </div>
+        </article>
+
+        <article class="bento-cell cell-forest" role="listitem">
+          <span class="label"><span class="num">04.</span>Sprint Burndown</span>
+          <h3>Cycle 26 · week 3</h3>
+          <p>Eighteen tickets opened, fourteen closed, four in review. The team holds the line at 78% closure on a four-week cadence.</p>
+          <div class="mockup" aria-hidden="true">
+            <div class="row"><span class="chip ok"></span><span class="k">closed</span><span class="v">14 · 78%</span></div>
+            <div class="row"><span class="chip info"></span><span class="k">in review</span><span class="v">04 · 22%</span></div>
+            <div class="row"><span class="chip neutral"></span><span class="k">backlog</span><span class="v">+ 22 awaiting triage</span></div>
+            <div class="row"><span class="comment"># burndown.csv · 26.3</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Token demo: colour swatches -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-eyebrow">§ 05 · Palette</p>
+    <h2>Six surfaces, one register.</h2>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="chip" style="background: var(--brand-canvas-paper); border-color: var(--brand-ink-grid);"></div>
+        <span class="name">Paper</span>
+        <span class="val">canvas / cell fill</span>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: var(--brand-ink-forest); border-color: var(--brand-ink-forest);"></div>
+        <span class="name">Forest</span>
+        <span class="val">primary / heading ink</span>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: var(--brand-ink-grid); border-color: var(--brand-ink-grid);"></div>
+        <span class="name">Grid</span>
+        <span class="val">hairlines / body</span>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: var(--brand-accent-coral);"></div>
+        <span class="name">Coral</span>
+        <span class="val">bento accent · 01</span>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: var(--brand-accent-mint);"></div>
+        <span class="name">Mint</span>
+        <span class="val">bento accent · 02</span>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: var(--brand-accent-gold);"></div>
+        <span class="name">Gold</span>
+        <span class="val">bento accent · 03</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Token demo: surface ladder (hairline-only elevation) -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-eyebrow">§ 06 · Elevation</p>
+    <h2>Hairlines do the work of shadow.</h2>
+    <div class="ladder">
+      <article class="ladder-card">
+        <span class="num">Level · 00</span>
+        <span class="title">Canvas</span>
+        <p class="body">Paper at the base. The mosaic-panel grid sits beneath every section as quiet structural texture.</p>
+      </article>
+      <article class="ladder-card">
+        <span class="num">Level · 01</span>
+        <span class="title">Hairline frame</span>
+        <p class="body">A 1px line at twenty-percent opacity separates regions. No fill change, no surface lift.</p>
+      </article>
+      <article class="ladder-card">
+        <span class="num">Level · 02</span>
+        <span class="title">Solid edge</span>
+        <p class="body">Cards and figures step up to full-strength grid hairlines. Still flat. Still on paper.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Token demo: typography roles -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-eyebrow">§ 07 · Type</p>
+    <h2>Three families, six roles.</h2>
+    <div class="type-roles">
+      <div class="type-row">
+        <span class="role">Display · Space Grotesk 700</span>
+        <span class="type-sample-display">In plan view.</span>
+      </div>
+      <div class="type-row">
+        <span class="role">Heading · Space Grotesk 600</span>
+        <span class="type-sample-heading">A workbench for technical writing</span>
+      </div>
+      <div class="type-row">
+        <span class="role">Title · Space Grotesk 600</span>
+        <span class="type-sample-title">Edition 26 · the architecture issue</span>
+      </div>
+      <div class="type-row">
+        <span class="role">Body · General Sans 400</span>
+        <span class="type-sample-body">Halcyon's research desk publishes weekly memos on paper canvas. The bento grid carries the four cells of a working week — provisioning, specs, releases, retrospectives — separated by hairline gutters and nothing else.</span>
+      </div>
+      <div class="type-row">
+        <span class="role">Caption · JetBrains Mono 500</span>
+        <span class="type-sample-label">FIG · 03 · BURNDOWN · CYCLE 26</span>
+      </div>
+      <div class="type-row">
+        <span class="role">Mono · JetBrains Mono 400</span>
+        <span class="type-sample-mono">const region = "eu-fra-1"; const ttl = 86400;</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Token demo: component vocabulary -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-eyebrow">§ 08 · Components</p>
+    <h2>Buttons, badges, inputs.</h2>
+    <div class="components">
+      <div class="component-block">
+        <span class="heading">Buttons · solid + ghost</span>
+        <div class="component-row">
+          <a href="#" class="btn btn-primary">Primary</a>
+          <a href="#" class="btn btn-ghost">Ghost</a>
+        </div>
+        <span class="heading">Status indicators</span>
+        <div class="component-row">
+          <span class="status-badge">Live</span>
+          <span class="status-badge" style="border-color: color-mix(in oklch, var(--brand-accent-coral) 60%, transparent); color: var(--brand-ink-grid);">
+            <span style="background: var(--brand-accent-coral); width: 8px; height: 8px; display: inline-block;"></span>
+            Build · 14m
+          </span>
+          <span class="status-badge" style="border-color: color-mix(in oklch, var(--brand-accent-gold) 60%, transparent); color: var(--brand-ink-grid);">
+            <span style="background: var(--brand-accent-gold); width: 8px; height: 8px; display: inline-block;"></span>
+            Migrate
+          </span>
+        </div>
+      </div>
+
+      <div class="component-block">
+        <span class="heading">Form fields · monospaced labels above</span>
+        <div class="input-row">
+          <label for="org-name">Org name</label>
+          <input id="org-name" type="text" value="halcyon-research" />
+        </div>
+        <div class="input-row">
+          <label for="region">Region</label>
+          <input id="region" type="text" value="eu-fra-1" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Token demo: monospaced testimonial card (spec §"Components 3") -->
+<section class="testimonial-band">
+  <div class="testimonial-band-inner">
+    <p class="section-eyebrow" style="text-align: center; margin-bottom: 1.5rem;">§ 09 · Field note</p>
+    <article class="testimonial">
+      <div class="testimonial-top">
+        <span class="testimonial-quote">&ldquo;</span>
+        <span class="testimonial-stars" aria-label="Five out of five">
+          <span>&#9632;</span><span>&#9632;</span><span>&#9632;</span><span>&#9632;</span><span>&#9632;</span>
+        </span>
+      </div>
+      <p class="testimonial-body">Every weekly memo lands in the same shape. Paper canvas, four cells, one hairline rule. The team can read each other's drafts at a glance because the register never moves — only the words inside the cells do.</p>
+      <div class="testimonial-foot">
+        <div class="testimonial-avatar" aria-hidden="true">MR</div>
+        <div class="testimonial-meta">
+          <span class="testimonial-name">Morgan Reyes</span>
+          <span class="testimonial-title">Editor-at-large · __DESIGN_SYSTEM_NAME__ atlas</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-mark">
+      <span class="brand-glyph" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="1" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+          <rect x="9" y="1" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+          <rect x="1" y="9" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+          <rect x="9" y="9" width="6" height="6" fill="var(--brand-canvas-paper)" opacity="0.92"/>
+        </svg>
+      </span>
+      <span class="brand-name">__DESIGN_SYSTEM_NAME__</span>
+    </div>
+    <div class="footer-meta">EDITION 26 · ARCHITECTURE · MMXXVI</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Helvetica,sans-serif' font-size='18' font-weight='300' fill='%23fff' letter-spacing='2'%3EB%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Austere luxury-automotive surface — near-pure black canvas, white UPPERCASE letterspaced display, no accent color, no decorative element. Only typography, photography (abstracted to specification dashboards), and the brand wordmark.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Bugatti-style preview shell — austere luxury-automotive.
+   Near-pure black canvas, white UPPERCASE letterspaced display at
+   modest weights. No accent color, no decorative element, no chrome.
+   The system reads as quietly expensive — generous whitespace,
+   precision typography, engineering numerals. Bugatti Display +
+   Bugatti Text Regular + Bugatti Monospace substituted by Inter
+   (200/300/400) and Cormorant Garamond for the display moments. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga", "tnum";
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav (austere — wordmark + nav + sign-in, no glyph, no fill) -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-strong);
+  height: 72px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.topnav-links {
+  display: flex;
+  gap: 2.5rem;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  flex: 1;
+  margin-left: 3rem;
+  color: var(--brand-body);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.topnav-actions a {
+  color: var(--brand-body);
+  text-decoration: none;
+  font-weight: 400;
+}
+.topnav-actions a:hover { color: var(--foreground); }
+@media (max-width: 980px) { .topnav-links { display: none; } }
+
+/* -- Buttons (text-only line with chevron — austere) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 200ms ease, gap 200ms ease;
+  white-space: nowrap;
+}
+.btn:hover { gap: 1rem; opacity: 0.7; }
+.btn:focus-visible {
+  outline: 1px solid var(--foreground);
+  outline-offset: 6px;
+}
+.btn::after { content: "→"; font-size: 14px; }
+.btn[data-variant="muted"] {
+  color: var(--brand-body);
+  border-bottom-color: var(--brand-body);
+}
+.btn[data-variant="muted"]:hover { color: var(--foreground); border-bottom-color: var(--foreground); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn:hover { gap: 0.75rem; }
+}
+
+/* -- Hero -- */
+.hero {
+  padding: 8rem 2rem 6rem;
+}
+.hero-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 3rem;
+}
+.hero-display {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 2rem;
+  max-width: 18ch;
+}
+.hero-lede {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--brand-body);
+  max-width: 36rem;
+  margin: 0 0 3rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* -- Specification dashboard (signature mockup — replaces photography
+ * with typographic specifications, Halcyon engineering metrics). -- */
+.spec {
+  padding: 6rem 2rem;
+  border-top: 1px solid var(--brand-hairline-strong);
+  border-bottom: 1px solid var(--brand-hairline-strong);
+}
+.spec-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+.spec-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 2.5rem;
+}
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4rem 3rem;
+}
+@media (max-width: 1080px) { .spec-grid { grid-template-columns: repeat(2, 1fr); gap: 3rem 2rem; } }
+@media (max-width: 640px) { .spec-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+.spec-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.spec-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid var(--brand-hairline-strong);
+}
+.spec-value {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: 0.02em;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.spec-unit {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.spec-note {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0;
+  color: var(--brand-body);
+  line-height: 1.5;
+}
+
+/* -- Section frame -- */
+.section { padding: 6rem 2rem; }
+.section[data-tight] { padding: 4rem 2rem; }
+.section-inner { max-width: 1320px; margin: 0 auto; }
+.section-header { max-width: 44rem; margin-bottom: 3rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 1.5rem;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 40rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch (austere — minimal palette) -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--brand-hairline-strong);
+  border-left: 1px solid var(--brand-hairline-strong);
+}
+.swatch {
+  padding: 1rem;
+  border-right: 1px solid var(--brand-hairline-strong);
+  border-bottom: 1px solid var(--brand-hairline-strong);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.swatch-chip {
+  height: 3rem;
+  border: 1px solid var(--brand-hairline-strong);
+}
+.swatch-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+}
+
+/* -- Surface ladder (3 cards — keep it sparse) -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--brand-hairline-strong);
+}
+@media (max-width: 880px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 12rem;
+  border-right: 1px solid var(--brand-hairline-strong);
+  border-bottom: 1px solid var(--brand-hairline-strong);
+}
+@media (max-width: 880px) { .ladder-step { border-right: none; } }
+.ladder-step:last-child { border-right: none; }
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="elev"]   { background: var(--brand-surface-elevated); color: var(--foreground); }
+.ladder-step[data-step="card"]   { background: var(--card); color: var(--foreground); }
+.ladder-num {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+}
+.ladder-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--foreground);
+}
+.ladder-role {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--brand-body);
+  margin-top: auto;
+  line-height: 1.5;
+}
+
+/* -- Pricing (austere — no decorative chrome) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  max-width: 1080px;
+  margin: 0 auto;
+  border-top: 1px solid var(--brand-hairline-strong);
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 36rem; } }
+.pricing-card {
+  background: var(--background);
+  border-right: 1px solid var(--brand-hairline-strong);
+  border-bottom: 1px solid var(--brand-hairline-strong);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  color: var(--foreground);
+}
+@media (max-width: 880px) { .pricing-card { border-right: none; } }
+.pricing-card:last-child { border-right: none; }
+.pricing-card[data-featured] {
+  background: var(--brand-surface-elevated);
+}
+.pricing-name {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0;
+}
+.pricing-price {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--foreground);
+}
+.pricing-tagline {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--brand-body);
+  margin: 0;
+  line-height: 1.55;
+  min-height: 2.8em;
+}
+.pricing-cta { margin-top: auto; padding-top: 1rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  border-top: 1px solid var(--brand-hairline-strong);
+  padding-top: 1.25rem;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--brand-body);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.625rem; }
+.pricing-features li::before {
+  content: "·";
+  color: var(--foreground);
+  font-size: 18px;
+  flex-shrink: 0;
+  width: 14px;
+  line-height: 1;
+}
+
+/* -- Type + components -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 3rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 2rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--brand-hairline-strong);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+}
+.type-display {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-body { font-family: var(--font-sans); font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--brand-body); }
+.type-mono { font-family: var(--font-mono); font-size: 12px; color: var(--foreground); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 2rem; }
+.cmp-row { display: flex; gap: 2.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+  width: 100%;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid var(--brand-hairline-strong);
+}
+
+/* -- Footer -- */
+.footer {
+  border-top: 1px solid var(--brand-hairline-strong);
+  padding: 4rem 2rem 2.5rem;
+  background: var(--background);
+  color: var(--foreground);
+}
+.footer-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 3rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 1rem; max-width: 32ch; }
+.footer-tagline { font-size: 13px; color: var(--brand-body); line-height: 1.65; margin: 0; font-weight: 300; }
+.footer-col-title {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1.25rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.625rem; }
+.footer-list a {
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--brand-body);
+  text-decoration: none;
+}
+.footer-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1320px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-strong);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+}
+.footer-legal-meta { font-family: var(--font-mono); letter-spacing: 0.04em; text-transform: none; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Engineering</a>
+      <a href="#">Atelier</a>
+      <a href="#">Heritage</a>
+      <a href="#">Stories</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <a href="#">Configure</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Halcyon · Specification · MMXXVI</p>
+    <h1 class="hero-display">Quiet, precise, considered.</h1>
+    <p class="hero-lede">Halcyon's platform reads like a specification sheet — every measurement intentional, every margin calibrated, every type setting set once and never adjusted. The system trusts whitespace and engineering numerals to do the work that another brand would delegate to colour.</p>
+    <div class="hero-ctas">
+      <button class="btn" type="button">Read the specification</button>
+      <button class="btn" data-variant="muted" type="button">Heritage dossier</button>
+    </div>
+  </div>
+</header>
+
+<section class="spec" aria-label="Specification sheet — signature surface">
+  <div class="spec-inner">
+    <p class="spec-eyebrow">Specification · Halcyon engineering · Q2 MMXXVI</p>
+    <div class="spec-grid">
+      <div class="spec-cell">
+        <div class="spec-label">Uptime</div>
+        <div class="spec-value">99.992<span class="spec-unit">%</span></div>
+        <p class="spec-note">Rolling 90-day window. Origin + edge combined.</p>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">P50 latency</div>
+        <div class="spec-value">38<span class="spec-unit">ms</span></div>
+        <p class="spec-note">Edge POPs · 24-region median.</p>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">P95 latency</div>
+        <div class="spec-value">142<span class="spec-unit">ms</span></div>
+        <p class="spec-note">Worst-case 95th-percentile across all routes.</p>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Deploy frequency</div>
+        <div class="spec-value">11.4<span class="spec-unit">/day</span></div>
+        <p class="spec-note">Engineering velocity, calendar-weeks averaged.</p>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Mean-time-recovery</div>
+        <div class="spec-value">4.2<span class="spec-unit">min</span></div>
+        <p class="spec-note">From paging event to green dashboard.</p>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Change-failure rate</div>
+        <div class="spec-value">0.6<span class="spec-unit">%</span></div>
+        <p class="spec-note">Deploys requiring rollback or hotfix.</p>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Concurrent regions</div>
+        <div class="spec-value">24<span class="spec-unit"></span></div>
+        <p class="spec-note">Active multi-region with sub-50ms inter-region replication.</p>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Engineering FTE</div>
+        <div class="spec-value">14<span class="spec-unit"></span></div>
+        <p class="spec-note">Shipping platform team. Lean by design.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Palette</p>
+      <h2 class="section-title">Black, white, and the air between.</h2>
+      <p class="section-lede">The palette is the absence of palette. Near-pure black canvas; the only other surfaces are progressive elevation steps in nearly-black gray. There is no accent colour, no chrome, no decorative tint. Type and whitespace carry the entire system.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-elevated);"></div><div class="swatch-role">Elev</div><div class="swatch-name">--brand-surface-elevated</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--card);"></div><div class="swatch-role">Card</div><div class="swatch-name">--card</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-hairline-strong);"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--brand-hairline-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-muted-soft);"></div><div class="swatch-role">Mute</div><div class="swatch-name">--brand-muted-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Body</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body-strong);"></div><div class="swatch-role">Strong</div><div class="swatch-name">--brand-body-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces</p>
+      <h2 class="section-title">Three steps, no chrome.</h2>
+      <p class="section-lede">Canvas, elevated, card. Each step is a near-black with measured lightness — never decorative, never tinted. The system relies on hairlines, not shadows, to articulate depth.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · sections · hero</span>
+      </div>
+      <div class="ladder-step" data-step="elev">
+        <span class="ladder-num">Elevated</span>
+        <span class="ladder-name">--brand-surface-elevated</span>
+        <span class="ladder-role">swatch tile · featured pricing</span>
+      </div>
+      <div class="ladder-step" data-step="card">
+        <span class="ladder-num">Card</span>
+        <span class="ladder-name">--card</span>
+        <span class="ladder-role">popover · dense reference</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three configurations.</h2>
+      <p class="section-lede">Pricing tiles share the system's restraint — hairline borders, generous internal whitespace, no decorative chrome. The featured tile uses an elevated near-black, not a fill or stripe.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="muted" type="button">Start</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organisations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="muted" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">Three families, modest weights.</h2>
+      <p class="section-lede">Bugatti Display for headlines, Bugatti Text Regular for body, Bugatti Monospace for engineering numerals. Modest weights throughout — display at 300, body at 300, label at 400. Letter-spacing runs wide on uppercase (0.24–0.32em) to feel European-engineered.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Quiet, precise.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Bugatti Display · 300</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Bugatti Text Regular at 15 px, weight 300, line-height 1.65. Body reads quietly; the uppercase display moments do the lifting.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">99.992% · 38ms · 142ms · 11.4/day</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons — underline + chevron, no fill</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" type="button">Read the specification</button>
+            <button class="btn" data-variant="muted" type="button">Heritage dossier</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Hairlines — articulate depth without shadow</span>
+          <div class="cmp-row" style="margin-top:0.5rem; flex-direction: column; align-items: stretch; gap: 0.75rem; width: 100%;">
+            <div style="height: 1px; background: var(--brand-hairline-strong);"></div>
+            <div style="height: 1px; background: var(--brand-muted-soft);"></div>
+            <div style="height: 1px; background: var(--brand-body);"></div>
+            <div style="height: 1px; background: var(--foreground);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#">__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the austere luxury-automotive design system. Near-pure black canvas, UPPERCASE letterspaced display, no accent colour, no decorative chrome. Halcyon-themed neutral specification content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Engineering</p>
+      <ul class="footer-list"><li><a href="#">Specification</a></li><li><a href="#">Atelier</a></li><li><a href="#">Telemetry</a></li><li><a href="#">Heritage</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Owners</p>
+      <ul class="footer-list"><li><a href="#">Service</a></li><li><a href="#">Stories</a></li><li><a href="#">Concierge</a></li><li><a href="#">Documentation</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Maison</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · Token surface preview · MMXXVI.05.24</span>
+    <span class="footer-legal-meta">austere · uppercase · letterspaced · no-accent</span>
+  </div>
+</footer>
+
+</body>
+</html>

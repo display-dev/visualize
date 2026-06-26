@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23202833'/%3E%3Cpath d='M16 7 L20 11 L16 15 L12 11 Z M11 16 L15 12 L11 16 L7 16 Z M21 16 L25 16 L21 16 L17 12 L17 12 Z M16 17 L20 21 L16 25 L12 21 Z' fill='%23fcd535'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Confident financial-platform surface — dark-canonical canvas with Binance's iconic yellow (#FCD535) for every primary CTA + value-claim, trading green/red accents for price direction, light transactional band for buy/exchange surfaces.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Binance-style preview shell — dark-canonical financial platform.
+   Marketing + product default to dark canvas (navy-tinted near-black);
+   transactional band ("Buy crypto") flips to light. Iconic yellow
+   (#FCD535) carries every primary CTA and value-claim moment, in both
+   polarities. Trading green/red thread through both for price direction.
+   BinanceNova substituted by Inter at 500/700. Halcyon-themed neutral
+   ticker content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'BinanceNova', 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern", "liga", "tnum";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Always-dark signature canvas (marketing hero, footer). Locked
+ * to --brand-canvas-dark across both polarities. -- */
+.canvas-dark {
+  background: var(--brand-canvas-dark);
+  color: var(--brand-body);
+}
+.canvas-dark .section-title,
+.canvas-dark .section-eyebrow,
+.canvas-dark .section-lede { color: var(--brand-body); }
+.canvas-dark .section-title { color: var(--brand-on-dark); }
+
+/* -- Always-light transactional band ("Buy crypto" surface). -- */
+.canvas-light {
+  background: var(--brand-canvas-light);
+  color: var(--brand-body-on-light);
+}
+.canvas-light .section-title,
+.canvas-light .section-eyebrow,
+.canvas-light .section-lede { color: var(--brand-body-on-light); }
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--brand-canvas-dark);
+  border-bottom: 1px solid var(--brand-hairline-on-dark);
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--brand-on-dark);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--primary-foreground);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--brand-on-dark);
+}
+.topnav-links a { color: inherit; text-decoration: none; opacity: 0.85; }
+.topnav-links a:hover { opacity: 1; }
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 14px;
+}
+.topnav-actions a {
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  font-weight: 500;
+  opacity: 0.85;
+}
+.topnav-actions a:hover { opacity: 1; }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (yellow primary, dark text) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--radius-sm);
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+/* Primary: yellow filled, always — both polarities. */
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-active); border-color: var(--brand-primary-active); }
+/* Secondary on dark surfaces */
+.btn[data-variant="on-dark"] {
+  background: transparent;
+  color: var(--brand-on-dark);
+  border-color: var(--brand-hairline-on-dark);
+}
+.btn[data-variant="on-dark"]:hover { border-color: var(--brand-on-dark); }
+/* Secondary on light surfaces */
+.btn[data-variant="on-light"] {
+  background: var(--brand-canvas-light);
+  color: var(--brand-body-on-light);
+  border-color: var(--brand-border-strong);
+}
+.btn[data-variant="on-light"]:hover { border-color: var(--brand-body-on-light); }
+.btn[data-size="lg"] { min-height: 48px; padding: 0 1.5rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (dark canonical) -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 960px) { .hero-inner { grid-template-columns: 1fr; gap: 2rem; } }
+.hero-eyebrow {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 1.25rem;
+}
+.hero-display {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--brand-on-dark);
+  margin: 0 0 1.25rem;
+  max-width: 18ch;
+}
+.hero-display .yellow { color: var(--primary); }
+.hero-lede {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body);
+  max-width: 38rem;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* -- Trading mockup (signature surface — ticker + chart sketch + order book) -- */
+.trader {
+  background: var(--brand-surface-card-dark);
+  border: 1px solid var(--brand-hairline-on-dark);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  color: var(--brand-on-dark);
+}
+.trader-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.625rem 0.875rem;
+  border-bottom: 1px solid var(--brand-hairline-on-dark);
+  background: var(--brand-surface-elevated-dark);
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-muted-strong);
+}
+.trader-tabs span[data-active] {
+  color: var(--brand-on-dark);
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+  background: var(--brand-surface-card-dark);
+}
+.trader-tabs span { padding: 0.25rem 0.625rem; }
+.trader-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 0;
+}
+.trader-ticker {
+  padding: 1.125rem 1.125rem 1rem;
+  border-right: 1px solid var(--brand-hairline-on-dark);
+}
+.trader-pair {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  margin-bottom: 0.875rem;
+}
+.trader-pair-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--brand-on-dark);
+}
+.trader-pair-mute {
+  font-size: 11px;
+  color: var(--brand-muted-strong);
+}
+.trader-price {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.015em;
+  color: var(--brand-trading-up);
+  line-height: 1;
+}
+.trader-meta {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 0.625rem;
+  font-size: 12px;
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+.trader-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+.trader-meta-label {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-muted-strong);
+}
+.trader-meta-value { color: var(--brand-on-dark); font-weight: 500; }
+.trader-chart {
+  margin-top: 1rem;
+  height: 86px;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+.trader-chart .candle {
+  width: 6px;
+  border-radius: 1px;
+  background: var(--brand-trading-up);
+  align-self: flex-end;
+}
+.trader-chart .candle[data-tone="down"] { background: var(--brand-trading-down); }
+.trader-book {
+  padding: 1.125rem 1.125rem 1rem;
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.trader-book-label {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-muted-strong);
+  margin-bottom: 0.5rem;
+}
+.trader-book-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  padding: 0.1875rem 0;
+}
+.trader-book-row[data-tone="up"]   .price { color: var(--brand-trading-up); }
+.trader-book-row[data-tone="down"] .price { color: var(--brand-trading-down); }
+.trader-book-row .amount { color: var(--brand-on-dark); opacity: 0.65; text-align: right; }
+.trader-book-spread {
+  margin: 0.5rem 0;
+  padding: 0.25rem 0;
+  border-top: 1px solid var(--brand-hairline-on-dark);
+  border-bottom: 1px solid var(--brand-hairline-on-dark);
+  font-size: 11px;
+  color: var(--brand-muted-strong);
+  text-align: center;
+}
+
+/* -- Section frame -- */
+.section { padding: 4.5rem 1.5rem; }
+.section[data-tight] { padding: 3.5rem 1.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  /* Body-section eyebrow uses --muted-foreground (flips with theme).
+   * Yellow --primary is reserved for hero-eyebrow (on dark canvas),
+   * the topnav brand mark, and primary CTAs — where it passes AA. */
+  color: var(--muted-foreground);
+  margin: 0 0 0.875rem;
+}
+.section-title {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.625rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.625rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.25rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.625rem;
+}
+@media (max-width: 880px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 10rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="dark"]   { background: var(--brand-canvas-dark); color: var(--brand-on-dark); border-color: var(--brand-hairline-on-dark); }
+.ladder-step[data-step="card"]   { background: var(--brand-surface-card-dark); color: var(--brand-on-dark); border-color: var(--brand-hairline-on-dark); }
+.ladder-step[data-step="light"]  { background: var(--brand-canvas-light); color: var(--brand-body-on-light); border-color: var(--brand-border-strong); }
+.ladder-step[data-step="yellow"] { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+.ladder-num {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+}
+.ladder-role {
+  font-size: 13px;
+  opacity: 0.86;
+  margin-top: auto;
+  line-height: 1.4;
+}
+
+/* -- Pricing tile -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--foreground);
+}
+.pricing-card[data-featured] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+}
+.pricing-name {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+.pricing-price {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+.pricing-tagline {
+  font-size: 13px;
+  color: var(--muted-foreground);
+  margin: 0;
+  line-height: 1.45;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--primary-foreground); opacity: 0.78; }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.875rem;
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+.pricing-card[data-featured] .pricing-features { border-top-color: oklch(0 0 0 / 0.18); color: var(--primary-foreground); opacity: 0.86; }
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "·";
+  color: var(--primary);
+  font-size: 18px;
+  flex-shrink: 0;
+  width: 14px;
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--primary-foreground); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.125rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.125rem;
+  align-items: baseline;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.type-display {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; line-height: 1.5; color: var(--muted-foreground); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  width: 100%;
+}
+.trade-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+/* Trade chips — strong fill with white text passes AA in both polarities;
+ * the tinted-bg-with-coloured-text pattern fails when both are close in
+ * lightness (the tinted background is the foreground color at 18%, so the
+ * text ends up bright-red on light-red etc.). */
+.trade-chip[data-tone="up"]   { background: var(--brand-trading-up); color: oklch(0.18 0.02 250); }
+.trade-chip[data-tone="down"] { background: var(--brand-trading-down); color: oklch(0.18 0.02 250); }
+
+/* -- Footer (always-dark) -- */
+.footer {
+  background: var(--brand-canvas-dark);
+  color: var(--brand-on-dark);
+  border-top: 1px solid var(--brand-hairline-on-dark);
+  padding: 3rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 13px; color: var(--brand-body); line-height: 1.55; margin: 0; opacity: 0.7; }
+.footer-col-title {
+  font-family: 'BinanceNova', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 13px; color: var(--brand-on-dark); text-decoration: none; opacity: 0.7; }
+.footer-list a:hover { opacity: 1; }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-on-dark);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-on-dark);
+  opacity: 0.55;
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">H</span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Markets</a>
+      <a href="#">Trade</a>
+      <a href="#">Earn</a>
+      <a href="#">Wallets</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Get started</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero canvas-dark" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Halcyon · Markets</p>
+      <h1 class="hero-display">Trade with <span class="yellow">confidence</span>.</h1>
+      <p class="hero-lede">Halcyon's treasury team runs the day from a single dark canvas — BTC + USDT on one panel, the order book on the other, every yellow CTA the same one across both polarities.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" data-size="lg" type="button">Start trading</button>
+        <button class="btn" data-variant="on-dark" data-size="lg" type="button">View markets</button>
+      </div>
+    </div>
+
+    <div class="trader" role="figure" aria-label="Halcyon treasury — BTC/USDT ticker + chart sketch + order book">
+      <div class="trader-tabs">
+        <span data-active>Spot</span>
+        <span>Margin</span>
+        <span>Futures</span>
+        <span style="margin-left:auto;">USDT</span>
+      </div>
+      <div class="trader-grid">
+        <div class="trader-ticker">
+          <div class="trader-pair">
+            <span class="trader-pair-name">BTC/USDT</span>
+            <span class="trader-pair-mute">Spot · Halcyon Treasury</span>
+          </div>
+          <div class="trader-price">67,482.18</div>
+          <div class="trader-meta">
+            <div class="trader-meta-row"><span class="trader-meta-label">24h Δ</span><span class="trader-meta-value" style="color: var(--brand-trading-up);">+1.84%</span></div>
+            <div class="trader-meta-row"><span class="trader-meta-label">24h High</span><span class="trader-meta-value">67,920.55</span></div>
+            <div class="trader-meta-row"><span class="trader-meta-label">24h Low</span><span class="trader-meta-value">65,902.10</span></div>
+            <div class="trader-meta-row"><span class="trader-meta-label">Vol</span><span class="trader-meta-value">42.1k BTC</span></div>
+          </div>
+          <div class="trader-chart" aria-label="60-bar candle sketch">
+            <span class="candle" style="height:22px;"></span><span class="candle" style="height:30px;"></span><span class="candle" data-tone="down" style="height:24px;"></span><span class="candle" data-tone="down" style="height:20px;"></span><span class="candle" style="height:28px;"></span><span class="candle" style="height:34px;"></span><span class="candle" style="height:42px;"></span><span class="candle" data-tone="down" style="height:38px;"></span><span class="candle" style="height:46px;"></span><span class="candle" style="height:52px;"></span><span class="candle" data-tone="down" style="height:48px;"></span><span class="candle" data-tone="down" style="height:42px;"></span><span class="candle" style="height:50px;"></span><span class="candle" style="height:58px;"></span><span class="candle" style="height:62px;"></span><span class="candle" data-tone="down" style="height:56px;"></span><span class="candle" style="height:64px;"></span><span class="candle" style="height:70px;"></span><span class="candle" data-tone="down" style="height:66px;"></span><span class="candle" style="height:72px;"></span><span class="candle" style="height:80px;"></span><span class="candle" style="height:86px;"></span><span class="candle" data-tone="down" style="height:78px;"></span><span class="candle" style="height:82px;"></span>
+          </div>
+        </div>
+        <div class="trader-book">
+          <div class="trader-book-label">Order book · BTC/USDT</div>
+          <div class="trader-book-row" data-tone="down"><span class="price">67,510.42</span><span class="amount">0.4218</span></div>
+          <div class="trader-book-row" data-tone="down"><span class="price">67,498.66</span><span class="amount">1.0244</span></div>
+          <div class="trader-book-row" data-tone="down"><span class="price">67,490.30</span><span class="amount">0.6571</span></div>
+          <div class="trader-book-row" data-tone="down"><span class="price">67,485.12</span><span class="amount">0.1899</span></div>
+          <div class="trader-book-spread">Spread · 2.94 (0.004%)</div>
+          <div class="trader-book-row" data-tone="up"><span class="price">67,482.18</span><span class="amount">0.8520</span></div>
+          <div class="trader-book-row" data-tone="up"><span class="price">67,478.04</span><span class="amount">0.3340</span></div>
+          <div class="trader-book-row" data-tone="up"><span class="price">67,470.55</span><span class="amount">1.4022</span></div>
+          <div class="trader-book-row" data-tone="up"><span class="price">67,468.18</span><span class="amount">0.5111</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section canvas-light" aria-label="Buy crypto — transactional band">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Transactional</p>
+      <h2 class="section-title">Buy crypto in seconds.</h2>
+      <p class="section-lede">The light canvas is the brand's transactional polarity — used for buy/exchange/deposit surfaces. Yellow CTA is the same one as on the dark canvas; the system reads as continuous despite the polarity flip.</p>
+    </div>
+    <div style="max-width: 36rem; margin: 0 auto; display: flex; gap: 0.5rem; justify-content: center;">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Buy BTC</button>
+      <button class="btn" data-variant="on-light" data-size="lg" type="button">View rate</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Yellow voltage, dark canvas, trading green &amp; red.</h2>
+      <p class="section-lede">Iconic yellow (#FCD535) for every primary CTA and value-claim moment, in both polarities. Dark navy-tinted canvas and elevated cards for the default marketing surface. Trading green (up) and red (down) thread through both modes for price-direction signals.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-dark);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-card-dark);"></div><div class="swatch-role">Card</div><div class="swatch-name">--brand-surface-card-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-elevated-dark);"></div><div class="swatch-role">Elevated</div><div class="swatch-name">--brand-surface-elevated-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-light);"></div><div class="swatch-role">Transactional</div><div class="swatch-name">--brand-canvas-light</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Voltage</div><div class="swatch-name">--primary · yellow</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-trading-up);"></div><div class="swatch-role">Up</div><div class="swatch-name">--brand-trading-up</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-trading-down);"></div><div class="swatch-role">Down</div><div class="swatch-name">--brand-trading-down</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-info);"></div><div class="swatch-role">Info</div><div class="swatch-name">--brand-info</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces · Four polarities</p>
+      <h2 class="section-title">Four surfaces, one yellow.</h2>
+      <p class="section-lede">Dark canvas + elevated card for default marketing; light canvas for transactional; yellow pill for every primary CTA. The yellow is the only chromatic element that holds across both polarity tracks.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--brand-canvas-dark</span>
+        <span class="ladder-role">marketing default · footer · hero</span>
+      </div>
+      <div class="ladder-step" data-step="card">
+        <span class="ladder-num">Card</span>
+        <span class="ladder-name">--brand-surface-card-dark</span>
+        <span class="ladder-role">trading panels · feature cards</span>
+      </div>
+      <div class="ladder-step" data-step="light">
+        <span class="ladder-num">Transactional</span>
+        <span class="ladder-name">--brand-canvas-light</span>
+        <span class="ladder-role">buy · exchange · deposit</span>
+      </div>
+      <div class="ladder-step" data-step="yellow">
+        <span class="ladder-num">Voltage</span>
+        <span class="ladder-name">--primary</span>
+        <span class="ladder-role">every primary CTA · both polarities</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three tiers, one fee schedule.</h2>
+      <p class="section-lede">Pricing tiles follow the brand's hard-numbers register — tabular numerals, dense rows, yellow primary tier inverted. Sober and dense, no decorative gradient.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="on-light" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" type="button" style="background: var(--brand-canvas-dark); color: var(--brand-on-dark); border-color: var(--brand-canvas-dark);">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organisations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="on-light" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">BinanceNova at 500/700, tabular numerals.</h2>
+      <p class="section-lede">A single proprietary stack at modest mid-weights — 500 for body, 700 for display. Tabular numerals run through every price, every chip, every order-book row. Buttons are tight 4-px-radius rectangles; never round, never pill.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">BTC 67,482.18</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">BinanceNova · 700 · 28</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in BinanceNova 400 at 14 px. Body text uses --muted-foreground — readable on both polarities.</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · tight 4px rectangles · yellow primary</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Buy BTC</button>
+            <button class="btn" data-variant="on-light" type="button">View markets</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Trade chips · price-direction tone</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <span class="trade-chip" data-tone="up">▲ +1.84%</span>
+            <span class="trade-chip" data-tone="down">▼ −0.42%</span>
+            <span class="trade-chip" data-tone="up">▲ +12.06%</span>
+            <span class="trade-chip" data-tone="down">▼ −3.18%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">H</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the dark-canonical financial-platform design system. Yellow voltage, navy-tinted dark canvas, trading green/red for direction. Halcyon-themed neutral ticker content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Markets</p>
+      <ul class="footer-list"><li><a href="#">Spot</a></li><li><a href="#">Margin</a></li><li><a href="#">Futures</a></li><li><a href="#">Options</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Earn</p>
+      <ul class="footer-list"><li><a href="#">Savings</a></li><li><a href="#">Staking</a></li><li><a href="#">Vaults</a></li><li><a href="#">DeFi</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">dark canonical · yellow voltage · trading green/red · tabular numerals</span>
+  </div>
+</footer>
+
+</body>
+</html>

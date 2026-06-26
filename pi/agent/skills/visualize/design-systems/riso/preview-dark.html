@@ -1,0 +1,1527 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>riso — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/riso/tokens.css) === */
+/**
+ * Riso theme — risograph-print register: 2-3 fluorescent spot colours on
+ * warm off-white paper. The defining structural commitment is *no muted-
+ * grey ramp* — every neutral is warm-tinted (hue 30 or hue 70), so the
+ * surface ramp reads as ink-on-paper rather than pixel-on-screen.
+ *
+ * Mode priority: light-canonical. Riso is fundamentally a print register;
+ * dark mode exists for the data-theme toggle but isn't a co-equal voice —
+ * the dark register reads as "spot prints on dark paper", which is a
+ * stylised inversion, not a separate aesthetic.
+ *
+ * Distinct from every other visualize design system on four axes:
+ *
+ *   1. **No grey ramp.** Clean / Brutalist / Whitepaper use 0-chroma
+ *      neutrals throughout the surface ramp. Riso replaces every cool-
+ *      grey beat with a warm-tinted near-paper or near-print value:
+ *      --muted at chroma 0.010 (not 0), --muted-foreground at chroma
+ *      0.014 (not 0). Even the "grey" sections in a Riso layout are
+ *      slightly cream or slightly ink-tinted. Pure cool grey is
+ *      out-of-register.
+ *
+ *   2. **High-chroma primary (0.27).** Most visualize systems cap
+ *      primary chroma at 0.22 (Brutalist's cadmium red is the
+ *      precedent). Riso's pink at chroma 0.27 deliberately exceeds
+ *      that ceiling — risograph ink is *fluorescent*, and a chroma-
+ *      restrained pink reads as "pink", not "riso". The genre-reflex
+ *      guard for chroma is the rule; Riso is the documented exception.
+ *
+ *   3. **Two-spot palette + optional third (chart only).** Pink primary
+ *      + teal accent are the entire chrome vocabulary. A yellow spot
+ *      appears in --chart-3 for data viz only — never in buttons,
+ *      headings, sidebars, or page sections. The constraint is the
+ *      identity; a third chrome spot breaks the small-print-run feel.
+ *
+ *   4. **Bordered, not lifted.** No shadow scale. Cards / inputs /
+ *      secondary-buttons all carry 2px solid borders in --foreground
+ *      (the print colour). Elevation is bordered: visible, opinionated,
+ *      ink-on-paper. Surfaces hover by shifting border colour, not by
+ *      lifting depth.
+ *
+ * Blessed templates: Manifesto / opinion essay, Single-page pitch
+ * (zine-shape), Conference talk handout, Roadmap-as-poster, Release
+ * announcement (when the brand voice is loud), Visual changelog.
+ *
+ * Discouraged: Technical documentation (chunky serif + high-chroma
+ * spots fight legibility for long content); Editorial / Whitepaper /
+ * Research brief (their academic register undermined by zine voice);
+ * Dashboard / dense data tables (the high-chroma spots clash with
+ * structured data); Onboarding / friendly conversational content
+ * (the opinionated voice reads aggressive).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Paper ramp (warm off-white, hue 70) ---------------------- */
+  --background:              oklch(0.96 0.012 70);
+  --foreground:              oklch(0.22 0.014 30);
+
+  --card:                    oklch(0.98 0.008 70);
+  --card-foreground:         oklch(0.22 0.014 30);
+
+  --popover:                 oklch(0.98 0.008 70);
+  --popover-foreground:      oklch(0.22 0.014 30);
+
+  /* Fluorescent pink — Riso's signature spot. Chroma 0.27 deliberately
+   * exceeds the usual ceiling; restraining it reads as "pink", not "riso". */
+  --primary:                 oklch(0.65 0.27 350);
+  --primary-foreground:      oklch(0.96 0.012 70);
+
+  --secondary:               oklch(0.92 0.020 200);
+  --secondary-foreground:    oklch(0.22 0.014 30);
+
+  --muted:                   oklch(0.93 0.010 70);
+  --muted-foreground:        oklch(0.40 0.014 30);
+
+  /* Teal — the second spot. Lower chroma than pink so pink stays dominant. */
+  --accent:                  oklch(0.65 0.18 200);
+  --accent-foreground:       oklch(0.96 0.012 70);
+
+  --destructive:             oklch(0.60 0.24 25);
+  --destructive-foreground:  oklch(0.96 0.012 70);
+
+  --border:                  oklch(0.86 0.014 70);
+  --input:                   oklch(0.86 0.014 70);
+  --ring:                    oklch(0.65 0.27 350);
+
+  --sidebar:                 oklch(0.93 0.010 70);
+  --sidebar-foreground:      oklch(0.22 0.014 30);
+  --sidebar-primary:         oklch(0.65 0.27 350);
+  --sidebar-primary-foreground: oklch(0.96 0.012 70);
+  --sidebar-accent:          oklch(0.65 0.18 200);
+  --sidebar-accent-foreground: oklch(0.96 0.012 70);
+  --sidebar-border:          oklch(0.86 0.014 70);
+  --sidebar-ring:            oklch(0.65 0.27 350);
+
+  /* -- Chart palette (categorical, two spots + optional yellow) - */
+  --chart-1:                 oklch(0.65 0.27 350);
+  --chart-2:                 oklch(0.65 0.18 200);
+  --chart-3:                 oklch(0.80 0.18 90);
+  --chart-4:                 oklch(0.55 0.20 340);
+  --chart-5:                 oklch(0.50 0.16 200);
+
+  /* -- Zero radius (print register) ----------------------------- */
+  --radius-sm:               0;
+  --radius-md:               0;
+  --radius-lg:               0;
+  --radius-xl:               0;
+
+  --space-xs:                0.25rem;
+  --space-sm:                0.5rem;
+  --space-md:                1rem;
+  --space-lg:                1.75rem;
+  --space-xl:                3rem;
+
+  /* No shadow scale — Riso elevates via 2px borders, not depth. */
+  --shadow-sm:               none;
+  --shadow-md:               none;
+  --shadow-lg:               none;
+  --shadow-2xs:              none;
+  --shadow-xs:               none;
+  --shadow-xl:               none;
+  --shadow-2xl:              none;
+
+  /* Border weight token — Riso uses 2px hard borders as the elevation
+   * vocabulary. Components reference --border-width directly. */
+  --border-width:            2px;
+
+  /* Ink-on-spot: when text sits ON a saturated pink/teal panel, use
+   * --foreground (dark ink) rather than --primary-foreground (paper).
+   * Dark-on-pink is 8:1; paper-on-pink is 3.32. Polarity-locked
+   * utility neutral (chroma 0.014) — not a brand colour modification,
+   * just the foreground choice for printing-spot panels.
+   *
+   * Note on the multi-ink medium carve-out: Risograph IS a multi-ink
+   * register where pink and teal are literally separate ink drums,
+   * not synthesized variants of a single brand colour. But the brand
+   * inks live in --primary (Fluorescent Pink, ≈ #FF48B0, canonical
+   * oklch(0.69 0.24 350); DESIGN.md elevates chroma 0.24 → 0.27 to
+   * read as "fluorescent") and --accent (Teal, ≈ #00838A, oklch(0.55
+   * 0.09 201); DESIGN.md elevates to chroma 0.18 + L 0.65 for the
+   * fluorescent-on-paper voltage). Synthesizing extra `-ink` tokens at
+   * darkened L just to win body-text contrast on cream paper is the
+   * brand-colour-modification anti-pattern — physical Riso inks don't
+   * shift lightness by viewing context. Small-text consumers route to
+   * --foreground (the print colour) with weight/tracking carrying the
+   * differentiation; the fluorescent voltage stays on display-scale
+   * consumers (h1 accent letters, principle .num) and spot fills. */
+  --brand-ink-on-spot:       oklch(0.22 0.014 30);
+  /* typography tokens */
+  --font-sans: 'Inter', 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Recoleta', 'Bagnard', 'Source Serif Pro', Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: var(--font-serif);
+
+  /* type scale tokens */
+  --text-display: clamp(2.5rem, 6vw, 4rem);
+  --text-heading: 2rem;
+  --text-title: 1.125rem;
+  --text-base: 17px;
+  --leading-tight: 1.0;
+  --leading-normal: 1.55;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: -0.02em;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Dark register: spot prints on dark paper. The chassis inverts L while
+   * keeping the warm hue; pink + teal preserve hue + chroma (the spots
+   * are the identity and remain vivid). */
+
+  --background:              oklch(0.18 0.014 30);
+  --foreground:              oklch(0.94 0.012 70);
+
+  --card:                    oklch(0.22 0.016 30);
+  --card-foreground:         oklch(0.94 0.012 70);
+
+  --popover:                 oklch(0.22 0.016 30);
+  --popover-foreground:      oklch(0.94 0.012 70);
+
+  --primary:                 oklch(0.70 0.27 350);
+  --primary-foreground:      oklch(0.18 0.014 30);
+
+  --secondary:               oklch(0.30 0.020 200);
+  --secondary-foreground:    oklch(0.94 0.012 70);
+
+  --muted:                   oklch(0.26 0.012 30);
+  --muted-foreground:        oklch(0.70 0.014 70);
+
+  --accent:                  oklch(0.70 0.18 200);
+  --accent-foreground:       oklch(0.18 0.014 30);
+
+  --destructive:             oklch(0.65 0.24 25);
+  --destructive-foreground:  oklch(0.18 0.014 30);
+
+  --border:                  oklch(0.34 0.014 30);
+  --input:                   oklch(0.34 0.014 30);
+  --ring:                    oklch(0.70 0.27 350);
+
+  --sidebar:                 oklch(0.22 0.016 30);
+  --sidebar-foreground:      oklch(0.94 0.012 70);
+  --sidebar-primary:         oklch(0.70 0.27 350);
+  --sidebar-primary-foreground: oklch(0.18 0.014 30);
+  --sidebar-accent:          oklch(0.70 0.18 200);
+  --sidebar-accent-foreground: oklch(0.18 0.014 30);
+  --sidebar-border:          oklch(0.34 0.014 30);
+  --sidebar-ring:            oklch(0.70 0.27 350);
+
+  --chart-1:                 oklch(0.70 0.27 350);
+  --chart-2:                 oklch(0.70 0.18 200);
+  --chart-3:                 oklch(0.82 0.18 90);
+  --chart-4:                 oklch(0.62 0.20 340);
+  --chart-5:                 oklch(0.58 0.16 200);
+
+  /* Ink-on-spot flips polarity for dark mode — when spot panels carry
+   * the lifted dark-mode --primary / --accent (L 0.70), the on-spot
+   * label still wants dark ink. */
+  --brand-ink-on-spot:       oklch(0.18 0.014 30);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background:            oklch(0.18 0.014 30);
+    --foreground:            oklch(0.94 0.012 70);
+    --card:                  oklch(0.22 0.016 30);
+    --card-foreground:       oklch(0.94 0.012 70);
+    --popover:               oklch(0.22 0.016 30);
+    --popover-foreground:    oklch(0.94 0.012 70);
+    --primary:               oklch(0.70 0.27 350);
+    --primary-foreground:    oklch(0.18 0.014 30);
+    --secondary:             oklch(0.30 0.020 200);
+    --secondary-foreground:  oklch(0.94 0.012 70);
+    --muted:                 oklch(0.26 0.012 30);
+    --muted-foreground:      oklch(0.70 0.014 70);
+    --accent:                oklch(0.70 0.18 200);
+    --accent-foreground:     oklch(0.18 0.014 30);
+    --destructive:           oklch(0.65 0.24 25);
+    --destructive-foreground: oklch(0.18 0.014 30);
+    --border:                oklch(0.34 0.014 30);
+    --input:                 oklch(0.34 0.014 30);
+    --ring:                  oklch(0.70 0.27 350);
+    --sidebar:               oklch(0.22 0.016 30);
+    --sidebar-foreground:    oklch(0.94 0.012 70);
+    --sidebar-primary:       oklch(0.70 0.27 350);
+    --sidebar-primary-foreground: oklch(0.18 0.014 30);
+    --sidebar-accent:        oklch(0.70 0.18 200);
+    --sidebar-accent-foreground: oklch(0.18 0.014 30);
+    --sidebar-border:        oklch(0.34 0.014 30);
+    --sidebar-ring:          oklch(0.70 0.27 350);
+    --chart-1:               oklch(0.70 0.27 350);
+    --chart-2:               oklch(0.70 0.18 200);
+    --chart-3:               oklch(0.82 0.18 90);
+    --chart-4:               oklch(0.62 0.20 340);
+    --chart-5:               oklch(0.58 0.16 200);
+
+    --brand-ink-on-spot:     oklch(0.18 0.014 30);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Riso preview shell — zine-poster single-page essay === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.55;
+}
+.page { max-width: 880px; margin: 0 auto; padding: 4rem 2rem; }
+
+/* Chunky display serif — Riso's identity */
+.serif-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+}
+.serif-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+/* All-caps tracked labels — zine voice in miniature */
+.label-cap {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Issue header */
+.issue {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: var(--border-width, 2px) solid var(--foreground);
+  margin-bottom: 2.5rem;
+}
+.issue .name { font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; }
+.issue .meta { color: var(--muted-foreground); font-family: var(--font-sans); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Hero */
+.hero { margin-bottom: 3rem; }
+/* Eyebrow at 13px reads as small-text — small fluorescent pink on
+ * cream paper sits at 3.32:1 (below WCAG AA 4.5:1 body floor). The
+ * print register carries differentiation through uppercase + 0.1em
+ * tracking + weight 700; route to --foreground rather than synthesise
+ * a darkened pink. */
+.hero .eyebrow {
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.75rem, 7vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  margin: 0 0 1.5rem 0;
+}
+/* H1 accent letters: pink carries the fluorescent voltage at display
+ * scale (≥44px bold, WCAG 3:1 large-text floor with --primary at 3.32:1).
+ * Teal at canonical L 0.65 reads at 2.43:1 on cream — below the
+ * large-text floor too. Per the AUTHORING rule "fix the surface, not
+ * the colour", the teal letter re-homes to --foreground (ink), which
+ * matches the headline copy: "Print loudly. Edit quietly." — pink as
+ * voltage, ink as restraint. The fluorescent teal voltage still appears
+ * as a full panel fill on .spot-teal where the surface inverts. */
+.hero h1 .pink { color: var(--primary); }
+.hero h1 .teal { color: var(--foreground); }
+.hero .deck {
+  font-size: 1.25rem;
+  line-height: 1.45;
+  color: var(--foreground);
+  max-width: 32em;
+  margin: 0;
+}
+
+/* Section ruling — heavy 2px line replaces decorative dividers */
+.rule {
+  border: none;
+  border-top: var(--border-width, 2px) solid var(--foreground);
+  margin: 3rem 0 2rem;
+}
+
+/* Bordered cards — Riso elevates with 2px borders, not lift */
+.bordered-card {
+  border: var(--border-width, 2px) solid var(--foreground);
+  background-color: var(--card);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+/* Bordered-card label is small-text on cream — print-ink, not pink-ink. */
+.bordered-card .label-cap { color: var(--foreground); margin-bottom: 0.625rem; display: block; }
+.bordered-card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.625rem;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.625rem 0;
+}
+.bordered-card p { margin: 0; }
+
+/* Pink callout — primary as a panel. Dark ink on saturated pink
+ * (8:1) rather than paper-on-pink (3.32) which fails WCAG AA. */
+.spot-pink {
+  background-color: var(--primary);
+  color: var(--brand-ink-on-spot);
+  border: var(--border-width, 2px) solid var(--foreground);
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+.spot-pink .label-cap { color: var(--brand-ink-on-spot); margin-bottom: 0.625rem; display: block; }
+.spot-pink h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.05;
+  margin: 0 0 0.75rem 0;
+  color: var(--brand-ink-on-spot);
+}
+
+/* Teal callout — accent as a panel. Dark ink (8.4:1) rather than paper
+ * (2.43) — teal is the worst-failing combo with paper text. */
+.spot-teal {
+  background-color: var(--accent);
+  color: var(--brand-ink-on-spot);
+  border: var(--border-width, 2px) solid var(--foreground);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.spot-teal .label-cap { color: var(--brand-ink-on-spot); margin-bottom: 0.5rem; display: block; }
+
+/* Three-up grid for principles */
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+@media (max-width: 720px) { .principles { grid-template-columns: 1fr; } }
+.principle {
+  border: var(--border-width, 2px) solid var(--foreground);
+  padding: 1.25rem;
+  background-color: var(--card);
+}
+.principle .num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.5rem;
+  /* Display-scale (40px weight 700) — fluorescent pink at WCAG 3:1
+   * large-text floor. */
+  color: var(--primary);
+  line-height: 1;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.principle h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.15;
+  margin: 0 0 0.5rem 0;
+}
+.principle p { font-size: 0.9375rem; line-height: 1.5; margin: 0; }
+
+/* Buttons — bordered, never round */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--brand-ink-on-spot);
+  border: var(--border-width, 2px) solid var(--foreground);
+}
+.btn-outline {
+  background-color: transparent;
+  color: var(--foreground);
+  border: var(--border-width, 2px) solid var(--foreground);
+}
+.btn-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: var(--border-width, 2px) solid var(--foreground);
+  display: flex;
+  justify-content: space-between;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="issue">
+    <span class="name">visualize zine</span>
+    <span class="meta">№ 21 · May 2026</span>
+  </div>
+
+  <div class="hero">
+    <span class="eyebrow">Manifesto / single-page essay</span>
+    <h1>Print <span class="pink">loudly</span>.<br>Edit <span class="teal">quietly</span>.</h1>
+    <p class="deck">The cheapest way to be opinionated on the internet is to print a zine, scan it, and post the JPEG. Riso lets you skip the scanner.</p>
+  </div>
+
+  <hr class="rule" />
+
+  <div class="spot-pink">
+    <span class="label-cap">// Section 01</span>
+    <h3>Constraints become the identity.</h3>
+    <p>Two spot colours. No grey ramp. Zero radius. Chunky display at weight 700 with leading 1.0. The risograph printer in the basement had three ink drums and a temperamental drum cleaner — the operator decided which constraints to fight and which to let define the issue.</p>
+  </div>
+
+  <div class="bordered-card">
+    <span class="label-cap">Body copy</span>
+    <h3>Sans for legibility, serif for shout.</h3>
+    <p>The body is system sans at 17px with 1.55 leading — generous enough to read a 1,200-word essay without strain. The display serif is chunky enough to anchor a 4.5rem headline at the top of a print-shape page without looking spindly. Mixing weights between display and body is the slow-pace signal that says <em>this took someone an afternoon to write</em>, not five minutes to prompt-engineer.</p>
+  </div>
+
+  <div class="spot-teal">
+    <span class="label-cap">// Aside</span>
+    <p style="margin: 0; font-size: 1.0625rem; line-height: 1.5;">Riso skipped the muted-grey ramp entirely. Every grey beat is warm-tinted near-paper or near-print. The two-spot constraint extends into the chrome of the page itself — the same restraint, all the way down.</p>
+  </div>
+
+  <hr class="rule" />
+
+  <span class="label-cap" style="color: var(--foreground);">// Three principles for an opinion-loaded artifact</span>
+
+  <div class="principles">
+    <div class="principle">
+      <span class="num">01</span>
+      <h4>Don't apologise.</h4>
+      <p>If the page can't hold its position, the position wasn't the right one. The chrome shouldn't soften the prose.</p>
+    </div>
+    <div class="principle">
+      <span class="num">02</span>
+      <h4>Pick one shout.</h4>
+      <p>The pink is the voltage. The teal grounds it. A third colour would dilute both — print a second zine instead.</p>
+    </div>
+    <div class="principle">
+      <span class="num">03</span>
+      <h4>Edit on paper.</h4>
+      <p>Drafts in a doc, final pass on a printed proof. The medium changes which sentences feel right.</p>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <a href="#" class="btn btn-primary">Get a copy</a>
+    <a href="#" class="btn btn-outline">Past issues</a>
+  </div>
+
+  <footer>
+    <span>// visualize · riso</span>
+    <span>// two spots, no greys</span>
+  </footer>
+
+</div>
+</body>
+</html>

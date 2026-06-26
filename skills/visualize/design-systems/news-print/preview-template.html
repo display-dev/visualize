@@ -1,0 +1,1182 @@
+<!doctype html>
+<!-- Spec-derived from temp/refs/news-print/raw.md.
+     Signature mockup: broadsheet hero — massive Playfair headline,
+     edition-metadata strip, vertical column dividers, 4px hard offset
+     shadow lift on the lead story card. -->
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23F9F9F7'/><rect x='6' y='6' width='20' height='20' fill='%23111111'/><text x='16' y='22' font-family='Georgia, serif' font-size='16' font-weight='900' text-anchor='middle' fill='%23F9F9F7'>H</text></svg>">
+
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — preview">
+<meta property="og:description" content="Broadsheet-journalism design system. Massive Playfair headlines, 12-column collapsed-border grids, edition metadata, hard offset-shadow lift.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === news-print preview shell — broadsheet token surface ===
+   ONE signature mockup (broadsheet hero), token demos for the rest.
+   Halcyon as a placeholder name; no source-brand content lifted. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body, ui-serif), Georgia, serif;
+  font-size: 16px;
+  line-height: 1.6;
+  /* Subtle dot-grid pattern per spec §2 Textures #1 — 4×4px Ink Black at 4% */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23111111' fill-opacity='0.04' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+}
+[data-theme="dark"] body {
+  /* Dot pattern flips to off-white at 4% on inverted canvas. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23F9F9F7' fill-opacity='0.04' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) body {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23F9F9F7' fill-opacity='0.04' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  }
+}
+
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* -- Masthead ------------------------------------------------ */
+.masthead {
+  border-top: 4px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 0 1rem;
+  margin-top: 2rem;
+}
+.edition-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted-foreground);
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--muted);
+  margin-bottom: 1.25rem;
+}
+.edition-strip .edition-row { display: flex; gap: 1.25rem; }
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-align: center;
+}
+.wordmark .ampersand { font-style: italic; font-weight: 400; }
+.tagline {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  color: var(--muted-foreground);
+  margin-top: 0.75rem;
+}
+nav.primary {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-top: 1.5rem;
+  padding: 0.75rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+nav.primary a { color: var(--foreground); text-decoration: none; }
+nav.primary a.live::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--primary);
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+/* -- Signature mockup: broadsheet hero ------------------------ */
+.broadsheet {
+  display: grid;
+  grid-template-columns: 8fr 4fr;
+  margin-top: 2rem;
+  border-bottom: 4px solid var(--border);
+}
+@media (max-width: 768px) { .broadsheet { grid-template-columns: 1fr; } }
+.broadsheet .lead {
+  border-right: 1px solid var(--border);
+  padding: 1.5rem 2rem 2rem 0;
+}
+@media (max-width: 768px) { .broadsheet .lead { border-right: none; border-bottom: 1px solid var(--border); padding: 1.5rem 0; } }
+.broadsheet .lead .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  display: inline-block;
+  border: 1px solid var(--primary);
+  padding: 0.25rem 0.625rem;
+}
+.broadsheet .lead h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: -0.025em;
+  margin: 0 0 1rem 0;
+}
+.broadsheet .lead .standfirst {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--brand-body-muted);
+  margin: 0 0 1.25rem 0;
+  max-width: 38rem;
+}
+.broadsheet .lead .byline {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted-foreground);
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.lead-image {
+  height: 20rem;
+  background-color: var(--brand-neutral-200);
+  position: relative;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+.lead-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(1) contrast(1.2);
+}
+.lead-image::after {
+  content: "Fig. 1.1";
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  background: var(--background);
+  padding: 0.125rem 0.375rem;
+  color: var(--foreground);
+}
+.lead-image .halftone-mask {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(oklch(0.1776 0 0 / 0.35) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+/* Sidebar story-stub image (editorial photography) */
+.story-stub .stub-image {
+  width: 100%;
+  height: 6rem;
+  background-color: var(--brand-neutral-200);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0.625rem;
+}
+.story-stub .stub-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(1) contrast(1.2);
+}
+.story-stub .stub-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(oklch(0.1776 0 0 / 0.3) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+/* Signature card image (top of sidebar) */
+.signature-card .card-image {
+  width: calc(100% + 2.5rem);
+  margin: -1.25rem -1.25rem 0.875rem -1.25rem;
+  height: 8rem;
+  background-color: var(--brand-neutral-200);
+  position: relative;
+  overflow: hidden;
+}
+.signature-card .card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(1) contrast(1.2);
+}
+.signature-card .card-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(oklch(0.1776 0 0 / 0.3) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+.caption {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted-foreground);
+}
+
+/* Sidebar story stack with hard-shadow-hover lift on the top card */
+.broadsheet .sidebar {
+  padding: 1.5rem 0 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 768px) { .broadsheet .sidebar { padding: 1.5rem 0; } }
+.signature-card {
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  padding: 1.25rem;
+  position: relative;
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  cursor: pointer;
+}
+.signature-card:hover,
+.signature-card:focus-within {
+  transform: var(--brand-shadow-hard-translate);
+  box-shadow: var(--brand-shadow-hard);
+}
+@media (prefers-reduced-motion: reduce) {
+  .signature-card:hover, .signature-card:focus-within { transform: none; }
+  .signature-card { transition: box-shadow 200ms ease-out; }
+}
+.signature-card .badge {
+  display: inline-block;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding: 0.125rem 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.signature-card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.625rem 0;
+}
+.signature-card .dek {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--brand-body-muted);
+  margin: 0 0 0.75rem 0;
+}
+.signature-card .byline {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted-foreground);
+  border-top: 1px solid var(--muted);
+  padding-top: 0.625rem;
+}
+.story-stub {
+  border-top: 1px solid var(--border);
+  padding: 1rem 0;
+}
+.story-stub:last-of-type { border-bottom: 1px solid var(--border); }
+.story-stub .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted-foreground);
+  margin-bottom: 0.375rem;
+}
+.story-stub h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  line-height: 1.2;
+  margin: 0 0 0.375rem 0;
+}
+.story-stub .byline {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted-foreground);
+}
+
+/* -- Marquee ticker (polarity-locked Ink Black band) ---------- */
+.ticker {
+  background-color: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  border-top: 1px solid var(--brand-canvas-night);
+  border-bottom: 1px solid var(--brand-canvas-night);
+  overflow: hidden;
+  margin-top: 2rem;
+}
+.ticker .row {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  padding: 0.75rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  white-space: nowrap;
+}
+.ticker .row .item { display: flex; align-items: center; gap: 0.5rem; }
+.ticker .row .item .marker {
+  display: inline-block;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  padding: 0.125rem 0.5rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.22em;
+}
+.ticker .row .item .delta { color: var(--brand-neutral-400); }
+
+/* -- Section header pattern ----------------------------------- */
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 4px solid var(--border);
+  margin: 3rem 0 1.5rem 0;
+  padding-bottom: 0.5rem;
+}
+.section-head h2 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.section-head .pagenum {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted-foreground);
+}
+
+/* -- Token demo: colour swatches ------------------------------- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border-left: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 768px) { .swatch-grid { grid-template-columns: repeat(2, 1fr); } }
+.swatch {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem;
+  min-height: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.swatch.dark { background-color: var(--brand-canvas-night); color: var(--brand-on-dark); }
+.swatch.bg-paper { background-color: var(--background); color: var(--foreground); }
+.swatch.bg-divider { background-color: var(--muted); color: var(--foreground); }
+/* Swatches with polarity-locked light surfaces demo the light-mode neutrals;
+ * pin text to Ink Black so the dark-theme preview doesn't invert them to
+ * off-white on near-white. */
+.swatch.bg-n100 { background-color: var(--brand-neutral-100); color: var(--brand-on-light); }
+.swatch.bg-n400 { background-color: var(--brand-neutral-400); color: var(--brand-canvas-night); }
+.swatch.bg-accent { background-color: var(--primary); color: var(--primary-foreground); }
+.swatch .label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+.swatch .value {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  /* No opacity dim: WCAG AA needs the full --primary-foreground over
+   * Editorial Red and full Ink Black over Neutral-100 to clear 4.5:1. */
+}
+
+/* -- Token demo: surface ladder + texture cards ---------------- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-left: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 768px) { .ladder { grid-template-columns: 1fr; } }
+.ladder .cell {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem;
+  min-height: 12rem;
+}
+.ladder .cell .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted-foreground);
+  margin-bottom: 0.5rem;
+}
+.ladder .cell .title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
+}
+.ladder .cell .body {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--brand-body-muted);
+}
+.ladder .cell.texture-halftone {
+  position: relative;
+  color: var(--foreground);
+  background-color: var(--background);
+  overflow: hidden;
+  isolation: isolate;
+}
+.ladder .cell.texture-halftone .halftone-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.ladder .cell.texture-halftone .halftone-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(1) contrast(1.2);
+  opacity: 0.55;
+}
+.ladder .cell.texture-halftone .halftone-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(oklch(0.1776 0 0 / 0.4) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+.ladder .cell.texture-halftone > .eyebrow,
+.ladder .cell.texture-halftone > .title,
+.ladder .cell.texture-halftone > .body { position: relative; z-index: 1; }
+.ladder .cell.texture-line {
+  position: relative;
+  background-color: var(--brand-neutral-100);
+}
+.ladder .cell.texture-line::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(0deg, transparent 98%, oklch(0.1776 0 0 / 0.06) 100%),
+    linear-gradient(90deg, transparent 98%, oklch(0.1776 0 0 / 0.06) 100%);
+  background-size: 3px 3px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.ladder .cell.texture-line .eyebrow,
+.ladder .cell.texture-line .title,
+.ladder .cell.texture-line .body { position: relative; }
+
+/* -- Ornamental divider --------------------------------------- */
+.ornament {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 1em;
+  color: var(--brand-neutral-400);
+  padding: 2.5rem 0;
+}
+.ornament::after { content: "\2727 \00a0 \2727 \00a0 \2727"; }
+
+/* -- Typography roles demo ------------------------------------ */
+.type-roles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+@media (max-width: 768px) { .type-roles { grid-template-columns: 1fr; } }
+.type-roles .role {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem;
+}
+.type-roles .role .meta {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted-foreground);
+  margin-bottom: 0.75rem;
+}
+.role .sample-display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+}
+.role .sample-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.role .sample-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+.role .sample-body {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--brand-body-muted);
+}
+.role .sample-caption {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--muted-foreground);
+}
+.role .sample-ui {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+/* -- Component vocabulary demo --------------------------------- */
+.components {
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 768px) { .components { grid-template-columns: 1fr; } }
+.components .panel {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 1.75rem;
+}
+.components .panel h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0 0 1rem 0;
+}
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.625rem 1.125rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  border-radius: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 200ms ease-out, color 200ms ease-out, border-color 200ms ease-out, transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.btn-primary {
+  background-color: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+.btn-primary:hover {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+.btn-secondary {
+  background-color: transparent;
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+.btn-secondary:hover {
+  background-color: var(--foreground);
+  color: var(--background);
+}
+.btn-ghost {
+  background-color: transparent;
+  color: var(--foreground);
+  border-color: transparent;
+}
+.btn-ghost:hover {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+.btn-link {
+  background: transparent;
+  border-color: transparent;
+  color: var(--foreground);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  min-height: auto;
+  padding: 0.5rem 0;
+}
+.btn-link:hover { text-decoration-color: var(--primary); }
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+.badge-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding: 0.25rem 0.625rem;
+  border: 1px solid var(--border);
+}
+.badge.live { background-color: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+.badge.outline { background-color: transparent; color: var(--foreground); }
+.badge.solid { background-color: var(--foreground); color: var(--background); border-color: var(--foreground); }
+
+.input-row { display: grid; gap: 0.875rem; }
+.input-row .field { display: flex; flex-direction: column; gap: 0.375rem; }
+.input-row label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted-foreground);
+}
+.input-underline {
+  border: none;
+  border-bottom: 2px solid var(--foreground);
+  background-color: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--foreground);
+  border-radius: 0;
+  min-height: 44px;
+}
+.input-underline:focus-visible {
+  background-color: var(--brand-input-focus);
+  outline: none;
+}
+
+.icon-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.icon-box {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--foreground);
+  background-color: transparent;
+  transition: background-color 200ms ease-out, color 200ms ease-out;
+  cursor: pointer;
+}
+.icon-box:hover, .icon-box:focus-visible {
+  background-color: var(--foreground);
+  color: var(--background);
+  outline: none;
+}
+.icon-box svg { width: 22px; height: 22px; stroke-width: 1.5; }
+
+/* -- Inverted "How It Works" band ----------------------------- */
+.inverted {
+  background-color: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  margin-top: 3rem;
+  padding: 3rem 2rem;
+}
+.inverted .inner { max-width: 1280px; margin: 0 auto; }
+.inverted .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--brand-neutral-400);
+  margin-bottom: 0.75rem;
+}
+.inverted h2 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0 0 2rem 0;
+}
+.inverted .steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--brand-on-dark);
+  border-left: 1px solid var(--brand-on-dark);
+}
+@media (max-width: 768px) { .inverted .steps { grid-template-columns: 1fr; } }
+.inverted .step {
+  border-right: 1px solid var(--brand-on-dark);
+  border-bottom: 1px solid var(--brand-on-dark);
+  padding: 1.5rem;
+}
+.inverted .step .numeral {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+.inverted .step h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--brand-on-dark);
+}
+.inverted .step p {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--brand-neutral-400);
+  margin: 0;
+}
+
+/* -- Footer --------------------------------------------------- */
+footer {
+  border-top: 4px solid var(--border);
+  margin-top: 3rem;
+  padding: 2rem 0 2.5rem;
+}
+footer .row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 768px) { footer .row { grid-template-columns: 1fr; } }
+footer .col h5 {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted-foreground);
+  margin: 0 0 0.625rem 0;
+}
+footer .col a {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--foreground);
+  text-decoration: none;
+  padding: 0.25rem 0;
+}
+footer .col a:hover { text-decoration: underline; text-decoration-color: var(--primary); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+footer .pub-mark {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.375rem 0;
+}
+footer .pub-mark .ampersand { font-style: italic; font-weight: 400; }
+footer .pub-blurb {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--brand-body-muted);
+  margin: 0;
+  max-width: 28rem;
+}
+footer .imprint {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--muted-foreground);
+  border-top: 1px solid var(--muted);
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ Masthead ============ -->
+  <header class="masthead">
+    <div class="edition-strip" aria-label="edition">
+      <div class="edition-row">
+        <span>Vol. 1 &middot; Issue 04</span>
+        <span>Tuesday, 26 May 2026</span>
+        <span>Halcyon Edition</span>
+      </div>
+      <div class="edition-row">
+        <span>Eight Pages</span>
+        <span>Printed at HQ</span>
+        <span>One Pound</span>
+      </div>
+    </div>
+    <h1 class="wordmark">The Halcyon <span class="ampersand">&amp;</span> Standard</h1>
+    <p class="tagline">All the news that's fit to render &middot; broadsheet of the engineering team</p>
+    <nav class="primary" aria-label="primary">
+      <a href="#" class="live">Front Page</a>
+      <a href="#">Engineering</a>
+      <a href="#">Design</a>
+      <a href="#">Operations</a>
+      <a href="#">Leader</a>
+      <a href="#">Letters</a>
+    </nav>
+  </header>
+
+  <!-- ============ Signature mockup: broadsheet hero ============ -->
+  <section class="broadsheet" aria-label="lead">
+    <article class="lead">
+      <span class="eyebrow">Lead story</span>
+      <h1>Quiet ships beat loud roadmaps, again.</h1>
+      <p class="standfirst">The platform team closed the quarter with twenty-eight merged proposals, four kept design decisions, and no incidents in the long retrospective. The pattern, our correspondent argues, is no accident.</p>
+      <div class="lead-image" role="img" aria-label="Editorial photograph for the lead article, rendered as a halftone newspaper image">
+        <img src="https://picsum.photos/seed/halcyon-lead-1947/1280/720" alt="" loading="lazy" decoding="async">
+        <span class="halftone-mask" aria-hidden="true"></span>
+      </div>
+      <p class="caption">Fig. 1.1 &nbsp;The release-train diagram, redrawn by the platform crew before the all-hands review.</p>
+      <div class="byline">
+        <span>By Jordan Kim &middot; Staff Correspondent</span>
+        <span>Filed 06:24 &middot; 4&nbsp;min read</span>
+      </div>
+    </article>
+    <aside class="sidebar">
+      <div class="signature-card" tabindex="0">
+        <div class="card-image" aria-hidden="true">
+          <img src="https://picsum.photos/seed/halcyon-pager-1821/640/320" alt="" loading="lazy" decoding="async">
+        </div>
+        <span class="badge">Breaking</span>
+        <h3>Pager rota survives the long weekend.</h3>
+        <p class="dek">Three carriers in rotation, none paged after hours. The on-call retro lasted nine minutes and produced one tidy follow-up ticket.</p>
+        <div class="byline">Morgan Lee &middot; Reliability desk &middot; 08:02</div>
+      </div>
+      <div class="story-stub">
+        <div class="stub-image" aria-hidden="true">
+          <img src="https://picsum.photos/seed/halcyon-merge-1612/480/240" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="eyebrow">Engineering</div>
+        <h4>The slow merge is the fast merge, after all.</h4>
+        <div class="byline">Avery Park &middot; 2&nbsp;min read</div>
+      </div>
+      <div class="story-stub">
+        <div class="stub-image" aria-hidden="true">
+          <img src="https://picsum.photos/seed/halcyon-grid-1334/480/240" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="eyebrow">Design</div>
+        <h4>Hairline borders, in defence of the grid.</h4>
+        <div class="byline">Riley Chen &middot; 3&nbsp;min read</div>
+      </div>
+      <div class="story-stub">
+        <div class="stub-image" aria-hidden="true">
+          <img src="https://picsum.photos/seed/halcyon-latency-1059/480/240" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="eyebrow">Operations</div>
+        <h4>Latency dropped by a single millisecond. We'll take it.</h4>
+        <div class="byline">Sam Walker &middot; 1&nbsp;min read</div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ Marquee ticker (token demo: polarity-locked band) ============ -->
+  <section class="ticker" aria-label="ticker">
+    <div class="row">
+      <span class="item"><span class="marker">Breaking</span> Quarterly proposal velocity holds at twenty-eight</span>
+      <span class="item">Median PR review &mdash; 3h 42m <span class="delta">&minus;14%</span></span>
+      <span class="item"><span class="marker">Live</span> Engineering all-hands convenes 16:00</span>
+      <span class="item">Deploys this week &mdash; 41 <span class="delta">+5</span></span>
+      <span class="item"><span class="marker">Note</span> Pager rota carriers thanked at length</span>
+      <span class="item">Comment threads resolved &mdash; 132 <span class="delta">+11</span></span>
+    </div>
+  </section>
+
+  <!-- ============ Token demo: colour swatches ============ -->
+  <div class="section-head">
+    <h2>The Palette</h2>
+    <span class="pagenum">Page A2 &middot; Token surface</span>
+  </div>
+  <section class="swatch-grid" aria-label="palette">
+    <div class="swatch bg-paper">
+      <span class="label">Background</span>
+      <span class="value">oklch(0.98 .003 106)</span>
+    </div>
+    <div class="swatch dark">
+      <span class="label">Foreground</span>
+      <span class="value">oklch(0.18 0 0)</span>
+    </div>
+    <div class="swatch bg-divider">
+      <span class="label">Muted</span>
+      <span class="value">oklch(0.92 .007 107)</span>
+    </div>
+    <div class="swatch bg-n100">
+      <span class="label">Surface 100</span>
+      <span class="value">oklch(0.97 0 0)</span>
+    </div>
+    <div class="swatch bg-n400">
+      <span class="label">Neutral 400</span>
+      <span class="value">oklch(0.72 0 0)</span>
+    </div>
+    <div class="swatch bg-accent">
+      <span class="label">Editorial Red</span>
+      <span class="value">oklch(0.53 .218 29)</span>
+    </div>
+  </section>
+
+  <!-- ============ Token demo: surface ladder ============ -->
+  <div class="section-head">
+    <h2>The Surfaces</h2>
+    <span class="pagenum">Page A3 &middot; Hierarchy</span>
+  </div>
+  <section class="ladder" aria-label="surface ladder">
+    <div class="cell">
+      <div class="eyebrow">Surface 0 &middot; Paper</div>
+      <div class="title">Newsprint canvas.</div>
+      <p class="body">The default body fill. Warm off-white, dot-grid pattern at four-percent opacity, the substrate every other surface sits on.</p>
+    </div>
+    <div class="cell texture-line">
+      <div class="eyebrow">Surface 1 &middot; Line texture</div>
+      <div class="title">Section paper.</div>
+      <p class="body">Major sections layer a three-pixel graph-paper crosshatch over Surface 1 fill. Fine, quiet, never decorative for its own sake.</p>
+    </div>
+    <div class="cell texture-halftone">
+      <div class="halftone-photo" aria-hidden="true">
+        <img src="https://picsum.photos/seed/halcyon-surface-halftone-2204/800/600" alt="" loading="lazy" decoding="async">
+      </div>
+      <div class="eyebrow">Surface 2 &middot; Halftone</div>
+      <div class="title">Photograph treatment.</div>
+      <p class="body">Image placeholders render the sixteen-pixel halftone screen at ten-percent opacity. Stand-in for the morning's grayscale photography.</p>
+    </div>
+  </section>
+
+  <!-- Ornamental divider between thematic blocks -->
+  <div class="ornament" role="separator" aria-label="ornament"></div>
+
+  <!-- ============ Token demo: typography roles ============ -->
+  <div class="section-head">
+    <h2>The Voice</h2>
+    <span class="pagenum">Page A4 &middot; Typography</span>
+  </div>
+  <section class="type-roles" aria-label="typography roles">
+    <div class="role">
+      <div class="meta">Display &middot; Playfair Display 900 &middot; 80&ndash;128px</div>
+      <div class="sample-display">All the news that's fit to render.</div>
+    </div>
+    <div class="role">
+      <div class="meta">Heading &middot; Playfair Display 700 &middot; 28&ndash;48px</div>
+      <div class="sample-heading">A leading on the leading question.</div>
+    </div>
+    <div class="role">
+      <div class="meta">Title &middot; Playfair Display 700 &middot; 20&ndash;30px</div>
+      <div class="sample-title">A column on the column grid.</div>
+    </div>
+    <div class="role">
+      <div class="meta">Body &middot; Lora 400 &middot; 14&ndash;18px</div>
+      <p class="sample-body">The body register settles into Lora at fifteen pixels, with a relaxed line-height of one-point-six. Long-form reading is the bar; the type holds its shape down to twelve hundred words without strain on the reader.</p>
+    </div>
+    <div class="role">
+      <div class="meta">Caption &middot; JetBrains Mono 400 &middot; 12px</div>
+      <p class="sample-caption">Fig. 1.2 &middot; Edition metadata &middot; Tuesday morning</p>
+    </div>
+    <div class="role">
+      <div class="meta">UI Label &middot; Inter 600 &middot; 12px tracking-widest</div>
+      <p class="sample-ui">Subscribe &middot; Letters &middot; Print Edition</p>
+    </div>
+  </section>
+
+  <!-- ============ Component vocabulary ============ -->
+  <div class="section-head">
+    <h2>The Vocabulary</h2>
+    <span class="pagenum">Page A5 &middot; Components</span>
+  </div>
+  <section class="components" aria-label="component vocabulary">
+    <div class="panel">
+      <h3>Buttons</h3>
+      <div class="btn-row">
+        <button class="btn btn-primary">Subscribe</button>
+        <button class="btn btn-secondary">Read leader</button>
+        <button class="btn btn-ghost">Skip to letters</button>
+        <a href="#" class="btn btn-link">Letters to the editor</a>
+      </div>
+      <h3 style="margin-top:1.25rem">Badges</h3>
+      <div class="badge-row">
+        <span class="badge live">Breaking</span>
+        <span class="badge solid">Filed</span>
+        <span class="badge outline">Letters</span>
+        <span class="badge outline">Op-ed</span>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Inputs</h3>
+      <div class="input-row">
+        <div class="field">
+          <label for="email-field">Subscriber email</label>
+          <input id="email-field" class="input-underline" type="email" value="jordan@halcyon.dev">
+        </div>
+        <div class="field">
+          <label for="search-field">Search the archive</label>
+          <input id="search-field" class="input-underline" type="search" placeholder="Issue 03 &middot; quarterly review">
+        </div>
+      </div>
+      <h3 style="margin-top:1.25rem">Iconography</h3>
+      <div class="icon-row" aria-label="icon containers">
+        <button class="icon-box" aria-label="bookmark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter"><path d="M6 4h12v17l-6-4-6 4V4z"/></svg>
+        </button>
+        <button class="icon-box" aria-label="archive">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter"><path d="M3 6h18v4H3z M5 10v10h14V10 M10 14h4"/></svg>
+        </button>
+        <button class="icon-box" aria-label="letters">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter"><path d="M3 6h18v12H3z M3 6l9 7 9-7"/></svg>
+        </button>
+        <button class="icon-box" aria-label="print">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter"><path d="M6 9V3h12v6 M6 18H4v-7h16v7h-2 M8 14h8v6H8z"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Inverted "How It Works" band ============ -->
+  <section class="inverted" aria-label="inverted band">
+    <div class="inner">
+      <div class="eyebrow">Editor's note</div>
+      <h2>How the morning edition assembles itself.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="numeral">01</div>
+          <h4>Files arrive overnight.</h4>
+          <p>Correspondents wire copy to the assignment desk by 04:30. The wire is two paragraphs of context and three paragraphs of detail, in that order.</p>
+        </div>
+        <div class="step">
+          <div class="numeral">02</div>
+          <h4>The grid is set first.</h4>
+          <p>Page A1 gets the column structure before any headline lands. Lead story claims eight columns; the sidebar takes the remaining four without negotiation.</p>
+        </div>
+        <div class="step">
+          <div class="numeral">03</div>
+          <h4>Letters close the loop.</h4>
+          <p>The final spread carries Letters to the Editor and the imprint. Every reader response gets a numbered reference; resolutions appear in the next issue.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Footer ============ -->
+  <footer>
+    <div class="row">
+      <div class="col">
+        <p class="pub-mark">The Halcyon <span class="ampersand">&amp;</span> Standard</p>
+        <p class="pub-blurb">A weekly broadsheet for engineering teams who prefer their headlines large and their margins thin. Filed Tuesdays. Imprint by the Halcyon publishing collective.</p>
+      </div>
+      <div class="col">
+        <h5>Sections</h5>
+        <a href="#">Engineering</a>
+        <a href="#">Design</a>
+        <a href="#">Operations</a>
+        <a href="#">Leader column</a>
+      </div>
+      <div class="col">
+        <h5>Reader</h5>
+        <a href="#">Subscribe</a>
+        <a href="#">Letters</a>
+        <a href="#">Archive</a>
+        <a href="#">Corrections</a>
+      </div>
+      <div class="col">
+        <h5>Imprint</h5>
+        <a href="#">Masthead</a>
+        <a href="#">Ethics</a>
+        <a href="#">Style guide</a>
+        <a href="#">visualize &middot; __DESIGN_SYSTEM_NAME__</a>
+      </div>
+    </div>
+    <div class="imprint">
+      <span>Edition: Vol. 1 &middot; Issue 04 &middot; Printed at HQ</span>
+      <span>&copy; 2026 The Halcyon Standard &middot; All wires reserved</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,240 @@
+/**
+ * Neon theme — dark-canonical cyberpunk register. Deep midnight canvases
+ * (hue-280 neutral chassis), two high-chroma voltage poles (magenta
+ * primary at hue 340, cyan accent at hue 200), and a *glow shadow*
+ * vocabulary that replaces the usual depth-shadow scale.
+ *
+ * Mode priority: dark-canonical. Light mode is the documented off-state
+ * — surfaces invert lightness while accent hues + chromas are
+ * preserved (magenta stays magenta; cyan stays cyan). Artifacts using
+ * Neon should default to dark; the light tokens exist so the
+ * data-theme toggle works, not because light is a co-equal register.
+ *
+ * Distinct from every other visualize design system on three axes:
+ *
+ *   1. **Hue-280 chassis (not hue 0).** Console / Terminal / IDE use
+ *      pure-grey dark surfaces (hue 0, chroma 0). Neon's surfaces sit
+ *      at hue 280 with chroma 0.006-0.014 — the eye reads "midnight
+ *      space" rather than "terminal". This is what separates Neon
+ *      from the dev-default-dark register.
+ *
+ *   2. **Glow vocabulary, not depth.** --glow-primary, --glow-accent,
+ *      and --glow-soft replace --shadow-sm and --shadow-md for
+ *      interactive surfaces. Cards and buttons radiate their accent
+ *      colour outward rather than casting a depth shadow downward.
+ *      The shadow scale still exists for floating UI (--shadow-lg
+ *      on dropdowns / modals), but the default lift mechanism is glow.
+ *
+ *   3. **Two voltage poles + chart palette.** Magenta primary +
+ *      cyan accent together are the identity. The chart palette
+ *      adds three more high-chroma stops (purple, yellow, green) at
+ *      similar lightness — a *categorical* polychrome ramp, not the
+ *      gradient ramps of Clean / Bento / Brutalist.
+ *
+ * Blessed templates: Product launch announcements (AI / sci-fi /
+ * future-of-X register), Technical roadmap (ambitious / forward-
+ * looking), Retrospective writeup (complex incidents — Neon's
+ * stylised drama suits dramatic content), Manifesto.
+ *
+ * Discouraged: Long-form prose (Editorial / Whitepaper / Postmortem
+ * register — Neon's chrome suffocates running text); Internal docs
+ * (Console / IDE are calmer for daily ops); Onboarding (the high
+ * voltage reads aggressive, not welcoming); Pitch deck (Bento or
+ * Brutalist suit slide-shape better; Neon's mono-uppercase chrome
+ * is exhausting at slide scale).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Light register — Neon's off-state. Lightness inverts; accent
+   * hues + chromas are preserved so magenta still reads magenta. */
+
+  --background:              oklch(0.97 0.006 280);
+  --foreground:              oklch(0.15 0.012 280);
+
+  --card:                    oklch(0.99 0.004 280);
+  --card-foreground:         oklch(0.15 0.012 280);
+
+  --popover:                 oklch(0.99 0.004 280);
+  --popover-foreground:      oklch(0.15 0.012 280);
+
+  --primary:                 oklch(0.55 0.22 340);
+  --primary-foreground:      oklch(0.99 0 0);
+
+  --secondary:               oklch(0.93 0.012 280);
+  --secondary-foreground:    oklch(0.15 0.012 280);
+
+  --muted:                   oklch(0.94 0.006 280);
+  --muted-foreground:        oklch(0.48 0.012 280);
+
+  --accent:                  oklch(0.48 0.20 200);
+  --accent-foreground:       oklch(0.99 0 0);
+
+  --destructive:             oklch(0.55 0.25 25);
+  --destructive-foreground:  oklch(0.99 0 0);
+
+  --border:                  oklch(0.88 0.008 280);
+  --input:                   oklch(0.88 0.008 280);
+  --ring:                    oklch(0.55 0.22 340);
+
+  --sidebar:                 oklch(0.94 0.006 280);
+  --sidebar-foreground:      oklch(0.15 0.012 280);
+  --sidebar-primary:         oklch(0.55 0.22 340);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent:          oklch(0.55 0.20 200);
+  --sidebar-accent-foreground: oklch(0.99 0 0);
+  --sidebar-border:          oklch(0.88 0.008 280);
+  --sidebar-ring:            oklch(0.55 0.22 340);
+
+  --chart-1:                 oklch(0.55 0.22 340);
+  --chart-2:                 oklch(0.55 0.20 200);
+  --chart-3:                 oklch(0.55 0.18 280);
+  --chart-4:                 oklch(0.65 0.16 90);
+  --chart-5:                 oklch(0.55 0.20 150);
+
+  --radius-sm:               0.125rem;
+  --radius-md:               0.25rem;
+  --radius-lg:               0.375rem;
+  --radius-xl:               0.5rem;
+
+  --space-xs:                0.25rem;
+  --space-sm:                0.5rem;
+  --space-md:                1rem;
+  --space-lg:                1.5rem;
+  --space-xl:                2.5rem;
+
+  /* Glow vocabulary — Neon's signature in place of depth shadows. */
+  --glow-primary:            0 0 12px oklch(0.55 0.22 340 / 0.45), 0 0 32px oklch(0.55 0.22 340 / 0.20);
+  --glow-accent:             0 0 12px oklch(0.55 0.20 200 / 0.45), 0 0 32px oklch(0.55 0.20 200 / 0.20);
+  --glow-soft:               0 0 8px oklch(0.50 0.04 280 / 0.20);
+
+  --shadow-sm:               var(--glow-soft);
+  --shadow-md:               var(--glow-primary);
+  --shadow-lg:               0 8px 24px -4px oklch(0.15 0.012 280 / 0.40);
+  --shadow-2xs:              var(--glow-soft);
+  --shadow-xs:               var(--glow-soft);
+  --shadow-xl:               0 12px 32px -6px oklch(0.15 0.012 280 / 0.50);
+  --shadow-2xl:              0 20px 48px -8px oklch(0.15 0.012 280 / 0.60);
+  /* typography tokens */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: var(--font-mono);
+
+  /* type scale tokens */
+  --text-display: clamp(2rem, 5vw, 3rem);
+  --text-heading: 1.75rem;
+  --text-title: 1.125rem;
+  --text-base: 15px;
+  --leading-tight: 1.1;
+  --leading-normal: 1.55;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background:              oklch(0.12 0.012 280);
+  --foreground:              oklch(0.92 0.005 280);
+
+  --card:                    oklch(0.16 0.014 280);
+  --card-foreground:         oklch(0.92 0.005 280);
+
+  --popover:                 oklch(0.16 0.014 280);
+  --popover-foreground:      oklch(0.92 0.005 280);
+
+  --primary:                 oklch(0.68 0.22 340);
+  --primary-foreground:      oklch(0.12 0.012 280);
+
+  --secondary:               oklch(0.22 0.018 280);
+  --secondary-foreground:    oklch(0.92 0.005 280);
+
+  --muted:                   oklch(0.18 0.012 280);
+  --muted-foreground:        oklch(0.65 0.012 280);
+
+  --accent:                  oklch(0.72 0.20 200);
+  --accent-foreground:       oklch(0.12 0.012 280);
+
+  --destructive:             oklch(0.65 0.25 25);
+  --destructive-foreground:  oklch(0.12 0.012 280);
+
+  --border:                  oklch(0.22 0.012 280);
+  --input:                   oklch(0.22 0.012 280);
+  --ring:                    oklch(0.68 0.22 340);
+
+  --sidebar:                 oklch(0.16 0.014 280);
+  --sidebar-foreground:      oklch(0.92 0.005 280);
+  --sidebar-primary:         oklch(0.68 0.22 340);
+  --sidebar-primary-foreground: oklch(0.12 0.012 280);
+  --sidebar-accent:          oklch(0.72 0.20 200);
+  --sidebar-accent-foreground: oklch(0.12 0.012 280);
+  --sidebar-border:          oklch(0.22 0.012 280);
+  --sidebar-ring:            oklch(0.68 0.22 340);
+
+  --chart-1:                 oklch(0.68 0.22 340);
+  --chart-2:                 oklch(0.72 0.20 200);
+  --chart-3:                 oklch(0.72 0.18 280);
+  --chart-4:                 oklch(0.78 0.16 90);
+  --chart-5:                 oklch(0.68 0.20 150);
+
+  --glow-primary:            0 0 14px oklch(0.68 0.22 340 / 0.55), 0 0 36px oklch(0.68 0.22 340 / 0.28);
+  --glow-accent:             0 0 14px oklch(0.72 0.20 200 / 0.55), 0 0 36px oklch(0.72 0.20 200 / 0.28);
+  --glow-soft:               0 0 10px oklch(0.68 0.08 280 / 0.30);
+
+  --shadow-sm:               var(--glow-soft);
+  --shadow-md:               var(--glow-primary);
+  --shadow-lg:               0 8px 24px -4px oklch(0 0 0 / 0.60);
+  --shadow-2xs:              var(--glow-soft);
+  --shadow-xs:               var(--glow-soft);
+  --shadow-xl:               0 12px 32px -6px oklch(0 0 0 / 0.70);
+  --shadow-2xl:              0 20px 48px -8px oklch(0 0 0 / 0.80);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background:            oklch(0.12 0.012 280);
+    --foreground:            oklch(0.92 0.005 280);
+    --card:                  oklch(0.16 0.014 280);
+    --card-foreground:       oklch(0.92 0.005 280);
+    --popover:               oklch(0.16 0.014 280);
+    --popover-foreground:    oklch(0.92 0.005 280);
+    --primary:               oklch(0.68 0.22 340);
+    --primary-foreground:    oklch(0.12 0.012 280);
+    --secondary:             oklch(0.22 0.018 280);
+    --secondary-foreground:  oklch(0.92 0.005 280);
+    --muted:                 oklch(0.18 0.012 280);
+    --muted-foreground:      oklch(0.65 0.012 280);
+    --accent:                oklch(0.72 0.20 200);
+    --accent-foreground:     oklch(0.12 0.012 280);
+    --destructive:           oklch(0.65 0.25 25);
+    --destructive-foreground: oklch(0.12 0.012 280);
+    --border:                oklch(0.22 0.012 280);
+    --input:                 oklch(0.22 0.012 280);
+    --ring:                  oklch(0.68 0.22 340);
+    --sidebar:               oklch(0.16 0.014 280);
+    --sidebar-foreground:    oklch(0.92 0.005 280);
+    --sidebar-primary:       oklch(0.68 0.22 340);
+    --sidebar-primary-foreground: oklch(0.12 0.012 280);
+    --sidebar-accent:        oklch(0.72 0.20 200);
+    --sidebar-accent-foreground: oklch(0.12 0.012 280);
+    --sidebar-border:        oklch(0.22 0.012 280);
+    --sidebar-ring:          oklch(0.68 0.22 340);
+    --chart-1:               oklch(0.68 0.22 340);
+    --chart-2:               oklch(0.72 0.20 200);
+    --chart-3:               oklch(0.72 0.18 280);
+    --chart-4:               oklch(0.78 0.16 90);
+    --chart-5:               oklch(0.68 0.20 150);
+    --glow-primary:          0 0 14px oklch(0.68 0.22 340 / 0.55), 0 0 36px oklch(0.68 0.22 340 / 0.28);
+    --glow-accent:           0 0 14px oklch(0.72 0.20 200 / 0.55), 0 0 36px oklch(0.72 0.20 200 / 0.28);
+    --glow-soft:             0 0 10px oklch(0.68 0.08 280 / 0.30);
+    --shadow-sm:             var(--glow-soft);
+    --shadow-md:             var(--glow-primary);
+    --shadow-lg:             0 8px 24px -4px oklch(0 0 0 / 0.60);
+  }
+}

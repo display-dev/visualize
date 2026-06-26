@@ -1,0 +1,2411 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>airtable-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23181d26'/%3E%3Crect x='6' y='14' width='6' height='6' rx='1' fill='%23fcab79'/%3E%3Crect x='14' y='14' width='6' height='6' rx='1' fill='%23a8d8c4'/%3E%3Crect x='22' y='14' width='4' height='6' rx='1' fill='%23f4d35e'/%3E%3C/svg%3E">
+<meta property="og:title" content="airtable-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Editorial workflow software — white canvas + near-black ink + full-bleed signature cards in coral / forest / dark navy + cream callout band + pastel demo-grid surfaces. Haas at modest weights.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Display:wght@400;475;500;575&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/airtable-style/tokens.css) === */
+/**
+ * design-systems/airtable-style/tokens.css
+ *
+ * Live-verified against airtable.com on 2026-05-26 (8 marketing + product
+ * surfaces + first-party CSS bundles brandkit-font.css / pricing.css /
+ * helpers.css at static.airtable.com). Companion to ./DESIGN.md.
+ *
+ * canonical-canvas: both. Airtable's pricing CSS bundle ships a complete
+ * .theme-dark { ... } block re-resolving every --colors-* semantic alias —
+ * the product surface is first-party bi-polar even though the marketing
+ * skin presents as light-canonical. [data-theme="dark"] anchors to deep
+ * slate-navy with near-white ink; brand-blue holds across both polarities.
+ *
+ * Brand voltage: field-type rainbow palette (ten hues × six lightness
+ * stops). Light2 fill + Dark1 ink pairing is the recognizability anchor.
+ *
+ * Three concurrent display families documented (HaasDisplay marketing,
+ * Inter Display current heading, GT Eesti Display legacy fallback).
+ * Body defaults to system stack — HaasText only on marketing chrome.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2398 0.0119 270.8831);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2398 0.0119 270.8831);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2398 0.0119 270.8831);
+  --primary: oklch(0.5573 0.1921 257.9488);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9668 0.0058 264.5324);
+  --secondary-foreground: oklch(0.2398 0.0119 270.8831);
+  --muted: oklch(0.9668 0.0058 264.5324);
+  --muted-foreground: oklch(0.5094 0.0170 264.4134);
+  --accent: oklch(0.9787 0.0057 264.5327);
+  --accent-foreground: oklch(0.2398 0.0119 270.8831);
+  --destructive: oklch(0.4895 0.1885 12.8578);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0 0 0 / 0.05);
+  --input: oklch(0 0 0 / 0.05);
+  --ring: oklch(0.5573 0.1921 257.9488);
+  --sidebar: oklch(0.9668 0.0058 264.5324);
+  --sidebar-foreground: oklch(0.2398 0.0119 270.8831);
+  --sidebar-primary: oklch(0.5573 0.1921 257.9488);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9787 0.0057 264.5327);
+  --sidebar-accent-foreground: oklch(0.2398 0.0119 270.8831);
+  --sidebar-border: oklch(0 0 0 / 0.05);
+  --sidebar-ring: oklch(0.5573 0.1921 257.9488);
+  --chart-1: oklch(0.5573 0.1921 257.9488);
+  --chart-2: oklch(0.7867 0.1390 227.8985);
+  --chart-3: oklch(0.8310 0.1708 81.4330);
+  --chart-4: oklch(0.5884 0.1910 38.2861);
+  --chart-5: oklch(0.5400 0.2514 292.9484);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 2px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Inter Display', 'HaasDisplay', system-ui, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 48px;
+  --text-heading: 40px;
+  --text-title: 20px;
+  --text-base: 13px;
+  --leading-tight: 1.1;
+  --leading-normal: 1.25;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (documented brand-doc values) */
+  --brand-primary-active: oklch(0.4548 0.1580 258.0044);
+  --brand-primary-soft: oklch(0.8197 0.0907 258.3247);
+  --brand-primary-tint: oklch(0.9700 0.0140 268.4943);
+  --brand-body: oklch(0.5094 0.0170 264.4134);
+  --brand-border-strong: oklch(0.6665 0.0000 0.0000);
+  --brand-surface-strong: oklch(0.9668 0.0058 264.5324);
+  --brand-surface-dark: oklch(0.2398 0.0119 270.8831);
+  --brand-surface-dark-elevated: oklch(0.3287 0.0169 266.4281);
+  --brand-signature-coral: oklch(0.4894 0.1675 36.0214);
+  --brand-signature-forest: oklch(0.2667 0.0693 145.1375);
+  --brand-signature-cream: oklch(0.9705 0.0180 89.3563);
+  --brand-signature-peach: oklch(0.8092 0.1158 52.1184);
+  --brand-signature-mint: oklch(0.8800 0.0820 190.0000);
+  --brand-signature-yellow: oklch(0.8310 0.1708 81.4330);
+  --brand-signature-mustard: oklch(0.8175 0.1606 77.5964);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-link: oklch(0.5573 0.1921 257.9488);
+  --brand-link-active: oklch(0.4548 0.1580 258.0044);
+  --brand-info: oklch(0.4553 0.1579 263.3369);
+  --brand-info-border: oklch(0.6594 0.1821 258.6609);
+  --brand-success: oklch(0.5496 0.1826 142.9867);
+  --brand-success-border: oklch(0.7080 0.1990 144.3638);
+  --brand-hairline-soft: oklch(0 0 0 / 0.05);
+  --brand-hairline-strong: oklch(0.6665 0.0000 0.0000);
+  --brand-pricing-ink: oklch(0.2398 0.0119 270.8831);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Real dark-theme block, mirroring Airtable's .theme-dark in pricing.css.
+   * Canvas anchors to gray800 (#1D1F25); foreground to near-white; borders
+   * become opacity-lightened white per the opacity-based hairline pattern.
+   * Brand-blue (--primary, --ring, --sidebar-primary, --sidebar-ring) HOLDS
+   * across polarities — Airtable's design system keeps --colors-border-focus
+   * = --palette-blue-blue in both themes. Polarity-locked signature
+   * surfaces (coral / forest / cream / peach / mint / yellow / mustard /
+   * pricing-ink / surface-dark) intentionally NOT overridden — they ARE
+   * the brand's voltage, locked across modes. */
+
+  --background: oklch(0.2398 0.0119 270.8831);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2398 0.0119 270.8831);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2398 0.0119 270.8831);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.5573 0.1921 257.9488);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.3287 0.0169 266.4281);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.3287 0.0169 266.4281);
+  --muted-foreground: oklch(0.6856 0.0094 264.5039);
+  --accent: oklch(0 0 0);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.4895 0.1885 12.8578);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(1 1 1 / 0.05);
+  --input: oklch(1 1 1 / 0.05);
+  --ring: oklch(0.5573 0.1921 257.9488);
+  --sidebar: oklch(0.2398 0.0119 270.8831);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.5573 0.1921 257.9488);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(1 1 1 / 0.05);
+  --sidebar-ring: oklch(0.5573 0.1921 257.9488);
+  --chart-1: oklch(0.8197 0.0907 258.3247);
+  --chart-2: oklch(0.7867 0.1390 227.8985);
+  --chart-3: oklch(0.8310 0.1708 81.4330);
+  --chart-4: oklch(0.5884 0.1910 38.2861);
+  --chart-5: oklch(0.5400 0.2514 292.9484);
+
+  /* brand-extras dark overrides. --brand-body lifts for editorial body
+   * text on the dark canvas; --brand-surface-strong flips to gray700
+   * elevated band; --brand-border-strong + --brand-hairline-strong shift
+   * to opacity-lightened white per Airtable's opacity-based border
+   * pattern (--colors-border-emphasis dark = rgba(255,255,255,0.25)).
+   * --brand-pricing-ink intentionally NOT overridden — it's the
+   * always-dark ink for polarity-locked light surfaces (db grid,
+   * pricing tiles, swatches, footer). Same applies to --brand-on-dark
+   * (always white by definition) and signature surfaces. */
+  --brand-body: oklch(0.6856 0.0094 264.5039);
+  --brand-border-strong: oklch(1 1 1 / 0.25);
+  --brand-surface-strong: oklch(0.3287 0.0169 266.4281);
+  --brand-hairline-soft: oklch(1 1 1 / 0.05);
+  --brand-hairline-strong: oklch(1 1 1 / 0.25);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2398 0.0119 270.8831);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2398 0.0119 270.8831);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2398 0.0119 270.8831);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(0.5573 0.1921 257.9488);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.3287 0.0169 266.4281);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.3287 0.0169 266.4281);
+    --muted-foreground: oklch(0.6856 0.0094 264.5039);
+    --accent: oklch(0 0 0);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.4895 0.1885 12.8578);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(1 1 1 / 0.05);
+    --input: oklch(1 1 1 / 0.05);
+    --ring: oklch(0.5573 0.1921 257.9488);
+    --sidebar: oklch(0.2398 0.0119 270.8831);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(0.5573 0.1921 257.9488);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0 0 0);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(1 1 1 / 0.05);
+    --sidebar-ring: oklch(0.5573 0.1921 257.9488);
+    --chart-1: oklch(0.8197 0.0907 258.3247);
+    --chart-2: oklch(0.7867 0.1390 227.8985);
+    --chart-3: oklch(0.8310 0.1708 81.4330);
+    --chart-4: oklch(0.5884 0.1910 38.2861);
+    --chart-5: oklch(0.5400 0.2514 292.9484);
+
+    --brand-body: oklch(0.6856 0.0094 264.5039);
+    --brand-border-strong: oklch(1 1 1 / 0.25);
+    --brand-surface-strong: oklch(0.3287 0.0169 266.4281);
+    --brand-hairline-soft: oklch(1 1 1 / 0.05);
+    --brand-hairline-strong: oklch(1 1 1 / 0.25);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Airtable-style preview shell — editorial workflow surface.
+   White canvas + near-black ink (Haas at 400/500, never bolder than
+   500). Brand voltage from full-bleed signature cards in coral /
+   forest / dark navy + cream callout + pastel demo-grid surfaces.
+   No atmospheric gradient on the hero, no hover styling. Pricing
+   sub-system runs Inter Display + pill buttons as a deliberate
+   dialect. Halcyon-themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Always-white signature canvas (database tile, pricing tiles).
+ * Locked white in both polarities via --brand-canvas-light pattern
+ * so the signature surface — Airtable's defining white workspace —
+ * stays its registered polarity regardless of viewer theme. */
+.canvas-white {
+  background: oklch(1 0 0);
+  color: var(--brand-pricing-ink);
+}
+.canvas-white .section-title,
+.canvas-white .section-lede,
+.canvas-white .section-eyebrow {
+  color: var(--brand-pricing-ink);
+}
+.canvas-white .section-lede { opacity: 0.82; }
+.canvas-white .section-eyebrow { opacity: 0.85; }
+
+/* -- Always-cream callout surface ("The path to 10× ...") -- */
+.canvas-cream {
+  background: var(--brand-signature-cream);
+  color: var(--brand-pricing-ink);
+}
+.canvas-cream .section-title,
+.canvas-cream .section-lede,
+.canvas-cream .section-eyebrow {
+  color: var(--brand-pricing-ink);
+}
+.canvas-cream .section-lede { opacity: 0.85; }
+.canvas-cream .section-eyebrow { opacity: 0.85; }
+
+/* -- Always-navy signature card surface (mid-page CTA voltage) -- */
+.canvas-navy {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+}
+
+/* -- Top nav (light, always white per DESIGN.md "nav stays light on
+ *    every page" — even over signature dark sections) -- */
+.topnav {
+  background: oklch(1 0 0);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  color: var(--brand-pricing-ink);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background: var(--brand-pricing-ink);
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  padding: 4px;
+}
+.brand-glyph::before,
+.brand-glyph::after {
+  content: "";
+  border-radius: 1px;
+}
+.brand-glyph::before { background: var(--brand-signature-peach); }
+.brand-glyph::after  { background: var(--brand-signature-mint); }
+.brand-glyph-cell { background: var(--brand-signature-yellow); border-radius: 1px; }
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 400;
+  flex: 1;
+  margin-left: 2rem;
+  /* Always-dark ink with opacity rather than --brand-body, because the
+   * topnav is polarity-locked white — --brand-body lifts in dark and
+   * would be light-gray on white. */
+  color: var(--brand-pricing-ink);
+  opacity: 0.66;
+}
+.topnav-links:hover { opacity: 1; }
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--brand-pricing-ink); }
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 14px;
+}
+.topnav-actions a {
+  color: var(--brand-pricing-ink);
+  text-decoration: none;
+  font-weight: 500;
+}
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (44 px touch, 12 px radius primary) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--brand-info-border);
+  outline-offset: 3px;
+}
+/* Primary: near-black filled pill on white surfaces. Polarity-locked
+ * via --brand-pricing-ink (always near-black) so the primary CTA
+ * keeps its brand register on both light and dark editorial canvases. */
+.btn[data-variant="primary"] {
+  background: var(--brand-pricing-ink);
+  color: var(--brand-on-dark);
+  border-color: var(--brand-pricing-ink);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-active); border-color: var(--brand-primary-active); }
+/* Secondary: white outlined, paired with primary. Locked white via
+ * --brand-canvas-light tokens so it stays white in both polarities. */
+.btn[data-variant="secondary"] {
+  background: oklch(1 0 0);
+  color: var(--brand-pricing-ink);
+  border-color: var(--brand-pricing-ink);
+}
+.btn[data-variant="secondary"]:hover { background: var(--brand-pricing-ink); color: var(--brand-on-dark); }
+/* On-dark variant: still white pill but used on signature coral /
+ * forest / dark navy cards. */
+.btn[data-variant="on-dark"] {
+  background: oklch(1 0 0);
+  color: var(--brand-pricing-ink);
+  border-color: oklch(1 0 0);
+}
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--brand-pricing-ink);
+  border-color: transparent;
+}
+/* Pricing pill — sub-system signal, only used inside pricing block. */
+.btn[data-variant="pricing-pill"] {
+  background: oklch(1 0 0);
+  color: var(--brand-pricing-ink);
+  border-color: var(--brand-pricing-ink);
+  border-radius: var(--brand-radius-pill);
+  padding: 0 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 475;
+}
+.btn[data-variant="pricing-pill"]:hover { background: var(--brand-pricing-ink); color: var(--brand-on-dark); }
+.btn[data-size="lg"] { min-height: 48px; padding: 0 1.75rem; font-size: 16px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (white canvas, no atmospheric backdrop — per the brand's
+ *    "trust whitespace as the hero atmosphere" rule). -- */
+.hero {
+  padding: 6rem 1.5rem 4rem;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 1.5rem;
+}
+.hero-eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-signature-coral);
+}
+.hero-display {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 22ch;
+}
+.hero-lede {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body);
+  max-width: 38rem;
+  margin: 0 0 2.5rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* -- Signature database table — Airtable's defining surface --
+ * Locked to .canvas-white so the grid stays its registered polarity
+ * (white tile, near-black ink) regardless of viewer theme. */
+.db-shell {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: oklch(1 0 0);
+  overflow: hidden;
+  box-shadow: 0 1px 3px hsl(0 0% 0% / 0.05);
+}
+.db-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--brand-surface-strong);
+  background: oklch(0.9842 0.0034 247.8578);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--brand-pricing-ink);
+  opacity: 1;
+}
+.db-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  color: var(--brand-pricing-ink);
+  opacity: 0.66;
+  cursor: pointer;
+}
+.db-tab[data-active] {
+  background: oklch(1 0 0);
+  opacity: 1;
+  box-shadow: 0 1px 2px hsl(0 0% 0% / 0.06);
+}
+.db-tab-glyph {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+}
+.db-tab[data-active] .db-tab-glyph { background: var(--brand-signature-coral); }
+.db-tab:not([data-active]) .db-tab-glyph { background: oklch(0.78 0.01 262); }
+.db-toolbar {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-pricing-ink);
+  opacity: 0.66;
+}
+.db-toolbar-chip {
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+  background: oklch(1 0 0);
+  border: 1px solid var(--border);
+}
+.db-grid {
+  display: grid;
+  grid-template-columns: 32px 2fr 1.25fr 1.25fr 1fr 1fr;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--brand-pricing-ink);
+}
+.db-header {
+  display: contents;
+}
+.db-header > div {
+  padding: 0.625rem 0.875rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-pricing-ink);
+  opacity: 0.7;
+  border-bottom: 1px solid var(--border);
+  background: oklch(1 0 0);
+}
+.db-row {
+  display: contents;
+}
+.db-row > div {
+  padding: 0.75rem 0.875rem;
+  border-bottom: 1px solid var(--border);
+  background: oklch(1 0 0);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.db-row:last-child > div { border-bottom: none; }
+.db-row-index {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--brand-pricing-ink);
+  opacity: 0.65;
+  justify-content: center;
+}
+.db-row-name { font-weight: 500; }
+.db-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.625rem;
+  border-radius: var(--brand-radius-pill);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-pricing-ink);
+}
+.db-chip[data-tone="peach"]   { background: var(--brand-signature-peach); }
+.db-chip[data-tone="mint"]    { background: var(--brand-signature-mint); }
+.db-chip[data-tone="yellow"]  { background: var(--brand-signature-yellow); }
+.db-chip[data-tone="mustard"] { background: var(--brand-signature-mustard); color: var(--brand-pricing-ink); }
+.db-chip[data-tone="coral"]   { background: var(--brand-signature-coral); color: var(--brand-on-dark); }
+.db-chip[data-tone="cream"]   { background: var(--brand-signature-cream); }
+.db-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 600;
+  display: inline-grid;
+  place-items: center;
+  color: var(--brand-on-dark);
+}
+.db-avatar[data-tone="coral"] { background: var(--brand-signature-coral); }
+.db-avatar[data-tone="forest"] { background: var(--brand-signature-forest); }
+.db-avatar[data-tone="navy"]   { background: var(--brand-surface-dark); }
+.db-date {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 12px;
+  opacity: 0.72;
+}
+
+.signature-section {
+  padding: 4rem 1.5rem 6rem;
+}
+.signature-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.signature-header {
+  max-width: 40rem;
+}
+
+/* -- Section frame -- */
+.section {
+  padding: 5rem 1.5rem;
+}
+.section[data-tight] { padding: 3.5rem 1.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: oklch(1 0 0);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--brand-pricing-ink);
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--brand-radius-xs);
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--brand-pricing-ink);
+}
+.swatch-role {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* Swatch tiles are polarity-locked white via .canvas-white parent +
+   * the explicit oklch(1 0 0) bg above. Use always-dark ink, not
+   * --brand-body (which lifts in dark and would invert against white). */
+  color: var(--brand-pricing-ink);
+  opacity: 0.66;
+}
+
+/* -- Token-demo: surface ladder (5 surfaces — Airtable's full polarity) -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 1080px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--border);
+}
+/* Polarity-locked 5-surface demo. Each card shows a fixed brand-palette
+ * value regardless of viewer theme. */
+.ladder-step[data-step="white"]  { background: oklch(1 0 0); color: var(--brand-pricing-ink); }
+.ladder-step[data-step="cream"]  { background: var(--brand-signature-cream); color: var(--brand-pricing-ink); }
+.ladder-step[data-step="coral"]  { background: var(--brand-signature-coral); color: var(--brand-on-dark); border-color: var(--brand-signature-coral); }
+.ladder-step[data-step="forest"] { background: var(--brand-signature-forest); color: var(--brand-on-dark); border-color: var(--brand-signature-forest); }
+.ladder-step[data-step="navy"]   { background: var(--brand-surface-dark); color: var(--brand-on-dark); border-color: var(--brand-surface-dark); }
+.ladder-num {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+}
+.ladder-role {
+  font-size: 13px;
+  opacity: 0.86;
+  margin-top: auto;
+  line-height: 1.4;
+}
+
+/* -- Pricing sub-system (Inter Display + pill buttons — deliberate
+ *    dialect signaling commercial precision). Polarity-locked to
+ *    white tiles + featured cream tier so the two-track read holds
+ *    regardless of theme. -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: oklch(1 0 0);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--brand-pricing-ink);
+}
+.pricing-card[data-featured] {
+  background: var(--brand-signature-cream);
+  border-color: var(--brand-signature-cream);
+}
+.pricing-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 475;
+  letter-spacing: -0.01em;
+  color: var(--brand-pricing-ink);
+  margin: 0;
+}
+.pricing-price {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 475;
+  letter-spacing: -0.03em;
+  color: var(--brand-pricing-ink);
+  line-height: 1;
+}
+.pricing-tagline {
+  font-size: 13px;
+  color: var(--brand-pricing-ink);
+  opacity: 0.7;
+  margin: 0;
+  line-height: 1.45;
+  min-height: 2.8em;
+}
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid hsl(0 0% 0% / 0.12);
+  padding-top: 1rem;
+  font-size: 13px;
+  color: var(--brand-pricing-ink);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "✓";
+  color: var(--brand-pricing-ink);
+  font-weight: 500;
+  flex-shrink: 0;
+  width: 14px;
+}
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.type-display {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; line-height: 1.45; color: var(--brand-body); }
+.type-mono { font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: var(--brand-body); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  width: 100%;
+}
+.cmp-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  align-items: center;
+}
+.cmp-chips .db-chip { padding: 0.25rem 0.75rem; }
+
+/* -- Mid-page navy signature CTA (voltage moment, polarity-locked) -- */
+.navy-cta {
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 3rem 1.5rem 0;
+}
+.navy-cta-card {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2.5rem;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+@media (max-width: 880px) { .navy-cta-card { grid-template-columns: 1fr; gap: 1.5rem; padding: 2.5rem 1.75rem; } }
+.navy-cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--brand-on-dark);
+  margin: 0 0 0.75rem;
+}
+.navy-cta-lede {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--brand-on-dark);
+  opacity: 0.78;
+  margin: 0;
+  max-width: 32rem;
+}
+.navy-cta-actions { display: flex; gap: 0.625rem; flex-wrap: wrap; justify-content: flex-end; }
+@media (max-width: 880px) { .navy-cta-actions { justify-content: flex-start; } }
+
+/* -- Coral + forest signature pair, demo-grid style -- */
+.signature-pair {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+@media (max-width: 880px) { .signature-pair { grid-template-columns: 1fr; } }
+.signature-card {
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 18rem;
+}
+.signature-card[data-tone="coral"]  { background: var(--brand-signature-coral); color: var(--brand-on-dark); }
+.signature-card[data-tone="forest"] { background: var(--brand-signature-forest); color: var(--brand-on-dark); }
+.signature-card-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.85;
+}
+.signature-card-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  margin: 0;
+}
+.signature-card-body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--brand-on-dark);
+  opacity: 0.82;
+  margin: 0;
+  flex: 1;
+}
+.signature-card-cta { margin-top: 0.5rem; }
+
+/* -- Light gray CTA band ("Start building with Halcyon"). The band's bg
+ * (--brand-surface-strong) flips with theme (light gray ↔ dark gray), so
+ * text uses --foreground so it flips alongside the surface. -- */
+.cta-band {
+  background: var(--brand-surface-strong);
+  color: var(--foreground);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.cta-band-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 36rem;
+}
+.cta-band-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  margin: 0;
+}
+.cta-band-lede {
+  font-size: 15px;
+  line-height: 1.5;
+  opacity: 0.78;
+  margin: 0;
+}
+
+/* -- Footer (light, always-white per DESIGN.md) -- */
+.footer {
+  background: oklch(1 0 0);
+  color: var(--brand-pricing-ink);
+  border-top: 1px solid var(--border);
+  padding: 3rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline {
+  font-size: 13px;
+  color: var(--brand-pricing-ink);
+  opacity: 0.7;
+  line-height: 1.55;
+  margin: 0;
+}
+.footer-col-title {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-pricing-ink);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a {
+  font-size: 13px;
+  color: var(--brand-pricing-ink);
+  opacity: 0.72;
+  text-decoration: none;
+}
+.footer-list a:hover { opacity: 1; }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-pricing-ink);
+  opacity: 0.66;
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true">
+        <span class="brand-glyph-cell"></span>
+        <span class="brand-glyph-cell"></span>
+      </span>
+      airtable-style
+    </a>
+    <div class="topnav-links">
+      <a href="#">Platform</a>
+      <a href="#">Solutions</a>
+      <a href="#">Resources</a>
+      <a href="#">Enterprise</a>
+      <a href="#">Pricing</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Book demo</a>
+      <button class="btn" data-variant="primary" type="button">Sign up for free</button>
+      <a href="#">Log in</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow"><span class="hero-eyebrow-dot" aria-hidden="true"></span>Halcyon · Workspace</p>
+    <h1 class="hero-display">Editorial workspace for the operating team.</h1>
+    <p class="hero-lede">Halcyon's product, engineering, design, and operations teams keep specs, calendars, and customer threads on a single workspace — quietly editorial, never noisy.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Sign up for free</button>
+      <button class="btn" data-variant="secondary" data-size="lg" type="button">Book demo</button>
+    </div>
+  </div>
+</header>
+
+<section class="signature-section canvas-white" aria-label="Database signature surface">
+  <div class="signature-inner">
+    <div class="signature-header">
+      <p class="section-eyebrow">Workspace · Grid view</p>
+      <h2 class="section-title">A canvas that looks like a database, runs like a spreadsheet.</h2>
+      <p class="section-lede">One workspace, four views. The engineering team sees their sprint as a grid; design sees the same records as a gallery; operations watches the calendar.</p>
+    </div>
+
+    <div class="db-shell" role="figure" aria-label="Halcyon engineering tracker — grid view">
+      <div class="db-tabs">
+        <span class="db-tab" data-active><span class="db-tab-glyph"></span>Grid</span>
+        <span class="db-tab"><span class="db-tab-glyph"></span>Calendar</span>
+        <span class="db-tab"><span class="db-tab-glyph"></span>Kanban</span>
+        <span class="db-tab"><span class="db-tab-glyph"></span>Gallery</span>
+        <span class="db-toolbar">
+          <span class="db-toolbar-chip">Filter · 2</span>
+          <span class="db-toolbar-chip">Group · Status</span>
+          <span class="db-toolbar-chip">Sort · Date</span>
+        </span>
+      </div>
+      <div class="db-grid">
+        <div class="db-header">
+          <div></div>
+          <div>Task</div>
+          <div>Status</div>
+          <div>Owner</div>
+          <div>Priority</div>
+          <div>Updated</div>
+        </div>
+        <div class="db-row">
+          <div class="db-row-index">1</div>
+          <div class="db-row-name">Auth bootstrap refactor</div>
+          <div><span class="db-chip" data-tone="peach">In review</span></div>
+          <div><span class="db-avatar" data-tone="coral">JK</span> Jordan K.</div>
+          <div><span class="db-chip" data-tone="mint">P1</span></div>
+          <div class="db-date">Today</div>
+        </div>
+        <div class="db-row">
+          <div class="db-row-index">2</div>
+          <div class="db-row-name">Q3 design crit prep</div>
+          <div><span class="db-chip" data-tone="mustard">Drafting</span></div>
+          <div><span class="db-avatar" data-tone="forest">ML</span> Morgan L.</div>
+          <div><span class="db-chip" data-tone="cream">P2</span></div>
+          <div class="db-date">Tomorrow</div>
+        </div>
+        <div class="db-row">
+          <div class="db-row-index">3</div>
+          <div class="db-row-name">Customer interview synthesis</div>
+          <div><span class="db-chip" data-tone="mint">Shipped</span></div>
+          <div><span class="db-avatar" data-tone="coral">JK</span> Jordan K.</div>
+          <div><span class="db-chip" data-tone="mint">P1</span></div>
+          <div class="db-date">2d ago</div>
+        </div>
+        <div class="db-row">
+          <div class="db-row-index">4</div>
+          <div class="db-row-name">Pricing experiment results</div>
+          <div><span class="db-chip" data-tone="yellow">Blocked</span></div>
+          <div><span class="db-avatar" data-tone="forest">ML</span> Morgan L.</div>
+          <div><span class="db-chip" data-tone="coral">P0</span></div>
+          <div class="db-date">3d ago</div>
+        </div>
+        <div class="db-row">
+          <div class="db-row-index">5</div>
+          <div class="db-row-name">Onboarding flow rewrite</div>
+          <div><span class="db-chip" data-tone="peach">In review</span></div>
+          <div><span class="db-avatar" data-tone="coral">JK</span> Jordan K.</div>
+          <div><span class="db-chip" data-tone="cream">P2</span></div>
+          <div class="db-date">5d ago</div>
+        </div>
+        <div class="db-row">
+          <div class="db-row-index">6</div>
+          <div class="db-row-name">Vendor renewal — Postmark</div>
+          <div><span class="db-chip" data-tone="mint">Shipped</span></div>
+          <div><span class="db-avatar" data-tone="navy">JK</span> Jordan K.</div>
+          <div><span class="db-chip" data-tone="cream">P3</span></div>
+          <div class="db-date">1w ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="signature-pair">
+      <article class="signature-card" data-tone="coral">
+        <span class="signature-card-eyebrow">Signature · Coral</span>
+        <h3 class="signature-card-title">Production work in prototype speed.</h3>
+        <p class="signature-card-body">The coral signature card is Halcyon's biggest brand moment — full-bleed dark coral with white type, used once per scroll to break the editorial rhythm. The button below is the same white outline pill it always is on dark surfaces.</p>
+        <div class="signature-card-cta"><button class="btn" data-variant="on-dark" type="button">Read the manifesto</button></div>
+      </article>
+      <article class="signature-card" data-tone="forest">
+        <span class="signature-card-eyebrow">Signature · Forest</span>
+        <h3 class="signature-card-title">Deep green register.</h3>
+        <p class="signature-card-body">Forest sits alongside coral as the second voltage surface — usually next to a small product UI fragment in a two-card cluster.</p>
+        <div class="signature-card-cta"><button class="btn" data-variant="on-dark" type="button">Explore</button></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Near-black ink, signature voltage.</h2>
+      <p class="section-lede">The editorial body runs near-black ink on white. Brand voltage is delegated to the signature surface family — coral, forest, navy, cream, plus four pastel demo-grid surfaces.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: oklch(1 0 0);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-pricing-ink);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-pricing-ink</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Body</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-link);"></div><div class="swatch-role">Link</div><div class="swatch-name">--brand-link</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-signature-coral);"></div><div class="swatch-role">Signature</div><div class="swatch-name">--brand-signature-coral</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-signature-forest);"></div><div class="swatch-role">Signature</div><div class="swatch-name">--brand-signature-forest</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-dark);"></div><div class="swatch-role">Signature</div><div class="swatch-name">--brand-surface-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-signature-cream);"></div><div class="swatch-role">Callout</div><div class="swatch-name">--brand-signature-cream</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-signature-peach);"></div><div class="swatch-role">Demo-grid</div><div class="swatch-name">--brand-signature-peach</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-signature-mint);"></div><div class="swatch-role">Demo-grid</div><div class="swatch-name">--brand-signature-mint</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-signature-yellow);"></div><div class="swatch-role">Demo-grid</div><div class="swatch-name">--brand-signature-yellow</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-signature-mustard);"></div><div class="swatch-role">Demo-grid</div><div class="swatch-name">--brand-signature-mustard</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces · Five polarities</p>
+      <h2 class="section-title">Five polarities, one rhythm.</h2>
+      <p class="section-lede">Editorial pages rotate through white → cream → coral → forest → navy. The canvas resets between every signature surface so two of the same polarity never sit next to each other.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="white">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">editorial body · default page floor</span>
+      </div>
+      <div class="ladder-step" data-step="cream">
+        <span class="ladder-num">Callout</span>
+        <span class="ladder-name">--brand-signature-cream</span>
+        <span class="ladder-role">soft beige interlude · stat callouts</span>
+      </div>
+      <div class="ladder-step" data-step="coral">
+        <span class="ladder-num">Signature</span>
+        <span class="ladder-name">--brand-signature-coral</span>
+        <span class="ladder-role">biggest brand moment · once per scroll</span>
+      </div>
+      <div class="ladder-step" data-step="forest">
+        <span class="ladder-num">Signature</span>
+        <span class="ladder-name">--brand-signature-forest</span>
+        <span class="ladder-role">deep green sibling to coral</span>
+      </div>
+      <div class="ladder-step" data-step="navy">
+        <span class="ladder-num">Voltage</span>
+        <span class="ladder-name">--brand-surface-dark</span>
+        <span class="ladder-role">dark navy CTA card · mid-page</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="navy-cta">
+  <div class="navy-cta-card canvas-navy" role="region" aria-label="Mid-page navy CTA">
+    <div>
+      <h3 class="navy-cta-title">The path to 10× every person in the operating team.</h3>
+      <p class="navy-cta-lede">Halcyon's product team ships ten times more weekly specs since the workspace moved here. The dark navy card is the brand's voltage moment — never decorative, always a recommitment.</p>
+    </div>
+    <div class="navy-cta-actions">
+      <button class="btn" data-variant="on-dark" type="button">Read the case study</button>
+    </div>
+  </div>
+</div>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing · Sub-system dialect</p>
+      <h2 class="section-title">Three tiers, one canvas.</h2>
+      <p class="section-lede">Pricing runs its own dialect — Inter Display at 475 weight, pill-shaped buttons that don't appear elsewhere in the system. A deliberate sub-system signaling commercial precision.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="pricing-pill" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="pricing-pill" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="pricing-pill" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">Haas at 400/500, calm.</h2>
+      <p class="section-lede">Display sizes never go bolder than 500. Emphasis comes from size and the signature surface cards, not from weight. The pricing sub-system uses Inter Display 475 — a custom mid-weight that doesn't appear anywhere else.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Five surfaces, one rhythm.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Haas Grot Disp · 400</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Haas · 500 · 18 / 1.35</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Haas at 14 pixels, line-height 1.4. Near-black ink for editorial body, body gray for helper text.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">workspace.tasks.list()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · primary + secondary pair</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Sign up for free</button>
+            <button class="btn" data-variant="secondary" type="button">Book demo</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Status chips · signature palette</span>
+          <div class="cmp-chips" style="margin-top:0.5rem;">
+            <span class="db-chip" data-tone="peach">In review</span>
+            <span class="db-chip" data-tone="mint">Shipped</span>
+            <span class="db-chip" data-tone="yellow">Blocked</span>
+            <span class="db-chip" data-tone="mustard">Drafting</span>
+            <span class="db-chip" data-tone="cream">Backlog</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Buttons · pricing sub-system pill</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="pricing-pill" type="button">Get started</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Light CTA banner">
+  <div class="section-inner">
+    <div class="cta-band">
+      <div class="cta-band-text">
+        <h3 class="cta-band-title">Start building with Halcyon.</h3>
+        <p class="cta-band-lede">A workspace for the editorial operating team — specs, calendars, customer threads on one canvas. The button to the right is the system's only primary CTA outside the hero.</p>
+      </div>
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Sign up for free</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#">
+        <span class="brand-glyph" aria-hidden="true">
+          <span class="brand-glyph-cell"></span>
+          <span class="brand-glyph-cell"></span>
+        </span>
+        airtable-style
+      </a>
+      <p class="footer-tagline">A token-surface preview rendered against the editorial workflow design system. Near-black ink, signature voltage cards, Haas at modest weights. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Platform</p>
+      <ul class="footer-list"><li><a href="#">Workspace</a></li><li><a href="#">Templates</a></li><li><a href="#">Automations</a></li><li><a href="#">Integrations</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Solutions</p>
+      <ul class="footer-list"><li><a href="#">Marketing</a></li><li><a href="#">Operations</a></li><li><a href="#">Product</a></li><li><a href="#">Engineering</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>airtable-style · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">white canvas · near-black ink · signature voltage · 5-polarity</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+/**
+ * design-systems/bmw-style/tokens.css
+ *
+ * Live-verified against bmwusa.com on 2026-05-26 (8 surfaces across
+ * homepage, /vehicles/x-models, X5 + 3-series model overviews, /owners,
+ * /explore, BMW Group global press portal, 2020 brand-redesign press
+ * release). Companion to ./DESIGN.md.
+ *
+ * canonical-canvas: light. BMW parent-brand consumer marketing and
+ * editorial surfaces render on white with full-bleed photography per
+ * the 2020 redesign direction ("pared-down and two-dimensional, visual
+ * restraint"). Dark surfaces are exclusive to the M sub-brand and live
+ * under design-systems/bmw-m-style/ — M tri-stripe tokens belong there,
+ * not in this parent-brand file.
+ *
+ * --primary is BMW corporate Bavarian Blue #0066B1 oklch(0.5027 0.1425
+ * 250.0532) — the documented brand colour. The earlier import shipped
+ * #1c69d4 (a brighter, hue-258 "tech blue") which has no documented
+ * source; reconciled to brand-truth Bavarian Blue.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2686 0 0);
+  --card: oklch(0.9851 0 0);
+  --card-foreground: oklch(0.2686 0 0);
+  --popover: oklch(0.9851 0 0);
+  --popover-foreground: oklch(0.2686 0 0);
+  --primary: oklch(0.5027 0.1425 250.0532);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9761 0 0);
+  --secondary-foreground: oklch(0.2686 0 0);
+  --muted: oklch(0.9761 0 0);
+  --muted-foreground: oklch(0.5278 0 0);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0.2686 0 0);
+  --destructive: oklch(0.5771 0.2152 27.3250);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9249 0 0);
+  --input: oklch(0.9249 0 0);
+  --ring: oklch(0.5027 0.1425 250.0532);
+  --sidebar: oklch(0.9761 0 0);
+  --sidebar-foreground: oklch(0.2686 0 0);
+  --sidebar-primary: oklch(0.5027 0.1425 250.0532);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9761 0 0);
+  --sidebar-accent-foreground: oklch(0.2686 0 0);
+  --sidebar-border: oklch(0.9249 0 0);
+  --sidebar-ring: oklch(0.5027 0.1425 250.0532);
+  /* Chart ramp: synthesised lightness ladder of Bavarian Blue (no documented
+   * marketing-tree charting palette on bmw.com; values held as a brand-coherent
+   * placeholder, same pattern as Linear's --chart-* documentation). */
+  --chart-1: oklch(0.8100 0.1425 250.0532);
+  --chart-2: oklch(0.7100 0.1425 250.0532);
+  --chart-3: oklch(0.6100 0.1425 250.0532);
+  --chart-4: oklch(0.5100 0.1425 250.0532);
+  --chart-5: oklch(0.4200 0.1425 250.0532);
+
+  /* radius scale */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-xs: 2px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens — BMW Type Next is BMW Group's brand-canonical family.
+   * The earlier 'BMW Type Next Latin' carries a packaging-label suffix, not
+   * a documented BMW cut; reconciled to the documented family name. */
+  --font-sans: 'BMW Type Next', BMWTypeNext, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'BMW Type Next', BMWTypeNext, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 64px;
+  --text-heading: 48px;
+  --text-title: 18px;
+  --text-base: 16px;
+  --leading-tight: 1.05;
+  --leading-normal: 1.55;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras */
+  /* --brand-primary-active: darker Bavarian Blue for pressed/active state.
+   * Same hue + chroma as --primary, L=0.40 (one optical stop darker). */
+  --brand-primary-active: oklch(0.4000 0.1425 250.0532);
+  --brand-primary-disabled: oklch(0.8761 0 0);
+  --brand-body: oklch(0.3562 0 0);
+  --brand-body-strong: oklch(0.2178 0 0);
+  --brand-muted-soft: oklch(0.48 0 0);
+  --brand-hairline-strong: oklch(0.8452 0 0);
+  --brand-surface-strong: oklch(0.9401 0 0);
+  --brand-surface-dark: oklch(0.2445 0.0184 251.9829);
+  --brand-surface-dark-elevated: oklch(0.2979 0.0214 254.1578);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-dark-soft: oklch(0.7921 0 0);
+  /* M sub-brand tri-stripe tokens (--brand-m-*) removed from parent-brand
+   * tokens.css — they belong to design-systems/bmw-m-style/. The parent
+   * BMW brand does not surface the M tri-stripe outside of M-specific
+   * pages, which live under the sub-brand entry. */
+  --brand-success: oklch(0.7227 0.1920 149.5793);
+  --brand-warning: oklch(0.7686 0.1647 70.0804);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Hand-edited. Synthesised inversion used pure-black canvas with
+   * sub-0.1 border — too dark for body-section legibility. Replaced
+   * with the brand's navy-tinted --brand-surface-dark as canvas (so
+   * dark-mode body shares the same navy register as the hero band)
+   * and elevated card/secondary/muted to --brand-surface-dark-elevated.
+   * Lifted --brand-body family for body-section text. Polarity-locked
+   * tokens (surface-dark, surface-dark-elevated, on-dark, on-dark-soft,
+   * m-blue-*, m-red) stay AS-IS. */
+
+  --background: oklch(0.2445 0.0184 251.9829);
+  --foreground: oklch(0.9500 0 0);
+  --card: oklch(0.2979 0.0214 254.1578);
+  --card-foreground: oklch(0.9500 0 0);
+  --popover: oklch(0.2979 0.0214 254.1578);
+  --popover-foreground: oklch(0.9500 0 0);
+  --primary: oklch(0.5027 0.1425 250.0532);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.2979 0.0214 254.1578);
+  --secondary-foreground: oklch(0.9500 0 0);
+  --muted: oklch(0.2979 0.0214 254.1578);
+  --muted-foreground: oklch(0.7500 0 0);
+  --accent: oklch(0.2979 0.0214 254.1578);
+  --accent-foreground: oklch(0.9500 0 0);
+  --destructive: oklch(0.5771 0.2152 27.3250);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3500 0.0184 251.9829);
+  --input: oklch(0.3500 0.0184 251.9829);
+  --ring: oklch(0.5027 0.1425 250.0532);
+  --sidebar: oklch(0.2445 0.0184 251.9829);
+  --sidebar-foreground: oklch(0.9500 0 0);
+  --sidebar-primary: oklch(0.5027 0.1425 250.0532);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2979 0.0214 254.1578);
+  --sidebar-accent-foreground: oklch(0.9500 0 0);
+  --sidebar-border: oklch(0.3500 0.0184 251.9829);
+  --sidebar-ring: oklch(0.5027 0.1425 250.0532);
+  --chart-1: oklch(0.8100 0.1425 250.0532);
+  --chart-2: oklch(0.7100 0.1425 250.0532);
+  --chart-3: oklch(0.6100 0.1425 250.0532);
+  --chart-4: oklch(0.5100 0.1425 250.0532);
+  --chart-5: oklch(0.4200 0.1425 250.0532);
+
+  /* brand-extras dark overrides — body / muted-soft / hairline-strong /
+   * surface-strong flip; surface-dark / surface-dark-elevated / on-dark
+   * / on-dark-soft stay polarity-locked (they encode dark-context intent). */
+  --brand-body: oklch(0.8500 0 0);
+  --brand-body-strong: oklch(0.9500 0 0);
+  --brand-muted-soft: oklch(0.7000 0 0);
+  --brand-hairline-strong: oklch(0.3500 0.0184 251.9829);
+  --brand-surface-strong: oklch(0.2979 0.0214 254.1578);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2445 0.0184 251.9829);
+    --foreground: oklch(0.9500 0 0);
+    --card: oklch(0.2979 0.0214 254.1578);
+    --card-foreground: oklch(0.9500 0 0);
+    --popover: oklch(0.2979 0.0214 254.1578);
+    --popover-foreground: oklch(0.9500 0 0);
+    --primary: oklch(0.5027 0.1425 250.0532);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.2979 0.0214 254.1578);
+    --secondary-foreground: oklch(0.9500 0 0);
+    --muted: oklch(0.2979 0.0214 254.1578);
+    --muted-foreground: oklch(0.7500 0 0);
+    --accent: oklch(0.2979 0.0214 254.1578);
+    --accent-foreground: oklch(0.9500 0 0);
+    --destructive: oklch(0.5771 0.2152 27.3250);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3500 0.0184 251.9829);
+    --input: oklch(0.3500 0.0184 251.9829);
+    --ring: oklch(0.5027 0.1425 250.0532);
+    --sidebar: oklch(0.2445 0.0184 251.9829);
+    --sidebar-foreground: oklch(0.9500 0 0);
+    --sidebar-primary: oklch(0.5027 0.1425 250.0532);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.2979 0.0214 254.1578);
+    --sidebar-accent-foreground: oklch(0.9500 0 0);
+    --sidebar-border: oklch(0.3500 0.0184 251.9829);
+    --sidebar-ring: oklch(0.5027 0.1425 250.0532);
+    --chart-1: oklch(0.8100 0.1425 250.0532);
+    --chart-2: oklch(0.7100 0.1425 250.0532);
+    --chart-3: oklch(0.6100 0.1425 250.0532);
+    --chart-4: oklch(0.5100 0.1425 250.0532);
+    --chart-5: oklch(0.4200 0.1425 250.0532);
+
+    --brand-body: oklch(0.8500 0 0);
+    --brand-body-strong: oklch(0.9500 0 0);
+    --brand-muted-soft: oklch(0.7000 0 0);
+    --brand-hairline-strong: oklch(0.3500 0.0184 251.9829);
+    --brand-surface-strong: oklch(0.2979 0.0214 254.1578);
+  }
+}

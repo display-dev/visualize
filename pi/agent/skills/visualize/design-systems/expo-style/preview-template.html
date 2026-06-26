@@ -1,0 +1,1597 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000000'/%3E%3Cpath d='M9 21l4-10 1.6 4h2.8L19 21h-2.1l-.8-2.4h-3.2L12.1 21H9zm5.5-5.3h1.4l-.7-2.2-.7 2.2z' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Quietly-confident developer-platform register — white canvas, near-black primary CTAs, sky-blue atmospheric hero wash, device-mockup signature surface. Token surfaces rendered on Halcyon-themed neutral content.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Expo-style preview shell — quietly-confident developer-platform
+ * register. White canvas + near-black ink with the documented sky-
+ * blue atmospheric wash behind the hero. The signature voltage is a
+ * device-mockup composite (MacBook frame holding a mobile build
+ * dashboard + an iPhone overlay running a Halcyon app screen) — the
+ * brand's "page chrome instead of an illustration" move. Pure-black
+ * primary pill at 8px radius (compact developer dialect), text-link
+ * blue reserved for inline links only, JetBrains Mono on every code
+ * surface. The dark surface family appears scarcely — once in the
+ * surface ladder, once in the featured pricing tier — keeping the
+ * documented "white canvas, one inversion at the floor" pacing.
+ * Halcyon-themed neutral content describes how an operating team
+ * uses a generic React-Native mobile-app dev tool: ship lanes,
+ * device QA, build pipelines, sprint cycles. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "kern", "liga", "cv11";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav (64px, canvas background, hairline divider) -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.topnav-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  color: var(--primary-foreground);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.brand-glyph::before {
+  content: "h";
+  display: block;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 1.5rem;
+  color: var(--brand-body);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 14px;
+}
+.topnav-actions a {
+  color: var(--foreground);
+  text-decoration: none;
+  font-weight: 500;
+}
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (44px touch floor, 8px radius primary per DESIGN.md
+ * "compact developer-tool dialect") -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--radius-md);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover {
+  background: var(--brand-primary-active);
+  border-color: var(--brand-primary-active);
+}
+.btn[data-variant="secondary"] {
+  background: var(--card);
+  color: var(--foreground);
+  border-color: var(--brand-hairline-strong);
+}
+.btn[data-variant="secondary"]:hover {
+  border-color: var(--foreground);
+}
+.btn[data-variant="on-dark"] {
+  background: var(--brand-on-dark);
+  color: oklch(0.2046 0 0);
+  border-color: var(--brand-on-dark);
+}
+.btn[data-variant="on-dark"]:hover {
+  background: var(--brand-on-dark-soft);
+  border-color: var(--brand-on-dark-soft);
+}
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--foreground);
+}
+.btn[data-size="lg"] {
+  min-height: 48px;
+  padding: 0 1.5rem;
+  font-size: 15px;
+}
+.btn[data-size="sm"] {
+  min-height: 36px;
+  padding: 0 0.875rem;
+  font-size: 13px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero: centered display headline + CTA stack with the documented
+ * sky-blue gradient atmospheric wash behind the hero only. The device
+ * mockup composite below is the brand chrome — MacBook frame with a
+ * mobile build dashboard + iPhone overlay running a Halcyon app. -- */
+.hero {
+  position: relative;
+  padding: 5rem 1.5rem 4rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Atmospheric gradient wash — sky-blue radial behind the centered hero
+ * headline only. Locked to the brand-extras gradient tokens so it
+ * inherits the documented sky-light/sky-mid stops on light canvas. In
+ * dark mode the gradient tokens stay at :root values, so the wash
+ * tones down naturally against the dark canvas via blend rather than
+ * overrunning the panel. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -4rem -8rem auto -8rem;
+  height: 28rem;
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 0%,
+      color-mix(in oklch, var(--brand-gradient-sky-light) 70%, transparent) 0%,
+      color-mix(in oklch, var(--brand-gradient-sky-mid) 30%, transparent) 45%,
+      transparent 75%);
+  z-index: -1;
+  pointer-events: none;
+}
+[data-theme="dark"] .hero::before {
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 0%,
+      color-mix(in oklch, var(--brand-gradient-sky-light) 22%, transparent) 0%,
+      color-mix(in oklch, var(--brand-gradient-sky-mid) 12%, transparent) 45%,
+      transparent 75%);
+}
+.hero-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem 0.25rem 0.5rem;
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--brand-body-strong);
+  margin: 0 0 1.5rem;
+}
+.hero-eyebrow-chip {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.125rem 0.5rem;
+  background: var(--brand-surface-strong);
+  border-radius: var(--brand-radius-pill);
+  color: var(--foreground);
+}
+.hero-display {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 20ch;
+}
+.hero-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-body);
+  max-width: 38rem;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.hero-fineprint {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-body);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 4rem;
+}
+.hero-fineprint-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--brand-body);
+  flex-shrink: 0;
+}
+
+/* -- Signature: device-mockup composite. MacBook frame holding a
+ * mobile-app build pipeline dashboard (left, primary plate); iPhone
+ * overlay floating bottom-right showing the running Halcyon app
+ * (right, secondary plate). The composite IS the page chrome per
+ * DESIGN.md §5. Body content describes Halcyon's TEAM using a generic
+ * React-Native build pipeline — not Expo's specific product surfaces
+ * (no "EAS Build", no "Expo Studio", no "Expo Go"). -- */
+.device-composite {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0 1rem;
+}
+.macbook {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-radius-xxl);
+  box-shadow:
+    0 1px 3px hsl(0 0% 0% / 0.04),
+    0 16px 48px hsl(0 0% 0% / 0.10),
+    0 32px 96px -16px hsl(0 0% 0% / 0.08);
+  overflow: hidden;
+}
+.macbook-chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--brand-canvas-soft);
+  border-bottom: 1px solid var(--border);
+}
+.macbook-dots {
+  display: inline-flex;
+  gap: 0.375rem;
+}
+.macbook-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--brand-hairline-strong);
+}
+.macbook-dot[data-tone="warn"] { background: oklch(0.7900 0.1480 75); }
+.macbook-dot[data-tone="ok"]   { background: var(--brand-semantic-success); }
+.macbook-dot[data-tone="off"]  { background: oklch(0.7800 0.1700 28); }
+.macbook-address {
+  margin-left: 1rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-body);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.25rem 0.75rem;
+  flex: 1;
+  max-width: 32rem;
+}
+.macbook-tools {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--brand-muted-soft);
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 22rem;
+  background: var(--background);
+}
+@media (max-width: 720px) {
+  .dashboard { grid-template-columns: 1fr; min-height: auto; }
+  .dash-side { display: none; }
+}
+.dash-side {
+  background: var(--brand-canvas-soft);
+  border-right: 1px solid var(--border);
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.dash-side-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.dash-side-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 0.5rem;
+}
+.dash-side-item {
+  padding: 0.375rem 0.625rem;
+  border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brand-body);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+.dash-side-item[data-active] {
+  background: var(--brand-surface-strong);
+  color: var(--foreground);
+  font-weight: 600;
+}
+.dash-side-glyph {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--brand-radius-xs);
+  background: var(--brand-muted-soft);
+  flex-shrink: 0;
+}
+.dash-side-item[data-active] .dash-side-glyph { background: var(--foreground); }
+
+.dash-main {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+.dash-main-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.dash-main-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.dash-main-meta {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--brand-body);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.dash-main-meta-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--brand-muted-soft);
+}
+
+.build-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.build-row {
+  display: grid;
+  grid-template-columns: 24px 1fr auto auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.875rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.build-status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+}
+.build-row[data-status="passed"] .build-status { background: var(--brand-semantic-success); }
+.build-row[data-status="running"] .build-status {
+  background: var(--brand-text-link);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--brand-text-link) 22%, transparent);
+}
+.build-row[data-status="queued"] .build-status { background: var(--brand-muted-soft); }
+.build-row[data-status="failed"] .build-status { background: oklch(0.6500 0.1900 28); }
+.build-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+.build-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--foreground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.build-sub {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--brand-body);
+}
+.build-platform {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  background: var(--brand-surface-strong);
+  color: var(--foreground);
+  border-radius: var(--brand-radius-pill);
+}
+.build-duration {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--brand-body);
+  min-width: 4ch;
+  text-align: right;
+}
+
+/* iPhone overlay, floats bottom-right of the MacBook plate */
+.iphone {
+  position: absolute;
+  right: 4rem;
+  bottom: -2.5rem;
+  width: 220px;
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: 32px;
+  padding: 0.5rem;
+  box-shadow:
+    0 16px 36px hsl(0 0% 0% / 0.12),
+    0 4px 12px hsl(0 0% 0% / 0.06);
+}
+@media (max-width: 920px) {
+  .iphone {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin: 1rem auto 0;
+  }
+}
+.iphone-screen {
+  background: var(--background);
+  border-radius: 24px;
+  overflow: hidden;
+  padding: 1rem 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  position: relative;
+  border: 1px solid var(--border);
+}
+.iphone-notch {
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 16px;
+  background: oklch(0.2046 0 0);
+  border-radius: 8px;
+}
+.iphone-statusbar {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--foreground);
+  padding-top: 0.5rem;
+}
+.iphone-app-head {
+  margin-top: 1rem;
+}
+.iphone-app-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.iphone-app-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+  margin: 0.125rem 0 0;
+}
+.iphone-app-tile {
+  background: var(--brand-surface-strong);
+  border-radius: var(--radius-md);
+  padding: 0.625rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.iphone-app-tile-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.iphone-app-tile-value {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+.iphone-app-cta {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: auto;
+}
+
+/* -- Section frame -- */
+.section {
+  padding: 6rem 1.5rem;
+}
+.section[data-tight] { padding: 4rem 1.5rem; }
+.section[data-loose] { padding: 8rem 1.5rem 6rem; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 3rem; }
+.section-header[data-center] {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section-eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--brand-body);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.swatch-chip {
+  height: 3rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+.swatch-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.swatch-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--foreground);
+  word-break: break-all;
+}
+
+/* -- Token demo: surface ladder (five steps, with dark voltage at floor) -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 1080px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="canvas"] {
+  background: var(--background);
+  color: var(--foreground);
+}
+.ladder-step[data-step="soft"] {
+  background: var(--brand-canvas-soft);
+  color: var(--foreground);
+  border-color: var(--brand-canvas-soft);
+}
+.ladder-step[data-step="card"] {
+  background: var(--card);
+  color: var(--foreground);
+}
+.ladder-step[data-step="strong"] {
+  background: var(--brand-surface-strong);
+  color: var(--foreground);
+  border-color: var(--brand-surface-strong);
+}
+/* The dark voltage surface — Expo's documented dark family. Polarity-
+ * locked to near-black on BOTH light and dark variants so the brand's
+ * "white canvas, one inversion at the floor" register reads on either
+ * polarity. In dark mode the canvas is already near-black; the dark
+ * step still reads as a tighter tonal value than the elevated card. */
+.ladder-step[data-step="dark"] {
+  background: oklch(0.1700 0 0);
+  color: oklch(1 0 0);
+  border-color: oklch(0.1700 0 0);
+}
+.ladder-num {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0;
+  opacity: 0.85;
+}
+.ladder-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+}
+.ladder-role {
+  font-size: 13px;
+  opacity: 0.92;
+  margin-top: auto;
+  line-height: 1.45;
+}
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--brand-body);
+}
+.type-display {
+  font-family: 'Inter', sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-body);
+}
+.type-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 14px;
+  color: var(--brand-body);
+}
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.75rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--brand-body);
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+/* Workflow-step card — Expo's documented "Get your app on every
+ * device" step pattern. Three cards in a row, 32px square icon plate
+ * + step number + label + body. */
+.workflow-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 900px) { .workflow-row { grid-template-columns: 1fr; } }
+.workflow-step {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+.workflow-step-head {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.workflow-step-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: var(--brand-surface-strong);
+  color: var(--foreground);
+  display: inline-grid;
+  place-items: center;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 600;
+}
+.workflow-step-num {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--brand-body);
+}
+.workflow-step-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+  margin: 0;
+}
+.workflow-step-body {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--brand-body);
+  margin: 0;
+}
+
+/* Code block — JetBrains Mono on dark surface (polarity-locked).
+ * Documented in DESIGN.md §5 — "white text on dark" code surface, used
+ * on both light and dark canvases. */
+.code-block {
+  background: oklch(0.1700 0 0);
+  color: oklch(1 0 0);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.55;
+  border: 1px solid oklch(0.2700 0 0);
+  overflow-x: auto;
+}
+.code-block pre { margin: 0; }
+.code-block .tok-com { color: oklch(0.6500 0.0096 258.3419); }
+.code-block .tok-kw  { color: oklch(0.7717 0.1376 234.4486); }
+.code-block .tok-str { color: oklch(0.7800 0.1500 145); }
+.code-block .tok-fn  { color: oklch(0.8000 0.0500 60); }
+.code-block .tok-num { color: oklch(0.8000 0.1500 305); }
+
+/* Badge pills (Expo's documented surface-strong + uppercase caption) */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  background: var(--brand-surface-strong);
+}
+/* Pigment-tinted badges. Light mode uses a low-chroma pale tint of the
+ * pigment hue as bg + the darker pigment ink. Dark mode flips: the bg
+ * stays dark (--card) with a hairline tint, and the pigment-ink token
+ * is lifted by tokens.css to ~0.78 lightness for AA contrast. */
+.badge[data-tone="preview"] {
+  background: oklch(0.9700 0.0250 305);
+  color: oklch(0.4400 0.1500 305);
+}
+.badge[data-tone="success"] {
+  background: oklch(0.9700 0.0300 149);
+  color: oklch(0.4600 0.1500 149);
+}
+[data-theme="dark"] .badge[data-tone="preview"] {
+  background: var(--card);
+  border: 1px solid color-mix(in oklch, var(--brand-accent-preview) 35%, transparent);
+  color: var(--brand-accent-preview);
+}
+[data-theme="dark"] .badge[data-tone="success"] {
+  background: var(--card);
+  border: 1px solid color-mix(in oklch, var(--brand-semantic-success) 35%, transparent);
+  color: var(--brand-semantic-success);
+}
+
+/* Ecosystem-tile row (DESIGN.md documents this as 8-up logo plates at
+ * desktop). The tile is a 64px square card; here it holds a tool / lib
+ * name as JetBrains Mono. NO real third-party logos. */
+.ecosystem-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.5rem;
+}
+.ecosystem-tile {
+  height: 64px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--brand-body);
+}
+
+/* Text input (44px height — DESIGN.md AAA touch target, 8px radius) */
+.text-input {
+  width: 100%;
+  max-width: 22rem;
+  height: 44px;
+  padding: 0 0.875rem;
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--radius-md);
+  background: var(--card);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+.text-input::placeholder { color: var(--brand-muted-soft); }
+.text-input:focus {
+  outline: none;
+  border-color: var(--foreground);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 16%, transparent);
+  border-width: 2px;
+  padding: 0 calc(0.875rem - 1px);
+}
+
+/* -- Pricing tiles (Hobby / Team / Org-wide, featured = dark
+ * inversion) per DESIGN.md "featured tier flips to dark surface" -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) {
+  .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; }
+}
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--foreground);
+}
+.pricing-card[data-featured] {
+  background: oklch(0.1700 0 0);
+  border-color: oklch(0.1700 0 0);
+  color: oklch(1 0 0);
+}
+.pricing-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.pricing-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0.25rem 0 0;
+}
+.pricing-tagline {
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.85;
+  margin: 0;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { opacity: 0.92; }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding-top: 1.25rem;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: oklch(0.3500 0 0);
+}
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.pricing-features li::before {
+  content: "✓";
+  color: var(--brand-semantic-success);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 14px;
+}
+.pricing-card[data-featured] .pricing-features li::before {
+  color: oklch(0.8000 0.1500 145);
+}
+
+/* -- Footer (canvas, hairline divider columns — DESIGN.md §5 "closing
+ * white footer", NOT the dark navy that Cal closes with. Expo's
+ * documented closure is a clean light footer with 5-column links and
+ * a hairline top divider only.) -- */
+.footer {
+  background: var(--background);
+  color: var(--brand-body);
+  border-top: 1px solid var(--border);
+  padding: 4rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 32ch;
+}
+.footer-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.footer-tagline {
+  font-size: 13px;
+  color: var(--brand-body);
+  line-height: 1.55;
+  margin: 0;
+}
+.footer-col-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.footer-list a {
+  font-size: 14px;
+  color: var(--brand-body);
+  text-decoration: none;
+}
+.footer-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-body);
+}
+.footer-legal-meta {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+.footer-legal a {
+  color: var(--brand-text-link);
+  text-decoration: none;
+}
+.footer-legal a:hover { text-decoration: underline; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true"></span>
+      __DESIGN_SYSTEM_NAME__
+    </a>
+    <div class="topnav-links">
+      <a href="#">Tools</a>
+      <a href="#">Workflows</a>
+      <a href="#">Builds</a>
+      <a href="#">Pricing</a>
+      <a href="#">Docs</a>
+      <a href="#">Showcase</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Get started</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">
+      <span class="hero-eyebrow-chip">v24.4</span>
+      Build pipelines, slimmer than the channel they ship to
+    </p>
+    <h1 class="hero-display">Mobile apps, shipped at the pace of the web.</h1>
+    <p class="hero-lede">Halcyon's mobile team runs nightly builds, device QA, and release lanes through a single channel. Every commit fans out to iOS and Android; every reviewer gets a QR code five minutes after merge.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Get started</button>
+      <button class="btn" data-variant="secondary" data-size="lg" type="button">Read the docs</button>
+    </div>
+    <p class="hero-fineprint">
+      <span>Free for personal use</span>
+      <span class="hero-fineprint-dot" aria-hidden="true"></span>
+      <span>npx @halcyon/cli init</span>
+      <span class="hero-fineprint-dot" aria-hidden="true"></span>
+      <span>2-minute setup</span>
+    </p>
+
+    <div class="device-composite">
+      <div class="macbook" role="figure" aria-label="Mobile build pipeline dashboard">
+        <div class="macbook-chrome">
+          <div class="macbook-dots">
+            <span class="macbook-dot" data-tone="off" aria-hidden="true"></span>
+            <span class="macbook-dot" data-tone="warn" aria-hidden="true"></span>
+            <span class="macbook-dot" data-tone="ok" aria-hidden="true"></span>
+          </div>
+          <span class="macbook-address">app.halcyon.dev/builds/halcyon-mobile</span>
+          <span class="macbook-tools">build 24.4</span>
+        </div>
+        <div class="dashboard">
+          <aside class="dash-side">
+            <div class="dash-side-group">
+              <p class="dash-side-title">Project</p>
+              <div class="dash-side-item" data-active><span class="dash-side-glyph" aria-hidden="true"></span>Builds</div>
+              <div class="dash-side-item"><span class="dash-side-glyph" aria-hidden="true"></span>Channels</div>
+              <div class="dash-side-item"><span class="dash-side-glyph" aria-hidden="true"></span>Devices</div>
+              <div class="dash-side-item"><span class="dash-side-glyph" aria-hidden="true"></span>Submissions</div>
+            </div>
+            <div class="dash-side-group">
+              <p class="dash-side-title">Team</p>
+              <div class="dash-side-item"><span class="dash-side-glyph" aria-hidden="true"></span>Members</div>
+              <div class="dash-side-item"><span class="dash-side-glyph" aria-hidden="true"></span>Settings</div>
+            </div>
+          </aside>
+          <div class="dash-main">
+            <div class="dash-main-head">
+              <h2 class="dash-main-title">halcyon-mobile · main</h2>
+              <span class="dash-main-meta">
+                <span>14 builds today</span>
+                <span class="dash-main-meta-dot" aria-hidden="true"></span>
+                <span>median 8m 24s</span>
+              </span>
+            </div>
+            <div class="build-list" role="list">
+              <div class="build-row" data-status="running" role="listitem">
+                <span class="build-status" aria-hidden="true"></span>
+                <div class="build-info">
+                  <span class="build-title">feat: passkey enrolment flow · #2841</span>
+                  <span class="build-sub">jordan-kim · 6f1c2a · 3 min ago</span>
+                </div>
+                <span class="build-platform">iOS</span>
+                <span class="build-duration">04:18</span>
+              </div>
+              <div class="build-row" data-status="passed" role="listitem">
+                <span class="build-status" aria-hidden="true"></span>
+                <div class="build-info">
+                  <span class="build-title">fix: scroll-to-bottom regression on threads · #2840</span>
+                  <span class="build-sub">morgan-lee · b3e7d9 · 18 min ago</span>
+                </div>
+                <span class="build-platform">Android</span>
+                <span class="build-duration">07:52</span>
+              </div>
+              <div class="build-row" data-status="passed" role="listitem">
+                <span class="build-status" aria-hidden="true"></span>
+                <div class="build-info">
+                  <span class="build-title">chore: bump RN to 0.81 · #2839</span>
+                  <span class="build-sub">avery-park · 9ad481 · 42 min ago</span>
+                </div>
+                <span class="build-platform">iOS</span>
+                <span class="build-duration">09:01</span>
+              </div>
+              <div class="build-row" data-status="queued" role="listitem">
+                <span class="build-status" aria-hidden="true"></span>
+                <div class="build-info">
+                  <span class="build-title">feat: dark-mode tokens for editor · #2838</span>
+                  <span class="build-sub">riley-chen · 4c2bf6 · queued</span>
+                </div>
+                <span class="build-platform">Android</span>
+                <span class="build-duration">--:--</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="iphone" role="figure" aria-label="Halcyon mobile app preview">
+        <div class="iphone-screen">
+          <div class="iphone-notch" aria-hidden="true"></div>
+          <div class="iphone-statusbar">
+            <span>10:24</span>
+            <span>5G ●</span>
+          </div>
+          <div class="iphone-app-head">
+            <p class="iphone-app-eyebrow">Halcyon · Mobile</p>
+            <h3 class="iphone-app-title">Today's standup</h3>
+          </div>
+          <div class="iphone-app-tile">
+            <span class="iphone-app-tile-label">In review</span>
+            <span class="iphone-app-tile-value">4 PRs · 2 specs</span>
+          </div>
+          <div class="iphone-app-tile">
+            <span class="iphone-app-tile-label">Shipping today</span>
+            <span class="iphone-app-tile-value">v24.4 · iOS + Android</span>
+          </div>
+          <div class="iphone-app-cta" role="button" tabindex="0">Open standup</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<section class="section" data-loose aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens / colour</p>
+      <h2 class="section-title">Pure white, one black, one inversion at the floor.</h2>
+      <p class="section-lede">The system runs monochrome at the action layer — primary CTAs are pure black on pure white. No saturated brand accent, no gradient pill. Inline links carry the small text-link blue; the sky-blue gradient appears only behind the hero, as an atmospheric wash, never as a brand action.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Primary · CTA</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-soft);"></div><div class="swatch-role">Canvas soft</div><div class="swatch-name">--brand-canvas-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-strong);"></div><div class="swatch-role">Surface strong</div><div class="swatch-name">--brand-surface-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: oklch(0.1700 0 0);"></div><div class="swatch-role">Surface dark</div><div class="swatch-name">--brand-surface-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-text-link);"></div><div class="swatch-role">Text link · inline</div><div class="swatch-name">--brand-text-link</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: linear-gradient(180deg, var(--brand-gradient-sky-light) 0%, var(--brand-gradient-sky-mid) 100%);"></div><div class="swatch-role">Atmospheric · hero only</div><div class="swatch-name">--brand-gradient-sky-*</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--accent);"></div><div class="swatch-role">Docs callout · warning</div><div class="swatch-name">--accent</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-preview);"></div><div class="swatch-role">Preview tag</div><div class="swatch-name">--brand-accent-preview</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-semantic-success);"></div><div class="swatch-role">Semantic · success</div><div class="swatch-name">--brand-semantic-success</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens / surfaces / five steps</p>
+      <h2 class="section-title">Canvas through dark, one inversion at the floor.</h2>
+      <p class="section-lede">The brand rotates through canvas → soft → card → strong → dark, with the dark step reserved for code surfaces and the featured pricing tier. The dark surface is scarce by design — using it twice in a row breaks the brand's pacing.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">01 / canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · editorial body</span>
+      </div>
+      <div class="ladder-step" data-step="soft">
+        <span class="ladder-num">02 / soft</span>
+        <span class="ladder-name">--brand-canvas-soft</span>
+        <span class="ladder-role">alternating band · macOS chrome</span>
+      </div>
+      <div class="ladder-step" data-step="card">
+        <span class="ladder-num">03 / card</span>
+        <span class="ladder-name">--card</span>
+        <span class="ladder-role">feature card · workflow step</span>
+      </div>
+      <div class="ladder-step" data-step="strong">
+        <span class="ladder-num">04 / strong</span>
+        <span class="ladder-name">--brand-surface-strong</span>
+        <span class="ladder-role">badges · ecosystem tiles · pill fills</span>
+      </div>
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">05 / dark</span>
+        <span class="ladder-name">--brand-surface-dark</span>
+        <span class="ladder-role">code blocks · featured tier · scarce voltage</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Workflow steps">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens / cards / workflow</p>
+      <h2 class="section-title">From commit to QR code, in one channel.</h2>
+      <p class="section-lede">The brand's documented workflow card carries a 32px square icon plate, a step number, a title, and a body paragraph. The same three-card row narrates how Halcyon's mobile team takes a sprint from local edit to a QR code in a reviewer's chat.</p>
+    </div>
+    <div class="workflow-row">
+      <div class="workflow-step">
+        <div class="workflow-step-head">
+          <span class="workflow-step-icon" aria-hidden="true">01</span>
+          <span class="workflow-step-num">step / write</span>
+        </div>
+        <h3 class="workflow-step-title">Edit locally with hot reload.</h3>
+        <p class="workflow-step-body">The team runs the dev client on a teammate's phone over the office Wi-Fi. Saves land in under a second. Native modules rebuild on the next commit, not the next file save.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="workflow-step-head">
+          <span class="workflow-step-icon" aria-hidden="true">02</span>
+          <span class="workflow-step-num">step / build</span>
+        </div>
+        <h3 class="workflow-step-title">Ship to the build channel on push.</h3>
+        <p class="workflow-step-body">Every push to <code>main</code> fans out to iOS and Android channels. The build dashboard shows the queue, the median duration, and the last reviewer who approved the merge.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="workflow-step-head">
+          <span class="workflow-step-icon" aria-hidden="true">03</span>
+          <span class="workflow-step-num">step / review</span>
+        </div>
+        <h3 class="workflow-step-title">Send a QR code, get device QA back.</h3>
+        <p class="workflow-step-body">Reviewers scan the build's QR code in Slack and run it on their daily phone. Feedback lands as a thread on the commit, not as a slide deck two days after the merge.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">pricing</p>
+      <h2 class="section-title">Three shapes, one inversion at the middle.</h2>
+      <p class="section-lede">The featured tier flips to the documented dark surface — colour-block contrast does the elevation work. No accent borders, no scale shifts, no badge. Just inversion.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production together.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="on-dark" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens / type + components</p>
+      <h2 class="section-title">Inter at the action layer, JetBrains Mono on every code surface.</h2>
+      <p class="section-lede">The brand pairs Inter at modest weights — display 600, body 400 — with JetBrains Mono on every code surface. Display tracks negative across the whole scale. Body never bolds. No custom display family; the brand trusts Inter's editorial neutrality.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">display</span><span class="type-display">Mobile apps, shipped at web pace.</span></div>
+        <div class="type-row"><span class="type-label">heading</span><span class="type-heading">Inter 600 · −0.025em</span></div>
+        <div class="type-row"><span class="type-label">title</span><span class="type-title">Inter 600 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">body</span><span class="type-body">Default paragraph copy in Inter 400 at 16 pixels, line-height 1.5. Running text uses a cool-gray ink (#60646c), display weight stays near-black. Inline links — like <a href="#" style="color: var(--brand-text-link); text-decoration: underline; text-underline-offset: 2px;">this one</a> — carry the small text-link blue.</span></div>
+        <div class="type-row"><span class="type-label">mono</span><span class="type-mono">npx @halcyon/cli build --platform ios</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">buttons / primary + secondary</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" type="button">Get started</button>
+            <button class="btn" data-variant="secondary" type="button">Read the docs</button>
+            <button class="btn" data-variant="secondary" data-size="sm" type="button">Sign in</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">badges / uppercase caption</span>
+          <div class="cmp-row">
+            <span class="badge">Stable</span>
+            <span class="badge" data-tone="preview">Preview</span>
+            <span class="badge" data-tone="success">Passing</span>
+            <span class="badge">RN 0.81</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">code block / JetBrains Mono</span>
+          <div class="cmp-row">
+            <pre class="code-block"><span class="tok-com">// halcyon-mobile / app.config.ts</span>
+<span class="tok-kw">import</span> { defineConfig } <span class="tok-kw">from</span> <span class="tok-str">'@halcyon/cli'</span>;
+
+<span class="tok-kw">export default</span> <span class="tok-fn">defineConfig</span>({
+  name: <span class="tok-str">'Halcyon'</span>,
+  slug: <span class="tok-str">'halcyon-mobile'</span>,
+  version: <span class="tok-str">'24.4.0'</span>,
+  ios: { bundleIdentifier: <span class="tok-str">'dev.halcyon.app'</span> },
+  android: { package: <span class="tok-str">'dev.halcyon.app'</span> },
+  build: { channel: <span class="tok-str">'production'</span> },
+});</pre>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">ecosystem tiles / generic tools</span>
+          <div class="cmp-row" style="width: 100%;">
+            <div class="ecosystem-row" style="width: 100%;">
+              <div class="ecosystem-tile">TypeScript</div>
+              <div class="ecosystem-tile">React Native</div>
+              <div class="ecosystem-tile">GraphQL</div>
+              <div class="ecosystem-tile">Sentry</div>
+              <div class="ecosystem-tile">Vitest</div>
+              <div class="ecosystem-tile">Playwright</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">text input / 44px / 8px radius</span>
+          <div class="cmp-row">
+            <input class="text-input" type="email" placeholder="you@halcyon.dev" aria-label="Email">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="footer-brand-mark" href="#">
+        <span class="brand-glyph" aria-hidden="true"></span>
+        __DESIGN_SYSTEM_NAME__
+      </a>
+      <p class="footer-tagline">A token-surface preview rendered against a developer-platform design system. White canvas, near-black primary, sky-blue atmospheric wash on the hero, device-mockup signature, JetBrains Mono on every code surface. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-list">
+        <li><a href="#">Build pipelines</a></li>
+        <li><a href="#">Device channels</a></li>
+        <li><a href="#">Submissions</a></li>
+        <li><a href="#">Integrations</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list">
+        <li><a href="#">Documentation</a></li>
+        <li><a href="#">Reference</a></li>
+        <li><a href="#">Changelog</a></li>
+        <li><a href="#">Status</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list">
+        <li><a href="#">halcyon.dev</a></li>
+        <li><a href="#">app.halcyon.dev</a></li>
+        <li><a href="#">@halcyon/cli</a></li>
+        <li><a href="#">hlc.so</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Security</a></li>
+        <li><a href="#">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">white canvas · near-black ink · sky-blue hero wash · JetBrains Mono code</span>
+  </div>
+</footer>
+
+</body>
+</html>

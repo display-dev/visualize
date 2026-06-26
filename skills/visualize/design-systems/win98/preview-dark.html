@@ -1,0 +1,2037 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>win98 — preview</title>
+<meta property="og:title" content="win98 — preview">
+<meta property="og:description" content="Retro / 90s Nostalgia register — Windows 95/98 + GeoCities aesthetic; max-saturation system palette, 4-value bevel border-color, mandatory Bold Factor decorative elements.">
+<meta name="twitter:card" content="summary">
+<!-- Signature mockup: Win98 application window (title-bar gradient +
+     beveled buttons + marquee announcement + HR groove + hit-counter)
+     — combines the four most distinct components from DESIGN.md §4. -->
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%23C0C0C0'/><rect x='1' y='1' width='14' height='3' fill='%23000080'/><rect x='2' y='6' width='12' height='2' fill='%23000000'/><rect x='2' y='10' width='12' height='2' fill='%23000000'/></svg>">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/win98/tokens.css) === */
+/**
+ * design-systems/win98/tokens.css
+ *
+ * Hand-authored from the spec-derived Win98 (Retro / 90s Nostalgia)
+ * design system documented in
+ * `visualize/design-systems/win98/DESIGN.md`.
+ *
+ * Spec-derived: no live brand site exists for the Windows 95/98 +
+ * GeoCities era. Source: `temp/refs/win98/raw.md` (Zhou Jason via
+ * designprompts.dev). Sourced: 2026-05-26.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are Win98's
+ *     max-saturation system-palette values.
+ *   - Brand-extras (--brand-*): the system's own vocabulary. Notable
+ *     pattern below — the 4-token bevel surface family
+ *     (--brand-bevel-light / -dark / -inner-deep / -inner-light) is
+ *     the signature 4-value border-color + inset box-shadow pattern,
+ *     re-composable into both outset and inset bevels.
+ *
+ * Win98 is single-polarity light. The [data-theme="dark"] block at
+ * the bottom intentionally mirrors :root rather than synthesise a
+ * flipped surface — flipping the Win98 palette is anachronistic.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are this brand's. */
+
+  --background: oklch(0.808 0 0);           /* #C0C0C0 button-face gray */
+  --foreground: oklch(0 0 0);               /* #000000 pure black text */
+  --card: oklch(1 0 0);                     /* #FFFFFF inset content area */
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0 0 0);
+
+  --primary: oklch(0.452 0.313 264.1);      /* #0000FF max-saturation blue */
+  --primary-foreground: oklch(1 0 0);       /* white on blue button */
+  --secondary: oklch(0.628 0.258 29.2);     /* #FF0000 danger / hot red */
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.6 0 0);                  /* #808080 exact 50% gray */
+  --muted-foreground: oklch(0 0 0);         /* never grey-on-grey body text */
+  --accent: oklch(0.452 0.313 264.1);       /* #0000FF — same hex as primary */
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.628 0.258 29.2);   /* #FF0000 — same hex as secondary */
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0 0 0);                   /* #000000 single-color fallback */
+  --input: oklch(1 0 0);                    /* #FFFFFF sunken input fill */
+  --ring: oklch(0 0 0);                     /* #000000 dotted focus outline */
+
+  --sidebar: oklch(0.808 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0.452 0.313 264.1);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.452 0.313 264.1);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0 0 0);
+  --sidebar-ring: oklch(0 0 0);
+
+  --chart-1: oklch(0.452 0.313 264.1);      /* #0000FF blue */
+  --chart-2: oklch(0.628 0.258 29.2);       /* #FF0000 red */
+  --chart-3: oklch(0.866 0.295 142.5);      /* #00FF00 green */
+  --chart-4: oklch(0.968 0.211 109.8);      /* #FFFF00 yellow */
+  --chart-5: oklch(0.421 0.193 328.4);      /* #800080 purple */
+
+  --radius: 0px;                            /* spec: zero everywhere, no exceptions */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Spec: system fonts that evoke 1995-1999. No webfont fetches. */
+  --font-sans: "MS Sans Serif", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "Courier New", Courier, ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Arial Black", Impact, Haettenschweiler, "Helvetica Neue", sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Win98 forbids soft drop shadows entirely. Depth comes from the
+   * 4-value bevel + inset box-shadow only. */
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. The bevel family below is the signature.
+   * ----------------------------------------------------------- */
+
+  /* 4-token bevel surface family — THE signature pattern.
+   *
+   * Outset (raised): top + left use --brand-bevel-light,
+   *                  bottom + right use --brand-bevel-dark.
+   *                  Inset box-shadow stops use -inner-deep (bottom-right
+   *                  shadow) and -inner-light (top-left highlight).
+   * Inset (sunken):  reverse the border-color assignments and the
+   *                  inner-shadow positions. Same four token values.
+   *
+   * Example outset:
+   *   border: 2px solid;
+   *   border-color: var(--brand-bevel-light) var(--brand-bevel-dark)
+   *                 var(--brand-bevel-dark)  var(--brand-bevel-light);
+   *   box-shadow: inset -1px -1px 0 var(--brand-bevel-inner-deep),
+   *               inset  1px  1px 0 var(--brand-bevel-inner-light);
+   *
+   * The four hexes are role-locked across the system — never tinted,
+   * never lifted for contrast, never overridden in dark mode. */
+  --brand-bevel-light:       oklch(1 0 0);       /* #FFFFFF top-left highlight */
+  --brand-bevel-dark:        oklch(0.6 0 0);     /* #808080 bottom-right shadow */
+  --brand-bevel-inner-deep:  oklch(0.371 0 0);   /* #404040 inner-shadow dark stop */
+  --brand-bevel-inner-light: oklch(0.904 0 0);   /* #DFDFDF inner-shadow light stop */
+
+  /* Polarity-locked surfaces (Win98 is light-only — these don't flip). */
+  --brand-canvas-light:      oklch(1 0 0);                    /* #FFFFFF */
+  --brand-panel-yellow:      oklch(0.988 0.065 107.5);        /* #FFFFCC notepad / help */
+  --brand-tile-weave:        oklch(0.783 0 0);                /* #B8B8B8 crosshatch stop */
+
+  /* Title-bar gradient endpoints (only documented gradient in the system). */
+  --brand-titlebar-start:    oklch(0.271 0.188 264.1);        /* #000080 navy */
+  --brand-titlebar-end:      oklch(0.594 0.148 245.8);        /* #1084D0 active-window blue */
+
+  /* Documented secondary brand colours (each cited in DESIGN.md §2). */
+  --brand-accent-red:              oklch(0.628 0.258 29.2);   /* #FF0000 */
+  --brand-accent-yellow:           oklch(0.968 0.211 109.8);  /* #FFFF00 */
+  --brand-accent-green:            oklch(0.866 0.295 142.5);  /* #00FF00 decorative */
+  --brand-accent-green-readable:   oklch(0.639 0.218 142.5);  /* #00AA00 button bg */
+  --brand-accent-purple:           oklch(0.421 0.193 328.4);  /* #800080 visited link */
+
+  /* Hairlines / dividers */
+  --brand-hairline-strong:   oklch(0.6 0 0);                  /* #808080 */
+  --brand-hairline-soft:     oklch(0.931 0 0);                /* #E8E8E8 zebra row */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Win98 is single-polarity light. This block mirrors :root
+ * deliberately — the era did not ship a dark Windows desktop
+ * variant, and synthesising one would be anachronistic. Authors
+ * who need a dark-canvas register should pick a different brand
+ * (see `terminal/` or `dithered/`).
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: light;
+
+  --background: oklch(0.808 0 0);
+  --foreground: oklch(0 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0 0 0);
+
+  --secondary: oklch(0.628 0.258 29.2);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.6 0 0);
+  --muted-foreground: oklch(0 0 0);
+
+  --border: oklch(0 0 0);
+  --input: oklch(1 0 0);
+
+  --sidebar: oklch(0.808 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: light;
+
+    --background: oklch(0.808 0 0);
+    --foreground: oklch(0 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0 0 0);
+
+    --secondary: oklch(0.628 0.258 29.2);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.6 0 0);
+    --muted-foreground: oklch(0 0 0);
+
+    --border: oklch(0 0 0);
+    --input: oklch(1 0 0);
+
+    --sidebar: oklch(0.808 0 0);
+    --sidebar-foreground: oklch(0 0 0);
+    --sidebar-border: oklch(0 0 0);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* ============================================================
+   Win98 preview shell — token-surface showcase rendered on
+   the 1990s Windows desktop register.
+
+   Conventions:
+   - Every chromatic surface routes through a tokens.css var.
+   - Zero border-radius; verified by spec §Radius & Borders.
+   - Transitions are instant or linear (spec §Animation).
+   - Decorative loops (marquee, rainbow, pulse-glow) get
+     prefers-reduced-motion overrides — the elements stay,
+     they stop animating.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  /* The mandatory 4-stop crosshatch tile on button-face gray.
+     Spec §Textures: background is never flat. */
+  background-color: var(--background);
+  background-image:
+    linear-gradient(45deg,  var(--brand-tile-weave) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--brand-tile-weave) 25%, transparent 25%),
+    linear-gradient(45deg,  transparent 75%, var(--brand-tile-weave) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--brand-tile-weave) 75%);
+  background-size: 4px 4px;
+  background-position: 0 0, 0 2px, 2px -2px, -2px 0px;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.page { max-width: 1024px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+
+/* ===== Reusable bevels ===================================== */
+
+.bevel-out {
+  border: 2px solid;
+  border-color:
+    var(--brand-bevel-light)
+    var(--brand-bevel-dark)
+    var(--brand-bevel-dark)
+    var(--brand-bevel-light);
+  box-shadow:
+    inset -1px -1px 0 var(--brand-bevel-inner-deep),
+    inset  1px  1px 0 var(--brand-bevel-inner-light);
+}
+.bevel-out-deep {
+  border: 2px solid;
+  border-color:
+    var(--brand-bevel-light)
+    var(--brand-bevel-dark)
+    var(--brand-bevel-dark)
+    var(--brand-bevel-light);
+  box-shadow:
+    inset -2px -2px 0 var(--brand-bevel-dark),
+    inset  2px  2px 0 var(--brand-bevel-light),
+    inset -4px -4px 0 var(--brand-bevel-inner-deep),
+    inset  4px  4px 0 var(--brand-bevel-inner-light);
+}
+.bevel-in {
+  border: 2px solid;
+  border-color:
+    var(--brand-bevel-dark)
+    var(--brand-bevel-light)
+    var(--brand-bevel-light)
+    var(--brand-bevel-dark);
+  box-shadow:
+    inset  1px  1px 0 var(--brand-bevel-inner-deep),
+    inset -1px -1px 0 var(--brand-bevel-inner-light);
+}
+
+/* ===== Title-bar window header ============================= */
+
+.app-window { margin-bottom: 1.5rem; }
+
+.title-bar {
+  background: linear-gradient(to right, var(--brand-titlebar-start), var(--brand-titlebar-end));
+  color: var(--primary-foreground);
+  padding: 0.25rem 0.5rem;
+  font-weight: 700;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.title-bar .left { display: flex; align-items: center; gap: 0.5rem; }
+.title-bar .glyph {
+  display: inline-block;
+  width: 16px; height: 16px;
+  background: var(--brand-accent-yellow);
+  border: 1px solid var(--foreground);
+  text-align: center;
+  line-height: 14px;
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--foreground);
+}
+.title-bar-controls { display: flex; gap: 0.25rem; }
+.tb-btn {
+  display: inline-block;
+  width: 18px; height: 16px;
+  background: var(--background);
+  border: 1px solid var(--brand-bevel-inner-deep);
+  text-align: center;
+  font-size: 10px;
+  line-height: 14px;
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.window-body {
+  background: var(--background);
+  padding: 1rem;
+}
+
+/* ===== Marquee (CSS-only — no JS deps) ===================== */
+
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  background: var(--foreground);
+  color: var(--primary-foreground);
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.marquee-track {
+  display: inline-block;
+  white-space: nowrap;
+  /* Duplicate child content for seamless loop. 40s at width-of-content
+     gives ~moderate 40-60px/s per spec §Bold Factor §1. */
+  animation: marquee-scroll 40s linear infinite;
+}
+.marquee-track span { font-size: 13px; font-weight: 700; padding: 0 1.5rem; letter-spacing: 0.04em; }
+.marquee-track .c-red    { color: var(--brand-accent-red); }
+.marquee-track .c-yellow { color: var(--brand-accent-yellow); }
+.marquee-track .c-green  { color: var(--brand-accent-green); }
+.marquee-track .c-cyan   { color: var(--brand-titlebar-end); }
+.marquee-track .c-purple { color: var(--brand-accent-purple); }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ===== Hero (signature surface) ============================ */
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 0.5rem 0 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  /* Hard-edged 3D text shadow per spec §Typography §Patterns. */
+  text-shadow: 2px 2px 0 var(--brand-hairline-strong);
+}
+
+.hero-rainbow {
+  display: inline-block;
+  animation: rainbow-cycle 4s linear infinite;
+}
+@keyframes rainbow-cycle {
+  0%   { color: var(--brand-accent-red); }
+  17%  { color: oklch(0.741 0.236 49); }       /* #FF8000 orange-only-in-cycle */
+  33%  { color: var(--brand-accent-yellow); }
+  50%  { color: var(--brand-accent-green); }
+  67%  { color: var(--brand-titlebar-end); }
+  83%  { color: var(--brand-accent-purple); }
+  100% { color: var(--brand-accent-red); }
+}
+
+.hero-lede {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0 0 1rem;
+  max-width: 56ch;
+  color: var(--foreground);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+/* ===== Bevel buttons ======================================= */
+
+.btn-bevel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;                  /* WCAG AA touch-target floor */
+  min-width: 88px;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--foreground);
+  background: var(--background);
+  /* 4-value outset bevel border-color + inset box-shadow */
+  border: 2px solid;
+  border-color:
+    var(--brand-bevel-light)
+    var(--brand-bevel-dark)
+    var(--brand-bevel-dark)
+    var(--brand-bevel-light);
+  box-shadow:
+    inset -1px -1px 0 var(--brand-bevel-inner-deep),
+    inset  1px  1px 0 var(--brand-bevel-inner-light);
+  cursor: pointer;
+  text-decoration: none;
+  transition: none;                  /* spec: no smooth easing */
+  position: relative;
+}
+.btn-bevel:active {
+  /* Pressed: reverse the bevel + translate 1px down-right. */
+  border-color:
+    var(--brand-bevel-dark)
+    var(--brand-bevel-light)
+    var(--brand-bevel-light)
+    var(--brand-bevel-dark);
+  box-shadow:
+    inset  1px  1px 0 var(--brand-bevel-inner-deep),
+    inset -1px -1px 0 var(--brand-bevel-inner-light);
+  transform: translate(1px, 1px);
+}
+.btn-bevel:focus-visible {
+  outline: 2px dotted var(--ring);
+  outline-offset: -6px;              /* draws ring INSIDE the bevel, era-authentic */
+}
+.btn-primary { background: var(--primary); color: var(--primary-foreground); }
+/* .btn-danger and .btn-success carry max-saturation brand identity
+   (#FF0000 red, #00AA00 green) — both fail the 4.5:1 body floor against
+   white at the default 12px button size (3.99:1 and 3.11:1). Bumping
+   font-size to 19px (≥14pt) at the existing font-weight 700 qualifies
+   them under the 3:1 large-text-bold floor without touching the
+   identity-locked surface colour. The retro register is high-saturation
+   by design. */
+.btn-danger  { background: var(--destructive); color: var(--destructive-foreground); font-size: 19px; }
+.btn-success { background: var(--brand-accent-green-readable); color: var(--primary-foreground); font-size: 19px; }
+
+/* ===== Pulse-glow NEW! badge =============================== */
+
+.badge-new {
+  display: inline-block;
+  background: var(--brand-accent-red);
+  color: var(--primary-foreground);
+  /* Identity-defining 90s "NEW!" / "HOT!" red badge: white-on-#FF0000
+     lands at 3.99:1 — under the 4.5:1 body floor. Bumped from 11px to
+     19px (≥14pt) at font-weight 900 so it qualifies under the 3:1
+     large-text-bold floor instead. The retro register is intentionally
+     high-saturation. */
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--foreground);
+  animation: pulse-glow 1.5s ease-in-out infinite;
+  text-transform: uppercase;
+}
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 oklch(0.628 0.258 29.2 / 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px 2px oklch(0.628 0.258 29.2 / 0.5);
+  }
+}
+
+/* ===== HR groove divider (signature) ======================= */
+
+.hr-groove {
+  border: none;
+  height: 4px;
+  background: linear-gradient(
+    to bottom,
+    var(--brand-bevel-dark) 0%, var(--brand-bevel-dark) 50%,
+    var(--brand-bevel-light) 50%, var(--brand-bevel-light) 100%
+  );
+  margin: 2rem 0;
+}
+
+/* ===== Hit counter ========================================= */
+
+.hit-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--foreground);
+  color: var(--brand-accent-green);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 0.5rem 0.75rem;
+  /* Inset bevel frame per spec §Bold Factor §6 */
+  border: 2px solid;
+  border-color:
+    var(--brand-bevel-dark)
+    var(--brand-bevel-light)
+    var(--brand-bevel-light)
+    var(--brand-bevel-dark);
+  box-shadow:
+    inset  1px  1px 0 var(--brand-bevel-inner-deep),
+    inset -1px -1px 0 var(--brand-bevel-inner-light);
+}
+.hit-counter .label { color: var(--brand-bevel-inner-light); font-size: 11px; }
+
+/* ===== Section heading ===================================== */
+
+.section { margin: 2.5rem 0; }
+.section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+  letter-spacing: 0.02em;
+}
+.section p.lede { font-size: 14px; margin: 0 0 1.25rem; max-width: 64ch; }
+
+/* ===== Color swatch grid =================================== */
+
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+.swatch {
+  background: var(--card);
+  padding: 0.75rem;
+}
+.swatch .chip {
+  width: 100%;
+  height: 56px;
+  margin-bottom: 0.5rem;
+  border: 2px solid var(--foreground);
+}
+.swatch .name {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.125rem;
+}
+.swatch .value {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--foreground);
+}
+
+/* ===== Decorative color squares (Bold Factor §9) =========== */
+
+.squares-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+.color-square {
+  width: 40px;
+  height: 40px;
+  /* outset bevel; background per inline modifier */
+  border: 2px solid;
+  border-color:
+    var(--brand-bevel-light)
+    var(--brand-bevel-dark)
+    var(--brand-bevel-dark)
+    var(--brand-bevel-light);
+  box-shadow:
+    inset -1px -1px 0 var(--brand-bevel-inner-deep),
+    inset  1px  1px 0 var(--brand-bevel-inner-light);
+}
+.color-square.s-red    { background: var(--brand-accent-red); }
+.color-square.s-yellow { background: var(--brand-accent-yellow); }
+.color-square.s-green  { background: var(--brand-accent-green); }
+.color-square.s-blue   { background: var(--primary); }
+.color-square.s-purple { background: var(--brand-accent-purple); }
+.color-square.s-cyan   { background: var(--brand-titlebar-end); }
+.color-square.s-navy   { background: var(--brand-titlebar-start); }
+
+/* ===== Type roles ========================================== */
+
+.type-roles { background: var(--card); padding: 1.25rem; }
+.type-roles > div { padding: 0.5rem 0; border-bottom: 1px dotted var(--brand-bevel-dark); }
+.type-roles > div:last-child { border-bottom: none; }
+.type-roles .label {
+  display: inline-block;
+  width: 80px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  /* Re-routed off --brand-bevel-dark (#808080 / 3.94:1) to --foreground:
+     these are meta-labels (DISPLAY / HEADING / etc.) in a type spec —
+     readability beats the muted-grey treatment at 10px body size. */
+  color: var(--foreground);
+  letter-spacing: 0.06em;
+}
+.t-display  { font-family: var(--font-display); font-size: 2.5rem; font-weight: 900; line-height: 1.1; text-transform: uppercase; }
+.t-heading  { font-family: var(--font-display); font-size: 1.75rem; font-weight: 900; line-height: 1.2; text-transform: uppercase; }
+.t-title    { font-family: var(--font-sans); font-size: 1.25rem; font-weight: 700; line-height: 1.3; }
+.t-body     { font-family: var(--font-sans); font-size: 14px; line-height: 1.55; }
+.t-caption  { font-family: var(--font-sans); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.t-mono     { font-family: var(--font-mono); font-size: 13px; }
+
+/* ===== Component vocabulary (cards/inputs/links) =========== */
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+.demo-card {
+  background: var(--background);
+}
+.demo-card .demo-title-bar {
+  background: linear-gradient(to right, var(--brand-titlebar-start), var(--brand-titlebar-end));
+  color: var(--primary-foreground);
+  padding: 0.25rem 0.5rem;
+  font-weight: 700;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.demo-card-body {
+  background: var(--card);
+  padding: 1rem;
+  /* sunken content area */
+  border: 2px solid;
+  border-color:
+    var(--brand-bevel-dark)
+    var(--brand-bevel-light)
+    var(--brand-bevel-light)
+    var(--brand-bevel-dark);
+  box-shadow:
+    inset  1px  1px 0 var(--brand-bevel-inner-deep),
+    inset -1px -1px 0 var(--brand-bevel-inner-light);
+}
+.demo-card-body p { margin: 0 0 0.5rem; font-size: 13px; }
+.demo-card-body p:last-child { margin-bottom: 0; }
+
+/* Form inputs (sunken inset) */
+.input-row { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.75rem; }
+.input-row label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+input.win-input, select.win-input, textarea.win-input {
+  width: 100%;
+  background: var(--input);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  padding: 0.375rem 0.5rem;
+  border: 2px solid;
+  border-color:
+    var(--brand-bevel-dark)
+    var(--brand-bevel-light)
+    var(--brand-bevel-light)
+    var(--brand-bevel-dark);
+  box-shadow:
+    inset  1px  1px 0 var(--brand-bevel-inner-deep),
+    inset -1px -1px 0 var(--brand-bevel-inner-light);
+}
+input.win-input:focus, select.win-input:focus, textarea.win-input:focus {
+  outline: 2px dotted var(--ring);
+  outline-offset: 2px;
+}
+input.win-input::placeholder { color: var(--muted); }
+
+/* Hyperlinks — iconic 90s states */
+.demo-links a { color: var(--primary); text-decoration: underline; transition: none; }
+.demo-links a:visited { color: var(--brand-accent-purple); }
+.demo-links a:hover, .demo-links a:active { color: var(--brand-accent-red); }
+
+/* ===== Alternating-row table ============================== */
+
+.zebra-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  font-size: 13px;
+}
+.zebra-table th, .zebra-table td {
+  border: 1px solid var(--brand-hairline-strong);
+  padding: 0.375rem 0.5rem;
+  text-align: left;
+}
+.zebra-table thead th {
+  background: var(--brand-titlebar-start);
+  color: var(--primary-foreground);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.zebra-table tbody tr:nth-child(odd) { background: var(--brand-hairline-soft); }
+.zebra-table tbody tr:nth-child(even) { background: var(--card); }
+
+/* ===== Construction stripes (Bold Factor §10) ============== */
+
+.construction-band {
+  margin-top: 2rem;
+  padding: 1.5rem 1.25rem;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--brand-accent-yellow),
+    var(--brand-accent-yellow) 10px,
+    var(--foreground) 10px,
+    var(--foreground) 20px
+  );
+  /* outset bevel container */
+  border: 2px solid;
+  border-color:
+    var(--brand-bevel-light)
+    var(--brand-bevel-dark)
+    var(--brand-bevel-dark)
+    var(--brand-bevel-light);
+  position: relative;
+}
+.construction-band .panel {
+  background: var(--background);
+  padding: 1rem 1.25rem;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  border: 2px solid;
+  border-color:
+    var(--brand-bevel-light)
+    var(--brand-bevel-dark)
+    var(--brand-bevel-dark)
+    var(--brand-bevel-light);
+  box-shadow:
+    inset -1px -1px 0 var(--brand-bevel-inner-deep),
+    inset  1px  1px 0 var(--brand-bevel-inner-light);
+}
+.construction-band .panel h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+}
+.construction-band .panel p { font-size: 13px; margin: 0; }
+
+/* ===== Footer ============================================== */
+
+.footer {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: var(--card);
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid;
+  border-color:
+    var(--brand-bevel-light)
+    var(--brand-bevel-dark)
+    var(--brand-bevel-dark)
+    var(--brand-bevel-light);
+  box-shadow:
+    inset -1px -1px 0 var(--brand-bevel-inner-deep),
+    inset  1px  1px 0 var(--brand-bevel-inner-light);
+}
+.footer .links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.footer .links a { color: var(--primary); text-decoration: underline; }
+
+/* ===== Reduced-motion overrides ============================
+   Win98 is a high-motion register by design. Per spec §Animation
+   §Reduced Motion: the decorative elements stay, they stop
+   animating. Authentic without the seizure risk.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; transform: translateX(0); }
+  .hero-rainbow { animation: none; color: var(--brand-accent-red); }
+  .badge-new { animation: none; }
+  .btn-bevel { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- =========================================================
+       SIGNATURE MOCKUP — Win98 application window.
+       Combines the four most distinct components from
+       DESIGN.md §4: title-bar gradient + beveled buttons +
+       CSS-only marquee + HR groove divider + hit counter.
+       ========================================================= -->
+
+  <article class="app-window">
+
+    <header class="title-bar">
+      <div class="left">
+        <span class="glyph">__</span>
+        <span>win98.exe — main window</span>
+      </div>
+      <div class="title-bar-controls">
+        <span class="tb-btn">_</span>
+        <span class="tb-btn">o</span>
+        <span class="tb-btn">x</span>
+      </div>
+    </header>
+
+    <div class="window-body">
+
+      <div class="marquee" aria-label="Welcome announcement">
+        <div class="marquee-track">
+          <span class="c-red">WELCOME TO THE INTERNET</span>
+          <span class="c-yellow">BEST VIEWED IN 800x600</span>
+          <span class="c-green">SIGN THE GUESTBOOK</span>
+          <span class="c-cyan">UPDATED EVERY WEEK</span>
+          <span class="c-purple">UNDER CONSTRUCTION</span>
+          <!-- Duplicate for seamless loop -->
+          <span class="c-red">WELCOME TO THE INTERNET</span>
+          <span class="c-yellow">BEST VIEWED IN 800x600</span>
+          <span class="c-green">SIGN THE GUESTBOOK</span>
+          <span class="c-cyan">UPDATED EVERY WEEK</span>
+          <span class="c-purple">UNDER CONSTRUCTION</span>
+        </div>
+      </div>
+
+      <section class="hero">
+        <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;margin:0 0 0.25rem;font-weight:700;">
+          The win98 system
+        </p>
+        <h1>Welcome <span class="hero-rainbow">Back</span> To 1997</h1>
+        <p class="hero-lede">
+          A 17-color max-saturation palette pulled from the Windows 95
+          system tables. Beveled buttons, system fonts, and the etched
+          divider that defined a decade of personal pages. Embrace the
+          cheese.
+        </p>
+        <div class="hero-actions">
+          <button type="button" class="btn-bevel btn-primary">Get Started</button>
+          <button type="button" class="btn-bevel">Read More</button>
+          <span class="badge-new">NEW!</span>
+          <div class="hit-counter" aria-label="Visitor count">
+            <span class="label">VISITORS</span>
+            <span>0001234</span>
+          </div>
+        </div>
+      </section>
+
+      <hr class="hr-groove">
+
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-start;">
+        <p style="flex:1 1 280px;min-width:240px;font-size:13px;margin:0;">
+          The signature 4-value border-color pattern lives on every
+          interactive surface. Outset bevels lift; inset bevels recess;
+          a pressed button translates one pixel down and right so the
+          click reads in the geometry, not just the color.
+        </p>
+        <div class="squares-row" aria-hidden="true">
+          <span class="color-square s-red"></span>
+          <span class="color-square s-yellow"></span>
+          <span class="color-square s-green"></span>
+          <span class="color-square s-blue"></span>
+          <span class="color-square s-purple"></span>
+          <span class="color-square s-cyan"></span>
+          <span class="color-square s-navy"></span>
+        </div>
+      </div>
+
+    </div>
+
+  </article>
+
+  <!-- =========================================================
+       TOKEN DEMO — color swatches
+       ========================================================= -->
+  <section class="section">
+    <h2>Palette</h2>
+    <p class="lede">Seventeen tokens drawn from the Windows 95 system tables plus four maximum-saturation primaries. Every chromatic surface across the system routes through this list.</p>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="chip" style="background:var(--background)"></div><div class="name">Background</div><div class="value">#C0C0C0</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--foreground)"></div><div class="name">Foreground</div><div class="value">#000000</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--muted)"></div><div class="name">Muted</div><div class="value">#808080</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--primary)"></div><div class="name">Primary / Accent</div><div class="value">#0000FF</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--brand-accent-red)"></div><div class="name">Accent Red</div><div class="value">#FF0000</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--brand-accent-yellow)"></div><div class="name">Accent Yellow</div><div class="value">#FFFF00</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--brand-accent-green)"></div><div class="name">Accent Green</div><div class="value">#00FF00</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--brand-accent-green-readable)"></div><div class="name">Green Readable</div><div class="value">#00AA00</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--brand-accent-purple)"></div><div class="name">Accent Purple</div><div class="value">#800080</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--brand-titlebar-start)"></div><div class="name">Title-Bar Start</div><div class="value">#000080</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--brand-titlebar-end)"></div><div class="name">Title-Bar End</div><div class="value">#1084D0</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--brand-panel-yellow)"></div><div class="name">Panel Yellow</div><div class="value">#FFFFCC</div></div>
+    </div>
+  </section>
+
+  <hr class="hr-groove">
+
+  <!-- =========================================================
+       TOKEN DEMO — surface ladder (bevel showcase)
+       ========================================================= -->
+  <section class="section">
+    <h2>Surface elevation</h2>
+    <p class="lede">Depth comes from the 4-value bevel and inset shadow stops. No soft drop shadows; no radius; the geometry tells the elevation story.</p>
+    <div class="demo-grid">
+      <div>
+        <p style="font-size:11px;text-transform:uppercase;font-weight:700;margin:0 0 0.5rem;">Outset (raised)</p>
+        <div class="bevel-out" style="background:var(--background);padding:1.25rem;">
+          <p style="margin:0;font-size:13px;">A raised surface — white top &amp; left, gray bottom &amp; right. Buttons, cards, badges, decorative squares.</p>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:11px;text-transform:uppercase;font-weight:700;margin:0 0 0.5rem;">Outset deep</p>
+        <div class="bevel-out-deep" style="background:var(--background);padding:1.25rem;">
+          <p style="margin:0;font-size:13px;">The doubled bevel reads as a heavier hardware control. Reserved for prominent CTA cards and toolbar groups.</p>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:11px;text-transform:uppercase;font-weight:700;margin:0 0 0.5rem;">Inset (sunken)</p>
+        <div class="bevel-in" style="background:var(--card);padding:1.25rem;">
+          <p style="margin:0;font-size:13px;">Reversed border-color sinks the surface — gray top &amp; left, white bottom &amp; right. Content panes and form inputs live here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr-groove">
+
+  <!-- =========================================================
+       TOKEN DEMO — typography roles
+       ========================================================= -->
+  <section class="section">
+    <h2>Typography</h2>
+    <p class="lede">Six roles, system fonts only. Display reaches for Arial Black or Impact; body falls to MS Sans Serif; monospace carries chrome (counters, dates, code).</p>
+    <div class="type-roles">
+      <div><span class="label">DISPLAY</span><div class="t-display">Make It Big</div></div>
+      <div><span class="label">HEADING</span><div class="t-heading">Section Heading</div></div>
+      <div><span class="label">TITLE</span><div class="t-title">Window title — sentence case</div></div>
+      <div><span class="label">BODY</span><div class="t-body">The body face is the OS system font: MS Sans Serif on Windows, Tahoma or Segoe UI as fallback, sans-serif as the catch-all. Sentence case, fourteen-pixel default, fifty-five-percent line-height.</div></div>
+      <div><span class="label">CAPTION</span><div class="t-caption">Caption / Eyebrow Label</div></div>
+      <div><span class="label">MONO</span><div class="t-mono">Courier New — 0001234 visitors since 1995</div></div>
+    </div>
+  </section>
+
+  <hr class="hr-groove">
+
+  <!-- =========================================================
+       TOKEN DEMO — component vocabulary
+       ========================================================= -->
+  <section class="section">
+    <h2>Components</h2>
+    <p class="lede">Buttons, cards, inputs, links, tables — every primitive carries the bevel and the system palette.</p>
+
+    <div class="demo-grid">
+
+      <article class="demo-card">
+        <div class="demo-title-bar"><span>Buttons.exe</span><span style="font-weight:400;font-size:10px;">2.1k</span></div>
+        <div class="demo-card-body">
+          <p style="text-transform:uppercase;font-size:11px;font-weight:700;letter-spacing:0.06em;margin-bottom:0.5rem;">Variants</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
+            <button type="button" class="btn-bevel">Default</button>
+            <button type="button" class="btn-bevel btn-primary">Primary</button>
+            <button type="button" class="btn-bevel btn-danger">Danger</button>
+            <button type="button" class="btn-bevel btn-success">Success</button>
+          </div>
+          <p style="font-size:12px;margin:0;">Press any button to see the bevel reverse and the surface translate 1px down-right.</p>
+        </div>
+      </article>
+
+      <article class="demo-card">
+        <div class="demo-title-bar"><span>Form.exe</span><span style="font-weight:400;font-size:10px;">1.4k</span></div>
+        <div class="demo-card-body">
+          <form onsubmit="return false;">
+            <div class="input-row">
+              <label for="f-name">Your Name</label>
+              <input id="f-name" class="win-input" type="text" placeholder="Enter your name">
+            </div>
+            <div class="input-row">
+              <label for="f-loc">Hometown</label>
+              <select id="f-loc" class="win-input">
+                <option>Choose one&hellip;</option>
+                <option>New York</option>
+                <option>Tokyo</option>
+                <option>Berlin</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-bevel btn-primary">Submit Form</button>
+          </form>
+        </div>
+      </article>
+
+      <article class="demo-card">
+        <div class="demo-title-bar"><span>Links.htm</span><span style="font-weight:400;font-size:10px;">974b</span></div>
+        <div class="demo-card-body demo-links">
+          <p>Always underlined, never restyled on hover. The states ladder through the era's three classic colors:</p>
+          <!-- The hover-state demo bullet uses identity-defining #FF0000
+               on white (3.99:1). Bumped to 19px / font-weight 700 so the
+               saturated red qualifies under the 3:1 large-text-bold floor;
+               the era-authentic hover colour stays unmodified. -->
+          <ul style="padding-left:1.25rem;margin:0;font-size:19px;font-weight:700;line-height:1.4;">
+            <li><a href="#unvisited">Unvisited links are blue</a></li>
+            <li><a href="#visited" style="color:var(--brand-accent-purple);">Visited links turn purple</a></li>
+            <li><a href="#hovered" style="color:var(--brand-accent-red);">Hover sends them red</a></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="demo-card">
+        <div class="demo-title-bar"><span>Table.dbf</span><span style="font-weight:400;font-size:10px;">3.2k</span></div>
+        <div class="demo-card-body" style="padding:0.5rem;">
+          <table class="zebra-table" aria-label="Sample alternating-row table">
+            <thead>
+              <tr><th>ID</th><th>Name</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>001</td><td>halcyon.dev</td><td>Online</td></tr>
+              <tr><td>002</td><td>hlc.so</td><td>Online</td></tr>
+              <tr><td>003</td><td>@halcyon/cli</td><td>Online</td></tr>
+              <tr><td>004</td><td>halcyon-api</td><td>Online</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <hr class="hr-groove">
+
+  <!-- =========================================================
+       BRAND-FLAVOURED CLOSING — construction stripes
+       ========================================================= -->
+  <section class="construction-band" aria-label="Under construction announcement">
+    <div class="panel">
+      <h3>Under Construction</h3>
+      <p>The yellow-and-black diagonal stripe is the era's signature emphasis. Wrap any prominent CTA in it and the surface declares itself.</p>
+      <div style="margin-top:0.75rem;display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;">
+        <button type="button" class="btn-bevel btn-primary">Sign Guestbook</button>
+        <span class="badge-new">HOT!</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <footer class="footer">
+    <div>
+      <strong style="text-transform:uppercase;letter-spacing:0.04em;">win98</strong><br>
+      <span style="color:var(--foreground);font-size:11px;">Best viewed at 800&times;600 &middot; Made with Notepad &middot; &copy; halcyon.dev</span>
+    </div>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#guestbook">Guestbook</a>
+      <a href="#webrings">Webrings</a>
+      <a href="#mailto">team@halcyon.dev</a>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

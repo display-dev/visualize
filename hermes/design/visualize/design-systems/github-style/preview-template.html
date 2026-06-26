@@ -1,0 +1,1995 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230D1117'/%3E%3Cpath d='M9 14 L13 18 L9 22 M16 22 H23' stroke='%23F0F6FC' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Both-polarity semantic palette (open-green, closed-red, merged-purple, attention-yellow, severe-orange, sponsors-pink), polarity-locked dark topnav and footer, signature PR-conversation surface with StateLabel pill + diff viewer + merge action.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === GitHub-style preview shell — both-polarity token surface.
+   Canvas + neutrals flip with theme via shadcn-core tokens; the topnav
+   and footer are polarity-locked dark (per DESIGN.md §1 — GitHub's
+   marketing chrome is dark regardless of the body below it). Signature
+   surface is the PR-conversation card: the StateLabel pill at the
+   header is the brand's most-recognisable vocabulary moment (green
+   open / red closed / purple merged), and the diff viewer underneath
+   carries the green-added / red-removed semantic palette. Card
+   surfaces use hairline borders only — no shadow, no tint, no lift
+   on rest — per GitHub's house style. Mona Sans VF → Inter substitute
+   in the stack. Halcyon-themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+/* Scoped local preview vars (per AUTHORING.md "scoped local CSS custom
+   properties for decorative-only colours without a token home").
+   Used for emphasis-fill surfaces that need a slightly deeper scale step
+   than --brand-cta-rest / --brand-state-* so axe-strict body-AA passes
+   on both polarities. All values trace to Primer's documented scale —
+   light = green.5 / red.5 / purple.5; dark = green.5-dark-deeper /
+   red.5-emphasis-dark / purple.5-emphasis-dark. */
+:root {
+  --preview-success-bg: #1f883d;       /* Primer success.emphasis light = green.5-light */
+  --preview-success-bg-press: #116329; /* Primer green.6-light, active state */
+  --preview-success-text-on-dark: #aff5b4; /* Primer green.2-dark — light pastel for label-pill text on dark fill */
+  --preview-success-deep: #0d572f;     /* Primer green.7-dark area — label-pill fill in dark */
+
+  --preview-done-bg: #8250df;          /* Primer done.emphasis light = purple.5-light */
+  --preview-done-text-on-dark: #d2a8ff; /* Primer purple.3-dark — pastel for label-pill text on dark */
+  --preview-done-deep: #3c1e70;        /* Primer purple.6 / purple.7-dark area — label-pill fill in dark */
+
+  --preview-danger-bg: #cf222e;        /* Primer danger.emphasis light = red.5-light */
+  --preview-danger-text-on-dark: #ffa198; /* Primer red.3-dark — pastel for label-pill text on dark */
+  --preview-danger-deep: #67060c;      /* Primer red.7-dark area — label-pill fill in dark */
+
+  --preview-blue-bg: #0969da;          /* --brand-accent-blue light = blue.5-light */
+  --preview-blue-text-on-dark: #79c0ff; /* Primer blue.3-dark */
+  --preview-blue-deep: #0c2d6b;        /* Primer blue.7-dark area */
+
+  --preview-attention-text-on-dark: #f2cc60; /* Primer yellow.3-dark */
+  --preview-attention-deep: #4d3800;   /* Primer yellow.7-dark area */
+
+  --preview-on-emphasis: #ffffff;      /* fgColor.onEmphasis = pure white for body-AA on emphasis fills */
+}
+[data-theme="dark"] {
+  /* Dark-mode emphasis fills: use Primer's documented dark-scale step
+     that clears body-AA against pure white. */
+  --preview-success-bg: #238636;       /* green.5-dark — Primer button.primary.bgColor.rest dark */
+  --preview-success-bg-press: #196c2e; /* green.6-dark */
+  --preview-done-bg: #6639ba;          /* purple.6-dark for emphasis surface (deeper than purple.5-dark for AA) */
+  --preview-danger-bg: #b62324;        /* red.6-dark equivalent — Primer danger.emphasis dark, deeper than red.4 */
+  --preview-blue-bg: #1f6feb;          /* blue.5-dark — Primer button.primary.bgColor.rest dark */
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --preview-success-bg: #238636;
+    --preview-success-bg-press: #196c2e;
+    --preview-done-bg: #6639ba;
+    --preview-danger-bg: #b62324;
+    --preview-blue-bg: #1f6feb;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Mona Sans VF', 'Mona Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Polarity-locked dark topnav (always #0D1117 regardless of body theme) -- */
+.topnav {
+  background: var(--background);
+  /* Override: lock to the dark canvas via the brand-on-dark contract. */
+  background-color: var(--brand-canvas-night);
+  border-bottom: 1px solid var(--brand-hairline-strong);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  /* Subtle inset to give the bar a dimensional anchor on light canvases. */
+  box-shadow: inset 0 -1px 0 0 color-mix(in oklch, var(--brand-on-dark) 8%, transparent);
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  font-size: 14px;
+}
+.topnav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  color: var(--brand-on-dark);
+  text-decoration: none;
+}
+/* Abstract brand glyph — diamond-rotated square with cutout. Not the
+   Octocat (which is GitHub property), not a wordmark literal. */
+.topnav-brand-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--brand-on-dark);
+  display: inline-grid;
+  place-items: center;
+  color: var(--brand-canvas-night);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1;
+}
+.topnav-brand-mark::after {
+  content: "{}";
+  letter-spacing: -1px;
+}
+.topnav-links {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  flex: 1;
+  margin-left: 1.5rem;
+}
+.topnav-links a {
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0.5rem 0.25rem;
+  border-radius: 6px;
+  opacity: 0.9;
+  transition: opacity 120ms ease;
+}
+.topnav-links a:hover { opacity: 1; }
+.topnav-links a:focus-visible {
+  outline: 2px solid var(--brand-accent-blue);
+  outline-offset: 4px;
+  opacity: 1;
+}
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; }
+.topnav-search {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: color-mix(in oklch, var(--brand-on-dark) 6%, transparent);
+  border: 1px solid color-mix(in oklch, var(--brand-on-dark) 16%, transparent);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem 0.5rem 2rem;
+  font-size: 13px;
+  color: var(--brand-on-dark);
+  opacity: 0.85;
+  min-width: 240px;
+  min-height: 32px;
+  font-family: inherit;
+}
+.topnav-search::before {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+.topnav-search::after {
+  content: "";
+  position: absolute;
+  left: 1.5rem;
+  top: 60%;
+  width: 5px;
+  height: 1.5px;
+  background: currentColor;
+  transform: rotate(45deg);
+  opacity: 0.6;
+}
+.topnav-search-kbd {
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  border: 1px solid color-mix(in oklch, var(--brand-on-dark) 18%, transparent);
+  border-radius: 3px;
+  opacity: 0.7;
+}
+@media (max-width: 1000px) { .topnav-search, .topnav-links { display: none; } }
+
+/* -- Buttons -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1rem;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.1px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+/* Primary CTA — the green Code / Sign up / Merge button. Routes through
+   --preview-success-bg (= --brand-cta-rest with AA-clearing scale step
+   per polarity) and pure-white fgColor.onEmphasis. */
+.btn[data-variant="cta"] {
+  background: var(--preview-success-bg);
+  color: var(--preview-on-emphasis);
+  border-color: var(--preview-success-bg-press);
+}
+.btn[data-variant="cta"]:hover {
+  background: var(--brand-cta-hover);
+  border-color: var(--preview-success-bg-press);
+}
+.btn[data-variant="cta"]:active {
+  background: var(--preview-success-bg-press);
+}
+/* Default button — hairline-bordered light fill (matches Watch/Fork/Star). */
+.btn[data-variant="default"] {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  border-color: var(--border);
+}
+.btn[data-variant="default"]:hover {
+  background: color-mix(in oklch, var(--secondary) 88%, var(--foreground));
+}
+/* Primary link-blue accent — for filter buttons, primary form actions.
+   Routes through --preview-blue-bg so dark mode picks a deeper step
+   that clears body-AA against pure white. */
+.btn[data-variant="primary"] {
+  background: var(--preview-blue-bg);
+  color: var(--preview-on-emphasis);
+  border-color: var(--preview-blue-bg);
+}
+.btn[data-variant="primary"]:hover {
+  background: color-mix(in oklch, var(--preview-blue-bg) 88%, black);
+  border-color: color-mix(in oklch, var(--preview-blue-bg) 88%, black);
+}
+/* Invisible — overflow / chrome triggers. */
+.btn[data-variant="invisible"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: transparent;
+}
+.btn[data-variant="invisible"]:hover { background: var(--muted); }
+/* Inverse-treatment danger (rest quiet, hover loud). */
+.btn[data-variant="danger"] {
+  background: var(--secondary);
+  color: var(--brand-danger-rest-text);
+  border-color: var(--border);
+}
+.btn[data-variant="danger"]:hover {
+  background: var(--destructive);
+  color: var(--destructive-foreground);
+  border-color: var(--destructive);
+}
+.btn[data-size="sm"] { min-height: 32px; padding: 0 0.75rem; font-size: 13px; }
+.btn[data-size="xs"] { min-height: 28px; padding: 0 0.5rem; font-size: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .topnav-links a { transition: none; }
+}
+
+/* -- Page container -- */
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* -- Hero -- */
+.hero {
+  padding: 4rem 0 3rem;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+@media (max-width: 960px) { .hero { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 0 2rem; } }
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 1rem;
+}
+.hero-eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-cta-rest);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--brand-cta-rest) 22%, transparent);
+}
+.hero-display {
+  font-family: inherit;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  margin: 0 0 1.25rem;
+  max-width: 18ch;
+}
+.hero-lede {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body-muted);
+  max-width: 48ch;
+  margin: 0 0 2rem;
+}
+.hero-lede code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.85em;
+  color: var(--foreground);
+  background: var(--brand-code-fill);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+}
+.hero-ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+/* -- Stats inline strip inside hero -- */
+.hero-stats {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.hero-stats-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.hero-stats-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+.hero-stats-label { font-size: 13px; color: var(--muted-foreground); }
+.hero-stats-value {
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+.hero-stats-trend {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+/* Trend colour: use the chart-1 green (viz-1 green) which has the lifted
+   chroma needed to clear body-AA against both light card and dark canvas. */
+.hero-stats-trend[data-tone="up"] { color: var(--brand-cta-rest); }
+.hero-stats-trend[data-tone="down"] { color: var(--brand-state-closed); }
+[data-theme="dark"] .hero-stats-trend[data-tone="up"] { color: var(--chart-1); }
+
+/* -- Signature: PR conversation card (the brand's voltage moment) -- */
+.pr-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin: 0 0 5rem;
+}
+.pr-card-header {
+  padding: 1.5rem 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pr-card-titlebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.pr-card-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+.pr-card-breadcrumb a {
+  color: var(--brand-accent-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+.pr-card-breadcrumb a:hover { text-decoration: underline; }
+.pr-card-breadcrumb a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.pr-card-breadcrumb-sep { opacity: 0.5; }
+.pr-card-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.2;
+  flex-wrap: wrap;
+}
+.pr-card-title-num {
+  color: var(--muted-foreground);
+  font-weight: 400;
+}
+
+/* StateLabel pill — the brand's most-recognisable component vocabulary
+   moment per DESIGN.md §4. Solid fill + pure white onEmphasis foreground.
+   Each variant routes through the AA-clearing preview-* bg per polarity. */
+.state-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 28px;
+  padding: 0 0.75rem;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--preview-on-emphasis);
+  letter-spacing: -0.1px;
+  border: 1px solid transparent;
+}
+.state-label-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-grid;
+  place-items: center;
+}
+.state-label-icon::before {
+  content: "";
+  display: block;
+}
+.state-label[data-state="merged"] { background: var(--preview-done-bg); border-color: var(--preview-done-bg); }
+.state-label[data-state="merged"] .state-label-icon::before {
+  width: 8px; height: 8px;
+  background: currentColor;
+  -webkit-mask: radial-gradient(circle at 50% 50%, transparent 35%, #000 35%, #000 60%, transparent 60%);
+          mask: radial-gradient(circle at 50% 50%, transparent 35%, #000 35%, #000 60%, transparent 60%);
+}
+.state-label[data-state="open"] { background: var(--preview-success-bg); border-color: var(--preview-success-bg-press); }
+.state-label[data-state="open"] .state-label-icon::before {
+  width: 9px; height: 9px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+}
+.state-label[data-state="closed"] { background: var(--preview-danger-bg); border-color: var(--preview-danger-bg); }
+.state-label[data-state="closed"] .state-label-icon::before {
+  width: 8px; height: 8px;
+  background: currentColor;
+  border-radius: 50%;
+}
+/* Draft is outlined, no solid fill — text uses foreground for full canvas contrast. */
+.state-label[data-state="draft"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--brand-hairline);
+}
+.state-label[data-state="draft"] .state-label-icon::before {
+  width: 8px; height: 8px;
+  border: 2px dashed currentColor;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.pr-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 13px;
+  color: var(--muted-foreground);
+  flex-wrap: wrap;
+}
+.pr-card-meta a {
+  color: var(--brand-accent-blue);
+  font-weight: 500;
+  text-decoration: none;
+}
+.pr-card-meta a:hover { text-decoration: underline; }
+.pr-card-meta a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.pr-card-meta-branch {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  background: var(--brand-accent-blue-fill);
+  color: var(--brand-accent-blue);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+/* -- File-changed strip (filename + adds/removes count) -- */
+.pr-file {
+  background: var(--card);
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.pr-file-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--foreground);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.pr-file-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-grid;
+  place-items: center;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700;
+}
+.pr-file-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.pr-file-adds { color: var(--brand-cta-rest); }
+.pr-file-removes { color: var(--brand-state-closed); }
+[data-theme="dark"] .pr-file-adds { color: var(--chart-1); }
+.pr-file-bar {
+  display: inline-flex;
+  gap: 2px;
+}
+.pr-file-bar-cell {
+  width: 8px;
+  height: 8px;
+  border-radius: 1px;
+  background: var(--muted);
+}
+.pr-file-bar-cell[data-tone="add"] { background: var(--brand-cta-rest); }
+.pr-file-bar-cell[data-tone="rem"] { background: var(--brand-state-closed); }
+
+/* -- Diff viewer (the green-added / red-removed line treatment) -- */
+.diff {
+  background: var(--card);
+  border-top: 1px solid var(--brand-hairline-soft);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12.5px;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+.diff-line {
+  display: grid;
+  grid-template-columns: 3rem 3rem 1rem 1fr;
+  gap: 0;
+  min-height: 22px;
+  align-items: stretch;
+}
+.diff-gutter {
+  padding: 0 0.5rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted-foreground);
+  background: var(--muted);
+  border-right: 1px solid var(--brand-hairline-soft);
+  user-select: none;
+  font-size: 11.5px;
+  line-height: 22px;
+}
+.diff-sign {
+  padding: 0 0.4rem;
+  font-weight: 600;
+  text-align: center;
+  user-select: none;
+  line-height: 22px;
+  font-size: 12.5px;
+}
+.diff-code {
+  padding: 0 0.75rem;
+  color: var(--foreground);
+  white-space: pre;
+  line-height: 22px;
+}
+/* Diff text routes through --foreground so it auto-flips with theme.
+   Background tokens (--brand-diff-added-line / removed-line) are theme-aware
+   in tokens.css: light-tinted on light, deep-tinted on dark. */
+.diff-line[data-tone="add"] .diff-code,
+.diff-line[data-tone="add"] .diff-sign {
+  background: var(--brand-diff-added-line);
+  color: var(--foreground);
+}
+.diff-line[data-tone="add"] .diff-sign { color: var(--preview-success-bg-press); font-weight: 700; }
+.diff-line[data-tone="rem"] .diff-code,
+.diff-line[data-tone="rem"] .diff-sign {
+  background: var(--brand-diff-removed-line);
+  color: var(--foreground);
+}
+.diff-line[data-tone="rem"] .diff-sign { color: var(--preview-danger-bg); font-weight: 700; }
+.diff-line[data-tone="hunk"] .diff-code {
+  background: var(--muted);
+  color: var(--muted-foreground);
+  font-style: italic;
+}
+.diff-line[data-tone="hunk"] .diff-gutter {
+  background: var(--muted);
+  border-right-color: transparent;
+}
+.diff-mark {
+  background: color-mix(in oklch, var(--preview-success-bg) 30%, transparent);
+  color: var(--foreground);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+.diff-line[data-tone="rem"] .diff-mark {
+  background: color-mix(in oklch, var(--preview-danger-bg) 32%, transparent);
+}
+
+/* -- Merge action bar (sits beneath the diff) -- */
+.merge-bar {
+  background: var(--muted);
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.merge-bar-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 13px;
+  color: var(--brand-body-muted);
+}
+.merge-bar-status-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--preview-success-bg);
+  display: inline-grid;
+  place-items: center;
+  color: var(--preview-on-emphasis);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1;
+}
+.merge-bar-actions { display: flex; gap: 0.5rem; }
+
+/* -- Section frame -- */
+.section {
+  padding: 4.5rem 0;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.section-header { margin-bottom: 2.5rem; max-width: 64ch; }
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 1rem;
+}
+.section-eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-cta-rest);
+}
+.section-title {
+  font-family: inherit;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 0.75rem;
+  max-width: 22ch;
+}
+.section-lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-body-muted);
+  max-width: 60ch;
+  margin: 0;
+}
+.section-lede code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.875em;
+  color: var(--foreground);
+  background: var(--brand-code-fill);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+}
+
+/* -- Color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-role {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+.swatch-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+/* -- Surface ladder -- */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+@media (max-width: 880px) { .surface-ladder { grid-template-columns: 1fr; } }
+.surface-step {
+  padding: 1.5rem;
+  font-size: 13px;
+  border-right: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 8rem;
+}
+.surface-step:last-child { border-right: none; }
+@media (max-width: 880px) {
+  .surface-step { border-right: none; border-bottom: 1px solid var(--brand-hairline-soft); }
+  .surface-step:last-child { border-bottom: none; }
+}
+.surface-step[data-step="0"] { background: var(--background); }
+.surface-step[data-step="1"] { background: var(--card); }
+.surface-step[data-step="2"] { background: var(--muted); }
+.surface-step-num {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+.surface-step-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--foreground);
+  font-weight: 500;
+}
+.surface-step-role { font-size: 13px; color: var(--brand-body-muted); line-height: 1.45; }
+
+/* -- Typography roles -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+.type-display {
+  font-family: inherit;
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.04;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: inherit;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--foreground);
+}
+.type-body {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--foreground);
+}
+.type-meta {
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--brand-body-muted);
+  line-height: 1.5;
+}
+.type-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--foreground);
+}
+.inline-code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.92em;
+  font-weight: 500;
+  color: var(--foreground);
+  background: var(--brand-code-fill);
+  padding: 0.1em 0.4em;
+  border-radius: var(--radius-sm);
+}
+
+/* -- Component vocabulary stack -- */
+.components-stack { display: flex; flex-direction: column; gap: 2rem; }
+.cmp-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Issue/PR row — the file-tree / issue-list pattern */
+.row-list {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.row-list-head {
+  background: var(--muted);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 13px;
+  color: var(--brand-body-muted);
+  font-weight: 500;
+}
+.row-list-head-tabs {
+  display: flex;
+  gap: 1rem;
+}
+.row-list-head-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+.row-list-head-tab[data-state="rest"] {
+  color: var(--brand-body-muted);
+  font-weight: 500;
+}
+.row-list-head-tab-icon {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+.row-list-head-tab[data-state="active"] .row-list-head-tab-icon { background: var(--brand-cta-rest); }
+.row-list-head-tab[data-state="rest"] .row-list-head-tab-icon {
+  background: transparent;
+  border: 1.5px solid var(--brand-state-merged);
+}
+.row {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr auto;
+  gap: 0.75rem;
+  align-items: start;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.row:last-child { border-bottom: none; }
+.row-icon {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  display: inline-grid;
+  place-items: center;
+}
+.row-icon[data-state="open"]::before,
+.row-icon[data-state="closed-purple"]::before,
+.row-icon[data-state="closed-red"]::before {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.row-icon[data-state="open"]::before {
+  border: 2px solid var(--brand-cta-rest);
+}
+.row-icon[data-state="closed-purple"]::before {
+  background: var(--brand-state-merged);
+}
+.row-icon[data-state="closed-red"]::before {
+  background: var(--brand-state-closed);
+}
+.row-body { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
+.row-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 14px;
+  color: var(--foreground);
+  font-weight: 500;
+  flex-wrap: wrap;
+}
+.row-title a {
+  color: var(--foreground);
+  text-decoration: none;
+}
+.row-title a:hover {
+  color: var(--brand-accent-blue);
+  text-decoration: underline;
+}
+.row-title a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.row-meta {
+  font-size: 12px;
+  color: var(--brand-body-muted);
+}
+.row-side {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 12px;
+  color: var(--brand-body-muted);
+}
+.row-comments {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+.row-comments-glyph {
+  width: 14px; height: 12px;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+  position: relative;
+  opacity: 0.7;
+}
+
+/* Label pill — small tinted-fill + same-hue-text pattern (Primer Label).
+   Light mode: pastel-light fill + dark-mid same-hue text.
+   Dark mode: deep-dark fill + pastel-light same-hue text (Primer's
+   documented dark-mode label treatment — green.3-dark, red.3-dark, etc.). */
+.label-pill {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 0.5rem;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
+  border: 1px solid transparent;
+}
+.label-pill[data-tone="bug"] { background: var(--brand-state-closed-fill); color: var(--brand-state-closed); border-color: color-mix(in oklch, var(--brand-state-closed) 24%, transparent); }
+.label-pill[data-tone="feat"] { background: var(--brand-state-open-fill); color: var(--brand-cta-press); border-color: color-mix(in oklch, var(--brand-cta-rest) 30%, transparent); }
+.label-pill[data-tone="docs"] { background: var(--brand-accent-blue-fill); color: var(--brand-accent-blue); border-color: color-mix(in oklch, var(--brand-accent-blue) 30%, transparent); }
+.label-pill[data-tone="help"] { background: var(--brand-state-merged-fill); color: var(--brand-state-merged); border-color: color-mix(in oklch, var(--brand-state-merged) 30%, transparent); }
+.label-pill[data-tone="wait"] { background: var(--brand-attention-fill); color: var(--brand-attention); border-color: color-mix(in oklch, var(--brand-attention) 30%, transparent); }
+
+/* Dark-mode override: deeper same-hue fill + lighter same-hue text. The
+   bright-on-bright failure in dark stems from --brand-*-fill dark being
+   too saturated for the lifted-dark text colors. Routing to the
+   --preview-*-deep fill + --preview-*-text-on-dark text clears AA. */
+[data-theme="dark"] .label-pill[data-tone="bug"] { background: var(--preview-danger-deep); color: var(--preview-danger-text-on-dark); border-color: color-mix(in oklch, var(--preview-danger-text-on-dark) 30%, transparent); }
+[data-theme="dark"] .label-pill[data-tone="feat"] { background: var(--preview-success-deep); color: var(--preview-success-text-on-dark); border-color: color-mix(in oklch, var(--preview-success-text-on-dark) 30%, transparent); }
+[data-theme="dark"] .label-pill[data-tone="docs"] { background: var(--preview-blue-deep); color: var(--preview-blue-text-on-dark); border-color: color-mix(in oklch, var(--preview-blue-text-on-dark) 30%, transparent); }
+[data-theme="dark"] .label-pill[data-tone="help"] { background: var(--preview-done-deep); color: var(--preview-done-text-on-dark); border-color: color-mix(in oklch, var(--preview-done-text-on-dark) 30%, transparent); }
+[data-theme="dark"] .label-pill[data-tone="wait"] { background: var(--preview-attention-deep); color: var(--preview-attention-text-on-dark); border-color: color-mix(in oklch, var(--preview-attention-text-on-dark) 30%, transparent); }
+
+/* Tab row (repo header) — orange underline for active */
+.tab-row {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+}
+.tab-row-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--brand-body-muted);
+  background: transparent;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  min-height: 44px;
+}
+.tab-row-item:hover { background: var(--muted); color: var(--foreground); }
+.tab-row-item[aria-selected="true"] {
+  color: var(--foreground);
+  font-weight: 600;
+  border-bottom-color: var(--brand-severe);
+}
+.tab-row-counter {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  background: var(--brand-code-fill);
+  color: var(--brand-body);
+  padding: 0.1rem 0.5rem;
+  border-radius: 9999px;
+  font-variant-numeric: tabular-nums;
+  border: 1px solid var(--brand-hairline-soft);
+  line-height: 1;
+}
+.tab-row-item:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
+}
+
+/* Repo counter button group (Watch / Fork / Star pattern) */
+.btn-group {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  height: 32px;
+  font-family: inherit;
+}
+.btn-group > * {
+  background: var(--secondary);
+  color: var(--foreground);
+  padding: 0 0.75rem;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  border-right: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: inherit;
+  cursor: pointer;
+  line-height: 1;
+}
+.btn-group > *:last-child { border-right: none; }
+.btn-group > *:hover { background: var(--accent); }
+.btn-group-count {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  background: var(--background);
+}
+.btn-group-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-grid;
+  place-items: center;
+  color: var(--brand-body-muted);
+}
+.btn-group > *:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+/* Reaction emoji button */
+.reaction {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  background: var(--card);
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--brand-body);
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  line-height: 1.2;
+  min-height: 28px;
+}
+.reaction:hover { background: var(--muted); }
+.reaction[data-state="active"] {
+  background: var(--brand-accent-blue-fill);
+  border-color: color-mix(in oklch, var(--brand-accent-blue) 50%, transparent);
+  color: var(--brand-accent-blue);
+}
+.reaction:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Callouts (Note / Tip / Important / Warning / Caution) */
+.callout {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  border-left: 4px solid currentColor;
+}
+.callout-title {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  color: currentColor;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.callout-body {
+  font-size: 14px;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.5;
+}
+.callout[data-tone="note"] {
+  background: var(--brand-accent-blue-fill);
+  color: var(--brand-accent-blue);
+}
+.callout[data-tone="tip"] {
+  background: var(--brand-state-open-fill);
+  color: var(--brand-cta-press);
+}
+.callout[data-tone="important"] {
+  background: var(--brand-state-merged-fill);
+  color: var(--brand-state-merged);
+}
+.callout[data-tone="warning"] {
+  background: var(--brand-attention-fill);
+  color: var(--brand-attention);
+}
+.callout[data-tone="caution"] {
+  background: var(--brand-state-closed-fill);
+  color: var(--brand-state-closed);
+}
+/* Dark-mode override — callout title (currentColor) needs to read against
+   the dark-mode tinted fill. The body text auto-flips via --foreground. */
+[data-theme="dark"] .callout[data-tone="note"] { background: var(--preview-blue-deep); color: var(--preview-blue-text-on-dark); }
+[data-theme="dark"] .callout[data-tone="tip"] { background: var(--preview-success-deep); color: var(--preview-success-text-on-dark); }
+[data-theme="dark"] .callout[data-tone="important"] { background: var(--preview-done-deep); color: var(--preview-done-text-on-dark); }
+[data-theme="dark"] .callout[data-tone="warning"] { background: var(--preview-attention-deep); color: var(--preview-attention-text-on-dark); }
+[data-theme="dark"] .callout[data-tone="caution"] { background: var(--preview-danger-deep); color: var(--preview-danger-text-on-dark); }
+
+/* -- Contribution graph (decorative band, the brand's iconic visualisation) -- */
+.contrib {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.contrib-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.contrib-title {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0;
+}
+.contrib-sub {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-body-muted);
+  font-variant-numeric: tabular-nums;
+}
+.contrib-grid {
+  display: grid;
+  grid-template-columns: repeat(52, minmax(0, 1fr));
+  grid-auto-rows: 11px;
+  gap: 3px;
+  /* Containment so the 52-col grid doesn't push the card layout. */
+  min-width: 0;
+  overflow: hidden;
+}
+.contrib-cell {
+  border-radius: 2px;
+  background: var(--brand-contribution-l0);
+  border: 1px solid color-mix(in oklch, var(--foreground) 4%, transparent);
+}
+.contrib-cell[data-l="1"] { background: var(--brand-contribution-l1); }
+.contrib-cell[data-l="2"] { background: var(--brand-contribution-l2); }
+.contrib-cell[data-l="3"] { background: var(--brand-contribution-l3); }
+.contrib-cell[data-l="4"] { background: var(--brand-contribution-l4); }
+.contrib-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--brand-body-muted);
+}
+.contrib-legend-cell {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  border: 1px solid color-mix(in oklch, var(--foreground) 4%, transparent);
+}
+
+/* -- Footer (polarity-locked dark) -- */
+.footer {
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  padding: 4rem 0 2.5rem;
+  margin-top: 5rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.footer-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid color-mix(in oklch, var(--brand-on-dark) 14%, transparent);
+}
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--brand-on-dark);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+.footer-brand-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--brand-on-dark);
+  display: inline-grid;
+  place-items: center;
+  color: var(--brand-canvas-night);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 13px;
+}
+.footer-brand-mark::after {
+  content: "{}";
+  letter-spacing: -1px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding: 2.5rem 0;
+}
+@media (max-width: 880px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+.footer-col-title {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in oklch, var(--brand-on-dark) 65%, transparent);
+  margin: 0 0 1rem;
+}
+.footer-col-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.footer-col-list a {
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  font-size: 14px;
+}
+.footer-col-list a:hover { text-decoration: underline; }
+.footer-col-list a:focus-visible {
+  outline: 2px solid var(--brand-accent-blue);
+  outline-offset: 2px;
+}
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid color-mix(in oklch, var(--brand-on-dark) 14%, transparent);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: color-mix(in oklch, var(--brand-on-dark) 65%, transparent);
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="#">
+      <span class="topnav-brand-mark" aria-hidden="true"></span>
+      <span>__DESIGN_SYSTEM_NAME__</span>
+    </a>
+    <div class="topnav-links">
+      <a href="#">Platform</a>
+      <a href="#">Solutions</a>
+      <a href="#">Resources</a>
+      <a href="#">Open Source</a>
+      <a href="#">Pricing</a>
+    </div>
+    <div class="topnav-actions">
+      <label class="topnav-search" aria-label="Search">
+        <span class="visually-hidden" style="position:absolute;left:-9999px;">Search</span>
+        <span aria-hidden="true">Search or jump to&hellip;</span>
+        <span class="topnav-search-kbd" aria-hidden="true">/</span>
+      </label>
+      <button class="btn" data-variant="cta" data-size="sm" type="button">Sign up</button>
+    </div>
+  </div>
+</nav>
+
+<main class="page">
+
+  <section class="hero" aria-label="Hero">
+    <div>
+      <p class="hero-eyebrow"><span class="hero-eyebrow-dot" aria-hidden="true"></span>__DESIGN_SYSTEM_NAME__ &middot; token surface &middot; 2026.05.25</p>
+      <h1 class="hero-display">Status colour is the identity.</h1>
+      <p class="hero-lede">A both-polarity token surface rendered against the semantic-palette design language. Open is green, closed is red, merged is purple, attention is yellow, severe is orange, sponsors is pink. Canvas and neutrals flip with <code>data-theme</code>; the topnav and footer stay dark on both modes by design.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="cta" type="button">Code <span aria-hidden="true">&#9662;</span></button>
+        <button class="btn" data-variant="default" type="button">Read the docs</button>
+      </div>
+    </div>
+    <aside class="hero-stats" aria-label="Halcyon engineering snapshot">
+      <p class="hero-stats-head"><span class="hero-eyebrow-dot" aria-hidden="true" style="background: var(--brand-attention);"></span>Halcyon &middot; sprint 42 &middot; trailing 7d</p>
+      <div class="hero-stats-row">
+        <span class="hero-stats-label">Pull requests opened</span>
+        <span class="hero-stats-value">312</span>
+        <span class="hero-stats-trend" data-tone="up">&uarr; 18</span>
+      </div>
+      <div class="hero-stats-row">
+        <span class="hero-stats-label">Pull requests merged</span>
+        <span class="hero-stats-value">281</span>
+        <span class="hero-stats-trend" data-tone="up">&uarr; 22</span>
+      </div>
+      <div class="hero-stats-row">
+        <span class="hero-stats-label">Issues closed</span>
+        <span class="hero-stats-value">94</span>
+        <span class="hero-stats-trend" data-tone="up">&uarr; 7</span>
+      </div>
+      <div class="hero-stats-row">
+        <span class="hero-stats-label">Mean review time</span>
+        <span class="hero-stats-value">2h 14m</span>
+        <span class="hero-stats-trend" data-tone="down">&darr; 8m</span>
+      </div>
+    </aside>
+  </section>
+
+  <section class="pr-card" aria-label="Signature surface — pull request conversation">
+    <header class="pr-card-header">
+      <div class="pr-card-titlebar">
+        <div class="pr-card-breadcrumb">
+          <a href="#">halcyon-team</a>
+          <span class="pr-card-breadcrumb-sep" aria-hidden="true">/</span>
+          <a href="#">halcyon-api</a>
+        </div>
+        <h2 class="pr-card-title">
+          <span>Migrate session bootstrap to verified-domain check</span>
+          <span class="pr-card-title-num">#4218</span>
+        </h2>
+        <div class="pr-card-meta">
+          <span class="state-label" data-state="merged">
+            <span class="state-label-icon" aria-hidden="true"></span>
+            Merged
+          </span>
+          <span><a href="#">Jordan Kim</a> merged 14 commits from
+            <span class="pr-card-meta-branch">jk/verified-domain-bootstrap</span>
+            into
+            <span class="pr-card-meta-branch">main</span>
+            yesterday
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <div class="pr-file" aria-label="File changed">
+      <span class="pr-file-name">
+        <span class="pr-file-icon" aria-hidden="true">JS</span>
+        src/auth/bootstrap-session.ts
+      </span>
+      <span class="pr-file-stats">
+        <span class="pr-file-adds">+18</span>
+        <span class="pr-file-removes">&minus;6</span>
+        <span class="pr-file-bar" aria-hidden="true">
+          <span class="pr-file-bar-cell" data-tone="add"></span>
+          <span class="pr-file-bar-cell" data-tone="add"></span>
+          <span class="pr-file-bar-cell" data-tone="add"></span>
+          <span class="pr-file-bar-cell" data-tone="rem"></span>
+          <span class="pr-file-bar-cell"></span>
+        </span>
+      </span>
+    </div>
+
+    <div class="diff" aria-label="Diff view">
+      <div class="diff-line" data-tone="hunk">
+        <span class="diff-gutter">&hellip;</span>
+        <span class="diff-gutter">&hellip;</span>
+        <span class="diff-sign"></span>
+        <span class="diff-code">@@ -42,9 +42,21 @@ export async function bootstrapSession(req: Request) {</span>
+      </div>
+      <div class="diff-line">
+        <span class="diff-gutter">42</span>
+        <span class="diff-gutter">42</span>
+        <span class="diff-sign"></span>
+        <span class="diff-code">  const { email, orgSlug } = await parseInvite(req);</span>
+      </div>
+      <div class="diff-line" data-tone="rem">
+        <span class="diff-gutter">43</span>
+        <span class="diff-gutter"></span>
+        <span class="diff-sign">&minus;</span>
+        <span class="diff-code">  const org = await orgs.findBySlug(<span class="diff-mark">orgSlug</span>);</span>
+      </div>
+      <div class="diff-line" data-tone="add">
+        <span class="diff-gutter"></span>
+        <span class="diff-gutter">43</span>
+        <span class="diff-sign">+</span>
+        <span class="diff-code">  const org = await orgs.findBySlug(<span class="diff-mark">orgSlug</span>, { withVerifiedDomains: true });</span>
+      </div>
+      <div class="diff-line" data-tone="add">
+        <span class="diff-gutter"></span>
+        <span class="diff-gutter">44</span>
+        <span class="diff-sign">+</span>
+        <span class="diff-code">  if (!org) throw new BootstrapError('org_not_found', { orgSlug });</span>
+      </div>
+      <div class="diff-line" data-tone="add">
+        <span class="diff-gutter"></span>
+        <span class="diff-gutter">45</span>
+        <span class="diff-sign">+</span>
+        <span class="diff-code"></span>
+      </div>
+      <div class="diff-line" data-tone="add">
+        <span class="diff-gutter"></span>
+        <span class="diff-gutter">46</span>
+        <span class="diff-sign">+</span>
+        <span class="diff-code">  const domain = email.split('@')[1]?.toLowerCase();</span>
+      </div>
+      <div class="diff-line" data-tone="add">
+        <span class="diff-gutter"></span>
+        <span class="diff-gutter">47</span>
+        <span class="diff-sign">+</span>
+        <span class="diff-code">  const allowed = org.verifiedDomains.some((d) =&gt; d.domain === domain);</span>
+      </div>
+      <div class="diff-line" data-tone="add">
+        <span class="diff-gutter"></span>
+        <span class="diff-gutter">48</span>
+        <span class="diff-sign">+</span>
+        <span class="diff-code">  if (!allowed) throw new BootstrapError('domain_not_verified', { domain });</span>
+      </div>
+      <div class="diff-line">
+        <span class="diff-gutter">44</span>
+        <span class="diff-gutter">49</span>
+        <span class="diff-sign"></span>
+        <span class="diff-code"></span>
+      </div>
+      <div class="diff-line">
+        <span class="diff-gutter">45</span>
+        <span class="diff-gutter">50</span>
+        <span class="diff-sign"></span>
+        <span class="diff-code">  return sessions.create({ email, orgId: org.id });</span>
+      </div>
+      <div class="diff-line">
+        <span class="diff-gutter">46</span>
+        <span class="diff-gutter">51</span>
+        <span class="diff-sign"></span>
+        <span class="diff-code">}</span>
+      </div>
+    </div>
+
+    <div class="merge-bar" aria-label="Merge actions">
+      <span class="merge-bar-status">
+        <span class="merge-bar-status-icon" aria-hidden="true">&check;</span>
+        All checks passed &middot; 14 commits, 1 file, +18 &minus;6
+      </span>
+      <div class="merge-bar-actions">
+        <button class="btn" data-variant="default" data-size="sm" type="button">View timeline</button>
+        <button class="btn" data-variant="cta" data-size="sm" type="button">Merged on main <span aria-hidden="true">&check;</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Colour tokens — semantic palette">
+    <header class="section-header">
+      <p class="section-eyebrow"><span class="section-eyebrow-dot" aria-hidden="true"></span>Tokens &middot; Semantic palette</p>
+      <h2 class="section-title">One hue per role, every state stays the same colour.</h2>
+      <p class="section-lede">Green is open and success, red is closed and danger, purple is merged and done, yellow is attention, orange is severe, pink is sponsors, blue is the link / focus accent. Hue is constant across both polarities; only the lightness step on the scale lifts in dark.</p>
+    </header>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--background);"></div><span class="swatch-role">Canvas</span><span class="swatch-name">--background</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--card);"></div><span class="swatch-role">Surface</span><span class="swatch-name">--card</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--muted);"></div><span class="swatch-role">Surface</span><span class="swatch-name">--muted</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--foreground);"></div><span class="swatch-role">Ink</span><span class="swatch-name">--foreground</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--muted-foreground);"></div><span class="swatch-role">Ink</span><span class="swatch-name">--muted-foreground</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-cta-rest);"></div><span class="swatch-role">Open &middot; success</span><span class="swatch-name">--brand-cta-rest</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--primary);"></div><span class="swatch-role">Link &middot; focus</span><span class="swatch-name">--primary</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-state-merged);"></div><span class="swatch-role">Merged &middot; done</span><span class="swatch-name">--brand-state-merged</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-state-closed);"></div><span class="swatch-role">Closed &middot; danger</span><span class="swatch-name">--brand-state-closed</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-attention);"></div><span class="swatch-role">Attention</span><span class="swatch-name">--brand-attention</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-severe);"></div><span class="swatch-role">Severe</span><span class="swatch-name">--brand-severe</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-sponsors);"></div><span class="swatch-role">Sponsors</span><span class="swatch-name">--brand-sponsors</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Surface ladder">
+    <header class="section-header">
+      <p class="section-eyebrow"><span class="section-eyebrow-dot" aria-hidden="true"></span>Tokens &middot; Surfaces</p>
+      <h2 class="section-title">Hairline borders, no shadow, no tinted fill.</h2>
+      <p class="section-lede">Cards share the page canvas; the one-pixel hairline carries the separation. <code>--card</code> matches <code>--background</code>; <code>--muted</code> lifts one step for recessed bands (sidebar, code-block, table header).</p>
+    </header>
+    <div class="surface-ladder" aria-label="Surface ladder">
+      <div class="surface-step" data-step="0">
+        <span class="surface-step-num">Floor &middot; canvas</span>
+        <span class="surface-step-name">--background</span>
+        <span class="surface-step-role">Page bed and card fill</span>
+      </div>
+      <div class="surface-step" data-step="1">
+        <span class="surface-step-num">Lift 1 &middot; card</span>
+        <span class="surface-step-name">--card</span>
+        <span class="surface-step-role">PR cards, repo cards, comment cards &mdash; identical to canvas</span>
+      </div>
+      <div class="surface-step" data-step="2">
+        <span class="surface-step-num">Lift 2 &middot; muted</span>
+        <span class="surface-step-name">--muted</span>
+        <span class="surface-step-role">Code-block fill, gutter band, table-header strip</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography roles">
+    <header class="section-header">
+      <p class="section-eyebrow"><span class="section-eyebrow-dot" aria-hidden="true"></span>Tokens &middot; Typography</p>
+      <h2 class="section-title">Mona Sans, semibold heads, mono for code.</h2>
+      <p class="section-lede">Six roles drive the surface. Headings sit at semibold 600 with tight negative tracking; body holds at 400. Mono code is <code>ui-monospace</code> at thirteen pixels &mdash; the inline pill at the same scale as the surrounding prose.</p>
+    </header>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Display &middot; 40</span><span class="type-display">Status colour is the identity.</span></div>
+      <div class="type-row"><span class="type-label">Heading &middot; 28</span><span class="type-heading">Hairline cards, semibold heads.</span></div>
+      <div class="type-row"><span class="type-label">Title &middot; 20</span><span class="type-title">PR conversation surface</span></div>
+      <div class="type-row"><span class="type-label">Body &middot; 16</span><span class="type-body">Default paragraph copy at sixteen pixels with line-height one point five. Inline tokens like <span class="inline-code">data-theme</span> sit in a code pill at the same scale as the surrounding text, never lifted or coloured.</span></div>
+      <div class="type-row"><span class="type-label">Meta &middot; 13</span><span class="type-meta">opened by Jordan Kim &middot; 2 days ago &middot; 14 commits</span></div>
+      <div class="type-row"><span class="type-label">Mono &middot; 13</span><span class="type-mono">const session = await bootstrapSession(req); // verified-domain check</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Component vocabulary">
+    <header class="section-header">
+      <p class="section-eyebrow"><span class="section-eyebrow-dot" aria-hidden="true"></span>Vocabulary &middot; Components</p>
+      <h2 class="section-title">Buttons, state pills, labels, callouts.</h2>
+      <p class="section-lede">Buttons use a six-pixel radius. State pills go to nine-thousand-nine-hundred-ninety-nine. Labels carry the tinted-fill + same-hue-text pattern. Inverse-treatment danger stays quiet at rest and goes loud on hover.</p>
+    </header>
+    <div class="components-stack">
+
+      <div class="cmp-row" aria-label="Button variants">
+        <button class="btn" data-variant="cta" type="button">Code &#9662;</button>
+        <button class="btn" data-variant="primary" type="button">Filter pull requests</button>
+        <button class="btn" data-variant="default" type="button">Read the docs</button>
+        <button class="btn" data-variant="invisible" type="button">More options &hellip;</button>
+        <button class="btn" data-variant="danger" type="button">Delete repository</button>
+      </div>
+
+      <div class="cmp-row" aria-label="Status pills">
+        <span class="state-label" data-state="open"><span class="state-label-icon" aria-hidden="true"></span>Open</span>
+        <span class="state-label" data-state="merged"><span class="state-label-icon" aria-hidden="true"></span>Merged</span>
+        <span class="state-label" data-state="closed"><span class="state-label-icon" aria-hidden="true"></span>Closed</span>
+        <span class="state-label" data-state="draft"><span class="state-label-icon" aria-hidden="true"></span>Draft</span>
+      </div>
+
+      <div class="cmp-row" aria-label="Repo counter group">
+        <div class="btn-group" role="group" aria-label="Watch / Fork / Star">
+          <button type="button">
+            <span class="btn-group-icon" aria-hidden="true">&#x25CE;</span>
+            <span>Watch</span>
+          </button>
+          <span class="btn-group-count">217</span>
+          <button type="button">
+            <span class="btn-group-icon" aria-hidden="true">&#x21AA;</span>
+            <span>Fork</span>
+          </button>
+          <span class="btn-group-count">1.2k</span>
+          <button type="button">
+            <span class="btn-group-icon" aria-hidden="true">&#x2605;</span>
+            <span>Star</span>
+          </button>
+          <span class="btn-group-count">14.8k</span>
+        </div>
+      </div>
+
+      <nav class="tab-row" aria-label="Repo tabs">
+        <a class="tab-row-item" aria-selected="true" href="#">
+          Code
+        </a>
+        <a class="tab-row-item" href="#">
+          Issues
+          <span class="tab-row-counter">42</span>
+        </a>
+        <a class="tab-row-item" href="#">
+          Pull requests
+          <span class="tab-row-counter">18</span>
+        </a>
+        <a class="tab-row-item" href="#">
+          Actions
+        </a>
+        <a class="tab-row-item" href="#">
+          Projects
+        </a>
+        <a class="tab-row-item" href="#">
+          Security
+          <span class="tab-row-counter">3</span>
+        </a>
+        <a class="tab-row-item" href="#">
+          Insights
+        </a>
+      </nav>
+
+      <div class="row-list" aria-label="Issue list">
+        <header class="row-list-head">
+          <div class="row-list-head-tabs">
+            <span class="row-list-head-tab" data-state="active">
+              <span class="row-list-head-tab-icon" aria-hidden="true"></span>
+              <span>42 Open</span>
+            </span>
+            <span class="row-list-head-tab" data-state="rest">
+              <span class="row-list-head-tab-icon" aria-hidden="true"></span>
+              <span>1,318 Closed</span>
+            </span>
+          </div>
+        </header>
+        <article class="row">
+          <span class="row-icon" data-state="open" aria-label="Open"></span>
+          <div class="row-body">
+            <p class="row-title">
+              <a href="#">Bootstrap fails when invite email domain is unverified</a>
+              <span class="label-pill" data-tone="bug">bug</span>
+              <span class="label-pill" data-tone="feat">auth</span>
+            </p>
+            <span class="row-meta">#4218 opened 2 days ago by Jordan Kim &middot; assigned to Morgan Lee</span>
+          </div>
+          <span class="row-side">
+            <span class="row-comments"><span class="row-comments-glyph" aria-hidden="true"></span>14</span>
+          </span>
+        </article>
+        <article class="row">
+          <span class="row-icon" data-state="open" aria-label="Open"></span>
+          <div class="row-body">
+            <p class="row-title">
+              <a href="#">Migrate session cookie to <span class="inline-code">SameSite=None</span> for cross-subdomain</a>
+              <span class="label-pill" data-tone="feat">enhancement</span>
+              <span class="label-pill" data-tone="docs">docs</span>
+            </p>
+            <span class="row-meta">#4211 opened 5 days ago by Avery Park</span>
+          </div>
+          <span class="row-side">
+            <span class="row-comments"><span class="row-comments-glyph" aria-hidden="true"></span>8</span>
+          </span>
+        </article>
+        <article class="row">
+          <span class="row-icon" data-state="open" aria-label="Open"></span>
+          <div class="row-body">
+            <p class="row-title">
+              <a href="#">Quota tracker miscounts replaces under concurrent publish</a>
+              <span class="label-pill" data-tone="bug">bug</span>
+              <span class="label-pill" data-tone="wait">needs repro</span>
+            </p>
+            <span class="row-meta">#4207 opened 6 days ago by Riley Chen</span>
+          </div>
+          <span class="row-side">
+            <span class="row-comments"><span class="row-comments-glyph" aria-hidden="true"></span>3</span>
+          </span>
+        </article>
+        <article class="row">
+          <span class="row-icon" data-state="closed-purple" aria-label="Closed (completed)"></span>
+          <div class="row-body">
+            <p class="row-title">
+              <a href="#">Add health-check endpoint to api</a>
+              <span class="label-pill" data-tone="feat">enhancement</span>
+            </p>
+            <span class="row-meta">#4198 closed yesterday by Sam Walker</span>
+          </div>
+          <span class="row-side">
+            <span class="row-comments"><span class="row-comments-glyph" aria-hidden="true"></span>11</span>
+          </span>
+        </article>
+        <article class="row">
+          <span class="row-icon" data-state="closed-red" aria-label="Closed (not planned)"></span>
+          <div class="row-body">
+            <p class="row-title">
+              <a href="#">Investigate cron drift on Fly machine restarts</a>
+              <span class="label-pill" data-tone="help">help wanted</span>
+            </p>
+            <span class="row-meta">#4173 closed 3 days ago by Taylor Reyes &middot; reason: not planned</span>
+          </div>
+          <span class="row-side">
+            <span class="row-comments"><span class="row-comments-glyph" aria-hidden="true"></span>6</span>
+          </span>
+        </article>
+      </div>
+
+      <div class="cmp-row" aria-label="Reaction buttons">
+        <button class="reaction" type="button" data-state="active"><span aria-hidden="true">&#128077;</span><span>12</span></button>
+        <button class="reaction" type="button"><span aria-hidden="true">&#127881;</span><span>7</span></button>
+        <button class="reaction" type="button"><span aria-hidden="true">&#128293;</span><span>4</span></button>
+        <button class="reaction" type="button"><span aria-hidden="true">&#128571;</span><span>2</span></button>
+        <button class="reaction" type="button" aria-label="Add reaction"><span aria-hidden="true">+</span></button>
+      </div>
+
+      <div class="cmp-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1rem; width: 100%;" aria-label="Callouts">
+        <div class="callout" data-tone="note">
+          <p class="callout-title">Note</p>
+          <p class="callout-body">The verified-domain check runs before session bootstrap. If the invite email domain doesn't match an org's verified set, the request fails with <span class="inline-code">domain_not_verified</span>.</p>
+        </div>
+        <div class="callout" data-tone="tip">
+          <p class="callout-title">Tip</p>
+          <p class="callout-body">Run <span class="inline-code">npm run seed</span> to rebuild the local fixtures. Sprint personas land in a known-good shape; no manual re-clicking through onboarding to get to a representative state.</p>
+        </div>
+        <div class="callout" data-tone="important">
+          <p class="callout-title">Important</p>
+          <p class="callout-body">Schema changes ship as ordered migrations. CI runs the full set against an ephemeral container so the production deploy applies the same diff every time.</p>
+        </div>
+        <div class="callout" data-tone="warning">
+          <p class="callout-title">Warning</p>
+          <p class="callout-body">Don't bypass the auth adapter to "fix" theoretical race conditions. The windows are milliseconds wide on single-admin operations; raw SQL replaces a tradeoff with worse code.</p>
+        </div>
+        <div class="callout" data-tone="caution">
+          <p class="callout-title">Caution</p>
+          <p class="callout-body">Wrap every scheduled job with <span class="inline-code">withLeaseLock</span>. Bare cron handlers fire on every replica when the app runs more than one instance.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" aria-label="Contribution graph">
+    <header class="section-header">
+      <p class="section-eyebrow"><span class="section-eyebrow-dot" aria-hidden="true"></span>Surface &middot; Contribution graph</p>
+      <h2 class="section-title">Five steps of green, one calendar grid.</h2>
+      <p class="section-lede">A 5-step intensity ramp from the canvas-tinted empty cell through the deepest green step. The dark theme compresses to mid-greens; the empty cell swaps to a cool near-black instead of light gray.</p>
+    </header>
+    <div class="contrib" aria-label="Halcyon engineering contributions">
+      <header class="contrib-head">
+        <p class="contrib-title">2,418 contributions in the last year</p>
+        <p class="contrib-sub">Halcyon engineering &middot; week-grouped &middot; sun &mdash; sat</p>
+      </header>
+      <div class="contrib-grid" role="img" aria-label="Contribution intensity grid"></div>
+      <footer class="contrib-legend">
+        <span>Less</span>
+        <span class="contrib-legend-cell" data-l="0" style="background: var(--brand-contribution-l0);"></span>
+        <span class="contrib-legend-cell" data-l="1" style="background: var(--brand-contribution-l1);"></span>
+        <span class="contrib-legend-cell" data-l="2" style="background: var(--brand-contribution-l2);"></span>
+        <span class="contrib-legend-cell" data-l="3" style="background: var(--brand-contribution-l3);"></span>
+        <span class="contrib-legend-cell" data-l="4" style="background: var(--brand-contribution-l4);"></span>
+        <span>More</span>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <span class="footer-brand">
+        <span class="footer-brand-mark" aria-hidden="true"></span>
+        <span>__DESIGN_SYSTEM_NAME__</span>
+      </span>
+    </div>
+    <div class="footer-grid">
+      <div>
+        <p class="footer-col-title">Product</p>
+        <ul class="footer-col-list">
+          <li><a href="#">Platform</a></li>
+          <li><a href="#">Code review</a></li>
+          <li><a href="#">Issues</a></li>
+          <li><a href="#">Actions</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Tokens</p>
+        <ul class="footer-col-list">
+          <li><a href="#">Colour</a></li>
+          <li><a href="#">Surfaces</a></li>
+          <li><a href="#">Typography</a></li>
+          <li><a href="#">Hairlines</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Vocabulary</p>
+        <ul class="footer-col-list">
+          <li><a href="#">Buttons</a></li>
+          <li><a href="#">State pills</a></li>
+          <li><a href="#">Labels</a></li>
+          <li><a href="#">Callouts</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Halcyon</p>
+        <ul class="footer-col-list">
+          <li><a href="#">halcyon.dev</a></li>
+          <li><a href="#">app.halcyon.dev</a></li>
+          <li><a href="#">&commat;halcyon/cli</a></li>
+          <li><a href="#">hlc.so</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>__DESIGN_SYSTEM_NAME__ &middot; token surface preview &middot; 2026.05.25</span>
+      <span>both polarities &middot; semantic palette &middot; hairline cards &middot; polarity-locked chrome</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Generate the contribution-graph cells deterministically. 52 weeks × 7 days
+// = 364 cells; intensity step (l0–l4) is derived from a fixed pseudo-random
+// sequence so the preview is identical across builds. No state, no fetch,
+// no animation — the grid is decorative.
+(function () {
+  var grid = document.querySelector('.contrib-grid');
+  if (!grid) return;
+  var weeks = 52, days = 7;
+  // Halcyon-themed contribution pattern: weekdays heavier, weekends lighter,
+  // recent weeks heaviest (recency bias). Deterministic via hash-of-index.
+  function step(w, d) {
+    // Compute a deterministic 0-4 step from week + day indices.
+    var seed = (w * 7 + d) * 9301 + 49297;
+    var rand = (seed % 233280) / 233280;
+    // Weekend taper.
+    var weekendBias = (d === 0 || d === 6) ? -0.25 : 0;
+    // Slight recency bias on the right side.
+    var recencyBias = (w / weeks) * 0.15;
+    var v = rand + weekendBias + recencyBias;
+    if (v < 0.15) return 0;
+    if (v < 0.40) return 1;
+    if (v < 0.65) return 2;
+    if (v < 0.85) return 3;
+    return 4;
+  }
+  var html = '';
+  for (var w = 0; w < weeks; w++) {
+    for (var d = 0; d < days; d++) {
+      html += '<span class="contrib-cell" data-l="' + step(w, d) + '" aria-hidden="true" style="grid-column: ' + (w + 1) + '; grid-row: ' + (d + 1) + ';"></span>';
+    }
+  }
+  grid.innerHTML = html;
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+/**
+ * design-systems/opencode-ai-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Dark-mode strategy (hand-edited 2026-05-25, drift from import-time default):
+ *
+ * Light-canonical brand with a single documented dark surface — the hero
+ * TUI mockup uses `--brand-surface-dark` (#201d1d) as the brand's own
+ * near-black. The brand has no full-page dark mode in the captured site,
+ * so the dark variant synthesises one by promoting the brand's documented
+ * TUI surface to canvas. This keeps the warm cast (oklch hue 17,
+ * chroma 0.0046) instead of dropping to the synthesised L=0.0082 pure
+ * near-black, which loses the brand's warm-charcoal undertone and
+ * disagrees with every other dark surface the brand already ships.
+ *
+ * Foreground / body / mute tones in dark mode reuse the brand-extras
+ * the brand already defines for the dark TUI: --brand-on-dark (#fdfcfc),
+ * --brand-on-dark-mute (#9a9898), --brand-ash. The card / secondary /
+ * muted surfaces step one notch above canvas using
+ * --brand-surface-dark-elevated (#302c2c) — the documented prompt-row
+ * fill inside the TUI mockup.
+ *
+ * Polarity-locked brand extras (--brand-surface-dark, --brand-on-dark,
+ * --brand-ink-deep, semantic ramps) stay at :root values in dark — they
+ * already encode their dark-context meaning and the documented hero TUI
+ * mockup keeps its same fill in both themes (now flush with the canvas
+ * rather than a single dark accent).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(0.9918 0.0011 17.1759);
+  --foreground: oklch(0.2341 0.0046 17.4891);
+  --card: oklch(0.9514 0.0032 17.2141);
+  --card-foreground: oklch(0.2341 0.0046 17.4891);
+  --popover: oklch(0.9514 0.0032 17.2141);
+  --popover-foreground: oklch(0.2341 0.0046 17.4891);
+  --primary: oklch(0.2341 0.0046 17.4891);
+  --primary-foreground: oklch(0.9918 0.0011 17.1759);
+  --secondary: oklch(0.9769 0.0011 17.1763);
+  --secondary-foreground: oklch(0.2341 0.0046 17.4891);
+  --muted: oklch(0.9769 0.0011 17.1763);
+  --muted-foreground: oklch(0.2341 0.0046 17.4891);
+  --accent: oklch(0.6028 0.2177 257.4239);
+  --accent-foreground: oklch(0.2341 0.0046 17.4891);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(0.9918 0.0011 17.1759);
+  --border: oklch(0.1058 0.0434 29.2339 / 0.1200);
+  --input: oklch(0.1058 0.0434 29.2339 / 0.1200);
+  --ring: oklch(0.2341 0.0046 17.4891);
+  --sidebar: oklch(0.9769 0.0011 17.1763);
+  --sidebar-foreground: oklch(0.2341 0.0046 17.4891);
+  --sidebar-primary: oklch(0.2341 0.0046 17.4891);
+  --sidebar-primary-foreground: oklch(0.9918 0.0011 17.1759);
+  --sidebar-accent: oklch(0.9769 0.0011 17.1763);
+  --sidebar-accent-foreground: oklch(0.2341 0.0046 17.4891);
+  --sidebar-border: oklch(0.1058 0.0434 29.2339 / 0.1200);
+  --sidebar-ring: oklch(0.2341 0.0046 17.4891);
+  --chart-1: oklch(0.8100 0.0046 17.4891);
+  --chart-2: oklch(0.7100 0.0046 17.4891);
+  --chart-3: oklch(0.6100 0.0046 17.4891);
+  --chart-4: oklch(0.5100 0.0046 17.4891);
+  --chart-5: oklch(0.4200 0.0046 17.4891);
+
+  /* radius scale */
+  --radius-sm: 4px;
+  --radius-md: calc(0.625rem - 2px);
+  --radius-lg: 0.625rem;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: Berkeley Mono;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: Berkeley Mono;
+  --font-display: Berkeley Mono;
+
+  /* type scale tokens */
+  --text-display: 38px;
+  --text-heading: 16px;
+  --text-title: 16px;
+  --text-base: 16px;
+  --leading-tight: 1.5;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-ink-deep: oklch(0.1058 0.0434 29.2339);
+  --brand-charcoal: oklch(0.2974 0.0058 17.4853);
+  --brand-body: oklch(0.3802 0.0050 286.1576);
+  --brand-mute: oklch(0.4980 0.0025 17.2420);
+  --brand-stone: oklch(0.5399 0.0077 286.1391);
+  --brand-ash: oklch(0.6814 0.0023 17.2147);
+  --brand-surface-dark: oklch(0.2341 0.0046 17.4891);
+  --brand-surface-dark-elevated: oklch(0.2974 0.0058 17.4853);
+  --brand-hairline-strong: oklch(0.4980 0.0025 17.2420);
+  --brand-on-dark: oklch(0.9918 0.0011 17.1759);
+  --brand-on-dark-mute: oklch(0.6814 0.0023 17.2147);
+  --brand-accent-hover: oklch(0.4675 0.1639 256.6956);
+  --brand-accent-active: oklch(0.3803 0.1295 255.9238);
+  --brand-warning: oklch(0.7824 0.1711 67.2231);
+  --brand-warning-hover: oklch(0.6628 0.1441 67.6169);
+  --brand-warning-active: oklch(0.5375 0.1158 68.2476);
+  --brand-danger: oklch(0.6542 0.2321 28.6592);
+  --brand-danger-hover: oklch(0.5529 0.2255 27.2688);
+  --brand-danger-active: oklch(0.4542 0.1849 26.6038);
+  --brand-success: oklch(0.7556 0.2082 146.9836);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Hand-edited 2026-05-25 — see header comment. Promotes the brand's
+     documented --brand-surface-dark / --brand-surface-dark-elevated
+     pair to canvas + card, with --brand-on-dark as foreground and the
+     brand's documented mute/ash tones for body + muted text. */
+  --background: oklch(0.2341 0.0046 17.4891);            /* --brand-surface-dark */
+  --foreground: oklch(0.9918 0.0011 17.1759);            /* --brand-on-dark */
+  --card: oklch(0.2974 0.0058 17.4853);                  /* --brand-surface-dark-elevated */
+  --card-foreground: oklch(0.9918 0.0011 17.1759);
+  --popover: oklch(0.2974 0.0058 17.4853);
+  --popover-foreground: oklch(0.9918 0.0011 17.1759);
+  --primary: oklch(0.9918 0.0011 17.1759);               /* CTA flips to cream */
+  --primary-foreground: oklch(0.2341 0.0046 17.4891);    /* ink on cream */
+  --secondary: oklch(0.2974 0.0058 17.4853);
+  --secondary-foreground: oklch(0.9918 0.0011 17.1759);
+  --muted: oklch(0.2974 0.0058 17.4853);
+  --muted-foreground: oklch(0.6814 0.0023 17.2147);      /* --brand-ash */
+  --accent: oklch(0.6028 0.2177 257.4239);               /* Apple Blue holds in dark */
+  --accent-foreground: oklch(0.9918 0.0011 17.1759);
+  --destructive: oklch(0.6542 0.2321 28.6592);
+  --destructive-foreground: oklch(0.9918 0.0011 17.1759);
+  --border: oklch(0.9918 0.0011 17.1759 / 0.1400);       /* warm hairline on dark */
+  --input: oklch(0.9918 0.0011 17.1759 / 0.1400);
+  --ring: oklch(0.9918 0.0011 17.1759);
+  --sidebar: oklch(0.2974 0.0058 17.4853);
+  --sidebar-foreground: oklch(0.9918 0.0011 17.1759);
+  --sidebar-primary: oklch(0.9918 0.0011 17.1759);
+  --sidebar-primary-foreground: oklch(0.2341 0.0046 17.4891);
+  --sidebar-accent: oklch(0.2974 0.0058 17.4853);
+  --sidebar-accent-foreground: oklch(0.9918 0.0011 17.1759);
+  --sidebar-border: oklch(0.9918 0.0011 17.1759 / 0.1400);
+  --sidebar-ring: oklch(0.9918 0.0011 17.1759);
+  --chart-1: oklch(0.9918 0.0011 17.1759);
+  --chart-2: oklch(0.8200 0.0023 17.2147);
+  --chart-3: oklch(0.6814 0.0023 17.2147);
+  --chart-4: oklch(0.5399 0.0077 286.1391);
+  --chart-5: oklch(0.4200 0.0046 17.4891);
+
+  /* brand-extras for theme-flipping body text. Most --brand-* tokens
+     stay at :root (polarity-locked); these are the ones used as text
+     on the now-dark canvas and need to flip with theme. */
+  --brand-body: oklch(0.8200 0.0023 17.2147);            /* warm light gray on dark */
+  --brand-mute: oklch(0.6814 0.0023 17.2147);            /* --brand-ash level */
+  --brand-charcoal: oklch(0.9514 0.0032 17.2141);        /* near-cream emphasis */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2341 0.0046 17.4891);
+    --foreground: oklch(0.9918 0.0011 17.1759);
+    --card: oklch(0.2974 0.0058 17.4853);
+    --card-foreground: oklch(0.9918 0.0011 17.1759);
+    --popover: oklch(0.2974 0.0058 17.4853);
+    --popover-foreground: oklch(0.9918 0.0011 17.1759);
+    --primary: oklch(0.9918 0.0011 17.1759);
+    --primary-foreground: oklch(0.2341 0.0046 17.4891);
+    --secondary: oklch(0.2974 0.0058 17.4853);
+    --secondary-foreground: oklch(0.9918 0.0011 17.1759);
+    --muted: oklch(0.2974 0.0058 17.4853);
+    --muted-foreground: oklch(0.6814 0.0023 17.2147);
+    --accent: oklch(0.6028 0.2177 257.4239);
+    --accent-foreground: oklch(0.9918 0.0011 17.1759);
+    --destructive: oklch(0.6542 0.2321 28.6592);
+    --destructive-foreground: oklch(0.9918 0.0011 17.1759);
+    --border: oklch(0.9918 0.0011 17.1759 / 0.1400);
+    --input: oklch(0.9918 0.0011 17.1759 / 0.1400);
+    --ring: oklch(0.9918 0.0011 17.1759);
+    --sidebar: oklch(0.2974 0.0058 17.4853);
+    --sidebar-foreground: oklch(0.9918 0.0011 17.1759);
+    --sidebar-primary: oklch(0.9918 0.0011 17.1759);
+    --sidebar-primary-foreground: oklch(0.2341 0.0046 17.4891);
+    --sidebar-accent: oklch(0.2974 0.0058 17.4853);
+    --sidebar-accent-foreground: oklch(0.9918 0.0011 17.1759);
+    --sidebar-border: oklch(0.9918 0.0011 17.1759 / 0.1400);
+    --sidebar-ring: oklch(0.9918 0.0011 17.1759);
+    --chart-1: oklch(0.9918 0.0011 17.1759);
+    --chart-2: oklch(0.8200 0.0023 17.2147);
+    --chart-3: oklch(0.6814 0.0023 17.2147);
+    --chart-4: oklch(0.5399 0.0077 286.1391);
+    --chart-5: oklch(0.4200 0.0046 17.4891);
+
+    --brand-body: oklch(0.8200 0.0023 17.2147);
+    --brand-mute: oklch(0.6814 0.0023 17.2147);
+    --brand-charcoal: oklch(0.9514 0.0032 17.2141);
+  }
+}

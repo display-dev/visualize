@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%239fe870'/%3E%3Cpath d='M9 11 L11.5 21 L14 21 L15.5 14.5 L17 21 L19.5 21 L22 11 L19.5 11 L18.25 18 L16.75 11 L14.25 11 L12.75 18 L11.5 11 Z' fill='%230e0f0c'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Sage-canvas hero + lime-green CTA + heavy display sans signature. Multi-currency balance card showing how Halcyon's team runs international operations across EUR/USD/GBP. Halcyon-themed neutral fintech-shape content.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Wise-style preview shell — sage-canvas hero with the brand's lime
+   CTA + heavy display sans signature. Wise Sans (proprietary) substituted
+   by Manrope 900 + Inter for sub-display; weight 900 carries every hero
+   headline. Single signature mockup: a multi-currency balance card
+   showing how Halcyon's team runs international operations across
+   EUR/USD/GBP. Everything else is token demos. Halcyon-team neutral
+   fintech-shape content — invented names, abstract amounts, no real
+   bank names. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Wise Sans', 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern", "liga", "tnum";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Sage-tinted canvas (hero, closing band). Light-canonical surface
+ * polarity-locked to --brand-canvas-soft. In dark mode the bg flips to
+ * --background (warm near-black) via a separate selector. -- */
+.canvas-sage {
+  background: var(--brand-canvas-soft);
+  color: var(--foreground);
+}
+[data-theme="dark"] .canvas-sage {
+  background: var(--card);
+  color: var(--foreground);
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 72px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Wise Sans', 'Manrope', 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--brand-radius-full);
+  background: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  font-family: 'Wise Sans', 'Manrope', 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+  color: var(--primary-foreground);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 600;
+  flex: 1;
+  margin-left: 2.5rem;
+}
+.topnav-links a {
+  color: var(--foreground);
+  text-decoration: none;
+}
+.topnav-links a:hover { color: var(--muted-foreground); }
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 14px;
+}
+.topnav-actions a {
+  color: var(--foreground);
+  text-decoration: none;
+  font-weight: 600;
+}
+.topnav-actions a:hover { color: var(--muted-foreground); }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (pill-rectangle, 24px radius — the brand's signature
+ * geometry). All variants render at the same min-height + padding for
+ * a consistent pill block. -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0 1.5rem;
+  border-radius: var(--radius-xl);
+  font-family: 'Wise Sans', 'Manrope', 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.2px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-active); border-color: var(--brand-primary-active); }
+.btn[data-variant="secondary"] {
+  background: var(--brand-canvas-soft);
+  color: var(--brand-ink-deep);
+  border-color: var(--brand-canvas-soft);
+}
+.btn[data-variant="secondary"]:hover { background: var(--brand-primary-pale); border-color: var(--brand-primary-pale); }
+.btn[data-variant="tertiary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+.btn[data-variant="tertiary"]:hover { background: var(--brand-canvas-soft); }
+[data-theme="dark"] .btn[data-variant="tertiary"]:hover { background: var(--card); }
+.btn[data-size="sm"] { min-height: 36px; padding: 0 1rem; font-size: 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (sage canvas, weight 900 display) -- */
+.hero {
+  padding: 5rem 1.5rem 6rem;
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+@media (max-width: 960px) { .hero-inner { grid-template-columns: 1fr; gap: 3rem; } }
+.hero-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brand-ink-deep);
+  margin: 0 0 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--brand-primary-pale);
+}
+[data-theme="dark"] .hero-eyebrow {
+  background: oklch(0.32 0.06 134 / 0.6);
+  color: var(--primary);
+}
+.hero-display {
+  font-family: 'Wise Sans', 'Manrope', 'Inter', sans-serif;
+  font-size: clamp(3rem, 7.5vw, 5.5rem);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 14ch;
+}
+.hero-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+  max-width: 32rem;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* -- Signature surface: multi-currency balance card -- */
+.balance-card {
+  background: var(--background);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  color: var(--foreground);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}
+[data-theme="dark"] .balance-card { background: var(--card); }
+.balance-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.balance-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  margin: 0 0 0.375rem;
+}
+.balance-title {
+  font-family: 'Wise Sans', 'Manrope', 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.1;
+}
+.balance-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--brand-primary-pale);
+  color: var(--brand-positive-deep);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+}
+.balance-total {
+  font-family: 'Wise Sans', 'Manrope', 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+.balance-total-mute {
+  font-size: 0.5em;
+  color: var(--muted-foreground);
+  font-weight: 600;
+  margin-left: 0.5rem;
+  letter-spacing: 0;
+}
+.balance-split {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+.balance-split-row {
+  background: var(--brand-canvas-soft);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+[data-theme="dark"] .balance-split-row { background: var(--secondary); }
+.balance-split-ccy {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.balance-split-amount {
+  font-family: 'Wise Sans', 'Manrope', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
+}
+.activity-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+}
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+.activity-row {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: 0.875rem;
+  align-items: center;
+}
+.activity-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--brand-radius-full);
+  background: var(--brand-canvas-soft);
+  color: var(--brand-ink-deep);
+  display: grid;
+  place-items: center;
+  font-family: 'Wise Sans', 'Manrope', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: -0.2px;
+}
+[data-theme="dark"] .activity-icon {
+  background: var(--secondary);
+  color: var(--foreground);
+}
+.activity-icon[data-tone="lime"] { background: var(--primary); color: var(--primary-foreground); }
+.activity-icon[data-tone="peach"] { background: var(--accent); color: var(--accent-foreground); }
+.activity-meta-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1.3;
+  margin: 0;
+}
+.activity-meta-note {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted-foreground);
+  line-height: 1.3;
+  margin: 0.125rem 0 0;
+}
+.activity-amount {
+  font-family: 'Wise Sans', 'Manrope', 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
+  text-align: right;
+}
+.activity-amount[data-tone="positive"] { color: var(--brand-positive-deep); }
+[data-theme="dark"] .activity-amount[data-tone="positive"] { color: var(--primary); }
+.activity-amount-note {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  letter-spacing: 0;
+  margin-top: 0.125rem;
+}
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; background: var(--background); }
+.section[data-tight] { padding: 4rem 1.5rem; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 3rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'Wise Sans', 'Manrope', 'Inter', sans-serif;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+  color: var(--foreground);
+  margin: 0 0 1.25rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+  margin: 0;
+  max-width: 40rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: colour swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 0.75rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 3rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+  word-break: break-all;
+}
+.swatch-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 880px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="sage"]   { background: var(--brand-canvas-soft); color: var(--foreground); border-color: var(--brand-canvas-soft); }
+.ladder-step[data-step="white"]  { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="lime"]   { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+.ladder-step[data-step="ink"]    { background: var(--foreground); color: var(--background); border-color: var(--foreground); }
+[data-theme="dark"] .ladder-step[data-step="sage"] { background: var(--card); border-color: var(--border); color: var(--foreground); }
+[data-theme="dark"] .ladder-step[data-step="white"] { background: var(--secondary); border-color: var(--border); color: var(--foreground); }
+[data-theme="dark"] .ladder-step[data-step="ink"] { background: var(--foreground); color: var(--background); border-color: var(--foreground); }
+.ladder-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+  word-break: break-all;
+}
+.ladder-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  margin-top: auto;
+  line-height: 1.4;
+}
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2.5rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.type-display {
+  font-family: 'Wise Sans', 'Manrope', 'Inter', sans-serif;
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+.type-heading {
+  font-family: 'Wise Sans', 'Manrope', 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.0;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+.type-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+.type-mono {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--brand-primary-pale);
+  color: var(--brand-positive-deep);
+}
+.tag-chip[data-tone="warning"] {
+  background: oklch(0.96 0.07 92);
+  color: var(--brand-warning-content);
+}
+.tag-chip[data-tone="danger"] {
+  background: var(--brand-negative-bg);
+  color: var(--background);
+}
+[data-theme="dark"] .tag-chip[data-tone="danger"] { color: oklch(0.97 0.04 24); }
+.tag-chip[data-tone="neutral"] {
+  background: var(--brand-canvas-soft);
+  color: var(--foreground);
+}
+[data-theme="dark"] .tag-chip[data-tone="neutral"] {
+  background: var(--secondary);
+  color: var(--foreground);
+}
+
+/* -- Closing sage band (decorative bookend) -- */
+.closing-band {
+  padding: 6rem 1.5rem;
+  text-align: center;
+}
+.closing-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+.closing-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brand-ink-deep);
+  margin: 0;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--brand-primary-pale);
+}
+[data-theme="dark"] .closing-eyebrow {
+  background: oklch(0.32 0.06 134 / 0.6);
+  color: var(--primary);
+}
+.closing-aphorism {
+  font-family: 'Wise Sans', 'Manrope', 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 18ch;
+}
+
+/* -- Footer (always-dark, sage-on-ink for the brand's footer convention) -- */
+.footer {
+  background: var(--foreground);
+  color: var(--brand-canvas-soft);
+  padding: 4rem 1.5rem 2rem;
+}
+[data-theme="dark"] .footer {
+  background: oklch(0.12 0.005 130);
+  color: var(--brand-canvas-soft);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 3rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Wise Sans', 'Manrope', 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+  color: var(--brand-canvas-soft);
+  text-decoration: none;
+}
+.footer-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--brand-canvas-soft);
+  opacity: 0.75;
+  line-height: 1.5;
+  margin: 0;
+}
+.footer-col-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-canvas-soft);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--brand-canvas-soft);
+  text-decoration: none;
+  opacity: 0.78;
+}
+.footer-list a:hover { opacity: 1; }
+.footer-legal {
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid oklch(1 0 0 / 0.12);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--brand-canvas-soft);
+  opacity: 0.6;
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Team</a>
+      <a href="#">Multi-currency</a>
+      <a href="#">Cards</a>
+      <a href="#">Reports</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Open an account</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero canvas-sage" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Halcyon &middot; International ops</p>
+      <h1 class="hero-display">One balance, three currencies.</h1>
+      <p class="hero-lede">Halcyon's finance team runs payroll, vendor invoices, and traveling-team reimbursements from a single multi-currency balance. EUR, USD, GBP — held at mid-market, paid out in the local currency the recipient holds.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" type="button">Open an account</button>
+        <button class="btn" data-variant="tertiary" type="button">See the rates</button>
+      </div>
+    </div>
+
+    <div class="balance-card" role="figure" aria-label="Halcyon team multi-currency balance with recent activity">
+      <div class="balance-head">
+        <div>
+          <p class="balance-eyebrow">Halcyon Ops &middot; Team balance</p>
+          <h2 class="balance-title">Total holdings</h2>
+        </div>
+        <span class="balance-tag">Mid-market</span>
+      </div>
+      <div>
+        <div class="balance-total">428,612.40<span class="balance-total-mute">EUR</span></div>
+      </div>
+      <div class="balance-split">
+        <div class="balance-split-row">
+          <span class="balance-split-ccy">EUR</span>
+          <span class="balance-split-amount">218,640.18</span>
+        </div>
+        <div class="balance-split-row">
+          <span class="balance-split-ccy">USD</span>
+          <span class="balance-split-amount">142,082.55</span>
+        </div>
+        <div class="balance-split-row">
+          <span class="balance-split-ccy">GBP</span>
+          <span class="balance-split-amount">67,889.67</span>
+        </div>
+      </div>
+      <div class="activity-label">Last 24h &middot; Cleared</div>
+      <div class="activity-list">
+        <div class="activity-row">
+          <span class="activity-icon" data-tone="lime" aria-hidden="true">JK</span>
+          <div>
+            <p class="activity-meta-name">Reimbursement &middot; Jordan Kim</p>
+            <p class="activity-meta-note">Off-site venue &middot; 09:14</p>
+          </div>
+          <span class="activity-amount">&minus;284.40<span class="activity-amount-note">EUR</span></span>
+        </div>
+        <div class="activity-row">
+          <span class="activity-icon" aria-hidden="true">ML</span>
+          <div>
+            <p class="activity-meta-name">Vendor invoice &middot; Morgan Lee</p>
+            <p class="activity-meta-note">Routed EUR &rarr; USD &middot; 08:42</p>
+          </div>
+          <span class="activity-amount">&minus;4,212.00<span class="activity-amount-note">USD</span></span>
+        </div>
+        <div class="activity-row">
+          <span class="activity-icon" data-tone="peach" aria-hidden="true">AP</span>
+          <div>
+            <p class="activity-meta-name">Travel card &middot; Avery Park</p>
+            <p class="activity-meta-note">Hotel &middot; Lisbon &middot; Mon</p>
+          </div>
+          <span class="activity-amount">&minus;642.18<span class="activity-amount-note">EUR</span></span>
+        </div>
+        <div class="activity-row">
+          <span class="activity-icon" aria-hidden="true">RC</span>
+          <div>
+            <p class="activity-meta-name">Inbound payment &middot; Riley Chen</p>
+            <p class="activity-meta-note">Customer settlement &middot; 02:08</p>
+          </div>
+          <span class="activity-amount" data-tone="positive">+12,480.00<span class="activity-amount-note">GBP</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" aria-label="Colour tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens &middot; Colour</p>
+      <h2 class="section-title">Lime green, against everything quiet.</h2>
+      <p class="section-lede">A single vivid lime carries every primary CTA. Sage canvas, white card surfaces, and the semantic family (positive green, warning amber, negative red) handle the rest. No second brand accent.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Brand &middot; primary</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-primary-pale);"></div><div class="swatch-role">Primary pale</div><div class="swatch-name">--brand-primary-pale</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-soft);"></div><div class="swatch-role">Sage canvas</div><div class="swatch-name">--brand-canvas-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--accent);"></div><div class="swatch-role">Peach accent</div><div class="swatch-name">--accent</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-cyan);"></div><div class="swatch-role">Illustration cyan</div><div class="swatch-name">--brand-accent-cyan</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-positive);"></div><div class="swatch-role">Positive</div><div class="swatch-name">--brand-positive</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-warning);"></div><div class="swatch-role">Warning</div><div class="swatch-name">--brand-warning</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-negative);"></div><div class="swatch-role">Negative</div><div class="swatch-name">--brand-negative</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens &middot; Surfaces</p>
+      <h2 class="section-title">Four surfaces, one canvas.</h2>
+      <p class="section-lede">The sage canvas carries the brand mood. White cards sit on top. Lime appears only on CTA + brand-mark backgrounds. Ink is the polarity-flipped dark card the brand uses for promotional moments.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="sage">
+        <span class="ladder-num">Sage canvas</span>
+        <span class="ladder-name">--brand-canvas-soft</span>
+        <span class="ladder-role">hero band &middot; section interludes</span>
+      </div>
+      <div class="ladder-step" data-step="white">
+        <span class="ladder-num">White card</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">balance card &middot; feature card</span>
+      </div>
+      <div class="ladder-step" data-step="lime">
+        <span class="ladder-num">Lime stamp</span>
+        <span class="ladder-name">--primary</span>
+        <span class="ladder-role">CTA pill &middot; brand glyph</span>
+      </div>
+      <div class="ladder-step" data-step="ink">
+        <span class="ladder-num">Ink card</span>
+        <span class="ladder-name">--foreground</span>
+        <span class="ladder-role">promo card &middot; footer band</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens &middot; Type &amp; components</p>
+      <h2 class="section-title">Weight 900 for the brand moment.</h2>
+      <p class="section-lede">Wise Sans at weight 900 carries every hero, every balance total, every section title. Inter at 600 handles sub-display; Inter at 400 handles body. The contrast between the chunky display face and Inter's neutrality is the brand's typographic story.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">428,612.40</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Wise Sans &middot; 900 &middot; 32</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter &middot; 600 &middot; 24</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Inter 400 at 16 px on the muted foreground. Reads on both polarities; reaches AA on the dark canvas through the bumped --muted-foreground.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">ui-monospace &middot; --font-mono &middot; 13</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons &middot; pill-rectangle, 24px radius at every size</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" type="button">Open an account</button>
+            <button class="btn" data-variant="secondary" type="button">See the rates</button>
+            <button class="btn" data-variant="tertiary" type="button">Compare</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Status pills &middot; semantic palette</span>
+          <div class="cmp-row">
+            <span class="tag-chip">Cleared</span>
+            <span class="tag-chip" data-tone="warning">Pending</span>
+            <span class="tag-chip" data-tone="danger">Returned</span>
+            <span class="tag-chip" data-tone="neutral">Scheduled</span>
+            <span class="tag-chip">Multi-currency</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Buttons &middot; small pill</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" data-size="sm" type="button">Send</button>
+            <button class="btn" data-variant="secondary" data-size="sm" type="button">Convert</button>
+            <button class="btn" data-variant="tertiary" data-size="sm" type="button">Review</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closing-band canvas-sage" aria-label="Closing band">
+  <div class="closing-inner">
+    <p class="closing-eyebrow">Halcyon &middot; Year-end close</p>
+    <p class="closing-aphorism">Mid-market every Friday afternoon.</p>
+    <button class="btn" data-variant="primary" type="button">Open an account</button>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="footer-brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the sage-canvas design system. Heavy display sans, lime CTA, pill-rounded cards throughout. Halcyon-themed neutral international-ops content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Balance</p>
+      <ul class="footer-list"><li><a href="#">Multi-currency</a></li><li><a href="#">Cards</a></li><li><a href="#">Vaults</a></li><li><a href="#">Statements</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Routing</p>
+      <ul class="footer-list"><li><a href="#">Send</a></li><li><a href="#">Receive</a></li><li><a href="#">Convert</a></li><li><a href="#">Mid-market rates</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ &middot; token surface preview &middot; 2026.05.25</span>
+    <span class="footer-legal-meta">sage canvas &middot; lime CTA &middot; weight 900</span>
+  </div>
+</footer>
+
+</body>
+</html>

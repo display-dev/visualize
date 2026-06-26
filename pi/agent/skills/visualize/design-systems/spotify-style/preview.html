@@ -1,0 +1,2752 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>spotify-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23121212'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%231ED760'/%3E%3C/svg%3E">
+<meta property="og:title" content="spotify-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Encore-dark canvas, Spotify Green primary, pastel pricing ladder, full-bleed coloured feature panels.">
+<meta name="twitter:card" content="summary">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/spotify-style/tokens.css) === */
+/**
+ * design-systems/spotify-style/tokens.css
+ *
+ * Hand-authored from live-verified Spotify surfaces.
+ * Sources: open.spotify.com, spotify.com/us/premium/, support.spotify.com/us/,
+ * newsroom.spotify.com, artists.spotify.com, spotify.com/us/about-us/contact/.
+ * Verified: 2026-05-25 (see DESIGN.md).
+ *
+ * Polarity decision: DESIGN.md declares `canonical-canvas: both`. The Encore
+ * player + Premium marketing stack are the dark canonical canvases that
+ * anchor brand recognizability; the newsroom + about-us light canvases are
+ * a secondary editorial register. Per AUTHORING.md "Dark-mode strategy"
+ * (dark-canonical brands: Linear, SpaceX, Ferrari), `:root` encodes the dark
+ * Encore canvas and `[data-theme="dark"]` mirrors it. Spotify Green is the
+ * same OKLCH across both registers (DESIGN.md §6), so the primary family
+ * does not flip.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are this brand's. */
+
+  --background: oklch(0.1822 0.0000 0);              /* #121212 — Encore --background-base */
+  --foreground: oklch(1.0000 0.0000 0);              /* #FFFFFF — Encore --text-base */
+  --card: oklch(0.2393 0.0000 0);                    /* #1F1F1F — Encore --background-elevated-base */
+  --card-foreground: oklch(1.0000 0.0000 0);         /* #FFFFFF */
+  --popover: oklch(0.2850 0.0000 0);                 /* #2A2A2A — Encore --background-elevated-highlight */
+  --popover-foreground: oklch(1.0000 0.0000 0);      /* #FFFFFF */
+
+  --primary: oklch(0.7697 0.2124 148.67);            /* #1ED760 — Spotify Green, Encore --essential-bright-accent */
+  --primary-foreground: oklch(0.0000 0.0000 0);      /* #000000 — observed ink on green pill CTAs */
+  --secondary: oklch(0.2393 0.0000 0);               /* #1F1F1F — mirrors --card per Encore secondary chrome */
+  --secondary-foreground: oklch(1.0000 0.0000 0);    /* #FFFFFF */
+  --muted: oklch(0.2768 0.0000 0);                   /* #282828 — pricing tier card bg */
+  --muted-foreground: oklch(0.7668 0.0000 0);        /* #B3B3B3 — Encore --text-subdued */
+  --accent: oklch(0.5497 0.1061 170.93);             /* #088569 — voyager green section canvas */
+  --accent-foreground: oklch(1.0000 0.0000 0);       /* #FFFFFF */
+  --destructive: oklch(0.6141 0.2243 22.70);         /* #ED2C3F — Encore --essential-negative */
+  --destructive-foreground: oklch(1.0000 0.0000 0);  /* #FFFFFF */
+
+  --border: oklch(0.2850 0.0000 0);                  /* #2A2A2A — surface contrast over hairline */
+  --input: oklch(0.2393 0.0000 0);                   /* #1F1F1F — support hub search pill */
+  --ring: oklch(0.7697 0.2124 148.67);               /* tracks --primary */
+
+  --sidebar: oklch(0.0000 0.0000 0);                 /* #000000 — marketing topnav/footer chrome */
+  --sidebar-foreground: oklch(1.0000 0.0000 0);      /* #FFFFFF */
+  --sidebar-primary: oklch(0.7697 0.2124 148.67);    /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.0000 0.0000 0); /* #000000 */
+  --sidebar-accent: oklch(0.2393 0.0000 0);          /* #1F1F1F — social icon circles */
+  --sidebar-accent-foreground: oklch(1.0000 0.0000 0); /* #FFFFFF */
+  --sidebar-border: oklch(1.0000 0.0000 0 / 0.10);   /* #FFFFFF1A — Encore --background-tinted-base */
+  --sidebar-ring: oklch(0.7697 0.2124 148.67);       /* tracks --primary */
+
+  --chart-1: oklch(0.7697 0.2124 148.67);            /* #1ED760 — Spotify Green */
+  --chart-2: oklch(0.5714 0.1999 257.41);            /* #0D72EA — feature-card blue */
+  --chart-3: oklch(0.5858 0.1952 37.21);             /* #D64000 — feature-card orange */
+  --chart-4: oklch(0.5859 0.2355 283.79);            /* #7358FF — feature-card purple */
+  --chart-5: oklch(0.5948 0.2294 336.92);            /* #CC2FAF — feature-card magenta */
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Spotify ships its own SpotifyMix family across every surface
+   * (DESIGN.md §3). The proprietary face won't load in the preview
+   * shell; the fallback chain matches the live DOM. */
+  --font-sans: 'SpotifyMixUI', 'CircularSp', 'Helvetica Neue', helvetica, arial, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'SpotifyMixUITitleVariable', 'SpotifyMixUITitle', 'Helvetica Neue', helvetica, arial, sans-serif;
+  --font-display-narrow: 'Spotify Mix-Narrow', 'SpotifyMixUITitle', 'Helvetica Neue', helvetica, arial, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Spotify separates surfaces with elevation contrast (--background
+   * → --card → --popover), not box-shadows. Keep shadows minimal. */
+  --shadow-2xs: 0 1px 2px 0 oklch(0 0 0 / 0.20);
+  --shadow-xs: 0 1px 2px 0 oklch(0 0 0 / 0.24);
+  --shadow-sm: 0 2px 4px -1px oklch(0 0 0 / 0.28);
+  --shadow: 0 4px 8px -2px oklch(0 0 0 / 0.32);
+  --shadow-md: 0 8px 16px -4px oklch(0 0 0 / 0.36);
+  --shadow-lg: 0 12px 24px -6px oklch(0 0 0 / 0.40);
+  --shadow-xl: 0 16px 32px -8px oklch(0 0 0 / 0.44);
+  --shadow-2xl: 0 24px 48px -12px oklch(0 0 0 / 0.48);
+
+  /* -- Brand-extras ----------------------------------------------
+   * Surface-named only. No --brand-<colour>-ink / -on-dark / -deep
+   * tokens paired with chromatic hues — see AUTHORING.md
+   * "Forbidden name shapes".
+   * -------------------------------------------------------------- */
+
+  /* Polarity-locked surfaces — Spotify ships these at fixed values
+   * across every register it deploys (DESIGN.md §2 "Polarity-locked
+   * surfaces"). Do NOT override in [data-theme="dark"]. */
+  --brand-canvas-night: oklch(0.1822 0.0000 0);      /* #121212 — body canvas on every dark surface */
+  --brand-canvas-press: oklch(0.0000 0.0000 0);      /* #000000 — marketing topnav + footer chrome */
+  --brand-on-dark: oklch(1.0000 0.0000 0);           /* #FFFFFF — text on every dark surface */
+  --brand-on-light: oklch(0.2768 0.0000 0);          /* #282828 — body ink on newsroom + about-us */
+
+  /* Hairlines / dividers — Encore --background-tinted-base /
+   * --background-tinted-highlight (DESIGN.md §2 "Hairlines"). */
+  --brand-hairline-soft: oklch(1.0000 0.0000 0 / 0.10);    /* #FFFFFF1A */
+  --brand-hairline-strong: oklch(1.0000 0.0000 0 / 0.14);  /* #FFFFFF24 */
+
+  /* Documented secondary brand colours — Encore essential-* tokens
+   * exposed on :root on open.spotify.com. */
+  --brand-accent-negative: oklch(0.6141 0.2243 22.70);     /* #ED2C3F — --essential-negative */
+  --brand-accent-warning: oklch(0.7921 0.1626 67.42);      /* #FFA42B — --essential-warning */
+  --brand-accent-announcement: oklch(0.5904 0.2025 257.20); /* #1278F2 — --essential-announcement */
+
+  /* Premium marketing feature-card palette — full-bleed section
+   * canvases on /premium (DESIGN.md §2 "feature-card palette").
+   * Surface-named (section-*) not colour-named — they always
+   * appear as full-section canvases, never as accent fills. */
+  --brand-section-blue: oklch(0.5714 0.1999 257.41);       /* #0D72EA */
+  --brand-section-orange: oklch(0.5858 0.1952 37.21);      /* #D64000 */
+  --brand-section-purple: oklch(0.5859 0.2355 283.79);     /* #7358FF */
+  --brand-section-magenta: oklch(0.5948 0.2294 336.92);    /* #CC2FAF */
+
+  /* Voyager-green section canvases — the deep-green ladder beneath
+   * the feature cards on /premium and /duo. */
+  --brand-section-voyager: oklch(0.5497 0.1061 170.93);    /* #088569 — primary green canvas */
+  --brand-section-voyager-deep: oklch(0.3944 0.0757 171.44); /* #035341 — content-card variant */
+
+  /* Pricing pastel ladder — one pastel per tier on /premium,
+   * used twice per card (H3 title colour + CTA pill bg).
+   * Surface-named per tier role. */
+  --brand-pricing-pink: oklch(0.9037 0.0510 10.62);        /* #FFD2D7 */
+  --brand-pricing-lavender: oklch(0.7877 0.0530 309.52);   /* #C4B1D4 */
+  --brand-pricing-amber: oklch(0.8626 0.1342 80.77);       /* #FFC862 */
+  --brand-pricing-sky: oklch(0.7826 0.0397 248.33);        /* #A5BBD1 */
+
+  /* Body text neutrals — chroma ≈ 0 utility tokens.
+   * DESIGN.md §3 documents Spotify's 3-step ink ladder on dark:
+   * white at 400 for body, #B3B3B3 at 400 for muted, #7C7C7C for
+   * the dimmest tier. The light editorial canvas uses #282828
+   * (already exposed via --brand-on-light). */
+  --brand-body: oklch(1.0000 0.0000 0);                    /* #FFFFFF */
+  --brand-body-muted: oklch(0.7668 0.0000 0);              /* #B3B3B3 — Encore --text-subdued */
+  --brand-body-faint: oklch(0.5634 0.0000 0);              /* #7C7C7C — dimmest tier on dark */
+
+  /* Brand radii — Spotify uses fully-rounded pills everywhere
+   * (DESIGN.md §4 "Pill CTA, primary"). */
+  --brand-radius-pill: 9999px;
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Spotify's canonical preview canvas is the Encore dark register
+ * already encoded in :root. Both blocks mirror — the brand's
+ * primary green is documented unchanged across canvases (DESIGN.md
+ * §6: "Both register the same primary-green link colour #1ED760").
+ * No lifted dark variants; canvas + neutrals are already at their
+ * deployed Encore values.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1822 0.0000 0);
+  --foreground: oklch(1.0000 0.0000 0);
+  --card: oklch(0.2393 0.0000 0);
+  --card-foreground: oklch(1.0000 0.0000 0);
+  --popover: oklch(0.2850 0.0000 0);
+  --popover-foreground: oklch(1.0000 0.0000 0);
+
+  --primary: oklch(0.7697 0.2124 148.67);
+  --primary-foreground: oklch(0.0000 0.0000 0);
+  --secondary: oklch(0.2393 0.0000 0);
+  --secondary-foreground: oklch(1.0000 0.0000 0);
+  --muted: oklch(0.2768 0.0000 0);
+  --muted-foreground: oklch(0.7668 0.0000 0);
+  --accent: oklch(0.5497 0.1061 170.93);
+  --accent-foreground: oklch(1.0000 0.0000 0);
+  --destructive: oklch(0.6141 0.2243 22.70);
+  --destructive-foreground: oklch(1.0000 0.0000 0);
+
+  --border: oklch(0.2850 0.0000 0);
+  --input: oklch(0.2393 0.0000 0);
+  --ring: oklch(0.7697 0.2124 148.67);
+
+  --sidebar: oklch(0.0000 0.0000 0);
+  --sidebar-foreground: oklch(1.0000 0.0000 0);
+  --sidebar-primary: oklch(0.7697 0.2124 148.67);
+  --sidebar-primary-foreground: oklch(0.0000 0.0000 0);
+  --sidebar-accent: oklch(0.2393 0.0000 0);
+  --sidebar-accent-foreground: oklch(1.0000 0.0000 0);
+  --sidebar-border: oklch(1.0000 0.0000 0 / 0.10);
+  --sidebar-ring: oklch(0.7697 0.2124 148.67);
+
+  --chart-1: oklch(0.7697 0.2124 148.67);
+  --chart-2: oklch(0.5714 0.1999 257.41);
+  --chart-3: oklch(0.5858 0.1952 37.21);
+  --chart-4: oklch(0.5859 0.2355 283.79);
+  --chart-5: oklch(0.5948 0.2294 336.92);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1822 0.0000 0);
+    --foreground: oklch(1.0000 0.0000 0);
+    --card: oklch(0.2393 0.0000 0);
+    --card-foreground: oklch(1.0000 0.0000 0);
+    --popover: oklch(0.2850 0.0000 0);
+    --popover-foreground: oklch(1.0000 0.0000 0);
+
+    --primary: oklch(0.7697 0.2124 148.67);
+    --primary-foreground: oklch(0.0000 0.0000 0);
+    --secondary: oklch(0.2393 0.0000 0);
+    --secondary-foreground: oklch(1.0000 0.0000 0);
+    --muted: oklch(0.2768 0.0000 0);
+    --muted-foreground: oklch(0.7668 0.0000 0);
+    --accent: oklch(0.5497 0.1061 170.93);
+    --accent-foreground: oklch(1.0000 0.0000 0);
+    --destructive: oklch(0.6141 0.2243 22.70);
+    --destructive-foreground: oklch(1.0000 0.0000 0);
+
+    --border: oklch(0.2850 0.0000 0);
+    --input: oklch(0.2393 0.0000 0);
+    --ring: oklch(0.7697 0.2124 148.67);
+
+    --sidebar: oklch(0.0000 0.0000 0);
+    --sidebar-foreground: oklch(1.0000 0.0000 0);
+    --sidebar-primary: oklch(0.7697 0.2124 148.67);
+    --sidebar-primary-foreground: oklch(0.0000 0.0000 0);
+    --sidebar-accent: oklch(0.2393 0.0000 0);
+    --sidebar-accent-foreground: oklch(1.0000 0.0000 0);
+    --sidebar-border: oklch(1.0000 0.0000 0 / 0.10);
+    --sidebar-ring: oklch(0.7697 0.2124 148.67);
+
+    --chart-1: oklch(0.7697 0.2124 148.67);
+    --chart-2: oklch(0.5714 0.1999 257.41);
+    --chart-3: oklch(0.5858 0.1952 37.21);
+    --chart-4: oklch(0.5859 0.2355 283.79);
+    --chart-5: oklch(0.5948 0.2294 336.92);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Spotify-style preview shell — token-surface preview, dark-canonical.
+   Signature mockup: the Premium pricing-tier card stack — one pastel per
+   tier, doubled on H3 title and CTA pill bg, on a dark #282828 card
+   over the #121212 canvas. The four-colour vivid feature panel grid
+   sits below as the supporting recognizability moment. Spotify ships
+   no light-canonical primary — both modes mirror :root per DESIGN.md
+   §6 ("Both register the same primary-green link colour #1ED760"). */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+/* Local-scoped decorative custom properties for the hero-art equalizer
+ * overlay — a generic dimming mask layered over the gradient disk, not a
+ * brand-coloured value (see AUTHORING.md "Don't bake preview-only
+ * decoration into tokens.css"). */
+:root {
+  --preview-eq-bar-dim: oklch(0 0 0 / 0.25);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'SpotifyMixUI', 'CircularSp', 'Helvetica Neue', helvetica, arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -- Top nav (Spotify marketing pattern: pure-black #000 chrome on top of
+ *    the #121212 page canvas, white type at 700, green pill CTA right) -- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 64px;
+  background: var(--brand-canvas-press);
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.topnav-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'SpotifyMixUITitle', 'SpotifyMixUI', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--brand-on-dark);
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.topnav-mark-glyph {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary);
+  position: relative;
+  flex-shrink: 0;
+}
+.topnav-mark-glyph::before,
+.topnav-mark-glyph::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 16px;
+  height: 1.5px;
+  background: var(--brand-canvas-press);
+  border-radius: 9999px;
+  transform: translateX(-50%);
+}
+.topnav-mark-glyph::before { top: 8px; }
+.topnav-mark-glyph::after { top: 14px; width: 12px; }
+.topnav-mark-glyph > span {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: 8px;
+  height: 1.5px;
+  background: var(--brand-canvas-press);
+  border-radius: 9999px;
+  transform: translateX(-50%);
+}
+.topnav-links {
+  display: flex;
+  gap: 2rem;
+  font-size: 16px;
+  font-weight: 700;
+  margin-left: 1.5rem;
+}
+.topnav-links a {
+  color: var(--brand-on-dark);
+  text-decoration: none;
+}
+.topnav-links a:hover { color: var(--primary); }
+.topnav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-left: auto;
+}
+.topnav-auth {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--brand-body-muted);
+}
+.topnav-auth a { color: inherit; text-decoration: none; }
+.topnav-auth a:hover { color: var(--brand-on-dark); }
+.topnav-sep {
+  width: 1px;
+  height: 24px;
+  background: var(--brand-hairline-strong);
+}
+@media (max-width: 880px) {
+  .topnav-links, .topnav-auth, .topnav-sep { display: none; }
+}
+
+/* -- Pill button grammar (Spotify signature: 9999px radius, 4 variants
+ *    per DESIGN.md §4) -- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.75rem 2rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 100ms ease, background 100ms ease, color 100ms ease;
+  white-space: nowrap;
+}
+.pill:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.pill:hover { transform: scale(1.04); }
+.pill[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.pill[data-variant="primary"]:hover {
+  background: var(--primary);
+}
+.pill[data-variant="ghost-on-dark"] {
+  background: var(--brand-on-dark);
+  color: var(--brand-canvas-press);
+  padding: 0.5rem 1.5rem;
+  min-height: 44px;
+}
+.pill[data-variant="outline-on-dark"] {
+  background: transparent;
+  color: var(--brand-on-dark);
+  border-color: var(--brand-on-dark);
+}
+.pill[data-variant="outline-on-dark"]:hover {
+  background: var(--brand-hairline-strong);
+}
+.pill[data-size="sm"] {
+  min-height: 36px;
+  padding: 0.5rem 1.25rem;
+  font-size: 14px;
+}
+
+/* Pastel pricing CTA — the tier-specific pastel pill with dark ink.
+ * One pastel per tier (DESIGN.md §4 "Pill CTA, pastel-pricing"). */
+.pill[data-variant="pastel-pink"]      { background: var(--brand-pricing-pink);     color: var(--brand-on-light); }
+.pill[data-variant="pastel-lavender"]  { background: var(--brand-pricing-lavender); color: var(--brand-on-light); }
+.pill[data-variant="pastel-amber"]     { background: var(--brand-pricing-amber);    color: var(--brand-on-light); }
+.pill[data-variant="pastel-sky"]       { background: var(--brand-pricing-sky);      color: var(--brand-on-light); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pill { transition: none; }
+  .pill:hover { transform: none; }
+}
+
+/* -- Page container -- */
+.page { width: 100%; }
+.page-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* -- Hero (Encore-dark canvas, oversized display, rotating word styled
+ *    as italic emphasis per DESIGN.md §3 typography note) -- */
+.hero {
+  background: var(--background);
+  padding: 6rem 1.5rem 5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 880px) { .hero-inner { grid-template-columns: 1fr; } }
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 1.5rem;
+}
+.hero-eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.hero-display {
+  font-family: 'SpotifyMixUITitleVariable', 'SpotifyMixUITitle', sans-serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+  color: var(--brand-on-dark);
+  max-width: 14ch;
+}
+.hero-display em {
+  font-style: italic;
+  font-weight: 900;
+  color: var(--primary);
+}
+.hero-lede {
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--brand-body-muted);
+  max-width: 44ch;
+  margin: 0 0 2rem;
+}
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  font-size: 13px;
+  color: var(--brand-body-muted);
+  font-weight: 400;
+}
+.hero-meta-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
+
+/* Hero right panel: circular photographic motif placeholder + play/pause */
+.hero-art {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-width: 28rem;
+  margin-left: auto;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 60% 35%, var(--brand-section-voyager) 0%, transparent 55%),
+    radial-gradient(circle at 30% 70%, var(--brand-section-purple) 0%, transparent 50%),
+    conic-gradient(from 215deg at 50% 50%, var(--brand-section-magenta), var(--brand-section-orange), var(--brand-pricing-amber), var(--brand-section-voyager-deep), var(--brand-section-blue), var(--brand-section-magenta));
+  overflow: hidden;
+}
+.hero-art::before {
+  /* Equalizer bars overlay — Spotify's signature visual motif */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 14px,
+      var(--preview-eq-bar-dim) 14px,
+      var(--preview-eq-bar-dim) 16px
+    );
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+}
+.hero-art-toggle {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--card);
+  color: var(--brand-on-dark);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: transform 100ms ease;
+}
+.hero-art-toggle:hover { transform: scale(1.06); }
+.hero-art-toggle:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-art-toggle { transition: none; }
+  .hero-art-toggle:hover { transform: none; }
+}
+
+/* -- Signature mockup: Premium pricing-tier card stack ---------------
+ * One pastel per tier (pink / lavender / amber / sky), used twice per
+ * card (H3 tier title colour + matching pastel CTA pill). Card is dark
+ * #282828 (--muted) on the #121212 (--background) page canvas. The
+ * promotional banner pill overlaps the card top edge by ~30%.
+ * Source: DESIGN.md §4 "Pricing tier card". */
+.tier-section {
+  padding: 5rem 1.5rem;
+  background: var(--background);
+}
+.tier-section-header {
+  max-width: 1280px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+.tier-section-title {
+  font-family: 'SpotifyMixUITitleVariable', 'SpotifyMixUITitle', sans-serif;
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  color: var(--brand-on-dark);
+  margin: 0 0 1rem;
+}
+.tier-section-lede {
+  font-size: 18px;
+  color: var(--brand-body-muted);
+  max-width: 56ch;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+.tier-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+@media (max-width: 1100px) { .tier-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem 1.25rem; } }
+@media (max-width: 600px) { .tier-grid { grid-template-columns: 1fr; } }
+
+.tier-card {
+  position: relative;
+  background: var(--muted);
+  border-radius: var(--radius-lg);
+  padding: 3rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+/* The promo pill that overlaps the card top edge by ~30% */
+.tier-banner {
+  position: absolute;
+  top: -1rem;
+  left: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: var(--brand-radius-pill);
+  color: var(--brand-on-light);
+}
+.tier-banner[data-tone="pink"]     { background: var(--brand-pricing-pink); }
+.tier-banner[data-tone="lavender"] { background: var(--brand-pricing-lavender); }
+
+.tier-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--brand-on-dark);
+}
+.tier-mark-glyph {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+}
+.tier-name {
+  font-family: 'SpotifyMixUI', 'SpotifyMixUITitle', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  line-height: 1.05;
+  margin: 0;
+}
+.tier-name[data-tone="pink"]     { color: var(--brand-pricing-pink); }
+.tier-name[data-tone="lavender"] { color: var(--brand-pricing-lavender); }
+.tier-name[data-tone="amber"]    { color: var(--brand-pricing-amber); }
+.tier-name[data-tone="sky"]      { color: var(--brand-pricing-sky); }
+
+.tier-price {
+  font-size: 14px;
+  color: var(--brand-on-dark);
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+}
+.tier-price-after {
+  display: block;
+  color: var(--brand-body-muted);
+  font-weight: 400;
+  margin-top: 0.25rem;
+}
+.tier-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 14px;
+  color: var(--brand-on-dark);
+  line-height: 1.4;
+  flex: 1;
+}
+.tier-features li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+.tier-features li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.tier-cta {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+.tier-fine {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--brand-body-muted);
+  margin: 0;
+}
+.tier-fine a {
+  color: var(--brand-body-muted);
+  text-decoration: underline;
+}
+
+/* -- Section frame -- */
+.section {
+  padding: 5rem 1.5rem;
+  background: var(--background);
+}
+.section + .section {
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.section-header {
+  max-width: 720px;
+  margin: 0 0 3rem;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0 0 1rem;
+}
+.eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
+.section-title {
+  font-family: 'SpotifyMixUITitleVariable', 'SpotifyMixUITitle', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  color: var(--brand-on-dark);
+  margin: 0 0 1rem;
+}
+.section-lede {
+  font-size: 18px;
+  color: var(--brand-body-muted);
+  max-width: 56ch;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* -- Colour swatch band ---------------------------------------------
+ * Three-row grid: brand identity (green) · section canvases (vivid
+ * full-bleed marketing palette) · pricing pastels. */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+@media (max-width: 1100px) { .swatch-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 700px)  { .swatch-grid { grid-template-columns: repeat(2, 1fr); } }
+.swatch-grid + .swatch-grid { margin-top: 0.75rem; }
+.swatch {
+  background: var(--card);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 4rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-role {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-body-muted);
+}
+.swatch-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--brand-on-dark);
+  word-break: break-word;
+}
+
+.swatch-section-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brand-on-dark);
+  margin: 1.5rem 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.swatch-section-label:first-of-type { margin-top: 0; }
+
+/* -- Surface ladder (Spotify uses elevation contrast over hairlines —
+ *    canvas → card → popover → muted) -- */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-top: 1.5rem;
+}
+@media (max-width: 880px) { .surface-ladder { grid-template-columns: repeat(2, 1fr); } }
+.surface-step {
+  padding: 2rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 9rem;
+}
+.surface-step[data-step="0"] { background: var(--background); }
+.surface-step[data-step="1"] { background: var(--card); }
+.surface-step[data-step="2"] { background: var(--popover); }
+.surface-step[data-step="3"] { background: var(--muted); }
+.surface-step-num {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-body-muted);
+}
+.surface-step-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--brand-on-dark);
+}
+.surface-step-role {
+  font-size: 12px;
+  color: var(--brand-body-muted);
+}
+
+/* -- Typography roles ----------------------------------------------
+ * 6 roles max per AUTHORING constraint; mirrors DESIGN.md §3 table. */
+.type-stack { display: flex; flex-direction: column; gap: 2rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 2rem;
+  align-items: baseline;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-body-muted);
+}
+.type-display {
+  font-family: 'SpotifyMixUITitleVariable', 'SpotifyMixUITitle', sans-serif;
+  font-size: 80px;
+  font-weight: 900;
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+  color: var(--brand-on-dark);
+}
+.type-section {
+  font-family: 'SpotifyMixUITitleVariable', 'SpotifyMixUITitle', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: var(--brand-on-dark);
+}
+.type-heading {
+  font-family: 'SpotifyMixUITitle', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+  color: var(--brand-on-dark);
+}
+.type-title {
+  font-family: 'SpotifyMixUI', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--brand-on-dark);
+}
+.type-body {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-on-dark);
+}
+.type-meta {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--brand-body-muted);
+}
+
+/* -- Component vocabulary section -- */
+.components-stack { display: flex; flex-direction: column; gap: 2.5rem; }
+.cmp-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.cmp-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-body-muted);
+}
+.cmp-row { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+
+/* Search-input pill (Support-hub pattern) */
+.search-shell {
+  background: var(--input);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 38rem;
+}
+.search-tabs { display: flex; gap: 0.5rem; }
+.search-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brand-on-dark);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--brand-radius-pill);
+  cursor: pointer;
+  min-height: 36px;
+}
+.search-tab[aria-selected="true"] {
+  border-color: var(--primary);
+  color: var(--brand-on-dark);
+}
+.search-tab:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--card);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+}
+.search-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--brand-body-muted);
+  position: relative;
+  flex-shrink: 0;
+}
+.search-icon::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 7px;
+  height: 2px;
+  background: var(--brand-body-muted);
+  transform: rotate(45deg);
+  border-radius: 9999px;
+}
+.search-placeholder {
+  flex: 1;
+  font-size: 15px;
+  color: var(--brand-body-muted);
+}
+.search-submit {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--brand-on-dark);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+.search-submit:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+/* Accordion rows (Support-hub pattern: row-stacked, green-stroke glyph,
+ * chevron right) */
+.accordion {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--background);
+  max-width: 38rem;
+}
+.accordion-row {
+  display: grid;
+  grid-template-columns: 2rem 1fr 1.5rem;
+  gap: 1rem;
+  align-items: center;
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--brand-on-dark);
+  cursor: pointer;
+}
+.accordion-row:last-child { border-bottom: none; }
+.accordion-row:hover { background: var(--card); }
+.accordion-glyph {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.75px solid var(--primary);
+  position: relative;
+}
+.accordion-glyph[data-shape="card"]::after,
+.accordion-glyph[data-shape="user"]::after,
+.accordion-glyph[data-shape="star"]::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1.75px solid var(--primary);
+  border-radius: 2px;
+}
+.accordion-glyph[data-shape="user"]::after { border-radius: 50%; inset: 5px; }
+.accordion-glyph[data-shape="star"]::after { border-radius: 1px; inset: 5px; transform: rotate(45deg); }
+.accordion-chevron {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--brand-on-dark);
+  border-bottom: 2px solid var(--brand-on-dark);
+  transform: rotate(-45deg);
+  justify-self: end;
+}
+
+/* Status / category pills */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: var(--brand-radius-pill);
+  background: var(--card);
+  color: var(--brand-on-dark);
+}
+.status-pill-dot { width: 6px; height: 6px; border-radius: 50%; }
+.status-pill-dot[data-state="positive"]    { background: var(--primary); }
+.status-pill-dot[data-state="warning"]     { background: var(--brand-accent-warning); }
+.status-pill-dot[data-state="announce"]    { background: var(--brand-accent-announcement); }
+.status-pill-dot[data-state="negative"]    { background: var(--brand-accent-negative); }
+.status-pill-dot[data-state="neutral"]     { background: var(--brand-body-muted); }
+
+/* -- Feature-card grid (the supporting recognizability moment).
+ * Four full-saturation section canvases stacked 2x2 — DESIGN.md §4
+ * "Feature card, vivid full-bleed". White type on each colour. */
+.feature-band {
+  padding: 4rem 1.5rem 5rem;
+  background: var(--background);
+}
+.feature-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+@media (max-width: 880px) { .feature-grid { grid-template-columns: 1fr; } }
+.feature-card {
+  border-radius: 24px;
+  padding: 2.5rem;
+  min-height: 18rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--brand-on-dark);
+}
+.feature-card[data-tone="blue"]    { background: var(--brand-section-blue); }
+.feature-card[data-tone="orange"]  { background: var(--brand-section-orange); }
+.feature-card[data-tone="purple"]  { background: var(--brand-section-purple); }
+.feature-card[data-tone="magenta"] { background: var(--brand-section-magenta); }
+.feature-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brand-on-dark);
+}
+.feature-mark-glyph {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--brand-on-dark);
+  flex-shrink: 0;
+}
+.feature-title {
+  font-family: 'SpotifyMixUITitleVariable', 'SpotifyMixUITitle', sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin: 0;
+  max-width: 18ch;
+}
+.feature-decor {
+  position: absolute;
+  bottom: -3rem;
+  right: -2rem;
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  background: var(--brand-on-dark);
+  opacity: 0.10;
+  pointer-events: none;
+}
+.feature-decor[data-shape="bars"] {
+  border-radius: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      var(--brand-on-dark) 0,
+      var(--brand-on-dark) 8px,
+      transparent 8px,
+      transparent 18px
+    );
+  opacity: 0.18;
+  width: 13rem;
+  height: 10rem;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+/* -- Voyager-green band (supporting section canvas per DESIGN.md §2) -- */
+.voyager-band {
+  background: var(--brand-section-voyager);
+  padding: 4rem 1.5rem;
+}
+.voyager-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  align-items: stretch;
+}
+@media (max-width: 880px) {
+  .voyager-inner { grid-template-columns: 1fr; }
+}
+.voyager-headline {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem 0;
+  color: var(--brand-on-dark);
+}
+.voyager-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--brand-on-dark);
+  margin: 0;
+}
+.voyager-title {
+  font-family: 'SpotifyMixUITitleVariable', 'SpotifyMixUITitle', sans-serif;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  margin: 0;
+  color: var(--brand-on-dark);
+  max-width: 18ch;
+}
+.voyager-card {
+  background: var(--brand-section-voyager-deep);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 14rem;
+  color: var(--brand-on-dark);
+}
+.voyager-card-glyph {
+  width: 36px;
+  height: 36px;
+  border: 1.75px solid var(--brand-on-dark);
+  border-radius: 6px;
+  position: relative;
+  flex-shrink: 0;
+}
+.voyager-card-glyph::before,
+.voyager-card-glyph::after {
+  content: "";
+  position: absolute;
+  background: var(--brand-on-dark);
+  border-radius: 9999px;
+}
+.voyager-card-glyph[data-shape="rituals"]::before {
+  left: 50%; top: 22%; width: 12px; height: 2px;
+  transform: translateX(-50%);
+}
+.voyager-card-glyph[data-shape="rituals"]::after {
+  left: 50%; top: 60%; width: 16px; height: 2px;
+  transform: translateX(-50%);
+}
+.voyager-card-glyph[data-shape="rotation"]::before {
+  inset: 6px; border-radius: 50%;
+  width: auto; height: auto;
+  border: 1.5px solid var(--brand-on-dark);
+  background: transparent;
+}
+.voyager-card-glyph[data-shape="rotation"]::after {
+  left: 55%; top: 30%; width: 8px; height: 2px;
+  transform: rotate(45deg);
+}
+.voyager-card-meta {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--brand-on-dark);
+  opacity: 0.85;
+}
+.voyager-card-title {
+  font-family: 'SpotifyMixUITitle', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--brand-on-dark);
+}
+.voyager-card-body {
+  font-size: 14px;
+  color: var(--brand-on-dark);
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* -- Footer (marketing, black band) -- */
+.footer {
+  background: var(--sidebar);
+  padding: 4rem 1.5rem 3rem;
+  color: var(--brand-on-dark);
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+  align-items: flex-start;
+}
+@media (max-width: 880px) {
+  .footer-top { grid-template-columns: repeat(2, 1fr); }
+}
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'SpotifyMixUITitle', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--brand-on-dark);
+  letter-spacing: -0.01em;
+}
+.footer-brand-glyph {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+}
+.footer-col-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--brand-body-muted);
+  margin: 0 0 1rem;
+}
+.footer-col-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.footer-col-list a {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--brand-on-dark);
+  text-decoration: none;
+}
+.footer-col-list a:hover { color: var(--primary); }
+.footer-social {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.footer-social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--sidebar-accent);
+  color: var(--brand-on-dark);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 100ms ease;
+}
+.footer-social-btn:hover { background: var(--popover); }
+.footer-social-btn:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.footer-social-btn svg { width: 18px; height: 18px; fill: var(--brand-on-dark); }
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  color: var(--brand-body-muted);
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer-social-btn { transition: none; }
+}
+</style>
+
+</head>
+<body>
+
+<header class="topnav" role="banner">
+  <div class="topnav-inner">
+    <a class="topnav-mark" href="#" aria-label="spotify-style">
+      <span class="topnav-mark-glyph" aria-hidden="true"><span></span></span>
+      spotify-style
+    </a>
+    <nav class="topnav-links" aria-label="Primary">
+      <a href="#tiers">Plans</a>
+      <a href="#support">Support</a>
+      <a href="#tokens">Tokens</a>
+    </nav>
+    <div class="topnav-actions">
+      <div class="topnav-auth">
+        <a href="#">Sign up</a>
+        <a href="#">Log in</a>
+      </div>
+      <span class="topnav-sep" aria-hidden="true"></span>
+      <a class="pill" data-variant="primary" data-size="sm" href="#tiers">Start 3 months free</a>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="hero" aria-label="Hero">
+    <div class="hero-inner">
+      <div>
+        <p class="hero-eyebrow"><span class="hero-eyebrow-dot" aria-hidden="true"></span>spotify-style · token surface · 2026.05.25</p>
+        <h1 class="hero-display">A canvas for <em>everything</em> the team listens to.</h1>
+        <p class="hero-lede">Token-surface preview rendered against the design system. Encore-dark canvas, single bright accent, pastel pricing ladder, and full-bleed coloured panels — the brand's signature moves shown on neutral content.</p>
+        <div class="hero-ctas">
+          <a class="pill" data-variant="primary" href="#tiers">Start 3 months free</a>
+          <a class="pill" data-variant="outline-on-dark" href="#tokens">Browse the tokens</a>
+        </div>
+        <p class="hero-meta"><span class="hero-meta-dot" aria-hidden="true"></span>Halcyon team workspace · halcyon.dev</p>
+      </div>
+      <div class="hero-art" role="img" aria-label="Decorative gradient disk with equalizer-bar overlay">
+        <button class="hero-art-toggle" type="button" aria-label="Pause demo">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect x="3" y="2" width="3" height="12" fill="currentColor"/><rect x="10" y="2" width="3" height="12" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="tier-section" id="tiers" aria-label="Pricing tiers">
+    <div class="tier-section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Vocabulary · Pastel ladder</p>
+      <h2 class="tier-section-title">One pastel per tier, used twice per card.</h2>
+      <p class="tier-section-lede">The signature mockup. Pink, lavender, amber, sky — each tier holds its hue on the H3 title and the matching pill CTA. Promo banners overlap the card top edge to break the silhouette.</p>
+    </div>
+
+    <div class="tier-grid">
+      <article class="tier-card">
+        <span class="tier-banner" data-tone="pink">$0 for 3 months</span>
+        <span class="tier-mark"><span class="tier-mark-glyph" aria-hidden="true"></span>spotify-style · Personal</span>
+        <h3 class="tier-name" data-tone="pink">Personal</h3>
+        <p class="tier-price">Free for 3 months<span class="tier-price-after">Standard rate after intro</span></p>
+        <ul class="tier-features">
+          <li>One workspace</li>
+          <li>Best-effort support</li>
+          <li>Browser + desktop apps</li>
+        </ul>
+        <a class="pill tier-cta" data-variant="pastel-pink" href="#">Try 3 months for $0</a>
+        <p class="tier-fine">Personal use only. Standard rate begins after the intro window. <a href="#">Terms apply.</a></p>
+      </article>
+
+      <article class="tier-card">
+        <span class="tier-banner" data-tone="lavender">$0 for 1 month</span>
+        <span class="tier-mark"><span class="tier-mark-glyph" aria-hidden="true"></span>spotify-style · Solo</span>
+        <h3 class="tier-name" data-tone="lavender">Solo</h3>
+        <p class="tier-price">Free for 1 month<span class="tier-price-after">Standard rate after intro</span></p>
+        <ul class="tier-features">
+          <li>Verified study workspace</li>
+          <li>Best-effort support</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a class="pill tier-cta" data-variant="pastel-lavender" href="#">Try 1 month for $0</a>
+        <p class="tier-fine">Eligibility re-verified annually. <a href="#">Terms apply.</a></p>
+      </article>
+
+      <article class="tier-card">
+        <span class="tier-mark"><span class="tier-mark-glyph" aria-hidden="true"></span>spotify-style · Team</span>
+        <h3 class="tier-name" data-tone="amber">Team</h3>
+        <p class="tier-price">Team rate<span class="tier-price-after">Two seats on one workspace</span></p>
+        <ul class="tier-features">
+          <li>Two team seats</li>
+          <li>Shared workspace history</li>
+          <li>Priority support</li>
+        </ul>
+        <a class="pill tier-cta" data-variant="pastel-amber" href="#">Start Team workspace</a>
+        <p class="tier-fine">Both members verify on the same workspace. <a href="#">Terms apply.</a></p>
+      </article>
+
+      <article class="tier-card">
+        <span class="tier-mark"><span class="tier-mark-glyph" aria-hidden="true"></span>spotify-style · Org</span>
+        <h3 class="tier-name" data-tone="sky">Org-wide</h3>
+        <p class="tier-price">Custom rate<span class="tier-price-after">Up to six members on one workspace</span></p>
+        <ul class="tier-features">
+          <li>Up to six members</li>
+          <li>Org-wide directory</li>
+          <li>Dedicated success contact</li>
+        </ul>
+        <a class="pill tier-cta" data-variant="pastel-sky" href="#">Start Org-wide trial</a>
+        <p class="tier-fine">Members verify on a single workspace. <a href="#">Terms apply.</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="feature-band" aria-label="Feature panels">
+    <div class="tier-section-header" style="margin-bottom: 2.5rem;">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Surfaces · Section canvases</p>
+      <h2 class="tier-section-title">Full-bleed colour, never accent fill.</h2>
+      <p class="tier-section-lede">The marketing palette appears as entire panel canvases, not as 4px stripes. Four hues at full saturation, white type on each, supporting the dark canvas above.</p>
+    </div>
+
+    <div class="feature-grid">
+      <article class="feature-card" data-tone="blue">
+        <span class="feature-mark"><span class="feature-mark-glyph" aria-hidden="true"></span>spotify-style · Sprints</span>
+        <h3 class="feature-title">Reviews land by lunch on Thursdays.</h3>
+        <span class="feature-decor" data-shape="bars" aria-hidden="true"></span>
+      </article>
+
+      <article class="feature-card" data-tone="orange">
+        <span class="feature-mark"><span class="feature-mark-glyph" aria-hidden="true"></span>spotify-style · Rituals</span>
+        <h3 class="feature-title">Standups stay under nine minutes.</h3>
+        <span class="feature-decor" aria-hidden="true"></span>
+      </article>
+
+      <article class="feature-card" data-tone="purple">
+        <span class="feature-mark"><span class="feature-mark-glyph" aria-hidden="true"></span>spotify-style · Crits</span>
+        <h3 class="feature-title">Design crits run on a shared timer.</h3>
+        <span class="feature-decor" aria-hidden="true"></span>
+      </article>
+
+      <article class="feature-card" data-tone="magenta">
+        <span class="feature-mark"><span class="feature-mark-glyph" aria-hidden="true"></span>spotify-style · Postmortems</span>
+        <h3 class="feature-title">Every incident gets a written close.</h3>
+        <span class="feature-decor" data-shape="bars" aria-hidden="true"></span>
+      </article>
+    </div>
+  </section>
+
+  <section class="voyager-band" aria-label="Voyager-green band">
+    <div class="voyager-inner">
+      <div class="voyager-headline">
+        <p class="voyager-eyebrow">Surfaces · Voyager green</p>
+        <h2 class="voyager-title">The deepest green carries content tiles.</h2>
+      </div>
+
+      <article class="voyager-card">
+        <span class="voyager-card-glyph" data-shape="rituals" aria-hidden="true"></span>
+        <div>
+          <p class="voyager-card-meta">Halcyon · Rituals</p>
+          <h3 class="voyager-card-title">Weekly review cadence</h3>
+          <p class="voyager-card-body">The team agrees the cadence once a quarter and the calendar follows.</p>
+        </div>
+      </article>
+
+      <article class="voyager-card">
+        <span class="voyager-card-glyph" data-shape="rotation" aria-hidden="true"></span>
+        <div>
+          <p class="voyager-card-meta">Halcyon · Rotation</p>
+          <h3 class="voyager-card-title">On-call rotation</h3>
+          <p class="voyager-card-body">A two-week handoff with a written run-book, never a calendar invite alone.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="tokens" aria-label="Colour tokens">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens · Colour</p>
+        <h2 class="section-title">Single bright accent over a near-black canvas.</h2>
+        <p class="section-lede">One chromatic identity (the green), three documented secondary essentials (negative, warning, announcement), the four-hue marketing palette as full-section canvases, and the pastel ladder reserved for pricing.</p>
+      </div>
+
+      <p class="swatch-section-label">Brand identity</p>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--primary);"></div><span class="swatch-role">Action</span><span class="swatch-name">--primary</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--accent);"></div><span class="swatch-role">Accent</span><span class="swatch-name">--accent</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-accent-negative);"></div><span class="swatch-role">Essential</span><span class="swatch-name">--brand-accent-negative</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-accent-warning);"></div><span class="swatch-role">Essential</span><span class="swatch-name">--brand-accent-warning</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-accent-announcement);"></div><span class="swatch-role">Essential</span><span class="swatch-name">--brand-accent-announcement</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-on-dark);"></div><span class="swatch-role">Ink</span><span class="swatch-name">--brand-on-dark</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-body-muted);"></div><span class="swatch-role">Ink</span><span class="swatch-name">--brand-body-muted</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-body-faint);"></div><span class="swatch-role">Ink</span><span class="swatch-name">--brand-body-faint</span></div>
+      </div>
+
+      <p class="swatch-section-label">Section canvases · marketing</p>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-section-blue);"></div><span class="swatch-role">Panel</span><span class="swatch-name">--brand-section-blue</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-section-orange);"></div><span class="swatch-role">Panel</span><span class="swatch-name">--brand-section-orange</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-section-purple);"></div><span class="swatch-role">Panel</span><span class="swatch-name">--brand-section-purple</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-section-magenta);"></div><span class="swatch-role">Panel</span><span class="swatch-name">--brand-section-magenta</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-section-voyager);"></div><span class="swatch-role">Panel</span><span class="swatch-name">--brand-section-voyager</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-section-voyager-deep);"></div><span class="swatch-role">Panel</span><span class="swatch-name">--brand-section-voyager-deep</span></div>
+      </div>
+
+      <p class="swatch-section-label">Pastel ladder · pricing</p>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-pricing-pink);"></div><span class="swatch-role">Tier</span><span class="swatch-name">--brand-pricing-pink</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-pricing-lavender);"></div><span class="swatch-role">Tier</span><span class="swatch-name">--brand-pricing-lavender</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-pricing-amber);"></div><span class="swatch-role">Tier</span><span class="swatch-name">--brand-pricing-amber</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-pricing-sky);"></div><span class="swatch-role">Tier</span><span class="swatch-name">--brand-pricing-sky</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Surface ladder">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens · Surface</p>
+        <h2 class="section-title">Surface contrast over hairlines.</h2>
+        <p class="section-lede">Separation rides on elevation jumps — canvas to card to popover to muted — not on stroke weight. A single hairline-soft token marks the rare divider.</p>
+      </div>
+      <div class="surface-ladder" aria-label="Surface ladder">
+        <div class="surface-step" data-step="0">
+          <span class="surface-step-num">Floor</span>
+          <span class="surface-step-name">--background</span>
+          <span class="surface-step-role">page canvas</span>
+        </div>
+        <div class="surface-step" data-step="1">
+          <span class="surface-step-num">Lift 1</span>
+          <span class="surface-step-name">--card</span>
+          <span class="surface-step-role">elevated rows</span>
+        </div>
+        <div class="surface-step" data-step="2">
+          <span class="surface-step-num">Lift 2</span>
+          <span class="surface-step-name">--popover</span>
+          <span class="surface-step-role">hover · highlight</span>
+        </div>
+        <div class="surface-step" data-step="3">
+          <span class="surface-step-num">Lift 3</span>
+          <span class="surface-step-name">--muted</span>
+          <span class="surface-step-role">tier cards</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography roles">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens · Typography</p>
+        <h2 class="section-title">Display anchored at 900, body at 400.</h2>
+        <p class="section-lede">A three-step ink ladder on dark — white at 400 for body, muted at 400 for secondary, faint at 400 for the dimmest tier. Display reaches 900 weight and a humanist x-height widens at the title axis.</p>
+      </div>
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Halcyon.</span></div>
+        <div class="type-row"><span class="type-label">Section</span><span class="type-section">A canvas for everything the team works through.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Pricing tiers, accordion rows, status pills.</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Pastel ladder on dark, one hue per tier.</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy at 16px, line-height 1.5. The body face shares its family with the display axis; the wider title variant only steps in for section and display roles.</span></div>
+        <div class="type-row"><span class="type-label">Meta</span><span class="type-meta">12px disclaimer line. Same weight as body. Used for terms and legal copy beneath tier cards.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="support" aria-label="Component vocabulary">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Vocabulary · Components</p>
+        <h2 class="section-title">Pills, accordions, status dots.</h2>
+        <p class="section-lede">Every actionable surface lands on a 9999px radius. The accordion glyph carries a green stroke; rows separate on hairline-soft, not boxed borders.</p>
+      </div>
+
+      <div class="components-stack">
+
+        <div class="cmp-block">
+          <span class="cmp-label">Pill variants</span>
+          <div class="cmp-row">
+            <button class="pill" data-variant="primary" type="button">Start free</button>
+            <button class="pill" data-variant="ghost-on-dark" type="button">Get access</button>
+            <button class="pill" data-variant="outline-on-dark" type="button">Log in</button>
+            <button class="pill" data-variant="primary" data-size="sm" type="button">Small</button>
+          </div>
+        </div>
+
+        <div class="cmp-block">
+          <span class="cmp-label">Pricing pills (pastel ladder)</span>
+          <div class="cmp-row">
+            <button class="pill" data-variant="pastel-pink" type="button">Personal</button>
+            <button class="pill" data-variant="pastel-lavender" type="button">Solo</button>
+            <button class="pill" data-variant="pastel-amber" type="button">Team</button>
+            <button class="pill" data-variant="pastel-sky" type="button">Org-wide</button>
+          </div>
+        </div>
+
+        <div class="cmp-block">
+          <span class="cmp-label">Search shell (support hub)</span>
+          <div class="search-shell" role="search">
+            <div class="search-tabs" role="tablist">
+              <button class="search-tab" role="tab" aria-selected="true" type="button">Search with AI</button>
+              <button class="search-tab" role="tab" aria-selected="false" type="button">Basic search</button>
+            </div>
+            <label class="search-field">
+              <span class="search-icon" aria-hidden="true"></span>
+              <span class="search-placeholder">Ask a question or describe the issue</span>
+              <button class="search-submit" type="button" aria-label="Submit search">
+                <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </label>
+          </div>
+        </div>
+
+        <div class="cmp-block">
+          <span class="cmp-label">Status pills</span>
+          <div class="cmp-row">
+            <span class="status-pill"><span class="status-pill-dot" data-state="positive"></span>Shipped</span>
+            <span class="status-pill"><span class="status-pill-dot" data-state="warning"></span>Review</span>
+            <span class="status-pill"><span class="status-pill-dot" data-state="announce"></span>Drafting</span>
+            <span class="status-pill"><span class="status-pill-dot" data-state="negative"></span>Reverted</span>
+            <span class="status-pill"><span class="status-pill-dot" data-state="neutral"></span>Backlog</span>
+          </div>
+        </div>
+
+        <div class="cmp-block">
+          <span class="cmp-label">Accordion (support hub)</span>
+          <div class="accordion">
+            <div class="accordion-row" role="button" tabindex="0">
+              <span class="accordion-glyph" data-shape="card" aria-hidden="true"></span>
+              <span>Payments and billing</span>
+              <span class="accordion-chevron" aria-hidden="true"></span>
+            </div>
+            <div class="accordion-row" role="button" tabindex="0">
+              <span class="accordion-glyph" data-shape="user" aria-hidden="true"></span>
+              <span>Manage your workspace</span>
+              <span class="accordion-chevron" aria-hidden="true"></span>
+            </div>
+            <div class="accordion-row" role="button" tabindex="0">
+              <span class="accordion-glyph" data-shape="star" aria-hidden="true"></span>
+              <span>Plan changes and upgrades</span>
+              <span class="accordion-chevron" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <span class="footer-brand">
+            <span class="footer-brand-glyph" aria-hidden="true"></span>
+            spotify-style
+          </span>
+          <div class="footer-social">
+            <button class="footer-social-btn" type="button" aria-label="Social link one">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            </button>
+            <button class="footer-social-btn" type="button" aria-label="Social link two">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>
+            </button>
+            <button class="footer-social-btn" type="button" aria-label="Social link three">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4v4h-2c-1 0-1 1-1 1v3h3l-1 4h-2v6h-4v-6H6v-4h2V8c0-2 2-4 4-4z" fill="currentColor"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <p class="footer-col-title">Halcyon</p>
+          <ul class="footer-col-list">
+            <li><a href="#">halcyon.dev</a></li>
+            <li><a href="#">app.halcyon.dev</a></li>
+            <li><a href="#">@halcyon/cli</a></li>
+            <li><a href="#">hlc.so</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer-col-title">Plans</p>
+          <ul class="footer-col-list">
+            <li><a href="#">Personal</a></li>
+            <li><a href="#">Solo</a></li>
+            <li><a href="#">Team</a></li>
+            <li><a href="#">Org-wide</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer-col-title">Surfaces</p>
+          <ul class="footer-col-list">
+            <li><a href="#">Tokens</a></li>
+            <li><a href="#">Typography</a></li>
+            <li><a href="#">Components</a></li>
+            <li><a href="#">Support</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer-col-title">Workspace</p>
+          <ul class="footer-col-list">
+            <li><a href="#">Rituals</a></li>
+            <li><a href="#">Sprints</a></li>
+            <li><a href="#">Crits</a></li>
+            <li><a href="#">Postmortems</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-legal">
+        <span>spotify-style · token surface preview · 2026.05.25</span>
+        <span>SpotifyMix · Spotify Green · pastel ladder · full-bleed panels</span>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+</body>
+</html>

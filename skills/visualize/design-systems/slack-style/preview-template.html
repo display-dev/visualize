@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%234a154b'/%3E%3Cpath d='M13 8 Q13 6 15 6 Q17 6 17 8 L17 13 L22 13 Q24 13 24 15 Q24 17 22 17 L17 17 L17 22 Q17 24 15 24 Q13 24 13 22 L13 17 L8 17 Q6 17 6 15 Q6 13 8 13 Z' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Cream-lavender hero canvas + diffused pastel-mesh gradient + deep aubergine primary + over-padded 90px pill buttons + massive aubergine stat numbers + full-bleed aubergine footer band.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Slack-style preview shell — cream-lavender canvas with diffused
+   pastel-mesh atmospheric gradient (peach + lavender + dusty green
+   wash), deep aubergine primary doing the chromatic monotheism work
+   (CTAs, featured tier, footer band, wordmark), over-padded 90 px
+   pill buttons with 28-30 px horizontal padding, blue inline links
+   as the only chromatic departure. Inter standing in for the
+   proprietary Salesforce-Sans / Salesforce-Avant-Garde families.
+   Halcyon-themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', 'Salesforce-Sans', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav (cream canvas) -- */
+.topnav {
+  background: var(--background);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: var(--primary);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 26px; height: 26px;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--primary-foreground);
+}
+.topnav-links {
+  display: flex;
+  gap: 2rem;
+  font-size: 15px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 2.5rem;
+  color: var(--foreground);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--primary); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; font-size: 14px; }
+.topnav-actions a { color: var(--foreground); text-decoration: none; font-weight: 500; }
+.topnav-actions a:hover { color: var(--primary); }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (over-padded pill at 90 px radius, 44 px touch target) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-press); border-color: var(--brand-primary-press); }
+.btn[data-variant="lavender"] {
+  background: var(--brand-canvas-lavender);
+  color: var(--primary);
+  border-color: var(--brand-canvas-lavender);
+}
+.btn[data-variant="lavender"]:hover { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+.btn[data-variant="inverse"] {
+  background: var(--background);
+  color: var(--primary);
+  border-color: var(--background);
+}
+.btn[data-variant="inverse"]:hover { background: var(--brand-canvas-lavender); }
+.btn[data-size="lg"] { min-height: 52px; padding: 0 1.75rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (cream-lavender canvas + diffused pastel-mesh gradient atmospheric) -- */
+.hero {
+  position: relative;
+  padding: 5rem 1.5rem 6rem;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 18% 22%, rgba(255, 200, 175, 0.45) 0%, transparent 40%),
+    radial-gradient(ellipse at 78% 15%, rgba(220, 195, 245, 0.55) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 85%, rgba(195, 220, 200, 0.4) 0%, transparent 50%),
+    linear-gradient(180deg, var(--brand-canvas-cream) 0%, var(--brand-canvas-lavender) 100%);
+  z-index: -1;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 880px) { .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 1.5rem;
+}
+.eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.hero-display {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 16ch;
+}
+.hero-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--foreground);
+  max-width: 38rem;
+  margin: 0 0 2rem;
+}
+.hero-lede a { color: var(--brand-link-blue); font-weight: 500; }
+.hero-lede a:hover { color: var(--brand-link-hover); }
+.hero-ctas {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* -- Signature: floating product UI mockup (channels) -- */
+.channels-mockup {
+  background: var(--background);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 48px rgba(74, 21, 75, 0.15), 0 8px 16px rgba(74, 21, 75, 0.08);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  min-height: 22rem;
+}
+@media (max-width: 600px) { .channels-mockup { grid-template-columns: 1fr; } }
+.channels-sidebar {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.channels-workspace {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  margin-bottom: 0.5rem;
+}
+.channels-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-on-aubergine-mute);
+  padding: 0.75rem 0.75rem 0.25rem;
+}
+.channel-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--brand-on-aubergine-mute);
+}
+.channel-row[aria-current="page"] {
+  background: var(--brand-primary-press);
+  color: var(--primary-foreground);
+  font-weight: 500;
+}
+.channel-row::before {
+  content: "#";
+  color: var(--brand-on-aubergine-mute);
+  font-weight: 400;
+}
+.channel-row[aria-current="page"]::before { color: var(--primary-foreground); }
+.channels-main {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.channels-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.channels-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0;
+}
+.channels-meta {
+  font-size: 12px;
+  color: var(--brand-ink-mute);
+}
+.message {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+}
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: var(--brand-canvas-lavender);
+  color: var(--primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-grid;
+  place-items: center;
+}
+.message-avatar[data-tone="primary"] { background: var(--primary); color: var(--primary-foreground); }
+.message-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+.message-author {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+.message-time {
+  font-size: 11px;
+  color: var(--brand-ink-mute);
+}
+.message-body {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--foreground);
+  margin: 0;
+}
+.message-body a { color: var(--brand-link-blue); }
+
+/* -- Stats strip (massive aubergine display numbers on white) -- */
+.stats-section {
+  padding: 5rem 1.5rem;
+  background: var(--background);
+}
+.stats-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 880px) { .stats-grid { grid-template-columns: 1fr; gap: 2rem; } }
+.stat {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.stat-value {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--primary);
+  font-feature-settings: "tnum";
+}
+.stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--foreground);
+  max-width: 24ch;
+  margin: 0 auto;
+}
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; background: var(--background); }
+.section[data-tight] { padding: 3rem 1.5rem; }
+.section[data-band="lavender"] { background: var(--brand-canvas-lavender); }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 36rem;
+}
+.section-lede a { color: var(--brand-link-blue); text-decoration: underline; text-underline-offset: 2px; }
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 880px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="cream"] { background: var(--brand-canvas-cream); color: var(--foreground); }
+.ladder-step[data-step="lavender"] { background: var(--brand-canvas-lavender); color: var(--foreground); }
+.ladder-step[data-step="white"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="aubergine"] { background: var(--brand-surface-aubergine); color: var(--primary-foreground); border-color: var(--brand-surface-aubergine); }
+.ladder-num {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+}
+.ladder-role { font-size: 14px; opacity: 0.86; margin-top: auto; line-height: 1.45; }
+
+/* -- Pricing (white tiles, featured = aubergine fill) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-xxl);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pricing-card[data-featured] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+}
+.pricing-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-name { color: var(--primary-foreground); }
+.pricing-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-price { color: var(--primary-foreground); }
+.pricing-tagline {
+  font-size: 13px;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--brand-on-aubergine-mute); }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  font-size: 13px;
+  color: var(--foreground);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: rgba(255, 255, 255, 0.25);
+  color: var(--primary-foreground);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "✓";
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 14px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--primary-foreground); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+}
+.type-display {
+  font-family: 'Inter', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--primary);
+}
+.type-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; line-height: 1.55; color: var(--foreground); }
+.type-body a { color: var(--brand-link-blue); }
+.type-mono { font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: var(--foreground); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-ink-mute);
+  width: 100%;
+}
+
+/* -- Footer (full-bleed aubergine band — Slack's signature footer) -- */
+.footer {
+  background: var(--brand-surface-aubergine);
+  color: var(--primary-foreground);
+  padding: 4rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer .brand-mark { color: var(--primary-foreground); }
+.footer .brand-glyph { background: var(--primary-foreground); color: var(--primary); }
+.footer-tagline { font-size: 13px; color: var(--brand-on-aubergine-mute); line-height: 1.55; margin: 0; }
+.footer-col-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--primary-foreground);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 14px; color: var(--brand-on-aubergine-mute); text-decoration: none; }
+.footer-list a:hover { color: var(--primary-foreground); }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-on-aubergine-mute);
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Features</a>
+      <a href="#">Solutions</a>
+      <a href="#">Enterprise</a>
+      <a href="#">Resources</a>
+      <a href="#">Pricing</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Try for free</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Halcyon · workspace</p>
+      <h1 class="hero-display">Where the whole team meets to make&nbsp;decisions.</h1>
+      <p class="hero-lede">Halcyon's product team writes notes, threads reviews, and ships specs together in one cream-lavender workspace. <a href="#">See how the rooms work →</a></p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" data-size="lg" type="button">Try for free</button>
+        <button class="btn" data-variant="lavender" data-size="lg" type="button">Talk to sales</button>
+      </div>
+    </div>
+    <article class="channels-mockup" aria-label="Channels signature mockup">
+      <h2 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;">Channels mockup</h2>
+      <aside class="channels-sidebar" aria-label="Workspace channels">
+        <div class="channels-workspace">Halcyon</div>
+        <span class="channels-section-label">Channels</span>
+        <span class="channel-row" aria-current="page">workspace-team</span>
+        <span class="channel-row">product-reviews</span>
+        <span class="channel-row">engineering</span>
+        <span class="channel-row">notes-launch</span>
+        <span class="channels-section-label">Direct</span>
+        <span class="channel-row" style="padding-left: 0.75rem;">maya · 3</span>
+        <span class="channel-row" style="padding-left: 0.75rem;">bob · idle</span>
+      </aside>
+      <div class="channels-main">
+        <header class="channels-header">
+          <h3 class="channels-title">#workspace-team</h3>
+          <span class="channels-meta">12 members · 2 threads open</span>
+        </header>
+        <article class="message">
+          <span class="message-avatar" data-tone="primary" aria-hidden="true">M</span>
+          <div>
+            <div class="message-meta">
+              <span class="message-author">maya@halcyon.dev</span>
+              <span class="message-time">12:42</span>
+            </div>
+            <p class="message-body">Q3 roadmap draft is ready for review — would love eyes on it before noon Friday. <a href="#">→ notes/q3-roadmap</a></p>
+          </div>
+        </article>
+        <article class="message">
+          <span class="message-avatar" aria-hidden="true">B</span>
+          <div>
+            <div class="message-meta">
+              <span class="message-author">bob@halcyon.dev</span>
+              <span class="message-time">12:45</span>
+            </div>
+            <p class="message-body">On it. Will leave inline comments by EOD.</p>
+          </div>
+        </article>
+        <article class="message">
+          <span class="message-avatar" aria-hidden="true">C</span>
+          <div>
+            <div class="message-meta">
+              <span class="message-author">team@halcyon.dev</span>
+              <span class="message-time">12:48</span>
+            </div>
+            <p class="message-body">+1, picking up the engineering side. Will thread questions in #engineering.</p>
+          </div>
+        </article>
+      </div>
+    </article>
+  </div>
+</header>
+
+<section class="stats-section" aria-label="Stats">
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="stat-value">90%</div>
+      <div class="stat-label">of teams report faster decisions after one week</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">43</div>
+      <div class="stat-label">minutes saved per teammate, per day on average</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">87%</div>
+      <div class="stat-label">say their workspace feels less noisy than email</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="lavender" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">One aubergine, two cream canvases.</h2>
+      <p class="section-lede">Cream + lavender canvas band the marketing surfaces. Deep aubergine carries every CTA, the featured tier, the footer, and the wordmark. Inline links shift to a single saturated blue — the only chromatic departure from the aubergine-and-cream world.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-cream);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-cream</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-lavender);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-lavender</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-aubergine);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-aubergine</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Primary</div><div class="swatch-name">--primary · aubergine</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-primary-press);"></div><div class="swatch-role">Primary</div><div class="swatch-name">--brand-primary-press</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-link-blue);"></div><div class="swatch-role">Link</div><div class="swatch-name">--brand-link-blue</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ink-mute);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-mute</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-on-aubergine-mute);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-on-aubergine-mute</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-semantic-success);"></div><div class="swatch-role">Status</div><div class="swatch-name">--brand-semantic-success</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--border);"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--border</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces</p>
+      <h2 class="section-title">Four surfaces, one chromatic anchor.</h2>
+      <p class="section-lede">Cream + lavender as the marketing canvas pair. White for cards, dense reference, and pricing tiles. Deep aubergine for the footer, featured tier, and the sidebar of every product mockup — the brand's single chromatic anchor.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="cream">
+        <span class="ladder-num">Cream</span>
+        <span class="ladder-name">--brand-canvas-cream</span>
+        <span class="ladder-role">hero canvas · marketing top</span>
+      </div>
+      <div class="ladder-step" data-step="lavender">
+        <span class="ladder-num">Lavender</span>
+        <span class="ladder-name">--brand-canvas-lavender</span>
+        <span class="ladder-role">hero canvas · marketing bottom</span>
+      </div>
+      <div class="ladder-step" data-step="white">
+        <span class="ladder-num">White</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">cards · pricing · dense reference</span>
+      </div>
+      <div class="ladder-step" data-step="aubergine">
+        <span class="ladder-num">Aubergine</span>
+        <span class="ladder-name">--brand-surface-aubergine</span>
+        <span class="ladder-role">footer · featured · product sidebar</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three tiers on white tiles.</h2>
+      <p class="section-lede">Featured tier fills with the brand aubergine — the only place the system commits to its single chromatic anchor in full.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="lavender" type="button">Try for free</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="inverse" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="lavender" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · type + components</p>
+      <h2 class="section-title">Inter at weight 700, tight tracking.</h2>
+      <p class="section-lede">Display tier at Inter weight 700 with tight negative tracking. Body at weight 400 with relaxed 1.55 leading so the cream canvas reads quietly. Aubergine reserved for headlines and primary CTAs. <a href="#">Blue links</a> are the only chromatic departure.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Aubergine moment.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Inter weight 700</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter · 600 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Inter at 14–16 pixels, line-height 1.55. <a href="#">Blue inline links</a> are the only chromatic departure from the aubergine-and-cream world.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">workspace.channels.open()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · 90 px pill, over-padded</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Try for free</button>
+            <button class="btn" data-variant="lavender" type="button">Talk to sales</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Buttons · primary on aubergine surface</span>
+          <div class="cmp-row" style="margin-top:0.5rem; padding: 1rem; background: var(--brand-surface-aubergine); border-radius: var(--radius-md);">
+            <button class="btn" data-variant="inverse" type="button">Get started</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the cream-lavender + aubergine design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Features</p>
+      <ul class="footer-list"><li><a href="#">Channels</a></li><li><a href="#">Threads</a></li><li><a href="#">Notes</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Solutions</p>
+      <ul class="footer-list"><li><a href="#">Enterprise</a></li><li><a href="#">Startups</a></li><li><a href="#">Government</a></li><li><a href="#">Education</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">workspace.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">cream-lavender canvas · aubergine · pill 90 px · blue links</span>
+  </div>
+</footer>
+
+</body>
+</html>

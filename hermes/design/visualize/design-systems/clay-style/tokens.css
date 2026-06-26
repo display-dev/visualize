@@ -1,0 +1,289 @@
+/**
+ * design-systems/clay-style/tokens.css
+ *
+ * Hand-authored from live-verified clay.com surfaces.
+ * Sourced: 2026-05-26 (see DESIGN.md frontmatter for the full verification record).
+ *
+ * Canonical canvas: light (single-polarity).
+ *   Clay does NOT ship a dark mode on any sampled marketing or content surface.
+ *   Setting data-theme="dark" / .dark / matching prefers-color-scheme: dark on
+ *   clay.com produces no theme swap — the canvas stays oat-100 and the
+ *   foreground stays black. The dark block below is a synthesised catalog
+ *   convenience for preview-dark.html theme-toggle comparison; every value
+ *   is marked (synthesised — Clay has no live dark mode) and is NOT
+ *   representative of brand-deployed behaviour.
+ *
+ * Loam design system. Clay's documented palette is named "loam" and ships
+ * fruit-stop ladders — blueberry / matcha / dragonfruit / ube / tangarine /
+ * lemon / lime / pomegranate / slushie / oat / grey. Each family ships an
+ * 11-stop ladder (50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950);
+ * this file carries the stops observed in deployed surfaces under
+ * --brand-accent-<fruit>-<stop> naming. The vocabulary preserves Clay's
+ * spelling, including the brand's consistent misspelling of `tangarine`
+ * (sic) in the legacy --_swatches---color--* family that ships on the
+ * deployed marketing surfaces.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are Clay's.
+ *   - Brand-extras (--brand-*): Clay's loam vocabulary — fruit-stop
+ *     ladders, polarity-locked canvas surfaces, hairlines.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are Clay's. */
+
+  --background: oklch(0.9793 0.0029 84.56);     /* #f9f8f6 loam oat-100 — page canvas */
+  --foreground: oklch(0 0 0);                   /* #000000 — body text, h1 colour */
+  --card: oklch(1 0 0);                         /* #ffffff — hero / content cards are pure white */
+  --card-foreground: oklch(0 0 0);              /* #000000 */
+  --popover: oklch(1 0 0);                      /* #ffffff — nav-mega menu / dropdown panels */
+  --popover-foreground: oklch(0 0 0);           /* #000000 */
+
+  --primary: oklch(0 0 0);                      /* #000000 — pure black primary CTA fill */
+  --primary-foreground: oklch(1 0 0);           /* #ffffff — label on black CTA pill */
+  --secondary: oklch(0.9605 0.0067 97.35);      /* #f3f2ed loam oat-200 — Clay uses oat-200 for secondary CTA */
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.9605 0.0067 97.35);          /* #f3f2ed loam oat-200 — search-input chrome, toggle pill bg */
+  /* Clay deploys --muted-foreground at oklch(0.5635 0.0130 84.59) (#79756d)
+   * on clay.com — the section-eyebrow colour, used at 10px @ 600 weight
+   * (large-text-bold floor 3:1, which it clears at 4.32:1). For body-size
+   * consumption in catalog previews (12-14px regular weight against both
+   * oat-100 canvas AND oat-200 footer surface), retune the chroma-0.013
+   * utility neutral to L=0.45 — clears body-AA on both pairs while
+   * preserving the warm hue family that anchors the token to the oat
+   * canvas temperature. AUTHORING.md "Brand identity vs utility
+   * neutrals" allows this. */
+  --muted-foreground: oklch(0.45 0.0130 84.59); /* #5d5a52 — warm mid-gray, body-AA cleared on oat-100 + oat-200 */
+  --accent: oklch(0.9605 0.0067 97.35);         /* #f3f2ed oat-200 — Clay maps accent to oat-200 */
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.5891 0.2097 15.07);    /* #dd2c53 loam pomegranate-600 — closest semantic destructive */
+  --destructive-foreground: oklch(1 0 0);       /* #ffffff */
+
+  --border: oklch(0.9352 0.0144 84.58);         /* #eee9df loam oat-300 — separators, card hairlines */
+  --input: oklch(0.9352 0.0144 84.58);          /* #eee9df oat-300 */
+  --ring: oklch(0 0 0);                         /* #000000 — Clay's :focus-visible outline routes to neutrals--black */
+
+  --sidebar: oklch(0.9605 0.0067 97.35);        /* oat-200 */
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0 0 0);              /* tracks --primary */
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9605 0.0067 97.35);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0.9352 0.0144 84.58); /* oat-300 */
+  --sidebar-ring: oklch(0 0 0);                 /* tracks --primary */
+
+  /* Chart palette — loam fruit-stop selection that pairs cleanly */
+  --chart-1: oklch(0.6139 0.1985 254.62);       /* blueberry-500 */
+  --chart-2: oklch(0.5578 0.1327 156.34);       /* matcha-600 */
+  --chart-3: oklch(0.5588 0.2310 349.85);       /* dragonfruit-800 */
+  --chart-4: oklch(0.6921 0.1973 45.18);        /* tangarine-600 */
+  --chart-5: oklch(0.8051 0.1665 74.83);        /* lemon-600 */
+
+  /* radius scale */
+  --radius-sm: 8px;
+  --radius-md: 12px;       /* Clay's primary CTA pill radius */
+  --radius-lg: 16px;       /* Clay's card radius */
+  --radius-xl: 24px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 6px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Roobert is Clay's primary family (proprietary geometric sans, variable
+   * weight 300-900). Canela is the editorial display family used only on
+   * /blog (proprietary contrast serif). Space Mono ships for utility /
+   * spreadsheet-mockup surfaces; Roobert mono is declared as the brand's
+   * secondary mono but most rendered mono draws from Space Mono. */
+  --font-sans: "Roobert", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Roobert", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display-editorial: "Canela", "Canela Web", ui-serif, Georgia, "Times New Roman", serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* type scale tokens — observed on clay.com */
+  --text-display: 52.36px;     /* homepage hero, Roobert 600 / lh 1.0 / ls -4% */
+  --text-display-editorial: 64px; /* /blog h1, Canela 300 */
+  --text-display-careers: 82.66px; /* /careers hero, Roobert 600 (largest observed) */
+  --text-heading: 40px;        /* /pricing h1 */
+  --text-section-heading: 32px; /* h2 across marketing */
+  --text-title: 18px;          /* subtitle / card heading */
+  --text-base: 14px;           /* body */
+  --text-eyebrow: 10px;        /* eyebrow / kicker — uppercase, 0.08em tracking */
+  --leading-tight: 1;
+  --leading-normal: 1.4;
+  --tracking-display: -0.04em;  /* tight headlines, ~-3% to -4% em */
+  --tracking-eyebrow: 0.08em;
+
+  /* spacing */
+  --spacing: 0.25rem;
+
+  /* shadow scale — Clay is near-flat; cards use hairline borders, not drops */
+  --shadow-2xs: 0 1px 2px 0px hsl(0 0% 0% / 0.04);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.08), 0 1px 2px -1px hsl(0 0% 0% / 0.08);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 2px 6px 0px hsl(0 0% 0% / 0.08), 0 1px 3px -1px hsl(0 0% 0% / 0.08);
+  --shadow-lg: 0 4px 12px 0px hsl(0 0% 0% / 0.08);
+  --shadow-xl: 0 8px 24px 0px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 16px 48px 0px hsl(0 0% 0% / 0.15);
+
+  /* -- Brand-extras --------------------------------------------- */
+
+  /* Polarity-locked canvas surfaces (always-light; Clay has no dark mode) */
+  --brand-canvas-cream: oklch(0.9793 0.0029 84.56);  /* #f9f8f6 oat-100 — page canvas / footer bg */
+  --brand-canvas-white: oklch(1 0 0);                 /* #ffffff — card / hero card surface */
+  --brand-on-dark: oklch(1 0 0);                      /* #ffffff — white ink on saturated card fills */
+  --brand-on-light: oklch(0 0 0);                     /* #000000 — black ink on oat / white canvas */
+
+  /* Hairlines / dividers */
+  --brand-hairline-soft: oklch(0.9352 0.0144 84.58);   /* #eee9df oat-300 — list-row separators, soft hairlines */
+  --brand-hairline-strong: oklch(0.8761 0.0202 84.41); /* ≈ #dad4c8 oat-400 — testimonial-card divider */
+
+  /* Body text neutrals (chroma ≈ 0.01 — warm utility, anchored to oat hue family) */
+  --brand-body: oklch(0 0 0);                          /* #000000 */
+  --brand-body-strong: oklch(0 0 0);                   /* #000000 */
+  --brand-muted-soft: oklch(0.45 0.0130 84.59);        /* #5d5a52 — same retune as --muted-foreground; clears body-AA on oat-200 footer */
+
+  /* -- Loam fruit-stop ladder ----------------------------------- */
+  /* Clay's documented brand palette. Each fruit family ships an 11-stop
+   * ladder; values below are the stops observed in deployed surfaces.
+   * Names retain Clay's vocabulary including the brand's consistent
+   * misspelling of `tangarine` (sic) in --_swatches---color--* CSS
+   * variables on the live site.
+   *
+   * Brand chromatic identity — these stops are polarity-invariant
+   * per AUTHORING.md. They stay at :root values in the synthesised
+   * dark block; substituting for greyscale or lifting their lightness
+   * would invert Clay's "saturated colour over warm canvas" register. */
+
+  --brand-accent-blueberry-400: oklch(0.7142 0.1521 249.27);   /* #4ca8fd — pricing-card "Free" header band */
+  --brand-accent-blueberry-500: oklch(0.6139 0.1985 254.62);   /* #0382f7 — inline-link underline accent */
+  --brand-accent-blueberry-600: oklch(0.5346 0.1920 257.70);   /* #0667d9 — "AI conditional logic" feature card */
+  --brand-accent-matcha-600:    oklch(0.5578 0.1327 156.34);   /* #078a52 — testimonial card, inline-headline accent */
+  --brand-accent-matcha-700:    oklch(0.4586 0.1086 156.92);   /* #02693e — "Destinations" feature card, Launch tier */
+  --brand-accent-dragonfruit-800: oklch(0.5588 0.2310 349.85); /* #cc0687 — "Growth" pricing-tier header band */
+  --brand-accent-dragonfruit-900: oklch(0.4222 0.1740 349.18); /* #8b045c — "AI formatting" feature card */
+  --brand-accent-ube-400:       oklch(0.5470 0.2070 287.50);   /* #6d4cd6 — "Enterprise" pricing-tier header (per --loam---web-library_swatches---ube--400) */
+  --brand-accent-ube-600:       oklch(0.5350 0.2550 291.98);   /* #7934f0 — verified-addresses stat callout */
+  --brand-accent-tangarine-600: oklch(0.6921 0.1973 45.18);    /* #fa6900 — consolidated-data stat callout */
+  --brand-accent-tangarine-700: oklch(0.5722 0.1616 40.89);    /* #c34e1b — Sendoso testimonial card */
+  --brand-accent-lemon-600:     oklch(0.8051 0.1665 74.83);    /* #fdad15 — compliance-badge flower petals */
+  --brand-accent-lime-300:      oklch(0.8437 0.1875 114.11);   /* #cbd810 — closing CTA band, testimonial card */
+  --brand-accent-pomegranate-600: oklch(0.5891 0.2097 15.07);  /* #dd2c53 — Coverflex / Tropic testimonial cards */
+  --brand-accent-pomegranate-700: oklch(0.4690 0.1660 14.50);  /* #b21a3f — deeper pomegranate stop */
+  --brand-accent-slushie-500:   oklch(0.8070 0.1347 221.21);   /* #3bd3fd — testimonial card light-cyan fill */
+  --brand-accent-slushie-900:   oklch(0.4280 0.0807 224.41);   /* #005870 — OpenAI / Vanta testimonial cards */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * SYNTHESISED — Clay has no live dark mode. Every value below is a
+ * preview-only catalog convenience so preview-dark.html can render for
+ * theme-toggle comparison. None of this is brand-deployed behaviour;
+ * the live clay.com surface produces no theme swap under data-theme="dark"
+ * or prefers-color-scheme: dark.
+ *
+ * The loam fruit-stop ladder is polarity-invariant — Clay's chromatic
+ * identity stays at :root values and is intentionally NOT overridden
+ * below. Only canvas + neutrals flip; saturated brand-accent stops carry
+ * across modes per AUTHORING.md.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.18 0 0);                /* near-black canvas (synthesised — Clay has no live dark mode) */
+  --foreground: oklch(1 0 0);                   /* white (synthesised — Clay has no live dark mode) */
+  --card: oklch(0.22 0 0);                      /* elevated near-black (synthesised — Clay has no live dark mode) */
+  --card-foreground: oklch(1 0 0);              /* (synthesised — Clay has no live dark mode) */
+  --popover: oklch(0.22 0 0);                   /* (synthesised — Clay has no live dark mode) */
+  --popover-foreground: oklch(1 0 0);           /* (synthesised — Clay has no live dark mode) */
+
+  --primary: oklch(1 0 0);                      /* white CTA on dark (synthesised — Clay has no live dark mode) */
+  --primary-foreground: oklch(0 0 0);           /* black ink on white CTA (synthesised — Clay has no live dark mode) */
+  --secondary: oklch(0.25 0 0);                 /* (synthesised — Clay has no live dark mode) */
+  --secondary-foreground: oklch(1 0 0);         /* (synthesised — Clay has no live dark mode) */
+  --muted: oklch(0.25 0 0);                     /* (synthesised — Clay has no live dark mode) */
+  --muted-foreground: oklch(0.72 0 0);          /* utility-neutral lifted for AA on dark canvas (synthesised — Clay has no live dark mode) */
+  --accent: oklch(0.25 0 0);                    /* (synthesised — Clay has no live dark mode) */
+  --accent-foreground: oklch(1 0 0);            /* (synthesised — Clay has no live dark mode) */
+  --destructive: oklch(0.5891 0.2097 15.07);    /* pomegranate-600 carries through (synthesised — Clay has no live dark mode) */
+  --destructive-foreground: oklch(1 0 0);       /* (synthesised — Clay has no live dark mode) */
+
+  --border: oklch(0.32 0 0);                    /* (synthesised — Clay has no live dark mode) */
+  --input: oklch(0.32 0 0);                     /* (synthesised — Clay has no live dark mode) */
+  --ring: oklch(1 0 0);                         /* tracks --primary (synthesised — Clay has no live dark mode) */
+
+  --sidebar: oklch(0.22 0 0);                   /* (synthesised — Clay has no live dark mode) */
+  --sidebar-foreground: oklch(1 0 0);           /* (synthesised — Clay has no live dark mode) */
+  --sidebar-primary: oklch(1 0 0);              /* (synthesised — Clay has no live dark mode) */
+  --sidebar-primary-foreground: oklch(0 0 0);   /* (synthesised — Clay has no live dark mode) */
+  --sidebar-accent: oklch(0.25 0 0);            /* (synthesised — Clay has no live dark mode) */
+  --sidebar-accent-foreground: oklch(1 0 0);    /* (synthesised — Clay has no live dark mode) */
+  --sidebar-border: oklch(0.32 0 0);            /* (synthesised — Clay has no live dark mode) */
+  --sidebar-ring: oklch(1 0 0);                 /* (synthesised — Clay has no live dark mode) */
+
+  /* Brand-extras canvas overrides — single-polarity synthesis (Clay has no live dark mode) */
+  --brand-canvas-cream: oklch(0.18 0 0);        /* canvas equivalent on dark (synthesised) */
+  --brand-canvas-white: oklch(0.22 0 0);        /* card equivalent on dark (synthesised) */
+  --brand-hairline-soft: oklch(0.32 0 0);       /* (synthesised) */
+  --brand-hairline-strong: oklch(0.40 0 0);     /* (synthesised) */
+  --brand-body: oklch(1 0 0);                   /* white (synthesised) */
+  --brand-body-strong: oklch(1 0 0);            /* white (synthesised) */
+  --brand-muted-soft: oklch(0.72 0 0);          /* utility-neutral lifted for dark (synthesised) */
+
+  /* Polarity-locked: --brand-on-dark, --brand-on-light, and every
+   * --brand-accent-<fruit>-<stop> are intentionally NOT overridden here.
+   * The loam fruit-stop ladder carries Clay's chromatic identity across
+   * modes; lifting them would invert the brand's "saturated colour over
+   * warm canvas" register into something else entirely. */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.18 0 0);                /* (synthesised — Clay has no live dark mode) */
+    --foreground: oklch(1 0 0);                   /* (synthesised — Clay has no live dark mode) */
+    --card: oklch(0.22 0 0);                      /* (synthesised — Clay has no live dark mode) */
+    --card-foreground: oklch(1 0 0);              /* (synthesised — Clay has no live dark mode) */
+    --popover: oklch(0.22 0 0);                   /* (synthesised — Clay has no live dark mode) */
+    --popover-foreground: oklch(1 0 0);           /* (synthesised — Clay has no live dark mode) */
+
+    --primary: oklch(1 0 0);                      /* (synthesised — Clay has no live dark mode) */
+    --primary-foreground: oklch(0 0 0);           /* (synthesised — Clay has no live dark mode) */
+    --secondary: oklch(0.25 0 0);                 /* (synthesised — Clay has no live dark mode) */
+    --secondary-foreground: oklch(1 0 0);         /* (synthesised — Clay has no live dark mode) */
+    --muted: oklch(0.25 0 0);                     /* (synthesised — Clay has no live dark mode) */
+    --muted-foreground: oklch(0.72 0 0);          /* (synthesised — Clay has no live dark mode) */
+    --accent: oklch(0.25 0 0);                    /* (synthesised — Clay has no live dark mode) */
+    --accent-foreground: oklch(1 0 0);            /* (synthesised — Clay has no live dark mode) */
+    --destructive: oklch(0.5891 0.2097 15.07);    /* (synthesised — Clay has no live dark mode) */
+    --destructive-foreground: oklch(1 0 0);       /* (synthesised — Clay has no live dark mode) */
+
+    --border: oklch(0.32 0 0);                    /* (synthesised — Clay has no live dark mode) */
+    --input: oklch(0.32 0 0);                     /* (synthesised — Clay has no live dark mode) */
+    --ring: oklch(1 0 0);                         /* (synthesised — Clay has no live dark mode) */
+
+    --sidebar: oklch(0.22 0 0);                   /* (synthesised — Clay has no live dark mode) */
+    --sidebar-foreground: oklch(1 0 0);           /* (synthesised — Clay has no live dark mode) */
+    --sidebar-primary: oklch(1 0 0);              /* (synthesised — Clay has no live dark mode) */
+    --sidebar-primary-foreground: oklch(0 0 0);   /* (synthesised — Clay has no live dark mode) */
+    --sidebar-accent: oklch(0.25 0 0);            /* (synthesised — Clay has no live dark mode) */
+    --sidebar-accent-foreground: oklch(1 0 0);    /* (synthesised — Clay has no live dark mode) */
+    --sidebar-border: oklch(0.32 0 0);            /* (synthesised — Clay has no live dark mode) */
+    --sidebar-ring: oklch(1 0 0);                 /* (synthesised — Clay has no live dark mode) */
+
+    --brand-canvas-cream: oklch(0.18 0 0);        /* (synthesised) */
+    --brand-canvas-white: oklch(0.22 0 0);        /* (synthesised) */
+    --brand-hairline-soft: oklch(0.32 0 0);       /* (synthesised) */
+    --brand-hairline-strong: oklch(0.40 0 0);     /* (synthesised) */
+    --brand-body: oklch(1 0 0);                   /* (synthesised) */
+    --brand-body-strong: oklch(1 0 0);            /* (synthesised) */
+    --brand-muted-soft: oklch(0.72 0 0);          /* (synthesised) */
+  }
+}

@@ -1,0 +1,1184 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<!-- Modern Bold (Bold Typography Design System, spec-derived).
+     Signature mockup: poster-grade vermillion display type ("WAR / KING") with
+     outline-style CTA and noise-grain overlay — the brand's recognizability moment
+     per DESIGN.md §4 "Decorative layered typography" + raw.md preview-panel note. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A0A0A'/%3E%3Cpath d='M5 6 L5 26 M5 6 L13 26 L13 6 M19 6 L19 26 M19 6 L27 26 L27 6' stroke='%23FF3D00' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Bold Typography design system preview from visualize. Near-black canvas, vermillion accent, Inter Tight + Playfair + JetBrains Mono, strict zero-radius rule.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Modern Bold preview shell — dark-canonical poster surface.
+   Signature: massive vermillion display type set against near-black canvas
+   with subtle noise grain, outline-style secondary CTA with full-inversion
+   hover, accent-bar anchors, layered-text depth, strict zero-radius.
+   Three families: Inter Tight (UI + headlines), Playfair Display (pull quote),
+   JetBrains Mono (labels + stats + technical captions). Halcyon content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+/* Noise-grain overlay — full-page, ~1.5% opacity, pointer-events:none.
+   Inline SVG with feTurbulence per raw.md "Textures & Patterns". */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  position: relative;
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: screen;
+}
+body > * { position: relative; z-index: 2; }
+
+/* -- Sticky top nav -- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--background) 88%, transparent);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.topnav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.topnav-brand-bar {
+  display: inline-block;
+  width: 16px;
+  height: 4px;
+  background: var(--brand-accent-bar);
+}
+.topnav-links {
+  display: flex;
+  gap: 2rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.topnav-links a {
+  color: var(--brand-body-muted);
+  text-decoration: none;
+  transition: color 150ms;
+}
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions { display: flex; gap: 1rem; align-items: center; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Buttons --
+   Primary: text-only with animated underline (vermillion text, accent underline
+            scaling x-100 to x-110 on hover).
+   Secondary: full inversion on hover (transparent → foreground bg, foreground →
+              background ink). Sharp 0px corners.
+   Ghost: muted-foreground text, appearing underline. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  background: transparent;
+  color: var(--foreground);
+  position: relative;
+  white-space: nowrap;
+  min-height: 44px;
+  transition: background 150ms, color 150ms, border-color 150ms;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.btn:active { transform: translateY(1px); }
+
+.btn[data-variant="primary"] {
+  color: var(--primary);
+  padding: 0.75rem 0;
+  border: none;
+}
+.btn[data-variant="primary"]::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.625rem;
+  height: 2px;
+  background: var(--primary);
+  transform-origin: center;
+  transform: scaleX(1);
+  transition: transform 150ms cubic-bezier(0.25, 0, 0, 1);
+}
+.btn[data-variant="primary"]:hover::after { transform: scaleX(1.1); }
+
+.btn[data-variant="secondary"] {
+  border: 1px solid var(--foreground);
+  color: var(--foreground);
+  padding: 0.75rem 1.5rem;
+}
+.btn[data-variant="secondary"]:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.btn[data-variant="ghost"] {
+  color: var(--brand-body-muted);
+  padding: 0.75rem 1rem;
+  position: relative;
+}
+.btn[data-variant="ghost"]::after {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.625rem;
+  height: 1px;
+  background: var(--foreground);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 150ms cubic-bezier(0.25, 0, 0, 1);
+}
+.btn[data-variant="ghost"]:hover {
+  color: var(--foreground);
+}
+.btn[data-variant="ghost"]:hover::after { transform: scaleX(1); }
+
+/* Inverted-section button — used inside .invert-cta block where canvas flips */
+.btn[data-variant="invert-primary"] {
+  background: var(--brand-on-invert);
+  color: var(--brand-canvas-invert);
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--brand-on-invert);
+}
+.btn[data-variant="invert-primary"]:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--accent-foreground);
+}
+
+/* -- Page container -- */
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+@media (min-width: 768px) { .page { padding: 0 3rem; } }
+@media (min-width: 1024px) { .page { padding: 0 4rem; } }
+
+/* -- Hero (brand-flavoured decorative moment, no content sections inside) -- */
+.hero {
+  padding: 6rem 0 4rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+  margin: 0;
+}
+.eyebrow-bar {
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  background: var(--brand-accent-bar);
+}
+.hero-display {
+  font-family: var(--font-sans);
+  font-size: clamp(3rem, 11vw, 9rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  margin: 0;
+  color: var(--foreground);
+  max-width: 12ch;
+}
+.hero-lede {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--brand-body-muted);
+  max-width: 48ch;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.hero-ctas { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem; align-items: center; }
+
+/* === SIGNATURE MOCKUP: poster-grade display type =========================
+   The brand's voltage moment per DESIGN.md §4 + raw.md preview-panel note
+   ("massive vermillion display type ING / NG with EXPLORE PROJECTS outline
+   button"). Massive vermillion words bleed toward the edge with layered
+   muted-foreground duplicate behind them; outline CTA below; mono caption
+   pair flanks the type. All zero-radius, no shadows — depth from layering. */
+.poster {
+  padding: 5rem 0 6rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  margin: 4rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.poster-frame {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  position: relative;
+}
+.poster-eyebrow-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  padding-bottom: 1.5rem;
+}
+.poster-eyebrow-row .eyebrow { color: var(--foreground); }
+.poster-eyebrow-row .meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+}
+
+.poster-type-stack {
+  position: relative;
+  padding: 2rem 0;
+}
+.poster-line {
+  position: relative;
+  line-height: 0.92;
+}
+.poster-word {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(4rem, 18vw, 14rem);
+  letter-spacing: -0.06em;
+  color: var(--primary);
+  display: block;
+  margin: 0;
+  line-height: 0.92;
+}
+.poster-word--invert {
+  color: var(--foreground);
+  text-align: right;
+}
+/* Layered text technique — duplicate at -z-10 in border color, offset 2px.
+   Sits behind the vermillion glyph and adds subtle dimensionality per
+   raw.md "duplicate text offset 1-2px in border color creates depth". */
+.poster-line::before {
+  content: attr(data-ghost);
+  position: absolute;
+  inset: 0;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(4rem, 18vw, 14rem);
+  letter-spacing: -0.06em;
+  line-height: 0.92;
+  color: var(--brand-hairline-soft);
+  transform: translate(3px, 3px);
+  z-index: -1;
+  pointer-events: none;
+}
+.poster-line--right::before { text-align: right; }
+
+.poster-decorative-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-sans);
+  font-size: clamp(12rem, 30vw, 24rem);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  color: var(--brand-surface-1);
+  z-index: -2;
+  pointer-events: none;
+  user-select: none;
+  line-height: 0.85;
+}
+@media (max-width: 880px) { .poster-decorative-number { display: none; } }
+
+.poster-footer {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding-top: 2rem;
+  align-items: end;
+}
+@media (min-width: 768px) {
+  .poster-footer { grid-template-columns: 7fr 5fr; }
+}
+.poster-pullquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 36ch;
+}
+.poster-attribution {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+  margin-top: 0.75rem;
+}
+.poster-cta-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+@media (min-width: 768px) { .poster-cta-stack { align-items: flex-end; } }
+
+/* === END SIGNATURE MOCKUP ============================================== */
+
+/* -- Section frame -- */
+.section { padding: 4rem 0; border-top: 1px solid var(--border); }
+.section-header { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; max-width: 56ch; }
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+  margin: 0;
+}
+.section-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  background: var(--brand-accent-bar);
+}
+.section-title {
+  font-family: var(--font-sans);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin: 0;
+  max-width: 18ch;
+  color: var(--foreground);
+}
+.section-lede {
+  font-size: 18px;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: var(--brand-body-muted);
+  max-width: 56ch;
+  margin: 0;
+}
+
+/* -- Colour swatch band -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-right: 1px solid var(--brand-hairline-soft);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  background: transparent;
+  transition: background 150ms;
+  min-height: 9rem;
+}
+.swatch:hover { background: var(--brand-surface-1); }
+.swatch-chip {
+  height: 2.5rem;
+  border: 1px solid var(--brand-hairline-soft);
+  margin-bottom: 0.75rem;
+}
+.swatch-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--foreground);
+  letter-spacing: -0.01em;
+}
+.swatch-role {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+}
+
+/* -- Surface elevation ladder -- */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--brand-hairline-soft);
+}
+@media (max-width: 880px) { .surface-ladder { grid-template-columns: repeat(2, 1fr); } }
+.surface-step {
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-right: 1px solid var(--brand-hairline-soft);
+  min-height: 10rem;
+  justify-content: space-between;
+}
+.surface-step:last-child { border-right: none; }
+.surface-step[data-step="0"] { background: var(--background); }
+.surface-step[data-step="1"] { background: var(--brand-surface-1); }
+.surface-step[data-step="2"] { background: var(--brand-surface-2); }
+.surface-step[data-step="3"] {
+  background: var(--brand-canvas-invert);
+  color: var(--brand-on-invert);
+}
+.surface-step[data-step="3"] .surface-step-num,
+.surface-step[data-step="3"] .surface-step-role { color: color-mix(in srgb, var(--brand-on-invert) 65%, transparent); }
+.surface-step[data-step="3"] .surface-step-name { color: var(--brand-on-invert); }
+.surface-step-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+}
+.surface-step-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--foreground);
+}
+.surface-step-role {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+}
+
+/* -- Typography roles -- */
+.type-stack { display: flex; flex-direction: column; gap: 2.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 2rem;
+  align-items: baseline;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+@media (max-width: 880px) { .type-row { grid-template-columns: 1fr; gap: 0.5rem; } }
+.type-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+}
+.type-hero {
+  font-family: var(--font-sans);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: var(--foreground);
+}
+.type-display {
+  font-family: var(--font-sans);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.06em;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: var(--font-sans);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+}
+.type-body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: var(--brand-body);
+  max-width: 52ch;
+}
+.type-label-demo {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  font-weight: 500;
+}
+.type-pullquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.75rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  max-width: 36ch;
+}
+
+/* -- Component vocabulary -- */
+.components-stack { display: flex; flex-direction: column; gap: 3rem; }
+.cmp-row { display: flex; gap: 2rem; flex-wrap: wrap; align-items: center; }
+.cmp-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+  margin: 0 0 0.75rem;
+  display: block;
+}
+
+/* Default card (bordered, transparent, sharp) */
+.card {
+  border: 1px solid var(--brand-hairline-soft);
+  background: transparent;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: border-color 150ms;
+  flex: 1;
+  min-width: 14rem;
+}
+.card:hover { border-color: var(--brand-body-muted); }
+.card[data-featured="true"] {
+  border: 2px solid var(--primary);
+  position: relative;
+  padding-top: 2.5rem;
+}
+.card[data-featured="true"]::before {
+  content: 'Featured';
+  position: absolute;
+  top: -0.75rem;
+  left: 1.5rem;
+  background: var(--primary);
+  color: var(--accent-foreground);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.375rem 0.75rem;
+}
+.card-title {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--foreground);
+}
+.card-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+}
+.card-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--brand-body-muted);
+  margin: 0;
+}
+
+/* Input — standard */
+.input {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  height: 48px;
+  padding: 0 1rem;
+  background: var(--input);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  width: 100%;
+  max-width: 22rem;
+  transition: border-color 150ms;
+}
+.input::placeholder { color: var(--brand-body-muted); }
+.input:focus { outline: none; border-color: var(--primary); }
+
+/* Step number / accordion / KPI demos */
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+@media (min-width: 768px) {
+  .steps-grid { grid-template-columns: repeat(3, 1fr); }
+  .steps-grid .step { border-right: 1px solid var(--brand-hairline-soft); border-top: none; }
+  .steps-grid .step:last-child { border-right: none; }
+}
+.step {
+  padding: 2rem 1.5rem;
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: 1rem;
+  align-items: start;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  cursor: pointer;
+}
+.step:hover .step-num { color: var(--primary); }
+.step-num {
+  font-family: var(--font-mono);
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--brand-hairline-strong);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  transition: color 150ms;
+}
+.step-title {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0 0 0.5rem;
+}
+.step-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--brand-body-muted);
+  margin: 0;
+}
+
+/* KPI band */
+.kpi-band {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--brand-hairline-soft);
+  margin: 2rem 0 0;
+}
+@media (max-width: 880px) { .kpi-band { grid-template-columns: repeat(2, 1fr); } }
+.kpi {
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+.kpi:last-child { border-right: none; }
+.kpi::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  width: 32px;
+  height: 4px;
+  background: var(--brand-accent-bar);
+}
+.kpi-number {
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-top: 1rem;
+}
+.kpi-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+}
+
+/* -- Inverted CTA section (full polarity flip) -- */
+.invert-cta {
+  background: var(--brand-canvas-invert);
+  color: var(--brand-on-invert);
+  padding: 6rem 0;
+  margin: 4rem 0 0;
+  border-top: 1px solid var(--brand-hairline-soft);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.invert-cta-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 768px) { .invert-cta-inner { padding: 0 3rem; } }
+@media (min-width: 1024px) { .invert-cta-inner { padding: 0 4rem; } }
+.invert-cta-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--brand-on-invert) 60%, transparent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+}
+.invert-cta-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  background: var(--brand-accent-bar);
+}
+.invert-cta-title {
+  font-family: var(--font-sans);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  margin: 0;
+  max-width: 14ch;
+  color: var(--brand-on-invert);
+}
+.invert-cta-form {
+  display: flex;
+  gap: 0;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+  max-width: 36rem;
+}
+.invert-cta-form .input {
+  background: transparent;
+  color: var(--brand-on-invert);
+  border-color: color-mix(in srgb, var(--brand-on-invert) 30%, transparent);
+  flex: 1;
+  min-width: 14rem;
+}
+.invert-cta-form .input::placeholder { color: color-mix(in srgb, var(--brand-on-invert) 50%, transparent); }
+.invert-cta-form .input:focus { border-color: var(--primary); }
+
+/* -- Footer -- */
+.footer { padding: 4rem 0 3rem; border-top: 1px solid var(--border); }
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+@media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(4, 1fr); } }
+.footer-col-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.625rem; }
+.footer-col-list a {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--brand-body-muted);
+  text-decoration: none;
+  transition: color 150ms;
+}
+.footer-col-list a:hover { color: var(--foreground); }
+.footer-legal {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-body-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+  .btn[data-variant="primary"]::after { transform: scaleX(1) !important; }
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <span class="topnav-brand"><span class="topnav-brand-bar" aria-hidden="true"></span>__DESIGN_SYSTEM_NAME__</span>
+    <div class="topnav-links">
+      <a href="#">Tokens</a>
+      <a href="#">Typography</a>
+      <a href="#">Components</a>
+      <a href="#">Notes</a>
+      <a href="#">Index</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="btn" data-variant="ghost" type="button">Sign in</button>
+      <button class="btn" data-variant="primary" type="button">Get the kit</button>
+    </div>
+  </div>
+</nav>
+
+<main class="page">
+
+  <section class="hero" aria-label="Hero">
+    <p class="eyebrow"><span class="eyebrow-bar" aria-hidden="true"></span>__DESIGN_SYSTEM_NAME__ · Issue 01 · Spring 2026</p>
+    <h1 class="hero-display">Typography is the visual language.</h1>
+    <p class="hero-lede">Bold Typography is poster design translated to web. Color exists to create contrast, space exists to frame letterforms, and interaction reveals typographic detail. Halcyon's design team uses this surface for its yearly brand monograph.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" type="button">Read the manifesto</button>
+      <button class="btn" data-variant="secondary" type="button">Browse the index</button>
+    </div>
+  </section>
+
+  <!-- ============= SIGNATURE MOCKUP ============= -->
+  <section class="poster" aria-label="Poster signature surface">
+    <div class="page" style="padding: 0;">
+      <div class="poster-frame">
+        <div class="poster-eyebrow-row">
+          <p class="eyebrow"><span class="eyebrow-bar" aria-hidden="true"></span>Plate 01 · The Anatomy of Tight Tracking</p>
+          <span class="meta">96pt · -0.06em · Inter Tight 700</span>
+        </div>
+
+        <div class="poster-type-stack">
+          <span class="poster-decorative-number" aria-hidden="true">01</span>
+          <div class="poster-line" data-ghost="EARNED.">
+            <span class="poster-word">EARNED.</span>
+          </div>
+          <div class="poster-line poster-line--right" data-ghost="EVERY WORD">
+            <span class="poster-word poster-word--invert">EVERY WORD</span>
+          </div>
+        </div>
+
+        <div class="poster-footer">
+          <div>
+            <p class="poster-pullquote">"A well-set 80pt headline is more compelling than any stock photo. The page is a gallery exhibition, not a feature grid."</p>
+            <p class="poster-attribution">— Plate caption · Halcyon design team</p>
+          </div>
+          <div class="poster-cta-stack">
+            <button class="btn" data-variant="secondary" type="button">Explore Plates</button>
+            <button class="btn" data-variant="ghost" type="button">View Index →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ============= END SIGNATURE MOCKUP ============= -->
+
+  <section class="section" aria-label="Colour swatch band">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Two surfaces and one accent.</h2>
+      <p class="section-lede">Near-black canvas, warm white ink, vermillion accent. Black isn't pure (#0A0A0A); white isn't sterile (#FAFAFA). The accent is warm, urgent, visible — used on headlines and underlines only.</p>
+    </div>
+    <div class="swatch-grid" aria-label="Brand swatches">
+      <div class="swatch">
+        <div class="swatch-chip" style="background-color: var(--background);"></div>
+        <span class="swatch-name">--background</span>
+        <span class="swatch-role">Canvas · #0A0A0A</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background-color: var(--foreground);"></div>
+        <span class="swatch-name">--foreground</span>
+        <span class="swatch-role">Ink · #FAFAFA</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background-color: var(--primary);"></div>
+        <span class="swatch-name">--primary</span>
+        <span class="swatch-role">Accent · #FF3D00</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background-color: var(--muted);"></div>
+        <span class="swatch-name">--muted</span>
+        <span class="swatch-role">Lift · #1A1A1A</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background-color: var(--muted-foreground);"></div>
+        <span class="swatch-name">--muted-foreground</span>
+        <span class="swatch-role">Body mute · #737373</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background-color: var(--border);"></div>
+        <span class="swatch-name">--border</span>
+        <span class="swatch-role">Hairline · #262626</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Surface elevation ladder">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surface</p>
+      <h2 class="section-title">No shadows. Lift comes from layering.</h2>
+      <p class="section-lede">Three steps inside the dark canvas, then one flip to the inverted plate. Hairline borders mark every transition. Depth is carried by typography and dividers, never by drop shadow.</p>
+    </div>
+    <div class="surface-ladder" aria-label="Surface ladder">
+      <div class="surface-step" data-step="0">
+        <span class="surface-step-num">Floor</span>
+        <span class="surface-step-name">--background</span>
+        <span class="surface-step-role">Canvas</span>
+      </div>
+      <div class="surface-step" data-step="1">
+        <span class="surface-step-num">Lift 1</span>
+        <span class="surface-step-name">--brand-surface-1</span>
+        <span class="surface-step-role">Card</span>
+      </div>
+      <div class="surface-step" data-step="2">
+        <span class="surface-step-num">Lift 2</span>
+        <span class="surface-step-name">--brand-surface-2</span>
+        <span class="surface-step-role">Inset / Input</span>
+      </div>
+      <div class="surface-step" data-step="3">
+        <span class="surface-step-num">Polarity flip</span>
+        <span class="surface-step-name">--brand-canvas-invert</span>
+        <span class="surface-step-role">Inverted plate</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography roles">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Typography</p>
+      <h2 class="section-title">Three families, strict role separation.</h2>
+      <p class="section-lede">Inter Tight carries UI and headlines with tighter default tracking. Playfair Display appears only in pull quotes and testimonials. JetBrains Mono runs all labels, stats, and technical captions.</p>
+    </div>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Hero · -0.06em</span><span class="type-hero">Halcyon.</span></div>
+      <div class="type-row"><span class="type-label">Display · -0.06em</span><span class="type-display">Bold typography earns its place.</span></div>
+      <div class="type-row"><span class="type-label">Heading · -0.04em</span><span class="type-heading">Restrained palette. Strict hierarchy. Deliberate space.</span></div>
+      <div class="type-row"><span class="type-label">Body · -0.01em</span><span class="type-body">Default paragraph copy at 16px in Inter Tight 400, line-height 1.6, slightly tightened from neutral. Body voice is one continuous family with display — the cuts differ in weight and size, not in family.</span></div>
+      <div class="type-row"><span class="type-label">Label · +0.2em</span><span class="type-label-demo">Plate 01 · Tight Tracking</span></div>
+      <div class="type-row"><span class="type-label">Pull quote · serif</span><span class="type-pullquote">"Confident. Editorial. Deliberate. The page reads as a gallery, not a landing."</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Component vocabulary">
+    <div class="section-header">
+      <p class="section-eyebrow">Vocabulary · Components</p>
+      <h2 class="section-title">Sharp edges, layered depth, one chromatic hue.</h2>
+      <p class="section-lede">Zero radius throughout. Buttons carry intent through underline and inversion, not through fill. Cards are transparent with hairline borders. Inputs sit on the muted lift, focus to the accent.</p>
+    </div>
+
+    <div class="components-stack">
+      <div>
+        <span class="cmp-label">Buttons</span>
+        <div class="cmp-row" aria-label="Button variants">
+          <button class="btn" data-variant="primary" type="button">Read more</button>
+          <button class="btn" data-variant="secondary" type="button">Explore plates</button>
+          <button class="btn" data-variant="ghost" type="button">View index →</button>
+        </div>
+      </div>
+
+      <div>
+        <span class="cmp-label">Cards · Bordered, transparent, featured</span>
+        <div class="cmp-row" aria-label="Card variants">
+          <div class="card">
+            <span class="card-meta">Plate 02</span>
+            <h3 class="card-title">The grid that breathes.</h3>
+            <p class="card-body">Asymmetric splits — 7/5 or 8/4 — let display type carry the visual weight while the body column rests at readable width.</p>
+          </div>
+          <div class="card" data-featured="true">
+            <span class="card-meta">Plate 03</span>
+            <h3 class="card-title">Underline as affordance.</h3>
+            <p class="card-body">The animated underline scales past the text on hover. Interaction is revealed in the type itself, not in a new container.</p>
+          </div>
+          <div class="card">
+            <span class="card-meta">Plate 04</span>
+            <h3 class="card-title">Negative space is the frame.</h3>
+            <p class="card-body">Generous margins make headlines feel intentional. The frame around the type is half of the design — never cramped, never optional.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <span class="cmp-label">Inputs · standard surface</span>
+        <div class="cmp-row">
+          <input class="input" type="email" placeholder="team@halcyon.dev" aria-label="Email">
+          <button class="btn" data-variant="secondary" type="button">Subscribe</button>
+        </div>
+      </div>
+
+      <div>
+        <span class="cmp-label">Step numbers · color transition on hover</span>
+        <div class="steps-grid">
+          <div class="step">
+            <span class="step-num">01</span>
+            <div>
+              <h4 class="step-title">Set the type</h4>
+              <p class="step-body">Pick the display size first. Everything below it scales from the headline, not the other way around.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">02</span>
+            <div>
+              <h4 class="step-title">Frame with space</h4>
+              <p class="step-body">Margins are not negotiable. White and black space carry the same role — the frame around the type.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">03</span>
+            <div>
+              <h4 class="step-title">Color sparingly</h4>
+              <p class="step-body">One accent, used on headlines and underlines. More than two and the typography stops doing the work.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <span class="cmp-label">Stats · mono numerals, accent-bar anchors</span>
+        <div class="kpi-band" aria-label="Stat tiles">
+          <div class="kpi">
+            <span class="kpi-label">Plates indexed</span>
+            <span class="kpi-number">128</span>
+          </div>
+          <div class="kpi">
+            <span class="kpi-label">Tight ratio</span>
+            <span class="kpi-number">6:1</span>
+          </div>
+          <div class="kpi">
+            <span class="kpi-label">Display weight</span>
+            <span class="kpi-number">700</span>
+          </div>
+          <div class="kpi">
+            <span class="kpi-label">Accent hue</span>
+            <span class="kpi-number">34°</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Inverted-section CTA: full polarity flip per raw.md "Final CTA inverted section" -->
+<section class="invert-cta" aria-label="Inverted call to action">
+  <div class="invert-cta-inner">
+    <p class="invert-cta-eyebrow">Issue 02 · Forthcoming</p>
+    <h2 class="invert-cta-title">Subscribe to the monograph.</h2>
+    <form class="invert-cta-form" onsubmit="return false;">
+      <input class="input" type="email" placeholder="team@halcyon.dev" aria-label="Email">
+      <button class="btn" data-variant="invert-primary" type="submit">Sign up</button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="page">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-col-title">Plates</p>
+        <ul class="footer-col-list"><li><a href="#">Issue 01</a></li><li><a href="#">Issue 02</a></li><li><a href="#">Archive</a></li><li><a href="#">Index</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Reference</p>
+        <ul class="footer-col-list"><li><a href="#">Tokens</a></li><li><a href="#">Type scale</a></li><li><a href="#">Components</a></li><li><a href="#">Grid</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Studio</p>
+        <ul class="footer-col-list"><li><a href="#">About</a></li><li><a href="#">Contact</a></li><li><a href="#">Press kit</a></li><li><a href="#">Licensing</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Halcyon</p>
+        <ul class="footer-col-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>__DESIGN_SYSTEM_NAME__ · Token surface preview · 2026.05.26</span>
+      <span>Inter Tight · −0.06em · Vermillion · Zero radius</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

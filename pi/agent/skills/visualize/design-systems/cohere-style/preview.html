@@ -1,0 +1,2341 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cohere-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%2317171c'/%3E%3Cpath d='M22 13 L19 13 L17 11 L13 11 Q10 11 10 14 L10 18 Q10 21 13 21 L17 21 L19 19 L22 19 L21 17 L18 17 L17 18 L13 18 L13 14 L17 14 L18 15 L21 15 Z' fill='%23ff7759'/%3E%3C/svg%3E">
+<meta property="og:title" content="cohere-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Four coexisting canvases (white marketing, warm-stone editorial, deep-green product band, near-black docs) + soft mineral surfaces + coral taxonomy chips + agent-console mockup + tri-color gradient ribbon as chromatic identity + CohereText display / Unica77 body proprietary fonts (with JetBrains Mono / Inter fallbacks).">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/cohere-style/tokens.css) === */
+/**
+ * design-systems/cohere-style/tokens.css
+ *
+ * Live-verified against the cohere.com surface family on 2026-05-27 —
+ * see `DESIGN.md` (frontmatter `verified-at`) for the URL list and the
+ * computed-style sources for every token.
+ *
+ * Canonical canvas: `both`. Cohere is multi-polarity by design — the
+ * marketing identity alternates between four canvases section-by-section,
+ * and there is no single dark-mode toggle. The four canvases:
+ *
+ *   1. Light marketing (`cohere.com`, `/pricing`, `/blog`) — pure-white
+ *      canvas `#FFFFFF` with hairline borders and near-black CTAs.
+ *   2. Warm editorial (`/about`, `/careers`) — soft-stone canvas
+ *      `#F0EEE9` with 3D-blob photographic decoration.
+ *   3. Polarity-locked dark bands — deep-green `#00211E` (`/command`),
+ *      royal-blue `#2D4CB9` (`/research`), navy `#061324` (`/north`
+ *      cards), and docs-black `#0F0F0F` (`docs.cohere.com`, `/404`).
+ *   4. Dashboard form canvas (`dashboard.cohere.com/welcome/login`) —
+ *      `#FAFAFA` with forest-green CTA at `#39594D`.
+ *
+ * The brand's chromatic identity is the tri-color gradient ribbon
+ * `coral → violet → action-blue`, not any single canvas. The ribbon
+ * appears as tab-indicator underlines, pricing-tier strokes, FAQ
+ * dividers, and carousel-progress bars. See the `--brand-gradient-
+ * ribbon-*` token family below for the documented stops.
+ *
+ * Dark-mode strategy: `:root` carries the white marketing canonical
+ * (the homepage anchor). `[data-theme="dark"]` carries the `docs-black`
+ * #0F0F0F variant — the brand's actual deployed near-black product
+ * surface (used on `docs.cohere.com` and the 404 page), not a
+ * synthesised lightness-inversion. Polarity-locked surfaces (the
+ * deep-green band, royal-blue research band, navy north cards,
+ * soft-stone editorial canvas) stay at `:root` values regardless
+ * of theme — they live as section-band fills, not as canvas toggles.
+ *
+ * Three Cohere proprietary typefaces are documented:
+ *   - CohereText (marquee h1, 72–96px display)
+ *   - Unica77 Cohere Web (everything else: body, headings, eyebrows)
+ *   - CohereVariable (blog wordmark only, narrower variable-axis cut)
+ * Each is reserved for a surface role; the brand never blurs the
+ * CohereText / Unica77 distinction.
+ *
+ * Brand colours are sacrosanct (AUTHORING.md "Brand colours …"):
+ * chromatic `--brand-*` tokens carry live-observed OKLCH values; do
+ * NOT introduce lifted -ink / -on-dark / -deep variants to win text
+ * contrast. The fix is the surface. Chroma-0 utility neutrals
+ * (`--muted-foreground`, `--brand-body-muted`) ARE retuned for AA on
+ * white — see the comment at each retune site for the exception
+ * rationale.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core --------------------------------------- */
+  --background: oklch(1 0 0);                        /* #FFFFFF — homepage marketing canvas */
+  --foreground: oklch(0.2478 0 0);                   /* #212121 — h1 ink, body */
+  --card: oklch(1 0 0);                              /* #FFFFFF — pricing tier-card body */
+  --card-foreground: oklch(0.2478 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2478 0 0);
+
+  --primary: oklch(0.2069 0.0098 285.5081);          /* #17171C — every solid CTA across marketing */
+  --primary-foreground: oklch(1 0 0);                /* white on near-black; 17.86:1 — trivial AA */
+  --secondary: oklch(1 0 0);                         /* white card-on-white pattern */
+  --secondary-foreground: oklch(0.2478 0 0);
+
+  --muted: oklch(0.9612 0 0);                        /* #F2F2F2 — pricing band wash + hairline */
+  /* --muted-foreground × --background lands at 4.06:1 with the live
+   * brand value oklch(0.5931 0 0) (#7E7E7E) — fails AA body by 0.44.
+   * The chroma-0 utility-neutral exception (AUTHORING.md "Brand
+   * identity vs utility neutrals") permits retuning here. Lifted to
+   * oklch(0.5650 0 0) = #767676, clearing at 4.56:1 against white.
+   * The brand's #7E7E7E live observation (cohere.com/north secondary
+   * explainer) was sampled against the deep-green band — passes
+   * easily on dark canvases. --brand-body-muted carries the same
+   * retuned value for the same reason. */
+  --muted-foreground: oklch(0.5650 0 0);             /* #767676 — utility-neutral, AA on white */
+
+  --accent: oklch(0.9493 0.0070 88.6436);            /* #F0EEE9 — warm-stone editorial accent surface */
+  --accent-foreground: oklch(0.2478 0 0);
+
+  --destructive: oklch(0.4815 0.1976 29.2339);       /* synthesised — Cohere does not surface an error red */
+  --destructive-foreground: oklch(1 0 0);            /* white × #B30000 = 7.20:1 */
+
+  --border: oklch(0.9612 0 0);                       /* #F2F2F2 — pricing tooltip border */
+  --input: oklch(0.9276 0.0058 264.5313);            /* #E5E7EB — dashboard input outline */
+  --ring: oklch(0.5785 0.1857 268.1837);             /* #4C6EE6 — action-blue focus ring */
+
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.2478 0 0);
+  --sidebar-primary: oklch(0.2069 0.0098 285.5081);  /* tracks --primary */
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9493 0.0070 88.6436);
+  --sidebar-accent-foreground: oklch(0.2478 0 0);
+  --sidebar-border: oklch(0.9276 0.0058 264.5313);
+  --sidebar-ring: oklch(0.5785 0.1857 268.1837);     /* tracks --ring */
+
+  /* Charts tuned to the brand's documented secondary palette: the
+   * gradient ribbon stops + research-blue + warm-mint accent. */
+  --chart-1: oklch(0.7248 0.1724 33.8588);           /* coral */
+  --chart-2: oklch(0.5887 0.1276 284.9797);          /* violet-mid */
+  --chart-3: oklch(0.5785 0.1857 268.1837);          /* action-blue */
+  --chart-4: oklch(0.7849 0.1324 161.5567);          /* ready-mint */
+  --chart-5: oklch(0.7426 0.1373 319.3420);          /* quartz-pink */
+
+  /* -- Radii ------------------------------------------------------ */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;
+  --brand-radius-pill: 32px;
+  --brand-radius-full: 9999px;
+
+  /* -- Typography ------------------------------------------------- */
+  /* Three proprietary families per DESIGN.md §3. The fallback chains
+   * are conservative humanist sans (NOT mono — CohereText is not
+   * monospaced, despite its compact aesthetic). */
+  --font-display: "CohereText", "Space Grotesk", Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Unica77 Cohere Web", "Unica77", Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-display-editorial: "CohereVariable", "CohereText", "Unica77 Cohere Web", Inter, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* -- Type scale ------------------------------------------------- */
+  --text-display: 96px;
+  --text-heading: 48px;
+  --text-title: 31px;
+  --text-base: 16px;
+  --leading-tight: 1;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* -- Shadows ---------------------------------------------------- */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* -- Brand-extras: primary lineage ----------------------------- */
+  /* Cohere documents one CTA black; no published pressed-state ladder.
+   * Marketing CTAs flip to white-on-dark when nested in dark cards,
+   * not a lifted near-black variant. */
+  --brand-cohere-black: oklch(0 0 0);
+  --brand-primary-press: oklch(0.2069 0.0098 285.5081);  /* same as --primary; no separate pressed step */
+
+  /* -- Brand-extras: documented secondary colours ----------------- */
+  /* Coral — category-pill fill, status indicator, footer slogan. Live:
+   * cohere.com/blog "All" chip; cohere.com agent-console READY dot.
+   * Fill-only across all sampled surfaces; never body text. */
+  --brand-coral: oklch(0.7248 0.1724 33.8588);            /* #FF7759 */
+  --brand-coral-soft: oklch(0.8225 0.1005 32.9018);       /* #FFAD9B — high-lightness anchor of from-coral-500 to-quartz-500 */
+
+  /* Action blue — only documented in-body link colour. Live:
+   * cohere.com/pricing tier-stroke terminal stop; cohere.com/blog
+   * "READ FULL ARTICLE →"; docs.cohere.com "GET STARTED →".
+   * Hue updated from the prior 260° to the live 268° — a warmer-violet
+   * cast that holds with the gradient-ribbon family. */
+  --brand-action-blue: oklch(0.5785 0.1857 268.1837);     /* #4C6EE6 */
+
+  /* Focus-ring routes to action-blue. Kept as a named alias so the
+   * preview-template's `outline: 2px solid var(--brand-focus-blue)`
+   * remains a stable consumer. */
+  --brand-focus-blue: oklch(0.5785 0.1857 268.1837);      /* alias of --brand-action-blue */
+
+  /* Violet-mid — the middle stop of the brand-ribbon gradient. Live:
+   * cohere.com/pricing computed `rgb(118, 112, 197)`. */
+  --brand-violet-mid: oklch(0.5887 0.1276 284.9797);      /* #7670C5 */
+
+  /* Quartz pink — warm anchor of the secondary `from-coral-500
+   * to-quartz-500` two-stop gradient on the homepage rounded-button
+   * cluster. Live: cohere.com computed `rgb(209, 142, 226)`. */
+  --brand-quartz-pink: oklch(0.7426 0.1373 319.3420);     /* #D18EE2 */
+
+  /* Lavender photo — the closing-band lavender on the homepage
+   * "Ready to put AI to work?" surface. Live: cohere.com section
+   * `background-color: rgb(155, 96, 170)`. The prior --brand-form-
+   * focus token misnamed this colour; renamed to the surface role. */
+  --brand-lavender-photo: oklch(0.5820 0.1272 319.2925);  /* #9B60AA */
+
+  /* Brand greens — two live values that previous tokens.css revs
+   * collapsed into one synthesised mid-shade (#36544D). Live keeps
+   * them separate; each lives on a distinct surface. */
+  --brand-deep-green-marketing: oklch(0.2230 0.0391 186.1723);   /* #00211E — /command band */
+  --brand-deep-green-dashboard: oklch(0.4352 0.0428 168.8022);   /* #39594D — dashboard.cohere.com Log in CTA */
+  --brand-deep-green-north: oklch(0.2636 0.0461 171.3884);       /* #062C22 — /north hero band */
+  /* Backward-compat alias. The preview-template consumes `--brand-
+   * deep-green` directly; the dispatcher's Step 3 inline pass will
+   * choose between -marketing and -dashboard per surface. Until then,
+   * the alias preserves stable token resolution. */
+  --brand-deep-green: oklch(0.2230 0.0391 186.1723);              /* alias of --brand-deep-green-marketing */
+
+  /* Dark navy — north-page agent-console panel + feature-block bg.
+   * Live: cohere.com/north sampled `rgb(6, 19, 36)`. Updated from
+   * the prior `oklch(0.2044 0.0412 250.1540)` to the live darker
+   * + cooler value. */
+  --brand-dark-navy: oklch(0.1851 0.0399 255.0451);       /* #061324 */
+
+  /* Research blue — full-bleed band on cohere.com/research. A darker
+   * action-blue cousin used at the bleed scale. */
+  --brand-research-blue: oklch(0.4624 0.1758 267.0077);   /* #2D4CB9 */
+
+  /* Ready mint — reserved for the status-on-dark accent inside the
+   * Financial Analysis Agent mockup. Not used elsewhere — keep
+   * status-dot only. */
+  --brand-ready-mint: oklch(0.7849 0.1324 161.5567);      /* #5DD39E */
+
+  /* -- Brand-extras: gradient ribbon stops ------------------------ */
+  /* The brand's signature chromatic moment is the three-stop
+   * horizontal gradient `coral → violet → action-blue`. The Tailwind
+   * source class is `from-coral-500 via-violet-500 to-blue-500`.
+   * Consumers compose the ribbon via `linear-gradient(to right,
+   * var(--brand-gradient-ribbon-coral), var(--brand-gradient-ribbon-
+   * violet), var(--brand-gradient-ribbon-blue))`. */
+  --brand-gradient-ribbon-coral: oklch(0.7248 0.1724 33.8588);    /* alias of --brand-coral */
+  --brand-gradient-ribbon-violet: oklch(0.5887 0.1276 284.9797);  /* alias of --brand-violet-mid */
+  --brand-gradient-ribbon-blue: oklch(0.5785 0.1857 268.1837);    /* alias of --brand-action-blue */
+
+  /* -- Brand-extras: canvas + neutrals ---------------------------- */
+  /* Warm-stone editorial canvas — /about + /careers. Lifted from the
+   * prior `oklch(0.9432 0.0070 88.6440)` (#EFEBE2) to the live value. */
+  --brand-soft-stone: oklch(0.9493 0.0070 88.6436);       /* #F0EEE9 */
+
+  /* Form canvas — dashboard.cohere.com surrounding canvas + input
+   * field background. Also doubles as the soft-white anchor on
+   * "deal sizes / pipeline momentum" callout pills in the homepage
+   * Financial Analysis Agent mockup. */
+  --brand-form-canvas: oklch(0.9851 0 0);                 /* #FAFAFA */
+
+  /* Secondary ink — cookie-banner secondary text + topnav link hover. */
+  --brand-secondary-ink: oklch(0.3012 0 0);               /* #2E2E2E */
+
+  /* Body-muted utility neutral. Live brand observation is #7E7E7E,
+   * sampled on /north secondary explainer (dark canvas). Against
+   * white this lands at 4.06:1 — sub-AA body. Routed to the lifted
+   * neutral oklch(0.5650 0 0) = #767676 (the same value as
+   * --muted-foreground) so light-canvas consumers clear AA. The
+   * brand-faithful live value is preserved on dark canvases — see
+   * the [data-theme="dark"] block which carries the higher-L variant
+   * for AA on near-black. */
+  --brand-body-muted: oklch(0.5650 0 0);                  /* #767676 — utility-neutral, AA on white */
+
+  /* Slate retuned from the prior cool-violet (oklch(0.5200 0.0321
+   * 285.3362)) to a true achromatic mid-gray. Live observation on
+   * cohere.com (per DESIGN.md drift table) is `#7E7E7E` with chroma
+   * 0 — the prior cool-violet tint is not on-brand. The chroma-0
+   * utility exception applies here too; routed to the same #767676
+   * value so light-canvas consumers clear AA. */
+  --brand-slate: oklch(0.5650 0 0);                       /* #767676 — achromatic, retuned for AA */
+
+  /* Documented pastel-on-dark accents (docs entry tiles + dashboard
+   * decoration). Preserved from upstream — DESIGN.md drift report
+   * keeps these as "matches live observation closely enough." */
+  --brand-pale-green: oklch(0.9748 0.0296 139.1003);
+  --brand-pale-blue: oklch(0.9700 0.0140 268.4943);
+
+  /* -- Brand-extras: hairlines + card borders --------------------- */
+  --brand-hairline-soft: oklch(0.9612 0 0);               /* #F2F2F2 — section-separator on light */
+  --brand-hairline-strong: oklch(0.8941 0.0059 264.5303); /* #DADCE0 — dashboard input divider */
+  --brand-card-border: oklch(0.9612 0 0);                 /* #F2F2F2 — alias of hairline-soft */
+  --brand-card-border-strong: oklch(0.9276 0.0058 264.5313);  /* #E5E7EB — topnav hover border */
+  --brand-card-border-input: oklch(0.8941 0.0059 264.5303);   /* #DADCE0 — dashboard OAuth tile border */
+  --brand-border-light: oklch(0.9276 0.0058 264.5313);    /* #E5E7EB — alias */
+
+  /* -- Brand-extras: polarity-locked surfaces --------------------- */
+  /* These surfaces stay at their :root value regardless of theme
+   * (AUTHORING.md "Polarity-locked tokens: never lift in dark").
+   * Each lives as a section-band fill on a specific cohere.com page;
+   * the brand transitions BETWEEN them rather than inverting them. */
+  --brand-canvas-night: oklch(0.2069 0.0098 285.5081);    /* #17171C — announce bar, footer band */
+  --brand-canvas-deep-green: oklch(0.2230 0.0391 186.1723);  /* #00211E — /command band, locked */
+  --brand-canvas-docs-black: oklch(0.1684 0 0);           /* #0F0F0F — docs canvas + 404 surface */
+  --brand-canvas-research-blue: oklch(0.4624 0.1758 267.0077);  /* #2D4CB9 — /research band, locked */
+  --brand-on-dark: oklch(1 0 0);                          /* white on every locked-dark surface */
+  --brand-on-dark-soft: oklch(0.9851 0 0);                /* #FAFAFA — secondary callout pills on dark */
+  --brand-on-dark-faint: oklch(0.7800 0 0);               /* mid-gray inks against locked-dark surfaces */
+  --brand-pricing-name-on-dark: oklch(0.7248 0.1724 33.8588);  /* coral tier label on dark-tier card */
+}
+
+/* -- Dark theme --------------------------------------------------
+ * Cohere's actual deployed near-black product surface is the
+ * `docs.cohere.com` + 404 docs-black `#0F0F0F`, not a synthesised
+ * lightness-inversion of the marketing white. The product surface
+ * (dashboard.cohere.com) uses near-white forms, so there is no
+ * documented dark-mode-of-the-dashboard variant — this block
+ * synthesises the docs-black canvas as the catalog's dark choice.
+ *
+ * Polarity-locked extras (--brand-canvas-deep-green, --brand-canvas-
+ * docs-black, --brand-canvas-research-blue, --brand-soft-stone,
+ * --brand-on-dark, --brand-gradient-ribbon-*) intentionally do NOT
+ * appear here — they live on canvas-locked surfaces, not on the
+ * theme-flipping editorial body.
+ * --------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* shadcn-semantic core — sampled from docs.cohere.com canvas */
+  --background: oklch(0.1684 0 0);                   /* #0F0F0F — docs canvas */
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2069 0.0098 285.5081);             /* #17171C — elevated card, brand near-black */
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2069 0.0098 285.5081);
+  --popover-foreground: oklch(1 0 0);
+
+  --primary: oklch(1 0 0);                           /* white CTA on dark (white outline-pill) */
+  --primary-foreground: oklch(0.1684 0 0);
+
+  --secondary: oklch(0.2069 0.0098 285.5081);
+  --secondary-foreground: oklch(1 0 0);
+
+  --muted: oklch(0.2400 0.0098 285.5081);            /* one step above card */
+  /* Lifted utility neutral — #~B7B7B7 vs #0F0F0F lands at 8.61:1
+   * (clears AA Large + small body). Brand-faithful to the docs-
+   * sidebar mid-gray section-label tone. */
+  --muted-foreground: oklch(0.7500 0 0);
+
+  --accent: oklch(0.2400 0.0098 285.5081);
+  --accent-foreground: oklch(1 0 0);
+
+  --destructive: oklch(0.4815 0.1976 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.2700 0 0);                       /* faint white-overlay on dark */
+  --input: oklch(0.2700 0 0);
+  --ring: oklch(0.5785 0.1857 268.1837);             /* action-blue preserved as focus ring */
+
+  --sidebar: oklch(0.2069 0.0098 285.5081);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(1 0 0);
+  --sidebar-primary-foreground: oklch(0.1684 0 0);
+  --sidebar-accent: oklch(0.2400 0.0098 285.5081);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.2700 0 0);
+  --sidebar-ring: oklch(0.5785 0.1857 268.1837);
+
+  /* Charts unchanged — gradient-ribbon stops are brand identity. */
+  --chart-1: oklch(0.7248 0.1724 33.8588);
+  --chart-2: oklch(0.5887 0.1276 284.9797);
+  --chart-3: oklch(0.5785 0.1857 268.1837);
+  --chart-4: oklch(0.7849 0.1324 161.5567);
+  --chart-5: oklch(0.7426 0.1373 319.3420);
+
+  /* Utility-neutral brand-extras lifted for AA on docs-black. The
+   * brand's live `#7E7E7E` body-muted observation was sampled on
+   * `/north` (deep-green canvas) — lifting against `#0F0F0F`
+   * preserves the same "achromatic mid-gray body-muted" intent at
+   * the higher lightness the new canvas requires.
+   * Polarity-locked extras (--brand-canvas-*, --brand-on-dark) stay
+   * at :root. */
+  --brand-body-muted: oklch(0.7500 0 0);
+  --brand-slate: oklch(0.7500 0 0);
+  --brand-secondary-ink: oklch(0.8500 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1684 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2069 0.0098 285.5081);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2069 0.0098 285.5081);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(1 0 0);
+    --primary-foreground: oklch(0.1684 0 0);
+    --secondary: oklch(0.2069 0.0098 285.5081);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.2400 0.0098 285.5081);
+    --muted-foreground: oklch(0.7500 0 0);
+    --accent: oklch(0.2400 0.0098 285.5081);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.4815 0.1976 29.2339);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.2700 0 0);
+    --input: oklch(0.2700 0 0);
+    --ring: oklch(0.5785 0.1857 268.1837);
+    --sidebar: oklch(0.2069 0.0098 285.5081);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(1 0 0);
+    --sidebar-primary-foreground: oklch(0.1684 0 0);
+    --sidebar-accent: oklch(0.2400 0.0098 285.5081);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.2700 0 0);
+    --sidebar-ring: oklch(0.5785 0.1857 268.1837);
+
+    --chart-1: oklch(0.7248 0.1724 33.8588);
+    --chart-2: oklch(0.5887 0.1276 284.9797);
+    --chart-3: oklch(0.5785 0.1857 268.1837);
+    --chart-4: oklch(0.7849 0.1324 161.5567);
+    --chart-5: oklch(0.7426 0.1373 319.3420);
+
+    --brand-body-muted: oklch(0.7500 0 0);
+    --brand-slate: oklch(0.7500 0 0);
+    --brand-secondary-ink: oklch(0.8500 0 0);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Cohere-style preview shell — controlled enterprise-AI interface
+   built from FOUR coexisting canvases (white marketing, warm-stone
+   editorial #f0eee9, deep-green marketing band #00211e, near-black
+   docs #0f0f0f), soft mineral surfaces, rounded media cards, and a
+   type split between display (CohereText proprietary; JetBrains Mono
+   as the local fallback since CohereText isn't licensable) and body
+   (Unica77 Cohere Web proprietary; Inter as the local fallback). The
+   brand's chromatic identity is the tri-color gradient ribbon
+   (coral #ff7759 → violet #7670c5 → action-blue #4c6ee6) — declared
+   in tokens, surfaces in tab-indicator + tier-card stroke + section
+   dividers. Coral chips for taxonomy. Agent-console mockup with dark
+   panels, status chips, and integration badges as the signature
+   product surface. Halcyon-themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Unica77 Cohere Web', 'Inter', 'Unica77', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern", "liga", "ss01";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Announcement bar (Cohere's signature anchor) -- */
+.announce {
+  background: var(--brand-cohere-black);
+  color: var(--brand-on-dark);
+  padding: 0.5rem 1.5rem;
+  text-align: center;
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-card-border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  color: var(--primary);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 24px; height: 24px;
+  border-radius: var(--brand-radius-xs);
+  background: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  font-family: 'CohereText', 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--primary-foreground);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--foreground);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--primary); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; font-size: 14px; }
+.topnav-actions a { color: var(--foreground); text-decoration: none; font-weight: 500; }
+.topnav-actions a:hover { color: var(--primary); }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (rounded-pill 32 px, 44 px touch target) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Unica77 Cohere Web', 'Unica77', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--brand-focus-blue);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-cohere-black); border-color: var(--brand-cohere-black); }
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--primary);
+  border: 1px solid var(--brand-card-border);
+}
+.btn[data-variant="secondary"]:hover { background: var(--brand-soft-stone); border-color: var(--brand-slate); }
+.btn[data-variant="inverse"] {
+  background: var(--background);
+  color: var(--primary);
+  border-color: var(--background);
+}
+.btn[data-variant="inverse"]:hover { background: var(--brand-soft-stone); }
+.btn[data-variant="coral"] {
+  background: var(--brand-coral);
+  color: oklch(0.2069 0.0098 285.5081);
+  border-color: var(--brand-coral);
+}
+.btn[data-variant="coral"]:hover { background: var(--brand-coral-soft); border-color: var(--brand-coral-soft); }
+.btn[data-size="lg"] { min-height: 52px; padding: 0 1.5rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (white editorial canvas, mono-feeling display) -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-slate);
+  margin: 0 0 1.5rem;
+}
+.eyebrow-square {
+  width: 8px;
+  height: 8px;
+  background: var(--brand-coral);
+}
+.hero-display {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+  margin: 0 0 1.5rem;
+  max-width: 22ch;
+}
+.hero-lede {
+  font-family: 'Unica77 Cohere Web', 'Unica77', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-body-muted);
+  max-width: 42rem;
+  margin: 0 0 2rem;
+}
+.hero-lede a { color: var(--primary); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+.hero-lede a:hover { text-decoration-thickness: 2px; }
+.hero-ctas {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* -- Signature: deep-green product hero band + agent-console -- */
+.product-band {
+  background: var(--brand-deep-green-marketing);
+  color: var(--brand-on-dark);
+  padding: 5rem 1.5rem;
+}
+.product-band-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 880px) { .product-band-inner { grid-template-columns: 1fr; gap: 2rem; } }
+.product-band-eyebrow {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-coral-soft);
+  margin: 0 0 1.25rem;
+}
+.product-band-title {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--brand-on-dark);
+  margin: 0 0 1rem;
+  max-width: 18ch;
+}
+.product-band-lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0 0 1.5rem;
+  max-width: 30rem;
+}
+.agent-console {
+  background: var(--brand-cohere-black);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  overflow: hidden;
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+}
+.agent-console-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.agent-console-tabs {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+}
+.agent-console-tabs > span[aria-selected="true"] {
+  color: var(--brand-coral);
+}
+.agent-console-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+}
+.agent-console-status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-coral);
+}
+.agent-console-body {
+  padding: 1rem 1.25rem;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.86);
+}
+.agent-console-body .line { display: block; }
+.agent-console-body .ln { display: inline-block; width: 1.5rem; color: rgba(255, 255, 255, 0.35); text-align: right; margin-right: 1rem; user-select: none; }
+.agent-console-body .role { color: var(--brand-coral); }
+.agent-console-body .tool { color: var(--brand-pale-green); }
+.agent-console-body .arg { color: rgba(255, 255, 255, 0.66); }
+.agent-console-body .ok { color: var(--brand-pale-green); }
+.agent-console-chips {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+}
+.integration-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Unica77 Cohere Web', 'Unica77', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--brand-radius-xs);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; background: var(--background); }
+.section[data-tight] { padding: 3rem 1.5rem; }
+/* Polarity-locked: stone / pale-green / pale-blue bgs stay light in
+ * both themes. Force dark ink so --foreground doesn't invert to cream
+ * and fail against the locked surface. */
+.section[data-band="stone"],
+.section[data-band="pale-green"],
+.section[data-band="pale-blue"] { color: oklch(0.2069 0.0098 285.5081); }
+.section[data-band="stone"] { background: var(--brand-soft-stone); }
+.section[data-band="pale-green"] { background: var(--brand-pale-green); }
+.section[data-band="pale-blue"] { background: var(--brand-pale-blue); }
+.section[data-band="stone"] .section-title,
+.section[data-band="stone"] .section-lede,
+.section[data-band="stone"] .section-eyebrow,
+.section[data-band="stone"] .type-display,
+.section[data-band="stone"] .type-heading,
+.section[data-band="stone"] .type-title,
+.section[data-band="stone"] .type-body,
+.section[data-band="pale-green"] .section-title,
+.section[data-band="pale-green"] .section-lede,
+.section[data-band="pale-green"] .section-eyebrow,
+.section[data-band="pale-green"] .type-display,
+.section[data-band="pale-green"] .type-heading,
+.section[data-band="pale-green"] .type-title,
+.section[data-band="pale-green"] .type-body,
+.section[data-band="pale-blue"] .section-title,
+.section[data-band="pale-blue"] .section-lede,
+.section[data-band="pale-blue"] .section-eyebrow,
+.section[data-band="pale-blue"] .type-display,
+.section[data-band="pale-blue"] .type-heading,
+.section[data-band="pale-blue"] .type-title,
+.section[data-band="pale-blue"] .type-body { color: oklch(0.2069 0.0098 285.5081); }
+/* Mute labels + links also need polarity-locked mid-tones on locked bgs. */
+.section[data-band="stone"] .type-label,
+.section[data-band="stone"] .cmp-row-label,
+.section[data-band="pale-green"] .type-label,
+.section[data-band="pale-green"] .cmp-row-label,
+.section[data-band="pale-blue"] .type-label,
+.section[data-band="pale-blue"] .cmp-row-label { color: oklch(0.4400 0.0321 285); }
+.section[data-band="stone"] .type-mono,
+.section[data-band="pale-green"] .type-mono,
+.section[data-band="pale-blue"] .type-mono { color: oklch(0.2069 0.0098 285.5081); }
+.section[data-band="stone"] .section-lede a,
+.section[data-band="stone"] .type-body a,
+.section[data-band="pale-green"] .section-lede a,
+.section[data-band="pale-green"] .type-body a,
+.section[data-band="pale-blue"] .section-lede a,
+.section[data-band="pale-blue"] .type-body a { color: oklch(0.4500 0.1985 260); }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 42rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-slate);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--primary);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-body-muted);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--brand-card-border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--brand-radius-xs);
+  border: 1px solid var(--brand-card-border);
+}
+.swatch-name {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--primary);
+}
+.swatch-role {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-slate);
+}
+
+/* -- Token-demo: surface ladder (5 surfaces — washes are critical to Cohere) -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 1080px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--brand-card-border);
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--foreground); }
+/* Polarity-locked light bgs stay light in both themes; ink stays dark. */
+.ladder-step[data-step="stone"] { background: var(--brand-soft-stone); color: oklch(0.2069 0.0098 285.5081); }
+.ladder-step[data-step="pale-green"] { background: var(--brand-pale-green); color: oklch(0.2069 0.0098 285.5081); }
+.ladder-step[data-step="pale-blue"] { background: var(--brand-pale-blue); color: oklch(0.2069 0.0098 285.5081); }
+.ladder-step[data-step="deep-green"] { background: var(--brand-deep-green-marketing); color: var(--brand-on-dark); border-color: var(--brand-deep-green-marketing); }
+.ladder-num {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.ladder-name {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+}
+.ladder-role { font-size: 13px; opacity: 0.86; margin-top: auto; line-height: 1.4; }
+
+/* -- Taxonomy chips (coral) -- */
+.chip-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 2rem;
+}
+.taxonomy-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Unica77 Cohere Web', 'Unica77', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--brand-coral);
+  /* Polarity-locked dark ink — coral bg stays light coral in both
+   * modes; --primary would flip to white in dark and fail at 2.39. */
+  color: oklch(0.2069 0.0098 285.5081);
+  border: 1px solid var(--brand-coral);
+}
+.taxonomy-chip[data-tone="outline"] {
+  /* Outline variant: near-black ink on transparent canvas with coral
+   * border carrying brand recognition. Cohere doesn't use coral as
+   * text on its own marketing surfaces — only as fill / decorative. */
+  background: transparent;
+  color: var(--primary);
+  border-color: var(--brand-coral);
+}
+.taxonomy-chip[data-tone="soft"] {
+  background: var(--brand-coral-soft);
+  color: oklch(0.2069 0.0098 285.5081);
+  border-color: var(--brand-coral-soft);
+}
+
+/* -- Pricing (white tiles, featured = near-black inverse) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--background);
+  border: 1px solid var(--brand-card-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+/* Polarity-locked dark featured card — --primary flips to white in
+ * dark mode and breaks the inverted card. Lock to near-black. */
+.pricing-card[data-featured] {
+  background: oklch(0.2069 0.0098 285.5081);
+  border-color: oklch(0.2069 0.0098 285.5081);
+  color: var(--brand-on-dark);
+}
+.pricing-name {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-name { color: var(--brand-coral); }
+.pricing-price {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--primary);
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-price { color: var(--brand-on-dark); }
+.pricing-tagline {
+  font-size: 13px;
+  color: var(--brand-body-muted);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: rgba(255, 255, 255, 0.72); }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--brand-card-border);
+  padding-top: 1rem;
+  font-size: 13px;
+  color: var(--brand-body-muted);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.86);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "→";
+  color: var(--brand-coral);
+  flex-shrink: 0;
+  width: 14px;
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--brand-coral); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--brand-card-border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-slate);
+}
+.type-display {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--primary);
+}
+.type-heading {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--primary);
+}
+.type-title {
+  font-family: 'Unica77 Cohere Web', 'Unica77', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--primary);
+}
+.type-body { font-size: 14px; line-height: 1.55; color: var(--brand-body-muted); }
+.type-body a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+.type-mono { font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--primary); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-slate);
+  width: 100%;
+}
+
+/* -- Footer (dark near-black band — Cohere's documented footer) --
+ * Polarity-locked: stays near-black in both themes since --primary
+ * flips to white in dark mode and breaks the inverted-card register. */
+.footer {
+  background: oklch(0.2069 0.0098 285.5081);
+  color: var(--brand-on-dark);
+  padding: 4rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer .brand-mark { color: var(--brand-on-dark); }
+.footer .brand-glyph { background: var(--brand-on-dark); color: oklch(0.2069 0.0098 285.5081); }
+.footer-tagline { font-size: 13px; color: rgba(255, 255, 255, 0.66); line-height: 1.55; margin: 0; }
+.footer-col-title {
+  font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-coral);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 14px; color: rgba(255, 255, 255, 0.86); text-decoration: none; }
+.footer-list a:hover { color: var(--brand-on-dark); }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+}
+.footer-legal-meta { font-family: 'CohereText', 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 0.04em; }
+</style>
+
+</head>
+<body>
+
+<div class="announce" role="status">
+  HALCYON · 2026.05.24 — Workspace for the whole team
+</div>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>cohere-style</a>
+    <div class="topnav-links">
+      <a href="#">Platform</a>
+      <a href="#">Solutions</a>
+      <a href="#">Research</a>
+      <a href="#">Docs</a>
+      <a href="#">Pricing</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Talk to us</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="eyebrow-square" aria-hidden="true"></span>Halcyon · Workspace</p>
+    <h1 class="hero-display">A controlled workspace for the whole team.</h1>
+    <p class="hero-lede">Halcyon's product and research teams write notes, run reviews, and ship specs on a stark editorial canvas — with the enterprise-grade product bands and the agent-console surface always one section away. <a href="#">Read the research notes →</a></p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Talk to us</button>
+      <button class="btn" data-variant="secondary" data-size="lg" type="button">View the platform</button>
+    </div>
+  </div>
+</header>
+
+<section class="product-band" aria-label="Product hero band signature">
+  <div class="product-band-inner">
+    <div>
+      <p class="product-band-eyebrow">Halcyon · Agents</p>
+      <h2 class="product-band-title">Agents that work on the team's behalf.</h2>
+      <p class="product-band-lede">The deep-green product band carries every agent surface — console mockups, integration badges, status chips. Coral marks reserved for accent and taxonomy never appear on buttons.</p>
+      <button class="btn" data-variant="inverse" type="button">Read the agent guide</button>
+    </div>
+    <article class="agent-console" aria-label="Agent console mockup">
+      <header class="agent-console-head">
+        <div class="agent-console-tabs" role="tablist">
+          <span aria-selected="true">workspace.agent</span>
+          <span>plan</span>
+          <span>tools</span>
+        </div>
+        <span class="agent-console-status">running · session 4f2a</span>
+      </header>
+      <div class="agent-console-body">
+        <span class="line"><span class="ln">1</span><span class="role">user</span> open the q3 roadmap thread</span>
+        <span class="line"><span class="ln">2</span></span>
+        <span class="line"><span class="ln">3</span><span class="role">agent</span> using <span class="tool">workspace.threads.list</span>(<span class="arg">{ topic: &apos;q3-roadmap&apos; }</span>)</span>
+        <span class="line"><span class="ln">4</span>  <span class="ok">→ 3 threads · 12 messages</span></span>
+        <span class="line"><span class="ln">5</span></span>
+        <span class="line"><span class="ln">6</span><span class="role">agent</span> using <span class="tool">notes.get</span>(<span class="arg">{ id: &apos;0a7f2c1e&apos; }</span>)</span>
+        <span class="line"><span class="ln">7</span>  <span class="ok">→ retrieved 1.8 KB</span></span>
+        <span class="line"><span class="ln">8</span></span>
+        <span class="line"><span class="ln">9</span><span class="role">agent</span> ready · waiting for the next instruction</span>
+      </div>
+      <div class="agent-console-chips">
+        <span class="integration-chip">workspace</span>
+        <span class="integration-chip">notes</span>
+        <span class="integration-chip">threads</span>
+        <span class="integration-chip">reports</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">White canvas, deep product bands.</h2>
+      <p class="section-lede">Marketing surfaces stay on stark white with near-black primary CTAs and underlined near-black links. Product hero bands flip to deep enterprise green or dark navy. Coral and action-blue reserved for decorative fills and chip borders — never inline as text.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-soft-stone);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-soft-stone</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-pale-green);"></div><div class="swatch-role">Wash</div><div class="swatch-name">--brand-pale-green</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-pale-blue);"></div><div class="swatch-role">Wash</div><div class="swatch-name">--brand-pale-blue</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Primary</div><div class="swatch-name">--primary · near-black</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-cohere-black);"></div><div class="swatch-role">Anchor</div><div class="swatch-name">--brand-cohere-black</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-deep-green-marketing);"></div><div class="swatch-role">Band</div><div class="swatch-name">--brand-deep-green-marketing</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-dark-navy);"></div><div class="swatch-role">Band</div><div class="swatch-name">--brand-dark-navy</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-coral);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-coral</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-coral-soft);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-coral-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-action-blue);"></div><div class="swatch-role">Accent fill</div><div class="swatch-name">--brand-action-blue</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-slate);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-slate</div></div>
+    </div>
+    <div class="chip-row">
+      <span class="taxonomy-chip">Research</span>
+      <span class="taxonomy-chip" data-tone="outline">Long-form</span>
+      <span class="taxonomy-chip" data-tone="soft">Agents</span>
+      <span class="taxonomy-chip">Workspace</span>
+      <span class="taxonomy-chip" data-tone="outline">Enterprise</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="stone" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces</p>
+      <h2 class="section-title">Five surfaces, two polarities.</h2>
+      <p class="section-lede">White as the editorial floor. Soft stone, pale green, and pale blue as quiet section washes. Deep enterprise green for the product hero bands — the brand's chromatic moment without leaving the controlled-enterprise tone.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">marketing default</span>
+      </div>
+      <div class="ladder-step" data-step="stone">
+        <span class="ladder-num">Stone</span>
+        <span class="ladder-name">--brand-soft-stone</span>
+        <span class="ladder-role">testimonial · warm card</span>
+      </div>
+      <div class="ladder-step" data-step="pale-green">
+        <span class="ladder-num">Pale Green</span>
+        <span class="ladder-name">--brand-pale-green</span>
+        <span class="ladder-role">North-page wash</span>
+      </div>
+      <div class="ladder-step" data-step="pale-blue">
+        <span class="ladder-num">Pale Blue</span>
+        <span class="ladder-name">--brand-pale-blue</span>
+        <span class="ladder-role">blog CTA wash</span>
+      </div>
+      <div class="ladder-step" data-step="deep-green">
+        <span class="ladder-num">Deep Green</span>
+        <span class="ladder-name">--brand-deep-green-marketing</span>
+        <span class="ladder-role">product hero band · console</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three tiers, editorial.</h2>
+      <p class="section-lede">Pricing on white tiles with mono-feeling tier names. Featured tier inverted to near-black with coral name — the only place the system commits to the brand's anchor in full.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="inverse" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to us</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="pale-green" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · type + components</p>
+      <h2 class="section-title">Mono-feeling display, precise UI.</h2>
+      <p class="section-lede">Display tier in JetBrains Mono (substituting for the proprietary CohereText) with weight 500 — a controlled, technical voice. Body tier in Inter (substituting for Unica77) at weight 400 for precise reading. <a href="#">Action blue</a> for inline links.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">controlled.enterprise()</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">JetBrains Mono · 500</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter · weight 600 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Inter at 14–16 pixels, line-height 1.55. <a href="#">Underlined near-black links</a> for emphasis — Cohere keeps inline accents monochrome and reserves coral / action-blue for decorative fills.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">workspace.agents.run()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · rounded pill 32 px</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Talk to us</button>
+            <button class="btn" data-variant="secondary" type="button">View platform</button>
+            <button class="btn" data-variant="coral" type="button">Read the blog</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Buttons · primary on deep-green band</span>
+          <div class="cmp-row" style="margin-top:0.5rem; padding: 1rem; background: var(--brand-deep-green-marketing); border-radius: var(--radius-md);">
+            <button class="btn" data-variant="inverse" type="button">Read the agent guide</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>cohere-style</a>
+      <p class="footer-tagline">A token-surface preview rendered against the controlled-enterprise white-and-deep-green design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Platform</p>
+      <ul class="footer-list"><li><a href="#">Workspace</a></li><li><a href="#">Agents</a></li><li><a href="#">Notes</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Solutions</p>
+      <ul class="footer-list"><li><a href="#">Enterprise</a></li><li><a href="#">Financial</a></li><li><a href="#">Healthcare</a></li><li><a href="#">Public sector</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">workspace.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>cohere-style · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">white canvas · deep green band · coral chips · mono display</span>
+  </div>
+</footer>
+
+</body>
+</html>

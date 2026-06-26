@@ -1,0 +1,1945 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>linear-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23010102'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%235e6ad2'/%3E%3C/svg%3E">
+<meta property="og:title" content="linear-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Deepest-dark canvas + lavender accent + four-step surface ladder.">
+<meta name="twitter:card" content="summary">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/linear-style/tokens.css) === */
+/**
+ * design-systems/linear-style/tokens.css
+ *
+ * Live-verified against linear.app + linear.app/method + linear.app/changelog
+ * + Linear's marketing CSS bundles (static.linear.app) on 2026-05-26.
+ * Companion to ./DESIGN.md.
+ *
+ * canonical-canvas: dark. Linear is hard-coded dark-canonical — every
+ * marketing surface ships <html data-theme="dark"> with no light variant.
+ * Both [data-theme="dark"] and @media (prefers-color-scheme: dark) blocks
+ * mirror :root verbatim; the synthesised lightness inversion is not used
+ * because there is no brand-supported light variant to render.
+ *
+ * Intentional drift: --brand-ink-tertiary holds Linear's live value
+ * #62666d (sub-AA on canvas, ~3.16:1). Linear ships this for inline
+ * timestamps and accepts the sub-AA reading; the catalog mirrors that
+ * choice rather than "correcting" a brand-canonical decision.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(0.0692 0.0080 284.1148);
+  --foreground: oklch(0.9784 0.0011 197.1406);
+  --card: oklch(0.0692 0.0080 284.1148);
+  --card-foreground: oklch(0.9784 0.0011 197.1406);
+  --popover: oklch(0.0692 0.0080 284.1148);
+  --popover-foreground: oklch(0.9784 0.0011 197.1406);
+  --primary: oklch(0.5674 0.1585 275.2058);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.0692 0.0080 284.1148);
+  --secondary-foreground: oklch(0.9784 0.0011 197.1406);
+  --muted: oklch(0.0692 0.0080 284.1148);
+  --muted-foreground: oklch(0.9784 0.0011 197.1406);
+  --accent: oklch(0.0692 0.0080 284.1148);
+  --accent-foreground: oklch(0.9784 0.0011 197.1406);
+  --destructive: oklch(0.6534 0.1835 23.6794);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.2645 0.0098 268.3063);
+  --input: oklch(0.2645 0.0098 268.3063);
+  --ring: oklch(0.5674 0.1585 275.2058);
+  --sidebar: oklch(0.0692 0.0080 284.1148);
+  --sidebar-foreground: oklch(0.9784 0.0011 197.1406);
+  --sidebar-primary: oklch(0.5674 0.1585 275.2058);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.0692 0.0080 284.1148);
+  --sidebar-accent-foreground: oklch(0.9784 0.0011 197.1406);
+  --sidebar-border: oklch(0.2645 0.0098 268.3063);
+  --sidebar-ring: oklch(0.5674 0.1585 275.2058);
+
+  /* Synthesised lightness ladder of brand indigo — Linear doesn't publish
+   * a documented marketing-tree charting palette. Multi-hue palettes appear
+   * inside the product dashboards but aren't sampleable from marketing.
+   * Values held as a brand-coherent placeholder. */
+  --chart-1: oklch(0.8100 0.1585 275.2058);
+  --chart-2: oklch(0.7100 0.1585 275.2058);
+  --chart-3: oklch(0.6100 0.1585 275.2058);
+  --chart-4: oklch(0.5100 0.1585 275.2058);
+  --chart-5: oklch(0.4200 0.1585 275.2058);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;
+  --brand-radius-xxl: 24px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens — Linear loads InterVariable.woff2 (Inter Variable)
+   * and Berkeley-Mono-Variable.woff2 (Berkeley Mono) site-wide. Tiempos
+   * Headline is preloaded only on /method and is editorial-only; there is
+   * no marketing display family, so --font-display is intentionally omitted. */
+  --font-sans: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "Berkeley Mono", "Fira Code", "Jetbrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* type scale tokens */
+  --text-display: 80px;
+  --text-heading: 56px;
+  --text-title: 20px;
+  --text-base: 16px;
+  --leading-tight: 1.05;
+  --leading-normal: 1.50;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras */
+  --brand-primary-hover: oklch(0.6906 0.1637 276.2389);
+  --brand-primary-focus: oklch(0.5648 0.1585 275.5636);
+  --brand-ink-muted: oklch(0.8744 0.0152 260.7285);
+  --brand-ink-subtle: oklch(0.6488 0.0146 262.3594);
+  /* --brand-ink-tertiary holds Linear's live --color-text-quaternary
+   * (#62666d). This sits at ~3.16:1 against #0f1011 — sub-AA. Linear
+   * ships it intentionally for decorative timestamp metadata
+   * (`· 4 min ago`, `· 1 day ago`) and accepts the quiet reading per
+   * DESIGN.md §2. Consumers that need readable body text route to
+   * --brand-ink-subtle (#8a8f98), which is AA-passing. */
+  --brand-ink-tertiary: oklch(0.5092 0.0121 261.7676);
+  /* --brand-canvas-deep is Linear's --color-bg-primary on dark (#08090a) —
+   * the literal page-body bg behind the marketing-canvas wash. The surface
+   * ladder below starts one step lifted at --brand-surface-1 (#0f1011, the
+   * first card above the page canvas), matching every preview-template
+   * consumer that treats surface-1 as the elevated panel. */
+  --brand-canvas-deep: oklch(0.1390 0.0029 246.2561);
+  --brand-surface-1: oklch(0.1723 0.0026 247.9805);
+  --brand-surface-2: oklch(0.1950 0.0026 247.9581);
+  --brand-surface-3: oklch(0.2127 0.0025 247.9442);
+  --brand-surface-4: oklch(0.2171 0.0025 247.9412);
+  --brand-hairline-strong: oklch(0.3274 0.0105 285.8054);
+  --brand-hairline-tertiary: oklch(0.3661 0.0102 285.8850);
+  --brand-inverse-canvas: oklch(1 0 0);
+  --brand-inverse-surface-1: oklch(0.9724 0.0011 197.1405);
+  --brand-inverse-surface-2: oklch(0.9754 0.0011 197.1405);
+  --brand-inverse-ink: oklch(0 0 0);
+  --brand-brand-secure: oklch(0.6100 0.0699 279.2986);
+  --brand-semantic-success: oklch(0.6371 0.1749 146.6989);
+  --brand-semantic-overlay: oklch(0 0 0);
+
+  /* Documented secondary brand-accent tokens, surface-named per DESIGN.md §2.
+   * Each maps to a single Linear marketing-CSS variable with a documented
+   * semantic role; these are not synthesised lightness variants. */
+  --brand-accent-build: oklch(0.7716 0.1313 90.9836);   /* Linear --color-linear-build (#d4b144); "Build" workflow stage */
+  --brand-accent-plan: oklch(0.6951 0.1809 145.6213);   /* Linear --color-linear-plan (#3fb950); "On track" status / "Plan" workflow stage */
+  --brand-accent-secure: oklch(0.6100 0.0699 279.2986); /* Linear --color-linear-security (#7a7fad); muted indigo for security/auth illustration */
+}
+
+/* Both dark-theme blocks mirror :root — Linear has no light mode. */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.0692 0.0080 284.1148);
+  --foreground: oklch(0.9784 0.0011 197.1406);
+  --card: oklch(0.0692 0.0080 284.1148);
+  --card-foreground: oklch(0.9784 0.0011 197.1406);
+  --popover: oklch(0.0692 0.0080 284.1148);
+  --popover-foreground: oklch(0.9784 0.0011 197.1406);
+  --primary: oklch(0.5674 0.1585 275.2058);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.0692 0.0080 284.1148);
+  --secondary-foreground: oklch(0.9784 0.0011 197.1406);
+  --muted: oklch(0.0692 0.0080 284.1148);
+  --muted-foreground: oklch(0.9784 0.0011 197.1406);
+  --accent: oklch(0.0692 0.0080 284.1148);
+  --accent-foreground: oklch(0.9784 0.0011 197.1406);
+  --destructive: oklch(0.6534 0.1835 23.6794);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.2645 0.0098 268.3063);
+  --input: oklch(0.2645 0.0098 268.3063);
+  --ring: oklch(0.5674 0.1585 275.2058);
+  --sidebar: oklch(0.0692 0.0080 284.1148);
+  --sidebar-foreground: oklch(0.9784 0.0011 197.1406);
+  --sidebar-primary: oklch(0.5674 0.1585 275.2058);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.0692 0.0080 284.1148);
+  --sidebar-accent-foreground: oklch(0.9784 0.0011 197.1406);
+  --sidebar-border: oklch(0.2645 0.0098 268.3063);
+  --sidebar-ring: oklch(0.5674 0.1585 275.2058);
+  --chart-1: oklch(0.8100 0.1585 275.2058);
+  --chart-2: oklch(0.7100 0.1585 275.2058);
+  --chart-3: oklch(0.6100 0.1585 275.2058);
+  --chart-4: oklch(0.5100 0.1585 275.2058);
+  --chart-5: oklch(0.4200 0.1585 275.2058);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Linear-style preview shell — token-surface preview, dark-canonical.
+   Linear ships no light mode (per DESIGN.md). Both [data-theme="light"]
+   and [data-theme="dark"] render the same deep-black canvas.
+   Signature moves: -3.0px display tracking, four-step surface ladder,
+   single lavender accent, surface-1 panels with 1px hairline borders,
+   product-screenshot card with 16px radius, positive-tracked eyebrow. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.05px;
+}
+
+/* -- Top nav -- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 56px;
+  background: color-mix(in srgb, var(--background) 90%, transparent);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.topnav-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
+.topnav-mark-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--primary);
+}
+.topnav-links { display: flex; gap: 2rem; }
+.topnav-links a { color: var(--brand-ink-muted, var(--foreground)); text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions { display: flex; gap: 0.75rem; align-items: center; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Button grammar -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius-md, 8px);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 100ms ease, border-color 100ms ease;
+}
+.btn[data-variant="primary"] { background: var(--primary); color: var(--primary-foreground); }
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-hover, var(--primary)); }
+.btn[data-variant="secondary"] {
+  background: var(--brand-surface-1, var(--card));
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.btn[data-variant="secondary"]:hover { background: var(--brand-surface-2, var(--card)); }
+.btn[data-variant="tertiary"] { background: transparent; color: var(--foreground); }
+.btn[data-variant="tertiary"]:hover { background: var(--brand-surface-1, var(--card)); }
+.btn[data-variant="inverse"] {
+  background: var(--brand-inverse-canvas, var(--foreground));
+  color: var(--brand-inverse-ink, var(--background));
+}
+
+/* -- Page container -- */
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* -- Hero -- */
+.hero {
+  padding: 6rem 0 4rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: var(--brand-ink-subtle, var(--muted-foreground));
+  text-transform: none;
+  margin: 0;
+}
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.hero-display {
+  font-family: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+  font-size: clamp(2.75rem, 6.5vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  margin: 0;
+  max-width: 18ch;
+}
+.hero-lede {
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: -0.1px;
+  color: var(--brand-ink-muted, var(--foreground));
+  max-width: 48ch;
+  margin: 0;
+}
+.hero-ctas { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+.hero-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 13px;
+  color: var(--brand-ink-subtle, var(--muted-foreground));
+  letter-spacing: 0.4px;
+  font-weight: 500;
+}
+
+/* -- Product-screenshot panel (the protagonist) -- */
+.product-panel {
+  background: var(--brand-surface-1, var(--card));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl, 16px);
+  overflow: hidden;
+  margin: 0 0 6rem;
+}
+.product-panel-inner {
+  display: grid;
+  grid-template-columns: 14rem 1fr 16rem;
+  min-height: 22rem;
+  font-size: 13px;
+}
+@media (max-width: 880px) { .product-panel-inner { grid-template-columns: 1fr; } }
+
+.pp-sidebar {
+  background: var(--background);
+  border-right: 1px solid var(--border);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.pp-sidebar-section {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--brand-ink-subtle, var(--muted-foreground));
+  margin: 0.75rem 0 0.25rem;
+  font-weight: 500;
+}
+.pp-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.5rem;
+  border-radius: 4px;
+  color: var(--brand-ink-muted, var(--foreground));
+  cursor: pointer;
+}
+.pp-nav-item:hover { background: var(--brand-surface-1, var(--card)); }
+.pp-nav-item[aria-current="page"] {
+  background: var(--brand-surface-2, var(--card));
+  color: var(--foreground);
+}
+.pp-nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-ink-subtle, var(--muted-foreground)); }
+
+.pp-main {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-right: 1px solid var(--border);
+}
+.pp-main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+}
+.pp-main-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 14px;
+  font-weight: 500;
+}
+.pp-main-search {
+  font-size: 12px;
+  color: var(--brand-ink-subtle, var(--muted-foreground));
+}
+.pp-issue {
+  display: grid;
+  grid-template-columns: 6rem 1fr 5rem 4rem 5rem;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.5rem 0.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.pp-issue:last-child { border-bottom: none; }
+.pp-issue-id {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--brand-ink-subtle, var(--muted-foreground));
+}
+.pp-issue-title { color: var(--foreground); }
+.pp-issue-priority {
+  display: inline-flex;
+  gap: 2px;
+  align-items: flex-end;
+}
+.pp-issue-priority span {
+  display: inline-block;
+  width: 3px;
+  border-radius: 1px;
+  background: var(--brand-ink-subtle, var(--muted-foreground));
+}
+.pp-issue-priority span[data-active="true"] { background: var(--primary); }
+.pp-issue-assignee {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--brand-surface-2, var(--card));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 500;
+}
+.pp-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 12px;
+  color: var(--brand-ink-muted, var(--foreground));
+}
+.pp-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--brand-ink-subtle, var(--muted-foreground));
+}
+.pp-status-dot[data-state="progress"] {
+  border-color: var(--brand-semantic-success, var(--primary));
+  background: conic-gradient(var(--brand-semantic-success, var(--primary)) 60%, transparent 60%);
+}
+.pp-status-dot[data-state="done"] { background: var(--brand-semantic-success, var(--primary)); border-color: var(--brand-semantic-success, var(--primary)); }
+.pp-status-dot[data-state="todo"] { border-color: var(--brand-ink-muted, var(--foreground)); }
+.pp-status-dot[data-state="triage"] { border-color: var(--primary); background: var(--primary); }
+
+.pp-rail {
+  background: var(--background);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  font-size: 12px;
+}
+.pp-rail-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--brand-ink-subtle, var(--muted-foreground)); }
+.pp-rail-value { color: var(--foreground); }
+.pp-rail-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 2px 8px;
+  font-size: 11px;
+  border-radius: 9999px;
+  background: var(--brand-surface-2, var(--card));
+  color: var(--brand-ink-muted, var(--foreground));
+}
+
+/* -- Section frame -- */
+.section { padding: 4rem 0; border-top: 1px solid var(--border); }
+.section-header { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
+.section-title {
+  font-family: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0;
+  max-width: 22ch;
+}
+.section-lede {
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.05px;
+  color: var(--brand-ink-muted, var(--foreground));
+  max-width: 56ch;
+  margin: 0;
+}
+
+/* -- Color surface ladder -- */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 12px);
+  overflow: hidden;
+}
+@media (max-width: 880px) { .surface-ladder { grid-template-columns: repeat(2, 1fr); } }
+.surface-step {
+  padding: 1.5rem;
+  font-size: 12px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 7rem;
+}
+.surface-step:last-child { border-right: none; }
+.surface-step[data-step="0"] { background: var(--background); }
+.surface-step[data-step="1"] { background: var(--brand-surface-1, var(--card)); }
+.surface-step[data-step="2"] { background: var(--brand-surface-2, var(--card)); }
+.surface-step[data-step="3"] { background: var(--brand-surface-3, var(--card)); }
+.surface-step-num { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand-ink-subtle, var(--muted-foreground)); }
+.surface-step-name { font-family: var(--font-mono); color: var(--foreground); }
+.surface-step-role { color: var(--brand-ink-subtle, var(--muted-foreground)); }
+
+/* secondary swatch grid for accent / ink / semantic */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+.swatch {
+  background: var(--brand-surface-1, var(--card));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 8px);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip { height: 2.25rem; border-radius: 4px; border: 1px solid var(--brand-hairline-tertiary, var(--border)); }
+.swatch-name { font-family: var(--font-mono); font-size: 12px; }
+.swatch-role { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--brand-ink-subtle, var(--muted-foreground)); }
+
+/* -- Typography roles -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--brand-ink-subtle, var(--muted-foreground));
+}
+.type-display-xl { font-family: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif; font-size: 80px; font-weight: 600; line-height: 1.05; letter-spacing: -3px; }
+.type-display-lg { font-family: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif; font-size: 56px; font-weight: 600; line-height: 1.1; letter-spacing: -1.8px; }
+.type-display-md { font-family: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif; font-size: 40px; font-weight: 600; line-height: 1.15; letter-spacing: -1px; }
+.type-headline { font-family: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif; font-size: 28px; font-weight: 600; line-height: 1.2; letter-spacing: -0.6px; }
+.type-body { font-size: 16px; line-height: 1.5; letter-spacing: -0.05px; }
+.type-mono { font-family: var(--font-mono); font-size: 13px; line-height: 1.5; }
+
+/* -- Components: button grid, pricing tabs, status pills, pricing cards -- */
+.components-stack { display: flex; flex-direction: column; gap: 2rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+
+.tab-group {
+  display: inline-flex;
+  background: var(--brand-surface-1, var(--card));
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  padding: 4px;
+  gap: 4px;
+}
+.tab {
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brand-ink-subtle, var(--muted-foreground));
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+.tab[aria-selected="true"] { background: var(--brand-surface-2, var(--card)); color: var(--foreground); }
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 2px 8px;
+  font-size: 12px;
+  border-radius: 9999px;
+  background: var(--brand-surface-2, var(--card));
+  color: var(--brand-ink-muted, var(--foreground));
+}
+.status-pill-dot { width: 6px; height: 6px; border-radius: 50%; }
+.status-pill-dot[data-state="success"] { background: var(--brand-semantic-success, var(--primary)); }
+.status-pill-dot[data-state="brand"] { background: var(--primary); }
+.status-pill-dot[data-state="muted"] { background: var(--brand-ink-subtle, var(--muted-foreground)); }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; } }
+.pricing-card {
+  background: var(--brand-surface-1, var(--card));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 12px);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pricing-card[data-featured="true"] {
+  background: var(--brand-surface-2, var(--card));
+  border-color: var(--brand-hairline-strong, var(--border));
+}
+.pricing-tier { font-size: 14px; font-weight: 500; color: var(--brand-ink-muted, var(--foreground)); }
+.pricing-price {
+  font-family: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  line-height: 1;
+}
+.pricing-price span { font-size: 14px; color: var(--brand-ink-subtle, var(--muted-foreground)); font-weight: 400; margin-left: 0.25rem; }
+.pricing-desc { font-size: 14px; color: var(--brand-ink-muted, var(--foreground)); margin: 0; line-height: 1.5; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  font-size: 13px;
+  color: var(--brand-ink-muted, var(--foreground));
+}
+.pricing-features li { padding-left: 1.25rem; position: relative; }
+.pricing-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--brand-semantic-success, var(--primary));
+  font-size: 12px;
+}
+
+/* -- CTA banner (surface-1 lift) -- */
+.cta-banner {
+  background: var(--brand-surface-1, var(--card));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 12px);
+  padding: 3rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin: 4rem 0;
+}
+.cta-banner-title {
+  font-family: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin: 0;
+  max-width: 22ch;
+}
+
+/* -- Footer -- */
+.footer { padding: 4rem 0 2rem; border-top: 1px solid var(--border); }
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+@media (max-width: 880px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+.footer-col-title { font-size: 13px; font-weight: 500; color: var(--foreground); margin: 0 0 0.75rem; }
+.footer-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-col-list a { font-size: 13px; color: var(--brand-ink-subtle, var(--muted-foreground)); text-decoration: none; }
+.footer-col-list a:hover { color: var(--foreground); }
+.footer-legal {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-ink-subtle, var(--muted-foreground));
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <span class="topnav-mark"><span class="topnav-mark-dot" aria-hidden="true"></span>linear-style</span>
+    <div class="topnav-links">
+      <a href="#">Tokens</a>
+      <a href="#">Typography</a>
+      <a href="#">Components</a>
+      <a href="#">Pricing</a>
+      <a href="#">Changelog</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="btn" data-variant="tertiary" type="button">Sign in</button>
+      <button class="btn" data-variant="primary" type="button">Get started</button>
+    </div>
+  </div>
+</nav>
+
+<main class="page">
+
+  <section class="hero" aria-label="Hero">
+    <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>linear-style · token surface · 2026.05.22</p>
+    <h1 class="hero-display">Where engineering teams plan and ship.</h1>
+    <p class="hero-lede">A token-surface preview rendered against the design system. Deepest-dark canvas, lavender accent, four-step surface ladder, product-screenshot panel — the signature moves shown on neutral content.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" type="button">Get started</button>
+      <button class="btn" data-variant="secondary" type="button">Read the changelog →</button>
+    </div>
+    <p class="hero-meta"><span class="eyebrow-dot" aria-hidden="true"></span>Issue tracker · halcyon.dev/issues</p>
+  </section>
+
+  <section class="product-panel" aria-label="Product UI screenshot">
+    <div class="product-panel-inner">
+      <aside class="pp-sidebar" aria-label="Workspace nav">
+        <span class="pp-sidebar-section">Halcyon</span>
+        <div class="pp-nav-item" aria-current="page"><span class="pp-nav-dot" style="background: var(--primary)"></span>Inbox</div>
+        <div class="pp-nav-item"><span class="pp-nav-dot"></span>My issues</div>
+        <div class="pp-nav-item"><span class="pp-nav-dot"></span>Triage</div>
+        <div class="pp-nav-item"><span class="pp-nav-dot"></span>Pulse</div>
+        <span class="pp-sidebar-section">Workspace</span>
+        <div class="pp-nav-item"><span class="pp-nav-dot"></span>Initiatives</div>
+        <div class="pp-nav-item"><span class="pp-nav-dot"></span>Projects</div>
+        <div class="pp-nav-item"><span class="pp-nav-dot"></span>Views</div>
+        <div class="pp-nav-item"><span class="pp-nav-dot"></span>More</div>
+      </aside>
+
+      <div class="pp-main" aria-label="Issue list">
+        <div class="pp-main-header">
+          <span class="pp-main-title"><span style="color: var(--brand-ink-subtle)">▸</span> Inbox</span>
+          <span class="pp-main-search">02 / 145</span>
+        </div>
+
+        <div class="pp-issue">
+          <span class="pp-issue-id">HLC-2703</span>
+          <span class="pp-issue-title">Comments-widget shadow-root keydown guard</span>
+          <span class="pp-issue-priority"><span style="height:4px"></span><span style="height:7px" data-active="true"></span><span style="height:10px" data-active="true"></span><span style="height:13px" data-active="true"></span></span>
+          <span class="pp-issue-assignee">cr</span>
+          <span class="pp-status"><span class="pp-status-dot" data-state="progress"></span>In progress</span>
+        </div>
+        <div class="pp-issue">
+          <span class="pp-issue-id">HLC-2702</span>
+          <span class="pp-issue-title">Replace static OG generator with edge function</span>
+          <span class="pp-issue-priority"><span style="height:4px"></span><span style="height:7px"></span><span style="height:10px" data-active="true"></span><span style="height:13px" data-active="true"></span></span>
+          <span class="pp-issue-assignee">jo</span>
+          <span class="pp-status"><span class="pp-status-dot" data-state="todo"></span>Backlog</span>
+        </div>
+        <div class="pp-issue">
+          <span class="pp-issue-id">HLC-2701</span>
+          <span class="pp-issue-title">Refactor query cache invalidation</span>
+          <span class="pp-issue-priority"><span style="height:4px"></span><span style="height:7px"></span><span style="height:10px"></span><span style="height:13px" data-active="true"></span></span>
+          <span class="pp-issue-assignee">mi</span>
+          <span class="pp-status"><span class="pp-status-dot" data-state="triage"></span>Triage</span>
+        </div>
+        <div class="pp-issue">
+          <span class="pp-issue-id">HLC-2698</span>
+          <span class="pp-issue-title">KV propagation backlog telemetry</span>
+          <span class="pp-issue-priority"><span style="height:4px"></span><span style="height:7px"></span><span style="height:10px" data-active="true"></span><span style="height:13px" data-active="true"></span></span>
+          <span class="pp-issue-assignee">cr</span>
+          <span class="pp-status"><span class="pp-status-dot" data-state="done"></span>Done</span>
+        </div>
+        <div class="pp-issue">
+          <span class="pp-issue-id">HLC-2691</span>
+          <span class="pp-issue-title">Replace polling with WebSocket for org events</span>
+          <span class="pp-issue-priority"><span style="height:4px"></span><span style="height:7px" data-active="true"></span><span style="height:10px" data-active="true"></span><span style="height:13px" data-active="true"></span></span>
+          <span class="pp-issue-assignee">jo</span>
+          <span class="pp-status"><span class="pp-status-dot" data-state="progress"></span>In progress</span>
+        </div>
+      </div>
+
+      <aside class="pp-rail" aria-label="Issue details">
+        <div><div class="pp-rail-label">ID</div><div class="pp-rail-value" style="font-family: var(--font-mono); font-size: 13px;">HLC-2703</div></div>
+        <div><div class="pp-rail-label">Status</div><span class="pp-rail-pill"><span class="status-pill-dot" data-state="brand"></span>In progress</span></div>
+        <div><div class="pp-rail-label">Priority</div><span class="pp-rail-pill">High</span></div>
+        <div><div class="pp-rail-label">Assignee</div><span class="pp-rail-pill"><span style="width: 1rem; height: 1rem; border-radius: 50%; background: var(--brand-surface-3, var(--card)); display: inline-flex; align-items: center; justify-content: center; font-size: 10px;">jk</span>Jordan</span></div>
+        <div><div class="pp-rail-label">Labels</div><span class="pp-rail-pill" style="background: color-mix(in srgb, var(--primary) 28%, transparent); color: var(--brand-primary-hover, var(--primary));">Comments</span></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Colour surface ladder">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens · Colour</p>
+      <h2 class="section-title">Four-step surface ladder over canvas.</h2>
+      <p class="section-lede">No shadows on dark — depth is carried by surface lift and 1px hairline borders. Canvas at the floor, surface-1 through surface-4 above. Lavender is the single chromatic accent.</p>
+    </div>
+    <div class="surface-ladder" aria-label="Surface ladder">
+      <div class="surface-step" data-step="0"><span class="surface-step-num">Floor · Canvas</span><span class="surface-step-name">--background</span><span class="surface-step-role">page surface</span></div>
+      <div class="surface-step" data-step="1"><span class="surface-step-num">Lift 1</span><span class="surface-step-name">--brand-surface-1</span><span class="surface-step-role">cards · panels</span></div>
+      <div class="surface-step" data-step="2"><span class="surface-step-num">Lift 2</span><span class="surface-step-name">--brand-surface-2</span><span class="surface-step-role">featured · hover</span></div>
+      <div class="surface-step" data-step="3"><span class="surface-step-num">Lift 3</span><span class="surface-step-name">--brand-surface-3</span><span class="surface-step-role">subnav · menus</span></div>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--primary);"></div><span class="swatch-role">Accent</span><span class="swatch-name">--primary</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-primary-hover, var(--primary));"></div><span class="swatch-role">Accent</span><span class="swatch-name">--brand-primary-hover</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-semantic-success, var(--primary));"></div><span class="swatch-role">Semantic</span><span class="swatch-name">--brand-semantic-success</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--foreground);"></div><span class="swatch-role">Ink</span><span class="swatch-name">--foreground</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-ink-muted, var(--foreground));"></div><span class="swatch-role">Ink</span><span class="swatch-name">--brand-ink-muted</span></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-ink-subtle, var(--muted-foreground));"></div><span class="swatch-role">Ink</span><span class="swatch-name">--brand-ink-subtle</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography roles">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Tokens · Typography</p>
+      <h2 class="section-title">Display tracks aggressively negative.</h2>
+      <p class="section-lede">Display-xl at 80px with −3px letter-spacing (≈4% of size). Eyebrows take positive tracking — the contrast marks them as taxonomy. Single voice from display to body; family change is silent.</p>
+    </div>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Display-xl</span><span class="type-display-xl">Halcyon.</span></div>
+      <div class="type-row"><span class="type-label">Display-lg</span><span class="type-display-lg">Built for product teams that ship.</span></div>
+      <div class="type-row"><span class="type-label">Display-md</span><span class="type-display-md">Token surface preview rendered against this design system.</span></div>
+      <div class="type-row"><span class="type-label">Headline</span><span class="type-headline">Pricing tiers, status pills, hairline cards.</span></div>
+      <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy at 16px, line-height 1.5, letter-spacing −0.05px. Inter (or Linear Text) carries the body voice. The text-cut is slightly different from display but the family change is intentionally silent.</span></div>
+      <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">await issues.update({ id: 'HLC-2703', state: 'done' })</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Component vocabulary">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Vocabulary · Components</p>
+      <h2 class="section-title">Lavender CTA, charcoal secondary, surface-2 selected.</h2>
+      <p class="section-lede">Buttons use 8px radius, cards 12px, product panels 16px. Pricing tabs are the exception — pill-shaped to mark them as a different control class.</p>
+    </div>
+    <div class="components-stack">
+      <div class="cmp-row" aria-label="Buttons">
+        <button class="btn" data-variant="primary">Get started</button>
+        <button class="btn" data-variant="secondary">Read more</button>
+        <button class="btn" data-variant="tertiary">Sign in</button>
+        <button class="btn" data-variant="inverse">Inverse</button>
+      </div>
+
+      <div class="cmp-row" aria-label="Pricing tabs">
+        <div class="tab-group" role="tablist">
+          <button class="tab" role="tab" aria-selected="false">Monthly</button>
+          <button class="tab" role="tab" aria-selected="true">Yearly · Save 20%</button>
+        </div>
+      </div>
+
+      <div class="cmp-row" aria-label="Status pills">
+        <span class="status-pill"><span class="status-pill-dot" data-state="brand"></span>In progress</span>
+        <span class="status-pill"><span class="status-pill-dot" data-state="success"></span>Done</span>
+        <span class="status-pill"><span class="status-pill-dot" data-state="muted"></span>Backlog</span>
+        <span class="status-pill" style="background: color-mix(in srgb, var(--primary) 28%, transparent); color: var(--brand-primary-hover, var(--primary));">Comments</span>
+      </div>
+
+      <div class="pricing-grid" aria-label="Pricing cards">
+        <div class="pricing-card">
+          <span class="pricing-tier">Free</span>
+          <div class="pricing-price">Free</div>
+          <p class="pricing-desc">For solo engineers exploring the surface.</p>
+          <ul class="pricing-features">
+            <li>Personal use</li>
+            <li>Basic issue tracking</li>
+            <li>Best-effort support</li>
+          </ul>
+          <button class="btn" data-variant="secondary">Start free</button>
+        </div>
+        <div class="pricing-card" data-featured="true">
+          <span class="pricing-tier">Pro</span>
+          <div class="pricing-price">Standard</div>
+          <p class="pricing-desc">For teams that ship daily.</p>
+          <ul class="pricing-features">
+            <li>Team workspaces</li>
+            <li>Custom views + roadmap</li>
+            <li>Priority support</li>
+            <li>Production SLA</li>
+          </ul>
+          <button class="btn" data-variant="primary">Start trial</button>
+        </div>
+        <div class="pricing-card">
+          <span class="pricing-tier">Enterprise</span>
+          <div class="pricing-price">Custom</div>
+          <p class="pricing-desc">For organizations with procurement and security review.</p>
+          <ul class="pricing-features">
+            <li>Org-wide deployment</li>
+            <li>Dedicated success</li>
+            <li>Procurement-ready paperwork</li>
+          </ul>
+          <button class="btn" data-variant="secondary">Contact sales</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner" aria-label="Closing CTA">
+    <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Ready when you are</p>
+    <h2 class="cta-banner-title">Start tracking the work.</h2>
+    <div class="cmp-row" style="justify-content: center;">
+      <button class="btn" data-variant="primary">Get started</button>
+      <button class="btn" data-variant="secondary">Talk to sales</button>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-col-title">Product</p>
+        <ul class="footer-col-list"><li><a href="#">Tokens</a></li><li><a href="#">Components</a></li><li><a href="#">Templates</a></li><li><a href="#">Changelog</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Resources</p>
+        <ul class="footer-col-list"><li><a href="#">Docs</a></li><li><a href="#">API</a></li><li><a href="#">Integrations</a></li><li><a href="#">Build</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Company</p>
+        <ul class="footer-col-list"><li><a href="#">About</a></li><li><a href="#">Customers</a></li><li><a href="#">Pricing</a></li><li><a href="#">Contact</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Halcyon</p>
+        <ul class="footer-col-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>linear-style · token surface preview · 2026.05.22</span>
+      <span>inter · −3px tracking · lavender · 4-step ladder</span>
+    </div>
+  </footer>
+
+</main>
+
+</body>
+</html>

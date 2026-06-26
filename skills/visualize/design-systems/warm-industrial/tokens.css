@@ -1,0 +1,211 @@
+/**
+ * design-systems/warm-industrial/tokens.css
+ *
+ * Hand-authored from the warm-industrial spec (spec-derived mode, no live
+ * brand site). Source: temp/refs/warm-industrial/raw.md (Superdesign.dev
+ * catalog entry — "Warm Industrial Gray Style" by Zhou Jason).
+ * Companion file: DESIGN.md (§2 palette + §3 typography + §4 components).
+ * Sourced: 2026-05-26.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this register's.
+ *   - Brand-extras (--brand-*): the register's own design-system
+ *     vocabulary. Surface-named only — no colour-with-modifier.
+ *
+ * Register convention: warm zinc-tinted neutrals + a single electric-blue
+ * chromatic accent + status-green for live indicators. The chromatic
+ * accent never appears as text or fill; it surfaces as a focus ring,
+ * marquee glyph, and 20% overlay tint on revealed media.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+
+  --background: oklch(0.9392 0.0040 106.48);          /* #EBEBE8 warm gray */
+  --foreground: oklch(0.2103 0.0059 285.89);          /* #18181B zinc-900 */
+  --card: oklch(0.9756 0.0026 106.45);                /* #F7F7F5 warm elevated */
+  --card-foreground: oklch(0.2103 0.0059 285.89);
+  --popover: oklch(0.9392 0.0040 106.48);
+  --popover-foreground: oklch(0.2103 0.0059 285.89);
+
+  --primary: oklch(0.5635 0.2408 260.82);             /* #0066FF electric blue */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9197 0.0040 286.32);           /* #E4E4E7 zinc-200 */
+  --secondary-foreground: oklch(0.2103 0.0059 285.89);
+  --muted: oklch(0.9674 0.0013 286.37);               /* #F4F4F5 zinc-100 */
+  --muted-foreground: oklch(0.4419 0.0146 285.79);    /* #52525B zinc-600 */
+  --accent: oklch(0.9674 0.0013 286.37);
+  --accent-foreground: oklch(0.2103 0.0059 285.89);
+  --destructive: oklch(0.5771 0.2152 27.33);          /* #DC2626 red-600 */
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.8711 0.0055 286.29);              /* #D4D4D8 zinc-300 */
+  --input: oklch(0.8711 0.0055 286.29);
+  --ring: oklch(0.5635 0.2408 260.82);                /* tracks --primary */
+
+  --sidebar: oklch(0.9392 0.0040 106.48);
+  --sidebar-foreground: oklch(0.2103 0.0059 285.89);
+  --sidebar-primary: oklch(0.5635 0.2408 260.82);     /* tracks --primary */
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9197 0.0040 286.32);
+  --sidebar-accent-foreground: oklch(0.2103 0.0059 285.89);
+  --sidebar-border: oklch(0.8711 0.0055 286.29);
+  --sidebar-ring: oklch(0.5635 0.2408 260.82);        /* tracks --primary */
+
+  --chart-1: oklch(0.2103 0.0059 285.89);             /* foreground */
+  --chart-2: oklch(0.3703 0.0119 285.81);             /* zinc-700 */
+  --chart-3: oklch(0.4419 0.0146 285.79);             /* zinc-600 */
+  --chart-4: oklch(0.5517 0.0138 285.94);             /* zinc-500 */
+  --chart-5: oklch(0.5635 0.2408 260.82);             /* primary blue */
+
+  --radius-sm: 0px;                                   /* rectangular default */
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Playfair Display', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Inter', system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Register is hairline-only — no drop shadows. Elevation reads
+   * through the 1px zinc-300 border, the warm card tint, and the
+   * persistent 12-column grid behind content. */
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. See AUTHORING "Token naming conventions"
+   * for the taxonomy and forbidden suffix list.
+   * -------------------------------------------------------------- */
+
+  /* Polarity-locked surfaces — these do NOT flip in dark mode. */
+  --brand-canvas-night: oklch(0.2103 0.0059 285.89);  /* #18181B footer canvas */
+  --brand-canvas-marquee: oklch(0.9674 0.0013 286.37); /* #F4F4F5 marquee band */
+  --brand-on-dark: oklch(0.9392 0.0040 106.48);       /* #EBEBE8 ink on charcoal */
+  --brand-on-light: oklch(0.2103 0.0059 285.89);      /* #18181B ink on warm gray */
+
+  /* Status indicator (narrow scope: live / operational only). */
+  --brand-status-live: oklch(0.7227 0.1920 149.58);   /* #22C55E green-500 */
+
+  /* Structural grid line — documented at 10% opacity, see DESIGN.md §2. */
+  --brand-grid-line: oklch(0.2103 0.0059 285.89 / 0.1);
+
+  /* Hairlines / dividers — single weight; spec uses 1px zinc-300 throughout. */
+  --brand-hairline-soft: oklch(0.9197 0.0040 286.32); /* #E4E4E7 zinc-200 */
+  --brand-hairline-strong: oklch(0.8711 0.0055 286.29); /* #D4D4D8 zinc-300 */
+
+  /* Body text neutrals (chroma ≈ 0 utility tokens). */
+  --brand-body: oklch(0.2103 0.0059 285.89);          /* #18181B */
+  --brand-body-muted: oklch(0.4419 0.0146 285.79);    /* #52525B zinc-600 */
+  --brand-muted-soft: oklch(0.5517 0.0138 285.94);    /* #71717A zinc-500 */
+  --brand-ink-strong: oklch(0.2103 0.0059 285.89);
+  --brand-ink-mute: oklch(0.4419 0.0146 285.79);
+  --brand-ink-subtle: oklch(0.5517 0.0138 285.94);
+
+  /* Register-specific radii. Spec carves out exactly two exceptions to
+   * the rectangular default (see DESIGN.md §6): pill-shaped main CTAs
+   * and full-rounded status badges. Everything else stays sharp. */
+  --brand-radius-xs: 0px;
+  --brand-radius-pill: 9999px;                        /* main CTA exception */
+  --brand-radius-badge: 9999px;                       /* status badge exception */
+
+  /* Easing curve — every transform and clip-path in the register. */
+  --brand-easing: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Spec carries no documented dark mode. The synthesised dark below
+ * mirrors the warm-industrial register onto a near-black canvas
+ * (zinc-950-adjacent). Polarity-locked tokens stay at :root.
+ * --primary (electric blue) holds its OKLCH value across modes —
+ * the register surfaces it as a focus ring + marquee glyph + overlay,
+ * never as text on dark, so no contrast lift required.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1452 0.0021 286.13);          /* #0A0A0B near-black */
+  --foreground: oklch(0.9392 0.0040 106.48);          /* #EBEBE8 warm gray */
+  --card: oklch(0.2103 0.0059 285.89);                /* #18181B zinc-900 */
+  --card-foreground: oklch(0.9392 0.0040 106.48);
+  --popover: oklch(0.1452 0.0021 286.13);
+  --popover-foreground: oklch(0.9392 0.0040 106.48);
+
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring stay at :root. */
+
+  --secondary: oklch(0.2739 0.0055 286.03);           /* #27272A zinc-800 */
+  --secondary-foreground: oklch(0.9392 0.0040 106.48);
+  --muted: oklch(0.2739 0.0055 286.03);
+  --muted-foreground: oklch(0.7118 0.0129 286.07);    /* #A1A1AA zinc-400 */
+  --accent: oklch(0.2739 0.0055 286.03);
+  --accent-foreground: oklch(0.9392 0.0040 106.48);
+
+  --border: oklch(0.3703 0.0119 285.81);              /* #3F3F46 zinc-700 */
+  --input: oklch(0.3703 0.0119 285.81);
+
+  --sidebar: oklch(0.1452 0.0021 286.13);
+  --sidebar-foreground: oklch(0.9392 0.0040 106.48);
+  --sidebar-accent: oklch(0.2739 0.0055 286.03);
+  --sidebar-accent-foreground: oklch(0.9392 0.0040 106.48);
+  --sidebar-border: oklch(0.3703 0.0119 285.81);
+
+  /* Utility neutrals lift in dark mode for body text legibility. */
+  --brand-body: oklch(0.9392 0.0040 106.48);
+  --brand-body-muted: oklch(0.7118 0.0129 286.07);
+  --brand-muted-soft: oklch(0.5517 0.0138 285.94);
+  --brand-ink-strong: oklch(0.9392 0.0040 106.48);
+  --brand-ink-mute: oklch(0.7118 0.0129 286.07);
+  --brand-ink-subtle: oklch(0.5517 0.0138 285.94);
+
+  /* Grid line gains slightly more opacity to stay visible against the
+   * near-black canvas without becoming dominant. */
+  --brand-grid-line: oklch(0.9392 0.0040 106.48 / 0.07);
+
+  /* Hairlines retune for the dark canvas. */
+  --brand-hairline-soft: oklch(0.2739 0.0055 286.03);
+  --brand-hairline-strong: oklch(0.3703 0.0119 285.81);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1452 0.0021 286.13);
+    --foreground: oklch(0.9392 0.0040 106.48);
+    --card: oklch(0.2103 0.0059 285.89);
+    --card-foreground: oklch(0.9392 0.0040 106.48);
+    --popover: oklch(0.1452 0.0021 286.13);
+    --popover-foreground: oklch(0.9392 0.0040 106.48);
+
+    --secondary: oklch(0.2739 0.0055 286.03);
+    --secondary-foreground: oklch(0.9392 0.0040 106.48);
+    --muted: oklch(0.2739 0.0055 286.03);
+    --muted-foreground: oklch(0.7118 0.0129 286.07);
+    --accent: oklch(0.2739 0.0055 286.03);
+    --accent-foreground: oklch(0.9392 0.0040 106.48);
+
+    --border: oklch(0.3703 0.0119 285.81);
+    --input: oklch(0.3703 0.0119 285.81);
+
+    --sidebar: oklch(0.1452 0.0021 286.13);
+    --sidebar-foreground: oklch(0.9392 0.0040 106.48);
+    --sidebar-accent: oklch(0.2739 0.0055 286.03);
+    --sidebar-accent-foreground: oklch(0.9392 0.0040 106.48);
+    --sidebar-border: oklch(0.3703 0.0119 285.81);
+
+    --brand-body: oklch(0.9392 0.0040 106.48);
+    --brand-body-muted: oklch(0.7118 0.0129 286.07);
+    --brand-muted-soft: oklch(0.5517 0.0138 285.94);
+    --brand-ink-strong: oklch(0.9392 0.0040 106.48);
+    --brand-ink-mute: oklch(0.7118 0.0129 286.07);
+    --brand-ink-subtle: oklch(0.5517 0.0138 285.94);
+
+    --brand-grid-line: oklch(0.9392 0.0040 106.48 / 0.07);
+    --brand-hairline-soft: oklch(0.2739 0.0055 286.03);
+    --brand-hairline-strong: oklch(0.3703 0.0119 285.81);
+  }
+}

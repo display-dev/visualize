@@ -1,0 +1,179 @@
+/**
+ * design-systems/beta-capture/tokens.css
+ *
+ * Hand-authored from the spec-derived `beta-capture` system DESIGN.md
+ * (Superdesign "Minimalist Beta Capture" entry, attributed to Shirley Lou).
+ * Sourced: 2026-05-26.
+ *
+ * Spec-derived register: "Modern Obsidian" editorial-brutalist for SaaS
+ * waitlist / fintech / premium dev-tool launch moments. Single-polarity
+ * dark by spec; light-mode is out of scope. The brand is strictly
+ * monochromatic — obsidian (#080808) canvas + silver gradient
+ * (135deg #F8FAFC → #94A3B8) as the only chromatic move. Semantic
+ * colour (red error, green success, blue link) is explicitly forbidden.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core: names are upstream contract, values are
+ *     beta-capture's obsidian + silver register.
+ *   - Brand-extras (--brand-*): polarity-locked obsidian / glass / silver
+ *     surfaces named by role, never by colour-with-modifier.
+ *
+ * --destructive carries the same silver-text value as --foreground by
+ * design — the spec forbids red. Consumers differentiate destructive
+ * affordances via weight, tracking, underline, or framing.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Single-polarity dark — :root carries the obsidian canvas; the
+   * [data-theme="dark"] block below mirrors verbatim because there
+   * is no documented light mode. */
+
+  --background: oklch(0.1344 0 0);                       /* #080808 — Obsidian Background */
+  --foreground: oklch(0.9288 0.0126 255.51);             /* #E2E8F0 — Silver Text */
+  --card: oklch(0.1591 0 0);                             /* #0D0D0D — rgba(255,255,255,0.02) over obsidian */
+  --card-foreground: oklch(0.9288 0.0126 255.51);
+  --popover: oklch(0.1591 0 0);
+  --popover-foreground: oklch(0.9288 0.0126 255.51);
+
+  --primary: oklch(0.9842 0.0034 247.86);                /* #F8FAFC — Silver Gradient bright stop */
+  --primary-foreground: oklch(0.1344 0 0);               /* #080808 — text on silver-gradient CTA */
+  --secondary: oklch(0.1591 0 0);
+  --secondary-foreground: oklch(0.9288 0.0126 255.51);
+  --muted: oklch(0.1591 0 0);
+  --muted-foreground: oklch(0.6334 0 0);                 /* #8A8A8A — utility-neutral mid-gray */
+  --accent: oklch(0.1591 0 0);
+  --accent-foreground: oklch(0.9842 0.0034 247.86);
+  --destructive: oklch(0.9288 0.0126 255.51);            /* silver-text — spec forbids red */
+  --destructive-foreground: oklch(0.1344 0 0);
+
+  --border: oklch(0.2264 0 0);                           /* #1C1C1C — rgba(255,255,255,0.08) over obsidian */
+  --input: oklch(0.2264 0 0);
+  --ring: oklch(0.9842 0.0034 247.86);                   /* tracks --primary (silver bright stop) */
+
+  --sidebar: oklch(0.1344 0 0);
+  --sidebar-foreground: oklch(0.9288 0.0126 255.51);
+  --sidebar-primary: oklch(0.9842 0.0034 247.86);        /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.1344 0 0);
+  --sidebar-accent: oklch(0.1591 0 0);
+  --sidebar-accent-foreground: oklch(0.9288 0.0126 255.51);
+  --sidebar-border: oklch(0.2264 0 0);
+  --sidebar-ring: oklch(0.9842 0.0034 247.86);           /* tracks --primary */
+
+  /* Chart slots route through the silver-gradient stops + grayscale
+   * neutrals — the system has no second hue, so charts are monochrome
+   * silver-on-obsidian by necessity. */
+  --chart-1: oklch(0.9842 0.0034 247.86);
+  --chart-2: oklch(0.7107 0.0351 256.79);
+  --chart-3: oklch(0.8359 0 0);
+  --chart-4: oklch(0.6334 0 0);
+  --chart-5: oklch(0.4748 0 0);
+
+  --radius: 1rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 2rem;
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'DM Serif Display', ui-serif, Georgia, serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: 'DM Serif Display', ui-serif, Georgia, serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Spec rule: "MUST NOT use standard box-shadows; use borders or
+   * backdrop-blurs for depth." One exception — the silver-gradient
+   * CTA's hover glow. Exposed as a single token so consumers can opt
+   * into it explicitly rather than pulling a shadow ladder. */
+  --brand-glow-cta: 0 0 20px rgba(255, 255, 255, 0.15);
+
+  /* -- Brand-extras --------------------------------------------- */
+
+  /* Brand primary lineage — the spec documents the silver gradient
+   * as a two-stop ladder. The bright stop is --primary; the deeper
+   * stop is named here so consumers can reconstruct the gradient. */
+  --brand-primary-deep: oklch(0.7107 0.0351 256.79);     /* #94A3B8 — Silver Gradient deep stop */
+  --brand-primary-gradient: linear-gradient(135deg, oklch(0.9842 0.0034 247.86) 0%, oklch(0.7107 0.0351 256.79) 100%);
+
+  /* Polarity-locked surfaces — single-polarity dark, fixed in both
+   * :root and [data-theme="dark"]. */
+  --brand-canvas-night: oklch(0.1344 0 0);               /* #080808 */
+  --brand-on-dark: oklch(0.9288 0.0126 255.51);          /* #E2E8F0 — silver-text ink */
+  --brand-on-dark-strong: oklch(0.9842 0.0034 247.86);   /* #F8FAFC — full-strength ink for mobile nav primary slot */
+  --brand-glass-surface: oklch(0.1591 0 0);              /* #0D0D0D — frosted-glass composite */
+
+  /* Hairlines / dividers — three steps for hairline weight. */
+  --brand-hairline-soft: oklch(0.2264 0 0);              /* #1C1C1C — rgba(255,255,255,0.08) */
+  --brand-hairline-strong: oklch(0.2478 0 0);            /* #212121 — rgba(255,255,255,0.10) */
+  --brand-hairline-hover: oklch(0.3446 0 0);             /* #393939 — rgba(255,255,255,0.20) */
+
+  /* Body text neutrals — chroma ≈ 0 utility tokens; utility-neutral
+   * exception applies (AUTHORING.md "Brand identity vs. utility neutrals"). */
+  --brand-body: oklch(0.9288 0.0126 255.51);             /* tracks --foreground / silver-text */
+  --brand-body-muted: oklch(0.6334 0 0);                 /* #8A8A8A — body excerpts */
+  --brand-body-faint: oklch(0.4748 0 0);                 /* #5C5C5C — tertiary metadata */
+
+  /* Container width — the spec mandates fluid 92vw for hero / major
+   * sections instead of standard Tailwind max-w containers. */
+  --brand-width-fluid: 92vw;
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Single-polarity dark by spec — mirror :root verbatim. There is
+ * no documented light mode for beta-capture, so this block exists
+ * for shadcn API completeness (data-theme="dark" must resolve) and
+ * to make the canvas + foreground choice explicit at the dark slot
+ * for any downstream consumer that reads the dark block directly.
+ * Chromatic tokens (--primary, --ring, the silver ladder) stay at
+ * :root value. Hairlines and glass surfaces are polarity-locked.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1344 0 0);
+  --foreground: oklch(0.9288 0.0126 255.51);
+  --card: oklch(0.1591 0 0);
+  --card-foreground: oklch(0.9288 0.0126 255.51);
+  --popover: oklch(0.1591 0 0);
+  --popover-foreground: oklch(0.9288 0.0126 255.51);
+
+  --secondary: oklch(0.1591 0 0);
+  --secondary-foreground: oklch(0.9288 0.0126 255.51);
+  --muted: oklch(0.1591 0 0);
+  --muted-foreground: oklch(0.6334 0 0);
+
+  --border: oklch(0.2264 0 0);
+  --input: oklch(0.2264 0 0);
+
+  --sidebar: oklch(0.1344 0 0);
+  --sidebar-foreground: oklch(0.9288 0.0126 255.51);
+  --sidebar-border: oklch(0.2264 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1344 0 0);
+    --foreground: oklch(0.9288 0.0126 255.51);
+    --card: oklch(0.1591 0 0);
+    --card-foreground: oklch(0.9288 0.0126 255.51);
+    --popover: oklch(0.1591 0 0);
+    --popover-foreground: oklch(0.9288 0.0126 255.51);
+
+    --secondary: oklch(0.1591 0 0);
+    --secondary-foreground: oklch(0.9288 0.0126 255.51);
+    --muted: oklch(0.1591 0 0);
+    --muted-foreground: oklch(0.6334 0 0);
+
+    --border: oklch(0.2264 0 0);
+    --input: oklch(0.2264 0 0);
+
+    --sidebar: oklch(0.1344 0 0);
+    --sidebar-foreground: oklch(0.9288 0.0126 255.51);
+    --sidebar-border: oklch(0.2264 0 0);
+  }
+}

@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23ff385c'/%3E%3Cpath d='M16 7 C13 12 8 16 8 21 C8 24 11 26 14 26 C15 26 16 25 16 23 C16 25 17 26 18 26 C21 26 24 24 24 21 C24 16 19 12 16 7 Z' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. White canvas + Rausch red pill CTAs + soft-rounded property card grid with photo placeholders + pill-shaped search bar + Cereal-substitute body at modest weights.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Airbnb-style preview shell — warm, generous consumer marketplace.
+   White canvas + Rausch red (#ff385c) as the single brand voltage on
+   every primary CTA, search-pill submit orb, and rating dot. Property
+   card grid with soft-rounded photo placeholders + price + rating
+   row as the signature surface. Pill-shaped search bar in hero.
+   Inter standing in for Airbnb Cereal VF at weights 500/600. Soft
+   14 px / 20 px / 32 px radii everywhere — no hard corners.
+   Halcyon-themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Airbnb Cereal VF', 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 28px; height: 28px;
+  border-radius: var(--brand-radius-full);
+  background: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--primary-foreground);
+}
+.topnav-categories {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 15px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--foreground);
+}
+.topnav-categories a { color: inherit; text-decoration: none; padding: 0.5rem 0; border-bottom: 2px solid transparent; }
+.topnav-categories a[aria-current="page"] { border-bottom-color: var(--foreground); }
+.topnav-categories a:hover { color: var(--primary); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; font-size: 14px; }
+.topnav-actions a { color: var(--foreground); text-decoration: none; font-weight: 600; padding: 0.5rem 1rem; border-radius: var(--brand-radius-full); }
+.topnav-actions a:hover { background: var(--brand-surface-strong); }
+@media (max-width: 900px) { .topnav-categories { display: none; } }
+
+/* -- Buttons (rounded-pill 32 px / xl radius, 44 px touch) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0 1.5rem;
+  border-radius: var(--radius-xl);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.1px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease, transform 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--brand-cta-gradient);
+  color: var(--primary-foreground);
+  border-color: transparent;
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-cta-gradient); border-color: transparent; }
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--brand-border-strong);
+}
+.btn[data-variant="secondary"]:hover { background: var(--brand-surface-strong); border-color: var(--foreground); }
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: transparent;
+  padding: 0 0.75rem;
+}
+.btn[data-variant="ghost"]:hover { background: var(--brand-surface-strong); }
+.btn[data-size="lg"] { min-height: 56px; padding: 0 2rem; font-size: 16px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (white canvas, modest display, pill-shaped search bar) -- */
+.hero {
+  padding: 4rem 1.5rem 3rem;
+}
+.hero-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--brand-body);
+  margin: 0 0 1.5rem;
+}
+.eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.hero-display {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  margin: 0 auto 1.25rem;
+  max-width: 22ch;
+}
+.hero-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-body);
+  max-width: 38rem;
+  margin: 0 auto 2rem;
+}
+
+/* -- Search pill (the iconic Airbnb hero element) -- */
+.search-pill {
+  display: flex;
+  align-items: center;
+  max-width: 56rem;
+  margin: 0 auto;
+  background: var(--background);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-full);
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+.search-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border-right: 1px solid var(--brand-hairline-soft);
+}
+.search-field:last-of-type { border-right: none; }
+.search-field-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+.search-field-value {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--brand-muted-soft);
+}
+.search-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--brand-radius-full);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+.search-submit:hover { background: var(--brand-primary-active); }
+
+/* -- Signature: property card grid -- */
+.properties-section {
+  padding: 4rem 1.5rem 5rem;
+}
+.properties-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 1080px) { .properties-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .properties-grid { grid-template-columns: 1fr; } }
+.property-card {
+  background: var(--background);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+.property-photo {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-md);
+  background: var(--photo-gradient, linear-gradient(135deg, oklch(0.78 0.06 60), oklch(0.72 0.05 30)));
+  position: relative;
+  overflow: hidden;
+}
+.property-photo[data-tone="dusk"] { --photo-gradient: linear-gradient(135deg, oklch(0.62 0.08 300), oklch(0.42 0.10 280)); }
+.property-photo[data-tone="meadow"] { --photo-gradient: linear-gradient(135deg, oklch(0.78 0.10 145), oklch(0.62 0.12 165)); }
+.property-photo[data-tone="coast"] { --photo-gradient: linear-gradient(135deg, oklch(0.78 0.08 220), oklch(0.62 0.10 235)); }
+.property-photo[data-tone="ember"] { --photo-gradient: linear-gradient(135deg, oklch(0.76 0.14 35), oklch(0.62 0.18 22)); }
+.property-photo[data-tone="cream"] { --photo-gradient: linear-gradient(135deg, oklch(0.92 0.04 75), oklch(0.84 0.06 60)); }
+.property-photo[data-tone="rose"] { --photo-gradient: linear-gradient(135deg, oklch(0.86 0.08 0), oklch(0.74 0.10 350)); }
+.property-photo[data-tone="forest"] { --photo-gradient: linear-gradient(135deg, oklch(0.52 0.10 145), oklch(0.34 0.08 155)); }
+.property-photo[data-tone="ocean"] { --photo-gradient: linear-gradient(135deg, oklch(0.52 0.12 230), oklch(0.32 0.10 245)); }
+.property-favorite {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--brand-radius-full);
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--brand-on-dark);
+  display: inline-grid;
+  place-items: center;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+.property-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.property-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--foreground);
+  padding: 0 0.25rem;
+}
+.property-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 14px;
+  color: var(--brand-body);
+}
+.property-rating::before {
+  content: "★";
+  color: var(--brand-star-rating);
+  font-size: 13px;
+}
+.property-location {
+  font-size: 14px;
+  color: var(--brand-muted-soft);
+  padding: 0 0.25rem;
+}
+.property-dates {
+  font-size: 14px;
+  color: var(--brand-muted-soft);
+  padding: 0 0.25rem;
+}
+.property-price {
+  font-size: 15px;
+  color: var(--foreground);
+  padding: 0.25rem 0.25rem 0;
+}
+.property-price strong { font-weight: 600; }
+
+/* -- Section frame -- */
+.section { padding: 4rem 1.5rem; background: var(--background); }
+.section[data-tight] { padding: 2.5rem 1.5rem; }
+.section[data-band="soft"] { background: var(--brand-surface-strong); }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--brand-body);
+  margin: 0 0 0.75rem;
+}
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--foreground);
+  margin: 0 0 0.75rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 36rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--brand-muted-soft);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--brand-border-strong);
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="soft"] { background: var(--brand-surface-strong); color: var(--foreground); }
+.ladder-step[data-step="rausch"] { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+.ladder-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+}
+.ladder-role { font-size: 14px; margin-top: auto; line-height: 1.45; }
+
+/* -- Pricing (white tiles, featured = Rausch red) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--background);
+  border: 1px solid var(--brand-border-strong);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pricing-card[data-featured] {
+  background: var(--brand-cta-gradient);
+  border-color: transparent;
+  color: var(--primary-foreground);
+}
+.pricing-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-name { color: var(--primary-foreground); }
+.pricing-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-price { color: var(--primary-foreground); }
+.pricing-tagline {
+  font-size: 13px;
+  color: var(--brand-body);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--primary-foreground); opacity: 0.88; }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding-top: 1rem;
+  font-size: 13px;
+  color: var(--brand-body);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: rgba(255, 255, 255, 0.25);
+  color: var(--primary-foreground);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "✓";
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 14px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--primary-foreground); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+}
+.type-display {
+  font-family: 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; line-height: 1.55; color: var(--brand-body); }
+.type-mono { font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: var(--brand-body); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+  width: 100%;
+}
+
+/* -- Footer -- */
+.footer {
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding: 3rem 1.5rem 2rem;
+  background: var(--brand-surface-strong);
+  color: var(--foreground);
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 13px; color: var(--brand-body); line-height: 1.55; margin: 0; }
+.footer-col-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 14px; color: var(--brand-body); text-decoration: none; }
+.footer-list a:hover { color: var(--foreground); text-decoration: underline; }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 13px;
+  color: var(--brand-body);
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-categories">
+      <a href="#" aria-current="page">Homes</a>
+      <a href="#">Experiences</a>
+      <a href="#">Services</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Become a host</a>
+      <a href="#">Sign in</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Halcyon · workspace</p>
+    <h1 class="hero-display">A warm workspace for the whole team.</h1>
+    <p class="hero-lede">Halcyon's product team writes notes, shares reviews, and ships specs on a generous white canvas — with the same hospitality vocabulary the team uses for its customers.</p>
+    <form class="search-pill" role="search" onsubmit="return false">
+      <div class="search-field">
+        <span class="search-field-label">Where</span>
+        <span class="search-field-value">Halcyon workspace · all rooms</span>
+      </div>
+      <div class="search-field">
+        <span class="search-field-label">When</span>
+        <span class="search-field-value">This week</span>
+      </div>
+      <div class="search-field">
+        <span class="search-field-label">Who</span>
+        <span class="search-field-value">Whole team</span>
+      </div>
+      <button class="search-submit" type="submit" aria-label="Search">⌕</button>
+    </form>
+  </div>
+</header>
+
+<section class="properties-section" aria-label="Property card signature grid">
+  <h2 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;">Property card grid</h2>
+  <div class="properties-grid">
+    <a class="property-card" href="#">
+      <div class="property-photo" data-tone="meadow"><span class="property-badge">Guest favorite</span><button class="property-favorite" type="button" aria-label="Save">♡</button></div>
+      <div class="property-meta"><span>Editorial cottage in the Meadows</span><span class="property-rating">4.92</span></div>
+      <span class="property-location">Halcyon, North</span>
+      <span class="property-dates">Nov 12 – 17</span>
+      <span class="property-price"><strong>$184</strong> night</span>
+    </a>
+    <a class="property-card" href="#">
+      <div class="property-photo" data-tone="dusk"><span class="property-badge">New</span><button class="property-favorite" type="button" aria-label="Save">♡</button></div>
+      <div class="property-meta"><span>Dusk loft above the marina</span><span class="property-rating">4.87</span></div>
+      <span class="property-location">Halcyon, Harbor</span>
+      <span class="property-dates">Nov 20 – 24</span>
+      <span class="property-price"><strong>$246</strong> night</span>
+    </a>
+    <a class="property-card" href="#">
+      <div class="property-photo" data-tone="coast"><button class="property-favorite" type="button" aria-label="Save">♡</button></div>
+      <div class="property-meta"><span>Workspace by the coast</span><span class="property-rating">4.96</span></div>
+      <span class="property-location">Halcyon, East Shore</span>
+      <span class="property-dates">Dec 4 – 8</span>
+      <span class="property-price"><strong>$312</strong> night</span>
+    </a>
+    <a class="property-card" href="#">
+      <div class="property-photo" data-tone="ember"><span class="property-badge">Guest favorite</span><button class="property-favorite" type="button" aria-label="Save">♡</button></div>
+      <div class="property-meta"><span>Ember cabin in the foothills</span><span class="property-rating">4.91</span></div>
+      <span class="property-location">Halcyon, Range</span>
+      <span class="property-dates">Dec 12 – 16</span>
+      <span class="property-price"><strong>$198</strong> night</span>
+    </a>
+    <a class="property-card" href="#">
+      <div class="property-photo" data-tone="cream"><button class="property-favorite" type="button" aria-label="Save">♡</button></div>
+      <div class="property-meta"><span>Cream studio, downtown core</span><span class="property-rating">4.83</span></div>
+      <span class="property-location">Halcyon, Central</span>
+      <span class="property-dates">Dec 18 – 22</span>
+      <span class="property-price"><strong>$142</strong> night</span>
+    </a>
+    <a class="property-card" href="#">
+      <div class="property-photo" data-tone="rose"><span class="property-badge">New</span><button class="property-favorite" type="button" aria-label="Save">♡</button></div>
+      <div class="property-meta"><span>Rose-painted loft, arts quarter</span><span class="property-rating">4.78</span></div>
+      <span class="property-location">Halcyon, Arts</span>
+      <span class="property-dates">Jan 4 – 8</span>
+      <span class="property-price"><strong>$224</strong> night</span>
+    </a>
+    <a class="property-card" href="#">
+      <div class="property-photo" data-tone="forest"><button class="property-favorite" type="button" aria-label="Save">♡</button></div>
+      <div class="property-meta"><span>Forest retreat for focus weeks</span><span class="property-rating">4.94</span></div>
+      <span class="property-location">Halcyon, Pines</span>
+      <span class="property-dates">Jan 14 – 22</span>
+      <span class="property-price"><strong>$268</strong> night</span>
+    </a>
+    <a class="property-card" href="#">
+      <div class="property-photo" data-tone="ocean"><span class="property-badge">Guest favorite</span><button class="property-favorite" type="button" aria-label="Save">♡</button></div>
+      <div class="property-meta"><span>Ocean view from the team house</span><span class="property-rating">4.99</span></div>
+      <span class="property-location">Halcyon, Harbor</span>
+      <span class="property-dates">Feb 2 – 9</span>
+      <span class="property-price"><strong>$418</strong> night</span>
+    </a>
+  </div>
+</section>
+
+<section class="section" data-band="soft" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">White canvas, one warm voltage.</h2>
+      <p class="section-lede">White canvas with near-black ink. Rausch red is the singular brand voltage — every primary CTA, the search-pill submit orb, the rating-star dot, the active-tab underline. Greyscale ladder handles all secondary chrome.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-strong);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Voltage</div><div class="swatch-name">--primary · Rausch</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-primary-active);"></div><div class="swatch-role">Voltage</div><div class="swatch-name">--brand-primary-active</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-muted-soft);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-muted-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-border-strong);"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--brand-border-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-hairline-soft);"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--brand-hairline-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-luxe);"></div><div class="swatch-role">Tier</div><div class="swatch-name">--brand-luxe</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-plus);"></div><div class="swatch-role">Tier</div><div class="swatch-name">--brand-plus</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-legal-link);"></div><div class="swatch-role">Link</div><div class="swatch-name">--brand-legal-link</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces</p>
+      <h2 class="section-title">Three friendly registers.</h2>
+      <p class="section-lede">White canvas as the page floor. Soft grey as the footer + alternating band. Rausch red as the single chromatic step — the brand's only departure from the greyscale ladder.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · property card</span>
+      </div>
+      <div class="ladder-step" data-step="soft">
+        <span class="ladder-num">Soft</span>
+        <span class="ladder-name">--brand-surface-strong</span>
+        <span class="ladder-role">footer · alternating band</span>
+      </div>
+      <div class="ladder-step" data-step="rausch">
+        <span class="ladder-num">Rausch</span>
+        <span class="ladder-name">--primary</span>
+        <span class="ladder-role">CTA · search orb · featured tier</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three tiers, friendly radii.</h2>
+      <p class="section-lede">White-card tiles with 20 px corners. Featured tier inverted to Rausch red — the only place the system commits to a non-CTA red surface.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" type="button" style="background: var(--background); color: var(--foreground); border-color: var(--background);">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="soft" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · type + components</p>
+      <h2 class="section-title">Inter at 500/600, modest weights.</h2>
+      <p class="section-lede">Display tier at Inter weight 600 — modest, not the heavy 700+ that fintech and enterprise systems use. Body at weight 400. Buttons round-pill at 32 px radius. No hard corners anywhere except the body grid.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Warm and human.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Inter weight 600</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter · 500 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Inter at 14–16 pixels, line-height 1.55. Near-black foreground; mid-gray body for helper copy.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">workspace.rooms.list()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · round-pill 32 px, 48 px tall</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Reserve</button>
+            <button class="btn" data-variant="secondary" type="button">Save for later</button>
+            <button class="btn" data-variant="ghost" type="button">Share</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the warm-consumer-marketplace design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Support</p>
+      <ul class="footer-list"><li><a href="#">Help Center</a></li><li><a href="#">Cancellation</a></li><li><a href="#">Trust &amp; safety</a></li><li><a href="#">Report a concern</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Hosting</p>
+      <ul class="footer-list"><li><a href="#">Halcyon for hosts</a></li><li><a href="#">Resources</a></li><li><a href="#">Community forum</a></li><li><a href="#">Responsible hosting</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">workspace.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Newsroom</p>
+      <ul class="footer-list"><li><a href="#">News</a></li><li><a href="#">Features</a></li><li><a href="#">Investors</a></li><li><a href="#">Careers</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">white canvas · Rausch red · soft radii · search pill</span>
+  </div>
+</footer>
+
+</body>
+</html>

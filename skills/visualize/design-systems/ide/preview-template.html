@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === IDE preview shell — code review / editor panel === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.55;
+  min-height: 100vh;
+}
+
+.ide {
+  display: grid;
+  grid-template-rows: 36px 1fr 22px;
+  grid-template-columns: 240px 1fr;
+  height: 100vh;
+}
+
+/* Title bar */
+.titlebar {
+  grid-column: 1 / -1;
+  background-color: var(--card);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1rem;
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+.titlebar .crumbs { display: flex; gap: 0.375rem; align-items: center; }
+.titlebar .crumbs .sep { color: var(--border); }
+.titlebar .crumbs .file { color: var(--foreground); }
+.titlebar .right { margin-left: auto; display: flex; gap: 0.875rem; }
+.titlebar .branch::before { content: "⎇"; margin-right: 0.25rem; color: var(--primary); }
+.titlebar .badge {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+/* Sidebar / file tree */
+.sidebar {
+  background-color: var(--card);
+  border-right: 1px solid var(--border);
+  padding: 0.75rem 0;
+  overflow-y: auto;
+}
+.sidebar-section {
+  padding: 0.25rem 1rem;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin-top: 0.5rem;
+}
+.tree-row {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 1rem 0.25rem 1.5rem;
+  font-size: 12px;
+  color: var(--foreground);
+}
+.tree-row.dir { padding-left: 1rem; }
+.tree-row.dir::before { content: "▸"; color: var(--muted-foreground); font-size: 10px; }
+.tree-row.open::before { content: "▾"; }
+.tree-row.file { padding-left: 2rem; }
+.tree-row .icon { color: var(--muted-foreground); font-size: 10px; }
+.tree-row.active { background-color: var(--muted); border-left: 2px solid var(--primary); padding-left: calc(2rem - 2px); }
+.tree-row.modified .icon { color: var(--chart-2, #d97706); }
+.tree-row.added .icon { color: var(--chart-3); }
+
+/* Editor */
+.editor {
+  overflow-y: auto;
+  padding: 0;
+}
+.tab-bar {
+  display: flex;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.tab {
+  padding: 0.5rem 0.875rem;
+  border-right: 1px solid var(--border);
+  color: var(--muted-foreground);
+  cursor: pointer;
+}
+.tab.active {
+  background-color: var(--background);
+  color: var(--foreground);
+  border-bottom: 2px solid var(--primary);
+  margin-bottom: -1px;
+}
+.tab.active::after { content: " ●"; color: var(--chart-2, #d97706); font-size: 10px; }
+.tab.muted { color: var(--muted-foreground); }
+
+.code-pane {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+}
+.line-numbers {
+  background-color: var(--background);
+  color: var(--muted-foreground);
+  text-align: right;
+  padding: 1rem 0.5rem;
+  font-size: 12px;
+  user-select: none;
+}
+.line-numbers span { display: block; line-height: 1.7; }
+.code {
+  padding: 1rem 1.25rem;
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre;
+  overflow-x: auto;
+}
+/* Syntax-highlight slots map to the labelled chart palette in
+ * tokens.css: chart-1 keyword-blue, chart-2 function-orange,
+ * chart-3 string-green, chart-4 number-magenta. --primary is also
+ * cyan-blue (matches chart-1) so .type uses it as a similar register
+ * to .kw without colliding with the magenta number slot. */
+.code .kw { color: var(--chart-1); }
+.code .fn { color: var(--chart-2); }
+.code .str { color: var(--chart-3); }
+.code .num { color: var(--chart-4); }
+.code .com { color: var(--muted-foreground); font-style: italic; }
+.code .type { color: var(--primary); }
+.code .add { background-color: rgb(34 197 94 / 0.10); border-left: 2px solid var(--chart-1, #16a34a); padding-left: 0.5rem; margin-left: -0.5rem; }
+.code .del { background-color: rgb(220 38 38 / 0.10); border-left: 2px solid var(--chart-3, #dc2626); padding-left: 0.5rem; margin-left: -0.5rem; text-decoration: line-through; }
+
+/* Status bar */
+.statusbar {
+  grid-column: 1 / -1;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+.statusbar .item { display: flex; align-items: center; gap: 0.375rem; }
+.statusbar .item::before { content: ""; }
+.statusbar .right { margin-left: auto; display: flex; gap: 1rem; }
+.statusbar .item.warn { background-color: var(--chart-2, #d97706); padding: 0 0.5rem; height: 100%; align-items: center; display: flex; }
+</style>
+</head>
+<body>
+
+<div class="ide">
+
+  <div class="titlebar">
+    <div class="crumbs">
+      <span>halcyon</span><span class="sep">›</span>
+      <span>api</span><span class="sep">›</span>
+      <span>src/comments</span><span class="sep">›</span>
+      <span class="file">notifications-dispatcher.ts</span>
+    </div>
+    <div class="right">
+      <span class="branch">feat/comment-thread-context</span>
+      <span class="badge">PR #1284</span>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-section">Open editors</div>
+    <div class="tree-row file modified active">
+      <span class="icon">●</span>
+      <span>notifications-dispatcher.ts</span>
+    </div>
+    <div class="tree-row file added">
+      <span class="icon">+</span>
+      <span>notifications-dispatcher.spec.ts</span>
+    </div>
+
+    <div class="sidebar-section">api / src / comments</div>
+    <div class="tree-row dir open"><span>comments</span></div>
+    <div class="tree-row file"><span class="icon">»</span><span>comments.controller.ts</span></div>
+    <div class="tree-row file"><span class="icon">»</span><span>comments.service.ts</span></div>
+    <div class="tree-row file modified"><span class="icon">●</span><span>notifications-dispatcher.ts</span></div>
+    <div class="tree-row file added"><span class="icon">+</span><span>notifications-dispatcher.spec.ts</span></div>
+    <div class="tree-row file"><span class="icon">»</span><span>thread.entity.ts</span></div>
+    <div class="tree-row file"><span class="icon">»</span><span>comment.entity.ts</span></div>
+
+    <div class="sidebar-section">api / src / templates</div>
+    <div class="tree-row dir"><span>email</span></div>
+  </div>
+
+  <div class="editor">
+    <div class="tab-bar">
+      <div class="tab active">notifications-dispatcher.ts</div>
+      <div class="tab muted">notifications-dispatcher.spec.ts</div>
+      <div class="tab muted">comments.service.ts</div>
+    </div>
+    <div class="code-pane">
+      <div class="line-numbers">
+        <span>42</span><span>43</span><span>44</span><span>45</span><span>46</span><span>47</span><span>48</span><span>49</span><span>50</span><span>51</span><span>52</span><span>53</span><span>54</span><span>55</span><span>56</span><span>57</span><span>58</span><span>59</span><span>60</span><span>61</span>
+      </div>
+      <div class="code"><span class="com">// Every notification email needs the thread root for context — recipients</span>
+<span class="com">// see what changed without clicking through. new_thread skips the lookup.</span>
+<span class="kw">async</span> <span class="fn">dispatch</span>(event: <span class="type">CommentEvent</span>): <span class="kw">Promise</span>&lt;<span class="kw">void</span>&gt; {
+  <span class="kw">const</span> recipients = <span class="kw">await</span> <span class="kw">this</span>.<span class="fn">resolveRecipients</span>(event);
+  <span class="kw">if</span> (recipients.length === <span class="num">0</span>) <span class="kw">return</span>;
+
+<span class="add">  <span class="kw">const</span> threadRoot = event.kind === <span class="str">'new_thread'</span></span>
+<span class="add">    ? <span class="kw">null</span></span>
+<span class="add">    : <span class="kw">await</span> <span class="kw">this</span>.<span class="fn">loadThreadRoot</span>(event.threadId);</span>
+
+<span class="del">  <span class="kw">const</span> threadRoot = <span class="kw">await</span> <span class="kw">this</span>.<span class="fn">loadThreadRoot</span>(event.threadId);</span>
+
+  <span class="kw">await</span> <span class="kw">this</span>.email.<span class="fn">send</span>({
+    to: recipients,
+    template: <span class="str">'comment-notification'</span>,
+    context: { event, threadRoot },
+  });
+}</div>
+    </div>
+  </div>
+
+  <div class="statusbar">
+    <span class="item">⎇ feat/comment-thread-context</span>
+    <span class="item">●&nbsp;1 modified · +1</span>
+    <span class="item warn">⚠ 2 problems</span>
+    <div class="right">
+      <span class="item">TS 5.6.2</span>
+      <span class="item">UTF-8</span>
+      <span class="item">LF · Ln 48, Col 24</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

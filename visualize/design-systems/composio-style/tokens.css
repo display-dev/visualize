@@ -1,0 +1,274 @@
+/**
+ * design-systems/composio-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Refreshed 2026-05-27 from first-party Composio surfaces. The brand is
+ * now both-canonical: the homepage hero and agent/product mockups stay
+ * near-black, while the product body, pricing, blog, and docs/reference
+ * surfaces ship real white/light canvases. :root stays on the dark
+ * infrastructure signature; [data-theme="light"] carries the light docs
+ * and commerce surface.
+ *
+ * Dark brand-extras remain polarity-locked because they encode product
+ * mockup/terminal surfaces. Light-specific extras are declared in :root
+ * and the [data-theme="light"] block swaps body/chrome tokens for the
+ * readable docs/pricing surface.
+ *
+ * One tuning lift on the :root block: --brand-muted-soft was bumped
+ * from oklch(0.5103) to oklch(0.5750) because the upstream value
+ * landed roughly 4.1:1 on the near-black canvas — below WCAG AA 4.5:1
+ * for body-size labels (caption-style labels, swatch-role tags, type-
+ * label eyebrows, ladder-num tags all use this token). Higher tone keeps
+ * the muted-but-readable register the brand documents.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* shadcn-semantic core */
+  --background: oklch(0.1684 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2090 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2090 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.3866 0.2636 264.1085);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.1684 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.1684 0 0);
+  --muted-foreground: oklch(0.6268 0 0);
+  --accent: oklch(0.8043 0.1459 219.5151);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.6730 0.2146 25.0396);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.2520 0 0);
+  --input: oklch(0.2520 0 0);
+  --ring: oklch(0.3866 0.2636 264.1085);
+  --sidebar: oklch(0.1684 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.3866 0.2636 264.1085);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.1684 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.2520 0 0);
+  --sidebar-ring: oklch(0.3866 0.2636 264.1085);
+  --chart-1: oklch(0.8100 0.2000 264.1085);
+  --chart-2: oklch(0.7100 0.2000 264.1085);
+  --chart-3: oklch(0.6100 0.2000 264.1085);
+  --chart-4: oklch(0.5100 0.2000 264.1085);
+  --chart-5: oklch(0.4200 0.2000 264.1085);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-xs: 4px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-display: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 72px;
+  --text-heading: 56px;
+  --text-title: 18px;
+  --text-base: 16px;
+  --leading-tight: 1.05;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream).
+   * Polarity-locked: every value below assumes a dark canvas. Don't
+   * lift these in [data-theme="dark"] — they're already dark-context
+   * by definition. */
+  --brand-primary-active: oklch(0.3265 0.2220 264.1177);
+  --brand-primary-docs: oklch(0.3343 0.2267 264.1244);
+  --brand-primary-glow: oklch(0.4760 0.2967 266.1864);
+  --brand-blue-light: oklch(0.6891 0.1466 256.4819);
+  --brand-blue-cyan: oklch(0.6342 0.2007 253.8160);
+  --brand-body: oklch(0.7316 0 0);
+  --brand-body-strong: oklch(1 0 0);
+  /* Lifted from upstream oklch(0.5103). The upstream value lands #666
+   * = 3.65:1 on the near-black canvas — well below AA. Even oklch(0.5750)
+   * (#797979) still fails on the elevated-card surface (#222 = 3.65:1).
+   * Bumped to oklch(0.6900) so the muted register clears 4.5:1 against
+   * the deepest surface in the elevation ladder (--brand-surface-strong
+   * at #2a2a2a). Caption tags, type-label eyebrows, swatch-role labels,
+   * ladder-num eyebrows, cmp-row labels, and footer-legal meta all use
+   * this token. */
+  --brand-muted-soft: oklch(0.6900 0 0);
+  --brand-hairline-soft: oklch(0.2178 0 0);
+  --brand-hairline-strong: oklch(0.3211 0 0);
+  --brand-hairline-light: oklch(0.9310 0 0);
+  --brand-canvas-night: oklch(0.1684 0 0);
+  --brand-canvas-night-warm: oklch(0.1830 0.0026 67.6640);
+  --brand-canvas-deep: oklch(0 0 0);
+  --brand-canvas-light: oklch(1 0 0);
+  --brand-surface-light-muted: oklch(0.9551 0 0);
+  --brand-surface-card-elevated: oklch(0.2520 0 0);
+  --brand-surface-strong: oklch(0.2850 0 0);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-accent-violet: oklch(0.5403 0.2466 292.6505);
+  --brand-accent-cyan: oklch(0.9003 0.1544 177.4363);
+  --brand-accent-orange: oklch(0.7811 0.1155 56.4832);
+  --brand-agent-bubble: oklch(0.7044 0.0811 63.3617);
+  --brand-semantic-success: oklch(0.7612 0.1782 153.6114);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Current docs/pricing/blog/product-body surface. Dark product mockups
+   * remain polarity-locked through --brand-canvas-night / --brand-canvas-deep
+   * consumers in preview-template.html. */
+
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.1830 0.0026 67.6640);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.1830 0.0026 67.6640);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.1830 0.0026 67.6640);
+  --primary: oklch(0.3866 0.2636 264.1085);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9551 0 0);
+  --secondary-foreground: oklch(0.1830 0.0026 67.6640);
+  --muted: oklch(0.9551 0 0);
+  --muted-foreground: oklch(0.3867 0 0);
+  --accent: oklch(0.6342 0.2007 253.8160);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.6730 0.2146 25.0396);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9310 0 0);
+  --input: oklch(0.9310 0 0);
+  --ring: oklch(0.3866 0.2636 264.1085);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.1830 0.0026 67.6640);
+  --sidebar-primary: oklch(0.3866 0.2636 264.1085);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9551 0 0);
+  --sidebar-accent-foreground: oklch(0.1830 0.0026 67.6640);
+  --sidebar-border: oklch(0.9310 0 0);
+  --sidebar-ring: oklch(0.3866 0.2636 264.1085);
+  --chart-1: oklch(0.8100 0.2000 264.1085);
+  --chart-2: oklch(0.7100 0.2000 264.1085);
+  --chart-3: oklch(0.6100 0.2000 264.1085);
+  --chart-4: oklch(0.5100 0.2000 264.1085);
+  --chart-5: oklch(0.4200 0.2000 264.1085);
+
+  --brand-body: oklch(0.3867 0 0);
+  --brand-body-strong: oklch(0.1830 0.0026 67.6640);
+  --brand-muted-soft: oklch(0.5200 0 0);
+  --brand-hairline-soft: oklch(0.9310 0 0);
+  --brand-hairline-strong: oklch(0.8650 0 0);
+  --brand-surface-card-elevated: oklch(0.9551 0 0);
+  --brand-surface-strong: oklch(0.9310 0 0);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Hand-edited: Composio is dark-canonical (DESIGN.md §1 — "The page
+   * rhythm is monolithic: dark canvas top to bottom"). Per AUTHORING.md,
+   * mirror :root verbatim so both polarities render the brand identically.
+   * The earlier synthesised inversion lifted to a white canvas, which
+   * would have destroyed the brand entirely — Composio's electric-blue
+   * voltage on near-black is the brand. */
+
+  --background: oklch(0.1684 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2090 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2090 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.3866 0.2636 264.1085);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.1684 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.1684 0 0);
+  --muted-foreground: oklch(0.6268 0 0);
+  --accent: oklch(0.8043 0.1459 219.5151);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.6730 0.2146 25.0396);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.2520 0 0);
+  --input: oklch(0.2520 0 0);
+  --ring: oklch(0.3866 0.2636 264.1085);
+  --sidebar: oklch(0.1684 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.3866 0.2636 264.1085);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.1684 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.2520 0 0);
+  --sidebar-ring: oklch(0.3866 0.2636 264.1085);
+  --chart-1: oklch(0.8100 0.2000 264.1085);
+  --chart-2: oklch(0.7100 0.2000 264.1085);
+  --chart-3: oklch(0.6100 0.2000 264.1085);
+  --chart-4: oklch(0.5100 0.2000 264.1085);
+  --chart-5: oklch(0.4200 0.2000 264.1085);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    /* Mirror :root — Composio is dark-canonical and OS-light viewers
+     * shouldn't flip the canvas to white either. */
+
+    --background: oklch(0.1684 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2090 0 0);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2090 0 0);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(0.3866 0.2636 264.1085);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.1684 0 0);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.1684 0 0);
+    --muted-foreground: oklch(0.6268 0 0);
+    --accent: oklch(0.8043 0.1459 219.5151);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.6730 0.2146 25.0396);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.2520 0 0);
+    --input: oklch(0.2520 0 0);
+    --ring: oklch(0.3866 0.2636 264.1085);
+    --sidebar: oklch(0.1684 0 0);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(0.3866 0.2636 264.1085);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.1684 0 0);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.2520 0 0);
+    --sidebar-ring: oklch(0.3866 0.2636 264.1085);
+    --chart-1: oklch(0.8100 0.2000 264.1085);
+    --chart-2: oklch(0.7100 0.2000 264.1085);
+    --chart-3: oklch(0.6100 0.2000 264.1085);
+    --chart-4: oklch(0.5100 0.2000 264.1085);
+    --chart-5: oklch(0.4200 0.2000 264.1085);
+  }
+}

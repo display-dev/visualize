@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23000'/%3E%3Cpath d='M9 7 L17 7 Q21 7 21 11 Q21 15 17 15 L9 15 Z M9 15 L17 15 Q21 15 21 19 Q21 23 17 23 L9 23 Z' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Monochrome black/white editorial chrome alternating with oversized pastel color-block sections — lime, lilac, cream, mint, navy. Pill-shaped CTAs throughout.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Figma-style preview shell — monochrome black-and-white editorial
+   chrome interrupted by oversized pastel color-block sections. The
+   alternating rhythm (white → lime → white → lilac → white → cream →
+   navy) IS the signature surface — no separate product mockup needed.
+   Pill-shaped CTAs only (50 px radius). Inter at unusually fine
+   weight increments stands in for figmaSans variable. JetBrains Mono
+   for caps eyebrows and code. Halcyon-themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'figmaSans', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav (monochrome) -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  height: 72px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 24px; height: 24px;
+  border-radius: var(--brand-radius-full);
+  background: var(--foreground);
+  display: inline-grid;
+  place-items: center;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--background);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 15px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--foreground);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { opacity: 0.6; }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; font-size: 15px; }
+.topnav-actions a { color: var(--foreground); text-decoration: none; font-weight: 500; }
+.topnav-actions a:hover { opacity: 0.6; }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (pill only, 44 px touch target) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.1px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, opacity 160ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { opacity: 0.85; }
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+}
+.btn[data-variant="secondary"]:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+.btn[data-variant="inverse"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--background);
+}
+.btn[data-variant="inverse"]:hover { opacity: 0.85; }
+.btn[data-size="lg"] { min-height: 52px; padding: 0 1.75rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Common: eyebrow + display + lede typography -- */
+.eyebrow {
+  display: inline-block;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+}
+.display {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 6.5vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1.0;
+  letter-spacing: -0.035em;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 18ch;
+}
+.lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.2px;
+  color: var(--foreground);
+  max-width: 38rem;
+  margin: 0 0 2rem;
+}
+
+/* -- Hero (white, oversized display) -- */
+.hero {
+  padding: 6rem 1.5rem 5rem;
+  background: var(--background);
+}
+.hero-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* -- Color-block sections (the signature rhythm) -- */
+.block-section {
+  padding: 5rem 1.5rem;
+}
+.block-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  background: var(--block-bg);
+  border-radius: var(--radius-lg);
+  padding: 4rem 3rem;
+  color: var(--block-ink, var(--foreground));
+}
+@media (max-width: 760px) { .block-inner { padding: 3rem 1.5rem; } }
+.block-section[data-block="lime"] { --block-bg: var(--brand-block-lime); }
+.block-section[data-block="lilac"] { --block-bg: var(--brand-block-lilac); }
+.block-section[data-block="cream"] { --block-bg: var(--brand-block-cream); }
+.block-section[data-block="mint"] { --block-bg: var(--brand-block-mint); }
+.block-section[data-block="pink"] { --block-bg: var(--brand-block-pink); }
+.block-section[data-block="coral"] { --block-bg: var(--brand-block-coral); }
+.block-section[data-block="navy"] { --block-bg: var(--brand-block-navy); --block-ink: var(--background); }
+
+.block-section[data-block="navy"] .eyebrow,
+.block-section[data-block="navy"] .display,
+.block-section[data-block="navy"] .lede,
+.block-section[data-block="navy"] .block-callout-heading,
+.block-section[data-block="navy"] .block-callout-body { color: var(--background); }
+
+.block-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 880px) { .block-grid { grid-template-columns: 1fr; gap: 2rem; } }
+.block-callout {
+  background: var(--background);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+}
+.block-section[data-block="navy"] .block-callout { background: rgba(255, 255, 255, 0.10); }
+.block-callout-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
+  color: var(--foreground);
+}
+.block-callout-body {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  color: var(--foreground);
+}
+
+/* -- Section frame (white canvas sections) -- */
+.section { padding: 5rem 1.5rem; background: var(--background); }
+.section[data-tight] { padding: 3rem 1.5rem; }
+.section-inner { max-width: 1240px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 0.75rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.15px;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 36rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color block palette (the brand's actual storytelling palette) -- */
+.block-palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 1rem;
+}
+.block-swatch {
+  border-radius: var(--radius-md);
+  padding: 2rem 1.5rem;
+  min-height: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  color: var(--foreground);
+}
+.block-swatch[data-bg="lime"] { background: var(--brand-block-lime); }
+.block-swatch[data-bg="lilac"] { background: var(--brand-block-lilac); }
+.block-swatch[data-bg="cream"] { background: var(--brand-block-cream); }
+.block-swatch[data-bg="pink"] { background: var(--brand-block-pink); }
+.block-swatch[data-bg="mint"] { background: var(--brand-block-mint); }
+.block-swatch[data-bg="coral"] { background: var(--brand-block-coral); }
+.block-swatch[data-bg="navy"] { background: var(--brand-block-navy); color: var(--background); }
+.block-swatch-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.block-swatch-role {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* -- Mono swatch grid for the monochrome chrome tokens -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--brand-radius-xs);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--foreground);
+  opacity: 0.6;
+}
+
+/* -- Pricing (white canvas, pill CTAs, monochrome chrome) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--background);
+  border: 1px solid var(--foreground);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pricing-card[data-featured] {
+  background: var(--foreground);
+  border-color: var(--foreground);
+  color: var(--background);
+}
+.pricing-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-name { color: var(--background); }
+.pricing-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 44px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-price { color: var(--background); }
+.pricing-tagline {
+  font-size: 13px;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--background); opacity: 0.8; }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding-top: 1rem;
+  font-size: 13px;
+  color: var(--foreground);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: rgba(255, 255, 255, 0.3);
+  color: var(--background);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "→";
+  color: var(--foreground);
+  font-weight: 500;
+  flex-shrink: 0;
+  width: 14px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--background); }
+
+/* -- Type + components (on cream block) -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  opacity: 0.7;
+}
+.type-display {
+  font-family: 'Inter', sans-serif;
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; line-height: 1.55; color: var(--foreground); }
+.type-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--foreground); letter-spacing: 0.04em; }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  opacity: 0.7;
+  width: 100%;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+}
+.pill[data-tone="filled"] {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+/* -- Footer (white) -- */
+.footer {
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding: 3rem 1.5rem 2rem;
+  background: var(--background);
+}
+.footer-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 13px; color: var(--foreground); line-height: 1.55; margin: 0; opacity: 0.7; }
+.footer-col-title {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 14px; color: var(--foreground); text-decoration: none; }
+.footer-list a:hover { opacity: 0.6; }
+.footer-legal {
+  max-width: 1240px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--foreground);
+  opacity: 0.7;
+}
+.footer-legal-meta { font-family: 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 0.04em; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Product</a>
+      <a href="#">Templates</a>
+      <a href="#">Pricing</a>
+      <a href="#">Community</a>
+      <a href="#">Resources</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Log in</a>
+      <button class="btn" data-variant="primary" type="button">Get started for free</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Halcyon · workspace</p>
+    <h1 class="display">A canvas for the whole team to think on.</h1>
+    <p class="lede">Halcyon's product team writes notes, sketches reviews, and edits together on a single editorial canvas — monochrome chrome around the work, pastel blocks between the chapters.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Get started for free</button>
+      <button class="btn" data-variant="secondary" data-size="lg" type="button">Watch the demo</button>
+    </div>
+  </div>
+</header>
+
+<section class="block-section" data-block="lime" aria-label="Lime block">
+  <div class="block-inner">
+    <div class="block-grid">
+      <div>
+        <p class="eyebrow">Color block · Lime</p>
+        <h2 class="display" style="font-size: clamp(2rem, 4.5vw, 3rem);">Sticky-note rhythm, sized&nbsp;up.</h2>
+        <p class="lede">Each color-block section spans the full canvas — like a designer arranging giant sticky notes on a clean wall. Lime is the first chapter break, the place where the monochrome paper-chrome stops carrying the page and a block of color takes over.</p>
+        <div class="hero-ctas"><button class="btn" data-variant="primary" type="button">Open the canvas</button></div>
+      </div>
+      <div>
+        <div class="block-callout">
+          <h3 class="block-callout-heading">Why the color blocks work</h3>
+          <p class="block-callout-body">The blocks read as intentional rather than decorative because the monochrome chrome around them is rigorously plain. White paper makes the color feel chosen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="eyebrow">Tokens · Color blocks</p>
+      <h2 class="section-title">Seven pastel blocks, plus monochrome chrome.</h2>
+      <p class="section-lede">The narrative palette: lime, lilac, cream, pink, mint, coral, navy — each block spans a full section, never tucked into a card. Below: the monochrome chrome tokens that frame everything.</p>
+    </div>
+
+    <div class="block-palette">
+      <div class="block-swatch" data-bg="lime"><span class="block-swatch-role">Block</span><span class="block-swatch-name">--brand-block-lime</span></div>
+      <div class="block-swatch" data-bg="lilac"><span class="block-swatch-role">Block</span><span class="block-swatch-name">--brand-block-lilac</span></div>
+      <div class="block-swatch" data-bg="cream"><span class="block-swatch-role">Block</span><span class="block-swatch-name">--brand-block-cream</span></div>
+      <div class="block-swatch" data-bg="pink"><span class="block-swatch-role">Block</span><span class="block-swatch-name">--brand-block-pink</span></div>
+      <div class="block-swatch" data-bg="mint"><span class="block-swatch-role">Block</span><span class="block-swatch-name">--brand-block-mint</span></div>
+      <div class="block-swatch" data-bg="coral"><span class="block-swatch-role">Block</span><span class="block-swatch-name">--brand-block-coral</span></div>
+      <div class="block-swatch" data-bg="navy"><span class="block-swatch-role">Block</span><span class="block-swatch-name">--brand-block-navy</span></div>
+    </div>
+
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Chrome</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Chrome</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--secondary);"></div><div class="swatch-role">Chrome</div><div class="swatch-name">--secondary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-hairline-soft);"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--brand-hairline-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--accent);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--accent</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-semantic-success);"></div><div class="swatch-role">Status</div><div class="swatch-name">--brand-semantic-success</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block-section" data-block="lilac" aria-label="Lilac block">
+  <div class="block-inner">
+    <div>
+      <p class="eyebrow">Color block · Lilac</p>
+      <h2 class="display" style="font-size: clamp(2rem, 4.5vw, 3rem);">One pill shape, in two colours.</h2>
+      <p class="lede">Every CTA is a 50 px pill. Filled black on light surfaces, filled white on dark surfaces. No outlined buttons in the marketing chrome, no rounded-square variants — the radius is the same anywhere a button appears.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" type="button">Black pill</button>
+        <button class="btn" data-variant="secondary" type="button">Outlined pill</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="eyebrow" style="display: inline-block;">Pricing</p>
+      <h2 class="section-title">Three tiers, monochrome.</h2>
+      <p class="section-lede">Pricing on the white canvas — chrome stays plain, the featured tier inverts to black ink instead of borrowing a color block.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="inverse" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block-section" data-block="cream" aria-label="Type and components on cream">
+  <div class="block-inner">
+    <div class="section-header">
+      <p class="eyebrow">Tokens · Type + components</p>
+      <h2 class="display" style="font-size: clamp(2rem, 4.5vw, 3rem);">Inter at fine weight steps.</h2>
+      <p class="lede">Inter standing in for figmaSans variable — display at weight 500 with -3.5% tracking, body at weight 400. JetBrains Mono carries every eyebrow, caption, and code reference in uppercase with positive 0.16-em tracking.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Editorial paper.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Fine weight steps</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter · weight 500 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Inter at 14–16 pixels, line-height 1.5, with a subtle negative letter-spacing of −0.15 px to match the display tier&apos;s editorial cadence.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">workspace.notes.open()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · pill, 50 px radius, 44 px touch</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Get started</button>
+            <button class="btn" data-variant="secondary" type="button">Watch the demo</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Pills · category labels, mono caps</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <span class="pill">Workspace</span>
+            <span class="pill" data-tone="filled">Featured</span>
+            <span class="pill">Templates</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Mono · eyebrow + caption, positive tracking</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <span class="type-mono">CHAPTER · 03 / 12</span>
+            <span class="type-mono">UPDATED 2026-05-24</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block-section" data-block="navy" aria-label="Navy closing block">
+  <div class="block-inner">
+    <div class="block-grid">
+      <div>
+        <p class="eyebrow">Color block · Navy</p>
+        <h2 class="display" style="font-size: clamp(2rem, 4.5vw, 3rem);">The deep block at the&nbsp;close.</h2>
+        <p class="lede">Navy is the only dark block in the system — used once per page, typically as the closing chapter before the footer. The chrome inverts: white type, white pill, the same plain rhythm in a different polarity.</p>
+        <div class="hero-ctas"><button class="btn" data-variant="inverse" type="button">Open the canvas</button></div>
+      </div>
+      <div>
+        <div class="block-callout">
+          <h3 class="block-callout-heading">Used sparingly</h3>
+          <p class="block-callout-body">The pastel blocks rotate freely across long-form pages, but navy appears once. Repeating it would flatten the contrast that makes a single dark block read as a section divider rather than a theme.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the monochrome-chrome + pastel-block design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-list"><li><a href="#">Overview</a></li><li><a href="#">Workspace</a></li><li><a href="#">Templates</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list"><li><a href="#">Docs</a></li><li><a href="#">Community</a></li><li><a href="#">Changelog</a></li><li><a href="#">Blog</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">workspace.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">monochrome chrome · pastel blocks · pill CTAs</span>
+  </div>
+</footer>
+
+</body>
+</html>

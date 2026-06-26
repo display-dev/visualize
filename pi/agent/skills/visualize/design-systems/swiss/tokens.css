@@ -1,0 +1,232 @@
+/**
+ * design-systems/swiss/tokens.css
+ *
+ * Hand-authored from the spec at temp/refs/swiss/raw.md
+ * (Superdesign library entry "Swiss Style", International Typographic
+ * Style, attributed to Zhou Jason via designprompts.dev).
+ * See companion file DESIGN.md.
+ * Sourced: 2026-05-26.
+ *
+ * Single-polarity light register. Swiss Red (#FF3000 → oklch(0.6444
+ * 0.2426 32.25)) is the system's only chromatic value and the spec is
+ * explicit it is "never decorative fill" — every other token routes
+ * through pure white, pure black, or a single muted gray (#F2F2F2).
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are Swiss's.
+ *   - Brand-extras (--brand-*): surface-named Swiss vocabulary —
+ *     hairline weights, polarity-locked canvases, pattern alpha values.
+ *     Never colour-with-modifier — Swiss carries no chromatic ladder
+ *     beyond the single signal red.
+ *
+ * The dark-variant block is catalog-level courtesy — Swiss is a
+ * documented single-polarity light register with no canonical dark
+ * mode. The signal red holds its :root value across themes.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are Swiss's. */
+
+  --background: oklch(1.0000 0 0);              /* #FFFFFF — pure-white canvas */
+  --foreground: oklch(0 0 0);                   /* #000000 — text is absolute */
+  --card: oklch(1.0000 0 0);                    /* #FFFFFF — default card surface */
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1.0000 0 0);
+  --popover-foreground: oklch(0 0 0);
+
+  --primary: oklch(0.6444 0.2426 32.25);        /* #FF3000 — Swiss Red, single signal colour */
+  --primary-foreground: oklch(1.0000 0 0);      /* white text on the red signal */
+  --secondary: oklch(0 0 0);                    /* #000000 — solid black button surface */
+  --secondary-foreground: oklch(1.0000 0 0);
+  --muted: oklch(0.9612 0 0);                   /* #F2F2F2 — light gray rhythm band */
+  --muted-foreground: oklch(0.2178 0 0);        /* synthesised near-black mute on the rhythm band */
+  --accent: oklch(0.6444 0.2426 32.25);         /* tracks --primary — system carries one accent */
+  --accent-foreground: oklch(1.0000 0 0);
+  --destructive: oklch(0.6444 0.2426 32.25);    /* tracks --primary — Swiss Red is the stop sign */
+  --destructive-foreground: oklch(1.0000 0 0);
+
+  --border: oklch(0 0 0);                       /* #000000 — structure is visible */
+  --input: oklch(0 0 0);                        /* same hairline as every other surface */
+  --ring: oklch(0.6444 0.2426 32.25);           /* tracks --primary — focus ring is red */
+
+  --sidebar: oklch(1.0000 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0.6444 0.2426 32.25);
+  --sidebar-primary-foreground: oklch(1.0000 0 0);
+  --sidebar-accent: oklch(0.9612 0 0);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0 0 0);
+  --sidebar-ring: oklch(0.6444 0.2426 32.25);
+
+  /* Monochrome chart ladder + one Swiss Red highlight. Spec is silent
+   * on multi-series palettes; the "no decorative colour" rule
+   * constrains data viz to the system's only chromatic value. */
+  --chart-1: oklch(0 0 0);
+  --chart-2: oklch(0.2178 0 0);
+  --chart-3: oklch(0.4500 0 0);
+  --chart-4: oklch(0.6800 0 0);
+  --chart-5: oklch(0.6444 0.2426 32.25);
+
+  /* Strictly rectangular — spec §"Radius & Border" — 0px. */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Spec: Inter (Google Font), "ideally closest to Helvetica /
+   * Akzidenz-Grotesk." Grotesque sans-serif with high x-heights. */
+  --font-sans: 'Inter', 'Helvetica Neue', 'Helvetica', 'Akzidenz-Grotesk', Arial, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Inter', 'Helvetica Neue', 'Helvetica', 'Akzidenz-Grotesk', Arial, system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Spec §"Shadows & Effects" — "No drop shadows. The design
+   * maintains flatness." The only documented "shadow" is the 8px
+   * translucent red ring around hero red discs (compositional
+   * geometry, not elevation), parked at --brand-ring-red-halo below. */
+
+  /* -- Brand-extras ---------------------------------------------
+   * Surface-named only. Swiss carries no chromatic ladder beyond
+   * the single signal red, so this section is shorter than most
+   * brands.
+   * -------------------------------------------------------------- */
+
+  /* Polarity-locked surfaces (Bauhaus hero composition area, signal
+   * red — these do not flip with theme). */
+  --brand-canvas-paper: oklch(1.0000 0 0);      /* hero composition canvas — paper white */
+  --brand-canvas-muted: oklch(0.9612 0 0);      /* #F2F2F2 rhythm band — flips in dark variant */
+  --brand-on-light: oklch(0 0 0);
+  --brand-on-dark: oklch(1.0000 0 0);
+
+  /* Hairlines / dividers — same hue, distinguished by width at the
+   * consumer (1px fine vs 2-4px strong). Spec §"Radius & Border"
+   * — "Thick, visible borders (border-2 or border-4)." */
+  --brand-hairline-fine: oklch(0 0 0);          /* 1px section dividers */
+  --brand-hairline-strong: oklch(0 0 0);        /* 2-4px grid-defining borders */
+
+  /* The 8px translucent red ring around hero red discs — spec
+   * §"Shadows & Effects" — "shadow-[0_0_0_8px_rgba(255,48,0,0.1)]
+   * for accent circles." Compositional geometry, not elevation. */
+  --brand-ring-red-halo: oklch(0.6444 0.2426 32.25 / 0.1);
+
+  /* Pattern texture alpha values — four CSS pattern overlays
+   * documented in spec §"Textures & Patterns." Each value is the
+   * fixed opacity at which the pattern renders. */
+  --brand-pattern-grid-alpha: 0.03;             /* 24×24px grid lines */
+  --brand-pattern-dots-alpha: 0.04;             /* 16×16px radial dots */
+  --brand-pattern-diagonal-alpha: 0.02;         /* 45° lines @ 10px spacing */
+  --brand-pattern-noise-alpha: 0.015;           /* fractal SVG noise overlay */
+
+  /* Body text neutrals — chroma ≈ 0 utility tokens. The spec ships
+   * only pure black for body; --brand-body-muted is a near-black
+   * mute used for secondary captions on the rhythm band. */
+  --brand-body: oklch(0 0 0);
+  --brand-body-muted: oklch(0.2178 0 0);
+
+  /* Motion vocabulary — spec §"Transitions" — "duration-200
+   * ease-out or duration-150 ease-linear for rapid feedback. No
+   * elastic or spring animations." */
+  --brand-motion-snap: 150ms linear;
+  --brand-motion-mechanical: 200ms ease-out;
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Swiss is a documented single-polarity light register; this block
+ * exists as catalog-level courtesy so theme-toggling consumers
+ * don't crash into white surfaces in dark UA preference.
+ *
+ * Canvas + body ink + hairlines invert; muted band flips to a
+ * dark neutral so its texture overlays still read. Swiss Red holds
+ * at its :root value — it is the system's polarity-locked
+ * chromatic anchor.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0 0 0);                   /* pure-black canvas */
+  --foreground: oklch(1.0000 0 0);              /* pure-white ink */
+  --card: oklch(0 0 0);
+  --card-foreground: oklch(1.0000 0 0);
+  --popover: oklch(0 0 0);
+  --popover-foreground: oklch(1.0000 0 0);
+
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring stay at
+   * :root — Swiss Red is the single chromatic anchor across themes. */
+
+  --secondary: oklch(1.0000 0 0);               /* button surface flips: white bg on black canvas */
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.1800 0 0);                   /* dark-side rhythm band — hosts texture overlays */
+  --muted-foreground: oklch(0.7500 0 0);
+
+  --border: oklch(1.0000 0 0);                  /* white hairlines on black canvas */
+  --input: oklch(1.0000 0 0);
+
+  --sidebar: oklch(0 0 0);
+  --sidebar-foreground: oklch(1.0000 0 0);
+  --sidebar-accent: oklch(0.1800 0 0);
+  --sidebar-accent-foreground: oklch(1.0000 0 0);
+  --sidebar-border: oklch(1.0000 0 0);
+
+  /* Chart ladder inverts with the canvas; the Swiss Red highlight
+   * still anchors at the bright end. */
+  --chart-1: oklch(1.0000 0 0);
+  --chart-2: oklch(0.7800 0 0);
+  --chart-3: oklch(0.5500 0 0);
+  --chart-4: oklch(0.3200 0 0);
+  --chart-5: oklch(0.6444 0.2426 32.25);
+
+  /* Brand-extras — canvas-muted flips, hairline hue follows ink. */
+  --brand-canvas-muted: oklch(0.1800 0 0);
+  --brand-hairline-fine: oklch(1.0000 0 0);
+  --brand-hairline-strong: oklch(1.0000 0 0);
+  --brand-body: oklch(1.0000 0 0);
+  --brand-body-muted: oklch(0.7500 0 0);
+
+  /* Pattern alphas keep their spec values — texture overlays
+   * remain subtle regardless of canvas polarity. */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0 0 0);
+    --foreground: oklch(1.0000 0 0);
+    --card: oklch(0 0 0);
+    --card-foreground: oklch(1.0000 0 0);
+    --popover: oklch(0 0 0);
+    --popover-foreground: oklch(1.0000 0 0);
+
+    --secondary: oklch(1.0000 0 0);
+    --secondary-foreground: oklch(0 0 0);
+    --muted: oklch(0.1800 0 0);
+    --muted-foreground: oklch(0.7500 0 0);
+
+    --border: oklch(1.0000 0 0);
+    --input: oklch(1.0000 0 0);
+
+    --sidebar: oklch(0 0 0);
+    --sidebar-foreground: oklch(1.0000 0 0);
+    --sidebar-accent: oklch(0.1800 0 0);
+    --sidebar-accent-foreground: oklch(1.0000 0 0);
+    --sidebar-border: oklch(1.0000 0 0);
+
+    --chart-1: oklch(1.0000 0 0);
+    --chart-2: oklch(0.7800 0 0);
+    --chart-3: oklch(0.5500 0 0);
+    --chart-4: oklch(0.3200 0 0);
+    --chart-5: oklch(0.6444 0.2426 32.25);
+
+    --brand-canvas-muted: oklch(0.1800 0 0);
+    --brand-hairline-fine: oklch(1.0000 0 0);
+    --brand-hairline-strong: oklch(1.0000 0 0);
+    --brand-body: oklch(1.0000 0 0);
+    --brand-body-muted: oklch(0.7500 0 0);
+  }
+}

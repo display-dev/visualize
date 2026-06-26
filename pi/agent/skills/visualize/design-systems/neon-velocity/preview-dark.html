@@ -1,0 +1,2126 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>neon-velocity — preview</title>
+
+<!-- Signature mockup: Hero (3D glass + 12px brutalist frame + tabular-nums countdown + Laser Button)
+     followed by a Luminosity Card bento grid — the system's defining surface per DESIGN.md §4. -->
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050505'/%3E%3Crect x='4' y='4' width='24' height='24' fill='none' stroke='%23BFFF00' stroke-width='3'/%3E%3C/svg%3E">
+<meta property="og:title" content="neon-velocity — token-surface preview">
+<meta property="og:description" content="Neon-velocity register: lime-on-near-black, brutalist headline mass, 3D glass depth, tabular countdown digits, mixed-radius signature.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Inter:wght@300;400;500&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/neon-velocity/tokens.css) === */
+/**
+ * design-systems/neon-velocity/tokens.css
+ *
+ * Hand-authored from the Neon Velocity spec at temp/refs/neon-velocity/raw.md
+ * (originally Shirley Lou's "Neon Velocity Countdown" Superdesign entry).
+ * Spec-derived; no live deployment exists. Sourced: 2026-05-26.
+ *
+ * Companion: ./DESIGN.md.
+ *
+ * The system is single-polarity dark by intent. Near-black `#050505` ground
+ * for a 3% SVG fractal-noise overlay, a single chromatic lime accent
+ * (`#BFFF00`) carrying every accent surface, brutalist headline mass over
+ * 3D glass depth, mixed-radius signature (0px sharp hero frame + 2rem
+ * rounded bento cards). [data-theme="dark"] mirrors :root verbatim; a
+ * light variant would erase the system's identity (glow, noise, contrast).
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core: names are the upstream contract.
+ *   - Brand-extras (--brand-*): surface-named only.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+
+  --background: oklch(0.1149 0 0);                  /* #050505 — spec Primary Background */
+  --foreground: oklch(1 0 0);                       /* #FFFFFF — spec Text Primary */
+  --card: oklch(0.1149 0 0);                        /* glass-over-canvas; no separate card colour */
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.1149 0 0);
+  --popover-foreground: oklch(1 0 0);
+
+  --primary: oklch(0.9225 0.2345 125.89);           /* #BFFF00 — spec Accent Green */
+  --primary-foreground: oklch(0 0 0);               /* #000000 — spec Laser Button color */
+  --secondary: oklch(0.1448 0 0);                   /* lifted-black surface */
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.1448 0 0);                       /* mobile-nav base #0A0A0A */
+  --muted-foreground: oklch(0.65 0 0);              /* chroma-0 utility neutral, retuned for AA on #050505/#0A0A0A */
+  --accent: oklch(0.9225 0.2345 125.89);            /* tracks --primary; single chromatic identity */
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.65 0.21 28);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.235 0 0);                       /* spec Borders rgba(255,255,255,0.1) composited */
+  --input: oklch(0.235 0 0);
+  --ring: oklch(0.9225 0.2345 125.89);              /* tracks --primary */
+
+  --sidebar: oklch(0.1149 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.9225 0.2345 125.89);   /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent: oklch(0.1448 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.235 0 0);
+  --sidebar-ring: oklch(0.9225 0.2345 125.89);      /* tracks --primary */
+
+  --chart-1: oklch(0.9225 0.2345 125.89);           /* lime */
+  --chart-2: oklch(0.78 0.18 140);                  /* shifted lime-green for series differentiation */
+  --chart-3: oklch(0.65 0.14 155);
+  --chart-4: oklch(0.5208 0 0);                     /* mid grey */
+  --chart-5: oklch(0.85 0.05 130);                  /* pale lime tint */
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 32px;                                /* tracks --brand-card-radius (bento 2rem) */
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* No baseline drop-shadow; elevation is hairline + glow only. */
+
+  /* -- Brand-extras --------------------------------------------- */
+
+  /* Polarity-locked surfaces (single-polarity dark system; these stay
+   * at :root value in [data-theme="dark"] by definition). */
+  --brand-canvas-night: oklch(0.1149 0 0);          /* #050505 */
+  --brand-canvas-lift: oklch(0.1448 0 0);           /* #0A0A0A — mobile-nav base */
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-primary: oklch(0 0 0);                 /* black ink on lime fill */
+
+  /* Hairlines / dividers — composited resolutions of white-over-near-black */
+  --brand-hairline-soft: oklch(0.18 0 0);           /* rgba(255,255,255,0.05) over #050505 */
+  --brand-hairline-glass: oklch(0.2134 0 0);        /* rgba(255,255,255,0.08) — glassmorphism border */
+  --brand-hairline-strong: oklch(0.235 0 0);        /* rgba(255,255,255,0.1) — standard divider */
+
+  /* Brutalist signature surface dimensions */
+  --brand-hero-frame-width: 12px;                   /* spec MUST */
+  --brand-hero-frame-radius: 0;                     /* spec MUST — sharp corners on hero */
+  --brand-card-radius: 2rem;                        /* spec — Luminosity Card */
+  --brand-pill-radius: 9999px;                      /* spec — Laser Button + form pill + bottom-nav */
+
+  /* Glow + atmospherics */
+  --brand-glow-primary: oklch(0.9225 0.2345 125.89 / 0.30);    /* Laser Button shadow */
+  --brand-glow-refraction: oklch(0.9225 0.2345 125.89 / 0.15); /* ambient backdrop wash */
+  --brand-glow-soft: oklch(1 0 0 / 0.03);                      /* Luminosity Card top-left radial */
+  --brand-glass-fill: oklch(1 0 0 / 0.02);                     /* 3D glass card body */
+  --brand-glow-hover: oklch(0.9225 0.2345 125.89 / 0.05);      /* Luminosity Card hover-state radial */
+
+  /* Typography neutrals (chroma ≈ 0 utility tokens; retuned for AA on canvas-night #050505 + canvas-lift #0A0A0A) */
+  --brand-body: oklch(1 0 0);
+  --brand-body-muted: oklch(0.65 0 0);
+  --brand-mono-meta: oklch(0.65 0 0);
+
+  /* Motion */
+  --brand-ease-velocity: cubic-bezier(0.16, 1, 0.3, 1);        /* spec — all transitions */
+  --brand-sweep-duration: 0.6s;                                /* spec — Laser Button hover */
+  --brand-card-transition: 0.5s;                               /* spec — Luminosity Card */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Single-polarity dark system. The [data-theme="dark"] block exists
+ * for shadcn-core completeness; values mirror :root because the
+ * system has no light variant by intent.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1149 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.1149 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.1149 0 0);
+  --popover-foreground: oklch(1 0 0);
+
+  --secondary: oklch(0.1448 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.1448 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+
+  --border: oklch(0.235 0 0);
+  --input: oklch(0.235 0 0);
+
+  --sidebar: oklch(0.1149 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.235 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1149 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.1149 0 0);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.1149 0 0);
+    --popover-foreground: oklch(1 0 0);
+
+    --secondary: oklch(0.1448 0 0);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.1448 0 0);
+    --muted-foreground: oklch(0.65 0 0);
+
+    --border: oklch(0.235 0 0);
+    --input: oklch(0.235 0 0);
+
+    --sidebar: oklch(0.1149 0 0);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.235 0 0);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Neon Velocity preview shell ===
+ * Single signature mockup (hero countdown + bento) plus token demos.
+ * Refraction-glow ambient backdrop scoped here, not in tokens.css. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+/* Local atmospherics — decorative-only values that don't have a token
+ * home (the sweep is an animation frame, not a documented surface).
+ * Scoped here per AUTHORING gotcha. */
+:root {
+  --preview-sweep-flare: oklch(1 0 0 / 0.55);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.65;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Ambient backdrop: refraction glow (lime) + viewport-fixed noise overlay.
+ * Both scoped here per AUTHORING gotcha — atmospherics aren't tokens. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(40rem 32rem at 85% 15%, var(--brand-glow-refraction), transparent 60%),
+    radial-gradient(36rem 30rem at 10% 90%, var(--brand-glow-refraction), transparent 60%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* -- Container -- */
+.shell { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* -- Top nav -- */
+.topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+}
+.topnav-brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.topnav-brand-mark {
+  width: 14px;
+  height: 14px;
+  background: var(--primary);
+  box-shadow: 0 0 12px var(--brand-glow-primary);
+}
+.topnav-links {
+  display: flex;
+  gap: 2rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.topnav-links a {
+  color: var(--brand-body-muted);
+  text-decoration: none;
+  transition: color 200ms var(--brand-ease-velocity);
+}
+.topnav-links a:hover,
+.topnav-links a:focus-visible { color: var(--primary); outline: none; }
+.topnav-links a:focus-visible { text-decoration: underline; text-underline-offset: 6px; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Laser Button -- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 48px;
+  padding: 0 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: box-shadow 300ms var(--brand-ease-velocity), background 200ms var(--brand-ease-velocity);
+}
+.btn[data-variant="laser"] {
+  background: var(--primary);
+  color: var(--brand-on-primary);
+  border-radius: var(--brand-pill-radius);
+  box-shadow: 0 0 20px var(--brand-glow-primary);
+}
+/* The 45° sweep-of-light hover — the system's signature interaction */
+.btn[data-variant="laser"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    transparent 35%,
+    var(--preview-sweep-flare) 50%,
+    transparent 65%,
+    transparent 100%
+  );
+  background-size: 240% 240%;
+  background-position: 200% 200%;
+  transition: background-position var(--brand-sweep-duration) var(--brand-ease-velocity);
+  pointer-events: none;
+}
+.btn[data-variant="laser"]:hover { box-shadow: 0 0 32px var(--brand-glow-primary); }
+.btn[data-variant="laser"]:hover::before { background-position: 0% 0%; }
+.btn[data-variant="laser"]:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+.btn[data-variant="outline"] {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: var(--brand-pill-radius);
+}
+.btn[data-variant="outline"]:hover { background: var(--brand-glow-hover); }
+.btn[data-variant="outline"]:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn[data-variant="laser"]::before { transition: none; }
+  .btn[data-variant="laser"]:hover::before { background-position: 200% 200%; opacity: 0.4; }
+  .btn[data-variant="laser"]:hover { box-shadow: 0 0 20px var(--brand-glow-primary); }
+}
+
+/* ============================================================
+   SIGNATURE MOCKUP — Hero: 3D glass + brutalist frame + countdown
+   ============================================================ */
+.hero {
+  position: relative;
+  padding: 6rem 0 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* The 3D glass card backdrop (tilted -- spec) */
+.hero-glass {
+  position: absolute;
+  inset: 1rem 0 3rem 0;
+  background: var(--brand-glass-fill);
+  border: 1px solid var(--brand-hairline-glass);
+  backdrop-filter: blur(12px) saturate(150%);
+  transform: perspective(1000px) rotateX(15deg);
+  transform-origin: center bottom;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Eyebrow over the glass */
+.hero-meta-tag {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  background: var(--muted);
+  border: 1px solid var(--brand-hairline-glass);
+  border-radius: var(--brand-pill-radius);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+.hero-meta-tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--brand-glow-primary);
+  animation: meta-pulse 2.4s ease-in-out infinite;
+}
+@keyframes meta-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* The brutalist frame — 12px sharp-cornered white border */
+.hero-frame {
+  position: relative;
+  z-index: 1;
+  border: var(--brand-hero-frame-width) solid var(--brand-on-dark);
+  border-radius: var(--brand-hero-frame-radius);
+  padding: 2.5rem 3rem;
+  max-width: 56rem;
+  text-align: center;
+  background: transparent;
+}
+.hero-display {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 10vw, 8.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+
+/* The split-row metadata: status tag (left) + countdown (right) */
+.hero-meta {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 56rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+}
+@media (max-width: 720px) {
+  .hero-meta { grid-template-columns: 1fr; }
+  .hero-frame { padding: 1.5rem 1.25rem; }
+}
+
+.hero-status {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.hero-status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+/* Countdown — six tabular digit pairs */
+.countdown {
+  display: flex;
+  gap: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+.countdown-cell {
+  min-width: 4.5rem;
+  padding: 0.75rem 0.875rem 0.5rem;
+  background: var(--muted);
+  border: 1px solid var(--brand-hairline-glass);
+  border-radius: 4px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.countdown-digit {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+.countdown-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+@media (max-width: 720px) {
+  .countdown { gap: 0.375rem; }
+  .countdown-cell { min-width: 3.25rem; padding: 0.5rem 0.5rem 0.375rem; }
+}
+
+/* CTA row beneath countdown */
+.hero-ctas {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ============================================================
+   Luminosity Card bento grid (part of the signature mockup)
+   ============================================================ */
+.bento {
+  padding: 5rem 0 4rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 880px) { .bento { grid-template-columns: 1fr; } }
+
+.luminosity {
+  position: relative;
+  min-height: 28rem;
+  padding: 2rem;
+  background:
+    radial-gradient(circle at top left, var(--brand-glow-soft), transparent 65%),
+    var(--brand-canvas-night);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-card-radius);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition:
+    border-color var(--brand-card-transition) var(--brand-ease-velocity),
+    background var(--brand-card-transition) var(--brand-ease-velocity);
+  overflow: hidden;
+}
+.luminosity:hover,
+.luminosity:focus-within {
+  border-color: var(--brand-glow-primary);
+  background:
+    radial-gradient(circle at top left, var(--brand-glow-hover), transparent 60%),
+    var(--brand-canvas-night);
+}
+.luminosity-index {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+.luminosity-index strong {
+  color: var(--primary);
+  font-weight: 500;
+}
+.luminosity-headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin-top: auto;
+}
+.luminosity-body {
+  margin: 0;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--brand-body-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .luminosity { transition: none; }
+  .hero-meta-tag::before { animation: none; }
+}
+
+/* ============================================================
+   TOKEN DEMOS (everything below is non-signature)
+   ============================================================ */
+
+.section { padding: 5rem 0; border-top: 1px solid var(--border); }
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+  margin: 0 0 0.75rem;
+}
+.section-title {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.section-lede {
+  margin: 0 0 2.5rem;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--brand-body-muted);
+  max-width: 56ch;
+}
+
+/* Surface-ladder swatches */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+@media (max-width: 720px) { .surface-ladder { grid-template-columns: repeat(2, 1fr); } }
+.surface-step {
+  padding: 1.5rem;
+  min-height: 8rem;
+  border-right: 1px solid var(--brand-hairline-strong);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.surface-step:last-child { border-right: none; }
+.surface-step[data-step="0"] { background: var(--brand-canvas-night); color: var(--foreground); }
+.surface-step[data-step="1"] { background: var(--brand-canvas-lift); color: var(--foreground); }
+.surface-step[data-step="2"] { background: var(--brand-hairline-soft); color: var(--foreground); }
+.surface-step[data-step="3"] { background: var(--primary); color: var(--brand-on-primary); }
+.surface-step-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.surface-step-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+}
+.surface-step-role {
+  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+/* Colour swatch band */
+.swatch-band {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  background: var(--brand-canvas-lift);
+}
+.swatch-chip {
+  height: 4rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-name {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+.swatch-value {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--brand-body-muted);
+}
+
+/* Typography roles */
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  align-items: baseline;
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+.type-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 3.5rem;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+.type-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+.type-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+.type-body {
+  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.type-caption {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+.type-countdown {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2.75rem;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Component vocabulary band */
+.cmp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+@media (max-width: 880px) { .cmp-grid { grid-template-columns: 1fr; } }
+.cmp-card {
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-card-radius);
+  padding: 1.75rem;
+  background: var(--brand-canvas-lift);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.cmp-card-title {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+.cmp-row { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+
+/* Form pill */
+.form-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.375rem 0.375rem 1.25rem;
+  background: var(--brand-hairline-soft);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-pill-radius);
+}
+.form-pill:focus-within { border-color: var(--brand-glow-primary); }
+.form-pill input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.5rem 0;
+  min-height: 32px;
+}
+.form-pill input::placeholder {
+  color: var(--brand-mono-meta);
+  text-transform: uppercase;
+}
+
+/* Avatar stack */
+.avatar-stack {
+  display: flex;
+  align-items: center;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 12px var(--brand-glow-primary);
+  background: var(--brand-canvas-lift);
+  margin-left: -12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.avatar:first-child { margin-left: 0; }
+.avatar-caption {
+  margin-left: 1rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+
+/* Stat band */
+.stat-band {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-top: 2rem;
+}
+@media (max-width: 720px) { .stat-band { grid-template-columns: 1fr; } }
+.stat-tile {
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--brand-hairline-strong);
+  background: var(--brand-canvas-lift);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.stat-tile:last-child { border-right: none; }
+.stat-value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+
+/* Footer */
+.footer {
+  padding: 5rem 0 2rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.footer-wordmark {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(4rem, 12vw, 10rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--primary);
+  text-shadow: 0 0 40px var(--brand-glow-primary);
+}
+.footer-legal {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+  padding-top: 2rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <nav class="topnav" aria-label="Primary">
+    <span class="topnav-brand"><span class="topnav-brand-mark" aria-hidden="true"></span>neon-velocity</span>
+    <div class="topnav-links">
+      <a href="#">System</a>
+      <a href="#">Tokens</a>
+      <a href="#">Components</a>
+      <a href="#">Manifesto</a>
+    </div>
+    <a class="btn" data-variant="laser" href="#waitlist">Join waitlist</a>
+  </nav>
+
+  <!-- ============================================================
+       SIGNATURE MOCKUP — Hero with countdown + brutalist frame
+       ============================================================ -->
+  <header class="hero" id="hero">
+    <div class="hero-glass" aria-hidden="true"></div>
+
+    <span class="hero-meta-tag">Launch window · Berlin · 2026.06.14</span>
+
+    <div class="hero-frame">
+      <h1 class="hero-display">Engineered for arrival</h1>
+    </div>
+
+    <div class="hero-meta">
+      <span class="hero-status">Status nominal · Build 0421</span>
+
+      <div class="countdown" role="timer" aria-label="Time until launch">
+        <div class="countdown-cell">
+          <span class="countdown-digit">14</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-cell">
+          <span class="countdown-digit">07</span>
+          <span class="countdown-label">Hrs</span>
+        </div>
+        <div class="countdown-cell">
+          <span class="countdown-digit">23</span>
+          <span class="countdown-label">Min</span>
+        </div>
+        <div class="countdown-cell">
+          <span class="countdown-digit">48</span>
+          <span class="countdown-label">Sec</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-ctas">
+      <a class="btn" data-variant="laser" href="#waitlist">Join waitlist</a>
+      <a class="btn" data-variant="outline" href="#system">Read manifesto</a>
+    </div>
+  </header>
+
+  <!-- Luminosity Card bento grid — extension of the signature mockup -->
+  <section class="bento" aria-label="Feature bento">
+    <article class="luminosity">
+      <span class="luminosity-index"><strong>01</strong>/Ethos</span>
+      <p class="luminosity-body">Halcyon's engineering team ships against a single near-black canvas and a single chromatic accent. Constraints set velocity. Every surface earns its place in the system before it touches a customer.</p>
+      <h3 class="luminosity-headline">Hold the line</h3>
+    </article>
+    <article class="luminosity">
+      <span class="luminosity-index"><strong>02</strong>/Method</span>
+      <p class="luminosity-body">Brutalist mass over glass depth. Twelve-pixel sharp hero frame against two-rem rounded cards below. The mixed-radius contrast is the system's identity, not a coincidence — it carries the page's hierarchy on its own.</p>
+      <h3 class="luminosity-headline">Sharp and round</h3>
+    </article>
+    <article class="luminosity">
+      <span class="luminosity-index"><strong>03</strong>/Tempo</span>
+      <p class="luminosity-body">Tabular digits hold their column on every tick. The countdown never reflows, the deploy timestamps never pulse, the stat band never twitches. Pace is a visual property before it's a runtime one.</p>
+      <h3 class="luminosity-headline">No reflow</h3>
+    </article>
+  </section>
+
+  <!-- ============================================================
+       TOKEN DEMOS
+       ============================================================ -->
+
+  <section class="section" id="system" aria-label="Surface ladder">
+    <p class="section-eyebrow">// Tokens · Surface</p>
+    <h2 class="section-title">Four-step ladder, lime on the flip</h2>
+    <p class="section-lede">Near-black floor at zero point one one lightness, lifted black at zero point one four for inset bands, hairline-soft for the bento card edge, and the lime primary for any surface that needs to read as <em>alive</em>. The lime is the only chroma the system carries.</p>
+
+    <div class="surface-ladder" aria-label="Surface ladder">
+      <div class="surface-step" data-step="0">
+        <span class="surface-step-label">Floor</span>
+        <div>
+          <div class="surface-step-name">--background</div>
+          <div class="surface-step-role">page canvas · #050505</div>
+        </div>
+      </div>
+      <div class="surface-step" data-step="1">
+        <span class="surface-step-label">Lift</span>
+        <div>
+          <div class="surface-step-name">--muted</div>
+          <div class="surface-step-role">inset band · #0A0A0A</div>
+        </div>
+      </div>
+      <div class="surface-step" data-step="2">
+        <span class="surface-step-label">Hairline</span>
+        <div>
+          <div class="surface-step-name">--brand-hairline-soft</div>
+          <div class="surface-step-role">card edge</div>
+        </div>
+      </div>
+      <div class="surface-step" data-step="3">
+        <span class="surface-step-label">Flip</span>
+        <div>
+          <div class="surface-step-name">--primary</div>
+          <div class="surface-step-role">laser fill · #BFFF00</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="swatch-band" aria-label="Colour swatches">
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--primary);"></div>
+        <span class="swatch-name">--primary</span>
+        <span class="swatch-value">oklch 0.92 0.23 126</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--background);"></div>
+        <span class="swatch-name">--background</span>
+        <span class="swatch-value">oklch 0.11 0 0</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--muted);"></div>
+        <span class="swatch-name">--muted</span>
+        <span class="swatch-value">oklch 0.14 0 0</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--brand-hairline-strong);"></div>
+        <span class="swatch-name">--brand-hairline-strong</span>
+        <span class="swatch-value">oklch 0.24 0 0</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--foreground);"></div>
+        <span class="swatch-name">--foreground</span>
+        <span class="swatch-value">oklch 1 0 0</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: linear-gradient(45deg, var(--brand-glow-primary), transparent 60%), var(--background);"></div>
+        <span class="swatch-name">--brand-glow-primary</span>
+        <span class="swatch-value">lime · 30% alpha</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography">
+    <p class="section-eyebrow">// Tokens · Typography</p>
+    <h2 class="section-title">Plus Jakarta mass, Geist Mono meta</h2>
+    <p class="section-lede">Headlines compress to weight eight hundred with negative five-percent tracking, uppercase by mandate. Technical metadata widens to thirty-percent letter-spacing in Geist Mono. Inter carries body copy. Countdown digits sit in tabular numerals so the column locks on every tick.</p>
+
+    <div class="type-stack">
+      <div class="type-row">
+        <span class="type-label">Display</span>
+        <span class="type-display">Hold the line</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Heading</span>
+        <span class="type-heading">Engineered for arrival</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Title</span>
+        <span class="type-title">Constraints set velocity</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Body</span>
+        <span class="type-body">A halcyon engineering update ships every Friday. The team reviews the week's deploys against the velocity goals, retires anything no longer carrying its weight, and confirms the next sprint's scope before the standup adjourns.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Caption</span>
+        <span class="type-caption">Status nominal · Build 0421 · 2026.05.26</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Countdown</span>
+        <span class="type-countdown">14 : 07 : 23 : 48</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Component vocabulary">
+    <p class="section-eyebrow">// Vocabulary · Components</p>
+    <h2 class="section-title">Pill primitives over hairline cards</h2>
+    <p class="section-lede">Every interactive surface lands on a pill. Every static card rounds to two rem. The contrast against the sharp hero frame is the signature.</p>
+
+    <div class="cmp-grid">
+      <div class="cmp-card">
+        <p class="cmp-card-title">// Buttons</p>
+        <div class="cmp-row">
+          <a class="btn" data-variant="laser" href="#">Join waitlist</a>
+          <a class="btn" data-variant="outline" href="#">Read more</a>
+        </div>
+        <p class="type-body" style="font-size: 0.875rem;">Hover the laser button to see the forty-five degree sweep-of-light pass. Outline button background fills with five percent lime on hover.</p>
+      </div>
+
+      <div class="cmp-card">
+        <p class="cmp-card-title">// Form pill</p>
+        <form class="form-pill" onsubmit="event.preventDefault();" aria-label="Waitlist signup">
+          <input type="email" placeholder="email@halcyon.dev" aria-label="Email">
+          <button type="submit" class="btn" data-variant="laser">Submit</button>
+        </form>
+        <p class="type-body" style="font-size: 0.875rem;">Input + Laser Button merge into a single capsule. Focus state lifts the container border to lime.</p>
+      </div>
+
+      <div class="cmp-card">
+        <p class="cmp-card-title">// Social proof</p>
+        <div class="avatar-stack" aria-label="Recent signups">
+          <div class="avatar">JK</div>
+          <div class="avatar">ML</div>
+          <div class="avatar">AP</div>
+          <div class="avatar">RC</div>
+          <div class="avatar">SW</div>
+          <span class="avatar-caption">1,247 builders joined</span>
+        </div>
+        <p class="type-body" style="font-size: 0.875rem;">Each avatar carries a two-pixel lime border and a lime drop-shadow halo.</p>
+      </div>
+
+      <div class="cmp-card">
+        <p class="cmp-card-title">// Status meta</p>
+        <div class="cmp-row">
+          <span class="hero-meta-tag" style="position: static;">Build 0421 · ready</span>
+        </div>
+        <div class="cmp-row">
+          <span class="hero-status">Edge nominal · 38ms p50</span>
+        </div>
+        <p class="type-body" style="font-size: 0.875rem;">Mono-meta tags carry every technical caption. Wide tracking, small size, all caps.</p>
+      </div>
+    </div>
+
+    <div class="stat-band" aria-label="Stat band">
+      <div class="stat-tile">
+        <span class="stat-value">14</span>
+        <span class="stat-label">Days to launch</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-value">1,247</span>
+        <span class="stat-label">On the waitlist</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-value">38<span style="font-size: 0.5em; opacity: 0.6;">ms</span></span>
+        <span class="stat-label">Edge p50 latency</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p class="footer-wordmark">neon-velocity</p>
+    <div class="footer-legal">
+      <span>halcyon.dev · token surface preview · 2026.05.26</span>
+      <span>Lime on near-black · brutalist mass · 3D glass · tabular countdown</span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

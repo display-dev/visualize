@@ -1,0 +1,2297 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nature — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='12' fill='%23ccd5ae'/%3E%3Ccircle cx='12' cy='20' r='8' fill='%23a3b18a'/%3E%3Ccircle cx='22' cy='14' r='6' fill='%2301472e'/%3E%3C/svg%3E">
+<meta property="og:title" content="nature — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Organic Brutalist register — Forest, Sage, Olive, Cream, Moss palette anchored on Anton display type and Inter utility, with 5rem corner rounding and a persistent 4% noise overlay. Signature surface: Floating Organic Cards + Blur-Reveal Button on a Sage hero canvas.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/nature/tokens.css) === */
+/**
+ * design-systems/nature/tokens.css
+ *
+ * Hand-authored from the spec at temp/refs/nature/raw.md (Superdesign
+ * "Nature Inspired Style" by Shirley Lou — Organic Brutalist).
+ * Sourced: 2026-05-26.
+ * Companion: design-systems/nature/DESIGN.md
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are this system's.
+ *   - Brand-extras (--brand-*): surface-named only. Identity-defining
+ *     motion + texture + rounding tokens live here.
+ *
+ * Identity locks (don't retune):
+ *   - Five-colour palette: Forest #01472e, Sage #ccd5ae, Olive #e9edc9,
+ *     Cream #fefae0, Moss #a3b18a. No decorative accent outside this set.
+ *   - Dark text is always Forest, never pure black (per spec §Notes).
+ *   - 5rem section rounding is identity — the system is NOT zero-radius.
+ *   - 4% SVG noise overlay is always-on.
+ *   - Motion uses cubic-bezier(0.16, 1, 0.3, 1) over 1.2s — single curve.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are this system's. */
+
+  --background: oklch(0.9814 0.0342 99.83);          /* Cream #fefae0 */
+  --foreground: oklch(0.3519 0.0770 161.65);         /* Forest #01472e — dark text is always Forest per spec */
+  --card: oklch(0.9338 0.0475 112.47);               /* Olive #e9edc9 */
+  --card-foreground: oklch(0.3519 0.0770 161.65);    /* Forest */
+  --popover: oklch(0.9814 0.0342 99.83);             /* Cream */
+  --popover-foreground: oklch(0.3519 0.0770 161.65); /* Forest */
+
+  --primary: oklch(0.3519 0.0770 161.65);            /* Forest #01472e — primary CTAs + ink anchor */
+  --primary-foreground: oklch(0.9814 0.0342 99.83);  /* Cream on Forest */
+  --secondary: oklch(0.9338 0.0475 112.47);          /* Olive */
+  --secondary-foreground: oklch(0.3519 0.0770 161.65); /* Forest */
+  --muted: oklch(0.8560 0.0532 118.09);              /* Sage #ccd5ae */
+  --muted-foreground: oklch(0.4935 0.0371 131.01);   /* Mid-Moss utility neutral — body-muted helper */
+  --accent: oklch(0.7390 0.0564 123.81);             /* Moss #a3b18a */
+  --accent-foreground: oklch(0.3519 0.0770 161.65);  /* Forest */
+  --destructive: oklch(0.3519 0.0770 161.65);        /* Forest — locked palette has no red; destructive routes through Forest + label per §6 */
+  --destructive-foreground: oklch(0.9814 0.0342 99.83); /* Cream */
+
+  --border: oklch(0.8755 0.0277 93.13);              /* Warm graygreen hairline — utility neutral */
+  --input: oklch(0.8755 0.0277 93.13);
+  --ring: oklch(0.3519 0.0770 161.65);               /* Forest — tracks --primary */
+
+  --sidebar: oklch(0.9814 0.0342 99.83);             /* Cream */
+  --sidebar-foreground: oklch(0.3519 0.0770 161.65); /* Forest */
+  --sidebar-primary: oklch(0.3519 0.0770 161.65);    /* Forest — tracks --primary */
+  --sidebar-primary-foreground: oklch(0.9814 0.0342 99.83); /* Cream */
+  --sidebar-accent: oklch(0.8560 0.0532 118.09);     /* Sage */
+  --sidebar-accent-foreground: oklch(0.3519 0.0770 161.65); /* Forest */
+  --sidebar-border: oklch(0.8755 0.0277 93.13);
+  --sidebar-ring: oklch(0.3519 0.0770 161.65);       /* Forest — tracks --primary */
+
+  --chart-1: oklch(0.3519 0.0770 161.65);            /* Forest */
+  --chart-2: oklch(0.7390 0.0564 123.81);            /* Moss */
+  --chart-3: oklch(0.8560 0.0532 118.09);            /* Sage */
+  --chart-4: oklch(0.9338 0.0475 112.47);            /* Olive */
+  --chart-5: oklch(0.6601 0.0460 128.00);            /* Hairline-strong Moss-darker */
+
+  --radius-sm: 0.75rem;                              /* 12px — tight chips */
+  --radius-md: 1.25rem;                              /* 20px — inputs, small buttons */
+  --radius-lg: 2.5rem;                               /* 40px — cards (matches spec card radius) */
+  --radius-xl: 5rem;                                 /* 80px — sections (identity radius) */
+
+  /* -- Typography ------------------------------------------------ */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'Anton', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Forest-tinted deep shadow on floating elements (spec §Texture). */
+  --shadow-lg: 0 25px 50px -12px rgba(1, 71, 46, 0.2);
+
+  /* -- Brand-extras --------------------------------------------- */
+
+  /* Documented secondary brand colours — full chroma. */
+  --brand-accent-sage:  oklch(0.8560 0.0532 118.09); /* Sage #ccd5ae — hero canvas */
+  --brand-accent-olive: oklch(0.9338 0.0475 112.47); /* Olive #e9edc9 — grid canvas */
+  --brand-accent-moss:  oklch(0.7390 0.0564 123.81); /* Moss #a3b18a — mid-tone */
+
+  /* Polarity-locked surfaces — Forest footer with Sage text holds across
+   * all themes per DESIGN.md §6. */
+  --brand-canvas-night: oklch(0.3519 0.0770 161.65); /* Forest — footer canvas */
+  --brand-on-dark:      oklch(0.8560 0.0532 118.09); /* Sage — text on Forest footer */
+  --brand-on-light:     oklch(0.3519 0.0770 161.65); /* Forest — text on light canvases */
+
+  /* Hairlines / dividers — utility neutrals. */
+  --brand-hairline-soft:   oklch(0.8755 0.0277 93.13); /* Warm graygreen */
+  --brand-hairline-strong: oklch(0.6601 0.0460 128.00); /* Moss-darker */
+
+  /* Body neutrals (chroma ≈ 0.04 — utility-neutral exception per AUTHORING). */
+  --brand-body:        oklch(0.3519 0.0770 161.65); /* Forest body ink */
+  --brand-body-muted:  oklch(0.4935 0.0371 131.01); /* Moss-leaning helper text */
+  --brand-muted-soft:  oklch(0.6601 0.0460 128.00); /* Strong-muted footer legal */
+
+  /* Radii — identity-defining ladder. */
+  --brand-radius-section: 5rem;                       /* Section corners — identity */
+  --brand-radius-card:    2.5rem;                     /* Cards / images */
+  --brand-radius-organic: 3rem;                       /* Floating Organic Cards */
+  --brand-radius-pill:    9999px;                     /* Nav pill, button pill, chip */
+  --brand-radius-xs:      0.75rem;                    /* Swatch corners */
+
+  /* Texture identity — always-on viewport overlay. */
+  --brand-noise-opacity: 0.04;
+
+  /* Motion identity — single curve, single duration. */
+  --brand-motion-curve:    cubic-bezier(0.16, 1, 0.3, 1);
+  --brand-motion-duration: 1200ms;
+
+  /* Shadow identity — Forest-tinted deep drop on floating elements. */
+  --brand-shadow-deep: 0 25px 50px -12px rgba(1, 71, 46, 0.2);
+  --brand-shadow-card: 0 12px 28px -8px rgba(1, 71, 46, 0.18);
+}
+
+/* -- Dark theme ------------------------------------------------
+ * The spec documents no native dark mode — system canonical canvas is
+ * light. The synthesis below deepens the warm earth canvases into a
+ * Forest-family family rather than flipping to neutral near-black,
+ * keeping the system's olive-green chroma identity intact.
+ *
+ * Forest, Sage, Olive, Moss themselves stay at :root chromatic values —
+ * they're documented brand identity. Only the canvas + neutrals flip.
+ * The footer polarity lock means --brand-canvas-night / --brand-on-dark
+ * stay at :root by definition.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.2131 0.0420 167.43);         /* Deep forest canvas */
+  --foreground: oklch(0.8560 0.0532 118.09);         /* Sage — readable on deep forest */
+  --card: oklch(0.2530 0.0521 165.10);               /* Slightly lifted forest card */
+  --card-foreground: oklch(0.8560 0.0532 118.09);    /* Sage */
+  --popover: oklch(0.2530 0.0521 165.10);
+  --popover-foreground: oklch(0.8560 0.0532 118.09);
+
+  /* --primary, --ring, --sidebar-primary, --sidebar-ring stay at :root —
+   * Forest is the brand identity primary. On the deep-forest dark canvas
+   * we route filled CTAs through the on-dark surface instead (handled in
+   * the preview template via data-variant flips). */
+
+  --secondary: oklch(0.2530 0.0521 165.10);          /* Lifted forest */
+  --secondary-foreground: oklch(0.8560 0.0532 118.09); /* Sage */
+  --muted: oklch(0.2530 0.0521 165.10);
+  --muted-foreground: oklch(0.7390 0.0564 123.81);   /* Moss on deep forest */
+  --accent: oklch(0.7390 0.0564 123.81);             /* Moss accent — stays full chroma */
+  --accent-foreground: oklch(0.3519 0.0770 161.65);  /* Forest on Moss */
+
+  --border: oklch(0.3519 0.0770 161.65);             /* Forest at deeper position becomes the hairline */
+  --input: oklch(0.3519 0.0770 161.65);
+
+  --sidebar: oklch(0.2131 0.0420 167.43);
+  --sidebar-foreground: oklch(0.8560 0.0532 118.09);
+  --sidebar-accent: oklch(0.2530 0.0521 165.10);
+  --sidebar-accent-foreground: oklch(0.8560 0.0532 118.09);
+  --sidebar-border: oklch(0.3519 0.0770 161.65);
+
+  /* Utility neutrals — chroma-aligned lift for the deep-forest canvas. */
+  --brand-body:        oklch(0.8560 0.0532 118.09);  /* Sage body ink on dark */
+  --brand-body-muted:  oklch(0.7390 0.0564 123.81);  /* Moss for helper text */
+  --brand-muted-soft:  oklch(0.6601 0.0460 128.00);  /* Footer legal */
+
+  --brand-hairline-soft:   oklch(0.3519 0.0770 161.65); /* Forest hairline on deep forest */
+  --brand-hairline-strong: oklch(0.4935 0.0371 131.01); /* Moss-mid hairline */
+
+  /* Polarity-locked brand-extras (--brand-canvas-night, --brand-on-dark,
+   * --brand-on-light, --brand-accent-*, --brand-radius-*, --brand-noise-*,
+   * --brand-motion-*, --brand-shadow-*) stay at :root by definition. */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2131 0.0420 167.43);
+    --foreground: oklch(0.8560 0.0532 118.09);
+    --card: oklch(0.2530 0.0521 165.10);
+    --card-foreground: oklch(0.8560 0.0532 118.09);
+    --popover: oklch(0.2530 0.0521 165.10);
+    --popover-foreground: oklch(0.8560 0.0532 118.09);
+
+    --secondary: oklch(0.2530 0.0521 165.10);
+    --secondary-foreground: oklch(0.8560 0.0532 118.09);
+    --muted: oklch(0.2530 0.0521 165.10);
+    --muted-foreground: oklch(0.7390 0.0564 123.81);
+    --accent: oklch(0.7390 0.0564 123.81);
+    --accent-foreground: oklch(0.3519 0.0770 161.65);
+
+    --border: oklch(0.3519 0.0770 161.65);
+    --input: oklch(0.3519 0.0770 161.65);
+
+    --sidebar: oklch(0.2131 0.0420 167.43);
+    --sidebar-foreground: oklch(0.8560 0.0532 118.09);
+    --sidebar-accent: oklch(0.2530 0.0521 165.10);
+    --sidebar-accent-foreground: oklch(0.8560 0.0532 118.09);
+    --sidebar-border: oklch(0.3519 0.0770 161.65);
+
+    --brand-body:        oklch(0.8560 0.0532 118.09);
+    --brand-body-muted:  oklch(0.7390 0.0564 123.81);
+    --brand-muted-soft:  oklch(0.6601 0.0460 128.00);
+
+    --brand-hairline-soft:   oklch(0.3519 0.0770 161.65);
+    --brand-hairline-strong: oklch(0.4935 0.0371 131.01);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Nature preview shell — Organic Brutalist token surface.
+ * The signature mockup is a Sage-canvas hero band carrying the
+ * Floating Organic Cards arrangement with one Blur-Reveal Button
+ * floating over a card (DESIGN.md §4 — these are the two named
+ * signature components in the spec). Everything else routes
+ * through tokens. A persistent 4% SVG fractal noise overlay sits
+ * fixed to the viewport per DESIGN.md §6 — identity, not polish. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Persistent SVG fractal noise overlay (identity texture).
+ *    Fixed to the viewport at 4% opacity, multiplied over every
+ *    canvas. Always-on per DESIGN.md §6. -- */
+.noise-veil {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: var(--brand-noise-opacity);
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* -- Top nav: fixed pill bar -- */
+.topnav {
+  position: relative;
+  z-index: 5;
+  padding: 1rem 1.5rem 0;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-mark::before {
+  content: "—";
+  font-weight: 700;
+  margin-right: 0.125rem;
+}
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--brand-radius-pill);
+  background: rgba(254, 250, 224, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.nav-pill a {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.nav-pill a:hover { opacity: 0.7; }
+.nav-pill a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.nav-cart {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 0.75rem 0.625rem 1.125rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  min-height: 44px;
+}
+.nav-cart-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.375rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--primary-foreground);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.nav-cart:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+@media (max-width: 900px) { .nav-pill { display: none; } }
+
+/* -- Buttons (44px touch floor, pill radius — system runs no rectangles) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.75rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--brand-motion-duration) var(--brand-motion-curve),
+              color var(--brand-motion-duration) var(--brand-motion-curve),
+              border-color var(--brand-motion-duration) var(--brand-motion-curve),
+              transform var(--brand-motion-duration) var(--brand-motion-curve);
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { opacity: 0.92; }
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--brand-hairline-strong);
+}
+.btn[data-variant="secondary"]:hover { border-color: var(--foreground); }
+.btn[data-variant="on-dark"] {
+  background: var(--brand-on-dark);
+  color: var(--brand-canvas-night);
+  border-color: var(--brand-on-dark);
+}
+.btn[data-variant="on-dark"]:hover { opacity: 0.88; }
+.btn[data-variant="reveal"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--background);
+}
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: transparent;
+}
+.btn[data-size="lg"] { min-height: 56px; padding: 0 2.5rem; font-size: 13px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero band — Sage canvas, the recognisability surface --
+ *    Holds the signature Anton headline, Floating Organic Cards,
+ *    and the Blur-Reveal Button hover state. Per DESIGN.md §1 the
+ *    Sage band is the system's anchor surface.                  */
+.hero {
+  position: relative;
+  margin: 1.5rem 1.5rem 0;
+  padding: 5rem 2rem 6rem;
+  background: var(--brand-accent-sage);
+  border-radius: var(--brand-radius-section);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-inner {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  z-index: 2;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-on-light);
+  margin: 0;
+}
+.hero-eyebrow::before {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background: var(--brand-on-light);
+}
+.hero-display {
+  font-family: 'Anton', 'Inter', sans-serif;
+  font-size: clamp(4rem, 18vw, 14rem);
+  font-weight: 400;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: var(--brand-on-light);
+  text-transform: uppercase;
+  margin: 1.25rem 0 0;
+}
+.hero-display .letter {
+  display: inline-block;
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform var(--brand-motion-duration) var(--brand-motion-curve),
+              opacity var(--brand-motion-duration) var(--brand-motion-curve);
+}
+.hero-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  max-width: 56rem;
+  margin-top: 2.5rem;
+}
+.hero-meta-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.hero-meta-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-on-light);
+}
+.hero-meta-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--brand-on-light);
+}
+
+/* -- Floating Organic Cards (signature component A from DESIGN.md §4).
+ *    Three rounded image-substitute tiles arranged loosely around
+ *    the Anton headline. Each runs the float keyframe at staggered
+ *    durations; one card carries the Blur-Reveal Button overlay
+ *    (signature component B). The system's voltage moment is the
+ *    pairing of these two components on the Sage hero canvas. -- */
+.organic-cards {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.organic-card {
+  position: absolute;
+  border-radius: var(--brand-radius-organic);
+  box-shadow: var(--brand-shadow-deep);
+  overflow: hidden;
+  pointer-events: auto;
+}
+/* Photographic fill — picsum image sits below the tone-tinted noise
+ * overlay so the card still reads as part of the palette. Each card's
+ * solid tone falls back as the load colour and lives under the image
+ * if the fetch fails. */
+.organic-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  display: block;
+}
+/* Per-card SVG fractal noise overlay — same texture as the page veil,
+ * scoped to the card frame, multiplied so the underlying photography
+ * picks up the Organic Brutalist grain. */
+.organic-card-noise {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* Tone-tinted wash that pulls the photography into the canvas palette
+ * — Moss / Olive / Forest tone each gets a soft colour blend so the
+ * three cards still scan as a tonal trio. */
+.organic-card-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+.organic-card[data-tone="moss"]   .organic-card-tint { background: rgba(163, 177, 138, 0.32); }
+.organic-card[data-tone="olive"]  .organic-card-tint { background: rgba(233, 237, 201, 0.22); }
+.organic-card[data-tone="forest"] .organic-card-tint { background: rgba(1, 71, 46, 0.45); }
+.organic-card-label { z-index: 3; }
+.reveal-overlay { z-index: 4; }
+.organic-card[data-tone="moss"] {
+  background: var(--brand-accent-moss);
+  width: 17rem;
+  height: 21rem;
+  top: 8rem;
+  left: 4rem;
+  animation: nature-float 6s var(--brand-motion-curve) infinite;
+}
+.organic-card[data-tone="olive"] {
+  background: var(--brand-accent-olive);
+  width: 14rem;
+  height: 18rem;
+  top: 14rem;
+  right: 6rem;
+  animation: nature-float 7.5s var(--brand-motion-curve) infinite;
+  animation-delay: 1.2s;
+}
+.organic-card[data-tone="forest"] {
+  background: var(--brand-canvas-night);
+  width: 13rem;
+  height: 17rem;
+  bottom: 3rem;
+  right: 22rem;
+  animation: nature-float 8.5s var(--brand-motion-curve) infinite;
+  animation-delay: 0.6s;
+}
+@media (max-width: 1100px) {
+  .organic-card[data-tone="moss"] { width: 11rem; height: 14rem; top: 4rem; left: 1.5rem; }
+  .organic-card[data-tone="olive"] { width: 9rem; height: 12rem; top: 7rem; right: 1.5rem; }
+  .organic-card[data-tone="forest"] { display: none; }
+}
+@media (max-width: 720px) {
+  .organic-card { display: none; }
+}
+@keyframes nature-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-20px) rotate(5deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .organic-card[data-tone="moss"],
+  .organic-card[data-tone="olive"],
+  .organic-card[data-tone="forest"] { animation: none; }
+}
+
+/* Inside each organic card — a small ingredient label (no real photo
+ * is rendered; the rounded tile IS the moment). Halcyon team uses the
+ * label slot for inventory items. */
+.organic-card-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+.organic-card[data-tone="moss"] .organic-card-label,
+.organic-card[data-tone="olive"] .organic-card-label {
+  color: var(--brand-on-light);
+}
+.organic-card[data-tone="forest"] .organic-card-label {
+  color: var(--brand-on-dark);
+}
+.organic-card-label .meta {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  opacity: 0.7;
+}
+
+/* Blur-Reveal Button (signature component B) — sits on the Moss
+ * organic card, visible by default in this preview so the static
+ * screenshot communicates the interaction. In the live interaction
+ * the overlay fades from 0→1 and the button rises 32px on hover. */
+.reveal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(1, 71, 46, 0.3);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 2rem;
+  opacity: 1;
+  transition: opacity var(--brand-motion-duration) var(--brand-motion-curve);
+}
+.reveal-overlay .btn {
+  transform: translateY(0);
+  transition: transform var(--brand-motion-duration) var(--brand-motion-curve);
+}
+.organic-card:not(:hover) .reveal-overlay {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-overlay,
+  .reveal-overlay .btn { transition: none; }
+}
+
+/* -- Section frame: rounded-top colour-blocked surfaces.
+ *    Per DESIGN.md §4 ("Section divider"), each colour-blocked
+ *    surface carries a 5rem rounded top corner; this is how the
+ *    system separates canvases — no hairlines anywhere. -- */
+.section {
+  position: relative;
+  padding: 6rem 2rem 6rem;
+  margin: 0 1.5rem;
+  border-top-left-radius: var(--brand-radius-section);
+  border-top-right-radius: var(--brand-radius-section);
+}
+.section[data-canvas="olive"]  { background: var(--brand-accent-olive); color: var(--brand-on-light); margin-top: -3rem; }
+.section[data-canvas="cream"]  { background: var(--background); color: var(--foreground); margin-top: -3rem; }
+.section[data-canvas="moss"]   { background: var(--brand-accent-moss); color: var(--brand-on-light); margin-top: -3rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+.section-header { max-width: 56rem; margin-bottom: 3rem; }
+.section-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: inherit;
+  margin: 0 0 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.section-eyebrow::before {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+}
+.section-title {
+  font-family: 'Anton', 'Inter', sans-serif;
+  font-size: clamp(3rem, 11vw, 9rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: inherit;
+  margin: 0 0 1.5rem;
+}
+.section-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: inherit;
+  margin: 0;
+  max-width: 38rem;
+}
+
+/* -- Token-demo: colour swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 1.25rem;
+}
+.swatch {
+  border-radius: var(--brand-radius-card);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-chip {
+  height: 6rem;
+  border-radius: var(--brand-radius-xs);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 12px;
+  color: var(--foreground);
+}
+.swatch-hex {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+
+/* -- Token-demo: surface elevation ladder.
+ *    Five-step ladder rotating through the canvas family —
+ *    Cream → Sage → Olive → Moss → Forest. Each step shows the
+ *    canvas + a token chip riding on it. -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 1080px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px)  { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  border-radius: var(--brand-radius-card);
+  padding: 1.75rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  min-height: 14rem;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.ladder-step[data-step="cream"]  { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="sage"]   { background: var(--brand-accent-sage); color: var(--brand-on-light); }
+.ladder-step[data-step="olive"]  { background: var(--brand-accent-olive); color: var(--brand-on-light); }
+.ladder-step[data-step="moss"]   { background: var(--brand-accent-moss); color: var(--brand-on-light); }
+.ladder-step[data-step="forest"] { background: var(--brand-canvas-night); color: var(--brand-on-dark); border-color: var(--brand-canvas-night); }
+.ladder-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+}
+.ladder-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  margin-top: auto;
+}
+
+/* -- Typography demo (6 roles max per DESIGN.md §3) -- */
+.type-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.type-row {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-display {
+  font-family: 'Anton', 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Anton', 'Inter', sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--foreground);
+}
+.type-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--foreground);
+}
+.type-label-demo {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-mono {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+  color: var(--foreground);
+  opacity: 0.78;
+}
+
+/* -- Component vocabulary demo -- */
+.cmp-stack { display: flex; flex-direction: column; gap: 2rem; }
+.cmp-row {
+  display: flex;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.cmp-row-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  width: 100%;
+  margin-bottom: 0.625rem;
+}
+.cmp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.cmp-chip[data-tone="sage"]   { background: var(--brand-accent-sage); color: var(--brand-on-light); }
+.cmp-chip[data-tone="olive"]  { background: var(--brand-accent-olive); color: var(--brand-on-light); }
+.cmp-chip[data-tone="moss"]   { background: var(--brand-accent-moss); color: var(--brand-on-light); }
+.cmp-chip[data-tone="forest"] { background: var(--brand-canvas-night); color: var(--brand-on-dark); }
+.cmp-chip[data-tone="cream"]  { background: var(--background); color: var(--foreground); border: 1px solid var(--brand-hairline-strong); }
+
+.text-input {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-radius-pill);
+  padding: 0 1.25rem;
+  height: 44px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  min-width: 18rem;
+}
+.text-input::placeholder {
+  color: var(--foreground);
+  opacity: 0.5;
+}
+.text-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+  border-color: var(--ring);
+}
+
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+/* -- Footer — polarity-locked Forest canvas, Sage text.
+ *    Per DESIGN.md §6, the Forest/Sage footer pair stays the same
+ *    across themes. 12-column grid, underline-only newsletter input.
+ *    Carries a 5rem rounded top corner like other section boundaries. -- */
+.footer {
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  margin: -3rem 1.5rem 1.5rem;
+  padding: 7rem 2.5rem 3rem;
+  border-radius: var(--brand-radius-section);
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 6fr 3fr 3fr;
+  gap: 3rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: 1fr; } }
+.footer-newsletter-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  margin: 0 0 1.25rem;
+}
+.footer-newsletter-title {
+  font-family: 'Anton', 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  margin: 0 0 2rem;
+  max-width: 12ch;
+}
+.footer-newsletter-input {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--brand-on-dark);
+  max-width: 28rem;
+}
+.footer-newsletter-input input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--brand-on-dark);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  outline: none;
+}
+.footer-newsletter-input input::placeholder {
+  color: var(--brand-on-dark);
+  opacity: 0.5;
+}
+.footer-newsletter-input input:focus-visible {
+  border-bottom: 1px solid var(--brand-on-dark);
+}
+.footer-newsletter-submit {
+  background: transparent;
+  border: none;
+  color: var(--brand-on-dark);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  cursor: pointer;
+  min-height: 44px;
+  padding: 0 1rem;
+}
+.footer-newsletter-submit:focus-visible {
+  outline: 2px solid var(--brand-on-dark);
+  outline-offset: 3px;
+}
+.footer-col-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  margin: 0 0 1.25rem;
+  opacity: 0.78;
+}
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+.footer-list a {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  text-decoration: none;
+}
+.footer-list a:hover { opacity: 0.7; }
+.footer-list a:focus-visible {
+  outline: 2px solid var(--brand-on-dark);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.footer-legal {
+  max-width: 1280px;
+  margin: 4rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-hairline-strong);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+}
+
+/* -- Mode pill (catalog-wide affordance — keeps the preview readable
+ *    regardless of which theme is rendered). -- */
+@media (prefers-reduced-motion: reduce) {
+  .organic-card,
+  .reveal-overlay,
+  .reveal-overlay .btn,
+  .btn,
+  .hero-display .letter { transition: none !important; animation: none !important; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="noise-veil" aria-hidden="true"></div>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">nature</a>
+    <div class="nav-pill" aria-label="Catalog">
+      <a href="#">Shop</a>
+      <a href="#">Origin</a>
+      <a href="#">Ritual</a>
+      <a href="#">Pantry</a>
+      <a href="#">Notes</a>
+    </div>
+    <button class="nav-cart" type="button">
+      Bag
+      <span class="nav-cart-badge">3</span>
+    </button>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="organic-cards" aria-hidden="true">
+    <div class="organic-card" data-tone="moss">
+      <img class="organic-card-img" src="https://picsum.photos/seed/halcyon-moss/544/672" alt="" loading="lazy" decoding="async">
+      <div class="organic-card-tint" aria-hidden="true"></div>
+      <div class="organic-card-noise" aria-hidden="true"></div>
+      <span class="organic-card-label">
+        Heritage<br>
+        <span class="meta">Cold-pressed · Lot 0426</span>
+      </span>
+      <div class="reveal-overlay" role="presentation">
+        <button class="btn" data-variant="reveal" type="button">Quick add</button>
+      </div>
+    </div>
+    <div class="organic-card" data-tone="olive">
+      <img class="organic-card-img" src="https://picsum.photos/seed/halcyon-olive/448/576" alt="" loading="lazy" decoding="async">
+      <div class="organic-card-tint" aria-hidden="true"></div>
+      <div class="organic-card-noise" aria-hidden="true"></div>
+      <span class="organic-card-label">
+        Pantry<br>
+        <span class="meta">Stone-milled · 12oz</span>
+      </span>
+    </div>
+    <div class="organic-card" data-tone="forest">
+      <img class="organic-card-img" src="https://picsum.photos/seed/halcyon-forest/416/544" alt="" loading="lazy" decoding="async">
+      <div class="organic-card-tint" aria-hidden="true"></div>
+      <div class="organic-card-noise" aria-hidden="true"></div>
+      <span class="organic-card-label">
+        Ritual<br>
+        <span class="meta">Slow-steeped · Evening</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Halcyon · Field journal · Spring 2026</p>
+    <h1 class="hero-display" aria-label="Grown slowly">
+      <span class="letter">G</span><span class="letter">R</span><span class="letter">O</span><span class="letter">W</span><span class="letter">N</span><br>
+      <span class="letter">S</span><span class="letter">L</span><span class="letter">O</span><span class="letter">W</span><span class="letter">L</span><span class="letter">Y</span>
+    </h1>
+    <div class="hero-meta">
+      <div class="hero-meta-block">
+        <span class="hero-meta-label">Origin</span>
+        <span class="hero-meta-body">Halcyon's pantry team sources from a small set of cooperatives across the Pacific Northwest and the Andes. The harvest schedule sets the catalog.</span>
+      </div>
+      <div class="hero-meta-block">
+        <span class="hero-meta-label">Field notes · 47.6°N 122.3°W</span>
+        <span class="hero-meta-body">Each lot ships once. When the season closes the listing closes. The team keeps a wait list for the regulars and lets the rest go.</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" data-canvas="olive" aria-label="Colour tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Palette</p>
+      <h2 class="section-title">Five<br>colours</h2>
+      <p class="section-lede">The system holds a locked palette — Forest as the dark anchor, Sage as the recognisability canvas, Olive as the feature surface, Cream as the lightest paper tone, Moss as the mid. Dark text always sits at Forest, never neutral black.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--brand-canvas-night);"></div>
+        <span class="swatch-role">Anchor</span>
+        <span class="swatch-name">--primary</span>
+        <span class="swatch-hex">Forest · #01472e</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--brand-accent-sage);"></div>
+        <span class="swatch-role">Hero canvas</span>
+        <span class="swatch-name">--brand-accent-sage</span>
+        <span class="swatch-hex">Sage · #ccd5ae</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--brand-accent-olive);"></div>
+        <span class="swatch-role">Feature canvas</span>
+        <span class="swatch-name">--brand-accent-olive</span>
+        <span class="swatch-hex">Olive · #e9edc9</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--background); border-color: var(--brand-hairline-strong);"></div>
+        <span class="swatch-role">Paper</span>
+        <span class="swatch-name">--background</span>
+        <span class="swatch-hex">Cream · #fefae0</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--brand-accent-moss);"></div>
+        <span class="swatch-role">Mid-tone</span>
+        <span class="swatch-name">--brand-accent-moss</span>
+        <span class="swatch-hex">Moss · #a3b18a</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--brand-hairline-soft);"></div>
+        <span class="swatch-role">Hairline</span>
+        <span class="swatch-name">--brand-hairline-soft</span>
+        <span class="swatch-hex">Utility neutral</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-canvas="cream" aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces</p>
+      <h2 class="section-title">Canvas<br>ladder</h2>
+      <p class="section-lede">Long-scroll pages step through Cream, Sage, Olive, Moss, Forest in that order — five colour-blocked canvases joined by 5rem rounded corners. The system never separates surfaces with a hairline; the corner radius is the divider.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="cream">
+        <span class="ladder-num">01 · Paper</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">lightest canvas · descriptive text · origin labels</span>
+      </div>
+      <div class="ladder-step" data-step="sage">
+        <span class="ladder-num">02 · Anchor</span>
+        <span class="ladder-name">--brand-accent-sage</span>
+        <span class="ladder-role">hero band · the recognisability surface</span>
+      </div>
+      <div class="ladder-step" data-step="olive">
+        <span class="ladder-num">03 · Feature</span>
+        <span class="ladder-name">--brand-accent-olive</span>
+        <span class="ladder-role">feature grid · 3-column card surface</span>
+      </div>
+      <div class="ladder-step" data-step="moss">
+        <span class="ladder-num">04 · Mid</span>
+        <span class="ladder-name">--brand-accent-moss</span>
+        <span class="ladder-role">interlude band · supporting canvas</span>
+      </div>
+      <div class="ladder-step" data-step="forest">
+        <span class="ladder-num">05 · Anchor</span>
+        <span class="ladder-name">--brand-canvas-night</span>
+        <span class="ladder-role">footer · the only dark surface in the page</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-canvas="cream" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">Anton<br>on Inter</h2>
+      <p class="section-lede">The display register runs Anton — a heavy condensed industrial sans — at viewport scale, with negative letter-spacing and a 0.85 line-height. Inter carries body and UI, with labels and buttons rendered uppercase at wide tracking. The pairing carries the Organic Brutalist tension.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Hero</span><span class="type-display">Grown slowly.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Anton · 400 · -0.04em</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter · 700 · 18 / 1.3</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default running text in Inter at 16 pixels, line-height 1.55. Forest ink on Cream canvas — the slight green chroma is the identity.</span></div>
+        <div class="type-row"><span class="type-label">Label</span><span class="type-label-demo">Field journal · 0.25em tracking</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">pantry.lots.next_release()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · pill register</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" data-size="lg" type="button">Reserve a lot</button>
+            <button class="btn" data-variant="secondary" type="button">Open the journal</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Chips · canvas tones</span>
+          <div class="cmp-row">
+            <span class="cmp-chip" data-tone="sage">Hero</span>
+            <span class="cmp-chip" data-tone="olive">Feature</span>
+            <span class="cmp-chip" data-tone="moss">Mid</span>
+            <span class="cmp-chip" data-tone="cream">Paper</span>
+            <span class="cmp-chip" data-tone="forest">Anchor</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Newsletter input · pill · 44px floor</span>
+          <div class="cmp-row">
+            <input class="text-input" type="email" placeholder="team@halcyon.dev" aria-label="Work email">
+            <button class="btn" data-variant="primary" type="button">Subscribe</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" aria-label="Footer">
+  <div class="footer-inner">
+    <div>
+      <p class="footer-newsletter-label">Field journal · 12 issues a year</p>
+      <h3 class="footer-newsletter-title">Slow news from a slow pantry.</h3>
+      <form class="footer-newsletter-input" onsubmit="return false;">
+        <input type="email" placeholder="team@halcyon.dev" aria-label="Subscribe to the field journal">
+        <button class="footer-newsletter-submit" type="submit">Subscribe</button>
+      </form>
+    </div>
+    <div>
+      <p class="footer-col-title">Catalog</p>
+      <ul class="footer-list">
+        <li><a href="#">Pantry</a></li>
+        <li><a href="#">Origins</a></li>
+        <li><a href="#">Lots</a></li>
+        <li><a href="#">Wait list</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list">
+        <li><a href="#">halcyon.dev</a></li>
+        <li><a href="#">app.halcyon.dev</a></li>
+        <li><a href="#">@halcyon/cli</a></li>
+        <li><a href="#">hlc.so</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>nature · token surface preview · 2026.05.26</span>
+    <span>five colours · two faces · one curve</span>
+  </div>
+</footer>
+
+</body>
+</html>

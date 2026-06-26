@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230a0a0a'/%3E%3Crect x='6' y='8' width='4' height='16' fill='%23faff69'/%3E%3Crect x='12' y='8' width='4' height='16' fill='%23faff69'/%3E%3Crect x='18' y='8' width='4' height='16' fill='%23faff69'/%3E%3Crect x='24' y='8' width='2' height='16' fill='%23faff69'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Warm-tinted near-black canvas (#1f1f1c) + electric yellow primary (#faff69, the only chromatic accent) + Basier display headings with Inter body + SQL query window signature mockup + huge yellow stat-callout numbers + full-bleed yellow CTA band. Single-polarity dark — ClickHouse ships no light variant.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === ClickHouse-style preview shell — single-polarity dark.
+   Warm-tinted near-black canvas (#1f1f1c, chroma 0.0056 on yellow-axis
+   hue 106 — NOT pure neutral). Electric yellow primary (#faff69) doing
+   all brand work — only chromatic accent on the surface. Stat-callout
+   numbers in huge yellow Basier carry the credibility moment. SQL
+   query window with syntax highlighting as the signature surface.
+   Full-bleed yellow CTA band used sparingly as the closing punctuation.
+   Basier for display H1s (heading register on /cloud, /blog),
+   Inter for body + UI weights 700/600/400. JetBrains Mono for SQL.
+   Halcyon-themed neutral content. ClickHouse ships no live light
+   variant; preview.html and preview-dark.html render the same dark
+   canonical surface. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Basier', 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav (dark, yellow CTA) -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Basier', 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 22px; height: 22px;
+  border-radius: var(--brand-radius-xs);
+  background: var(--primary);
+  display: inline-grid;
+  place-items: center;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--primary-foreground);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--brand-body);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; font-size: 14px; }
+.topnav-actions a { color: var(--brand-body); text-decoration: none; font-weight: 500; }
+.topnav-actions a:hover { color: var(--foreground); }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (square-ish 8 px radius, 44 px touch target) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--radius-md);
+  font-family: 'Basier', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-active); border-color: var(--brand-primary-active); }
+.btn[data-variant="secondary"] {
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--brand-hairline-strong);
+}
+.btn[data-variant="secondary"]:hover { background: var(--card); border-color: var(--brand-body); }
+.btn[data-variant="dark"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--background);
+}
+.btn[data-variant="dark"]:hover { background: var(--card); border-color: var(--card); }
+.btn[data-size="lg"] { min-height: 52px; padding: 0 1.5rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (Inter-700 display, yellow + secondary CTAs) -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+}
+.hero-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 880px) { .hero-inner { grid-template-columns: 1fr; gap: 2rem; } }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 1.5rem;
+}
+.eyebrow-square {
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+}
+.hero-display {
+  font-family: 'Basier', 'Inter', sans-serif;
+  font-size: clamp(2.75rem, 6.5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 16ch;
+}
+.hero-lede {
+  font-family: 'Basier', 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-body);
+  max-width: 38rem;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* -- Signature: SQL query window -- */
+.sql-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.sql-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--brand-surface-elevated);
+}
+.sql-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+.sql-tab {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--brand-radius-xs);
+  color: var(--brand-muted-soft);
+}
+.sql-tab[aria-selected="true"] {
+  background: var(--card);
+  color: var(--primary);
+  border: 1px solid var(--border);
+}
+.sql-url {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--brand-muted-soft);
+}
+.sql-body {
+  padding: 1rem 1.25rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--brand-body);
+  overflow-x: auto;
+}
+.sql-body .ln { display: inline-block; width: 1.5rem; color: var(--brand-muted-soft); text-align: right; margin-right: 1rem; user-select: none; }
+.sql-body .line { display: block; }
+.sql-body .kw { color: var(--primary); font-weight: 500; }
+.sql-body .fn { color: var(--brand-accent-blue); }
+.sql-body .str { color: var(--brand-success); }
+.sql-body .com { color: var(--brand-muted-soft); font-style: italic; }
+.sql-body .num { color: var(--brand-warning); }
+.sql-result {
+  padding: 0.75rem 1rem;
+  background: var(--brand-surface-elevated);
+  border-top: 1px solid var(--border);
+}
+.sql-result-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--brand-muted-soft);
+  margin-bottom: 0.5rem;
+}
+.sql-result-meta strong {
+  color: var(--primary);
+  font-weight: 600;
+}
+.sql-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+}
+.sql-table th, .sql-table td {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-top: 1px solid var(--border);
+  color: var(--brand-body);
+}
+.sql-table th {
+  color: var(--brand-muted-soft);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-top: none;
+  padding-top: 0.5rem;
+}
+.sql-table td:first-child {
+  color: var(--primary);
+}
+
+/* -- Stat strip (the credibility moment — huge yellow numbers) -- */
+.stats-section {
+  padding: 4rem 1.5rem;
+  background: var(--secondary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.stats-grid {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 880px) { .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.stat-value {
+  font-family: 'Basier', 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--primary);
+  font-feature-settings: "tnum";
+}
+.stat-label {
+  font-family: 'Basier', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brand-body);
+  letter-spacing: 0;
+}
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; }
+.section[data-tight] { padding: 3rem 1.5rem; }
+.section-inner { max-width: 1240px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'Basier', 'Inter', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 36rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--brand-radius-xs);
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 880px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="soft"] { background: var(--secondary); color: var(--foreground); }
+.ladder-step[data-step="card"] { background: var(--card); color: var(--foreground); }
+.ladder-step[data-step="elevated"] { background: var(--brand-surface-elevated); color: var(--foreground); }
+.ladder-num {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+}
+.ladder-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--foreground);
+}
+.ladder-role { font-size: 14px; color: var(--brand-body); margin-top: auto; line-height: 1.45; }
+
+/* -- Pricing (dark tiles, featured = yellow band) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pricing-card[data-featured] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+}
+.pricing-name {
+  font-family: 'Basier', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-name { color: var(--primary-foreground); }
+.pricing-price {
+  font-family: 'Basier', 'Inter', sans-serif;
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-price { color: var(--primary-foreground); }
+.pricing-tagline {
+  font-size: 13px;
+  color: var(--brand-body);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--primary-foreground); opacity: 0.85; }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  font-size: 13px;
+  color: var(--brand-body);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: rgba(20, 20, 20, 0.25);
+  color: var(--primary-foreground);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "▸";
+  color: var(--primary);
+  flex-shrink: 0;
+  width: 14px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--primary-foreground); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+}
+.type-display {
+  font-family: 'Basier', 'Inter', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Basier', 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Basier', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; line-height: 1.55; color: var(--brand-body); }
+.type-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: var(--brand-body); letter-spacing: 0.04em; }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+  width: 100%;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Basier', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--card);
+  color: var(--brand-body);
+  border: 1px solid var(--border);
+}
+.tag[data-tone="yellow"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.tag[data-tone="green"] {
+  background: transparent;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* -- Full-bleed yellow CTA band (the closing punctuation) -- */
+.cta-band {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 4rem 1.5rem;
+}
+.cta-band-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 880px) { .cta-band-inner { grid-template-columns: 1fr; gap: 1.5rem; text-align: left; } }
+.cta-band-title {
+  font-family: 'Basier', 'Inter', sans-serif;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--primary-foreground);
+  margin: 0 0 0.75rem;
+}
+.cta-band-lede {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--primary-foreground);
+  opacity: 0.9;
+  margin: 0;
+  max-width: 36rem;
+}
+.cta-band-ctas {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+@media (max-width: 880px) { .cta-band-ctas { justify-content: flex-start; } }
+
+/* -- Footer -- */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 1.5rem 2rem;
+  background: var(--background);
+}
+.footer-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 13px; color: var(--brand-body); line-height: 1.55; margin: 0; }
+.footer-col-title {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 13px; color: var(--brand-body); text-decoration: none; }
+.footer-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1240px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  color: var(--brand-muted-soft);
+}
+.footer-legal-meta { font-family: 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 0.04em; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Cloud</a>
+      <a href="#">Database</a>
+      <a href="#">Use cases</a>
+      <a href="#">Docs</a>
+      <a href="#">Pricing</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Get started</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-square" aria-hidden="true"></span>Halcyon · workspace</p>
+      <h1 class="hero-display">The high-contrast surface for the whole team.</h1>
+      <p class="hero-lede">Halcyon's product team writes notes, runs queries, and watches logs on a near-pure black canvas. White type, electric yellow on every action — no atmospheric decoration to compete with the work.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" data-size="lg" type="button">Get started — free</button>
+        <button class="btn" data-variant="secondary" data-size="lg" type="button">Read the docs</button>
+      </div>
+    </div>
+    <article class="sql-card" aria-label="SQL query signature mockup">
+      <header class="sql-head">
+        <div class="sql-tabs" role="tablist">
+          <span class="sql-tab" aria-selected="true">funnel.sql</span>
+          <span class="sql-tab">cohorts.sql</span>
+        </div>
+        <span class="sql-url">workspace.halcyon.dev / queries</span>
+      </header>
+      <div class="sql-body">
+        <span class="line"><span class="ln">1</span><span class="com">-- Notes shared with the team this week</span></span>
+        <span class="line"><span class="ln">2</span><span class="kw">SELECT</span></span>
+        <span class="line"><span class="ln">3</span>  <span class="fn">toStartOfWeek</span>(shared_at) <span class="kw">AS</span> week,</span>
+        <span class="line"><span class="ln">4</span>  <span class="fn">count</span>(<span class="kw">DISTINCT</span> note_id) <span class="kw">AS</span> notes,</span>
+        <span class="line"><span class="ln">5</span>  <span class="fn">count</span>(<span class="kw">DISTINCT</span> author_id) <span class="kw">AS</span> authors</span>
+        <span class="line"><span class="ln">6</span><span class="kw">FROM</span> notes</span>
+        <span class="line"><span class="ln">7</span><span class="kw">WHERE</span> shared_at &gt; <span class="fn">now</span>() - <span class="kw">INTERVAL</span> <span class="num">12</span> <span class="kw">WEEK</span></span>
+        <span class="line"><span class="ln">8</span><span class="kw">GROUP BY</span> week <span class="kw">ORDER BY</span> week <span class="kw">DESC</span>;</span>
+      </div>
+      <div class="sql-result">
+        <div class="sql-result-meta">
+          <span><strong>12 rows</strong> · 24 ms · 1.2 MB scanned</span>
+          <span>main · halcyon</span>
+        </div>
+        <table class="sql-table">
+          <thead>
+            <tr>
+              <th>week</th>
+              <th>notes</th>
+              <th>authors</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>2026-05-18</td><td>184</td><td>32</td></tr>
+            <tr><td>2026-05-11</td><td>176</td><td>30</td></tr>
+            <tr><td>2026-05-04</td><td>168</td><td>28</td></tr>
+            <tr><td>2026-04-27</td><td>145</td><td>27</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </div>
+</header>
+
+<section class="stats-section" aria-label="Stats">
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="stat-value">779+</div>
+      <div class="stat-label">contributors</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">2.8k+</div>
+      <div class="stat-label">community queries</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">47k+</div>
+      <div class="stat-label">workspace stars</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">12ms</div>
+      <div class="stat-label">median query latency</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Black canvas, one electric voltage.</h2>
+      <p class="section-lede">Near-pure black canvas with white type. Electric yellow primary doing all brand work — CTAs, stat numbers, full-bleed bands. Card surfaces barely lifted from canvas; the system never reaches for color decoration when the yellow is enough.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--secondary);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--secondary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--card);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--card</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-elevated);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-elevated</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Primary</div><div class="swatch-name">--primary · electric yellow</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-primary-active);"></div><div class="swatch-role">Primary</div><div class="swatch-name">--brand-primary-active</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--accent);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--accent · green</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-blue);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-accent-blue</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-muted-soft);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-muted-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-warning);"></div><div class="swatch-role">Status</div><div class="swatch-name">--brand-warning</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces</p>
+      <h2 class="section-title">Four surfaces, near-black ladder.</h2>
+      <p class="section-lede">Canvas at oklch(0.14), secondary at 0.18, card at 0.22, elevated at 0.26. Color-block contrast is deliberately subtle — depth comes from hairline borders and the yellow CTAs, not from canvas tone shifts.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · marketing surface</span>
+      </div>
+      <div class="ladder-step" data-step="soft">
+        <span class="ladder-num">Soft</span>
+        <span class="ladder-name">--secondary</span>
+        <span class="ladder-role">stats band · subtle divider</span>
+      </div>
+      <div class="ladder-step" data-step="card">
+        <span class="ladder-num">Card</span>
+        <span class="ladder-name">--card</span>
+        <span class="ladder-role">feature card · code window · pricing</span>
+      </div>
+      <div class="ladder-step" data-step="elevated">
+        <span class="ladder-num">Elevated</span>
+        <span class="ladder-name">--brand-surface-elevated</span>
+        <span class="ladder-role">code head · result strip · nested chrome</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three tiers. No seat tax.</h2>
+      <p class="section-lede">Flat per-workspace pricing. Featured tier inverted to yellow — the only place a marketing surface commits to the brand's voltage in full.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="dark" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · type + components</p>
+      <h2 class="section-title">Inter at weight 700.</h2>
+      <p class="section-lede">Display tier at Inter weight 700 with tight negative tracking (-4%). Body at weight 400, emphasis at 600. JetBrains Mono carries every SQL query, eyebrow, caption, and code reference. No serif counterpoint.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">High contrast.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Inter weight 700</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter · 600 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Inter at 14–16 pixels, line-height 1.55. White-on-near-black foreground for ink, muted gray for helper copy.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">SELECT count() FROM notes;</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · square 8 px, 44 px touch</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Get started</button>
+            <button class="btn" data-variant="secondary" type="button">Read the docs</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Tags · pill, uppercase</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <span class="tag">Workspace</span>
+            <span class="tag" data-tone="yellow">Active</span>
+            <span class="tag" data-tone="green">Open source</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" aria-label="Closing CTA band">
+  <div class="cta-band-inner">
+    <div>
+      <h2 class="cta-band-title">Open the workspace.</h2>
+      <p class="cta-band-lede">The full-bleed yellow band is the brand's closing punctuation — used once per page, never twice.</p>
+    </div>
+    <div class="cta-band-ctas">
+      <button class="btn" data-variant="dark" data-size="lg" type="button">Get started — free</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the dark-canonical electric-yellow design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-list"><li><a href="#">Workspace</a></li><li><a href="#">Queries</a></li><li><a href="#">Cloud</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list"><li><a href="#">Docs</a></li><li><a href="#">Community</a></li><li><a href="#">Changelog</a></li><li><a href="#">Blog</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">workspace.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">black canvas · electric yellow · Inter 700 · JetBrains Mono</span>
+  </div>
+</footer>
+
+</body>
+</html>

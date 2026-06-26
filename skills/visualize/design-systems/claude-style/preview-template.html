@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23faf9f5'/%3E%3Cpath d='M16 6 L18 14 L26 16 L18 18 L16 26 L14 18 L6 16 L14 14 Z' fill='%23c6613f'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Two equally first-class surface families on one identity — Anthropic on warm cream (#faf9f5) with serif editorial register, Claude on near-black (#141413) with coral CTA and dark code-block + footer. Token surfaces rendered on Halcyon-themed neutral content.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Claude-style preview shell — both-canonical editorial register.
+   Two surface families on one identity: Anthropic on warm cream
+   (#faf9f5) with serif editorial body, Claude on near-black (#141413)
+   with coral CTAs and a dark code-block / footer floor.
+   Brand-true coral identity is the saturated #c6613f (live: anthropic.com
+   "Log in to Claude" nav pill + platform.claude.com floating "Ask Docs"
+   pill). The lighter #d97757 lives at --brand-primary-soft for cookie-CTA
+   and dark-card primary variants. Primary CTAs route through
+   --primary at sub-AA body-floor (4.05:1 white-on-coral, 4.86:1
+   dark-ink-on-coral); button text in the preview is qualified at
+   large-text-bold floor (≥19px @ 700) to clear contrast.
+   Display fonts route through 'Anthropic Serif' → Source Serif 4 →
+   Georgia (Anthropic's proprietary serif isn't licensable). Body sans
+   routes through 'Anthropic Sans' → Inter. Code through 'Anthropic
+   Mono' → JetBrains Mono. Halcyon-themed neutral content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--brand-body, var(--foreground));
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-soft, var(--border));
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  font-size: 14px;
+}
+.topnav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  color: var(--foreground);
+}
+.topnav-brand-mark {
+  width: 18px;
+  height: 18px;
+  position: relative;
+}
+.topnav-brand-mark::before, .topnav-brand-mark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--primary);
+  clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+}
+.topnav-brand-mark::after { transform: rotate(45deg); opacity: 0.7; }
+.topnav-links {
+  display: flex;
+  gap: 1.75rem;
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+.topnav-links a { color: var(--brand-body, var(--foreground)); text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Buttons -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.125rem;
+  border-radius: var(--radius-md, 8px);
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease;
+}
+.btn[data-variant="primary"] { background: var(--primary); color: var(--primary-foreground); }
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-active, var(--primary)); }
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.btn[data-variant="secondary"]:hover { background: var(--card); }
+.btn[data-variant="ghost"] { background: transparent; color: var(--foreground); }
+.btn[data-variant="ghost"]:hover { background: var(--card); }
+.btn[data-size="lg"] { padding: 0.75rem 1.375rem; font-size: 15px; }
+
+/* -- Hero -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft, var(--muted-foreground));
+  margin: 0;
+}
+.eyebrow-mark {
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+}
+.hero-display {
+  font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 22ch;
+}
+.hero-lede {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-body, var(--foreground));
+  max-width: 52ch;
+  margin: 0;
+}
+.hero-ctas { display: flex; gap: 0.625rem; flex-wrap: wrap; margin-top: 0.75rem; }
+
+/* -- Page container -- */
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* -- Section -- */
+.section { padding: 5rem 0; }
+.section-header { margin-bottom: 2.5rem; max-width: 60ch; }
+.section-title {
+  font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0.75rem 0;
+  max-width: 22ch;
+}
+.section-lede {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--brand-body, var(--foreground));
+  max-width: 56ch;
+  margin: 0;
+}
+
+/* -- Dark product card (code mockup) — Claude's signature dark surface -- */
+.product-card {
+  background: var(--brand-canvas-dark-deep, var(--foreground));
+  color: var(--brand-on-dark, var(--background));
+  border-radius: var(--radius-lg, 12px);
+  overflow: hidden;
+  box-shadow: 0 1px 3px hsl(28 8% 22% / 0.08), 0 8px 24px hsl(28 8% 22% / 0.04);
+}
+.product-card-header {
+  background: var(--brand-surface-dark-elevated, var(--card));
+  padding: 0.875rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  border-bottom: 1px solid color-mix(in srgb, var(--brand-on-dark, white) 8%, transparent);
+}
+.product-card-tabs { display: flex; gap: 1rem; color: var(--brand-on-dark-soft, var(--muted-foreground)); font-family: 'Anthropic Sans', 'StyreneB', 'Inter'; }
+.product-card-tabs span[aria-current="page"] { color: var(--brand-on-dark, white); }
+.product-card-meta {
+  font-family: 'Anthropic Mono', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-on-dark-soft, var(--muted-foreground));
+}
+.product-card-body { padding: 1.25rem 1.5rem; font-family: 'Anthropic Mono', 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.7; }
+.code-line { display: block; }
+.code-comment { color: color-mix(in srgb, var(--brand-on-dark, white) 50%, transparent); }
+.code-key { color: var(--brand-accent-amber, var(--accent)); }
+.code-string { color: var(--brand-success, var(--accent)); }
+.code-fn { color: var(--primary); }
+.code-num { color: var(--brand-accent-amber, var(--accent)); }
+.code-out { color: color-mix(in srgb, var(--brand-on-dark, white) 65%, transparent); }
+.code-out-ok::before { content: "✓ "; color: var(--brand-success, var(--accent)); }
+
+/* -- Surface section: token ladder -- */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 880px) { .surface-ladder { grid-template-columns: repeat(2, 1fr); } }
+.surface-step {
+  padding: 1.5rem;
+  border-radius: var(--radius-lg, 12px);
+  min-height: 8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.surface-step[data-step="0"] { background: var(--background); color: var(--foreground); border: 1px solid var(--border); }
+.surface-step[data-step="1"] { background: var(--card); color: var(--foreground); }
+.surface-step[data-step="2"] { background: var(--brand-surface-cream-strong, var(--card)); color: var(--foreground); }
+.surface-step[data-step="3"] { background: var(--brand-canvas-dark-deep, var(--foreground)); color: var(--brand-on-dark, var(--background)); }
+.surface-step-num {
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.surface-step-name { font-family: 'Anthropic Mono', 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; }
+.surface-step-role { font-size: 14px; opacity: 0.78; line-height: 1.4; }
+
+/* Coral callout card (the brand's full-bleed accent surface) */
+.coral-callout {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-radius: var(--radius-xl, 16px);
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+@media (max-width: 880px) { .coral-callout { grid-template-columns: 1fr; } }
+.coral-callout-title {
+  font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: -0.6px;
+  line-height: 1.15;
+  margin: 0 0 0.75rem;
+}
+.coral-callout-body { font-size: 15px; line-height: 1.55; margin: 0; max-width: 32ch; }
+.coral-callout-actions { display: flex; flex-direction: column; gap: 0.5rem; }
+.coral-callout .btn[data-variant="primary"] { background: var(--background); color: var(--foreground); }
+.coral-callout .btn[data-variant="primary"]:hover { background: var(--card); }
+.coral-callout .btn[data-variant="ghost"] { color: var(--primary-foreground); border: 1px solid color-mix(in srgb, var(--primary-foreground) 35%, transparent); }
+.coral-callout .btn[data-variant="ghost"]:hover { background: color-mix(in srgb, var(--primary-foreground) 8%, transparent); }
+
+/* -- Typography roles -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--brand-hairline-soft, var(--border));
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft, var(--muted-foreground));
+}
+.type-display-xl { font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif; font-size: 64px; font-weight: 400; line-height: 1.05; letter-spacing: -1.5px; color: var(--foreground); }
+.type-display-lg { font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif; font-size: 48px; font-weight: 400; line-height: 1.1; letter-spacing: -1px; color: var(--foreground); }
+.type-display-md { font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif; font-size: 36px; font-weight: 400; line-height: 1.15; letter-spacing: -0.5px; color: var(--foreground); }
+.type-title { font-family: 'Anthropic Sans', 'StyreneB', 'Inter', sans-serif; font-size: 22px; font-weight: 500; line-height: 1.3; color: var(--foreground); }
+.type-body { font-size: 16px; font-weight: 400; line-height: 1.55; color: var(--brand-body, var(--foreground)); }
+.type-mono { font-family: 'Anthropic Mono', 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: var(--foreground); }
+
+/* -- Components -- */
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: var(--brand-radius-pill, 9999px);
+  background: var(--card);
+  color: var(--foreground);
+  border: 1px solid var(--brand-hairline-soft, var(--border));
+}
+.badge[data-tone="coral"] { background: color-mix(in srgb, var(--primary) 14%, var(--background)); color: var(--foreground); border-color: color-mix(in srgb, var(--primary) 25%, transparent); }
+.badge[data-tone="amber"] { background: color-mix(in srgb, var(--brand-accent-amber, var(--primary)) 18%, var(--background)); color: var(--foreground); }
+.badge[data-tone="success"] { background: color-mix(in srgb, var(--brand-success, var(--primary)) 14%, var(--background)); color: var(--foreground); }
+
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+@media (max-width: 880px) { .model-grid { grid-template-columns: 1fr; } }
+.model-card {
+  background: var(--card);
+  border: 1px solid var(--brand-hairline-soft, var(--border));
+  border-radius: var(--radius-lg, 12px);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.model-card-name {
+  font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+.model-card-desc { font-size: 14px; line-height: 1.55; color: var(--brand-body, var(--foreground)); margin: 0; }
+.model-card-meta {
+  font-family: 'Anthropic Mono', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-muted-soft, var(--muted-foreground));
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--brand-hairline-soft, var(--border));
+  margin-top: 0.25rem;
+}
+
+/* -- Footer (dark) -- */
+.footer {
+  background: var(--brand-canvas-dark-deep, var(--foreground));
+  color: var(--brand-on-dark, var(--background));
+  padding: 4rem 1.5rem 2rem;
+  margin-top: 5rem;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.footer-brand {
+  font-family: 'Anthropic Serif', 'Copernicus', 'Tiempos Headline', 'Source Serif 4', Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+}
+.footer-brand-tag {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--brand-on-dark-soft, var(--muted-foreground));
+  max-width: 32ch;
+}
+.footer-col-title {
+  font-family: 'Anthropic Sans', 'StyreneB', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--brand-on-dark-soft, var(--muted-foreground));
+  margin: 0 0 0.75rem;
+}
+.footer-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 14px; }
+.footer-col-list a { color: var(--brand-on-dark, var(--background)); text-decoration: none; }
+.footer-col-list a:hover { text-decoration: underline; }
+.footer-legal {
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid color-mix(in srgb, var(--brand-on-dark, white) 12%, transparent);
+  font-size: 12px;
+  color: var(--brand-on-dark-soft, var(--muted-foreground));
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <span class="topnav-brand"><span class="topnav-brand-mark" aria-hidden="true"></span>__DESIGN_SYSTEM_NAME__</span>
+    <div class="topnav-links">
+      <a href="#">Tokens</a>
+      <a href="#">Typography</a>
+      <a href="#">Models</a>
+      <a href="#">Code</a>
+      <a href="#">Research</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="btn" data-variant="ghost">Try the agent</button>
+      <button class="btn" data-variant="primary">Get started</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>__DESIGN_SYSTEM_NAME__ · Token surface</p>
+    <h1 class="hero-display">An editorial canvas for agent-assisted work.</h1>
+    <p class="hero-lede">A token-surface preview rendered against the design system. Warm cream canvas, slab-serif display, coral accent, dark-navy code surface — the signature moves shown on neutral content.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg">Get started</button>
+      <button class="btn" data-variant="secondary" data-size="lg">Read the docs →</button>
+    </div>
+  </div>
+</section>
+
+<main class="page">
+
+  <section class="section" aria-label="Code mockup">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>Product · Code surface</p>
+      <h2 class="section-title">Cream canvas, dark-navy code chrome.</h2>
+      <p class="section-lede">The brand's signature pacing: warm cream above, dark navy product surface below. Code blocks, terminal output, and model showcase live on the dark canvas.</p>
+    </div>
+    <div class="product-card" aria-label="Code mockup">
+      <div class="product-card-header">
+        <div class="product-card-tabs">
+          <span aria-current="page">agent.py</span>
+          <span>messages.json</span>
+          <span>README.md</span>
+        </div>
+        <span class="product-card-meta">halcyon-api / src · main</span>
+      </div>
+      <div class="product-card-body">
+        <span class="code-line"><span class="code-comment"># Halcyon — ask the agent about the codebase.</span></span>
+        <span class="code-line"><span class="code-key">from</span> halcyon.agent <span class="code-key">import</span> ask</span>
+        <span class="code-line">&nbsp;</span>
+        <span class="code-line">answer = <span class="code-fn">ask</span>(</span>
+        <span class="code-line">&nbsp;&nbsp;<span class="code-string">"Where does role escalation happen?"</span>,</span>
+        <span class="code-line">&nbsp;&nbsp;scope=<span class="code-string">"halcyon-api/src"</span>,</span>
+        <span class="code-line">)</span>
+        <span class="code-line">&nbsp;</span>
+        <span class="code-line"><span class="code-out code-out-ok">read 18 files, traced 4 call paths in <span class="code-num">2.1</span>s</span></span>
+        <span class="code-line"><span class="code-out">→ halcyon-api/src/auth.ts:42 escalateRole()</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Surface ladder">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>Tokens · Surface</p>
+      <h2 class="section-title">Cream canvas, warm cards, dark inverse.</h2>
+      <p class="section-lede">Four surfaces alternate page-by-page: cream canvas, light cream cards, warm cream-strong for content density, dark navy for product chrome. Coral CTA bridges them.</p>
+    </div>
+    <div class="surface-ladder">
+      <div class="surface-step" data-step="0"><span class="surface-step-num">Floor</span><span class="surface-step-name">--background</span><span class="surface-step-role">cream canvas · #faf9f5</span></div>
+      <div class="surface-step" data-step="1"><span class="surface-step-num">Card</span><span class="surface-step-name">--card</span><span class="surface-step-role">light cream</span></div>
+      <div class="surface-step" data-step="2"><span class="surface-step-num">Strong</span><span class="surface-step-name">--brand-surface-cream-strong</span><span class="surface-step-role">warm cream</span></div>
+      <div class="surface-step" data-step="3"><span class="surface-step-num">Dark</span><span class="surface-step-name">--brand-canvas-dark-deep</span><span class="surface-step-role">Claude marketing canvas (#141413)</span></div>
+    </div>
+
+    <div class="coral-callout" aria-label="Coral callout">
+      <div>
+        <h3 class="coral-callout-title">Coral pairs with cream. The bridge between the two surfaces.</h3>
+        <p class="coral-callout-body">Coral is the single chromatic accent in the system. It carries the CTA fill, the callout fill, the brand mark, and the link emphasis — used scarcely so it stays signal, not decoration.</p>
+      </div>
+      <div class="coral-callout-actions">
+        <button class="btn" data-variant="primary" data-size="lg">Get started</button>
+        <button class="btn" data-variant="ghost" data-size="lg">Read research</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>Tokens · Typography</p>
+      <h2 class="section-title">Slab-serif display, humanist body.</h2>
+      <p class="section-lede">Copernicus (Tiempos Headline / Source Serif 4) carries display at weight 400 with negative tracking. StyreneB (Inter) carries body sans. JetBrains Mono for code. Literary editorial voice over technical SaaS.</p>
+    </div>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Display-xl</span><span class="type-display-xl">Halcyon.</span></div>
+      <div class="type-row"><span class="type-label">Display-lg</span><span class="type-display-lg">An editorial canvas for agent work.</span></div>
+      <div class="type-row"><span class="type-label">Display-md</span><span class="type-display-md">Slab-serif display, humanist sans body, mono on code.</span></div>
+      <div class="type-row"><span class="type-label">Title</span><span class="type-title">StyreneB / Inter at 22px, weight 500.</span></div>
+      <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in StyreneB (Inter substitute) at 16 pixels, line-height 1.55. Humanist sans body pairs with the slab-serif display to create the brand's distinct literary register.</span></div>
+      <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">await agent.ask({ scope: 'halcyon-api/src' })</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Components">
+    <div class="section-header">
+      <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>Vocabulary · Components</p>
+      <h2 class="section-title">Coral CTA, cream cards, soft badges.</h2>
+      <p class="section-lede">8px radius on buttons. 12px radius on cards. Pill on badges. Color tokens stay within the cream-coral-dark trinity, with amber and success used only as semantic accents on labels.</p>
+    </div>
+    <div class="cmp-stack">
+      <div class="cmp-row" aria-label="Buttons">
+        <button class="btn" data-variant="primary" data-size="lg">Get started</button>
+        <button class="btn" data-variant="secondary" data-size="lg">Read more</button>
+        <button class="btn" data-variant="ghost">Cancel</button>
+      </div>
+      <div class="cmp-row" aria-label="Badges">
+        <span class="badge" data-tone="coral">Anthropic</span>
+        <span class="badge" data-tone="amber">Beta</span>
+        <span class="badge" data-tone="success">Live</span>
+        <span class="badge">200k context</span>
+      </div>
+      <div class="model-grid">
+        <div class="model-card">
+          <span class="badge" data-tone="coral" style="align-self: flex-start;">Latest</span>
+          <h3 class="model-card-name">Halcyon Pro</h3>
+          <p class="model-card-desc">The default tier. Balanced for everyday work across most of Halcyon's surfaces.</p>
+          <div class="model-card-meta"><span>1M context</span><span>halcyon-pro-4</span></div>
+        </div>
+        <div class="model-card">
+          <span class="badge" data-tone="amber" style="align-self: flex-start;">Frontier</span>
+          <h3 class="model-card-name">Halcyon Max</h3>
+          <p class="model-card-desc">The heaviest variant. Reserved for long-running research and multi-step workflows.</p>
+          <div class="model-card-meta"><span>1M context</span><span>halcyon-max-4</span></div>
+        </div>
+        <div class="model-card">
+          <span class="badge" style="align-self: flex-start;">Fast</span>
+          <h3 class="model-card-name">Halcyon Lite</h3>
+          <p class="model-card-desc">Lightweight and inexpensive. Built for high-volume routing and classification jobs.</p>
+          <div class="model-card-meta"><span>200k context</span><span>halcyon-lite-4</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <span class="footer-brand">__DESIGN_SYSTEM_NAME__</span>
+      <p class="footer-brand-tag">A token-surface preview rendered against the warm-canvas editorial design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-col-list"><li><a href="#">Models</a></li><li><a href="#">API</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Research</p>
+      <ul class="footer-col-list"><li><a href="#">Constitution</a></li><li><a href="#">Papers</a></li><li><a href="#">Index</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-col-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">News</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-col-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">app.halcyon.dev</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.22</span>
+    <span>cream + coral · slab serif · spike mark</span>
+  </div>
+</footer>
+
+</body>
+</html>

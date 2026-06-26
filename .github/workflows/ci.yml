@@ -1,0 +1,123 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Mounts byte-identical (canonical → mirrors)
+        run: bin/sync-mounts.sh --check
+
+      - name: Make scripts executable
+        run: chmod +x bin/sync-mounts.sh dev-scripts/*.mjs visualize/scripts/*.sh visualize/scripts/*.mjs
+
+      - name: Plugin manifests parse as JSON
+        run: |
+          jq empty .cursor-plugin/plugin.json
+          jq empty .codex-plugin/plugin.json
+
+      - name: Bash syntax check
+        run: |
+          bash -n visualize/scripts/_common.sh
+          bash -n visualize/scripts/publish.sh
+          bash -n dev-scripts/build-previews.sh
+          bash -n dev-scripts/build-template-previews.sh
+          bash -n dev-scripts/build-templates-showcase.sh
+
+      - name: Node syntax check
+        run: |
+          node --check visualize/scripts/teach.mjs
+          node --check visualize/scripts/palette.mjs
+          node --check visualize/scripts/detect.mjs
+          node --check visualize/scripts/browser-contrast.mjs
+          node --check visualize/scripts/print-check.mjs
+          node --check visualize/scripts/slide-canvas-overflow.mjs
+          node --check visualize/scripts/slide-canvas-smoke.mjs
+          node --check visualize/shells/slide-canvas/slide-canvas.js
+          node --check dev-scripts/catalog-index.mjs
+          node --check dev-scripts/check-authoring-contracts.mjs
+          node --check dev-scripts/check-fixtures.mjs
+          node --check dev-scripts/check-library-policy.mjs
+          node --check dev-scripts/check-schema.mjs
+          node --check dev-scripts/build-template-previews.mjs
+          node --check dev-scripts/build-templates-showcase.mjs
+          node --check dev-scripts/inventory-template-composition.mjs
+          node --check dev-scripts/palette-curate/generate-candidates.mjs
+          node --check dev-scripts/palette-curate/swipe-server.mjs
+          node --check dev-scripts/palette-curate/coverage.mjs
+          node --check dev-scripts/palette-curate/build-standalone.mjs
+          node --check dev-scripts/palette-curate/ingest-paste.mjs
+          node --check dev-scripts/palette-eval/diversity-audit.mjs
+          node --check dev-scripts/palette-eval/render-strips.mjs
+          node --check dev-scripts/palette-eval/aggregate-moodfit.mjs
+
+      - name: Palette picker smoke
+        # Determinism contract, stratified-zone sampling, seed gamut +
+        # contrast math cross-checked against vendored culori, and the
+        # --check validator regression suite (parser edges, BAN6 bands,
+        # ladder self-consistency).
+        run: node dev-scripts/palette-smoke.mjs
+
+      - name: Catalog selection metadata
+        # DESIGN.md frontmatter feeds deterministic catalog-index.json.
+        # The check fails on missing / invalid selection metadata or
+        # hand-edited index drift.
+        run: node dev-scripts/catalog-index.mjs --check
+
+      - name: slide-canvas unit tests
+        # Pure-logic helpers (computeScale, parseSlideHash, static API).
+        # Zero deps; runs with the bundled node:test runner.
+        run: node --test visualize/shells/slide-canvas/slide-canvas.test.mjs
+
+      - name: Authoring contract
+        # Enforces the template.md / patterns / shells / fixtures model.
+        run: node dev-scripts/check-authoring-contracts.mjs
+
+      - name: Slide-canvas overflow self-test
+        run: node visualize/scripts/slide-canvas-overflow.mjs --self-test
+
+      - name: Library / CDN policy enforcement
+        # Fails the build if any template <script src=...> references a
+        # URL outside the allowlist (Mermaid + Chart.js on cdn.jsdelivr.net).
+        # See dev-scripts/check-library-policy.mjs for the allowlist.
+        run: node dev-scripts/check-library-policy.mjs --quiet
+
+      - name: Fixture manifest checks
+        # Runs each detect / contrast / smoke check declared in fixtures/manifest.json.
+        run: node dev-scripts/check-fixtures.mjs
+
+      - name: Fixture preview smoke matrix
+        # Renders curated fixture/design-system pairs to temp/.
+        run: |
+          node dev-scripts/inventory-template-composition.mjs --strict
+          dev-scripts/build-template-previews.sh --matrix dev-scripts/template-preview-matrix.json
+          find temp/template-previews -name '*.html' -print0 | xargs -0 node visualize/scripts/detect.mjs --strict
+
+      - name: Preview freshness — design-systems/<ds>/preview*.html match generated
+        # Re-runs build-previews.sh in --check mode. Fails if committed
+        # preview.html / preview-dark.html differ from regenerated output.
+        # Forces contributors to commit regenerated previews when they edit
+        # the preview template, fixture styles, or a design system's tokens.css.
+        run: dev-scripts/build-previews.sh --check
+
+      - name: ShellCheck
+        # Pinned to v2.0.0 by full commit SHA — public-repo supply-chain
+        # hygiene; floating branch refs let upstream rewrite history.
+        uses: ludeeus/action-shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38 # v2.0.0
+        with:
+          scandir: ./visualize/scripts
+          severity: warning
+
+      # Deliberately no wire-level smoke against a spawned API. The bash
+      # helpers here are thin shell glue with no business logic of their
+      # own — syntax + shellcheck above is the appropriate gate. The HTTP
+      # contracts the publish path hits (POST /v1/public/artifacts) are
+      # stable display.dev surfaces; any drift would surface in
+      # `@displaydev/cli`'s own tests before reaching this skill.

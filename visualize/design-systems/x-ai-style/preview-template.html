@@ -1,0 +1,1008 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0a'/%3E%3Cpath d='M9 9 L23 23 M23 9 L9 23' stroke='%23ffffff' stroke-width='2.25' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Near-black canvas, white outline-pill grammar, Universal Sans display at -2.4px tracking, mono uppercase eyebrows.">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === xAI-style preview shell — token-surface preview, dark-canonical.
+   xAI ships no light mode (DESIGN.md §6). Both [data-theme="light"]
+   and [data-theme="dark"] render the same near-black canvas.
+   Signature moves: -2.4px display tracking, outline-pill button
+   grammar (universal), one white-filled pill exception (Sign up),
+   mono UPPERCASE eyebrow above every section, hairline borders
+   instead of shadows, sunset / dusk / twilight / breeze accents
+   that live in the tokens but only surface in the model-card
+   identifiers — never as canvas fill. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', 'Universal Sans', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.1px;
+}
+
+/* -- Top nav -- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 64px;
+  background: color-mix(in srgb, var(--background) 92%, transparent);
+  backdrop-filter: blur(16px) saturate(160%);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.topnav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', 'Universal Sans', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  color: var(--foreground);
+}
+.topnav-mark {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--foreground);
+}
+.topnav-links { display: flex; gap: 1.75rem; }
+.topnav-links a {
+  color: var(--foreground);
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+.topnav-links a:hover { opacity: 0.7; }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Button grammar — the outline pill IS the brand -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--brand-radius-pill, 9999px);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: var(--foreground);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+.btn:hover {
+  background: var(--brand-canvas-soft);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+}
+/* The one filled-pill exception — Sign up. Polarity-locked via the
+   dark-canonical token strategy: --primary stays white and
+   --primary-foreground stays near-black in both :root and
+   [data-theme="dark"], so the surface never flips. */
+.btn[data-variant="filled"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="filled"]:hover {
+  background: color-mix(in srgb, var(--primary) 92%, var(--background));
+}
+.btn-sm {
+  min-height: 32px;
+  padding: 0.375rem 0.875rem;
+  font-size: 13px;
+}
+
+/* -- Page container -- */
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* -- Eyebrow (mono uppercase, the brand's section-label signature) -- */
+.eyebrow {
+  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* -- Hero -- */
+.hero {
+  padding: 6rem 0 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+.hero-display {
+  font-family: 'Inter', 'Universal Sans', system-ui, -apple-system, sans-serif;
+  font-size: clamp(2.75rem, 8vw, 6rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin: 0;
+  max-width: 14ch;
+  color: var(--foreground);
+}
+.hero-lede {
+  font-size: 18px;
+  line-height: 1.55;
+  letter-spacing: -0.1px;
+  color: var(--brand-body);
+  max-width: 56ch;
+  margin: 0;
+}
+.hero-ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem; }
+.hero-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  color: var(--brand-body);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.hero-meta::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* -- Section frame -- */
+.section { padding: 4rem 0; border-top: 1px solid var(--border); }
+.section-header { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; max-width: 60ch; }
+.section-title {
+  font-family: 'Inter', 'Universal Sans', system-ui, sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: 0;
+  color: var(--foreground);
+}
+.section-lede {
+  font-size: 16px;
+  line-height: 1.55;
+  letter-spacing: -0.05px;
+  color: var(--brand-body);
+  max-width: 56ch;
+  margin: 0;
+}
+
+/* -- Signature mockup: model-card grid (the brand-defining surface) -- */
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 880px) { .model-grid { grid-template-columns: 1fr; } }
+
+.model-card {
+  background: var(--brand-canvas-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 8px);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 18rem;
+}
+.model-card-glyph {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-sm, 8px);
+  background: var(--brand-canvas-mid);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.model-card-glyph[data-tone="sunset"] {
+  background: color-mix(in srgb, var(--accent) 16%, var(--brand-canvas-mid));
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+.model-card-glyph[data-tone="dusk"] {
+  background: color-mix(in srgb, var(--brand-accent-dusk) 18%, var(--brand-canvas-mid));
+  border-color: color-mix(in srgb, var(--brand-accent-dusk) 35%, var(--border));
+}
+.model-card-glyph[data-tone="breeze"] {
+  background: color-mix(in srgb, var(--brand-accent-breeze) 18%, var(--brand-canvas-mid));
+  border-color: color-mix(in srgb, var(--brand-accent-breeze) 35%, var(--border));
+}
+.model-card-glyph svg { width: 22px; height: 22px; }
+.model-card-name {
+  font-family: 'Inter', 'Universal Sans', system-ui, sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.4px;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0;
+}
+.model-card-desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  flex: 1;
+}
+.model-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  color: var(--brand-body-mid);
+  letter-spacing: 0.05em;
+}
+.model-card-meta-id { text-transform: lowercase; }
+.model-card-meta-ctx { text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* -- Color swatch band -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  background: var(--brand-canvas-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 8px);
+  padding: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.swatch-chip {
+  height: 4rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.swatch-role {
+  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-body-mid);
+}
+.swatch-name {
+  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  color: var(--foreground);
+}
+
+/* -- Surface ladder -- */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 8px);
+  overflow: hidden;
+}
+@media (max-width: 880px) { .surface-ladder { grid-template-columns: repeat(2, 1fr); } }
+.surface-step {
+  padding: 1.5rem;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 8rem;
+}
+.surface-step:last-child { border-right: none; }
+@media (max-width: 880px) {
+  .surface-step { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .surface-step:nth-child(2n) { border-right: none; }
+  .surface-step:nth-last-child(-n+2) { border-bottom: none; }
+}
+.surface-step[data-step="0"] { background: var(--background); }
+.surface-step[data-step="1"] { background: var(--brand-canvas-soft); }
+.surface-step[data-step="2"] { background: var(--brand-canvas-card); }
+.surface-step[data-step="3"] { background: var(--brand-canvas-mid); }
+.surface-step-num {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-body-mid);
+}
+.surface-step-name {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--foreground);
+}
+.surface-step-role {
+  font-size: 13px;
+  color: var(--brand-body);
+}
+
+/* -- Typography roles -- */
+.type-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.type-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+@media (max-width: 880px) {
+  .type-row { grid-template-columns: 1fr; gap: 0.75rem; }
+}
+.type-label {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--brand-body-mid);
+}
+.type-display-xl {
+  font-family: 'Inter', 'Universal Sans', system-ui, sans-serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+}
+.type-display-lg {
+  font-family: 'Inter', 'Universal Sans', system-ui, sans-serif;
+  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+}
+.type-display-md {
+  font-family: 'Inter', 'Universal Sans', system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.0175em;
+  color: var(--foreground);
+}
+.type-display-sm {
+  font-family: 'Inter', 'Universal Sans', system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+}
+.type-body {
+  font-size: 16px;
+  line-height: 1.55;
+  letter-spacing: -0.05px;
+  color: var(--brand-body);
+}
+.type-mono {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+
+/* -- Component vocabulary -- */
+.components-stack { display: flex; flex-direction: column; gap: 2.5rem; }
+.cmp-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.cmp-label {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--brand-body-mid);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--brand-radius-pill, 9999px);
+  border: 1px solid var(--border);
+  background: var(--brand-canvas-card);
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.tag[data-tone="sunset"] .tag-dot { background: var(--accent); }
+.tag[data-tone="dusk"] .tag-dot { background: var(--brand-accent-dusk); }
+.tag[data-tone="twilight"] .tag-dot { background: var(--brand-accent-twilight); }
+.tag[data-tone="breeze"] .tag-dot { background: var(--brand-accent-breeze); }
+.tag[data-tone="quiet"] .tag-dot { background: var(--brand-body-mid); }
+
+.input-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  max-width: 32rem;
+}
+.text-input {
+  flex: 1;
+  background: var(--brand-canvas-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 8px);
+  padding: 0.75rem 1rem;
+  color: var(--foreground);
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.4;
+  letter-spacing: -0.05px;
+}
+.text-input::placeholder { color: var(--brand-body-mid); }
+.text-input:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+  border-color: var(--foreground);
+}
+
+/* Tier cards — generic SaaS, NOT the host product's surface */
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+@media (max-width: 880px) { .tier-grid { grid-template-columns: 1fr; } }
+.tier-card {
+  background: var(--brand-canvas-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 8px);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.tier-name {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--brand-body-mid);
+}
+.tier-headline {
+  font-family: 'Inter', 'Universal Sans', system-ui, sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0;
+}
+.tier-desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+}
+.tier-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 13px;
+  color: var(--brand-body);
+}
+.tier-features li {
+  padding-left: 1.25rem;
+  position: relative;
+  line-height: 1.5;
+}
+.tier-features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.5rem;
+  height: 1px;
+  background: var(--brand-body-mid);
+}
+
+/* -- Closing band — brand-flavored decorative moment -- */
+.closer {
+  padding: 6rem 0;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+.closer-display {
+  font-family: 'Inter', 'Universal Sans', system-ui, sans-serif;
+  font-size: clamp(2.5rem, 6.5vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin: 0;
+  max-width: 18ch;
+  color: var(--foreground);
+}
+.closer-lede {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  max-width: 56ch;
+  margin: 0;
+}
+.closer-ctas { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+/* -- Footer -- */
+.footer {
+  padding: 4rem 0 2rem;
+  border-top: 1px solid var(--border);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+@media (max-width: 880px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+.footer-col-title {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-body-mid);
+  margin: 0 0 0.875rem;
+}
+.footer-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-col-list a {
+  font-size: 14px;
+  color: var(--brand-body);
+  text-decoration: none;
+  letter-spacing: -0.05px;
+}
+.footer-col-list a:hover { color: var(--foreground); }
+.footer-legal {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-body-mid);
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .topnav-links a, .footer-col-list a {
+    transition: none;
+  }
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <span class="topnav-brand">
+      <span class="topnav-mark" aria-hidden="true">
+        <svg viewBox="0 0 18 18" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+          <path d="M3 3 L15 15 M15 3 L3 15"/>
+        </svg>
+      </span>
+      __DESIGN_SYSTEM_NAME__
+    </span>
+    <div class="topnav-links">
+      <a href="#">Research</a>
+      <a href="#">Models</a>
+      <a href="#">Compute</a>
+      <a href="#">Careers</a>
+      <a href="#">Company</a>
+    </div>
+    <div class="topnav-actions">
+      <a class="btn btn-sm" href="#">Read announcement</a>
+      <a class="btn btn-sm" data-variant="filled" href="#">Sign up</a>
+    </div>
+  </div>
+</nav>
+
+<main class="page">
+
+  <section class="hero" aria-label="Hero">
+    <p class="eyebrow">__DESIGN_SYSTEM_NAME__ · token surface · 2026.05</p>
+    <h1 class="hero-display">A reasoning surface for engineering teams.</h1>
+    <p class="hero-lede">A token-surface preview rendered against the design system. Near-black canvas, white outline-pill grammar, Universal Sans display at heavy negative tracking, mono uppercase eyebrows above every section.</p>
+    <div class="hero-ctas">
+      <a class="btn" href="#">Read the technical report</a>
+      <a class="btn" data-variant="filled" href="#">Request access</a>
+    </div>
+    <span class="hero-meta">Engineered restraint · halcyon.dev</span>
+  </section>
+
+  <section class="section" aria-label="Model card grid (signature surface)">
+    <div class="section-header">
+      <p class="eyebrow">001 · Model surface</p>
+      <h2 class="section-title">A frontier-research card on a charcoal lift.</h2>
+      <p class="section-lede">The single signature mockup. Three cards on canvas-card with a glyph tile, a Universal-Sans name, a quiet body line, and a mono identifier strip across the bottom border. Accent tones (sunset, dusk, breeze) surface here only — never as canvas fill.</p>
+    </div>
+
+    <div class="model-grid">
+      <article class="model-card">
+        <div class="model-card-glyph" data-tone="sunset" aria-hidden="true">
+          <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color: var(--accent);">
+            <circle cx="11" cy="11" r="5"/>
+            <path d="M11 1 L11 4 M11 18 L11 21 M1 11 L4 11 M18 11 L21 11"/>
+          </svg>
+        </div>
+        <h3 class="model-card-name">Atlas Reason</h3>
+        <p class="model-card-desc">The default research surface. Long-horizon planning, tool calls in a deterministic order, no truncation across multi-step engineering sessions.</p>
+        <div class="model-card-meta">
+          <span class="model-card-meta-id">atlas-reason-2</span>
+          <span class="model-card-meta-ctx">1M ctx</span>
+        </div>
+      </article>
+
+      <article class="model-card">
+        <div class="model-card-glyph" data-tone="dusk" aria-hidden="true">
+          <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color: var(--brand-accent-twilight);">
+            <rect x="3" y="5" width="16" height="12" rx="1"/>
+            <path d="M3 9 L19 9 M7 13 L13 13"/>
+          </svg>
+        </div>
+        <h3 class="model-card-name">Atlas Compose</h3>
+        <p class="model-card-desc">A heavier variant for synthesis. Reads across a quarter of source material in a single pass and writes a sectioned summary in the team's house voice.</p>
+        <div class="model-card-meta">
+          <span class="model-card-meta-id">atlas-compose-1</span>
+          <span class="model-card-meta-ctx">2M ctx</span>
+        </div>
+      </article>
+
+      <article class="model-card">
+        <div class="model-card-glyph" data-tone="breeze" aria-hidden="true">
+          <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color: var(--brand-accent-breeze);">
+            <path d="M3 11 L8 6 L13 11 L19 5"/>
+            <circle cx="19" cy="5" r="1.5"/>
+          </svg>
+        </div>
+        <h3 class="model-card-name">Atlas Edge</h3>
+        <p class="model-card-desc">Lightweight and inexpensive. Built for high-volume routing, classification, and the front of the request fan-out before a heavier model picks up the work.</p>
+        <div class="model-card-meta">
+          <span class="model-card-meta-id">atlas-edge-3</span>
+          <span class="model-card-meta-ctx">128k ctx</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Colour swatches">
+    <div class="section-header">
+      <p class="eyebrow">002 · Tokens · Colour</p>
+      <h2 class="section-title">Near-black canvas, restrained accents.</h2>
+      <p class="section-lede">Canvas is one shade. Cards lift by ~6 percentage points of lightness. The accent palette — sunset orange, dusk purple, twilight violet, breeze blue — sits in the tokens as illustrative ink, never as a canvas fill.</p>
+    </div>
+
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-chip" style="background-color: var(--background);"></div>
+        <span class="swatch-role">Canvas</span>
+        <span class="swatch-name">--background</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background-color: var(--foreground);"></div>
+        <span class="swatch-role">Ink</span>
+        <span class="swatch-name">--foreground</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background-color: var(--accent);"></div>
+        <span class="swatch-role">Accent · Sunset</span>
+        <span class="swatch-name">--accent</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background-color: var(--brand-accent-sunset-soft);"></div>
+        <span class="swatch-role">Accent · Soft</span>
+        <span class="swatch-name">--brand-accent-sunset-soft</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background-color: var(--brand-accent-dusk);"></div>
+        <span class="swatch-role">Accent · Dusk</span>
+        <span class="swatch-name">--brand-accent-dusk</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background-color: var(--brand-accent-twilight);"></div>
+        <span class="swatch-role">Accent · Twilight</span>
+        <span class="swatch-name">--brand-accent-twilight</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background-color: var(--brand-accent-breeze);"></div>
+        <span class="swatch-role">Accent · Breeze</span>
+        <span class="swatch-name">--brand-accent-breeze</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background-color: var(--brand-body);"></div>
+        <span class="swatch-role">Ink · Body</span>
+        <span class="swatch-name">--brand-body</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Surface ladder">
+    <div class="section-header">
+      <p class="eyebrow">003 · Tokens · Surface</p>
+      <h2 class="section-title">Four lifts on canvas, no shadows.</h2>
+      <p class="section-lede">Depth on the dark canvas is read through surface lift and a single hairline border. Drop-shadow is absent from the brand. Canvas-mid is reserved for nested elements — code mockups, glyph tiles, secondary chrome inside cards.</p>
+    </div>
+
+    <div class="surface-ladder" aria-label="Surface ladder">
+      <div class="surface-step" data-step="0">
+        <span class="surface-step-num">Floor · Canvas</span>
+        <span class="surface-step-name">--background</span>
+        <span class="surface-step-role">Page surface, hero, footer.</span>
+      </div>
+      <div class="surface-step" data-step="1">
+        <span class="surface-step-num">Lift 1</span>
+        <span class="surface-step-name">--brand-canvas-soft</span>
+        <span class="surface-step-role">Nav hover, tooltip, input.</span>
+      </div>
+      <div class="surface-step" data-step="2">
+        <span class="surface-step-num">Lift 2</span>
+        <span class="surface-step-name">--brand-canvas-card</span>
+        <span class="surface-step-role">Cards, tier cards, tag pills.</span>
+      </div>
+      <div class="surface-step" data-step="3">
+        <span class="surface-step-num">Lift 3</span>
+        <span class="surface-step-name">--brand-canvas-mid</span>
+        <span class="surface-step-role">Glyph tiles, nested chrome.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography roles">
+    <div class="section-header">
+      <p class="eyebrow">004 · Tokens · Typography</p>
+      <h2 class="section-title">Display tracks aggressively negative.</h2>
+      <p class="section-lede">Universal Sans (or Inter as the open substitute) carries every display at weight 400. Negative letter-spacing at hero scale gives the typography its precision feel. Geist Mono uppercase pairs as the section eyebrow — the contrast is the brand voice.</p>
+    </div>
+
+    <div class="type-stack">
+      <div class="type-row">
+        <span class="type-label">Display · XL</span>
+        <span class="type-display-xl">Halcyon.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Display · LG</span>
+        <span class="type-display-lg">Built for teams that ship.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Display · MD</span>
+        <span class="type-display-md">Token surface preview rendered against this design system.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Display · SM</span>
+        <span class="type-display-sm">Card-cluster heading scale.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Body · MD</span>
+        <span class="type-body">Default paragraph copy at 16px on the dark canvas, line-height 1.55, letter-spacing about -0.05px. Body weight is 400 like everything else; emphasis on this surface is carried by size and tracking, not by bolding.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Caption · Mono</span>
+        <span class="type-mono">001 · token surface · 2026.05</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Component vocabulary">
+    <div class="section-header">
+      <p class="eyebrow">005 · Vocabulary · Components</p>
+      <h2 class="section-title">One button shape, one card shape.</h2>
+      <p class="section-lede">The outline pill is universal. Cards are 8px rectangles with a 1px hairline border. The exception is the white-filled Sign-up pill — and the brand uses that exactly once.</p>
+    </div>
+
+    <div class="components-stack">
+      <div>
+        <span class="cmp-label">Buttons</span>
+        <div class="cmp-row">
+          <button class="btn" type="button">Read more</button>
+          <button class="btn" data-variant="filled" type="button">Request access</button>
+          <button class="btn btn-sm" type="button">Read announcement</button>
+          <button class="btn btn-sm" data-variant="filled" type="button">Sign up</button>
+        </div>
+      </div>
+
+      <div>
+        <span class="cmp-label">Tags</span>
+        <div class="cmp-row">
+          <span class="tag" data-tone="sunset"><span class="tag-dot" aria-hidden="true"></span>Sunset</span>
+          <span class="tag" data-tone="dusk"><span class="tag-dot" aria-hidden="true"></span>Dusk</span>
+          <span class="tag" data-tone="twilight"><span class="tag-dot" aria-hidden="true"></span>Twilight</span>
+          <span class="tag" data-tone="breeze"><span class="tag-dot" aria-hidden="true"></span>Breeze</span>
+          <span class="tag" data-tone="quiet"><span class="tag-dot" aria-hidden="true"></span>Quiet</span>
+        </div>
+      </div>
+
+      <div>
+        <span class="cmp-label">Text input</span>
+        <div class="input-row">
+          <input class="text-input" type="text" placeholder="Search the model card surface" aria-label="Search">
+          <button class="btn" data-variant="filled" type="button">Submit</button>
+        </div>
+      </div>
+
+      <div>
+        <span class="cmp-label">Tier cards · generic</span>
+        <div class="tier-grid">
+          <article class="tier-card">
+            <span class="tier-name">Personal</span>
+            <h3 class="tier-headline">Free</h3>
+            <p class="tier-desc">For individual exploration. No card on file, no procurement.</p>
+            <ul class="tier-features">
+              <li>Best-effort latency</li>
+              <li>Community support</li>
+              <li>Single-seat usage</li>
+            </ul>
+            <button class="btn" type="button">Start free</button>
+          </article>
+          <article class="tier-card">
+            <span class="tier-name">Standard</span>
+            <h3 class="tier-headline">Quota-based</h3>
+            <p class="tier-desc">For teams that ship daily and need a predictable rate ceiling.</p>
+            <ul class="tier-features">
+              <li>Increased quota</li>
+              <li>Priority routing</li>
+              <li>Production SLA</li>
+            </ul>
+            <button class="btn" data-variant="filled" type="button">Get started</button>
+          </article>
+          <article class="tier-card">
+            <span class="tier-name">Custom</span>
+            <h3 class="tier-headline">By arrangement</h3>
+            <p class="tier-desc">For organizations with procurement and security review.</p>
+            <ul class="tier-features">
+              <li>Dedicated success</li>
+              <li>Region pinning</li>
+              <li>Procurement-ready paperwork</li>
+            </ul>
+            <button class="btn" type="button">Contact sales</button>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closer" aria-label="Closing band">
+    <p class="eyebrow">006 · Closing</p>
+    <h2 class="closer-display">Engineered restraint at the marketing surface.</h2>
+    <p class="closer-lede">Halcyon's research and engineering teams use a chat assistant for the same reasons every research lab does. The assistant drafts the technical report from the experiment log, the team signs off at the merge boundary, and the digest writes itself by Friday afternoon.</p>
+    <div class="closer-ctas">
+      <a class="btn" href="#">Read the technical report</a>
+      <a class="btn" data-variant="filled" href="#">Request access</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-col-title">Research</p>
+        <ul class="footer-col-list">
+          <li><a href="#">Technical reports</a></li>
+          <li><a href="#">Model cards</a></li>
+          <li><a href="#">Benchmarks</a></li>
+          <li><a href="#">Open weights</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Models</p>
+        <ul class="footer-col-list">
+          <li><a href="#">Atlas Reason</a></li>
+          <li><a href="#">Atlas Compose</a></li>
+          <li><a href="#">Atlas Edge</a></li>
+          <li><a href="#">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Company</p>
+        <ul class="footer-col-list">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Halcyon</p>
+        <ul class="footer-col-list">
+          <li><a href="#">halcyon.dev</a></li>
+          <li><a href="#">app.halcyon.dev</a></li>
+          <li><a href="#">@halcyon/cli</a></li>
+          <li><a href="#">hlc.so</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05</span>
+      <span>Universal Sans · -2.4px tracking · outline pill · mono caps</span>
+    </div>
+  </footer>
+
+</main>
+
+</body>
+</html>

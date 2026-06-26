@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Luxury preview shell — investor-deck cover / annual-report opening === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; min-height: 100vh; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+}
+.page { max-width: 1080px; margin: 0 auto; padding: 4rem 3rem 3rem; }
+
+/* Masthead — engraved-museum register */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--primary);
+  margin-bottom: 5rem;
+}
+.masthead .mark {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+.masthead .mark .accent { color: var(--primary); }
+.masthead .meta {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+}
+
+/* Hero */
+.hero { margin-bottom: 6rem; max-width: 22ch; }
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+.hero h1 .accent {
+  color: var(--primary);
+  font-style: italic;
+}
+
+/* Standfirst */
+.stand {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--muted-foreground);
+  max-width: 40ch;
+  margin: 2rem 0 0 0;
+  letter-spacing: -0.005em;
+}
+
+/* Section rule */
+.rule {
+  border: none;
+  border-top: 1px solid var(--primary);
+  margin: 4rem 0;
+  width: 80px;
+}
+
+/* Two-column metric pair */
+.metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 5rem;
+}
+@media (max-width: 780px) { .metrics { grid-template-columns: 1fr; gap: 3rem; } }
+.metric .label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin-bottom: 1.25rem;
+}
+.metric .value {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 7vw, 4.5rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+.metric .value .accent { color: var(--primary); }
+.metric .caption {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+  max-width: 28ch;
+}
+
+/* Statement passage */
+.statement {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  margin: 5rem 0;
+  max-width: 44ch;
+  color: var(--foreground);
+}
+.statement .accent { color: var(--primary); font-style: italic; }
+
+/* CTA row */
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 4rem;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 1.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+.btn-outline {
+  background-color: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+footer {
+  margin-top: 6rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.colophon {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--foreground);
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <span class="mark">Stillwater<span class="accent"> &amp; </span>Vale</span>
+    <span class="meta">Annual report · MMXXVI</span>
+  </div>
+
+  <div class="hero">
+    <p class="eyebrow">Letter from the chairman</p>
+    <h1>The year we chose <span class="accent">patience</span>.</h1>
+  </div>
+
+  <p class="stand">A note on the discipline of refusing the obvious moves, the value compounded by saying no to the wrong opportunities, and what the firm has learned in its twenty-second year.</p>
+
+  <hr class="rule">
+
+  <div class="metrics">
+    <div class="metric">
+      <div class="label">Funds under management</div>
+      <div class="value"><span class="accent">$</span>4.82B</div>
+      <p class="caption">Across nine vintages spanning twenty-two years; deployed with the same partner since inception.</p>
+    </div>
+    <div class="metric">
+      <div class="label">Net realised IRR · cohort 2014–2024</div>
+      <div class="value">28.4<span class="accent">%</span></div>
+      <p class="caption">Top decile against peer benchmarks. Net of fees, net of carry, net of every excuse.</p>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <p class="statement">We did not chase the conferences. We did not enter the league tables. We <span class="accent">declined</span> seventeen of every twenty opportunities the year presented us — and the three that remained have, individually, returned the fund.</p>
+
+  <div class="actions">
+    <a href="#" class="btn btn-primary">Request the full report</a>
+    <a href="#" class="btn btn-outline">Letters archive</a>
+  </div>
+
+  <footer>
+    <span>visualize · __DESIGN_SYSTEM_NAME__</span>
+    <span class="colophon">Set in Tiempos Headline · printed by Westerham Press</span>
+  </footer>
+
+</div>
+</body>
+</html>

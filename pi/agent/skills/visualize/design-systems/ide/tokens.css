@@ -1,0 +1,258 @@
+/**
+ * IDE theme — code-editor register, dark-canonical authored.
+ * Reference shape: VS Code's One Dark / Default Dark+ palette, with
+ * a JetBrains-Darcula slate-purple cast on the surfaces. The artifact
+ * reads as a panel of a working IDE — sidebar, editor, status bar
+ * implied by the chrome rather than rendered explicitly.
+ *
+ * Distinct from Terminal — IDE is the *modern multi-pane editor*
+ * register, where Terminal is the *single-pane CRT* register. They
+ * share dark-canonical authoring and a developer audience but
+ * diverge on register: IDE leans multi-hue syntax-highlight, slightly
+ * purple-tinted slate surfaces, vibrant cyan-blue primary; Terminal
+ * leans single-accent CRT-green, warm coal-cream surfaces, mono
+ * display. Reader pre-training pins each to its own dev-tool
+ * lineage; mixing the cues reads as confused theming.
+ *
+ * Authored dark-canonical: dark is the designed state; the :root
+ * block in this file is the *light* state (VS Code Light+ register),
+ * so that the standard load order (`:root` → `[data-theme="dark"]` → `@media`)
+ * lands on the correct mode at every entry point. Same convention
+ * as Terminal and Blueprint. Per spec line 104, IDE sits in the
+ * dark-canonical group alongside Terminal and Blueprint.
+ *
+ * Distinct from Clean / Editorial / Terminal / Deck / Blueprint
+ * on four axes:
+ *   1. Surfaces carry purple-leaning cool chroma (hue 280–290,
+ *      chroma 0.022–0.025). Blueprint's surfaces lean blue (hue
+ *      245–250); IDE's lean purple-slate. The hue shift puts IDE
+ *      into "modern editor chrome" register rather than "drafting
+ *      paper" register.
+ *   2. Primary is a vibrant cyan-blue (hue ~220, chroma 0.18).
+ *      Distinct hue family from Terminal's CRT-green (hue 145),
+ *      Blueprint's warm gold (hue 75–80), Editorial's deep navy,
+ *      Deck's warm amber. The cyan-blue reads as the VS Code
+ *      keyword-highlight colour.
+ *   3. Chart palette is multi-hue *syntax-evocative*: blue +
+ *      orange + green + magenta + yellow at the five chart stops.
+ *      Reader pre-training pins these to function / string /
+ *      number / regex / annotation colour roles. Distinct from
+ *      Blueprint's cool-leaning technical palette and Editorial's
+ *      warm-conservative palette.
+ *   4. Near-square radius (0.1875rem) and tighter tracking
+ *      (-0.005em) give the chrome a panel-edged feel — between
+ *      Terminal's pure-square (0.125rem) and Blueprint's gentler
+ *      (0.25rem).
+ *
+ * Blessed templates: Diff review, Runbook, Tutorial, API reference,
+ * Changelog, ADR (technical decision sub-shape) — the templates
+ * where the reader's mental model is "I am in my dev environment;
+ * this is dev-tool output." Also Data explorer (technical filter +
+ * sort feel) and Architecture overview (code-shape diagrams).
+ *
+ * Discouraged: Whitepaper, Research brief, Postmortem (publishing
+ * register reads off-key in editor chrome), Pitch deck, One-pager,
+ * Case study, Release announcement (marketing register undermined
+ * by dev-tool tone), Meeting notes, Onboarding module (conversational
+ * warmth doesn't survive the syntax-highlight cast). The warning is
+ * "you probably didn't mean to," per the discouraged-combo rule
+ * (finding 16).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* VS Code Light+ register: pure-near-white surfaces, slight cool */
+  /* tint on borders, vibrant cyan-blue accent.                     */
+
+  /* -- Surface / Foreground pairs ------------------------------ */
+  --background:              oklch(0.985 0.003 280);
+  --foreground:              oklch(0.22 0.025 285);
+
+  --card:                    oklch(0.99 0.003 280);
+  --card-foreground:         oklch(0.22 0.025 285);
+
+  --popover:                 oklch(0.99 0.003 280);
+  --popover-foreground:      oklch(0.22 0.025 285);
+
+  /* ide is a generic synthesised syntax theme — no external brand
+   * authority enforces specific hex values. DESIGN.md frontmatter
+   * pinned oklch(0.55) aspirationally; rendered on the code-mockup
+   * surface those values land 3.7-4.3:1 and fail AA on every
+   * .kw/.fn/.str/.type span. Pulling chromatic syntax tokens to
+   * oklch(0.45-0.50) is internal catalog tuning, not modification of
+   * a documented brand colour — the AUTHORING brand-colours-sacrosanct
+   * rule protects real brand identity, which this generic theme
+   * doesn't carry. */
+  --primary:                 oklch(0.45 0.18 230);
+  --primary-foreground:      oklch(0.985 0.003 280);
+
+  --secondary:               oklch(0.95 0.006 285);
+  --secondary-foreground:    oklch(0.22 0.025 285);
+
+  --muted:                   oklch(0.95 0.006 285);
+  --muted-foreground:        oklch(0.48 0.018 285);
+
+  --accent:                  oklch(0.93 0.012 285);
+  --accent-foreground:       oklch(0.22 0.025 285);
+
+  --destructive:             oklch(0.55 0.22 25);
+  --destructive-foreground:  oklch(0.985 0.003 280);
+
+  --border:                  oklch(0.88 0.010 285);
+  --input:                   oklch(0.88 0.010 285);
+  --ring:                    oklch(0.55 0.18 230);
+
+  /* Sidebar tokens (preserved for shadcn-shape parity) */
+  --sidebar:                 oklch(0.96 0.006 285);
+  --sidebar-foreground:      oklch(0.22 0.025 285);
+  --sidebar-primary:         oklch(0.55 0.18 230);
+  --sidebar-primary-foreground: oklch(0.985 0.003 280);
+  --sidebar-accent:          oklch(0.93 0.012 285);
+  --sidebar-accent-foreground: oklch(0.22 0.025 285);
+  --sidebar-border:          oklch(0.88 0.010 285);
+  --sidebar-ring:            oklch(0.55 0.18 230);
+
+  /* Chart tokens — syntax-evocative five-stop. Reader pre-trained
+   * to read each hue as a code-token role. Lightness pulled down
+   * (-0.05 to -0.08 vs DESIGN.md) so .kw/.fn/.str spans clear AA on
+   * the light code-mockup canvas. See --primary above for the
+   * generic-theme-tuning rationale; same applies here. */
+  --chart-1:                 oklch(0.45 0.18 230);    /* keyword blue */
+  --chart-2:                 oklch(0.50 0.18 55);     /* function orange */
+  --chart-3:                 oklch(0.45 0.18 150);    /* string green */
+  --chart-4:                 oklch(0.55 0.20 330);    /* number magenta */
+  --chart-5:                 oklch(0.62 0.15 95);     /* annotation yellow */
+
+  /* -- Typography tokens ---------------------------------------- */
+  --font-sans:  'Inter', 'JetBrains Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono:  'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Display sticks to sans — IDE UI chrome is sans (tabs, sidebar, */
+  /* status bar). Code blocks in templates use --font-mono via      */
+  /* their own template-local CSS.                                  */
+  --font-display: var(--font-sans);
+
+  /* -- Type scale tokens — slightly denser than Clean ----------- */
+  --text-display:  clamp(1.875rem, 4vw, 2.5rem);
+  --text-heading:  1.4rem;
+  --text-title:    1rem;
+  --text-base:     15px;        /* IDE UI density; -1px from Clean */
+  --leading-tight: 1.2;
+  --leading-normal: 1.55;
+
+  /* -- Radius — near-square panel-edged feel ------------------- */
+  --radius:                  0.1875rem;
+  --radius-sm:               calc(var(--radius) - 1px);
+  --radius-md:               var(--radius);
+  --radius-lg:               calc(var(--radius) + 2px);
+  --radius-xl:               calc(var(--radius) + 4px);
+
+  /* -- Spacing -------------------------------------------------- */
+  --spacing:                 0.25rem;
+
+  /* -- Tracking — slightly tighter, dense chrome --------------- */
+  --tracking-normal:         -0.005em;
+
+  /* -- Shadow scale — slate-cool tinted, panel-flat ------------ */
+  --shadow-2xs: 0 1px 2px 0 hsl(280 20% 12% / 0.04);
+  --shadow-xs:  0 1px 2px 0 hsl(280 20% 12% / 0.06);
+  --shadow-sm:  0 1px 3px 0 hsl(280 20% 12% / 0.08), 0 1px 2px -1px hsl(280 20% 12% / 0.06);
+  --shadow:     0 2px 4px -1px hsl(280 20% 12% / 0.10);
+  --shadow-md:  0 4px 8px -2px hsl(280 20% 12% / 0.12), 0 2px 4px -2px hsl(280 20% 12% / 0.08);
+  --shadow-lg:  0 12px 20px -4px hsl(280 20% 12% / 0.14), 0 4px 8px -4px hsl(280 20% 12% / 0.10);
+  --shadow-xl:  0 24px 32px -8px hsl(280 20% 12% / 0.18);
+  --shadow-2xl: 0 32px 64px -16px hsl(280 20% 12% / 0.26);
+}
+
+/* -- Dark mode -------------------------------------------------- */
+/* Canonical IDE register: slate-purple deep surfaces + vibrant     */
+/* cyan-blue accent + multi-hue syntax-evocative chart palette.    */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background:              oklch(0.19 0.025 280);    /* deep slate-purple */
+  --foreground:              oklch(0.93 0.012 290);    /* cool near-white */
+
+  --card:                    oklch(0.22 0.025 280);
+  --card-foreground:         oklch(0.93 0.012 290);
+
+  --popover:                 oklch(0.22 0.025 280);
+  --popover-foreground:      oklch(0.93 0.012 290);
+
+  --primary:                 oklch(0.72 0.18 230);     /* brighter cyan-blue */
+  --primary-foreground:      oklch(0.19 0.025 280);
+
+  --secondary:               oklch(0.26 0.022 285);
+  --secondary-foreground:    oklch(0.93 0.012 290);
+
+  --muted:                   oklch(0.26 0.022 285);
+  --muted-foreground:        oklch(0.70 0.014 285);
+
+  --accent:                  oklch(0.30 0.030 285);
+  --accent-foreground:       oklch(0.93 0.012 290);
+
+  --destructive:             oklch(0.68 0.20 25);
+  --destructive-foreground:  oklch(0.93 0.012 290);
+
+  --border:                  oklch(0.31 0.025 285);    /* panel-edge */
+  --input:                   oklch(0.28 0.022 285);
+  --ring:                    oklch(0.72 0.18 230);
+
+  --sidebar:                 oklch(0.21 0.025 280);
+  --sidebar-foreground:      oklch(0.93 0.012 290);
+  --sidebar-primary:         oklch(0.72 0.18 230);
+  --sidebar-primary-foreground: oklch(0.19 0.025 280);
+  --sidebar-accent:          oklch(0.30 0.030 285);
+  --sidebar-accent-foreground: oklch(0.93 0.012 290);
+  --sidebar-border:          oklch(0.31 0.025 285);
+  --sidebar-ring:            oklch(0.72 0.18 230);
+
+  /* Charts — brighter for dark surface; same syntax-token roles. */
+  --chart-1:                 oklch(0.72 0.18 230);    /* keyword blue */
+  --chart-2:                 oklch(0.75 0.16 55);     /* function orange */
+  --chart-3:                 oklch(0.72 0.18 150);    /* string green */
+  --chart-4:                 oklch(0.72 0.20 330);    /* number magenta */
+  --chart-5:                 oklch(0.82 0.14 95);     /* annotation yellow */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background:              oklch(0.19 0.025 280);
+    --foreground:              oklch(0.93 0.012 290);
+    --card:                    oklch(0.22 0.025 280);
+    --card-foreground:         oklch(0.93 0.012 290);
+    --popover:                 oklch(0.22 0.025 280);
+    --popover-foreground:      oklch(0.93 0.012 290);
+    --primary:                 oklch(0.72 0.18 230);
+    --primary-foreground:      oklch(0.19 0.025 280);
+    --secondary:               oklch(0.26 0.022 285);
+    --secondary-foreground:    oklch(0.93 0.012 290);
+    --muted:                   oklch(0.26 0.022 285);
+    --muted-foreground:        oklch(0.70 0.014 285);
+    --accent:                  oklch(0.30 0.030 285);
+    --accent-foreground:       oklch(0.93 0.012 290);
+    --destructive:             oklch(0.68 0.20 25);
+    --destructive-foreground:  oklch(0.93 0.012 290);
+    --border:                  oklch(0.31 0.025 285);
+    --input:                   oklch(0.28 0.022 285);
+    --ring:                    oklch(0.72 0.18 230);
+
+    --sidebar:                 oklch(0.21 0.025 280);
+    --sidebar-foreground:      oklch(0.93 0.012 290);
+    --sidebar-primary:         oklch(0.72 0.18 230);
+    --sidebar-primary-foreground: oklch(0.19 0.025 280);
+    --sidebar-accent:          oklch(0.30 0.030 285);
+    --sidebar-accent-foreground: oklch(0.93 0.012 290);
+    --sidebar-border:          oklch(0.31 0.025 285);
+    --sidebar-ring:            oklch(0.72 0.18 230);
+
+    --chart-1:                 oklch(0.72 0.18 230);
+    --chart-2:                 oklch(0.75 0.16 55);
+    --chart-3:                 oklch(0.72 0.18 150);
+    --chart-4:                 oklch(0.72 0.20 330);
+    --chart-5:                 oklch(0.82 0.14 95);
+  }
+}

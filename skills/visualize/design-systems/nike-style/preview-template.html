@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23000'/%3E%3Cpath d='M5 19 Q9 13 14 13 Q20 13 24 11 Q27 10 27 13 Q27 16 23 18 L13 22 Q8 24 5 22 Q3 21 5 19 Z' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Photography-first commerce surface — towering uppercase display lockups burned into editorial imagery + dense neutral retail chrome + pill-shaped black CTAs + tight 8 px product card grid.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Nike-style preview shell — photography-first commerce. Extreme
+   typographic contrast: towering uppercase display lockups (Inter
+   weight 900 standing in for Futura) burned into editorial campaign
+   imagery + neutral retail chrome of pill-shaped black CTAs, gray
+   pills, and tight 8 px product cards. Pure black, pure white, soft
+   cloud gray, sale red, success green — every chromatic moment is
+   reserved for photography or pricing signal. Halcyon-themed neutral
+   content. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Helvetica Now Text', 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav (white masthead with categories) -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 26px; height: 26px;
+  background: var(--foreground);
+  display: inline-grid;
+  place-items: center;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--background);
+  border-radius: var(--brand-radius-none);
+}
+.topnav-cats {
+  display: flex;
+  gap: 1.25rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  flex: 1;
+  justify-content: center;
+  color: var(--foreground);
+}
+.topnav-cats a { color: inherit; text-decoration: none; padding: 0.5rem 0; border-bottom: 2px solid transparent; }
+.topnav-cats a[aria-current="page"] { border-bottom-color: var(--foreground); }
+.topnav-cats a:hover { color: var(--brand-mute); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; font-size: 14px; }
+.topnav-actions a { color: var(--foreground); text-decoration: none; font-weight: 500; padding: 0.5rem 0.75rem; border-radius: var(--brand-radius-full); }
+.topnav-actions a:hover { background: var(--brand-soft-cloud); }
+@media (max-width: 900px) { .topnav-cats { display: none; } }
+
+/* -- Buttons (black pill, uppercase caps in display variant only) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0 1.5rem;
+  border-radius: var(--brand-radius-full);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease, transform 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-charcoal); border-color: var(--brand-charcoal); }
+.btn[data-variant="primary-inverse"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--background);
+}
+.btn[data-variant="primary-inverse"]:hover { background: var(--brand-soft-cloud); }
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+}
+.btn[data-variant="secondary"]:hover { background: var(--foreground); color: var(--background); }
+.btn[data-variant="ghost"] {
+  background: var(--brand-soft-cloud);
+  color: var(--foreground);
+  border-color: transparent;
+}
+.btn[data-variant="ghost"]:hover { background: var(--brand-hairline-soft); }
+.btn[data-size="lg"] { min-height: 56px; padding: 0 2rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (full-bleed photo placeholder + burned-in uppercase display) -- */
+.hero {
+  position: relative;
+  min-height: 32rem;
+  display: flex;
+  align-items: flex-end;
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.15) 40%, transparent 70%),
+    linear-gradient(135deg, oklch(0.32 0.08 30) 0%, oklch(0.42 0.10 22) 35%, oklch(0.22 0.06 18) 100%);
+  overflow: hidden;
+  color: oklch(1 0 0);
+}
+.hero-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 3rem;
+  position: relative;
+  z-index: 1;
+}
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: oklch(1 0 0);
+  margin: 0 0 1.25rem;
+}
+.hero-display {
+  font-family: 'Inter', 'Helvetica Now Display', sans-serif;
+  font-size: clamp(3rem, 9vw, 7rem);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: oklch(1 0 0);
+  margin: 0 0 1.5rem;
+  max-width: 14ch;
+}
+.hero-deck {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: oklch(1 0 0 / 0.92);
+  max-width: 36rem;
+  margin: 0 0 1.5rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* -- Product card grid signature -- */
+.products-section {
+  padding: 4rem 1.5rem;
+  background: var(--background);
+}
+.products-header {
+  max-width: 1280px;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.products-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0;
+}
+.products-actions { display: flex; gap: 0.5rem; }
+.products-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+@media (max-width: 1080px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .products-grid { grid-template-columns: 1fr; } }
+.product {
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  text-decoration: none;
+  color: inherit;
+}
+.product-photo {
+  aspect-ratio: 1 / 1;
+  background: var(--photo-bg, linear-gradient(135deg, oklch(0.92 0 0) 0%, oklch(0.84 0 0) 100%));
+  position: relative;
+  overflow: hidden;
+}
+.product-photo[data-tone="charcoal"] { --photo-bg: linear-gradient(135deg, oklch(0.32 0 0), oklch(0.18 0 0)); }
+.product-photo[data-tone="white"] { --photo-bg: linear-gradient(135deg, oklch(0.96 0 0), oklch(0.88 0 0)); }
+.product-photo[data-tone="lava"] { --photo-bg: linear-gradient(135deg, oklch(0.64 0.18 25), oklch(0.42 0.18 20)); }
+.product-photo[data-tone="ember"] { --photo-bg: linear-gradient(135deg, oklch(0.74 0.14 50), oklch(0.52 0.16 38)); }
+.product-photo[data-tone="cobalt"] { --photo-bg: linear-gradient(135deg, oklch(0.42 0.16 250), oklch(0.22 0.14 245)); }
+.product-photo[data-tone="forest"] { --photo-bg: linear-gradient(135deg, oklch(0.42 0.12 150), oklch(0.24 0.10 155)); }
+.product-photo[data-tone="sand"] { --photo-bg: linear-gradient(135deg, oklch(0.86 0.06 80), oklch(0.76 0.08 70)); }
+.product-photo[data-tone="rose"] { --photo-bg: linear-gradient(135deg, oklch(0.82 0.10 0), oklch(0.66 0.14 350)); }
+.product-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--brand-success);
+  background: transparent;
+}
+.product-badge[data-tone="sale"] { color: var(--brand-sale); }
+.product-meta {
+  padding: 1rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.product-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--foreground);
+}
+.product-cat {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--brand-mute);
+}
+.product-colorways {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--brand-mute);
+}
+.product-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--foreground);
+  margin-top: 0.25rem;
+}
+.product-price[data-tone="sale"] {
+  color: var(--brand-sale);
+}
+/* Dark-canvas: sale red on pure black is 3.77:1 — passes WCAG 3:1 large-text
+ * threshold but not 4.5:1 body. Fix the surface: bump weight+size into the
+ * large-text bracket so the brand red holds. Inline price-row remains
+ * Nike's documented pattern; only the on-dark variant gets the size lift. */
+[data-theme="dark"] .product-price[data-tone="sale"] { font-size: 19px; font-weight: 700; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .product-price[data-tone="sale"] { font-size: 19px; font-weight: 700; }
+}
+.product-price-old {
+  font-size: 14px;
+  color: var(--brand-mute);
+  text-decoration: line-through;
+  margin-left: 0.5rem;
+}
+
+/* -- Section frame -- */
+.section { padding: 4rem 1.5rem; background: var(--background); }
+.section[data-tight] { padding: 2.5rem 1.5rem; }
+.section[data-band="soft"] { background: var(--brand-soft-cloud); }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 56rem; margin-bottom: 2rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.5rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-soft);
+  padding: 0.75rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="cloud"] { background: var(--brand-soft-cloud); color: var(--foreground); }
+.ladder-step[data-step="inverse"] { background: var(--foreground); color: var(--background); border-color: var(--foreground); }
+.ladder-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 12px;
+}
+.ladder-role { font-size: 14px; opacity: 0.86; margin-top: auto; line-height: 1.45; }
+
+/* -- Pricing (membership tiers) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pricing-card[data-featured] {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+.pricing-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-name { color: var(--background); }
+.pricing-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-price { color: var(--background); }
+.pricing-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 2.9em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--background); opacity: 0.88; }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  padding-top: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--foreground);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: rgba(255, 255, 255, 0.25);
+  color: var(--background);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "—";
+  color: var(--foreground);
+  flex-shrink: 0;
+  width: 16px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--background); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+}
+.type-display {
+  font-family: 'Inter', sans-serif;
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; line-height: 1.55; color: var(--foreground); }
+.type-mono { font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: var(--brand-mute); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-mute);
+  width: 100%;
+}
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--brand-soft-cloud);
+  color: var(--foreground);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.tag-pill[data-tone="sale"] { color: var(--brand-sale); border-color: var(--brand-sale); background: transparent; }
+.tag-pill[data-tone="success"] { color: var(--brand-success); border-color: var(--brand-success); background: transparent; }
+/* Dark-canvas: brand sale/success text fails contrast against pure-black at
+ * label sizes. Fix the surface, not the colour — fill the pill with the
+ * brand color and place white text on it. Background fill is Nike's own
+ * pattern for status indicators on SNKRS dark surfaces. */
+[data-theme="dark"] .tag-pill[data-tone="sale"] { background: var(--brand-sale); color: var(--foreground); border-color: var(--brand-sale); }
+[data-theme="dark"] .tag-pill[data-tone="success"] { background: var(--brand-success); color: var(--foreground); border-color: var(--brand-success); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .tag-pill[data-tone="sale"] { background: var(--brand-sale); color: var(--foreground); border-color: var(--brand-sale); }
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .tag-pill[data-tone="success"] { background: var(--brand-success); color: var(--foreground); border-color: var(--brand-success); }
+}
+
+/* -- Footer (inverse — black) -- */
+.footer {
+  background: var(--foreground);
+  color: var(--background);
+  padding: 3rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer .brand-mark { color: var(--background); }
+.footer .brand-glyph { background: var(--background); color: var(--foreground); }
+.footer-tagline { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--background); opacity: 0.78; line-height: 1.55; margin: 0; }
+.footer-col-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--background);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--background); opacity: 0.78; text-decoration: none; }
+.footer-list a:hover { opacity: 1; text-decoration: underline; }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--background);
+  opacity: 0.6;
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; letter-spacing: 0; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-cats">
+      <a href="#" aria-current="page">Workspace</a>
+      <a href="#">Reviews</a>
+      <a href="#">Threads</a>
+      <a href="#">Specs</a>
+      <a href="#">Members</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <a href="#">Bag · 0</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-kicker">Halcyon · Just Shipped</p>
+    <h1 class="hero-display">A workspace built for the whole team.</h1>
+    <p class="hero-deck">Halcyon's product, design, and engineering teams ship notes, reviews, and specs from one bold surface. No chat tax. No meeting tax. Just the work.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary-inverse" data-size="lg" type="button">Shop the workspace</button>
+      <button class="btn" type="button" data-size="lg" style="background: transparent; color: var(--background); border-color: var(--background);">Learn more</button>
+    </div>
+  </div>
+</header>
+
+<section class="products-section" aria-label="Product card grid">
+  <div class="products-header">
+    <h2 class="products-title">Trending now.</h2>
+    <div class="products-actions">
+      <span class="tag-pill">Workspace</span>
+      <span class="tag-pill">Recently Released</span>
+      <span class="tag-pill" data-tone="success">New</span>
+    </div>
+  </div>
+  <div class="products-grid">
+    <a class="product" href="#">
+      <div class="product-photo" data-tone="charcoal"><span class="product-badge">Just In</span></div>
+      <div class="product-meta">
+        <span class="product-name">Halcyon Workspace AM 26</span>
+        <span class="product-cat">Team · Workspace</span>
+        <span class="product-colorways">3 Colors</span>
+        <span class="product-price">$148</span>
+      </div>
+    </a>
+    <a class="product" href="#">
+      <div class="product-photo" data-tone="cobalt"><span class="product-badge">Member Exclusive</span></div>
+      <div class="product-meta">
+        <span class="product-name">Halcyon Reviews 270</span>
+        <span class="product-cat">Team · Reviews</span>
+        <span class="product-colorways">5 Colors</span>
+        <span class="product-price">$162</span>
+      </div>
+    </a>
+    <a class="product" href="#">
+      <div class="product-photo" data-tone="lava"><span class="product-badge" data-tone="sale">Sale</span></div>
+      <div class="product-meta">
+        <span class="product-name">Halcyon Threads 90</span>
+        <span class="product-cat">Team · Threads</span>
+        <span class="product-colorways">7 Colors</span>
+        <span class="product-price" data-tone="sale">$112 <span class="product-price-old">$148</span></span>
+      </div>
+    </a>
+    <a class="product" href="#">
+      <div class="product-photo" data-tone="forest"><span class="product-badge">Just In</span></div>
+      <div class="product-meta">
+        <span class="product-name">Halcyon Specs Pro 2</span>
+        <span class="product-cat">Team · Specs</span>
+        <span class="product-colorways">2 Colors</span>
+        <span class="product-price">$184</span>
+      </div>
+    </a>
+    <a class="product" href="#">
+      <div class="product-photo" data-tone="white"><span class="product-badge">Best Seller</span></div>
+      <div class="product-meta">
+        <span class="product-name">Halcyon Cloud Run</span>
+        <span class="product-cat">Team · Workspace</span>
+        <span class="product-colorways">4 Colors</span>
+        <span class="product-price">$128</span>
+      </div>
+    </a>
+    <a class="product" href="#">
+      <div class="product-photo" data-tone="ember"><span class="product-badge">Just In</span></div>
+      <div class="product-meta">
+        <span class="product-name">Halcyon Ember Loft</span>
+        <span class="product-cat">Team · Members</span>
+        <span class="product-colorways">3 Colors</span>
+        <span class="product-price">$172</span>
+      </div>
+    </a>
+    <a class="product" href="#">
+      <div class="product-photo" data-tone="rose"><span class="product-badge" data-tone="sale">Sale</span></div>
+      <div class="product-meta">
+        <span class="product-name">Halcyon Rose Editor</span>
+        <span class="product-cat">Team · Reviews</span>
+        <span class="product-colorways">6 Colors</span>
+        <span class="product-price" data-tone="sale">$96 <span class="product-price-old">$128</span></span>
+      </div>
+    </a>
+    <a class="product" href="#">
+      <div class="product-photo" data-tone="sand"><span class="product-badge">Best Seller</span></div>
+      <div class="product-meta">
+        <span class="product-name">Halcyon Sand Spec</span>
+        <span class="product-cat">Team · Specs</span>
+        <span class="product-colorways">5 Colors</span>
+        <span class="product-price">$158</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="section" data-band="soft" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Black. White. Cloud. Sale.</h2>
+      <p class="section-lede">Pure black and pure white carry the entire retail chrome. Soft cloud gray for cards and section bands. Sale red and success green for pricing signal only — every chromatic moment is reserved for editorial photography or pricing signal.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-soft-cloud);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-soft-cloud</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-charcoal);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-charcoal</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ash);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ash</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-mute);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-mute</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-stone);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-stone</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-hairline-soft);"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--brand-hairline-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-sale);"></div><div class="swatch-role">Signal</div><div class="swatch-name">--brand-sale</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-success);"></div><div class="swatch-role">Signal</div><div class="swatch-name">--brand-success</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-success-bright);"></div><div class="swatch-role">Signal</div><div class="swatch-name">--brand-success-bright</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--accent);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--accent</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces</p>
+      <h2 class="section-title">Three surfaces. Hard contrast.</h2>
+      <p class="section-lede">White canvas, soft cloud gray for cards + bands, inverse black for footer + featured tier. No mid-tones, no glass effects, no gradient surfaces.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · product card</span>
+      </div>
+      <div class="ladder-step" data-step="cloud">
+        <span class="ladder-num">Cloud</span>
+        <span class="ladder-name">--brand-soft-cloud</span>
+        <span class="ladder-role">section band · tag pill</span>
+      </div>
+      <div class="ladder-step" data-step="inverse">
+        <span class="ladder-num">Inverse</span>
+        <span class="ladder-name">--foreground</span>
+        <span class="ladder-role">footer · featured tier · CTA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Membership</p>
+      <h2 class="section-title">Three tiers. No friction.</h2>
+      <p class="section-lede">Flat per-workspace pricing. Featured tier inverted to black — the only place the membership system commits to a polarity flip.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Join free</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="primary-inverse" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-band="soft" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · type + components</p>
+      <h2 class="section-title">Towering display. Modest body.</h2>
+      <p class="section-lede">Display tier at Inter weight 900 in uppercase, with aggressive negative tracking — standing in for Futura ND on Nike's marketing surfaces. Body at weight 500 from Helvetica Now Text. Pill CTAs only — no square buttons anywhere.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Just ship it.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Inter weight 700</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter · 500 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Inter at 14–16 pixels, line-height 1.5. Near-black foreground; mute gray for tertiary copy. Athletic, kinetic posture.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">workspace.bag.add()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · pill 48 / 56 px, no square anywhere</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Add to bag</button>
+            <button class="btn" data-variant="secondary" type="button">View details</button>
+            <button class="btn" data-variant="ghost" type="button">Save</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Tag pills · neutral + signal</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <span class="tag-pill">Workspace</span>
+            <span class="tag-pill" data-tone="sale">Sale</span>
+            <span class="tag-pill" data-tone="success">Just In</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true">h</span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the photography-first commerce design system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Workspace</p>
+      <ul class="footer-list"><li><a href="#">Notes</a></li><li><a href="#">Reviews</a></li><li><a href="#">Threads</a></li><li><a href="#">Specs</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Membership</p>
+      <ul class="footer-list"><li><a href="#">Join free</a></li><li><a href="#">Team plan</a></li><li><a href="#">Org-wide</a></li><li><a href="#">Members</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">workspace.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">About</p>
+      <ul class="footer-list"><li><a href="#">Company</a></li><li><a href="#">Careers</a></li><li><a href="#">Newsroom</a></li><li><a href="#">Investors</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">white canvas · black ink · cloud gray · sale red</span>
+  </div>
+</footer>
+
+</body>
+</html>

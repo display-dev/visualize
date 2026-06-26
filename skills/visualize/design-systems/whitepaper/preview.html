@@ -1,0 +1,1479 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>whitepaper — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/whitepaper/tokens.css) === */
+/**
+ * Whitepaper theme — institutional / academic / formal-report
+ * register, light-mode-native. Cool slate off-white + deep
+ * institutional-navy ink + restrained navy primary. The aesthetic
+ * reference is a Bloomberg / McKinsey / university press report —
+ * the kind of document that wants to look *authoritative*, not
+ * *warm*.
+ *
+ * Mode priority: light-canonical. Per spec line 104, Whitepaper
+ * sits in the light-canonical group alongside Clean, Editorial,
+ * and Paper-ink. The :root block carries the canonical institutional
+ * register; `[data-theme="dark"]` is a boardroom-at-night interpretation (deep
+ * slate + cool ink + brighter navy CTA).
+ *
+ * Three serif-display themes now ship — Editorial (magazine-
+ * publishing register), Paper-ink (letterpress-monograph register),
+ * Whitepaper (institutional-academic register). They split by
+ * surface temperature + primary hue + radius:
+ *
+ *   - Editorial:  warm-neutral 0.008 chroma, deep-navy CTA,
+ *                 0.5rem radius (refined publishing).
+ *   - Paper-ink:  warm-cream 0.018 chroma, burnt-red CTA, 0
+ *                 radius (letterpress / broadsheet).
+ *   - Whitepaper: cool-slate 0.004 chroma (hue 230–240),
+ *                 institutional-navy CTA, 0.125rem radius
+ *                 (formal report / academic press).
+ *
+ * The cool-slate surface is what reads "institutional" rather than
+ * "publishing." Same serif typography, but the surface temperature
+ * pins the register. Reader pre-training pins cool-slate to
+ * authority registers (banking, government, academic press) and
+ * warm tones to reading-for-pleasure registers (magazine, novel,
+ * broadsheet).
+ *
+ * Distinct from Clean / Editorial / Terminal / Deck / Blueprint /
+ * IDE / Paper-ink on three axes:
+ *   1. Surfaces carry cool-slate chroma at hue 230–240 — the
+ *      only theme whose light-mode surface leans cool rather
+ *      than warm or neutral. Distinct from Blueprint's
+ *      cool-blue navy (hue 245–250) which is more saturated
+ *      and reads as drawing-paper, not formal-report.
+ *   2. Primary is institutional slate-navy at hue 245 chroma
+ *      0.13. Deeper / cooler than Editorial's potentially-
+ *      warmer navy; distinct hue family from Blueprint's
+ *      warm gold and IDE's vibrant cyan-blue.
+ *   3. Tighter type scale + tighter leading (1.6 vs Editorial's
+ *      1.65, Paper-ink's 1.65) — formal-report register reads
+ *      slightly denser; academic press doesn't waste page-real-
+ *      estate the way a magazine column does.
+ *
+ * Blessed templates: Whitepaper (canonical pairing), Report,
+ * Research brief, Postmortem, ADR, Comparison — the formal /
+ * document-register templates from finding 34.
+ *
+ * Discouraged: Pitch deck, One-pager, Release announcement
+ * (marketing register undermined by formal-report tone); Diff
+ * review, Runbook, API reference (dev-doc register reads dry-
+ * formal in this chrome); Dashboard, Data explorer (data-shape
+ * doesn't fit the prose-driven academic register); Meeting notes,
+ * Onboarding module (conversational warmth doesn't survive
+ * institutional cast). The warning is "you probably didn't mean
+ * to," per the discouraged-combo rule (finding 16).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Canonical Whitepaper register: cool-slate off-white + deep    */
+  /* institutional-navy ink + restrained navy primary.              */
+
+  /* -- Surface / Foreground pairs ------------------------------ */
+  --background:              oklch(0.98 0.004 232);    /* cool slate off-white */
+  --foreground:              oklch(0.20 0.020 245);    /* deep slate-navy ink */
+
+  --card:                    oklch(0.985 0.004 232);
+  --card-foreground:         oklch(0.20 0.020 245);
+
+  --popover:                 oklch(0.985 0.004 232);
+  --popover-foreground:      oklch(0.20 0.020 245);
+
+  /* Institutional slate-navy primary — deeper / cooler than       */
+  /* Editorial's navy. Reads "authority" rather than "publishing." */
+  --primary:                 oklch(0.36 0.13 245);
+  --primary-foreground:      oklch(0.98 0.004 232);
+
+  --secondary:               oklch(0.94 0.006 232);
+  --secondary-foreground:    oklch(0.20 0.020 245);
+
+  --muted:                   oklch(0.94 0.006 232);
+  --muted-foreground:        oklch(0.46 0.018 240);
+
+  --accent:                  oklch(0.91 0.008 232);
+  --accent-foreground:       oklch(0.20 0.020 245);
+
+  --destructive:             oklch(0.50 0.20 25);
+  --destructive-foreground:  oklch(0.98 0.004 232);
+
+  --border:                  oklch(0.86 0.012 232);
+  --input:                   oklch(0.86 0.012 232);
+  --ring:                    oklch(0.36 0.13 245);
+
+  /* Sidebar tokens (preserved for shadcn-shape parity) */
+  --sidebar:                 oklch(0.96 0.006 232);
+  --sidebar-foreground:      oklch(0.20 0.020 245);
+  --sidebar-primary:         oklch(0.36 0.13 245);
+  --sidebar-primary-foreground: oklch(0.98 0.004 232);
+  --sidebar-accent:          oklch(0.91 0.008 232);
+  --sidebar-accent-foreground: oklch(0.20 0.020 245);
+  --sidebar-border:          oklch(0.86 0.012 232);
+  --sidebar-ring:            oklch(0.36 0.13 245);
+
+  /* Chart tokens — institutional restrained five-stop.            */
+  --chart-1:                 oklch(0.36 0.13 245);    /* institutional navy */
+  --chart-2:                 oklch(0.45 0.08 220);    /* slate-blue */
+  --chart-3:                 oklch(0.40 0.06 60);     /* sepia */
+  --chart-4:                 oklch(0.42 0.10 145);    /* muted teal-green */
+  --chart-5:                 oklch(0.45 0.06 300);    /* dim plum */
+
+  /* -- Typography tokens ---------------------------------------- */
+  --font-sans:  'Inter', 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Source Serif Pro', 'Crimson Pro', 'EB Garamond', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono:  'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Display is serif — academic / formal-report convention. The   */
+  /* serif heading on a cool-slate surface reads as institutional. */
+  --font-display: var(--font-serif);
+
+  /* -- Type scale tokens — formal report, denser than publishing  */
+  --text-display:  clamp(1.875rem, 4vw, 2.875rem);
+  --text-heading:  1.5rem;
+  --text-title:    1.0625rem;
+  --text-base:     16.5px;       /* between Clean (16) and Paper-ink (17) */
+  --leading-tight: 1.15;
+  --leading-normal: 1.6;         /* tighter than Editorial/Paper-ink */
+
+  /* -- Radius — minimal, formal-report (slightly above Terminal's */
+  /* near-square; well below Clean's 0.625rem). ------------------- */
+  --radius:                  0.125rem;
+  --radius-sm:               0;
+  --radius-md:               var(--radius);
+  --radius-lg:               calc(var(--radius) + 2px);
+  --radius-xl:               calc(var(--radius) + 4px);
+
+  /* -- Spacing -------------------------------------------------- */
+  --spacing:                 0.25rem;
+
+  /* -- Tracking — neutral, formal (no letterpress looseness) ---- */
+  --tracking-normal:         0em;
+
+  /* -- Shadow scale — cool-slate-tinted, restrained ------------ */
+  --shadow-2xs: 0 1px 1px 0 hsl(230 30% 12% / 0.03);
+  --shadow-xs:  0 1px 2px 0 hsl(230 30% 12% / 0.05);
+  --shadow-sm:  0 1px 3px 0 hsl(230 30% 12% / 0.06), 0 1px 2px -1px hsl(230 30% 12% / 0.05);
+  --shadow:     0 2px 4px -1px hsl(230 30% 12% / 0.08);
+  --shadow-md:  0 4px 8px -2px hsl(230 30% 12% / 0.10), 0 2px 4px -2px hsl(230 30% 12% / 0.07);
+  --shadow-lg:  0 8px 16px -4px hsl(230 30% 12% / 0.12), 0 4px 8px -4px hsl(230 30% 12% / 0.08);
+  --shadow-xl:  0 16px 24px -6px hsl(230 30% 12% / 0.16);
+  --shadow-2xl: 0 24px 48px -12px hsl(230 30% 12% / 0.22);
+}
+
+/* -- Dark mode -------------------------------------------------- */
+/* Boardroom-at-night interpretation: deep slate background + cool */
+/* ink foreground + brighter institutional navy accent.            */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background:              oklch(0.16 0.014 240);    /* deep slate */
+  --foreground:              oklch(0.93 0.010 232);    /* cool near-white */
+
+  --card:                    oklch(0.20 0.014 240);
+  --card-foreground:         oklch(0.93 0.010 232);
+
+  --popover:                 oklch(0.20 0.014 240);
+  --popover-foreground:      oklch(0.93 0.010 232);
+
+  --primary:                 oklch(0.65 0.14 245);     /* brighter institutional navy */
+  --primary-foreground:      oklch(0.16 0.014 240);
+
+  --secondary:               oklch(0.24 0.014 240);
+  --secondary-foreground:    oklch(0.93 0.010 232);
+
+  --muted:                   oklch(0.24 0.014 240);
+  --muted-foreground:        oklch(0.70 0.014 232);
+
+  --accent:                  oklch(0.28 0.020 240);
+  --accent-foreground:       oklch(0.93 0.010 232);
+
+  --destructive:             oklch(0.68 0.20 25);
+  --destructive-foreground:  oklch(0.93 0.010 232);
+
+  --border:                  oklch(0.30 0.018 235);
+  --input:                   oklch(0.28 0.016 235);
+  --ring:                    oklch(0.65 0.14 245);
+
+  --sidebar:                 oklch(0.18 0.014 240);
+  --sidebar-foreground:      oklch(0.93 0.010 232);
+  --sidebar-primary:         oklch(0.65 0.14 245);
+  --sidebar-primary-foreground: oklch(0.16 0.014 240);
+  --sidebar-accent:          oklch(0.28 0.020 240);
+  --sidebar-accent-foreground: oklch(0.93 0.010 232);
+  --sidebar-border:          oklch(0.30 0.018 235);
+  --sidebar-ring:            oklch(0.65 0.14 245);
+
+  --chart-1:                 oklch(0.65 0.14 245);
+  --chart-2:                 oklch(0.65 0.10 220);
+  --chart-3:                 oklch(0.65 0.08 60);
+  --chart-4:                 oklch(0.65 0.12 145);
+  --chart-5:                 oklch(0.65 0.08 300);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background:              oklch(0.16 0.014 240);
+    --foreground:              oklch(0.93 0.010 232);
+    --card:                    oklch(0.20 0.014 240);
+    --card-foreground:         oklch(0.93 0.010 232);
+    --popover:                 oklch(0.20 0.014 240);
+    --popover-foreground:      oklch(0.93 0.010 232);
+    --primary:                 oklch(0.65 0.14 245);
+    --primary-foreground:      oklch(0.16 0.014 240);
+    --secondary:               oklch(0.24 0.014 240);
+    --secondary-foreground:    oklch(0.93 0.010 232);
+    --muted:                   oklch(0.24 0.014 240);
+    --muted-foreground:        oklch(0.70 0.014 232);
+    --accent:                  oklch(0.28 0.020 240);
+    --accent-foreground:       oklch(0.93 0.010 232);
+    --destructive:             oklch(0.68 0.20 25);
+    --destructive-foreground:  oklch(0.93 0.010 232);
+    --border:                  oklch(0.30 0.018 235);
+    --input:                   oklch(0.28 0.016 235);
+    --ring:                    oklch(0.65 0.14 245);
+
+    --sidebar:                 oklch(0.18 0.014 240);
+    --sidebar-foreground:      oklch(0.93 0.010 232);
+    --sidebar-primary:         oklch(0.65 0.14 245);
+    --sidebar-primary-foreground: oklch(0.16 0.014 240);
+    --sidebar-accent:          oklch(0.28 0.020 240);
+    --sidebar-accent-foreground: oklch(0.93 0.010 232);
+    --sidebar-border:          oklch(0.30 0.018 235);
+    --sidebar-ring:            oklch(0.65 0.14 245);
+
+    --chart-1:                 oklch(0.65 0.14 245);
+    --chart-2:                 oklch(0.65 0.10 220);
+    --chart-3:                 oklch(0.65 0.08 60);
+    --chart-4:                 oklch(0.65 0.12 145);
+    --chart-5:                 oklch(0.65 0.08 300);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Whitepaper preview shell — institutional / academic report === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans, ui-sans-serif);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.page { max-width: 920px; margin: 0 auto; padding: 4rem 3rem; }
+
+/* Institutional header */
+.head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--primary);
+  margin-bottom: 3rem;
+  align-items: end;
+}
+.head .inst {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  letter-spacing: -0.005em;
+  color: var(--primary);
+}
+.head .inst small { display: block; color: var(--muted-foreground); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.25rem; }
+.head .ref { text-align: right; font-size: 0.8125rem; color: var(--muted-foreground); font-variant-numeric: tabular-nums; }
+.head .ref .id { color: var(--primary); font-weight: 600; }
+
+/* Document classification */
+.classification {
+  display: flex;
+  gap: 0.625rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin-bottom: 1.5rem;
+}
+.classification .pill {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.125rem 0.625rem;
+}
+.classification .pill.primary { background-color: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+
+/* Title block */
+.eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 0.75rem 0;
+}
+h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 1rem 0;
+  max-width: 26ch;
+}
+.standfirst {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.1875rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+  margin: 0 0 2rem 0;
+  max-width: 56ch;
+}
+
+.authors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+  font-size: 0.875rem;
+}
+.authors .author .name { font-weight: 600; }
+.authors .author .affil { color: var(--muted-foreground); font-size: 0.8125rem; }
+.authors .date {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+.authors .date strong { color: var(--foreground); font-weight: 600; }
+
+/* Abstract box */
+.abstract {
+  background-color: var(--muted);
+  border-left: 3px solid var(--primary);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 3rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.abstract h2 {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 0.625rem 0;
+}
+.abstract p { margin: 0 0 0.625rem 0; }
+.abstract p:last-child { margin-bottom: 0; }
+
+/* TOC */
+.toc {
+  margin-bottom: 3rem;
+}
+.toc h2 {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.toc-row {
+  display: grid;
+  grid-template-columns: 2rem 1fr 3rem;
+  align-items: baseline;
+  padding: 0.375rem 0;
+  font-size: 0.9375rem;
+}
+.toc-row .num { font-family: var(--font-mono); color: var(--muted-foreground); font-variant-numeric: tabular-nums; }
+.toc-row .title { color: var(--foreground); border-bottom: 1px dotted var(--border); padding-bottom: 0.125rem; }
+.toc-row .pg { text-align: right; font-family: var(--font-mono); color: var(--muted-foreground); font-variant-numeric: tabular-nums; }
+.toc-row.indent { padding-left: 1.5rem; font-size: 0.875rem; }
+.toc-row.indent .title { color: var(--muted-foreground); }
+
+/* First body section */
+.section-num {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 0.5rem 0;
+}
+h2.body-h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 1rem 0;
+}
+.prose p { margin: 0 0 1.125rem 0; }
+.prose a { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; }
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--primary);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  letter-spacing: 0.04em;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="head">
+    <div class="inst">
+      Institute for Platform Engineering
+      <small>Quarterly research bulletin</small>
+    </div>
+    <div class="ref">
+      Reference <span class="id">IPE-2026-Q2-007</span><br>
+      Issued 21 May 2026
+    </div>
+  </div>
+
+  <div class="classification">
+    <span class="pill primary">Public</span>
+    <span class="pill">Peer-reviewed</span>
+    <span class="pill">v1.0 · stable</span>
+  </div>
+
+  <span class="eyebrow">Research bulletin · Edge platforms</span>
+  <h1>Distribution-aware publishing for the org-internal web</h1>
+  <p class="standfirst">An institutional analysis of seven publishing-platform architectures for the org-gated artifact category, with recommendations for procurement and platform engineering teams.</p>
+
+  <div class="authors">
+    <div class="author">
+      <div class="name">Mira Allende, Ph.D.</div>
+      <div class="affil">Institute for Platform Engineering · Lead author</div>
+    </div>
+    <div class="author">
+      <div class="name">Jordan Kim</div>
+      <div class="affil">Halcyon.dev · Industry collaborator</div>
+    </div>
+    <div class="date">
+      <strong>Submitted</strong> 04 April 2026 · <strong>Accepted</strong> 12 May 2026<br>
+      <strong>Published</strong> 21 May 2026 · <strong>Volume</strong> 09 · <strong>Issue</strong> 02
+    </div>
+  </div>
+
+  <div class="abstract">
+    <h2>Abstract</h2>
+    <p>We assess seven org-gated publishing architectures against four institutional criteria: latency at p99, time-to-first-byte for cold authentication paths, total-cost-of-ownership at the 1k–10k seat band, and the operational surface required to maintain the platform end-to-end.</p>
+    <p>The dominant architecture in the surveyed cohort centralises edge-rendered HTML behind a Worker-level auth gate, with origin databases serving only mutation. The pattern delivers a median p99 of 86 ms across regions with operational overhead substantially below the multi-region Postgres alternative.</p>
+  </div>
+
+  <div class="toc">
+    <h2>Contents</h2>
+    <div class="toc-row"><span class="num">01</span><span class="title">Introduction and scope</span><span class="pg">02</span></div>
+    <div class="toc-row indent"><span class="num">1.1</span><span class="title">Definitions: org-gated, org-shared, public</span><span class="pg">02</span></div>
+    <div class="toc-row indent"><span class="num">1.2</span><span class="title">Cohort selection methodology</span><span class="pg">04</span></div>
+    <div class="toc-row"><span class="num">02</span><span class="title">Architectural comparison</span><span class="pg">06</span></div>
+    <div class="toc-row indent"><span class="num">2.1</span><span class="title">Edge-rendered HTML pattern</span><span class="pg">07</span></div>
+    <div class="toc-row indent"><span class="num">2.2</span><span class="title">Origin-rendered SPA pattern</span><span class="pg">11</span></div>
+    <div class="toc-row indent"><span class="num">2.3</span><span class="title">Hybrid CDN-and-origin pattern</span><span class="pg">14</span></div>
+    <div class="toc-row"><span class="num">03</span><span class="title">Operational findings</span><span class="pg">18</span></div>
+    <div class="toc-row"><span class="num">04</span><span class="title">Recommendations and procurement guidance</span><span class="pg">24</span></div>
+    <div class="toc-row"><span class="num">—</span><span class="title">References (n=42)</span><span class="pg">31</span></div>
+  </div>
+
+  <div>
+    <span class="section-num">§ 1 · Introduction</span>
+    <h2 class="body-h2">The org-gated artifact as a distinct category</h2>
+    <div class="prose">
+      <p>The institutional shift from public-by-default publishing toward access-gated artifact distribution has proceeded faster than the literature has documented. The Q1 2026 industry survey conducted by this Institute found that <strong>83% of platform engineering teams at the 500–5,000 employee band</strong> now operate at least one org-gated artifact channel — a category that includes internal dashboards, agent-generated reports, runbook archives, and the proliferating long-tail of MCP-rendered documents.</p>
+      <p>This bulletin defines the category, surveys the architectural patterns currently in production, and offers procurement guidance for platform engineering teams evaluating new entrants. The data underlying §3 is drawn from <a href="#">the Institute's Q1 cohort study</a> (n=412 organisations).</p>
+    </div>
+  </div>
+
+  <footer>
+    <span>visualize · whitepaper</span>
+    <span>Page 1 of 36 · ISSN 2563-9981</span>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,2317 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>playstation-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000000'/%3E%3Cpath d='M11 7l5 0 0 18-2.2 0 0-15.6-2.8 0z M19 13.5l3 0 0 11.5-3 0z M14 17l4 0 0 1.5-4 0z' fill='%230070d1'/%3E%3C/svg%3E">
+<meta property="og:title" content="playstation-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Three-canvas chapter system (black + white + blue), pill CTAs, 8px-radius tiles, PlayStation SST display at weight 300.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/playstation-style/tokens.css) === */
+/**
+ * design-systems/playstation-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Dark-mode block is hand-edited per AUTHORING.md. PlayStation is
+ * documented as a three-canvas chapter system (black + white + PS
+ * Blue alternating), but the product reality is light-canonical with
+ * dark-canvas signature bands. The synthesised OKLCH lightness
+ * inversion default produced an incoherent canvas — pure white
+ * foreground on pure black, cool-blue card tint collapsing to a near-
+ * black indistinguishable from --background.
+ *
+ * Dark strategy applied below: synthesise a warm-tinted near-black
+ * canvas, lift the card surface to the brand's documented
+ * --brand-surface-dark-card (#181818) family, override the light-canvas
+ * inks (--brand-body-light, --brand-mute-light, --brand-ash-light,
+ * --brand-hairline-light) so they read on dark surfaces, and leave
+ * the polarity-locked tokens (--brand-canvas-dark, --brand-canvas-light,
+ * --brand-surface-dark-*, --brand-on-dark, --brand-on-dark-mute,
+ * --brand-ps-plus-gold-*, --brand-marathon-yellow) at their :root
+ * values. Those tokens encode "always-X-on-Y" semantics and lifting
+ * them inverts contrast against the locked surface.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0 0 0);
+  --card: oklch(0.9755 0.0045 258.3246);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(0.9755 0.0045 258.3246);
+  --popover-foreground: oklch(0 0 0);
+  --primary: oklch(0.5477 0.1718 253.5413);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9642 0 0);
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.9642 0 0);
+  --muted-foreground: oklch(0 0 0);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.8975 0 0);
+  --input: oklch(0.8975 0 0);
+  --ring: oklch(0.5477 0.1718 253.5413);
+  --sidebar: oklch(0.9642 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0.5477 0.1718 253.5413);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9642 0 0);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0.8975 0 0);
+  --sidebar-ring: oklch(0.5477 0.1718 253.5413);
+  --chart-1: oklch(0.8100 0.1718 253.5413);
+  --chart-2: oklch(0.7100 0.1718 253.5413);
+  --chart-3: oklch(0.6100 0.1718 253.5413);
+  --chart-4: oklch(0.5100 0.1718 253.5413);
+  --chart-5: oklch(0.4200 0.1718 253.5413);
+
+  /* radius scale */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: PlayStation SST;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: PlayStation SST;
+
+  /* type scale tokens */
+  --text-display: 54px;
+  --text-heading: 44px;
+  --text-title: 18px;
+  --text-base: 18px;
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-primary-pressed: oklch(0.5021 0.1524 252.4842);
+  --brand-primary-active: oklch(0.4177 0.1242 251.7994);
+  --brand-link-light: oklch(0.5021 0.1524 252.4842);
+  --brand-link-dark: oklch(0.7373 0.1441 246.5064);
+  --brand-commerce: oklch(0.5791 0.1980 36.0696);
+  --brand-commerce-pressed: oklch(0.4914 0.1660 36.6075);
+  --brand-commerce-link-base: oklch(0.5828 0.1975 36.4650);
+  --brand-on-commerce: oklch(1 0 0);
+  --brand-ink-deep: oklch(0.1860 0.0026 247.9662);
+  --brand-ink-elevated: oklch(0.2090 0 0);
+  --brand-charcoal: oklch(0.2442 0.0077 274.6262);
+  --brand-body-light: oklch(0 0 0 / 0.6000);
+  --brand-mute-light: oklch(0.5278 0 0);
+  --brand-ash-light: oklch(0.8452 0 0);
+  --brand-body-dark: oklch(1 0 0 / 0.7000);
+  --brand-mute-dark: oklch(0.9219 0 0 / 0.5500);
+  --brand-ash-dark: oklch(0.9219 0 0 / 0.2000);
+  --brand-canvas-light: oklch(1 0 0);
+  --brand-surface-filter: oklch(0.9755 0.0045 258.3246 / 0.3000);
+  --brand-canvas-dark: oklch(0 0 0);
+  --brand-surface-dark-elevated: oklch(0.1860 0.0026 247.9662);
+  --brand-surface-dark-card: oklch(0.2090 0 0);
+  --brand-hairline-light: oklch(0.9642 0 0);
+  --brand-hairline-dark: oklch(0.9219 0 0 / 0.2000);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-dark-mute: oklch(0.8452 0 0);
+  --brand-warning: oklch(0.5366 0.2021 19.5652);
+  --brand-ps-plus-gold-start: oklch(0.8697 0.1720 90.5854);
+  --brand-ps-plus-gold-mid: oklch(0.7837 0.1587 72.9913);
+  --brand-ps-plus-gold-end: oklch(0.7319 0.1651 64.3148);
+  --brand-marathon-yellow: oklch(0.9435 0.2164 118.9278);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Hand-edited brand-accurate dark mode.
+   *
+   * PlayStation's product reality is light-canonical with strong dark-canvas
+   * signature bands (hero, footer); no fully-documented dark theme. This
+   * synthesised dark uses the brand's existing dark surface family
+   * (--brand-surface-dark-elevated #121314, --brand-surface-dark-card #181818)
+   * lifted slightly to read as "canvas not band," with the PlayStation Blue
+   * primary unchanged and the documented light-on-dark inks (--brand-on-dark,
+   * --brand-on-dark-mute, --brand-body-dark, --brand-mute-dark) carrying body
+   * text. The signature bands (--brand-canvas-dark, --brand-surface-dark-*,
+   * PS Plus gold gradient, Marathon yellow) stay polarity-locked at :root —
+   * they're brand voltage, not theme-dependent surfaces.
+   *
+   * Light-canvas inks (--brand-body-light, --brand-mute-light, --brand-ash-light,
+   * --brand-hairline-light) get dark-mode overrides so demo surfaces that
+   * flip with theme still have readable inks. */
+
+  --background: oklch(0.1800 0.0040 258);                 /* warm-cool near-black canvas, hue tracks --card */
+  --foreground: oklch(0.9700 0 0);                        /* near-white ink */
+  --card: oklch(0.2200 0.0040 258);                       /* lifted card, hue tracks the documented surface-dark family */
+  --card-foreground: oklch(0.9700 0 0);
+  --popover: oklch(0.2200 0.0040 258);
+  --popover-foreground: oklch(0.9700 0 0);
+  --primary: oklch(0.5477 0.1718 253.5413);               /* PlayStation Blue — unchanged, brand voltage */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.2400 0.0040 258);
+  --secondary-foreground: oklch(0.9700 0 0);
+  --muted: oklch(0.2400 0.0040 258);
+  --muted-foreground: oklch(0.7500 0.0040 258);
+  --accent: oklch(0.2200 0.0040 258);
+  --accent-foreground: oklch(0.9700 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3000 0.0040 258);
+  --input: oklch(0.3000 0.0040 258);
+  --ring: oklch(0.7373 0.1441 246.5064);                  /* lifted blue for dark-mode focus, matches --brand-link-dark */
+  --sidebar: oklch(0.2200 0.0040 258);
+  --sidebar-foreground: oklch(0.9700 0 0);
+  --sidebar-primary: oklch(0.5477 0.1718 253.5413);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2400 0.0040 258);
+  --sidebar-accent-foreground: oklch(0.9700 0 0);
+  --sidebar-border: oklch(0.3000 0.0040 258);
+  --sidebar-ring: oklch(0.7373 0.1441 246.5064);
+  --chart-1: oklch(0.8100 0.1718 253.5413);
+  --chart-2: oklch(0.7100 0.1718 253.5413);
+  --chart-3: oklch(0.6100 0.1718 253.5413);
+  --chart-4: oklch(0.5100 0.1718 253.5413);
+  --chart-5: oklch(0.4200 0.1718 253.5413);
+
+  /* brand-extras dark overrides — only the light-canvas inks flip.
+   * Polarity-locked tokens stay at :root values: --brand-canvas-dark,
+   * --brand-canvas-light, --brand-surface-dark-elevated, --brand-surface-
+   * dark-card, --brand-on-dark, --brand-on-dark-mute, --brand-body-dark,
+   * --brand-mute-dark, --brand-ash-dark, --brand-ps-plus-gold-*,
+   * --brand-marathon-yellow. Lifting any of those would invert contrast
+   * against locked signature surfaces. */
+  --brand-body-light: oklch(0.8800 0 0);                  /* light-canvas body ink → light ink for dark canvas */
+  --brand-mute-light: oklch(0.7000 0 0);                  /* metadata text */
+  --brand-ash-light: oklch(0.4500 0 0);                   /* disabled / lowest-emphasis text */
+  --brand-hairline-light: oklch(0.3000 0.0040 258);       /* 1px divider on flipped surfaces */
+  --brand-link-light: oklch(0.7373 0.1441 246.5064);      /* inline link on dark-flipped body, matches --brand-link-dark */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1800 0.0040 258);
+    --foreground: oklch(0.9700 0 0);
+    --card: oklch(0.2200 0.0040 258);
+    --card-foreground: oklch(0.9700 0 0);
+    --popover: oklch(0.2200 0.0040 258);
+    --popover-foreground: oklch(0.9700 0 0);
+    --primary: oklch(0.5477 0.1718 253.5413);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.2400 0.0040 258);
+    --secondary-foreground: oklch(0.9700 0 0);
+    --muted: oklch(0.2400 0.0040 258);
+    --muted-foreground: oklch(0.7500 0.0040 258);
+    --accent: oklch(0.2200 0.0040 258);
+    --accent-foreground: oklch(0.9700 0 0);
+    --destructive: oklch(0.5308 0.2178 29.2339);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3000 0.0040 258);
+    --input: oklch(0.3000 0.0040 258);
+    --ring: oklch(0.7373 0.1441 246.5064);
+    --sidebar: oklch(0.2200 0.0040 258);
+    --sidebar-foreground: oklch(0.9700 0 0);
+    --sidebar-primary: oklch(0.5477 0.1718 253.5413);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.2400 0.0040 258);
+    --sidebar-accent-foreground: oklch(0.9700 0 0);
+    --sidebar-border: oklch(0.3000 0.0040 258);
+    --sidebar-ring: oklch(0.7373 0.1441 246.5064);
+    --chart-1: oklch(0.8100 0.1718 253.5413);
+    --chart-2: oklch(0.7100 0.1718 253.5413);
+    --chart-3: oklch(0.6100 0.1718 253.5413);
+    --chart-4: oklch(0.5100 0.1718 253.5413);
+    --chart-5: oklch(0.4200 0.1718 253.5413);
+
+    --brand-body-light: oklch(0.8800 0 0);
+    --brand-mute-light: oklch(0.7000 0 0);
+    --brand-ash-light: oklch(0.4500 0 0);
+    --brand-hairline-light: oklch(0.3000 0.0040 258);
+    --brand-link-light: oklch(0.7373 0.1441 246.5064);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === PlayStation-style preview shell — three-canvas chapter system.
+   Signature surface: a dark hero band with a 4-up tile grid carrying
+   abstract gradient placeholders for Halcyon team training modules /
+   KB sections (NOT game covers). Pills at 9999px radius. Weight-300
+   display. 8px tile radius. The brand-extras dark surface family
+   (--brand-canvas-dark, --brand-surface-dark-elevated,
+   --brand-surface-dark-card) carries the signature regardless of
+   light/dark theme — they're polarity-locked brand voltage. Demo
+   sections (swatches, ladder, type, components, pricing) flip with
+   theme. Halcyon-themed neutral content; no real names. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'PlayStation SST', 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -- Local preview-only tokens -- */
+:root {
+  --preview-tile-shadow: rgba(0, 0, 0, 0.32);
+  --preview-focus-ring: var(--ring);
+}
+[data-theme="dark"] {
+  --preview-tile-shadow: rgba(0, 0, 0, 0.6);
+}
+
+/* -- Top nav: dark canvas, dropped on the hero band -- */
+.topnav {
+  position: relative;
+  z-index: 5;
+  background: var(--brand-canvas-dark);
+  color: var(--brand-on-dark);
+}
+.topnav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1.5rem;
+  height: 48px;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.brand-glyph {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background: var(--primary);
+  color: var(--brand-on-dark);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  flex: 1;
+  margin-left: 1.5rem;
+  color: var(--brand-on-dark);
+}
+.topnav-links a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.86;
+  white-space: nowrap;
+}
+.topnav-links a:hover { opacity: 1; }
+.topnav-links a[data-active] { opacity: 1; }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; }
+@media (max-width: 960px) { .topnav-links { display: none; } }
+
+/* -- Buttons: pill geometry (9999px radius), 48px min height -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--brand-radius-full);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.045em;
+  line-height: 1.25;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--preview-focus-ring);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-pressed); }
+.btn[data-variant="commerce"] {
+  background: var(--brand-commerce);
+  color: var(--brand-on-commerce);
+}
+.btn[data-variant="commerce"]:hover { background: var(--brand-commerce-pressed); }
+.btn[data-variant="ghost-on-dark"] {
+  background: transparent;
+  color: var(--brand-on-dark);
+  border-color: rgba(255, 255, 255, 0.32);
+}
+.btn[data-variant="ghost-on-dark"]:hover { background: rgba(255, 255, 255, 0.08); }
+.btn[data-variant="ghost-on-light"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--brand-ash-light);
+}
+.btn[data-variant="ghost-on-light"]:hover { background: var(--brand-hairline-light); }
+.btn[data-variant="ghost-on-blue"] {
+  background: transparent;
+  color: var(--brand-on-dark);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+.btn[data-variant="ghost-on-blue"]:hover { background: rgba(255, 255, 255, 0.12); }
+.btn[data-size="sm"] {
+  min-height: 36px;
+  padding: 0.4rem 1rem;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Filter / tab pills -- */
+.pill-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0.4rem 1rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--brand-surface-filter);
+  color: var(--brand-body-light);
+  border: 1px solid transparent;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-decoration: none;
+}
+.chip:focus-visible {
+  outline: 2px solid var(--preview-focus-ring);
+  outline-offset: 3px;
+}
+.chip[data-active] {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+.chip[data-on="dark"] {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--brand-on-dark);
+}
+.chip[data-on="dark"][data-active] {
+  background: var(--brand-on-dark);
+  color: var(--brand-canvas-dark);
+}
+
+/* -- Hero band: dark canvas signature ----------------------------------- */
+.hero {
+  position: relative;
+  background: var(--brand-canvas-dark);
+  color: var(--brand-on-dark);
+  overflow: hidden;
+}
+.hero::after {
+  /* subtle vignette toward the bottom — the documented section gradient */
+  content: "";
+  position: absolute;
+  inset: 60% 0 0 0;
+  background: linear-gradient(180deg, transparent 0%, var(--brand-surface-dark-elevated) 100%);
+  pointer-events: none;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.hero-eyebrow {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+  margin: 0;
+}
+.hero-display {
+  font-family: inherit;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.005em;
+  color: var(--brand-on-dark);
+  margin: 0;
+  max-width: 18ch;
+}
+.hero-lede {
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-on-dark);
+  opacity: 0.86;
+  max-width: 52ch;
+  margin: 0;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+/* -- Signature surface: 4-up tile grid (abstract gradient placeholders) -- */
+.tile-band {
+  position: relative;
+  z-index: 2;
+  background: var(--brand-canvas-dark);
+  padding: 0 1.5rem 6rem;
+}
+.tile-band-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.tile-band-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.tile-band-title {
+  font-family: inherit;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+  color: var(--brand-on-dark);
+  margin: 0;
+  max-width: 24ch;
+}
+.tile-band-filter { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 1080px) { .tile-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px) { .tile-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .tile-grid { grid-template-columns: 1fr; } }
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--brand-surface-dark-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  position: relative;
+}
+.tile:focus-visible {
+  outline: 2px solid var(--preview-focus-ring);
+  outline-offset: 3px;
+}
+.tile-art {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.tile-art::after {
+  /* faint inset hairline for definition against the dark surface */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+}
+.tile-art[data-art="onboarding"] {
+  background:
+    radial-gradient(70% 80% at 22% 28%, oklch(0.65 0.18 254) 0%, transparent 62%),
+    radial-gradient(60% 70% at 78% 72%, oklch(0.42 0.16 252) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.30 0.10 250) 0%, oklch(0.18 0.04 258) 100%);
+}
+.tile-art[data-art="incidents"] {
+  background:
+    radial-gradient(65% 75% at 30% 80%, oklch(0.55 0.20 36) 0%, transparent 60%),
+    radial-gradient(50% 60% at 72% 28%, oklch(0.35 0.15 38) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.22 0.06 38) 0%, oklch(0.18 0.04 32) 100%);
+}
+.tile-art[data-art="design-crit"] {
+  background:
+    radial-gradient(70% 80% at 70% 30%, oklch(0.62 0.14 88) 0%, transparent 60%),
+    radial-gradient(55% 65% at 22% 78%, oklch(0.78 0.16 72) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.32 0.08 70) 0%, oklch(0.20 0.05 60) 100%);
+}
+.tile-art[data-art="security"] {
+  background:
+    radial-gradient(72% 80% at 26% 30%, oklch(0.48 0.14 165) 0%, transparent 60%),
+    radial-gradient(58% 68% at 78% 76%, oklch(0.32 0.10 162) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.24 0.06 168) 0%, oklch(0.16 0.04 172) 100%);
+}
+.tile-art[data-art="sprints"] {
+  background:
+    radial-gradient(68% 78% at 22% 72%, oklch(0.58 0.16 290) 0%, transparent 60%),
+    radial-gradient(54% 64% at 80% 26%, oklch(0.42 0.13 288) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.28 0.08 286) 0%, oklch(0.18 0.05 290) 100%);
+}
+.tile-art[data-art="hiring"] {
+  background:
+    radial-gradient(70% 80% at 78% 24%, oklch(0.52 0.16 320) 0%, transparent 60%),
+    radial-gradient(56% 66% at 24% 78%, oklch(0.36 0.12 322) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.24 0.07 320) 0%, oklch(0.17 0.05 324) 100%);
+}
+.tile-art[data-art="planning"] {
+  background:
+    radial-gradient(68% 80% at 28% 26%, oklch(0.6 0.14 220) 0%, transparent 60%),
+    radial-gradient(54% 64% at 76% 78%, oklch(0.38 0.12 218) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.26 0.07 222) 0%, oklch(0.18 0.04 224) 100%);
+}
+.tile-art[data-art="research"] {
+  background:
+    radial-gradient(72% 82% at 24% 78%, oklch(0.5 0.14 12) 0%, transparent 60%),
+    radial-gradient(56% 66% at 78% 24%, oklch(0.32 0.10 14) 0%, transparent 60%),
+    linear-gradient(135deg, oklch(0.22 0.06 16) 0%, oklch(0.16 0.04 18) 100%);
+}
+.tile-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--brand-radius-full);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
+.tile-badge[data-tone="commerce"] { background: var(--brand-commerce); color: var(--brand-on-commerce); }
+.tile-badge[data-tone="ghost"] {
+  background: var(--brand-surface-dark-elevated);
+  color: var(--brand-on-dark);
+}
+.tile-body { padding: 1rem 1.25rem 1.25rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.tile-meta {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--brand-on-dark-mute);
+}
+.tile-title {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--brand-on-dark);
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* -- Section frame (theme-flipping demo bands) -- */
+.section { padding: 5rem 1.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.eyebrow {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-mute-light);
+  margin: 0 0 0.75rem;
+}
+.section-title {
+  font-family: inherit;
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  font-weight: 300;
+  letter-spacing: 0.005em;
+  line-height: 1.15;
+  color: var(--foreground);
+  margin: 0 0 0.5rem;
+  max-width: 22ch;
+}
+.section-lede {
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-body-light);
+  max-width: 56ch;
+  margin: 0 0 2.5rem;
+}
+
+/* -- Color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-light);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--brand-hairline-light);
+}
+.swatch-role {
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mute-light);
+}
+.swatch-name {
+  font-family: 'PlayStation SST', 'Inter', system-ui, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--foreground);
+  word-break: break-all;
+}
+
+/* -- Surface ladder (three locked canvas modes) -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--radius-md);
+  padding: 2.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+}
+.ladder-step[data-step="dark"] {
+  background: var(--brand-canvas-dark);
+  color: var(--brand-on-dark);
+}
+.ladder-step[data-step="light"] {
+  background: var(--brand-canvas-light);
+  color: oklch(0 0 0);
+  border: 1px solid var(--brand-hairline-light);
+}
+.ladder-step[data-step="blue"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.ladder-num {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ladder-name {
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 0.005em;
+  line-height: 1.15;
+}
+.ladder-role {
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: auto;
+}
+.ladder-step[data-step="dark"] .ladder-num,
+.ladder-step[data-step="dark"] .ladder-role { color: var(--brand-on-dark-mute); }
+/* Locked-white ladder step — labels must use an always-dark ink because
+ * the step's white surface doesn't flip with theme. Using a theme-flipping
+ * token (--brand-body-light, --brand-mute-light) inverts contrast in dark
+ * mode because the override flips the ink to a light grey while the
+ * surface stays white. */
+.ladder-step[data-step="light"] .ladder-num,
+.ladder-step[data-step="light"] .ladder-role { color: oklch(0 0 0 / 0.7); }
+.ladder-step[data-step="blue"] .ladder-num,
+.ladder-step[data-step="blue"] .ladder-role { color: var(--primary-foreground); }
+
+/* -- Type stack -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--brand-hairline-light);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mute-light);
+}
+.type-display { font-family: inherit; font-size: 48px; font-weight: 300; letter-spacing: -0.005em; line-height: 1.05; color: var(--foreground); }
+.type-heading { font-family: inherit; font-size: 36px; font-weight: 300; letter-spacing: 0.005em; line-height: 1.15; color: var(--foreground); }
+.type-title { font-family: inherit; font-size: 18px; font-weight: 600; letter-spacing: 0; line-height: 1.3; color: var(--foreground); }
+.type-body { font-family: inherit; font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: 0.005em; color: var(--brand-body-light); }
+.type-button { font-family: inherit; font-size: 14px; font-weight: 700; letter-spacing: 0.045em; line-height: 1.25; color: var(--foreground); }
+.type-caption { font-family: inherit; font-size: 12px; font-weight: 500; letter-spacing: 0; line-height: 1.5; color: var(--brand-mute-light); }
+
+/* -- Component vocabulary -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.cmp-stack { display: flex; flex-direction: column; gap: 2rem; }
+.cmp-block { display: flex; flex-direction: column; gap: 0.75rem; }
+.cmp-block-label {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mute-light);
+}
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  line-height: 1.5;
+}
+.badge[data-tone="commerce"] { background: var(--brand-commerce); color: var(--brand-on-commerce); }
+.badge[data-tone="ghost-on-light"] {
+  background: var(--brand-hairline-light);
+  color: var(--foreground);
+}
+
+/* -- Pricing tiers -- */
+.pricing-band { background: var(--card); }
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--background);
+  border: 1px solid var(--brand-hairline-light);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.pricing-card[data-featured] {
+  border-color: var(--primary);
+  border-width: 2px;
+}
+.pricing-name {
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 0.005em;
+  color: var(--foreground);
+  margin: 0;
+}
+.pricing-price {
+  font-family: inherit;
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 0;
+  color: var(--foreground);
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  line-height: 1;
+}
+.pricing-tagline {
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--brand-body-light);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 3em;
+}
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--brand-hairline-light);
+  padding-top: 1.25rem;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--brand-body-light);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.75rem; line-height: 1.5; }
+.pricing-features li::before {
+  content: "›";
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 1rem;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* -- Blue closing band (the system's "we're done" anchor) -- */
+.blue-band {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 5rem 1.5rem 4rem;
+  text-align: center;
+}
+.blue-band-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.blue-band-eyebrow {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary-foreground);
+  margin: 0;
+}
+.blue-band-title {
+  font-family: inherit;
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  font-weight: 300;
+  letter-spacing: 0.005em;
+  line-height: 1.15;
+  color: var(--primary-foreground);
+  margin: 0 0 0.25rem;
+  max-width: 22ch;
+}
+.blue-band-lede {
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--primary-foreground);
+  max-width: 52ch;
+  margin: 0 0 1.25rem;
+}
+
+/* -- Footer: blue surface anchor -- */
+.footer {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 3rem 1.5rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline {
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--primary-foreground);
+  margin: 0;
+}
+.footer-col-title {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--primary-foreground);
+  margin: 0 0 0.75rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a {
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--primary-foreground);
+  text-decoration: none;
+}
+.footer-list a:hover { text-decoration: underline; }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.32);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--primary-foreground);
+  letter-spacing: 0.03em;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true">H</span>
+      playstation-style
+    </a>
+    <div class="topnav-links">
+      <a href="#" data-active>Modules</a>
+      <a href="#">Library</a>
+      <a href="#">Subscriptions</a>
+      <a href="#">News</a>
+      <a href="#">Support</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="btn" data-variant="ghost-on-dark" data-size="sm" type="button">Sign in</button>
+      <button class="btn" data-variant="primary" data-size="sm" type="button">Get started</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">playstation-style · token surface</p>
+    <h1 class="hero-display">Three canvases. One quiet system.</h1>
+    <p class="hero-lede">A token-surface preview rendered against the design system. Black, white, and a single saturated blue stack as full-bleed chapters; the proprietary display face holds at weight 300 so the chrome stays out of the way of the content.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" type="button">Open the catalogue</button>
+      <button class="btn" data-variant="ghost-on-dark" type="button">Read the docs</button>
+    </div>
+  </div>
+</header>
+
+<section class="tile-band" aria-label="Module grid">
+  <div class="tile-band-inner">
+    <div class="tile-band-head">
+      <h2 class="tile-band-title">The Halcyon team's training library, indexed.</h2>
+      <div class="tile-band-filter pill-row">
+        <button class="chip" data-on="dark" data-active type="button">All</button>
+        <button class="chip" data-on="dark" type="button">Engineering</button>
+        <button class="chip" data-on="dark" type="button">Design</button>
+        <button class="chip" data-on="dark" type="button">Operations</button>
+      </div>
+    </div>
+
+    <div class="tile-grid">
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="onboarding" aria-hidden="true">
+          <span class="tile-badge">New</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">Module · Engineering</span>
+          <h3 class="tile-title">Onboarding for the on-call rotation</h3>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="incidents" aria-hidden="true">
+          <span class="tile-badge" data-tone="commerce">Updated</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">Runbook · SRE</span>
+          <h3 class="tile-title">Incident response, end to end</h3>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="design-crit" aria-hidden="true">
+          <span class="tile-badge" data-tone="ghost">Weekly</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">Ritual · Design</span>
+          <h3 class="tile-title">Design crit, Thursdays at 14:00</h3>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="security" aria-hidden="true">
+          <span class="tile-badge" data-tone="ghost">Required</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">Compliance · Security</span>
+          <h3 class="tile-title">Annual security refresher</h3>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="sprints" aria-hidden="true">
+          <span class="tile-badge" data-tone="ghost">Cycle 14</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">Planning · Product</span>
+          <h3 class="tile-title">Sprint planning, the short version</h3>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="hiring" aria-hidden="true">
+          <span class="tile-badge" data-tone="ghost">Hiring</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">People · Hiring</span>
+          <h3 class="tile-title">Interview loop, by role</h3>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="planning" aria-hidden="true">
+          <span class="tile-badge" data-tone="ghost">Q3</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">Strategy · Leadership</span>
+          <h3 class="tile-title">Quarterly planning, the long version</h3>
+        </div>
+      </a>
+      <a class="tile" href="#">
+        <div class="tile-art" data-art="research" aria-hidden="true">
+          <span class="tile-badge" data-tone="ghost">Research</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-meta">Discovery · Product</span>
+          <h3 class="tile-title">Customer interviews, synthesised</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · color</p>
+    <h2 class="section-title">Two surfaces. One action color.</h2>
+    <p class="section-lede">PlayStation Blue is the universal primary; commerce orange handles store actions; everything else holds in black, white, and a small ink ladder. Every chip resolves from <code style="font-family:var(--font-mono); font-size:0.875em;">tokens.css</code>.</p>
+    <div class="swatch-grid" aria-label="Color swatches">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Action</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-primary-pressed);"></div><div class="swatch-role">Action</div><div class="swatch-name">--brand-primary-pressed</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-primary-active);"></div><div class="swatch-role">Action</div><div class="swatch-name">--brand-primary-active</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-commerce);"></div><div class="swatch-role">Commerce</div><div class="swatch-name">--brand-commerce</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-dark);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-dark-elevated);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-dark-elevated</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-dark-card);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-dark-card</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-light);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-light</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ps-plus-gold-start);"></div><div class="swatch-role">Tier</div><div class="swatch-name">--brand-ps-plus-gold-start</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ps-plus-gold-mid);"></div><div class="swatch-role">Tier</div><div class="swatch-name">--brand-ps-plus-gold-mid</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ps-plus-gold-end);"></div><div class="swatch-role">Tier</div><div class="swatch-name">--brand-ps-plus-gold-end</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-warning);"></div><div class="swatch-role">State</div><div class="swatch-name">--brand-warning</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section pricing-band" aria-label="Surface ladder">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · surface</p>
+    <h2 class="section-title">Three canvas modes, alternating.</h2>
+    <p class="section-lede">Black for editorial product moments; white for utility surfaces; PlayStation Blue for the action moment of the page. Each band runs edge to edge; the section transition is the canvas change.</p>
+    <div class="ladder">
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">Chapter 1</span>
+        <span class="ladder-name">Canvas dark</span>
+        <span class="ladder-role">Hero · tile grid · footer wordmark</span>
+      </div>
+      <div class="ladder-step" data-step="light">
+        <span class="ladder-num">Chapter 2</span>
+        <span class="ladder-name">Canvas light</span>
+        <span class="ladder-role">Library listing · support · news strip</span>
+      </div>
+      <div class="ladder-step" data-step="blue">
+        <span class="ladder-num">Chapter 3</span>
+        <span class="ladder-name">Canvas blue</span>
+        <span class="ladder-role">Closing band · footer · action moment</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · type · components</p>
+    <h2 class="section-title">Weight 300 is the voice.</h2>
+    <p class="section-lede">Display tier holds at weight 300; chrome at weight 700; body at weight 400 with 1.5 line-height. The contrast between feather-light display and heavy CTA gives the system its editorial gaming-magazine feel.</p>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Quietly shipping.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">The team ships on Thursdays.</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Module title, 18px, weight 600.</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy at 16 pixels, line-height 1.5. The light display weight and the heavy button weight bracket every chrome line.</span></div>
+        <div class="type-row"><span class="type-label">Button</span><span class="type-button">PRIMARY CTA · 14 / 700 / +0.045em</span></div>
+        <div class="type-row"><span class="type-label">Caption</span><span class="type-caption">Footer / metadata · 12 / 500</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div class="cmp-block">
+          <span class="cmp-block-label">Buttons · 9999px radius, 48px height</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" type="button">Primary</button>
+            <button class="btn" data-variant="commerce" type="button">Commerce</button>
+            <button class="btn" data-variant="ghost-on-light" type="button">Secondary</button>
+          </div>
+        </div>
+        <div class="cmp-block">
+          <span class="cmp-block-label">Filter chips · light canvas</span>
+          <div class="cmp-row">
+            <button class="chip" data-active type="button">All</button>
+            <button class="chip" type="button">Coming Soon</button>
+            <button class="chip" type="button">Recently Released</button>
+            <button class="chip" type="button">Subscriptions</button>
+          </div>
+        </div>
+        <div class="cmp-block">
+          <span class="cmp-block-label">Badges · pill, 11px / 700</span>
+          <div class="cmp-row">
+            <span class="badge">New</span>
+            <span class="badge" data-tone="commerce">Updated</span>
+            <span class="badge" data-tone="ghost-on-light">Required</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pricing-band" aria-label="Pricing">
+  <div class="section-inner">
+    <h2 class="section-title" style="text-align: center; max-width: 22ch; margin: 0 auto 1rem;">Three plans, no seat tax.</h2>
+    <p class="section-lede" style="text-align: center; margin-left: auto; margin-right: auto;">Token-surface previews stay free; the team and org-wide plans pick up custom quotas and procurement paperwork.</p>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">Personal use, weekend explorations, and reading-room access.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <button class="btn" data-variant="ghost-on-light" type="button">Start free</button>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">Small teams shipping into production with a shared catalogue.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+          <li>Production SLA</li>
+        </ul>
+        <button class="btn" data-variant="primary" type="button">Start a team</button>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">Procurement-ready paperwork, dedicated success, and regional residency.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota and region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <button class="btn" data-variant="ghost-on-light" type="button">Talk to us</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blue-band" aria-label="Closing band">
+  <div class="blue-band-inner">
+    <p class="blue-band-eyebrow">playstation-style</p>
+    <h2 class="blue-band-title">The action moment of the page.</h2>
+    <p class="blue-band-lede">PlayStation Blue is the universal primary and the closing canvas. One full-bleed blue band per page; this is it.</p>
+    <div class="hero-ctas" style="justify-content: center;">
+      <button class="btn" data-variant="ghost-on-blue" type="button">Open the catalogue</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#" style="color: var(--primary-foreground);">
+        <span class="brand-glyph" aria-hidden="true" style="background: var(--primary-foreground); color: var(--primary);">H</span>
+        playstation-style
+      </a>
+      <p class="footer-tagline">A token-surface preview rendered against the three-canvas chapter system. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Catalogue</p>
+      <ul class="footer-list"><li><a href="#">Modules</a></li><li><a href="#">Runbooks</a></li><li><a href="#">Rituals</a></li><li><a href="#">Library</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list"><li><a href="#">Docs</a></li><li><a href="#">Changelog</a></li><li><a href="#">Research</a></li><li><a href="#">Status</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">app.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Press</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>playstation-style · token surface preview · 2026.05.25</span>
+    <span>three-canvas · pill CTA · weight-300 display · 8px tile</span>
+  </div>
+</footer>
+
+</body>
+</html>

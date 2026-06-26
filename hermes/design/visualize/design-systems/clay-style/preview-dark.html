@@ -1,0 +1,2601 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>clay-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f9f8f6'/%3E%3Ccircle cx='10' cy='20' r='6' fill='%23cc0687'/%3E%3Ccircle cx='20' cy='17' r='8' fill='%23fdad15'/%3E%3Ccircle cx='15' cy='22' r='5' fill='%23000000'/%3E%3C/svg%3E">
+<meta property="og:title" content="clay-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Claymation-meets-data interface — loam oat-100 canvas, pure-black CTAs, saturated feature cards from Clay's documented loam palette (blueberry, matcha, dragonfruit, ube, tangarine, lemon, lime, pomegranate, slushie). Rounded Roobert display headlines on the warm-cream surface. Single-polarity light brand.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Display:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/clay-style/tokens.css) === */
+/**
+ * design-systems/clay-style/tokens.css
+ *
+ * Hand-authored from live-verified clay.com surfaces.
+ * Sourced: 2026-05-26 (see DESIGN.md frontmatter for the full verification record).
+ *
+ * Canonical canvas: light (single-polarity).
+ *   Clay does NOT ship a dark mode on any sampled marketing or content surface.
+ *   Setting data-theme="dark" / .dark / matching prefers-color-scheme: dark on
+ *   clay.com produces no theme swap — the canvas stays oat-100 and the
+ *   foreground stays black. The dark block below is a synthesised catalog
+ *   convenience for preview-dark.html theme-toggle comparison; every value
+ *   is marked (synthesised — Clay has no live dark mode) and is NOT
+ *   representative of brand-deployed behaviour.
+ *
+ * Loam design system. Clay's documented palette is named "loam" and ships
+ * fruit-stop ladders — blueberry / matcha / dragonfruit / ube / tangarine /
+ * lemon / lime / pomegranate / slushie / oat / grey. Each family ships an
+ * 11-stop ladder (50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950);
+ * this file carries the stops observed in deployed surfaces under
+ * --brand-accent-<fruit>-<stop> naming. The vocabulary preserves Clay's
+ * spelling, including the brand's consistent misspelling of `tangarine`
+ * (sic) in the legacy --_swatches---color--* family that ships on the
+ * deployed marketing surfaces.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are Clay's.
+ *   - Brand-extras (--brand-*): Clay's loam vocabulary — fruit-stop
+ *     ladders, polarity-locked canvas surfaces, hairlines.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are Clay's. */
+
+  --background: oklch(0.9793 0.0029 84.56);     /* #f9f8f6 loam oat-100 — page canvas */
+  --foreground: oklch(0 0 0);                   /* #000000 — body text, h1 colour */
+  --card: oklch(1 0 0);                         /* #ffffff — hero / content cards are pure white */
+  --card-foreground: oklch(0 0 0);              /* #000000 */
+  --popover: oklch(1 0 0);                      /* #ffffff — nav-mega menu / dropdown panels */
+  --popover-foreground: oklch(0 0 0);           /* #000000 */
+
+  --primary: oklch(0 0 0);                      /* #000000 — pure black primary CTA fill */
+  --primary-foreground: oklch(1 0 0);           /* #ffffff — label on black CTA pill */
+  --secondary: oklch(0.9605 0.0067 97.35);      /* #f3f2ed loam oat-200 — Clay uses oat-200 for secondary CTA */
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.9605 0.0067 97.35);          /* #f3f2ed loam oat-200 — search-input chrome, toggle pill bg */
+  /* Clay deploys --muted-foreground at oklch(0.5635 0.0130 84.59) (#79756d)
+   * on clay.com — the section-eyebrow colour, used at 10px @ 600 weight
+   * (large-text-bold floor 3:1, which it clears at 4.32:1). For body-size
+   * consumption in catalog previews (12-14px regular weight against both
+   * oat-100 canvas AND oat-200 footer surface), retune the chroma-0.013
+   * utility neutral to L=0.45 — clears body-AA on both pairs while
+   * preserving the warm hue family that anchors the token to the oat
+   * canvas temperature. AUTHORING.md "Brand identity vs utility
+   * neutrals" allows this. */
+  --muted-foreground: oklch(0.45 0.0130 84.59); /* #5d5a52 — warm mid-gray, body-AA cleared on oat-100 + oat-200 */
+  --accent: oklch(0.9605 0.0067 97.35);         /* #f3f2ed oat-200 — Clay maps accent to oat-200 */
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.5891 0.2097 15.07);    /* #dd2c53 loam pomegranate-600 — closest semantic destructive */
+  --destructive-foreground: oklch(1 0 0);       /* #ffffff */
+
+  --border: oklch(0.9352 0.0144 84.58);         /* #eee9df loam oat-300 — separators, card hairlines */
+  --input: oklch(0.9352 0.0144 84.58);          /* #eee9df oat-300 */
+  --ring: oklch(0 0 0);                         /* #000000 — Clay's :focus-visible outline routes to neutrals--black */
+
+  --sidebar: oklch(0.9605 0.0067 97.35);        /* oat-200 */
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0 0 0);              /* tracks --primary */
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9605 0.0067 97.35);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0.9352 0.0144 84.58); /* oat-300 */
+  --sidebar-ring: oklch(0 0 0);                 /* tracks --primary */
+
+  /* Chart palette — loam fruit-stop selection that pairs cleanly */
+  --chart-1: oklch(0.6139 0.1985 254.62);       /* blueberry-500 */
+  --chart-2: oklch(0.5578 0.1327 156.34);       /* matcha-600 */
+  --chart-3: oklch(0.5588 0.2310 349.85);       /* dragonfruit-800 */
+  --chart-4: oklch(0.6921 0.1973 45.18);        /* tangarine-600 */
+  --chart-5: oklch(0.8051 0.1665 74.83);        /* lemon-600 */
+
+  /* radius scale */
+  --radius-sm: 8px;
+  --radius-md: 12px;       /* Clay's primary CTA pill radius */
+  --radius-lg: 16px;       /* Clay's card radius */
+  --radius-xl: 24px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 6px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Roobert is Clay's primary family (proprietary geometric sans, variable
+   * weight 300-900). Canela is the editorial display family used only on
+   * /blog (proprietary contrast serif). Space Mono ships for utility /
+   * spreadsheet-mockup surfaces; Roobert mono is declared as the brand's
+   * secondary mono but most rendered mono draws from Space Mono. */
+  --font-sans: "Roobert", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Roobert", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display-editorial: "Canela", "Canela Web", ui-serif, Georgia, "Times New Roman", serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* type scale tokens — observed on clay.com */
+  --text-display: 52.36px;     /* homepage hero, Roobert 600 / lh 1.0 / ls -4% */
+  --text-display-editorial: 64px; /* /blog h1, Canela 300 */
+  --text-display-careers: 82.66px; /* /careers hero, Roobert 600 (largest observed) */
+  --text-heading: 40px;        /* /pricing h1 */
+  --text-section-heading: 32px; /* h2 across marketing */
+  --text-title: 18px;          /* subtitle / card heading */
+  --text-base: 14px;           /* body */
+  --text-eyebrow: 10px;        /* eyebrow / kicker — uppercase, 0.08em tracking */
+  --leading-tight: 1;
+  --leading-normal: 1.4;
+  --tracking-display: -0.04em;  /* tight headlines, ~-3% to -4% em */
+  --tracking-eyebrow: 0.08em;
+
+  /* spacing */
+  --spacing: 0.25rem;
+
+  /* shadow scale — Clay is near-flat; cards use hairline borders, not drops */
+  --shadow-2xs: 0 1px 2px 0px hsl(0 0% 0% / 0.04);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.08), 0 1px 2px -1px hsl(0 0% 0% / 0.08);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 2px 6px 0px hsl(0 0% 0% / 0.08), 0 1px 3px -1px hsl(0 0% 0% / 0.08);
+  --shadow-lg: 0 4px 12px 0px hsl(0 0% 0% / 0.08);
+  --shadow-xl: 0 8px 24px 0px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 16px 48px 0px hsl(0 0% 0% / 0.15);
+
+  /* -- Brand-extras --------------------------------------------- */
+
+  /* Polarity-locked canvas surfaces (always-light; Clay has no dark mode) */
+  --brand-canvas-cream: oklch(0.9793 0.0029 84.56);  /* #f9f8f6 oat-100 — page canvas / footer bg */
+  --brand-canvas-white: oklch(1 0 0);                 /* #ffffff — card / hero card surface */
+  --brand-on-dark: oklch(1 0 0);                      /* #ffffff — white ink on saturated card fills */
+  --brand-on-light: oklch(0 0 0);                     /* #000000 — black ink on oat / white canvas */
+
+  /* Hairlines / dividers */
+  --brand-hairline-soft: oklch(0.9352 0.0144 84.58);   /* #eee9df oat-300 — list-row separators, soft hairlines */
+  --brand-hairline-strong: oklch(0.8761 0.0202 84.41); /* ≈ #dad4c8 oat-400 — testimonial-card divider */
+
+  /* Body text neutrals (chroma ≈ 0.01 — warm utility, anchored to oat hue family) */
+  --brand-body: oklch(0 0 0);                          /* #000000 */
+  --brand-body-strong: oklch(0 0 0);                   /* #000000 */
+  --brand-muted-soft: oklch(0.45 0.0130 84.59);        /* #5d5a52 — same retune as --muted-foreground; clears body-AA on oat-200 footer */
+
+  /* -- Loam fruit-stop ladder ----------------------------------- */
+  /* Clay's documented brand palette. Each fruit family ships an 11-stop
+   * ladder; values below are the stops observed in deployed surfaces.
+   * Names retain Clay's vocabulary including the brand's consistent
+   * misspelling of `tangarine` (sic) in --_swatches---color--* CSS
+   * variables on the live site.
+   *
+   * Brand chromatic identity — these stops are polarity-invariant
+   * per AUTHORING.md. They stay at :root values in the synthesised
+   * dark block; substituting for greyscale or lifting their lightness
+   * would invert Clay's "saturated colour over warm canvas" register. */
+
+  --brand-accent-blueberry-400: oklch(0.7142 0.1521 249.27);   /* #4ca8fd — pricing-card "Free" header band */
+  --brand-accent-blueberry-500: oklch(0.6139 0.1985 254.62);   /* #0382f7 — inline-link underline accent */
+  --brand-accent-blueberry-600: oklch(0.5346 0.1920 257.70);   /* #0667d9 — "AI conditional logic" feature card */
+  --brand-accent-matcha-600:    oklch(0.5578 0.1327 156.34);   /* #078a52 — testimonial card, inline-headline accent */
+  --brand-accent-matcha-700:    oklch(0.4586 0.1086 156.92);   /* #02693e — "Destinations" feature card, Launch tier */
+  --brand-accent-dragonfruit-800: oklch(0.5588 0.2310 349.85); /* #cc0687 — "Growth" pricing-tier header band */
+  --brand-accent-dragonfruit-900: oklch(0.4222 0.1740 349.18); /* #8b045c — "AI formatting" feature card */
+  --brand-accent-ube-400:       oklch(0.5470 0.2070 287.50);   /* #6d4cd6 — "Enterprise" pricing-tier header (per --loam---web-library_swatches---ube--400) */
+  --brand-accent-ube-600:       oklch(0.5350 0.2550 291.98);   /* #7934f0 — verified-addresses stat callout */
+  --brand-accent-tangarine-600: oklch(0.6921 0.1973 45.18);    /* #fa6900 — consolidated-data stat callout */
+  --brand-accent-tangarine-700: oklch(0.5722 0.1616 40.89);    /* #c34e1b — Sendoso testimonial card */
+  --brand-accent-lemon-600:     oklch(0.8051 0.1665 74.83);    /* #fdad15 — compliance-badge flower petals */
+  --brand-accent-lime-300:      oklch(0.8437 0.1875 114.11);   /* #cbd810 — closing CTA band, testimonial card */
+  --brand-accent-pomegranate-600: oklch(0.5891 0.2097 15.07);  /* #dd2c53 — Coverflex / Tropic testimonial cards */
+  --brand-accent-pomegranate-700: oklch(0.4690 0.1660 14.50);  /* #b21a3f — deeper pomegranate stop */
+  --brand-accent-slushie-500:   oklch(0.8070 0.1347 221.21);   /* #3bd3fd — testimonial card light-cyan fill */
+  --brand-accent-slushie-900:   oklch(0.4280 0.0807 224.41);   /* #005870 — OpenAI / Vanta testimonial cards */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * SYNTHESISED — Clay has no live dark mode. Every value below is a
+ * preview-only catalog convenience so preview-dark.html can render for
+ * theme-toggle comparison. None of this is brand-deployed behaviour;
+ * the live clay.com surface produces no theme swap under data-theme="dark"
+ * or prefers-color-scheme: dark.
+ *
+ * The loam fruit-stop ladder is polarity-invariant — Clay's chromatic
+ * identity stays at :root values and is intentionally NOT overridden
+ * below. Only canvas + neutrals flip; saturated brand-accent stops carry
+ * across modes per AUTHORING.md.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.18 0 0);                /* near-black canvas (synthesised — Clay has no live dark mode) */
+  --foreground: oklch(1 0 0);                   /* white (synthesised — Clay has no live dark mode) */
+  --card: oklch(0.22 0 0);                      /* elevated near-black (synthesised — Clay has no live dark mode) */
+  --card-foreground: oklch(1 0 0);              /* (synthesised — Clay has no live dark mode) */
+  --popover: oklch(0.22 0 0);                   /* (synthesised — Clay has no live dark mode) */
+  --popover-foreground: oklch(1 0 0);           /* (synthesised — Clay has no live dark mode) */
+
+  --primary: oklch(1 0 0);                      /* white CTA on dark (synthesised — Clay has no live dark mode) */
+  --primary-foreground: oklch(0 0 0);           /* black ink on white CTA (synthesised — Clay has no live dark mode) */
+  --secondary: oklch(0.25 0 0);                 /* (synthesised — Clay has no live dark mode) */
+  --secondary-foreground: oklch(1 0 0);         /* (synthesised — Clay has no live dark mode) */
+  --muted: oklch(0.25 0 0);                     /* (synthesised — Clay has no live dark mode) */
+  --muted-foreground: oklch(0.72 0 0);          /* utility-neutral lifted for AA on dark canvas (synthesised — Clay has no live dark mode) */
+  --accent: oklch(0.25 0 0);                    /* (synthesised — Clay has no live dark mode) */
+  --accent-foreground: oklch(1 0 0);            /* (synthesised — Clay has no live dark mode) */
+  --destructive: oklch(0.5891 0.2097 15.07);    /* pomegranate-600 carries through (synthesised — Clay has no live dark mode) */
+  --destructive-foreground: oklch(1 0 0);       /* (synthesised — Clay has no live dark mode) */
+
+  --border: oklch(0.32 0 0);                    /* (synthesised — Clay has no live dark mode) */
+  --input: oklch(0.32 0 0);                     /* (synthesised — Clay has no live dark mode) */
+  --ring: oklch(1 0 0);                         /* tracks --primary (synthesised — Clay has no live dark mode) */
+
+  --sidebar: oklch(0.22 0 0);                   /* (synthesised — Clay has no live dark mode) */
+  --sidebar-foreground: oklch(1 0 0);           /* (synthesised — Clay has no live dark mode) */
+  --sidebar-primary: oklch(1 0 0);              /* (synthesised — Clay has no live dark mode) */
+  --sidebar-primary-foreground: oklch(0 0 0);   /* (synthesised — Clay has no live dark mode) */
+  --sidebar-accent: oklch(0.25 0 0);            /* (synthesised — Clay has no live dark mode) */
+  --sidebar-accent-foreground: oklch(1 0 0);    /* (synthesised — Clay has no live dark mode) */
+  --sidebar-border: oklch(0.32 0 0);            /* (synthesised — Clay has no live dark mode) */
+  --sidebar-ring: oklch(1 0 0);                 /* (synthesised — Clay has no live dark mode) */
+
+  /* Brand-extras canvas overrides — single-polarity synthesis (Clay has no live dark mode) */
+  --brand-canvas-cream: oklch(0.18 0 0);        /* canvas equivalent on dark (synthesised) */
+  --brand-canvas-white: oklch(0.22 0 0);        /* card equivalent on dark (synthesised) */
+  --brand-hairline-soft: oklch(0.32 0 0);       /* (synthesised) */
+  --brand-hairline-strong: oklch(0.40 0 0);     /* (synthesised) */
+  --brand-body: oklch(1 0 0);                   /* white (synthesised) */
+  --brand-body-strong: oklch(1 0 0);            /* white (synthesised) */
+  --brand-muted-soft: oklch(0.72 0 0);          /* utility-neutral lifted for dark (synthesised) */
+
+  /* Polarity-locked: --brand-on-dark, --brand-on-light, and every
+   * --brand-accent-<fruit>-<stop> are intentionally NOT overridden here.
+   * The loam fruit-stop ladder carries Clay's chromatic identity across
+   * modes; lifting them would invert the brand's "saturated colour over
+   * warm canvas" register into something else entirely. */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.18 0 0);                /* (synthesised — Clay has no live dark mode) */
+    --foreground: oklch(1 0 0);                   /* (synthesised — Clay has no live dark mode) */
+    --card: oklch(0.22 0 0);                      /* (synthesised — Clay has no live dark mode) */
+    --card-foreground: oklch(1 0 0);              /* (synthesised — Clay has no live dark mode) */
+    --popover: oklch(0.22 0 0);                   /* (synthesised — Clay has no live dark mode) */
+    --popover-foreground: oklch(1 0 0);           /* (synthesised — Clay has no live dark mode) */
+
+    --primary: oklch(1 0 0);                      /* (synthesised — Clay has no live dark mode) */
+    --primary-foreground: oklch(0 0 0);           /* (synthesised — Clay has no live dark mode) */
+    --secondary: oklch(0.25 0 0);                 /* (synthesised — Clay has no live dark mode) */
+    --secondary-foreground: oklch(1 0 0);         /* (synthesised — Clay has no live dark mode) */
+    --muted: oklch(0.25 0 0);                     /* (synthesised — Clay has no live dark mode) */
+    --muted-foreground: oklch(0.72 0 0);          /* (synthesised — Clay has no live dark mode) */
+    --accent: oklch(0.25 0 0);                    /* (synthesised — Clay has no live dark mode) */
+    --accent-foreground: oklch(1 0 0);            /* (synthesised — Clay has no live dark mode) */
+    --destructive: oklch(0.5891 0.2097 15.07);    /* (synthesised — Clay has no live dark mode) */
+    --destructive-foreground: oklch(1 0 0);       /* (synthesised — Clay has no live dark mode) */
+
+    --border: oklch(0.32 0 0);                    /* (synthesised — Clay has no live dark mode) */
+    --input: oklch(0.32 0 0);                     /* (synthesised — Clay has no live dark mode) */
+    --ring: oklch(1 0 0);                         /* (synthesised — Clay has no live dark mode) */
+
+    --sidebar: oklch(0.22 0 0);                   /* (synthesised — Clay has no live dark mode) */
+    --sidebar-foreground: oklch(1 0 0);           /* (synthesised — Clay has no live dark mode) */
+    --sidebar-primary: oklch(1 0 0);              /* (synthesised — Clay has no live dark mode) */
+    --sidebar-primary-foreground: oklch(0 0 0);   /* (synthesised — Clay has no live dark mode) */
+    --sidebar-accent: oklch(0.25 0 0);            /* (synthesised — Clay has no live dark mode) */
+    --sidebar-accent-foreground: oklch(1 0 0);    /* (synthesised — Clay has no live dark mode) */
+    --sidebar-border: oklch(0.32 0 0);            /* (synthesised — Clay has no live dark mode) */
+    --sidebar-ring: oklch(1 0 0);                 /* (synthesised — Clay has no live dark mode) */
+
+    --brand-canvas-cream: oklch(0.18 0 0);        /* (synthesised) */
+    --brand-canvas-white: oklch(0.22 0 0);        /* (synthesised) */
+    --brand-hairline-soft: oklch(0.32 0 0);       /* (synthesised) */
+    --brand-hairline-strong: oklch(0.40 0 0);     /* (synthesised) */
+    --brand-body: oklch(1 0 0);                   /* (synthesised) */
+    --brand-body-strong: oklch(1 0 0);            /* (synthesised) */
+    --brand-muted-soft: oklch(0.72 0 0);          /* (synthesised) */
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Clay-style preview shell — claymation-meets-data interface.
+ * Loam oat-100 canvas (#f9f8f6) + pure-black primary CTAs + saturated
+ * feature cards from Clay's documented loam fruit-stop ladder
+ * (blueberry, matcha, dragonfruit, ube, tangarine, lemon, lime,
+ * pomegranate, slushie). Roobert variable for display + body; Canela
+ * for the editorial /blog register (declared in tokens, currently
+ * not rendered here). Space Mono for code. The signature mockup is a
+ * workflow canvas showing how Halcyon's team uses Clay-style GTM
+ * tooling — multi-hue feature-card cluster + CSS-rendered claymation
+ * stacked rounded mounds. Pricing featured tier flips to deep
+ * slushie-900 — the teal-cyan surface IS the featured signal.
+ * Single-polarity light brand: Clay does not ship a dark mode; the
+ * preview-dark.html is a catalog convenience for theme-toggle
+ * comparison, not brand-faithful. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Roobert', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Polarity-locked cream canvas (signature workflow surface).
+ *    Clay's voltage signature is "saturated feature cards on warm
+ *    cream" — locking this single surface to cream means the
+ *    saturated palette reads the same in both themes. */
+.canvas-cream-locked {
+  background: oklch(0.9793 0.0029 84.56);
+  color: oklch(0 0 0);
+}
+.canvas-cream-locked .section-title,
+.canvas-cream-locked .section-lede,
+.canvas-cream-locked .section-eyebrow {
+  color: oklch(0.1448 0 0);
+}
+.canvas-cream-locked .section-lede { opacity: 0.78; }
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: 'Roobert', 'Inter Display', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--secondary);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.brand-glyph::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--brand-accent-dragonfruit-800);
+  bottom: 4px;
+  left: 4px;
+}
+.brand-glyph::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--brand-accent-lemon-600);
+  bottom: 4px;
+  right: 2px;
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--brand-body);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--foreground); }
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 14px;
+}
+.topnav-actions a {
+  color: var(--foreground);
+  text-decoration: none;
+  font-weight: 500;
+}
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons (44px touch floor, 12px radius primary per DESIGN.md) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border-radius: var(--radius-md);
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+/* Primary: high-contrast filled pill — near-black on light canvas,
+ * white on dark canvas. The register is "filled inverse-of-canvas",
+ * which is why --primary flips in dark mode. */
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover {
+  background: var(--brand-primary-active);
+  border-color: var(--brand-primary-active);
+}
+/* Secondary: hairline-outlined cream button — pairs with primary in
+ * the hero. */
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--brand-hairline-soft);
+}
+.btn[data-variant="secondary"]:hover {
+  border-color: var(--foreground);
+}
+/* On-saturated: white pill used over saturated brand-color feature
+ * cards (pink, teal, lavender). Locked to white surface — feature
+ * cards themselves are polarity-locked. */
+.btn[data-variant="on-saturated"] {
+  background: oklch(1 0 0);
+  color: oklch(0.1448 0 0);
+  border-color: oklch(1 0 0);
+}
+.btn[data-variant="on-saturated"]:hover {
+  background: oklch(0.94 0 0);
+  border-color: oklch(0.94 0 0);
+}
+/* Ghost: text-only link button. */
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: transparent;
+}
+.btn[data-size="lg"] { min-height: 48px; padding: 0 1.75rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (cream canvas, 7-5 grid with claymation-style decoration) -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 960px) { .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 1.5rem;
+}
+.hero-eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-accent-dragonfruit-800);
+}
+.hero-display {
+  font-family: 'Roobert', 'Inter Display', 'Inter', -apple-system, sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 14ch;
+}
+.hero-lede {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body);
+  max-width: 34rem;
+  margin: 0 0 2.5rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* -- Hero claymation decoration: CSS-rendered stacked rounded mounds.
+ *    Stand-in for Clay's commissioned 3D illustration assets. Five
+ *    rounded shapes in the saturated palette, layered to read as a
+ *    landscape silhouette. Tokens used directly so the palette is
+ *    legible to the contrast checker. -- */
+.hero-claymation {
+  position: relative;
+  height: 22rem;
+  border-radius: var(--radius-xl);
+  background: var(--secondary);
+  overflow: hidden;
+  border: 1px solid var(--brand-hairline-soft);
+}
+.clay-shape {
+  position: absolute;
+  border-radius: 50%;
+}
+.clay-shape[data-tone="ochre"] {
+  width: 18rem;
+  height: 18rem;
+  background: var(--brand-accent-lemon-600);
+  bottom: -7rem;
+  right: -2rem;
+}
+.clay-shape[data-tone="pink"] {
+  width: 14rem;
+  height: 14rem;
+  background: var(--brand-accent-dragonfruit-800);
+  bottom: -5rem;
+  left: -3rem;
+}
+.clay-shape[data-tone="teal"] {
+  width: 11rem;
+  height: 11rem;
+  background: var(--brand-accent-slushie-900);
+  bottom: -4rem;
+  left: 8rem;
+}
+.clay-shape[data-tone="lavender"] {
+  width: 9rem;
+  height: 9rem;
+  background: var(--brand-accent-ube-400);
+  top: 3rem;
+  right: 4rem;
+}
+.clay-shape[data-tone="peach"] {
+  width: 6rem;
+  height: 6rem;
+  background: var(--brand-accent-tangarine-600);
+  top: 1.5rem;
+  left: 4rem;
+}
+.clay-shape[data-tone="mint"] {
+  width: 4.5rem;
+  height: 4.5rem;
+  background: var(--brand-accent-matcha-600);
+  top: 7rem;
+  left: 13rem;
+}
+.clay-sun {
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background: var(--brand-accent-pomegranate-600);
+  top: 2.5rem;
+  right: 1.5rem;
+}
+
+/* -- Signature workflow surface (the ONE per-brand signature mockup).
+ *    Polarity-locked cream canvas holding a horizontal feature-card
+ *    sequence — pink (enrichment) → ochre (sequencer) → teal (output).
+ *    The saturated triad IS Clay's defining surface. -- */
+.signature-section {
+  padding: 4rem 1.5rem 6rem;
+}
+.signature-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.signature-header {
+  max-width: 38rem;
+  margin-bottom: 2.5rem;
+}
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 880px) { .workflow-grid { grid-template-columns: 1fr; } }
+.workflow-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  min-height: 22rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: hidden;
+}
+/* Workflow-card text-colour routing follows Clay's live convention
+ * (u-text-white on deep-saturated cards, near-black on bright-
+ * saturated ones). Dragonfruit-800 at L=0.56 + slushie-900 at L=0.43
+ * pair with white; lemon-600 at L=0.81 pairs with near-black. */
+.workflow-card[data-tone="pink"] {
+  background: var(--brand-accent-dragonfruit-800);
+  color: oklch(1 0 0);
+}
+.workflow-card[data-tone="ochre"] {
+  background: var(--brand-accent-lemon-600);
+  color: oklch(0 0 0);
+}
+.workflow-card[data-tone="teal"] {
+  background: var(--brand-accent-slushie-900);
+  color: oklch(1 0 0);
+}
+.workflow-eyebrow {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.workflow-card[data-tone="teal"] .workflow-eyebrow {
+  color: oklch(1 0 0);
+  opacity: 0.92;
+}
+.workflow-card[data-tone="pink"] .workflow-eyebrow {
+  color: oklch(1 0 0);
+  opacity: 0.92;
+}
+.workflow-card[data-tone="ochre"] .workflow-eyebrow {
+  color: oklch(0 0 0);
+  opacity: 0.78;
+}
+.workflow-title {
+  font-family: 'Roobert', 'Inter Display', 'Inter', sans-serif;
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+}
+.workflow-body {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+.workflow-card[data-tone="teal"] .workflow-body {
+  color: oklch(1 0 0);
+  opacity: 0.94;
+}
+.workflow-card[data-tone="pink"] .workflow-body {
+  color: oklch(1 0 0);
+  opacity: 0.94;
+}
+.workflow-card[data-tone="ochre"] .workflow-body {
+  color: oklch(0 0 0);
+  opacity: 0.82;
+}
+
+/* Embedded "product UI fragment" tiles inside each saturated card —
+ * stand-in for Clay's actual product UI mockups (table rows, sequence
+ * steps). Pure CSS, no real product surface. */
+.product-fragment {
+  margin-top: auto;
+  background: oklch(1 0 0);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  color: oklch(0.1448 0 0);
+}
+.product-row {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 12px;
+}
+.product-row-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.product-row-dot[data-tone="mint"] { background: var(--brand-accent-matcha-600); }
+.product-row-dot[data-tone="coral"] { background: var(--brand-accent-pomegranate-600); }
+.product-row-dot[data-tone="lavender"] { background: var(--brand-accent-ube-400); }
+.product-row-label {
+  font-weight: 500;
+  color: oklch(0.1448 0 0);
+  flex: 1;
+}
+.product-row-meta {
+  font-family: 'Space Mono', ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: oklch(0.1448 0 0);
+  opacity: 0.6;
+}
+.product-row-chip {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--brand-radius-pill);
+  /* Default mint chip uses matcha-700 (the deeper stop) so white text
+   * clears AA body at 10px. Clay ships u-bg-matcha-600 u-text-white at
+   * larger sizes (testimonial cards, 15-17px) where the lighter stop
+   * pairs at large-text floor; the catalog chip is too small for that. */
+  background: var(--brand-accent-matcha-700);
+  color: oklch(1 0 0);
+}
+.product-row-chip[data-tone="peach"] { background: var(--brand-accent-tangarine-600); color: oklch(0 0 0); }
+.product-row-chip[data-tone="lavender"] { background: var(--brand-accent-ube-400); color: oklch(1 0 0); }
+
+/* -- Section frame (token-demo sections — these flip with theme) -- */
+.section {
+  padding: 5rem 1.5rem;
+}
+.section[data-tight] { padding: 3.5rem 1.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section-eyebrow {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'Roobert', 'Inter Display', 'Inter', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title {
+  margin-left: auto;
+  margin-right: auto;
+}
+.section-lede {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-header[data-center] .section-lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--foreground);
+}
+.swatch-chip {
+  height: 3rem;
+  border-radius: var(--brand-radius-xs);
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: 'Space Mono', ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+
+/* -- Token-demo: surface ladder. Five clay surfaces — each card stays
+ *    locked to a fixed brand-palette value (the saturated palette is
+ *    polarity-locked); the labels inside flip with theme. -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 1080px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 12rem;
+}
+/* Loam fruit-stop ladder text-colour routing follows Clay's live
+ * convention (u-text-white on the deeper-saturated cards, near-black
+ * on the bright-saturated ones). Dragonfruit-800 / ube-400 are deep
+ * enough that near-black ink lands sub-AA; tangarine-600 / lemon-600
+ * are bright enough to carry near-black at AA body. Slushie-900 is
+ * the deepest stop and always pairs with white. */
+.ladder-step[data-step="pink"]     { background: var(--brand-accent-dragonfruit-800); color: oklch(1 0 0); }
+.ladder-step[data-step="lavender"] { background: var(--brand-accent-ube-400);         color: oklch(1 0 0); }
+.ladder-step[data-step="peach"]    { background: var(--brand-accent-tangarine-600);   color: oklch(0 0 0); }
+.ladder-step[data-step="ochre"]    { background: var(--brand-accent-lemon-600);       color: oklch(0 0 0); }
+.ladder-step[data-step="teal"]     { background: var(--brand-accent-slushie-900);     color: oklch(1 0 0); }
+.ladder-num {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.92;
+}
+.ladder-name {
+  font-family: 'Space Mono', ui-monospace, Menlo, monospace;
+  font-size: 12px;
+  opacity: 0.96;
+}
+.ladder-role {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  margin-top: auto;
+  opacity: 0.95;
+}
+
+/* -- Pricing tiers. Featured tier flips to brand-teal per DESIGN.md §5
+ *    — "the teal surface IS the featured signal." Generic tier names
+ *    (Hobby / Team / Org-wide) per AUTHORING.md pricing rule. -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--foreground);
+}
+/* Featured tier — polarity-locked to brand-teal so the "teal = featured"
+ * signal reads the same in both themes. Per DESIGN.md §5. */
+.pricing-card[data-featured] {
+  background: var(--brand-accent-slushie-900);
+  border-color: var(--brand-accent-slushie-900);
+  color: oklch(1 0 0);
+}
+.pricing-name {
+  font-family: 'Roobert', 'Inter Display', 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-name { color: oklch(1 0 0); }
+.pricing-price {
+  font-family: 'Roobert', 'Inter Display', 'Inter', sans-serif;
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.pricing-card[data-featured] .pricing-price { color: oklch(1 0 0); }
+.pricing-tagline {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.5;
+  min-height: 2.8em;
+  color: var(--brand-body);
+}
+.pricing-card[data-featured] .pricing-tagline {
+  color: oklch(1 0 0);
+  opacity: 0.86;
+}
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 1rem 0 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--foreground);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: oklch(1 0 0 / 0.25);
+  color: oklch(1 0 0);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "✓";
+  font-weight: 600;
+  flex-shrink: 0;
+  width: 14px;
+}
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.type-display {
+  font-family: 'Roobert', 'Inter Display', 'Inter', sans-serif;
+  font-size: 44px;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Roobert', 'Inter Display', 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--foreground);
+}
+.type-title {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.type-body {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-body);
+}
+.type-mono {
+  font-family: 'Space Mono', ui-monospace, Menlo, monospace;
+  font-size: 13px;
+  color: var(--brand-body);
+}
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.cmp-row-label {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  width: 100%;
+}
+.cmp-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.cmp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+}
+.cmp-chip[data-tone="peach"] {
+  background: var(--brand-accent-tangarine-600);
+  color: oklch(0 0 0);
+}
+.cmp-chip[data-tone="mint"] {
+  background: var(--brand-accent-matcha-700);
+  color: oklch(1 0 0);
+}
+.cmp-chip[data-tone="lavender"] {
+  background: var(--brand-accent-ube-400);
+  color: oklch(1 0 0);
+}
+.cmp-chip[data-tone="ochre"] {
+  background: var(--brand-accent-lemon-600);
+  color: oklch(0 0 0);
+}
+.cmp-chip[data-tone="pink"] {
+  background: var(--brand-accent-dragonfruit-800);
+  color: oklch(1 0 0);
+}
+.cmp-chip[data-tone="teal"] {
+  background: var(--brand-accent-slushie-900);
+  color: oklch(1 0 0);
+}
+.cmp-chip[data-tone="coral"] {
+  background: var(--brand-accent-pomegranate-600);
+  color: oklch(1 0 0);
+}
+
+/* -- Text input demo -- */
+.text-input {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0 1rem;
+  height: 44px;
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 14px;
+  min-width: 16rem;
+}
+.text-input:focus-visible {
+  outline: none;
+  border-color: var(--ring);
+}
+
+/* -- Closing horizon: claymation-style scenic band before footer.
+ *    Cream-card surface that holds another set of layered rounded
+ *    shapes — Clay's signature "footer mountain" stand-in per
+ *    DESIGN.md §5 ("Often features a horizon-style 3D mountain
+ *    illustration at the very bottom — Clay's signature footer
+ *    mountain"). Surface flips with theme; the layered shape
+ *    palette stays polarity-locked. -- */
+.horizon-band {
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 0 1.5rem 2rem;
+}
+.horizon-card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 3rem 2.5rem;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 2rem;
+  overflow: hidden;
+  min-height: 18rem;
+}
+@media (max-width: 880px) {
+  .horizon-card {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2.5rem 1.75rem;
+  }
+}
+.horizon-text {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+}
+.horizon-title {
+  font-family: 'Roobert', 'Inter Display', 'Inter', sans-serif;
+  font-size: clamp(1.875rem, 3vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 18ch;
+}
+.horizon-lede {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 26rem;
+}
+.horizon-actions {
+  display: flex;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.horizon-scene {
+  position: relative;
+  height: 16rem;
+}
+.horizon-scene .clay-shape[data-tone="ochre"] {
+  width: 16rem;
+  height: 16rem;
+  bottom: -6rem;
+  right: -1rem;
+}
+.horizon-scene .clay-shape[data-tone="pink"] {
+  width: 12rem;
+  height: 12rem;
+  bottom: -4rem;
+  left: -2rem;
+}
+.horizon-scene .clay-shape[data-tone="teal"] {
+  width: 8rem;
+  height: 8rem;
+  bottom: -2rem;
+  left: 6rem;
+}
+.horizon-scene .clay-sun {
+  width: 4rem;
+  height: 4rem;
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+/* -- Footer (cream-tinted, NOT dark — per DESIGN.md §6 Don't list).
+ *    On dark variant, this flips alongside the canvas to keep the
+ *    "footer matches body" relationship the brand establishes — the
+ *    spirit of "warm-throughout" is "no dark interruption when the
+ *    page isn't dark," not "literally always cream." -- */
+.footer {
+  background: var(--secondary);
+  color: var(--foreground);
+  border-top: 1px solid var(--border);
+  padding: 4rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 32ch;
+}
+.footer-tagline {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--brand-body);
+  line-height: 1.55;
+  margin: 0;
+}
+.footer-col-title {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.footer-list a {
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--brand-body);
+  text-decoration: none;
+}
+.footer-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1280px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'Roobert', 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--brand-muted-soft);
+}
+.footer-legal-meta {
+  font-family: 'Space Mono', ui-monospace, Menlo, monospace;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true"></span>
+      clay-style
+    </a>
+    <div class="topnav-links">
+      <a href="#">Product</a>
+      <a href="#">Solutions</a>
+      <a href="#">Resources</a>
+      <a href="#">Pricing</a>
+      <a href="#">Customers</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Try free</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow"><span class="hero-eyebrow-dot" aria-hidden="true"></span>Halcyon · Operating system</p>
+      <h1 class="hero-display">Reach the right people, before anyone else does.</h1>
+      <p class="hero-lede">Halcyon's revenue, marketing, and customer-experience teams keep their whole motion in one place. Enrichment, sequencing, follow-up — sequenced together so nothing waits for the next hand-off.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" data-size="lg" type="button">Try free</button>
+        <button class="btn" data-variant="secondary" data-size="lg" type="button">Book a walkthrough</button>
+      </div>
+    </div>
+    <div class="hero-claymation" aria-hidden="true">
+      <div class="clay-sun"></div>
+      <span class="clay-shape" data-tone="ochre"></span>
+      <span class="clay-shape" data-tone="pink"></span>
+      <span class="clay-shape" data-tone="teal"></span>
+      <span class="clay-shape" data-tone="lavender"></span>
+      <span class="clay-shape" data-tone="peach"></span>
+      <span class="clay-shape" data-tone="mint"></span>
+    </div>
+  </div>
+</header>
+
+<section class="signature-section canvas-cream-locked" aria-label="Workflow signature surface">
+  <div class="signature-inner">
+    <div class="signature-header">
+      <p class="section-eyebrow">Workflow · Saturated cards</p>
+      <h2 class="section-title">Three saturated cards, one Tuesday motion.</h2>
+      <p class="section-lede">The defining surface is a feature-card cluster — saturated single-color tiles that hold a small product fragment inside. Halcyon's go-to-market team runs the same motion every week: enrich, sequence, follow up.</p>
+    </div>
+
+    <div class="workflow-grid">
+      <article class="workflow-card" data-tone="pink">
+        <p class="workflow-eyebrow">01 · Enrich</p>
+        <h3 class="workflow-title">Fill in the gaps before the SDR opens the row.</h3>
+        <p class="workflow-body">Halcyon's data team rebuilds the prospect record overnight — domain, headcount, hiring signal, last funding round. The SDR opens the row and the row is already done.</p>
+        <div class="product-fragment">
+          <div class="product-row">
+            <span class="product-row-dot" data-tone="mint"></span>
+            <span class="product-row-label">orbit.dev</span>
+            <span class="product-row-meta">Series B</span>
+          </div>
+          <div class="product-row">
+            <span class="product-row-dot" data-tone="mint"></span>
+            <span class="product-row-label">helio.systems</span>
+            <span class="product-row-meta">42 eng</span>
+          </div>
+          <div class="product-row">
+            <span class="product-row-dot" data-tone="coral"></span>
+            <span class="product-row-label">indra.run</span>
+            <span class="product-row-meta">pending</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="workflow-card" data-tone="ochre">
+        <p class="workflow-eyebrow">02 · Sequence</p>
+        <h3 class="workflow-title">Three touches, two channels, one cadence per segment.</h3>
+        <p class="workflow-body">The revenue team writes a sequence per segment — Series-A founder, head of platform, head of revenue — and the cadence runs itself. Replies pull the contact out of the queue automatically.</p>
+        <div class="product-fragment">
+          <div class="product-row">
+            <span class="product-row-chip">SENT</span>
+            <span class="product-row-label">Day 0 · intro</span>
+            <span class="product-row-meta">14:02</span>
+          </div>
+          <div class="product-row">
+            <span class="product-row-chip" data-tone="peach">QUEUED</span>
+            <span class="product-row-label">Day 3 · reframe</span>
+            <span class="product-row-meta">Tue</span>
+          </div>
+          <div class="product-row">
+            <span class="product-row-chip" data-tone="lavender">DRAFT</span>
+            <span class="product-row-label">Day 7 · break-up</span>
+            <span class="product-row-meta">Fri</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="workflow-card" data-tone="teal">
+        <p class="workflow-eyebrow">03 · Follow up</p>
+        <h3 class="workflow-title">The reply lands in the right channel on its own.</h3>
+        <p class="workflow-body">Replies route by intent — booked meetings to Sam in revenue, pricing questions to Taylor in success, support escalations to engineering on-call. Nothing waits behind a Monday triage.</p>
+        <div class="product-fragment">
+          <div class="product-row">
+            <span class="product-row-dot" data-tone="mint"></span>
+            <span class="product-row-label">Booked · Sam W.</span>
+            <span class="product-row-meta">Thu 11:00</span>
+          </div>
+          <div class="product-row">
+            <span class="product-row-dot" data-tone="lavender"></span>
+            <span class="product-row-label">Pricing · Taylor R.</span>
+            <span class="product-row-meta">3 open</span>
+          </div>
+          <div class="product-row">
+            <span class="product-row-dot" data-tone="coral"></span>
+            <span class="product-row-label">Escalation · Riley C.</span>
+            <span class="product-row-meta">PagerDuty</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Warm canvas, saturated voltage.</h2>
+      <p class="section-lede">Body type runs near-black on a cream-tinted canvas. Brand voltage lives in the seven-color saturated palette — hot pink, deep teal, lavender, peach, ochre, mint, coral — used as full-bleed feature cards.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--secondary);"></div><div class="swatch-role">Footer</div><div class="swatch-name">--secondary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--card);"></div><div class="swatch-role">Card</div><div class="swatch-name">--card</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-dragonfruit-800);"></div><div class="swatch-role">Feature</div><div class="swatch-name">--brand-accent-dragonfruit-800</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-slushie-900);"></div><div class="swatch-role">Feature</div><div class="swatch-name">--brand-accent-slushie-900</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-ube-400);"></div><div class="swatch-role">Feature</div><div class="swatch-name">--brand-accent-ube-400</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-tangarine-600);"></div><div class="swatch-role">Feature</div><div class="swatch-name">--brand-accent-tangarine-600</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-lemon-600);"></div><div class="swatch-role">Feature</div><div class="swatch-name">--brand-accent-lemon-600</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-matcha-600);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-accent-matcha-600</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-accent-pomegranate-600);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-accent-pomegranate-600</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces · Saturated cycle</p>
+      <h2 class="section-title">Pink, lavender, peach, ochre, teal.</h2>
+      <p class="section-lede">Long-scroll pages rotate through the saturated palette in a deliberate cadence — pink for outbound, lavender for tooling, peach for warmth, ochre for community, teal for the close.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="pink">
+        <span class="ladder-num">01 · Outbound</span>
+        <span class="ladder-name">--brand-accent-dragonfruit-800</span>
+        <span class="ladder-role">sequencer · the first card on every page</span>
+      </div>
+      <div class="ladder-step" data-step="lavender">
+        <span class="ladder-num">02 · Tooling</span>
+        <span class="ladder-name">--brand-accent-ube-400</span>
+        <span class="ladder-role">agent · workflow surface · scratch</span>
+      </div>
+      <div class="ladder-step" data-step="peach">
+        <span class="ladder-num">03 · Warmth</span>
+        <span class="ladder-name">--brand-accent-tangarine-600</span>
+        <span class="ladder-role">SaaS warmth · testimonial accent</span>
+      </div>
+      <div class="ladder-step" data-step="ochre">
+        <span class="ladder-num">04 · Community</span>
+        <span class="ladder-name">--brand-accent-lemon-600</span>
+        <span class="ladder-role">experts · partners · co-marketing</span>
+      </div>
+      <div class="ladder-step" data-step="teal">
+        <span class="ladder-num">05 · The close</span>
+        <span class="ladder-name">--brand-accent-slushie-900</span>
+        <span class="ladder-role">featured tier · last word on the page</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing · Three tiers</p>
+      <h2 class="section-title">The featured tier flips to teal.</h2>
+      <p class="section-lede">Standard three-tier shape. The middle tier flips to the brand's deep teal surface — the saturated card IS the featured signal, no badge or ribbon needed.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production every week.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+          <li>Production SLA</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="on-saturated" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organizations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">Plain Black at 500, never bolder.</h2>
+      <p class="section-lede">Display headlines run Plain Black at weight 500 with negative letter-spacing — Inter Display 500/600 is the closest public substitute. Body and UI stay on Inter at standard weights. Bolder than 500 reads as bombastic.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">A warm-throughout system.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Inter Display · 500</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter · 600 · 18 / 1.4</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default running text in Inter at 16 pixels, line-height 1.55. Near-black ink for body type, mid-gray for helper text and metadata.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">workspace.sequences.enqueue()</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · primary + secondary pair</span>
+          <div class="cmp-row" style="margin-top: 0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Try free</button>
+            <button class="btn" data-variant="secondary" type="button">Book demo</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Pill chips · saturated palette</span>
+          <div class="cmp-chips" style="margin-top: 0.5rem;">
+            <span class="cmp-chip" data-tone="pink">Outbound</span>
+            <span class="cmp-chip" data-tone="lavender">Agent</span>
+            <span class="cmp-chip" data-tone="peach">In review</span>
+            <span class="cmp-chip" data-tone="ochre">Community</span>
+            <span class="cmp-chip" data-tone="mint">Shipped</span>
+            <span class="cmp-chip" data-tone="teal">Featured</span>
+            <span class="cmp-chip" data-tone="coral">Escalation</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Text input · 44px floor · 12px radius</span>
+          <div class="cmp-row" style="margin-top: 0.5rem;">
+            <input class="text-input" type="email" placeholder="team@halcyon.dev" aria-label="Work email">
+            <button class="btn" data-variant="primary" type="button">Subscribe</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="horizon-band">
+  <div class="horizon-card">
+    <div class="horizon-text">
+      <h3 class="horizon-title">The footer mountain — Clay's signature closer.</h3>
+      <p class="horizon-lede">Every long-scroll page closes the same way: a layered rounded landscape in the saturated palette, sitting above a cream-tinted footer. The system never lets the page go dark.</p>
+      <div class="horizon-actions">
+        <button class="btn" data-variant="primary" type="button">Try free</button>
+        <button class="btn" data-variant="secondary" type="button">Book a walkthrough</button>
+      </div>
+    </div>
+    <div class="horizon-scene" aria-hidden="true">
+      <div class="clay-sun"></div>
+      <span class="clay-shape" data-tone="ochre"></span>
+      <span class="clay-shape" data-tone="pink"></span>
+      <span class="clay-shape" data-tone="teal"></span>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#">
+        <span class="brand-glyph" aria-hidden="true"></span>
+        clay-style
+      </a>
+      <p class="footer-tagline">A token-surface preview rendered against the claymation-meets-data design system. Cream canvas, saturated feature-card palette, rounded display headlines. Halcyon-themed neutral content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-list"><li><a href="#">Workspace</a></li><li><a href="#">Enrichment</a></li><li><a href="#">Sequences</a></li><li><a href="#">Integrations</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Solutions</p>
+      <ul class="footer-list"><li><a href="#">Revenue</a></li><li><a href="#">Marketing</a></li><li><a href="#">Customer experience</a></li><li><a href="#">Operations</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>clay-style · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">cream canvas · saturated voltage · warm-throughout</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+/**
+ * design-systems/cal-style/tokens.css
+ *
+ * Live-verified against https://cal.com/ on 2026-05-26 — see
+ * `DESIGN.md` for the verification record (URL list + computed-style
+ * sources).
+ *
+ * Canonical canvas: `both`. Cal.com runs three deliberate surface
+ * families on one identity:
+ *   - Light marketing (`cal.com/*`) — warm-near-white canvas (#f4f4f4)
+ *     with pure-white cards floated above, near-black filled CTAs.
+ *   - Dark product / docs / booking / 404 (`app.cal.com`, `cal.com/docs`,
+ *     `i.cal.com/<handle>`, `cal.com/why-cal`) — flat near-black canvas
+ *     (#0f0f0f) with elevated cards (#171717) and white pill CTAs.
+ *   - Cal.ai sub-brand (`cal.com/ai`) — its own polarity. Deep
+ *     desaturated indigo canvas (#0d0c27) with violet primary
+ *     (#6349ea). Polarity-locked: the `--brand-calai-*` family stays
+ *     fixed regardless of `:root` vs `[data-theme="dark"]`. Currently
+ *     declared for catalog use; not consumed by the preview-template.
+ *
+ * Reference live URLs sampled: https://cal.com/, https://app.cal.com/login,
+ * https://cal.com/docs, https://cal.com/ai, https://cal.com/why-cal.
+ *
+ * Dark-mode strategy: hand-tuned to live values, NOT a synthesised
+ * lightness-inversion. The dark canvas and elevated-card stop are
+ * sampled directly from `app.cal.com/login` and `cal.com/docs`.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(0.9672 0 0);          /* #f4f4f4 — warm-near-white canvas */
+  --foreground: oklch(0.1776 0 0);
+  --card: oklch(1 0 0);                     /* #ffffff — pure white floated above canvas */
+  --card-foreground: oklch(0.1776 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.1776 0 0);
+  --primary: oklch(0.1776 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9818 0.0054 95.10);  /* #faf9f5 — warm cream interlude */
+  --secondary-foreground: oklch(0.1776 0 0);
+  --muted: oklch(0.9818 0.0054 95.10);      /* #faf9f5 — warm cream interlude */
+  --muted-foreground: oklch(0.5000 0 0);    /* #636363 — chroma-0 utility neutral on warm-gray canvas */
+  --accent: oklch(0.9672 0 0);              /* #f4f4f4 — Cal ships no tinted accent surface in light; matches canvas */
+  --accent-foreground: oklch(0.1776 0 0);
+  --destructive: oklch(0.6368 0.2078 25.3313);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9276 0.0058 264.5313);
+  --input: oklch(0.9276 0.0058 264.5313);
+  --ring: oklch(0.1776 0 0);
+  --sidebar: oklch(0.9818 0.0054 95.10);
+  --sidebar-foreground: oklch(0.1776 0 0);
+  --sidebar-primary: oklch(0.1776 0 0);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9818 0.0054 95.10);
+  --sidebar-accent-foreground: oklch(0.1776 0 0);
+  --sidebar-border: oklch(0.9276 0.0058 264.5313);
+  --sidebar-ring: oklch(0.1776 0 0);
+  --chart-1: oklch(0.8100 0 0);
+  --chart-2: oklch(0.7100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.5100 0 0);
+  --chart-5: oklch(0.4200 0 0);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* brand-specific radius extras */
+  --brand-radius-xs: 4px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens — Cal.com ships its own typeface family ("Cal Sans"
+   * + "Cal Sans UI Variable" weights). Inter is the fallback only. */
+  --font-sans: "Cal Sans", Inter, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: JetBrains Mono, ui-monospace, monospace;
+  --font-display: "Cal Sans", Inter, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 64px;
+  --text-heading: 48px;
+  --text-title: 18px;
+  --text-base: 16px;
+  --leading-tight: 1.05;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras */
+  --brand-primary-active: oklch(0.2603 0 0);
+  --brand-primary-disabled: oklch(0.9276 0.0058 264.5313);
+  --brand-body: oklch(0.3729 0.0306 259.7329);
+  --brand-muted-soft: oklch(0.6301 0 0);
+  --brand-hairline-soft: oklch(0.9670 0.0029 264.5420);
+  --brand-surface-strong: oklch(0.9276 0.0058 264.5313);
+  --brand-surface-dark: oklch(0.1684 0 0);            /* #0f0f0f — live product canvas */
+  --brand-surface-dark-elevated: oklch(0.2046 0 0);   /* #171717 — live elevated dark card */
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-dark-soft: oklch(0.7118 0.0129 286.0665);
+  --brand-brand-accent: oklch(0.6729 0.1627 261.40);  /* #5b93f9 — live register/link blue */
+  --brand-success: oklch(0.8228 0.1388 157.89);       /* #6ce0a2 — live mint (404 "available" + SLA bars) */
+  --brand-warning: oklch(0.7686 0.1647 70.0804);
+  --brand-badge-orange: oklch(0.7576 0.1590 55.9344);
+  --brand-badge-pink: oklch(0.6559 0.2118 354.3084);
+  /* Badge-tone violet — synthesised AA-clearance pastel (L=0.74, lifted
+   * from the brand's true Cal.ai violet at L=0.53). Kept for badge
+   * consumers that pair with near-black foreground; the documented
+   * brand-true Cal.ai violet lives at --brand-calai-violet below. */
+  --brand-badge-violet: oklch(0.7400 0.1500 292.7172);
+  --brand-badge-emerald: oklch(0.7729 0.1535 163.2231);
+
+  /* Cal.ai sub-brand surfaces — polarity-locked indigo chrome. Stays
+   * fixed regardless of `:root` vs `[data-theme="dark"]`; the sub-brand
+   * has its own identity, not a derived state. Currently not consumed
+   * by the preview-template; declared here so any future Cal.ai mockup
+   * can theme through the catalog tokens. */
+  --brand-calai-canvas:    oklch(0.1746 0.0539 280.91);  /* #0d0c27 — body canvas */
+  --brand-calai-surface-1: oklch(0.2082 0.0504 282.83);  /* #15142e — card */
+  --brand-calai-surface-2: oklch(0.2462 0.0596 282.51);  /* #1d1c3c — nested pill */
+  --brand-calai-surface-3: oklch(0.2813 0.0545 283.84);  /* #262543 — elevated card */
+  --brand-calai-surface-4: oklch(0.2972 0.0538 284.14);  /* #2a2947 — deepest elevated nav-pill */
+  --brand-calai-violet:    oklch(0.5341 0.2293 282.75);  /* #6349ea — primary CTA on Cal.ai chrome */
+}
+
+/*
+ * Dark mode — values sampled directly from Cal.com's product / docs /
+ * booking surfaces (app.cal.com/login, cal.com/docs, i.cal.com/peer/meet),
+ * not synthesised from the light palette.
+ *
+ *   --background  → #0f0f0f, live product canvas
+ *   --card        → #171717, live elevated card (login form, docs cards)
+ *   --muted/accent → #262626, the elevated dark step above the card,
+ *                    sampled from cal.com/ai surfaces and dark hairlines
+ *   --border      → #262626, hairlines on dark cards
+ *
+ * Primary flips from near-black-on-light to white-on-dark — the brand's
+ * filled-pill register is "high-contrast canvas-inverse," not a chromatic
+ * hue, so it inverts cleanly with the canvas.
+ *
+ * The Cal.ai sub-brand (`--brand-calai-*`) is polarity-locked at :root
+ * and does NOT appear in this block — Cal.ai's identity is its own
+ * indigo polarity, not a derived state of light or dark.
+ */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* shadcn-semantic core — live-sampled from Cal product / docs / booking */
+  --background: oklch(0.1684 0 0);          /* #0f0f0f — live product canvas */
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2046 0 0);                /* #171717 — live elevated card */
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2046 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0.1776 0 0);
+  --secondary: oklch(0.2046 0 0);           /* matches card */
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2686 0 0);               /* #262626 — live elevated step above card */
+  --muted-foreground: oklch(0.7118 0.0129 286.0665);
+  --accent: oklch(0.2686 0 0);              /* same as muted per DESIGN.md */
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.6368 0.2078 25.3313);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.2686 0 0);              /* #262626 live hairline */
+  --input: oklch(0.2686 0 0);
+  --ring: oklch(1 0 0);
+  --sidebar: oklch(0.2046 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(1 0 0);
+  --sidebar-primary-foreground: oklch(0.1776 0 0);
+  --sidebar-accent: oklch(0.2046 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.2686 0 0);
+  --sidebar-ring: oklch(1 0 0);
+  --chart-1: oklch(0.4200 0 0);
+  --chart-2: oklch(0.5100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.7100 0 0);
+  --chart-5: oklch(0.8100 0 0);
+
+  /* Utility-neutral brand-extras lifted for dark canvas. Polarity-locked
+   * brand surfaces (--brand-surface-dark, --brand-on-dark, --brand-calai-*)
+   * stay at :root values. */
+  --brand-body: oklch(0.8000 0.0129 286.0665);
+  --brand-muted-soft: oklch(0.7118 0.0129 286.0665);
+  --brand-hairline-soft: oklch(0.2686 0 0);
+  --brand-surface-strong: oklch(0.2686 0 0);
+  --brand-primary-active: oklch(0.9100 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1684 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2046 0 0);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2046 0 0);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(1 0 0);
+    --primary-foreground: oklch(0.1776 0 0);
+    --secondary: oklch(0.2046 0 0);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.2686 0 0);
+    --muted-foreground: oklch(0.7118 0.0129 286.0665);
+    --accent: oklch(0.2686 0 0);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.6368 0.2078 25.3313);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.2686 0 0);
+    --input: oklch(0.2686 0 0);
+    --ring: oklch(1 0 0);
+    --sidebar: oklch(0.2046 0 0);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(1 0 0);
+    --sidebar-primary-foreground: oklch(0.1776 0 0);
+    --sidebar-accent: oklch(0.2046 0 0);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.2686 0 0);
+    --sidebar-ring: oklch(1 0 0);
+    --chart-1: oklch(0.4200 0 0);
+    --chart-2: oklch(0.5100 0 0);
+    --chart-3: oklch(0.6100 0 0);
+    --chart-4: oklch(0.7100 0 0);
+    --chart-5: oklch(0.8100 0 0);
+
+    --brand-body: oklch(0.8000 0.0129 286.0665);
+    --brand-muted-soft: oklch(0.7118 0.0129 286.0665);
+    --brand-hairline-soft: oklch(0.2686 0 0);
+    --brand-surface-strong: oklch(0.2686 0 0);
+    --brand-primary-active: oklch(0.9100 0 0);
+  }
+}

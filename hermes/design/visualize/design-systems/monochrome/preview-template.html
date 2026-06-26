@@ -1,0 +1,1304 @@
+<!-- Per-system preview shell — monochrome.
+     Signature mockup: elevated pricing-tier table with serif-as-hero
+     typography and a featured tier that inverts polarity (the system's
+     two most-defining moves in one surface). Source: temp/refs/monochrome/raw.md. -->
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<meta name="description" content="Token-surface showcase for the __DESIGN_SYSTEM_NAME__ design system — editorial-luxury monochrome with serif-as-hero typography and color inversion as the state-change vocabulary.">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — preview">
+<meta property="og:description" content="Token-surface showcase for the __DESIGN_SYSTEM_NAME__ design system.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='20' font-weight='700' fill='%23fff' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Monochrome preview shell — editorial-luxury, serif-as-hero, no chroma === */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.625;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  position: relative;
+}
+
+/* Global horizontal-lines texture (1.5% opacity) — the spec's
+ * "REQUIRED" surface treatment to prevent flat-design fatigue. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    var(--foreground) 1px,
+    var(--foreground) 2px
+  );
+  background-size: 100% 4px;
+  opacity: 0.015;
+}
+
+main, header, footer { position: relative; z-index: 1; }
+
+a { color: inherit; text-decoration: none; }
+
+/* ========== Topnav + hero ============================ */
+.topnav {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: var(--brand-rule-thin) solid var(--foreground);
+}
+.topnav .brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.015em;
+}
+.topnav .brand sup {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  vertical-align: super;
+  margin-left: 0.25rem;
+  color: var(--muted-foreground);
+}
+.topnav .nav-links {
+  display: flex;
+  gap: 2.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.topnav .nav-links a {
+  border-bottom: var(--brand-rule-thin) solid transparent;
+  padding-bottom: 0.25rem;
+  transition: border-color var(--brand-state-transition) linear;
+}
+.topnav .nav-links a:hover,
+.topnav .nav-links a:focus-visible {
+  border-bottom-color: var(--foreground);
+  outline: none;
+}
+.topnav .nav-links a:focus-visible {
+  outline: var(--brand-rule-thick) solid var(--foreground);
+  outline-offset: 3px;
+}
+
+.hero {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6rem 3rem 5rem;
+  border-bottom: var(--brand-rule-thick) solid var(--foreground);
+}
+.hero .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hero .eyebrow::after {
+  content: "";
+  display: inline-block;
+  width: 64px;
+  height: 1px;
+  background: var(--foreground);
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3.5rem, 10vw, 10rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  margin: 2rem 0 0;
+  max-width: 14ch;
+}
+.hero h1 em {
+  font-style: italic;
+  font-weight: 400;
+}
+.hero .lede {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.5rem;
+  line-height: 1.35;
+  margin: 2rem 0 0;
+  max-width: 38rem;
+  color: var(--muted-foreground);
+}
+.hero .meta {
+  display: flex;
+  gap: 3rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: var(--brand-rule-hairline) solid var(--brand-hairline-soft);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.hero .meta strong {
+  display: block;
+  color: var(--foreground);
+  font-weight: 600;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  letter-spacing: 0;
+  font-family: var(--font-display);
+  text-transform: none;
+}
+
+/* ========== Section primitive ======================== */
+.section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6rem 3rem;
+  border-bottom: var(--brand-rule-thick) solid var(--foreground);
+}
+.section.tight { padding: 4rem 3rem; }
+.section .section-head {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  padding-bottom: 1.5rem;
+  border-bottom: var(--brand-rule-hairline) solid var(--brand-hairline-soft);
+  align-items: end;
+}
+.section .section-head .num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.section .section-head h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0;
+  max-width: 32ch;
+}
+.section .section-head h2 em { font-style: italic; }
+
+/* ========== Signature: elevated pricing-tier mockup === */
+/* The single brand-flavoured signature surface — the spec's
+ * "Elevated Pricing Tier: Highlighted tier extends vertically
+ * on desktop", combined with serif-as-hero typography and the
+ * featured-tier polarity flip. */
+
+.pricing {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: var(--brand-rule-thin) solid var(--foreground);
+}
+.tier {
+  padding: 3rem 2rem;
+  background: var(--card);
+  color: var(--card-foreground);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-right: var(--brand-rule-thin) solid var(--foreground);
+}
+.tier:last-child { border-right: none; }
+.tier .tier-name {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.tier .price {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 5rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin: 1.25rem 0 0.25rem;
+}
+.tier .price small {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  display: block;
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+.tier .tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.4;
+  margin: 1.5rem 0 2rem;
+  color: var(--muted-foreground);
+  max-width: 22ch;
+}
+.tier ul {
+  list-style: none;
+  margin: 0 0 2.5rem;
+  padding: 0;
+  flex-grow: 1;
+}
+.tier ul li {
+  display: grid;
+  grid-template-columns: 1rem 1fr;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  border-bottom: var(--brand-rule-hairline) solid var(--brand-hairline-soft);
+}
+.tier ul li::before {
+  content: "—";
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: currentColor;
+}
+.tier ul li:last-child { border-bottom: none; }
+.tier .tier-cta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  color: var(--foreground);
+  border: var(--brand-rule-medium) solid var(--foreground);
+  cursor: pointer;
+  transition:
+    background-color var(--brand-state-transition) linear,
+    color var(--brand-state-transition) linear;
+  min-height: 44px;
+  text-align: center;
+}
+.tier .tier-cta:hover,
+.tier .tier-cta:focus-visible {
+  background: var(--foreground);
+  color: var(--background);
+  outline: none;
+}
+.tier .tier-cta:focus-visible {
+  outline: var(--brand-rule-thick) solid var(--foreground);
+  outline-offset: 3px;
+}
+
+/* Featured tier — the elevated, inverted moment. Extends 16px
+ * above and below the row, inverts the polarity, drops the
+ * grid border-right separators on its sides. */
+.tier.featured {
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  margin: -16px 0;
+  padding: 4rem 2rem;
+  border-right: none;
+  border-left: none;
+  position: relative;
+  z-index: 2;
+}
+.tier.featured .tier-name {
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+}
+.tier.featured .price small,
+.tier.featured .tagline {
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+}
+.tier.featured ul li {
+  border-bottom-color: var(--brand-on-dark);
+  border-bottom-style: solid;
+  border-bottom-width: var(--brand-rule-hairline);
+  opacity: 0.92;
+}
+.tier.featured .tier-cta {
+  background: var(--brand-on-dark);
+  color: var(--brand-canvas-night);
+  border-color: var(--brand-on-dark);
+}
+.tier.featured .tier-cta:hover,
+.tier.featured .tier-cta:focus-visible {
+  background: transparent;
+  color: var(--brand-on-dark);
+}
+.tier.featured .featured-flag {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  background: var(--brand-on-dark);
+  color: var(--brand-canvas-night);
+  padding: 0.5rem 1rem;
+  border: var(--brand-rule-thin) solid var(--brand-canvas-night);
+}
+
+/* ========== Colour swatch band ======================== */
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.swatch {
+  border: var(--brand-rule-thin) solid var(--foreground);
+}
+.swatch .chip {
+  height: 12rem;
+}
+.swatch.bg-canvas .chip { background: var(--background); border-bottom: var(--brand-rule-thin) solid var(--foreground); }
+.swatch.bg-ink .chip { background: var(--foreground); }
+.swatch.bg-muted .chip { background: var(--muted); border-bottom: var(--brand-rule-thin) solid var(--foreground); }
+.swatch.bg-hairline .chip { background: var(--brand-hairline-soft); border-bottom: var(--brand-rule-thin) solid var(--foreground); }
+.swatch .meta {
+  padding: 1.25rem 1.25rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.swatch .meta strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--foreground);
+  text-transform: none;
+  margin-bottom: 0.25rem;
+}
+
+/* ========== Rule-weight ladder ======================== */
+.rule-ladder {
+  display: grid;
+  grid-template-columns: 12rem 1fr 6rem;
+  gap: 2rem;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.rule-ladder + .rule-ladder { margin-top: 2rem; }
+.rule-ladder .label {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  text-transform: none;
+  color: var(--foreground);
+}
+.rule-ladder .specimen {
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.rule-ladder .specimen .line {
+  display: block;
+  width: 100%;
+  background: var(--foreground);
+}
+.rule-ladder.r-hairline .line { height: 1px; background: var(--brand-hairline-soft); }
+.rule-ladder.r-thin .line { height: 1px; }
+.rule-ladder.r-medium .line { height: 2px; }
+.rule-ladder.r-thick .line { height: 4px; }
+.rule-ladder.r-ultra .line { height: 8px; }
+.rule-ladder .value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========== Typography roles ========================== */
+.type-table {
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+  row-gap: 3rem;
+  column-gap: 3rem;
+  align-items: baseline;
+}
+.type-table .role {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.type-table .role small {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--muted-foreground);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+.type-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+.type-display em { font-style: italic; }
+.type-heading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.type-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+.type-body {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.625;
+  max-width: 38rem;
+}
+.type-caption {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+  max-width: 38rem;
+}
+.type-mono {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+
+/* ========== Component vocabulary ====================== */
+.components-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+}
+.spec-card {
+  border: var(--brand-rule-thin) solid var(--foreground);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: var(--card);
+}
+.spec-card .spec-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.spec-card .spec-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.625rem;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.spec-card .spec-demo {
+  padding: 1.5rem 0;
+  border-top: var(--brand-rule-hairline) solid var(--brand-hairline-soft);
+  border-bottom: var(--brand-rule-hairline) solid var(--brand-hairline-soft);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+.spec-card .spec-note {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+  margin: 0;
+}
+
+/* Primary button */
+.btn-primary {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: var(--foreground);
+  color: var(--background);
+  border: var(--brand-rule-medium) solid var(--foreground);
+  padding: 1rem 2rem;
+  cursor: pointer;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition:
+    background-color var(--brand-state-transition) linear,
+    color var(--brand-state-transition) linear;
+}
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--background);
+  color: var(--foreground);
+  outline: none;
+}
+.btn-primary:focus-visible {
+  outline: var(--brand-rule-thick) solid var(--foreground);
+  outline-offset: 3px;
+}
+.btn-primary .arrow { font-family: var(--font-display); font-weight: 400; font-size: 1rem; line-height: 1; }
+
+/* Secondary button */
+.btn-secondary {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--foreground);
+  border: var(--brand-rule-medium) solid var(--foreground);
+  padding: 1rem 2rem;
+  cursor: pointer;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition:
+    background-color var(--brand-state-transition) linear,
+    color var(--brand-state-transition) linear;
+}
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  background: var(--foreground);
+  color: var(--background);
+  outline: none;
+}
+.btn-secondary:focus-visible {
+  outline: var(--brand-rule-thick) solid var(--foreground);
+  outline-offset: 3px;
+}
+
+/* Ghost button */
+.btn-ghost {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  background: transparent;
+  color: var(--foreground);
+  border: none;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  border-bottom: var(--brand-rule-thin) solid transparent;
+  transition: border-color var(--brand-state-transition) linear;
+}
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  border-bottom-color: var(--foreground);
+  outline: none;
+}
+.btn-ghost:focus-visible {
+  outline: var(--brand-rule-thick) solid var(--foreground);
+  outline-offset: 2px;
+}
+
+/* Input */
+.input {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  background: var(--background);
+  color: var(--foreground);
+  border: var(--brand-rule-medium) solid var(--foreground);
+  padding: 0.875rem 1rem;
+  width: 100%;
+  max-width: 24rem;
+  transition: border-width var(--brand-state-transition) linear;
+}
+.input::placeholder {
+  color: var(--muted-foreground);
+  font-style: italic;
+}
+.input:focus {
+  outline: none;
+  border-width: var(--brand-rule-thick);
+}
+
+/* Inline label / chip */
+.chip-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.75rem;
+  border: var(--brand-rule-thin) solid var(--foreground);
+  color: var(--foreground);
+}
+.chip-label.solid {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+/* ========== Inverted stats band ======================= */
+/* The spec's "Inverted Stats Section: Black background, white
+ * text, with subtle vertical line texture" — rendered with
+ * polarity-locked tokens so this section reads as canvas-night
+ * in either theme (a deliberate section-as-state-change). */
+
+.section.stats {
+  max-width: none;
+  margin: 0;
+  padding: 6rem 0;
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  border-bottom: var(--brand-rule-thick) solid var(--foreground);
+  position: relative;
+}
+.section.stats::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 1px,
+    var(--brand-on-dark) 1px,
+    var(--brand-on-dark) 2px
+  );
+  background-size: 4px 100%;
+  opacity: 0.04;
+  pointer-events: none;
+}
+.section.stats .stats-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 3rem;
+  position: relative;
+}
+.section.stats .stats-head {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  padding-bottom: 1.5rem;
+  border-bottom: var(--brand-rule-hairline) solid var(--brand-on-dark);
+  align-items: end;
+}
+.section.stats .stats-head .num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+}
+.section.stats .stats-head h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0;
+  color: var(--brand-on-dark);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.stat {
+  padding: 0 2rem;
+  border-left: var(--brand-rule-hairline) solid var(--brand-on-dark);
+}
+.stat:first-child { border-left: none; padding-left: 0; }
+.stat .number {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(4rem, 8vw, 7.5rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--brand-on-dark);
+}
+.stat .number em { font-style: italic; font-weight: 400; }
+.stat .number sup {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  vertical-align: super;
+  margin-left: 0.25rem;
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+}
+.stat .caption {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.8;
+  margin-top: 1.5rem;
+  max-width: 16ch;
+  line-height: 1.5;
+}
+
+/* ========== Pull quote ================================ */
+.pullquote {
+  max-width: 64rem;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  padding: 4rem 3rem;
+  border-top: var(--brand-rule-thin) solid var(--foreground);
+  border-bottom: var(--brand-rule-thin) solid var(--foreground);
+}
+.pullquote::before,
+.pullquote::after {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 8rem;
+  line-height: 0.6;
+  color: var(--foreground);
+  opacity: 0.15;
+  position: absolute;
+}
+.pullquote::before {
+  content: "\201C";
+  top: 1.5rem;
+  left: 1.5rem;
+}
+.pullquote::after {
+  content: "\201D";
+  bottom: -0.5rem;
+  right: 1.5rem;
+}
+.pullquote q {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  display: block;
+  quotes: none;
+  position: relative;
+}
+.pullquote cite {
+  display: block;
+  margin-top: 2rem;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* ========== Footer ==================================== */
+footer {
+  background: var(--brand-canvas-night);
+  color: var(--brand-on-dark);
+  padding: 5rem 0 3rem;
+}
+footer .footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+footer .footer-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 3rem;
+  border-bottom: var(--brand-rule-hairline) solid var(--brand-on-dark);
+}
+footer .footer-head .wordmark {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--brand-on-dark);
+}
+footer .footer-head .meta {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+  text-align: right;
+}
+footer .footer-cols {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+  padding: 3rem 0;
+  border-bottom: var(--brand-rule-hairline) solid var(--brand-on-dark);
+}
+footer .footer-col h3 {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+  margin: 0 0 1.25rem;
+}
+footer .footer-col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+footer .footer-col li {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 2;
+  color: var(--brand-on-dark);
+}
+footer .colophon {
+  padding-top: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* ========== Responsive ================================ */
+@media (max-width: 920px) {
+  .topnav { padding: 1.25rem 1.5rem; }
+  .topnav .nav-links { display: none; }
+  .hero { padding: 4rem 1.5rem 3rem; }
+  .hero h1 { font-size: clamp(2.75rem, 12vw, 5rem); letter-spacing: -0.035em; }
+  .section { padding: 4rem 1.5rem; }
+  .section .section-head { grid-template-columns: 1fr; gap: 1rem; }
+  .pricing { grid-template-columns: 1fr; }
+  .tier { border-right: none; border-bottom: var(--brand-rule-thin) solid var(--foreground); }
+  .tier:last-child { border-bottom: none; }
+  .tier.featured { margin: 0; }
+  .swatches, .components-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat { border-left: none; padding: 0; }
+  .stat + .stat { margin-top: 2rem; }
+  .type-table { grid-template-columns: 1fr; row-gap: 1.5rem; }
+  .type-table .role { padding-bottom: 0.5rem; }
+  .rule-ladder { grid-template-columns: 1fr; gap: 0.75rem; }
+  footer .footer-cols { grid-template-columns: repeat(2, 1fr); }
+  footer .footer-head { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+}
+
+/* ========== Reduced motion ============================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="brand">__DESIGN_SYSTEM_NAME__ <sup>halcyon</sup></div>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#pricing">Tiers</a>
+    <a href="#palette">Palette</a>
+    <a href="#typography">Type</a>
+    <a href="#components">Components</a>
+    <a href="#colophon">Colophon</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <span class="eyebrow">Issue 09 · Spring</span>
+  <h1>Restraint <em>as</em> the loudest argument.</h1>
+  <p class="lede">A token surface built for editorial work. Black and white only, scaled until the typography reads as the entire interface, with the polarity flipping wherever the page wants emphasis.</p>
+  <div class="meta">
+    <div>Published<strong>21 May 2026</strong></div>
+    <div>Set in<strong>Playfair · Source Serif 4</strong></div>
+    <div>Engraving<strong>1 px · 2 px · 4 px · 8 px</strong></div>
+  </div>
+</section>
+
+<main>
+
+<!-- ============ Signature: elevated pricing ============ -->
+<section class="section" id="pricing">
+  <div class="section-head">
+    <span class="num">§01 · Signature</span>
+    <h2>The Halcyon team negotiates plans in <em>three columns</em>, and the middle one takes the page.</h2>
+  </div>
+  <div class="pricing">
+    <div class="tier">
+      <span class="tier-name">Personal</span>
+      <div class="price">—<small>For the long Sunday read</small></div>
+      <p class="tagline">A reader's account. One desk, one tab open, one slow page at a time.</p>
+      <ul>
+        <li>Solo workspace</li>
+        <li>Standard reading queue</li>
+        <li>Mono-printer export</li>
+        <li>Best-effort responses</li>
+      </ul>
+      <button class="tier-cta" type="button">Begin reading</button>
+    </div>
+
+    <div class="tier featured">
+      <span class="featured-flag">Recommended</span>
+      <span class="tier-name">Editor</span>
+      <div class="price"><em>x</em><small>For the working desk</small></div>
+      <p class="tagline">For the team that has decided slow is a feature. Italic when it matters.</p>
+      <ul>
+        <li>Up to twelve desks</li>
+        <li>Editorial review queue</li>
+        <li>Priority production line</li>
+        <li>Letterpress export, archive-ready</li>
+        <li>Quarterly volume bound to order</li>
+      </ul>
+      <button class="tier-cta" type="button">Commission a desk</button>
+    </div>
+
+    <div class="tier">
+      <span class="tier-name">Institute</span>
+      <div class="price">—<small>For the standing order</small></div>
+      <p class="tagline">For the institute, the practice, the press that needs a continuing room.</p>
+      <ul>
+        <li>Unlimited desks</li>
+        <li>Custom production schedule</li>
+        <li>Dedicated lead editor</li>
+        <li>Annual paperwork prepared</li>
+      </ul>
+      <button class="tier-cta" type="button">Open a room</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Palette swatches ======================== -->
+<section class="section" id="palette">
+  <div class="section-head">
+    <span class="num">§02 · Palette</span>
+    <h2>Four values. <em>Two</em> are the page, two are the body.</h2>
+  </div>
+  <div class="swatches">
+    <div class="swatch bg-canvas">
+      <div class="chip"></div>
+      <div class="meta">
+        <strong>Canvas</strong>
+        --background · #FFFFFF
+      </div>
+    </div>
+    <div class="swatch bg-ink">
+      <div class="chip"></div>
+      <div class="meta">
+        <strong>Ink</strong>
+        --foreground · #000000
+      </div>
+    </div>
+    <div class="swatch bg-muted">
+      <div class="chip"></div>
+      <div class="meta">
+        <strong>Muted</strong>
+        --muted · #F5F5F5
+      </div>
+    </div>
+    <div class="swatch bg-hairline">
+      <div class="chip"></div>
+      <div class="meta">
+        <strong>Hairline</strong>
+        --brand-hairline-soft · #E5E5E5
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Rule-weight ladder ====================== -->
+<section class="section tight" id="rules">
+  <div class="section-head">
+    <span class="num">§03 · Rule-weight ladder</span>
+    <h2>Elevation here is engraving. Four weights, all in <em>ink</em>.</h2>
+  </div>
+  <div class="rule-ladder r-hairline">
+    <div class="label">Hairline</div>
+    <div class="specimen"><span class="line"></span></div>
+    <div class="value">1 px · soft</div>
+  </div>
+  <div class="rule-ladder r-thin">
+    <div class="label">Thin</div>
+    <div class="specimen"><span class="line"></span></div>
+    <div class="value">1 px</div>
+  </div>
+  <div class="rule-ladder r-medium">
+    <div class="label">Medium</div>
+    <div class="specimen"><span class="line"></span></div>
+    <div class="value">2 px</div>
+  </div>
+  <div class="rule-ladder r-thick">
+    <div class="label">Thick</div>
+    <div class="specimen"><span class="line"></span></div>
+    <div class="value">4 px</div>
+  </div>
+  <div class="rule-ladder r-ultra">
+    <div class="label">Ultra</div>
+    <div class="specimen"><span class="line"></span></div>
+    <div class="value">8 px</div>
+  </div>
+</section>
+
+<!-- ============ Inverted stats band ===================== -->
+<section class="section stats" id="stats">
+  <div class="stats-inner">
+    <div class="stats-head">
+      <span class="num">§04 · Stats</span>
+      <h2>The same numbers, set on the <em>other side</em> of the page.</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="number">86<sup>p99</sup></div>
+        <div class="caption">milliseconds, region weighted</div>
+      </div>
+      <div class="stat">
+        <div class="number"><em>4</em>k</div>
+        <div class="caption">words shipped this issue</div>
+      </div>
+      <div class="stat">
+        <div class="number">12</div>
+        <div class="caption">desks on the standing order</div>
+      </div>
+      <div class="stat">
+        <div class="number">9.4<sup>×</sup></div>
+        <div class="caption">return on the second reading</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Typography roles ======================== -->
+<section class="section" id="typography">
+  <div class="section-head">
+    <span class="num">§05 · Typography</span>
+    <h2>Three families, six <em>working</em> roles.</h2>
+  </div>
+  <div class="type-table">
+    <div class="role">Display<small>Playfair Display · 400 · 9–10rem · tracking -0.05em</small></div>
+    <div class="type-display">Margins, <em>quietly</em></div>
+
+    <div class="role">Heading<small>Playfair Display · 600 · 3–4rem · tracking -0.025em</small></div>
+    <div class="type-heading">The page is the entire argument</div>
+
+    <div class="role">Title<small>Playfair Display · 600 · 1.75rem · tracking -0.015em</small></div>
+    <div class="type-title">A section needs a name, not a graphic</div>
+
+    <div class="role">Body<small>Source Serif 4 · 400 · 1.125rem · leading 1.625</small></div>
+    <div class="type-body">Body text reads at the same lightness as the headings. Differentiation is carried by weight, by size, and by the rules above and below — not by lifting the type into a softer grey, because softer grey is a step toward the chromatic palette this system refuses to keep.</div>
+
+    <div class="role">Caption<small>Source Serif 4 italic · 400 · 1rem · muted</small></div>
+    <div class="type-caption">Italic small body for asides, byline meta, footnote text, and figure captions. The italics in Source Serif 4 are the second most-used face in the system.</div>
+
+    <div class="role">Mono<small>JetBrains Mono · 500 · 0.875rem · uppercase · tracking 0.1em</small></div>
+    <div class="type-mono">DATES · LABELS · SECTION NUMBERS · TIER NAMES</div>
+  </div>
+</section>
+
+<!-- ============ Component vocabulary ==================== -->
+<section class="section" id="components">
+  <div class="section-head">
+    <span class="num">§06 · Components</span>
+    <h2>Buttons, fields, chips. <em>No</em> radius, no shadow, no second colour.</h2>
+  </div>
+  <div class="components-grid">
+    <article class="spec-card">
+      <span class="spec-label">Primary button</span>
+      <h3 class="spec-title">Ink fill, instant inversion on hover.</h3>
+      <div class="spec-demo">
+        <button class="btn-primary" type="button">Commission <span class="arrow">&rarr;</span></button>
+        <button class="btn-primary" type="button">Subscribe</button>
+      </div>
+      <p class="spec-note">Black fill, white text, uppercase mono label, generous padding, 100 ms transition. Hover inverts to white fill with a 2 px black border. Focus-visible outline at 3 px, offset 3 px.</p>
+    </article>
+
+    <article class="spec-card">
+      <span class="spec-label">Secondary button</span>
+      <h3 class="spec-title">Transparent fill, 2 px ink border.</h3>
+      <div class="spec-demo">
+        <button class="btn-secondary" type="button">Read sample</button>
+        <button class="btn-secondary" type="button">Archive</button>
+      </div>
+      <p class="spec-note">The outline variant. Inverts to the primary register on hover — both buttons land at the same destination state, so a secondary placed beside a primary in a row reads as a deliberate choice, not a hierarchy slip.</p>
+    </article>
+
+    <article class="spec-card">
+      <span class="spec-label">Ghost button</span>
+      <h3 class="spec-title">Reads as a text link.</h3>
+      <div class="spec-demo">
+        <button class="btn-ghost" type="button">View standing order</button>
+        <button class="btn-ghost" type="button">Past issues</button>
+      </div>
+      <p class="spec-note">No border, no background. Underline appears on hover (instant). For inline interactive language inside body copy where the primary or secondary register would read as too heavy.</p>
+    </article>
+
+    <article class="spec-card">
+      <span class="spec-label">Input field</span>
+      <h3 class="spec-title">Border thickens on focus — no coloured ring.</h3>
+      <div class="spec-demo">
+        <input class="input" type="email" placeholder="reader@halcyon.dev">
+      </div>
+      <p class="spec-note">2 px ink border at rest, thickens to 4 px on focus. Italic placeholder at <code>--muted-foreground</code>. The border-weight change is the entire focus indicator — no outline ring, no underline, no halo.</p>
+    </article>
+
+    <article class="spec-card">
+      <span class="spec-label">Chip · label</span>
+      <h3 class="spec-title">Bordered or solid. Always mono, always tracking-widest.</h3>
+      <div class="spec-demo">
+        <span class="chip-label">Volume 09</span>
+        <span class="chip-label solid">Bound</span>
+        <span class="chip-label">Quarterly</span>
+      </div>
+      <p class="spec-note">Sharp-cornered, no fill or solid black. The solid variant is the inversion-as-chip — same shape, opposite polarity, used for status that needs to feel decided.</p>
+    </article>
+
+    <article class="spec-card">
+      <span class="spec-label">Pull quote</span>
+      <h3 class="spec-title">Italic serif, oversized quotation marks.</h3>
+      <div class="spec-demo" style="flex-direction: column; align-items: flex-start;">
+        <blockquote class="pullquote" style="padding: 2rem 2rem; max-width: 100%;">
+          <q>The page is the argument. Everything else is the room the page is being read in.</q>
+          <cite>— Mira Allende, Issue 09</cite>
+        </blockquote>
+      </div>
+      <p class="spec-note">Title-scale Playfair Display italic, flanked by 8rem decorative quotation marks at 15 % opacity. Top and bottom 1 px rules bracket the quote.</p>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<footer id="colophon">
+  <div class="footer-inner">
+    <div class="footer-head">
+      <div class="wordmark">__DESIGN_SYSTEM_NAME__</div>
+      <div class="meta">
+        Set in Playfair · Source Serif 4 · JetBrains Mono<br>
+        Printed on Halcyon Mohawk Superfine
+      </div>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h3>Production</h3>
+        <ul>
+          <li>Standing order</li>
+          <li>Quarterly volume</li>
+          <li>Past issues</li>
+          <li>Archive room</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>The desk</h3>
+        <ul>
+          <li>Editorial slate</li>
+          <li>Reader's account</li>
+          <li>Contributors</li>
+          <li>Letters to the editor</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Practice</h3>
+        <ul>
+          <li>Type specimens</li>
+          <li>Production notes</li>
+          <li>Colophon &amp; press</li>
+          <li>Reprint policy</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Correspondence</h3>
+        <ul>
+          <li>team@halcyon.dev</li>
+          <li>halcyon.dev</li>
+          <li>The standing order</li>
+          <li>Subscribe</li>
+        </ul>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>visualize · __DESIGN_SYSTEM_NAME__</span>
+      <span>Vol 09 · ISSN 2563-9981</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

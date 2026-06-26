@@ -1,0 +1,1002 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<!-- Signature mockup: Hero (3D glass + 12px brutalist frame + tabular-nums countdown + Laser Button)
+     followed by a Luminosity Card bento grid — the system's defining surface per DESIGN.md §4. -->
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050505'/%3E%3Crect x='4' y='4' width='24' height='24' fill='none' stroke='%23BFFF00' stroke-width='3'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Neon-velocity register: lime-on-near-black, brutalist headline mass, 3D glass depth, tabular countdown digits, mixed-radius signature.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Inter:wght@300;400;500&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Neon Velocity preview shell ===
+ * Single signature mockup (hero countdown + bento) plus token demos.
+ * Refraction-glow ambient backdrop scoped here, not in tokens.css. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+/* Local atmospherics — decorative-only values that don't have a token
+ * home (the sweep is an animation frame, not a documented surface).
+ * Scoped here per AUTHORING gotcha. */
+:root {
+  --preview-sweep-flare: oklch(1 0 0 / 0.55);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.65;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Ambient backdrop: refraction glow (lime) + viewport-fixed noise overlay.
+ * Both scoped here per AUTHORING gotcha — atmospherics aren't tokens. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(40rem 32rem at 85% 15%, var(--brand-glow-refraction), transparent 60%),
+    radial-gradient(36rem 30rem at 10% 90%, var(--brand-glow-refraction), transparent 60%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* -- Container -- */
+.shell { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* -- Top nav -- */
+.topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+}
+.topnav-brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.topnav-brand-mark {
+  width: 14px;
+  height: 14px;
+  background: var(--primary);
+  box-shadow: 0 0 12px var(--brand-glow-primary);
+}
+.topnav-links {
+  display: flex;
+  gap: 2rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.topnav-links a {
+  color: var(--brand-body-muted);
+  text-decoration: none;
+  transition: color 200ms var(--brand-ease-velocity);
+}
+.topnav-links a:hover,
+.topnav-links a:focus-visible { color: var(--primary); outline: none; }
+.topnav-links a:focus-visible { text-decoration: underline; text-underline-offset: 6px; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Laser Button -- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 48px;
+  padding: 0 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: box-shadow 300ms var(--brand-ease-velocity), background 200ms var(--brand-ease-velocity);
+}
+.btn[data-variant="laser"] {
+  background: var(--primary);
+  color: var(--brand-on-primary);
+  border-radius: var(--brand-pill-radius);
+  box-shadow: 0 0 20px var(--brand-glow-primary);
+}
+/* The 45° sweep-of-light hover — the system's signature interaction */
+.btn[data-variant="laser"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    transparent 35%,
+    var(--preview-sweep-flare) 50%,
+    transparent 65%,
+    transparent 100%
+  );
+  background-size: 240% 240%;
+  background-position: 200% 200%;
+  transition: background-position var(--brand-sweep-duration) var(--brand-ease-velocity);
+  pointer-events: none;
+}
+.btn[data-variant="laser"]:hover { box-shadow: 0 0 32px var(--brand-glow-primary); }
+.btn[data-variant="laser"]:hover::before { background-position: 0% 0%; }
+.btn[data-variant="laser"]:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+.btn[data-variant="outline"] {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: var(--brand-pill-radius);
+}
+.btn[data-variant="outline"]:hover { background: var(--brand-glow-hover); }
+.btn[data-variant="outline"]:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn[data-variant="laser"]::before { transition: none; }
+  .btn[data-variant="laser"]:hover::before { background-position: 200% 200%; opacity: 0.4; }
+  .btn[data-variant="laser"]:hover { box-shadow: 0 0 20px var(--brand-glow-primary); }
+}
+
+/* ============================================================
+   SIGNATURE MOCKUP — Hero: 3D glass + brutalist frame + countdown
+   ============================================================ */
+.hero {
+  position: relative;
+  padding: 6rem 0 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* The 3D glass card backdrop (tilted -- spec) */
+.hero-glass {
+  position: absolute;
+  inset: 1rem 0 3rem 0;
+  background: var(--brand-glass-fill);
+  border: 1px solid var(--brand-hairline-glass);
+  backdrop-filter: blur(12px) saturate(150%);
+  transform: perspective(1000px) rotateX(15deg);
+  transform-origin: center bottom;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Eyebrow over the glass */
+.hero-meta-tag {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  background: var(--muted);
+  border: 1px solid var(--brand-hairline-glass);
+  border-radius: var(--brand-pill-radius);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+.hero-meta-tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--brand-glow-primary);
+  animation: meta-pulse 2.4s ease-in-out infinite;
+}
+@keyframes meta-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* The brutalist frame — 12px sharp-cornered white border */
+.hero-frame {
+  position: relative;
+  z-index: 1;
+  border: var(--brand-hero-frame-width) solid var(--brand-on-dark);
+  border-radius: var(--brand-hero-frame-radius);
+  padding: 2.5rem 3rem;
+  max-width: 56rem;
+  text-align: center;
+  background: transparent;
+}
+.hero-display {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 10vw, 8.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+
+/* The split-row metadata: status tag (left) + countdown (right) */
+.hero-meta {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 56rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+}
+@media (max-width: 720px) {
+  .hero-meta { grid-template-columns: 1fr; }
+  .hero-frame { padding: 1.5rem 1.25rem; }
+}
+
+.hero-status {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.hero-status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+/* Countdown — six tabular digit pairs */
+.countdown {
+  display: flex;
+  gap: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+.countdown-cell {
+  min-width: 4.5rem;
+  padding: 0.75rem 0.875rem 0.5rem;
+  background: var(--muted);
+  border: 1px solid var(--brand-hairline-glass);
+  border-radius: 4px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.countdown-digit {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+.countdown-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+@media (max-width: 720px) {
+  .countdown { gap: 0.375rem; }
+  .countdown-cell { min-width: 3.25rem; padding: 0.5rem 0.5rem 0.375rem; }
+}
+
+/* CTA row beneath countdown */
+.hero-ctas {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ============================================================
+   Luminosity Card bento grid (part of the signature mockup)
+   ============================================================ */
+.bento {
+  padding: 5rem 0 4rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 880px) { .bento { grid-template-columns: 1fr; } }
+
+.luminosity {
+  position: relative;
+  min-height: 28rem;
+  padding: 2rem;
+  background:
+    radial-gradient(circle at top left, var(--brand-glow-soft), transparent 65%),
+    var(--brand-canvas-night);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-card-radius);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition:
+    border-color var(--brand-card-transition) var(--brand-ease-velocity),
+    background var(--brand-card-transition) var(--brand-ease-velocity);
+  overflow: hidden;
+}
+.luminosity:hover,
+.luminosity:focus-within {
+  border-color: var(--brand-glow-primary);
+  background:
+    radial-gradient(circle at top left, var(--brand-glow-hover), transparent 60%),
+    var(--brand-canvas-night);
+}
+.luminosity-index {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+.luminosity-index strong {
+  color: var(--primary);
+  font-weight: 500;
+}
+.luminosity-headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin-top: auto;
+}
+.luminosity-body {
+  margin: 0;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--brand-body-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .luminosity { transition: none; }
+  .hero-meta-tag::before { animation: none; }
+}
+
+/* ============================================================
+   TOKEN DEMOS (everything below is non-signature)
+   ============================================================ */
+
+.section { padding: 5rem 0; border-top: 1px solid var(--border); }
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+  margin: 0 0 0.75rem;
+}
+.section-title {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.section-lede {
+  margin: 0 0 2.5rem;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--brand-body-muted);
+  max-width: 56ch;
+}
+
+/* Surface-ladder swatches */
+.surface-ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+@media (max-width: 720px) { .surface-ladder { grid-template-columns: repeat(2, 1fr); } }
+.surface-step {
+  padding: 1.5rem;
+  min-height: 8rem;
+  border-right: 1px solid var(--brand-hairline-strong);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.surface-step:last-child { border-right: none; }
+.surface-step[data-step="0"] { background: var(--brand-canvas-night); color: var(--foreground); }
+.surface-step[data-step="1"] { background: var(--brand-canvas-lift); color: var(--foreground); }
+.surface-step[data-step="2"] { background: var(--brand-hairline-soft); color: var(--foreground); }
+.surface-step[data-step="3"] { background: var(--primary); color: var(--brand-on-primary); }
+.surface-step-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.surface-step-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+}
+.surface-step-role {
+  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+/* Colour swatch band */
+.swatch-band {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  background: var(--brand-canvas-lift);
+}
+.swatch-chip {
+  height: 4rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-name {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+.swatch-value {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--brand-body-muted);
+}
+
+/* Typography roles */
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+  align-items: baseline;
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+.type-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 3.5rem;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+.type-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+.type-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+.type-body {
+  font-family: 'Inter', ui-sans-serif, sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.type-caption {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+.type-countdown {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2.75rem;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Component vocabulary band */
+.cmp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+@media (max-width: 880px) { .cmp-grid { grid-template-columns: 1fr; } }
+.cmp-card {
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-card-radius);
+  padding: 1.75rem;
+  background: var(--brand-canvas-lift);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.cmp-card-title {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+.cmp-row { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+
+/* Form pill */
+.form-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.375rem 0.375rem 1.25rem;
+  background: var(--brand-hairline-soft);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--brand-pill-radius);
+}
+.form-pill:focus-within { border-color: var(--brand-glow-primary); }
+.form-pill input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.5rem 0;
+  min-height: 32px;
+}
+.form-pill input::placeholder {
+  color: var(--brand-mono-meta);
+  text-transform: uppercase;
+}
+
+/* Avatar stack */
+.avatar-stack {
+  display: flex;
+  align-items: center;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 12px var(--brand-glow-primary);
+  background: var(--brand-canvas-lift);
+  margin-left: -12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.avatar:first-child { margin-left: 0; }
+.avatar-caption {
+  margin-left: 1rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+
+/* Stat band */
+.stat-band {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--brand-hairline-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-top: 2rem;
+}
+@media (max-width: 720px) { .stat-band { grid-template-columns: 1fr; } }
+.stat-tile {
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--brand-hairline-strong);
+  background: var(--brand-canvas-lift);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.stat-tile:last-child { border-right: none; }
+.stat-value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+}
+
+/* Footer */
+.footer {
+  padding: 5rem 0 2rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.footer-wordmark {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(4rem, 12vw, 10rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--primary);
+  text-shadow: 0 0 40px var(--brand-glow-primary);
+}
+.footer-legal {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brand-mono-meta);
+  padding-top: 2rem;
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <nav class="topnav" aria-label="Primary">
+    <span class="topnav-brand"><span class="topnav-brand-mark" aria-hidden="true"></span>__DESIGN_SYSTEM_NAME__</span>
+    <div class="topnav-links">
+      <a href="#">System</a>
+      <a href="#">Tokens</a>
+      <a href="#">Components</a>
+      <a href="#">Manifesto</a>
+    </div>
+    <a class="btn" data-variant="laser" href="#waitlist">Join waitlist</a>
+  </nav>
+
+  <!-- ============================================================
+       SIGNATURE MOCKUP — Hero with countdown + brutalist frame
+       ============================================================ -->
+  <header class="hero" id="hero">
+    <div class="hero-glass" aria-hidden="true"></div>
+
+    <span class="hero-meta-tag">Launch window · Berlin · 2026.06.14</span>
+
+    <div class="hero-frame">
+      <h1 class="hero-display">Engineered for arrival</h1>
+    </div>
+
+    <div class="hero-meta">
+      <span class="hero-status">Status nominal · Build 0421</span>
+
+      <div class="countdown" role="timer" aria-label="Time until launch">
+        <div class="countdown-cell">
+          <span class="countdown-digit">14</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-cell">
+          <span class="countdown-digit">07</span>
+          <span class="countdown-label">Hrs</span>
+        </div>
+        <div class="countdown-cell">
+          <span class="countdown-digit">23</span>
+          <span class="countdown-label">Min</span>
+        </div>
+        <div class="countdown-cell">
+          <span class="countdown-digit">48</span>
+          <span class="countdown-label">Sec</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-ctas">
+      <a class="btn" data-variant="laser" href="#waitlist">Join waitlist</a>
+      <a class="btn" data-variant="outline" href="#system">Read manifesto</a>
+    </div>
+  </header>
+
+  <!-- Luminosity Card bento grid — extension of the signature mockup -->
+  <section class="bento" aria-label="Feature bento">
+    <article class="luminosity">
+      <span class="luminosity-index"><strong>01</strong>/Ethos</span>
+      <p class="luminosity-body">Halcyon's engineering team ships against a single near-black canvas and a single chromatic accent. Constraints set velocity. Every surface earns its place in the system before it touches a customer.</p>
+      <h3 class="luminosity-headline">Hold the line</h3>
+    </article>
+    <article class="luminosity">
+      <span class="luminosity-index"><strong>02</strong>/Method</span>
+      <p class="luminosity-body">Brutalist mass over glass depth. Twelve-pixel sharp hero frame against two-rem rounded cards below. The mixed-radius contrast is the system's identity, not a coincidence — it carries the page's hierarchy on its own.</p>
+      <h3 class="luminosity-headline">Sharp and round</h3>
+    </article>
+    <article class="luminosity">
+      <span class="luminosity-index"><strong>03</strong>/Tempo</span>
+      <p class="luminosity-body">Tabular digits hold their column on every tick. The countdown never reflows, the deploy timestamps never pulse, the stat band never twitches. Pace is a visual property before it's a runtime one.</p>
+      <h3 class="luminosity-headline">No reflow</h3>
+    </article>
+  </section>
+
+  <!-- ============================================================
+       TOKEN DEMOS
+       ============================================================ -->
+
+  <section class="section" id="system" aria-label="Surface ladder">
+    <p class="section-eyebrow">// Tokens · Surface</p>
+    <h2 class="section-title">Four-step ladder, lime on the flip</h2>
+    <p class="section-lede">Near-black floor at zero point one one lightness, lifted black at zero point one four for inset bands, hairline-soft for the bento card edge, and the lime primary for any surface that needs to read as <em>alive</em>. The lime is the only chroma the system carries.</p>
+
+    <div class="surface-ladder" aria-label="Surface ladder">
+      <div class="surface-step" data-step="0">
+        <span class="surface-step-label">Floor</span>
+        <div>
+          <div class="surface-step-name">--background</div>
+          <div class="surface-step-role">page canvas · #050505</div>
+        </div>
+      </div>
+      <div class="surface-step" data-step="1">
+        <span class="surface-step-label">Lift</span>
+        <div>
+          <div class="surface-step-name">--muted</div>
+          <div class="surface-step-role">inset band · #0A0A0A</div>
+        </div>
+      </div>
+      <div class="surface-step" data-step="2">
+        <span class="surface-step-label">Hairline</span>
+        <div>
+          <div class="surface-step-name">--brand-hairline-soft</div>
+          <div class="surface-step-role">card edge</div>
+        </div>
+      </div>
+      <div class="surface-step" data-step="3">
+        <span class="surface-step-label">Flip</span>
+        <div>
+          <div class="surface-step-name">--primary</div>
+          <div class="surface-step-role">laser fill · #BFFF00</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="swatch-band" aria-label="Colour swatches">
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--primary);"></div>
+        <span class="swatch-name">--primary</span>
+        <span class="swatch-value">oklch 0.92 0.23 126</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--background);"></div>
+        <span class="swatch-name">--background</span>
+        <span class="swatch-value">oklch 0.11 0 0</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--muted);"></div>
+        <span class="swatch-name">--muted</span>
+        <span class="swatch-value">oklch 0.14 0 0</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--brand-hairline-strong);"></div>
+        <span class="swatch-name">--brand-hairline-strong</span>
+        <span class="swatch-value">oklch 0.24 0 0</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--foreground);"></div>
+        <span class="swatch-name">--foreground</span>
+        <span class="swatch-value">oklch 1 0 0</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background: linear-gradient(45deg, var(--brand-glow-primary), transparent 60%), var(--background);"></div>
+        <span class="swatch-name">--brand-glow-primary</span>
+        <span class="swatch-value">lime · 30% alpha</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Typography">
+    <p class="section-eyebrow">// Tokens · Typography</p>
+    <h2 class="section-title">Plus Jakarta mass, Geist Mono meta</h2>
+    <p class="section-lede">Headlines compress to weight eight hundred with negative five-percent tracking, uppercase by mandate. Technical metadata widens to thirty-percent letter-spacing in Geist Mono. Inter carries body copy. Countdown digits sit in tabular numerals so the column locks on every tick.</p>
+
+    <div class="type-stack">
+      <div class="type-row">
+        <span class="type-label">Display</span>
+        <span class="type-display">Hold the line</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Heading</span>
+        <span class="type-heading">Engineered for arrival</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Title</span>
+        <span class="type-title">Constraints set velocity</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Body</span>
+        <span class="type-body">A halcyon engineering update ships every Friday. The team reviews the week's deploys against the velocity goals, retires anything no longer carrying its weight, and confirms the next sprint's scope before the standup adjourns.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Caption</span>
+        <span class="type-caption">Status nominal · Build 0421 · 2026.05.26</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Countdown</span>
+        <span class="type-countdown">14 : 07 : 23 : 48</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Component vocabulary">
+    <p class="section-eyebrow">// Vocabulary · Components</p>
+    <h2 class="section-title">Pill primitives over hairline cards</h2>
+    <p class="section-lede">Every interactive surface lands on a pill. Every static card rounds to two rem. The contrast against the sharp hero frame is the signature.</p>
+
+    <div class="cmp-grid">
+      <div class="cmp-card">
+        <p class="cmp-card-title">// Buttons</p>
+        <div class="cmp-row">
+          <a class="btn" data-variant="laser" href="#">Join waitlist</a>
+          <a class="btn" data-variant="outline" href="#">Read more</a>
+        </div>
+        <p class="type-body" style="font-size: 0.875rem;">Hover the laser button to see the forty-five degree sweep-of-light pass. Outline button background fills with five percent lime on hover.</p>
+      </div>
+
+      <div class="cmp-card">
+        <p class="cmp-card-title">// Form pill</p>
+        <form class="form-pill" onsubmit="event.preventDefault();" aria-label="Waitlist signup">
+          <input type="email" placeholder="email@halcyon.dev" aria-label="Email">
+          <button type="submit" class="btn" data-variant="laser">Submit</button>
+        </form>
+        <p class="type-body" style="font-size: 0.875rem;">Input + Laser Button merge into a single capsule. Focus state lifts the container border to lime.</p>
+      </div>
+
+      <div class="cmp-card">
+        <p class="cmp-card-title">// Social proof</p>
+        <div class="avatar-stack" aria-label="Recent signups">
+          <div class="avatar">JK</div>
+          <div class="avatar">ML</div>
+          <div class="avatar">AP</div>
+          <div class="avatar">RC</div>
+          <div class="avatar">SW</div>
+          <span class="avatar-caption">1,247 builders joined</span>
+        </div>
+        <p class="type-body" style="font-size: 0.875rem;">Each avatar carries a two-pixel lime border and a lime drop-shadow halo.</p>
+      </div>
+
+      <div class="cmp-card">
+        <p class="cmp-card-title">// Status meta</p>
+        <div class="cmp-row">
+          <span class="hero-meta-tag" style="position: static;">Build 0421 · ready</span>
+        </div>
+        <div class="cmp-row">
+          <span class="hero-status">Edge nominal · 38ms p50</span>
+        </div>
+        <p class="type-body" style="font-size: 0.875rem;">Mono-meta tags carry every technical caption. Wide tracking, small size, all caps.</p>
+      </div>
+    </div>
+
+    <div class="stat-band" aria-label="Stat band">
+      <div class="stat-tile">
+        <span class="stat-value">14</span>
+        <span class="stat-label">Days to launch</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-value">1,247</span>
+        <span class="stat-label">On the waitlist</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-value">38<span style="font-size: 0.5em; opacity: 0.6;">ms</span></span>
+        <span class="stat-label">Edge p50 latency</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p class="footer-wordmark">__DESIGN_SYSTEM_NAME__</p>
+    <div class="footer-legal">
+      <span>halcyon.dev · token surface preview · 2026.05.26</span>
+      <span>Lime on near-black · brutalist mass · 3D glass · tabular countdown</span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

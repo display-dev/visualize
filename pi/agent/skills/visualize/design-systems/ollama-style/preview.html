@@ -1,0 +1,2150 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ollama-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23000000'/%3E%3Cpath d='M9 20 C9 14, 13 10, 16 10 C19 10, 23 14, 23 20 L20 20 L20 17 L18 17 L18 20 L14 20 L14 17 L12 17 L12 20 Z' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="ollama-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Documentation-first light-canonical system — paper-white canvas, full-radius pill geometry, terminal-mockup signature surface, single inverted moment per page. Token surfaces rendered on Halcyon-themed neutral content.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/ollama-style/tokens.css) === */
+/**
+ * design-systems/ollama-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Ollama is LIGHT-CANONICAL. DESIGN.md §1 documents a paper-white
+ * canvas (#ffffff) end-to-end with one inverted moment: the "Max"
+ * pricing card sitting on --brand-surface-dark (#171717) — the only
+ * documented dark surface in the system. There is no full dark-mode
+ * palette; the Max-card surface is the brand's documented dark voltage.
+ *
+ * Dark-mode strategy: synthesise a plausible dark by promoting the
+ * documented Max-card surface (--brand-surface-dark) to canvas and
+ * stepping cards up one notch. Keep the monochrome register; the
+ * brand never carries a coloured canvas at any polarity. The
+ * synthesised lightness-inversion default produced pure-black canvas
+ * + pure-white ink that read as void rather than the warm near-black
+ * Ollama's own terminal renders against. This block lifts canvas to
+ * the documented Max-card lightness and recalibrates the brand-extras
+ * family for dark contrast.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0 0 0);
+  --primary: oklch(0 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9851 0 0);
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.9851 0 0);
+  --muted-foreground: oklch(0 0 0);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9219 0 0);
+  --input: oklch(0.9219 0 0);
+  --ring: oklch(0 0 0);
+  --sidebar: oklch(0.9851 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0 0 0);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9851 0 0);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0.9219 0 0);
+  --sidebar-ring: oklch(0 0 0);
+  --chart-1: oklch(0.8100 0 0);
+  --chart-2: oklch(0.7100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.5100 0 0);
+  --chart-5: oklch(0.4200 0 0);
+
+  /* radius scale */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: ui-sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace;
+  --font-display: SF Pro Rounded;
+
+  /* type scale tokens */
+  --text-display: 36px;
+  --text-heading: 30px;
+  --text-title: 20px;
+  --text-base: 16px;
+  --leading-tight: 1.11;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-ink-deep: oklch(0.1398 0 0);
+  --brand-charcoal: oklch(0.4386 0 0);
+  --brand-body: oklch(0.5555 0 0);
+  --brand-mute: oklch(0.7155 0 0);
+  --brand-hairline-strong: oklch(0.8699 0 0);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-dark-mute: oklch(1 0 0 / 0.7000);
+  --brand-surface-dark: oklch(0.2046 0 0);
+  --brand-focus-ring: oklch(0.6231 0.1880 259.8145 / 0.5000);
+  --brand-link: oklch(0 0 0);
+  --brand-link-mute: oklch(0.5555 0 0);
+  --brand-terminal-red: oklch(0.6935 0.1965 26.6863);
+  --brand-terminal-yellow: oklch(0.8377 0.1618 81.0646);
+  --brand-terminal-green: oklch(0.7304 0.2193 144.6323);
+}
+
+/*
+ * Dark mode — hand-tuned, NOT the OKLCH lightness-inversion default.
+ *
+ * Strategy: Ollama's documented dark surface (--brand-surface-dark
+ * #171717 = oklch(0.2046 0 0)) is promoted to canvas. Cards step up
+ * one notch to a slightly-elevated dark so card edges remain visible
+ * on the near-black canvas. Primary CTA flips white-on-near-black so
+ * the high-contrast pill keeps its shape; the brand's signature
+ * inverted Max-card surface, now the canvas, no longer needs the
+ * inversion device — the dark variant is the inversion. The terminal
+ * mockup stays canvas-locked at the documented dark surface so it
+ * reads identically across both polarities (Ollama's CLI always
+ * runs against the same terminal canvas regardless of OS theme).
+ *
+ * Why each override exists:
+ *   --background         → matches --brand-surface-dark (the documented
+ *                          Max-card surface, promoted to canvas)
+ *   --card               → one tonal step up so card edges hold on
+ *                          near-black canvas (oklch 0.255)
+ *   --foreground         → --brand-on-dark (white), the documented
+ *                          inverse-of-ink token
+ *   --primary            → flips to white so the near-black primary CTA
+ *                          (whose register IS "single black pill")
+ *                          becomes a single white pill on dark canvas
+ *   --primary-foreground → flips to the canvas near-black so primary
+ *                          buttons read on the now-white primary fill
+ *   --secondary / --muted (surfaces) → match --card, the same
+ *                          slightly-elevated dark for pricing tiles,
+ *                          swatch tiles, ladder canvas-soft surfaces
+ *   --border / --input   → step up to a hairline that reads on the
+ *                          near-black canvas
+ *   --ring               → matches new --primary
+ *   --muted-foreground   → lifts to a mid-light gray that clears WCAG
+ *                          AA against canvas
+ *
+ * Brand-extras overrides (the tokens used directly in template CSS):
+ *   --brand-ink-deep     → lifts to a near-canvas tone for pressed
+ *                          states of the now-white primary
+ *   --brand-charcoal     → lifts from #525252 to a body-strong light
+ *                          gray that clears 4.5:1 against canvas
+ *   --brand-body         → lifts from #737373 to a mid-light body
+ *                          gray (body copy, FAQ answers)
+ *   --brand-mute         → lifts from #a3a3a3 to a softer caption gray
+ *   --brand-hairline-strong → lifts to a slightly-warmer hairline
+ *
+ * Polarity-locked tokens left at :root values (inherited via cascade):
+ *   --brand-surface-dark   → in dark mode IS the canvas; template CSS
+ *                            uses --background instead of this token
+ *   --brand-on-dark        → already always-white, no override needed
+ *   --brand-on-dark-mute   → already always-white-translucent
+ *   --brand-link / link-mute → polarity-flippable but inherit from
+ *                              --foreground / --brand-body, which already lift
+ *   --brand-terminal-red / yellow / green → terminal traffic-light
+ *                            dots are polarity-invariant — they look
+ *                            identical on macOS Terminal in both modes
+ *   --brand-focus-ring     → translucent blue, single tone, works on both
+ */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* shadcn-semantic core — calibrated to Ollama's documented dark surface */
+  --background: oklch(0.2046 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2550 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2550 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0.2046 0 0);
+  --secondary: oklch(0.2550 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2550 0 0);
+  --muted-foreground: oklch(0.7800 0 0);
+  --accent: oklch(0.2046 0 0);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3100 0 0);
+  --input: oklch(0.3100 0 0);
+  --ring: oklch(1 0 0);
+  --sidebar: oklch(0.2550 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(1 0 0);
+  --sidebar-primary-foreground: oklch(0.2046 0 0);
+  --sidebar-accent: oklch(0.2550 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3100 0 0);
+  --sidebar-ring: oklch(1 0 0);
+  --chart-1: oklch(0.4200 0 0);
+  --chart-2: oklch(0.5100 0 0);
+  --chart-3: oklch(0.6100 0 0);
+  --chart-4: oklch(0.7100 0 0);
+  --chart-5: oklch(0.8100 0 0);
+
+  /* brand-extras lifted for dark canvas — never lift the polarity-locked
+   * surface-dark / on-dark / terminal-traffic-light family (those stay at
+   * :root values). */
+  --brand-ink-deep: oklch(0.9200 0 0);
+  --brand-charcoal: oklch(0.8200 0 0);
+  --brand-body: oklch(0.7300 0 0);
+  --brand-mute: oklch(0.5800 0 0);
+  --brand-hairline-strong: oklch(0.3600 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2046 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2550 0 0);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2550 0 0);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(1 0 0);
+    --primary-foreground: oklch(0.2046 0 0);
+    --secondary: oklch(0.2550 0 0);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.2550 0 0);
+    --muted-foreground: oklch(0.7800 0 0);
+    --accent: oklch(0.2046 0 0);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.5308 0.2178 29.2339);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3100 0 0);
+    --input: oklch(0.3100 0 0);
+    --ring: oklch(1 0 0);
+    --sidebar: oklch(0.2550 0 0);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(1 0 0);
+    --sidebar-primary-foreground: oklch(0.2046 0 0);
+    --sidebar-accent: oklch(0.2550 0 0);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.3100 0 0);
+    --sidebar-ring: oklch(1 0 0);
+    --chart-1: oklch(0.4200 0 0);
+    --chart-2: oklch(0.5100 0 0);
+    --chart-3: oklch(0.6100 0 0);
+    --chart-4: oklch(0.7100 0 0);
+    --chart-5: oklch(0.8100 0 0);
+
+    --brand-ink-deep: oklch(0.9200 0 0);
+    --brand-charcoal: oklch(0.8200 0 0);
+    --brand-body: oklch(0.7300 0 0);
+    --brand-mute: oklch(0.5800 0 0);
+    --brand-hairline-strong: oklch(0.3600 0 0);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Ollama-style preview shell — documentation-first light-canonical surface.
+ * Paper-white canvas (oklch 1 0 0) end-to-end with no surface alternation.
+ * Nunito at 500/600 approximates SF Pro Rounded's softened terminals on the
+ * heading face; Inter carries body type; JetBrains Mono carries terminal +
+ * install-pill vocabulary. Pill geometry everywhere (9999px) for every
+ * interactive element; the rare card surface uses 12px radius. The single
+ * inverted moment per page is the dark "featured" tile — the brand's
+ * documented look-here device, used exactly once. Halcyon-themed neutral
+ * engineering content describing how the team uses local model serving for
+ * day-to-day work. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'SF Pro Rounded', ui-sans-serif, 'Inter', -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "kern", "liga", "cv11";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav (56px, paper-white surface, hairline bottom divider) -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 56px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Nunito', 'SF Pro Rounded', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--brand-radius-full);
+  background: var(--foreground);
+  color: var(--background);
+  display: inline-grid;
+  place-items: center;
+  font-family: 'Nunito', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 1.5rem;
+}
+.topnav-links a {
+  color: var(--foreground);
+  text-decoration: none;
+}
+.topnav-links a[aria-current] {
+  font-weight: 600;
+}
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+.topnav-actions a {
+  color: var(--foreground);
+  text-decoration: none;
+  font-weight: 500;
+}
+@media (max-width: 720px) { .topnav-links { display: none; } }
+
+/* -- Buttons — full-radius pills, modest weight -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--brand-radius-full);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-ink-deep); border-color: var(--brand-ink-deep); }
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--brand-hairline-strong);
+}
+.btn[data-variant="secondary"]:hover { border-color: var(--foreground); }
+.btn[data-variant="on-dark"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--background);
+}
+.btn[data-variant="on-dark"]:hover { background: var(--brand-hairline-strong); border-color: var(--brand-hairline-strong); }
+.btn[data-size="lg"] { min-height: 48px; padding: 0 1.5rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (center-aligned, single reading column) -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+  background: var(--background);
+  text-align: center;
+}
+.hero-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--brand-body);
+  margin: 0;
+}
+.hero-display {
+  font-family: 'Nunito', 'SF Pro Rounded', system-ui, sans-serif;
+  font-size: clamp(2rem, 4.5vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 20ch;
+}
+.hero-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-body);
+  max-width: 38rem;
+  margin: 0;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/* -- Install-snippet pill — the signature inline element -- */
+.install-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-full);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--foreground);
+  min-height: 48px;
+}
+.install-pill-prompt { color: var(--brand-body); user-select: none; }
+.install-pill-copy {
+  margin-left: 0.5rem;
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--brand-radius-full);
+  background: var(--background);
+  color: var(--brand-body);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  cursor: pointer;
+}
+.install-pill-copy:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* -- Signature surface: terminal mockup — model pull + run + library list -- */
+.section { padding: 5rem 1.5rem; }
+.section[data-tight] { padding: 3rem 1.5rem; }
+.section-inner { max-width: 1080px; margin: 0 auto; }
+.section-header { max-width: 38rem; margin: 0 auto 2.5rem; text-align: center; }
+.section-header[data-align="left"] { margin-left: 0; margin-right: 0; text-align: left; }
+.section-eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--brand-body);
+  margin: 0 0 0.75rem;
+}
+.section-title {
+  font-family: 'Nunito', 'SF Pro Rounded', system-ui, sans-serif;
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 24ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section-header[data-align="left"] .section-title { margin-left: 0; margin-right: 0; }
+.section-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0 auto;
+  max-width: 38rem;
+}
+.section-header[data-align="left"] .section-lede { margin-left: 0; margin-right: 0; }
+
+/* Terminal mockup card — the home page's only "product preview". Always sits
+ * on the canonical dark surface so it reads identically across both polarities
+ * (Ollama's CLI always renders against the same terminal canvas regardless of
+ * OS theme). */
+.term-card {
+  background: oklch(0.2046 0 0);
+  border: 1px solid oklch(0.3100 0 0);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  max-width: 820px;
+  margin: 0 auto;
+  color: oklch(1 0 0);
+}
+.term-chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: oklch(0.2550 0 0);
+  border-bottom: 1px solid oklch(0.3100 0 0);
+}
+.term-traffic {
+  display: inline-flex;
+  gap: 0.5rem;
+}
+.term-traffic span {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--brand-radius-full);
+}
+.term-traffic .red { background: var(--brand-terminal-red); }
+.term-traffic .yellow { background: var(--brand-terminal-yellow); }
+.term-traffic .green { background: var(--brand-terminal-green); }
+.term-title {
+  margin: 0 auto;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: oklch(1 0 0 / 0.7);
+  letter-spacing: 0.02em;
+}
+.term-spacer { width: 44px; }
+.term-body {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+.term-line { display: block; white-space: pre; }
+.term-line + .term-line { margin-top: 0; }
+.term-line.spacer { height: 0.5rem; }
+.term-prompt { color: oklch(1 0 0 / 0.5); user-select: none; }
+.term-cmd { color: oklch(1 0 0); }
+.term-out { color: oklch(1 0 0 / 0.7); }
+.term-out .ok { color: var(--brand-terminal-green); }
+.term-out .warn { color: var(--brand-terminal-yellow); }
+.term-out .name { color: oklch(1 0 0); font-weight: 500; }
+.term-out .dim { color: oklch(1 0 0 / 0.62); }
+
+/* -- Color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 0.75rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--brand-radius-full);
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+
+/* -- Surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 720px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 10rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="soft"] { background: var(--muted); color: var(--foreground); }
+.ladder-step[data-step="inverse"] {
+  background: oklch(0.2046 0 0);
+  color: oklch(1 0 0);
+  border-color: oklch(0.2046 0 0);
+}
+.ladder-num {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.ladder-step[data-step="inverse"] .ladder-num { color: oklch(1 0 0 / 0.7); }
+.ladder-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+}
+.ladder-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--brand-body);
+  margin-top: auto;
+  line-height: 1.45;
+}
+.ladder-step[data-step="inverse"] .ladder-role { color: oklch(1 0 0 / 0.78); }
+
+/* -- Pricing (genericised — no host product reveal) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--foreground);
+}
+.pricing-card[data-featured] {
+  background: oklch(0.2046 0 0);
+  border-color: oklch(0.2046 0 0);
+  color: oklch(1 0 0);
+}
+.pricing-eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0;
+}
+.pricing-card[data-featured] .pricing-eyebrow { color: oklch(1 0 0 / 0.7); }
+.pricing-name {
+  font-family: 'Nunito', 'SF Pro Rounded', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.pricing-price {
+  font-family: 'Nunito', 'SF Pro Rounded', system-ui, sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.pricing-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--brand-body);
+  margin: 0;
+  line-height: 1.45;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: oklch(1 0 0 / 0.78); }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 1rem 0 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--brand-charcoal);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: oklch(1 0 0 / 0.18);
+  color: oklch(1 0 0 / 0.85);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "✓";
+  color: var(--foreground);
+  font-weight: 500;
+  flex-shrink: 0;
+  width: 14px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: oklch(1 0 0); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.type-display {
+  font-family: 'Nunito', 'SF Pro Rounded', system-ui, sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: 'Nunito', 'SF Pro Rounded', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--foreground);
+}
+.type-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--brand-body);
+}
+.type-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--brand-charcoal);
+}
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  width: 100%;
+}
+.cmd-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--muted);
+  border: 1px solid var(--border);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--foreground);
+}
+
+/* -- Model-library list (token-demo card) -- */
+.lib-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.lib-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.lib-row:last-child { border-bottom: none; }
+.lib-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+.lib-size {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-body);
+}
+.lib-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  border-radius: var(--brand-radius-full);
+  background: var(--muted);
+  border: 1px solid var(--border);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--foreground);
+  min-height: 20px;
+}
+
+/* -- Footer -- */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 1.5rem 2rem;
+  background: var(--background);
+}
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+}
+.footer-links a {
+  color: var(--brand-body);
+  text-decoration: none;
+}
+.footer-links a:hover { color: var(--foreground); }
+.footer-meta {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--brand-body);
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true">h</span>ollama-style
+    </a>
+    <div class="topnav-links">
+      <a href="#">Models</a>
+      <a href="#">Docs</a>
+      <a href="#" aria-current="page">Pricing</a>
+      <a href="#">Blog</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Download</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">halcyon · engineering</p>
+    <h1 class="hero-display">Run models on the same laptop as the editor.</h1>
+    <p class="hero-lede">Halcyon's engineering team serves the small models locally and reaches for the big ones over the network only when the task asks for it. The CLI is the whole product surface.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" data-size="lg" type="button">Download for macOS</button>
+      <button class="btn" data-variant="secondary" data-size="lg" type="button">View on GitHub</button>
+    </div>
+    <div class="install-pill" role="figure" aria-label="Install snippet">
+      <span class="install-pill-prompt">$</span>
+      <span>curl -fsSL https://halcyon.dev/install.sh | sh</span>
+      <button class="install-pill-copy" type="button" aria-label="Copy install command">⧉</button>
+    </div>
+  </div>
+</header>
+
+<section class="section" aria-label="Signature surface — local model serving terminal">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">signature · terminal</p>
+      <h2 class="section-title">Pull a model. Run it. Move on.</h2>
+      <p class="section-lede">The CLI is one prompt deep. Pull a model into the local registry, ask it a question, list what is on disk. The terminal is the documentation; the documentation is the terminal.</p>
+    </div>
+
+    <div class="term-card" role="figure" aria-label="Halcyon engineering local model serving terminal">
+      <div class="term-chrome">
+        <span class="term-traffic" aria-hidden="true">
+          <span class="red"></span><span class="yellow"></span><span class="green"></span>
+        </span>
+        <span class="term-title">jordan@halcyon-laptop — halcyon · 80×24</span>
+        <span class="term-spacer" aria-hidden="true"></span>
+      </div>
+      <div class="term-body">
+<span class="term-line"><span class="term-prompt">$ </span><span class="term-cmd">halcyon pull team-classifier-7b</span></span>
+<span class="term-line term-out">pulling manifest</span>
+<span class="term-line term-out">pulling <span class="name">team-classifier-7b:q4_0</span>   <span class="ok">100%</span>  <span class="dim">4.1 GB / 4.1 GB</span></span>
+<span class="term-line term-out">pulling <span class="name">tokenizer.json</span>           <span class="ok">100%</span>  <span class="dim">2.4 MB / 2.4 MB</span></span>
+<span class="term-line term-out">verifying sha256 digest</span>
+<span class="term-line term-out">writing manifest</span>
+<span class="term-line term-out"><span class="ok">success</span></span>
+<span class="term-line spacer"></span>
+<span class="term-line"><span class="term-prompt">$ </span><span class="term-cmd">halcyon run team-classifier-7b "label this ticket"</span></span>
+<span class="term-line term-out"><span class="dim">› reading from stdin · model loaded in 0.4s</span></span>
+<span class="term-line term-out"><span class="name">category</span>:   billing</span>
+<span class="term-line term-out"><span class="name">severity</span>:   p2</span>
+<span class="term-line term-out"><span class="name">owner</span>:      support</span>
+<span class="term-line term-out"><span class="dim">› 142 tokens · 38 tok/s · stopped on end</span></span>
+<span class="term-line spacer"></span>
+<span class="term-line"><span class="term-prompt">$ </span><span class="term-cmd">halcyon list</span></span>
+<span class="term-line term-out">NAME                          ID            SIZE     MODIFIED</span>
+<span class="term-line term-out"><span class="name">team-classifier-7b</span>            8c2a4f9b      4.1 GB   <span class="dim">2 min ago</span></span>
+<span class="term-line term-out"><span class="name">doc-summariser-3b</span>             1f5d6e21      1.9 GB   <span class="dim">yesterday</span></span>
+<span class="term-line term-out"><span class="name">embed-small</span>                   a4b08c13      290 MB   <span class="dim">3 days ago</span></span>
+<span class="term-line term-out"><span class="name">code-reviewer-13b</span>             d7e1f2c6      7.2 GB   <span class="dim">last week</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens · colour</p>
+      <h2 class="section-title">Black on white. One inverted moment.</h2>
+      <p class="section-lede">The chrome is a tiny utility palette — pure black ink, paper-white canvas, three neutral grays for body type. Color appears only inside the terminal mockup, in the three macOS traffic-light dots, and on the single dark featured tile.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--muted);"></div><div class="swatch-role">Soft</div><div class="swatch-name">--muted</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--border); border-color: transparent;"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--border</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-hairline-strong); border-color: transparent;"></div><div class="swatch-role">Hairline+</div><div class="swatch-name">--brand-hairline-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-charcoal);"></div><div class="swatch-role">Charcoal</div><div class="swatch-name">--brand-charcoal</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Body</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-mute);"></div><div class="swatch-role">Mute</div><div class="swatch-name">--brand-mute</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens · surfaces</p>
+      <h2 class="section-title">Three surfaces. Used sparingly.</h2>
+      <p class="section-lede">The paper-white canvas does most of the work. The soft surface lifts only where a pill or a tile needs to read as a click target. The inverted dark moment appears exactly once per page.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · most of every section</span>
+      </div>
+      <div class="ladder-step" data-step="soft">
+        <span class="ladder-num">Soft</span>
+        <span class="ladder-name">--muted</span>
+        <span class="ladder-role">install pill · search pill · command chip</span>
+      </div>
+      <div class="ladder-step" data-step="inverse">
+        <span class="ladder-num">Inverse</span>
+        <span class="ladder-name">--brand-surface-dark</span>
+        <span class="ladder-role">single featured tile · the only dark moment</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">pricing</p>
+      <h2 class="section-title">Three tiers. One inverted.</h2>
+      <p class="section-lede">Each tile uses the same shape grammar — pill CTA, 12px card radius, hairline border. The middle tile is the one inverted moment in the section. There is no decorative gradient and no badge ribbon.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <p class="pricing-eyebrow">Hobby</p>
+        <h3 class="pricing-name">Personal</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments running on a single laptop.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Download</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <p class="pricing-eyebrow">Team</p>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams sharing a model registry across their working laptops.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="on-dark" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <p class="pricing-eyebrow">Org-wide</p>
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organisations with procurement and security review before adoption.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota and region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header" data-align="left">
+      <p class="section-eyebrow">tokens · type + components</p>
+      <h2 class="section-title">Rounded display. System sans. Mono for code.</h2>
+      <p class="section-lede">Nunito at weight 600 carries the heading face — softened terminals that echo the pill geometry without being decorative. Inter handles every paragraph at 14–16px. JetBrains Mono carries everything the terminal touches.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Pull a model. Run it.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Nunito · 600 · 20 / 1.3</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy at 14 px Inter 400, line-height 1.55. Body text uses --brand-body — a mid-gray that sits below ink and clears WCAG AA on the paper-white canvas.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">halcyon pull · halcyon run · halcyon list</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · full-radius pills · one black, one outlined</span>
+          <div class="cmp-row" style="margin-top: 0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Download</button>
+            <button class="btn" data-variant="secondary" type="button">View on GitHub</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Command chip · inline CLI vocabulary</span>
+          <div class="cmp-row" style="margin-top: 0.5rem;">
+            <span class="cmd-chip">halcyon run model-7b</span>
+            <span class="cmd-chip">halcyon list</span>
+            <span class="cmd-chip">halcyon ps</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Model library · what is on the laptop</span>
+          <div class="lib-card" role="table" aria-label="Local model library" style="margin-top: 0.5rem;">
+            <div class="lib-row" role="row">
+              <span class="lib-name" role="cell">team-classifier-7b</span>
+              <span class="lib-size" role="cell">4.1 GB</span>
+              <span class="lib-tag" role="cell">q4_0</span>
+              <span class="lib-size" role="cell">2m</span>
+            </div>
+            <div class="lib-row" role="row">
+              <span class="lib-name" role="cell">doc-summariser-3b</span>
+              <span class="lib-size" role="cell">1.9 GB</span>
+              <span class="lib-tag" role="cell">q5_k</span>
+              <span class="lib-size" role="cell">1d</span>
+            </div>
+            <div class="lib-row" role="row">
+              <span class="lib-name" role="cell">embed-small</span>
+              <span class="lib-size" role="cell">290 MB</span>
+              <span class="lib-tag" role="cell">f16</span>
+              <span class="lib-size" role="cell">3d</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true">h</span>ollama-style
+    </a>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="#">Download</a>
+      <a href="#">Models</a>
+      <a href="#">Docs</a>
+      <a href="#">Blog</a>
+      <a href="#">GitHub</a>
+      <a href="#">Discord</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </nav>
+    <span class="footer-meta">halcyon.dev · app.halcyon.dev · @halcyon/cli · hlc.so</span>
+  </div>
+</footer>
+
+</body>
+</html>

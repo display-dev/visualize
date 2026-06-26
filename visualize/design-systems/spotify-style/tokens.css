@@ -1,0 +1,240 @@
+/**
+ * design-systems/spotify-style/tokens.css
+ *
+ * Hand-authored from live-verified Spotify surfaces.
+ * Sources: open.spotify.com, spotify.com/us/premium/, support.spotify.com/us/,
+ * newsroom.spotify.com, artists.spotify.com, spotify.com/us/about-us/contact/.
+ * Verified: 2026-05-25 (see DESIGN.md).
+ *
+ * Polarity decision: DESIGN.md declares `canonical-canvas: both`. The Encore
+ * player + Premium marketing stack are the dark canonical canvases that
+ * anchor brand recognizability; the newsroom + about-us light canvases are
+ * a secondary editorial register. Per AUTHORING.md "Dark-mode strategy"
+ * (dark-canonical brands: Linear, SpaceX, Ferrari), `:root` encodes the dark
+ * Encore canvas and `[data-theme="dark"]` mirrors it. Spotify Green is the
+ * same OKLCH across both registers (DESIGN.md §6), so the primary family
+ * does not flip.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are this brand's. */
+
+  --background: oklch(0.1822 0.0000 0);              /* #121212 — Encore --background-base */
+  --foreground: oklch(1.0000 0.0000 0);              /* #FFFFFF — Encore --text-base */
+  --card: oklch(0.2393 0.0000 0);                    /* #1F1F1F — Encore --background-elevated-base */
+  --card-foreground: oklch(1.0000 0.0000 0);         /* #FFFFFF */
+  --popover: oklch(0.2850 0.0000 0);                 /* #2A2A2A — Encore --background-elevated-highlight */
+  --popover-foreground: oklch(1.0000 0.0000 0);      /* #FFFFFF */
+
+  --primary: oklch(0.7697 0.2124 148.67);            /* #1ED760 — Spotify Green, Encore --essential-bright-accent */
+  --primary-foreground: oklch(0.0000 0.0000 0);      /* #000000 — observed ink on green pill CTAs */
+  --secondary: oklch(0.2393 0.0000 0);               /* #1F1F1F — mirrors --card per Encore secondary chrome */
+  --secondary-foreground: oklch(1.0000 0.0000 0);    /* #FFFFFF */
+  --muted: oklch(0.2768 0.0000 0);                   /* #282828 — pricing tier card bg */
+  --muted-foreground: oklch(0.7668 0.0000 0);        /* #B3B3B3 — Encore --text-subdued */
+  --accent: oklch(0.5497 0.1061 170.93);             /* #088569 — voyager green section canvas */
+  --accent-foreground: oklch(1.0000 0.0000 0);       /* #FFFFFF */
+  --destructive: oklch(0.6141 0.2243 22.70);         /* #ED2C3F — Encore --essential-negative */
+  --destructive-foreground: oklch(1.0000 0.0000 0);  /* #FFFFFF */
+
+  --border: oklch(0.2850 0.0000 0);                  /* #2A2A2A — surface contrast over hairline */
+  --input: oklch(0.2393 0.0000 0);                   /* #1F1F1F — support hub search pill */
+  --ring: oklch(0.7697 0.2124 148.67);               /* tracks --primary */
+
+  --sidebar: oklch(0.0000 0.0000 0);                 /* #000000 — marketing topnav/footer chrome */
+  --sidebar-foreground: oklch(1.0000 0.0000 0);      /* #FFFFFF */
+  --sidebar-primary: oklch(0.7697 0.2124 148.67);    /* tracks --primary */
+  --sidebar-primary-foreground: oklch(0.0000 0.0000 0); /* #000000 */
+  --sidebar-accent: oklch(0.2393 0.0000 0);          /* #1F1F1F — social icon circles */
+  --sidebar-accent-foreground: oklch(1.0000 0.0000 0); /* #FFFFFF */
+  --sidebar-border: oklch(1.0000 0.0000 0 / 0.10);   /* #FFFFFF1A — Encore --background-tinted-base */
+  --sidebar-ring: oklch(0.7697 0.2124 148.67);       /* tracks --primary */
+
+  --chart-1: oklch(0.7697 0.2124 148.67);            /* #1ED760 — Spotify Green */
+  --chart-2: oklch(0.5714 0.1999 257.41);            /* #0D72EA — feature-card blue */
+  --chart-3: oklch(0.5858 0.1952 37.21);             /* #D64000 — feature-card orange */
+  --chart-4: oklch(0.5859 0.2355 283.79);            /* #7358FF — feature-card purple */
+  --chart-5: oklch(0.5948 0.2294 336.92);            /* #CC2FAF — feature-card magenta */
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Spotify ships its own SpotifyMix family across every surface
+   * (DESIGN.md §3). The proprietary face won't load in the preview
+   * shell; the fallback chain matches the live DOM. */
+  --font-sans: 'SpotifyMixUI', 'CircularSp', 'Helvetica Neue', helvetica, arial, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'SpotifyMixUITitleVariable', 'SpotifyMixUITitle', 'Helvetica Neue', helvetica, arial, sans-serif;
+  --font-display-narrow: 'Spotify Mix-Narrow', 'SpotifyMixUITitle', 'Helvetica Neue', helvetica, arial, sans-serif;
+
+  /* -- Shadows --------------------------------------------------- */
+  /* Spotify separates surfaces with elevation contrast (--background
+   * → --card → --popover), not box-shadows. Keep shadows minimal. */
+  --shadow-2xs: 0 1px 2px 0 oklch(0 0 0 / 0.20);
+  --shadow-xs: 0 1px 2px 0 oklch(0 0 0 / 0.24);
+  --shadow-sm: 0 2px 4px -1px oklch(0 0 0 / 0.28);
+  --shadow: 0 4px 8px -2px oklch(0 0 0 / 0.32);
+  --shadow-md: 0 8px 16px -4px oklch(0 0 0 / 0.36);
+  --shadow-lg: 0 12px 24px -6px oklch(0 0 0 / 0.40);
+  --shadow-xl: 0 16px 32px -8px oklch(0 0 0 / 0.44);
+  --shadow-2xl: 0 24px 48px -12px oklch(0 0 0 / 0.48);
+
+  /* -- Brand-extras ----------------------------------------------
+   * Surface-named only. No --brand-<colour>-ink / -on-dark / -deep
+   * tokens paired with chromatic hues — see AUTHORING.md
+   * "Forbidden name shapes".
+   * -------------------------------------------------------------- */
+
+  /* Polarity-locked surfaces — Spotify ships these at fixed values
+   * across every register it deploys (DESIGN.md §2 "Polarity-locked
+   * surfaces"). Do NOT override in [data-theme="dark"]. */
+  --brand-canvas-night: oklch(0.1822 0.0000 0);      /* #121212 — body canvas on every dark surface */
+  --brand-canvas-press: oklch(0.0000 0.0000 0);      /* #000000 — marketing topnav + footer chrome */
+  --brand-on-dark: oklch(1.0000 0.0000 0);           /* #FFFFFF — text on every dark surface */
+  --brand-on-light: oklch(0.2768 0.0000 0);          /* #282828 — body ink on newsroom + about-us */
+
+  /* Hairlines / dividers — Encore --background-tinted-base /
+   * --background-tinted-highlight (DESIGN.md §2 "Hairlines"). */
+  --brand-hairline-soft: oklch(1.0000 0.0000 0 / 0.10);    /* #FFFFFF1A */
+  --brand-hairline-strong: oklch(1.0000 0.0000 0 / 0.14);  /* #FFFFFF24 */
+
+  /* Documented secondary brand colours — Encore essential-* tokens
+   * exposed on :root on open.spotify.com. */
+  --brand-accent-negative: oklch(0.6141 0.2243 22.70);     /* #ED2C3F — --essential-negative */
+  --brand-accent-warning: oklch(0.7921 0.1626 67.42);      /* #FFA42B — --essential-warning */
+  --brand-accent-announcement: oklch(0.5904 0.2025 257.20); /* #1278F2 — --essential-announcement */
+
+  /* Premium marketing feature-card palette — full-bleed section
+   * canvases on /premium (DESIGN.md §2 "feature-card palette").
+   * Surface-named (section-*) not colour-named — they always
+   * appear as full-section canvases, never as accent fills. */
+  --brand-section-blue: oklch(0.5714 0.1999 257.41);       /* #0D72EA */
+  --brand-section-orange: oklch(0.5858 0.1952 37.21);      /* #D64000 */
+  --brand-section-purple: oklch(0.5859 0.2355 283.79);     /* #7358FF */
+  --brand-section-magenta: oklch(0.5948 0.2294 336.92);    /* #CC2FAF */
+
+  /* Voyager-green section canvases — the deep-green ladder beneath
+   * the feature cards on /premium and /duo. */
+  --brand-section-voyager: oklch(0.5497 0.1061 170.93);    /* #088569 — primary green canvas */
+  --brand-section-voyager-deep: oklch(0.3944 0.0757 171.44); /* #035341 — content-card variant */
+
+  /* Pricing pastel ladder — one pastel per tier on /premium,
+   * used twice per card (H3 title colour + CTA pill bg).
+   * Surface-named per tier role. */
+  --brand-pricing-pink: oklch(0.9037 0.0510 10.62);        /* #FFD2D7 */
+  --brand-pricing-lavender: oklch(0.7877 0.0530 309.52);   /* #C4B1D4 */
+  --brand-pricing-amber: oklch(0.8626 0.1342 80.77);       /* #FFC862 */
+  --brand-pricing-sky: oklch(0.7826 0.0397 248.33);        /* #A5BBD1 */
+
+  /* Body text neutrals — chroma ≈ 0 utility tokens.
+   * DESIGN.md §3 documents Spotify's 3-step ink ladder on dark:
+   * white at 400 for body, #B3B3B3 at 400 for muted, #7C7C7C for
+   * the dimmest tier. The light editorial canvas uses #282828
+   * (already exposed via --brand-on-light). */
+  --brand-body: oklch(1.0000 0.0000 0);                    /* #FFFFFF */
+  --brand-body-muted: oklch(0.7668 0.0000 0);              /* #B3B3B3 — Encore --text-subdued */
+  --brand-body-faint: oklch(0.5634 0.0000 0);              /* #7C7C7C — dimmest tier on dark */
+
+  /* Brand radii — Spotify uses fully-rounded pills everywhere
+   * (DESIGN.md §4 "Pill CTA, primary"). */
+  --brand-radius-pill: 9999px;
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Spotify's canonical preview canvas is the Encore dark register
+ * already encoded in :root. Both blocks mirror — the brand's
+ * primary green is documented unchanged across canvases (DESIGN.md
+ * §6: "Both register the same primary-green link colour #1ED760").
+ * No lifted dark variants; canvas + neutrals are already at their
+ * deployed Encore values.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1822 0.0000 0);
+  --foreground: oklch(1.0000 0.0000 0);
+  --card: oklch(0.2393 0.0000 0);
+  --card-foreground: oklch(1.0000 0.0000 0);
+  --popover: oklch(0.2850 0.0000 0);
+  --popover-foreground: oklch(1.0000 0.0000 0);
+
+  --primary: oklch(0.7697 0.2124 148.67);
+  --primary-foreground: oklch(0.0000 0.0000 0);
+  --secondary: oklch(0.2393 0.0000 0);
+  --secondary-foreground: oklch(1.0000 0.0000 0);
+  --muted: oklch(0.2768 0.0000 0);
+  --muted-foreground: oklch(0.7668 0.0000 0);
+  --accent: oklch(0.5497 0.1061 170.93);
+  --accent-foreground: oklch(1.0000 0.0000 0);
+  --destructive: oklch(0.6141 0.2243 22.70);
+  --destructive-foreground: oklch(1.0000 0.0000 0);
+
+  --border: oklch(0.2850 0.0000 0);
+  --input: oklch(0.2393 0.0000 0);
+  --ring: oklch(0.7697 0.2124 148.67);
+
+  --sidebar: oklch(0.0000 0.0000 0);
+  --sidebar-foreground: oklch(1.0000 0.0000 0);
+  --sidebar-primary: oklch(0.7697 0.2124 148.67);
+  --sidebar-primary-foreground: oklch(0.0000 0.0000 0);
+  --sidebar-accent: oklch(0.2393 0.0000 0);
+  --sidebar-accent-foreground: oklch(1.0000 0.0000 0);
+  --sidebar-border: oklch(1.0000 0.0000 0 / 0.10);
+  --sidebar-ring: oklch(0.7697 0.2124 148.67);
+
+  --chart-1: oklch(0.7697 0.2124 148.67);
+  --chart-2: oklch(0.5714 0.1999 257.41);
+  --chart-3: oklch(0.5858 0.1952 37.21);
+  --chart-4: oklch(0.5859 0.2355 283.79);
+  --chart-5: oklch(0.5948 0.2294 336.92);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1822 0.0000 0);
+    --foreground: oklch(1.0000 0.0000 0);
+    --card: oklch(0.2393 0.0000 0);
+    --card-foreground: oklch(1.0000 0.0000 0);
+    --popover: oklch(0.2850 0.0000 0);
+    --popover-foreground: oklch(1.0000 0.0000 0);
+
+    --primary: oklch(0.7697 0.2124 148.67);
+    --primary-foreground: oklch(0.0000 0.0000 0);
+    --secondary: oklch(0.2393 0.0000 0);
+    --secondary-foreground: oklch(1.0000 0.0000 0);
+    --muted: oklch(0.2768 0.0000 0);
+    --muted-foreground: oklch(0.7668 0.0000 0);
+    --accent: oklch(0.5497 0.1061 170.93);
+    --accent-foreground: oklch(1.0000 0.0000 0);
+    --destructive: oklch(0.6141 0.2243 22.70);
+    --destructive-foreground: oklch(1.0000 0.0000 0);
+
+    --border: oklch(0.2850 0.0000 0);
+    --input: oklch(0.2393 0.0000 0);
+    --ring: oklch(0.7697 0.2124 148.67);
+
+    --sidebar: oklch(0.0000 0.0000 0);
+    --sidebar-foreground: oklch(1.0000 0.0000 0);
+    --sidebar-primary: oklch(0.7697 0.2124 148.67);
+    --sidebar-primary-foreground: oklch(0.0000 0.0000 0);
+    --sidebar-accent: oklch(0.2393 0.0000 0);
+    --sidebar-accent-foreground: oklch(1.0000 0.0000 0);
+    --sidebar-border: oklch(1.0000 0.0000 0 / 0.10);
+    --sidebar-ring: oklch(0.7697 0.2124 148.67);
+
+    --chart-1: oklch(0.7697 0.2124 148.67);
+    --chart-2: oklch(0.5714 0.1999 257.41);
+    --chart-3: oklch(0.5858 0.1952 37.21);
+    --chart-4: oklch(0.5859 0.2355 283.79);
+    --chart-5: oklch(0.5948 0.2294 336.92);
+  }
+}

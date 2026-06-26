@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23201d1d'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='ui-monospace,monospace' font-size='17' font-weight='700' fill='%23fdfcfc'%3E%5B%2B%5D%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Single-font Berkeley-Mono identity, warm cream canvas, near-black ink, ASCII bracket markers, one dark TUI mockup as the signature surface.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Opencode.ai-style preview shell — single-font monospaced identity.
+   Berkeley Mono is the documented brand face; we substitute JetBrains
+   Mono (closest metric match) with IBM Plex Mono as the documented
+   fallback. Cream canvas + near-black ink, ASCII bracket markers
+   ([+], [-], [x]) used as bullets. The signature surface is one full-
+   bleed dark TUI mockup carrying a coding-agent session — that's the
+   brand's defining moment. Everything else is hairline-bordered text
+   blocks on the cream canvas at 96px section rhythm. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-feature-settings: "kern", "liga", "calt";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Top nav -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--foreground);
+  text-decoration: none;
+  letter-spacing: 0;
+}
+.brand-mark::before {
+  content: "[+]";
+  color: var(--foreground);
+  font-weight: 700;
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 15px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--foreground);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.topnav-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-size: 15px;
+}
+.topnav-actions a {
+  color: var(--brand-mute);
+  text-decoration: none;
+  font-weight: 400;
+}
+.topnav-actions a:hover { color: var(--foreground); text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Buttons (4px radius, ASCII feel) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover {
+  background: var(--brand-ink-deep);
+  border-color: var(--brand-ink-deep);
+}
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--brand-hairline-strong);
+}
+.btn[data-variant="secondary"]:hover {
+  background: var(--secondary);
+}
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--brand-mute);
+  border-color: transparent;
+}
+.btn[data-variant="ghost"]:hover { color: var(--foreground); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Section frame — 96px section rhythm, hairline rules only -- */
+.section { padding: 6rem 1.5rem; }
+.section[data-tight] { padding: 4rem 1.5rem; }
+.section-inner { max-width: 1024px; margin: 0 auto; }
+.section-header { max-width: 44rem; margin-bottom: 2rem; }
+.section-eyebrow {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--brand-mute);
+  margin: 0 0 0.75rem;
+}
+.section-eyebrow::before {
+  content: "[ ";
+  color: var(--brand-mute);
+}
+.section-eyebrow::after {
+  content: " ]";
+  color: var(--brand-mute);
+}
+.section-title {
+  font-family: inherit;
+  font-size: clamp(1.75rem, 3vw, 2.375rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.25;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 24ch;
+}
+.section-lede {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-rule {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 0 0 2rem;
+}
+
+/* -- Hero (cream canvas, generous air) -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+  background: var(--background);
+}
+.hero-inner {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+.hero-news {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 0 0 1.75rem;
+  font-size: 14px;
+  color: var(--brand-body);
+}
+.hero-news-tag {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0;
+}
+.hero-display {
+  font-family: inherit;
+  font-size: clamp(2rem, 4.2vw, 2.875rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+  max-width: 22ch;
+}
+.hero-lede {
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body);
+  max-width: 42rem;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* -- TUI mockup (signature surface — single full-bleed dark moment) -- */
+.tui-frame {
+  margin-top: 4rem;
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  border-radius: var(--brand-radius-none);
+  padding: 2rem 2rem 2.25rem;
+  position: relative;
+}
+.tui-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--brand-ash);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid var(--brand-hairline-strong);
+}
+.tui-chrome-title {
+  letter-spacing: 0;
+}
+.tui-chrome-keys {
+  display: inline-flex;
+  gap: 1rem;
+}
+.tui-chrome-keys span { color: var(--brand-ash); }
+.tui-chrome-keys b { color: var(--brand-on-dark); font-weight: 500; }
+
+.tui-body {
+  font-family: inherit;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--brand-on-dark);
+}
+.tui-line { white-space: pre-wrap; }
+.tui-prompt {
+  display: block;
+  background: var(--brand-surface-dark-elevated);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  margin: 0.75rem 0;
+  color: var(--brand-on-dark);
+}
+.tui-prompt::before {
+  content: "│ ";
+  color: var(--brand-on-dark-mute);
+}
+.tui-prompt .agent {
+  color: var(--brand-on-dark);
+  font-weight: 700;
+}
+.tui-out { color: var(--brand-on-dark); }
+.tui-dim { color: var(--brand-ash); }
+.tui-ok { color: var(--brand-success); }
+.tui-warn { color: var(--brand-warning); }
+.tui-err { color: var(--brand-danger); }
+.tui-accent { color: var(--accent); }
+.tui-diff-add { color: var(--brand-success); }
+.tui-diff-del { color: var(--brand-danger); }
+.tui-hr {
+  border: 0;
+  border-top: 1px dashed var(--brand-hairline-strong);
+  margin: 1rem 0;
+}
+.tui-foot {
+  margin-top: 1.25rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--brand-hairline-strong);
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--brand-ash);
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.tui-foot b { color: var(--brand-on-dark); font-weight: 500; }
+
+/* -- Color swatches -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-none);
+  padding: 0.875rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.swatch-role {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+.swatch-name {
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--brand-mute);
+}
+
+/* -- Surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+}
+@media (max-width: 720px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border-right: 1px solid var(--border);
+}
+.ladder-step:last-child { border-right: none; }
+@media (max-width: 720px) {
+  .ladder-step { border-right: none; border-bottom: 1px solid var(--border); }
+  .ladder-step:last-child { border-bottom: none; }
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--foreground); }
+.ladder-step[data-step="soft"] { background: var(--card); color: var(--foreground); }
+.ladder-step[data-step="dark"] {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  border-right-color: var(--brand-hairline-strong);
+}
+.ladder-num {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brand-mute);
+}
+.ladder-step[data-step="dark"] .ladder-num { color: var(--brand-on-dark-mute); }
+.ladder-num::before { content: "["; color: inherit; }
+.ladder-num::after { content: "]"; color: inherit; }
+.ladder-name {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.ladder-role {
+  font-size: 14px;
+  color: var(--brand-body);
+  margin-top: auto;
+  line-height: 1.5;
+}
+.ladder-step[data-step="dark"] .ladder-role { color: var(--brand-on-dark-mute); }
+
+/* -- ASCII feature list -- */
+.list-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+.list-row {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid var(--border);
+  align-items: baseline;
+  font-size: 15px;
+  color: var(--brand-body);
+}
+.list-marker {
+  font-family: inherit;
+  color: var(--foreground);
+  font-weight: 500;
+}
+.list-content b {
+  color: var(--foreground);
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+
+/* -- Pricing (generic shape, no host-product leak) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; } }
+.pricing-card {
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--background);
+  color: var(--foreground);
+  border-right: 1px solid var(--border);
+}
+.pricing-card:last-child { border-right: none; }
+@media (max-width: 880px) {
+  .pricing-card { border-right: none; border-bottom: 1px solid var(--border); }
+  .pricing-card:last-child { border-bottom: none; }
+}
+.pricing-card[data-featured] {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  border-right-color: var(--brand-hairline-strong);
+}
+.pricing-name {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0;
+}
+.pricing-name::before { content: "[ "; color: var(--brand-mute); }
+.pricing-name::after { content: " ]"; color: var(--brand-mute); }
+.pricing-card[data-featured] .pricing-name::before,
+.pricing-card[data-featured] .pricing-name::after { color: var(--brand-on-dark-mute); }
+.pricing-price {
+  font-family: inherit;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+.pricing-tagline {
+  font-size: 14px;
+  color: var(--brand-body);
+  margin: 0;
+  line-height: 1.5;
+  min-height: 3em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--brand-on-dark-mute); }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  font-size: 14px;
+  color: var(--brand-body);
+}
+.pricing-card[data-featured] .pricing-features {
+  border-top-color: var(--brand-hairline-strong);
+  color: var(--brand-on-dark);
+}
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.625rem; }
+.pricing-features li::before {
+  content: "[+]";
+  color: var(--brand-mute);
+  font-weight: 500;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--brand-on-dark-mute); }
+.pricing-cta { margin-top: 0.5rem; }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+
+.type-stack { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
+.type-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.type-label {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-mute);
+}
+.type-label::before { content: "["; }
+.type-label::after { content: "]"; }
+.type-display {
+  font-family: inherit;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.25;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--foreground);
+}
+.type-body {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body);
+}
+.type-button {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2;
+  color: var(--foreground);
+}
+.type-caption {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 2;
+  color: var(--brand-mute);
+}
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.625rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-mute);
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.cmp-row-label::before { content: "["; }
+.cmp-row-label::after { content: "]"; }
+.badge-news-chip {
+  display: inline-flex;
+  align-items: center;
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0;
+}
+.input-demo {
+  background: var(--secondary);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  font-family: inherit;
+  font-size: 15px;
+  width: 16rem;
+  max-width: 100%;
+}
+.input-demo:focus-visible {
+  outline: none;
+  background: var(--background);
+  border-color: var(--foreground);
+}
+.snippet {
+  background: var(--card);
+  color: var(--foreground);
+  font-family: inherit;
+  font-size: 14px;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+  width: 100%;
+  max-width: 28rem;
+  justify-content: space-between;
+}
+.snippet-copy {
+  font-size: 13px;
+  color: var(--brand-mute);
+  cursor: pointer;
+}
+
+/* -- Footer -- */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 1.5rem 1.5rem;
+  background: var(--background);
+}
+.footer-inner {
+  max-width: 1024px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 14px; color: var(--brand-body); line-height: 1.5; margin: 0; }
+.footer-col-title {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0 0 0.875rem;
+}
+.footer-col-title::before { content: "[ "; color: var(--brand-mute); }
+.footer-col-title::after { content: " ]"; color: var(--brand-mute); }
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 14px; color: var(--brand-body); text-decoration: none; }
+.footer-list a:hover { color: var(--foreground); text-decoration: underline; text-underline-offset: 4px; }
+.footer-legal {
+  max-width: 1024px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 13px;
+  color: var(--brand-mute);
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Docs</a>
+      <a href="#">Models</a>
+      <a href="#">Plugins</a>
+      <a href="#">Changelog</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">GitHub [12.4k]</a>
+      <button class="btn" data-variant="primary" type="button">Install</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-news">
+      <span class="hero-news-tag">News</span>
+      <span>Plan mode lands behind the <code>--plan</code> flag</span>
+    </p>
+    <h1 class="hero-display">A coding agent that lives in the terminal.</h1>
+    <p class="hero-lede">Halcyon's engineering team runs the day from a single TUI. The agent reads the working tree, writes the diff, runs the test, prints the result. Edits get reviewed at the merge boundary, not in chat.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" type="button">Download for macOS</button>
+      <button class="btn" data-variant="secondary" type="button">Read the docs</button>
+    </div>
+
+    <div class="tui-frame" role="figure" aria-label="Coding-agent terminal session — diff applied, tests passed">
+      <div class="tui-chrome">
+        <span class="tui-chrome-title">__DESIGN_SYSTEM_NAME__ ─ halcyon-api ─ feature/origin-auth-rate-limit</span>
+        <span class="tui-chrome-keys">
+          <span><b>tab</b> switch agent</span>
+          <span><b>ctrl-p</b> commands</span>
+        </span>
+      </div>
+      <div class="tui-body">
+<div class="tui-line tui-dim">┌── session #4d2a started by Jordan Kim ────────────────────────</div>
+<div class="tui-prompt"><span class="agent">[agent]</span> Add a rate-limit middleware to the origin-auth route. Keep the same shared-secret check and return 429 with Retry-After on overflow.</div>
+<div class="tui-line tui-dim">[+] reading  src/origin-auth/origin-auth.middleware.ts</div>
+<div class="tui-line tui-dim">[+] reading  src/origin-auth/origin-auth.module.ts</div>
+<div class="tui-line tui-dim">[+] reading  src/lib/rate-limit.ts</div>
+<hr class="tui-hr">
+<div class="tui-line tui-out"><b>[edit]</b> src/origin-auth/origin-auth.middleware.ts</div>
+<div class="tui-line"><span class="tui-diff-add">+ import { RateLimit } from '../lib/rate-limit';</span></div>
+<div class="tui-line"><span class="tui-diff-add">+ const limit = new RateLimit({ window: 60_000, max: 240 });</span></div>
+<div class="tui-line"><span class="tui-diff-del">- if (!req.headers['x-origin-auth']) return res.status(403);</span></div>
+<div class="tui-line"><span class="tui-diff-add">+ const verdict = await limit.check(req.ip);</span></div>
+<div class="tui-line"><span class="tui-diff-add">+ if (verdict.exceeded) {</span></div>
+<div class="tui-line"><span class="tui-diff-add">+   res.setHeader('Retry-After', verdict.retryAfter);</span></div>
+<div class="tui-line"><span class="tui-diff-add">+   return res.status(429).end();</span></div>
+<div class="tui-line"><span class="tui-diff-add">+ }</span></div>
+<div class="tui-line"><span class="tui-diff-add">+ if (!req.headers['x-origin-auth']) return res.status(403);</span></div>
+<hr class="tui-hr">
+<div class="tui-prompt"><span class="agent">[agent]</span> npm test -w api -- --filter origin-auth</div>
+<div class="tui-line"><span class="tui-dim">Test Files</span>  <span class="tui-ok">3 passed</span> <span class="tui-dim">(3)</span></div>
+<div class="tui-line"><span class="tui-dim">     Tests</span>  <span class="tui-ok">28 passed</span> <span class="tui-dim">(28)</span></div>
+<div class="tui-line"><span class="tui-dim">  Duration</span>  <span class="tui-ok">1.84s</span></div>
+<hr class="tui-hr">
+<div class="tui-line tui-out"><b>[summary]</b> 1 file changed · 9 insertions(+) · 1 deletion(-) · tests passed</div>
+      </div>
+      <div class="tui-foot">
+        <span><b>model</b> claude opus 4.7</span>
+        <span><b>cwd</b> halcyon-api</span>
+        <span><b>branch</b> feature/origin-auth-rate-limit</span>
+        <span><b>tokens</b> 4.2k</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens · colour</p>
+      <hr class="section-rule">
+      <h2 class="section-title">Cream, ink, and a single dark moment.</h2>
+      <p class="section-lede">The chrome stays in two values: warm cream canvas and near-black ink. The semantic ramp ships for the in-TUI states — accent blue, success green, danger red, warning amber — but on the marketing chrome it never lights up.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Cream</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--secondary);"></div><div class="swatch-role">Soft</div><div class="swatch-name">--secondary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--card);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--card</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-charcoal);"></div><div class="swatch-role">Charcoal</div><div class="swatch-name">--brand-charcoal</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Body</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-mute);"></div><div class="swatch-role">Mute</div><div class="swatch-name">--brand-mute</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--accent);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--accent</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens · surfaces</p>
+      <hr class="section-rule">
+      <h2 class="section-title">Three surfaces, no shadows.</h2>
+      <p class="section-lede">The canvas is the floor. Cards step one tint above it. The dark TUI surface is the only "elevated" moment in the system — color, not shadow, carries the depth.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">Page floor. Hero, sections, footer, list-row body.</span>
+      </div>
+      <div class="ladder-step" data-step="soft">
+        <span class="ladder-num">Card</span>
+        <span class="ladder-name">--card</span>
+        <span class="ladder-role">Install snippet, disabled fill, alternating row tint.</span>
+      </div>
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">Dark</span>
+        <span class="ladder-name">--brand-surface-dark</span>
+        <span class="ladder-role">Reserved for the TUI mockup. One per page, no exceptions.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="How the team works">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">how halcyon ships</p>
+      <hr class="section-rule">
+      <h2 class="section-title">Diffs proposed, tests run, humans sign off.</h2>
+      <p class="section-lede">Halcyon's engineering team treats the coding agent as a junior pair. The agent owns the keyboard during exploration; the human owns the merge button. Every change goes through the same loop.</p>
+    </div>
+    <div class="list-rows">
+      <div class="list-row">
+        <span class="list-marker">[+]</span>
+        <span class="list-content"><b>Working tree as the input.</b> The agent reads the repo the same way the engineer does — files, not a vector index. No retrieval to drift, no rebuilt context per session.</span>
+      </div>
+      <div class="list-row">
+        <span class="list-marker">[+]</span>
+        <span class="list-content"><b>Tests as the proof.</b> Every diff is followed by a test run before the agent claims the change works. The exit code is the source of truth, not the chat reply.</span>
+      </div>
+      <div class="list-row">
+        <span class="list-marker">[+]</span>
+        <span class="list-content"><b>Plan mode for the hairy ones.</b> The agent writes the plan first, the engineer reads it, then the diff lands. Cuts the time spent reverting speculative refactors to roughly zero.</span>
+      </div>
+      <div class="list-row">
+        <span class="list-marker">[+]</span>
+        <span class="list-content"><b>One scrollback per branch.</b> The session is the record. Avery Park reviews Sam Walker's session log before the merge — the conversation is the design doc.</span>
+      </div>
+      <div class="list-row">
+        <span class="list-marker">[x]</span>
+        <span class="list-content"><b>No background autopilot.</b> The agent does not commit, push, or open PRs on its own. Every external action waits behind a keystroke.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">pricing</p>
+      <hr class="section-rule">
+      <h2 class="section-title">Three tiers, same agent.</h2>
+      <p class="section-lede">The agent itself is the same binary across every tier. The tier sets the model budget, the support response, and how procurement signs the contract.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For weekend repos and personal projects.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Install</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="primary" type="button" style="background: var(--brand-on-dark); color: var(--brand-surface-dark); border-color: var(--brand-on-dark);">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organisations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">tokens · type + components</p>
+      <hr class="section-rule">
+      <h2 class="section-title">One face. One weight ladder.</h2>
+      <p class="section-lede">Berkeley Mono carries the marketing chrome, the body prose, and the in-TUI command line. Substitute JetBrains Mono at weights 400 / 500 / 700 when Berkeley isn't licensed. Hierarchy lives in size and weight — never in font family.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Display 38 / 700</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Heading 16 / 700</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Body 16 / 400 · the default paragraph weight across every text role on the cream canvas.</span></div>
+        <div class="type-row"><span class="type-label">Button</span><span class="type-button">Button 16 / 500 / 2.0</span></div>
+        <div class="type-row"><span class="type-label">Caption</span><span class="type-caption">Caption 14 / 400 · footer, byline, fine print</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · 4 px radius · single weight</span>
+          <div class="cmp-row">
+            <button class="btn" data-variant="primary" type="button">Install</button>
+            <button class="btn" data-variant="secondary" type="button">Read docs</button>
+            <button class="btn" data-variant="ghost" type="button">Skip</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Inline · news tag · text input</span>
+          <div class="cmp-row">
+            <span class="badge-news-chip">News</span>
+            <span class="badge-news-chip" style="background: transparent; color: var(--foreground); border: 1px solid var(--brand-hairline-strong);">Beta</span>
+            <input class="input-demo" type="text" value="riley.chen@halcyon.dev" aria-label="Email demo">
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Install snippet · monospaced inline</span>
+          <div class="cmp-row">
+            <span class="snippet"><span>curl -fsSL halcyon.dev/install | sh</span><span class="snippet-copy">[copy]</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#">__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the single-font monospaced design system. Berkeley Mono throughout, cream canvas, near-black ink, ASCII bracket markers, one dark TUI surface.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-list"><li><a href="#">Download</a></li><li><a href="#">Models</a></li><li><a href="#">Plugins</a></li><li><a href="#">Changelog</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list"><li><a href="#">Docs</a></li><li><a href="#">Recipes</a></li><li><a href="#">Discord</a></li><li><a href="#">GitHub</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">team@halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.25</span>
+    <span>berkeley mono · cream canvas · ascii brackets · one dark surface</span>
+  </div>
+</footer>
+
+</body>
+</html>

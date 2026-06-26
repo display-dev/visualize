@@ -1,0 +1,161 @@
+/**
+ * design-systems/ferrari-style/tokens.css
+ *
+ * Self-authored token sidecar for the live-verified design-system catalog.
+ *
+ * Ferrari is dark-canonical on marketing surfaces (DESIGN.md §1:
+ * "base canvas is near-black holding pure white display type; white-
+ * canvas bands appear only inside specific editorial contexts"). :root
+ * already encodes the dark marketing canvas; [data-theme="dark"] mirrors
+ * it. The light shop / preowned variant is preserved as
+ * --brand-canvas-light / --brand-surface-*-light for any consumer that
+ * wants it.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(0.2090 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.3092 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.3092 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.5746 0.2126 29.5530);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.2090 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2090 0 0);
+  --muted-foreground: oklch(0.62 0 0);
+  --accent: oklch(0.9412 0.2004 105.6889);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3092 0 0);
+  --input: oklch(0.3092 0 0);
+  --ring: oklch(0.5746 0.2126 29.5530);
+  --sidebar: oklch(0.2090 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.5746 0.2126 29.5530);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2090 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3092 0 0);
+  --sidebar-ring: oklch(0.5746 0.2126 29.5530);
+  --chart-1: oklch(0.8100 0.2000 29.5530);
+  --chart-2: oklch(0.7100 0.2000 29.5530);
+  --chart-3: oklch(0.6100 0.2000 29.5530);
+  --chart-4: oklch(0.5100 0.2000 29.5530);
+  --chart-5: oklch(0.4200 0.2000 29.5530);
+
+  /* radius scale */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-xs: 2px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: 'FerrariSans', sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: 'FerrariSans', -apple-system, system-ui, sans-serif;
+
+  /* type scale tokens */
+  --text-display: 80px;
+  --text-heading: 56px;
+  --text-title: 18px;
+  --text-base: 14px;
+  --leading-tight: 1.05;
+  --leading-normal: 1.5;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* brand-specific colour extras (preserved from upstream) */
+  --brand-primary-active: oklch(0.4885 0.1828 31.0323);
+  --brand-primary-hover: oklch(0.4560 0.1614 31.2072);
+  --brand-body: oklch(0.75 0 0);
+  --brand-body-strong: oklch(1 0 0);
+  --brand-body-on-light: oklch(0.2090 0 0);
+  --brand-muted-soft: oklch(0.75 0 0);
+  /* Rosso Corsa #DA291C (oklch(0.5746 0.2126 29.55)) — verified against
+   * ferrari.com: red is reserved for accent (CTA backgrounds, gradient
+   * stops, decorative outlines), never used as body text on dark
+   * canvases. Text on dark surfaces routes through --foreground (white).
+   * Do not introduce a lighter "red ink" variant to win red-on-dark
+   * contrast — that's the wrong fix; Ferrari doesn't use red text on
+   * black. */
+  --brand-hairline-on-light: oklch(0.8638 0 0);
+  --brand-hairline-soft: oklch(0.9401 0 0);
+  --brand-canvas-elevated: oklch(0.3092 0 0);
+  --brand-canvas-light: oklch(1 0 0);
+  --brand-surface-soft-light: oklch(0.9761 0 0);
+  --brand-surface-strong-light: oklch(0.9401 0 0);
+  --brand-on-dark: oklch(1 0 0);
+  --brand-on-light: oklch(0.2090 0 0);
+  --brand-accent-yellow: oklch(0.9068 0.1916 104.1118);
+  --brand-semantic-info: oklch(0.6446 0.0898 228.8209);
+  --brand-semantic-success: oklch(0.5727 0.1486 152.4142);
+  --brand-semantic-warning: oklch(0.6290 0.2206 29.2719);
+}
+
+/* Both modes mirror :root — Ferrari marketing is dark-canonical. */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.2090 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.3092 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.3092 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.5746 0.2126 29.5530);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.2090 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2090 0 0);
+  --muted-foreground: oklch(0.62 0 0);
+  --accent: oklch(0.9412 0.2004 105.6889);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3092 0 0);
+  --input: oklch(0.3092 0 0);
+  --ring: oklch(0.5746 0.2126 29.5530);
+  --sidebar: oklch(0.2090 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.5746 0.2126 29.5530);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2090 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3092 0 0);
+  --sidebar-ring: oklch(0.5746 0.2126 29.5530);
+  --chart-1: oklch(0.8100 0.2000 29.5530);
+  --chart-2: oklch(0.7100 0.2000 29.5530);
+  --chart-3: oklch(0.6100 0.2000 29.5530);
+  --chart-4: oklch(0.5100 0.2000 29.5530);
+  --chart-5: oklch(0.4200 0.2000 29.5530);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+  }
+}

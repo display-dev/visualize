@@ -1,0 +1,1056 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000000'/%3E%3Crect x='7' y='13' width='18' height='6' rx='1' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Pill geometry, sentence-case display sans, black-and-white duet, alternating-band rhythm.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Uber-style preview shell — token-surface showcase with the brand's
+   signature moves: sentence-case display 700, the 999px pill on every
+   interactive element (with the 36px pill-tab + 16px card-radius
+   exceptions), a single signature dispatch-queue mockup, and the
+   alternating-band black promo as the polarity-flip closer. Content is
+   Halcyon-themed (the catalogue's fictional brand). Abstract gradient
+   placeholders stand in where the live brand would show editorial 4:3
+   illustrations of riders / drivers / city objects. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', var(--font-sans), system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* -- Topnav -- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.topnav-brand {
+  font-family: 'Inter', var(--font-display), system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 16px;
+  font-weight: 500;
+}
+.topnav-links a {
+  color: var(--foreground);
+  text-decoration: none;
+}
+.topnav-links a:hover { color: var(--brand-body); }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* -- Pill button (the brand's signature 999px) -- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.625rem 1rem;
+  border-radius: var(--brand-radius-pill);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease;
+}
+.pill:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.pill[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.pill[data-variant="primary"]:hover {
+  background: var(--brand-black-elevated);
+  color: var(--brand-on-dark);
+}
+.pill[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.pill[data-variant="secondary"]:hover {
+  background: var(--brand-canvas-soft);
+}
+.pill[data-variant="subtle"] {
+  background: var(--brand-canvas-soft);
+  color: var(--foreground);
+}
+.pill[data-variant="subtle"]:hover {
+  background: var(--brand-surface-pressed);
+}
+.pill[data-variant="floating"] {
+  background: var(--background);
+  color: var(--foreground);
+  box-shadow: 0 2px 8px 0 rgb(0 0 0 / 0.16);
+}
+.pill[data-variant="on-dark"] {
+  background: var(--foreground);
+  color: var(--background);
+}
+.pill[data-size="sm"] { min-height: 36px; padding: 0.375rem 0.75rem; font-size: 14px; }
+.pill[data-size="lg"] { min-height: 52px; padding: 0.875rem 1.25rem; font-size: 18px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pill { transition: none; }
+}
+
+/* -- Tab-toggle (off-shape 36px pill-tab, the documented exception) -- */
+.tab-toggle {
+  display: inline-flex;
+  background: var(--brand-canvas-soft);
+  border-radius: var(--brand-radius-pill-tab);
+  padding: 4px;
+  gap: 4px;
+}
+.tab {
+  min-height: 44px;
+  padding: 0.5rem 1.25rem;
+  border-radius: calc(var(--brand-radius-pill-tab) - 4px);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--foreground);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+.tab[aria-selected="true"] { background: var(--background); }
+
+/* -- Hero band -- */
+.hero {
+  background: var(--background);
+  padding: 4rem 2rem;
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 460px;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 880px) {
+  .hero-inner { grid-template-columns: 1fr; }
+}
+.hero-eyebrow {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--brand-body);
+  margin: 0 0 1rem;
+}
+.hero-headline {
+  font-family: 'Inter', var(--font-display), system-ui, sans-serif;
+  font-size: clamp(2.5rem, 5vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.23;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.5rem;
+  max-width: 14ch;
+  color: var(--foreground);
+}
+.hero-lede {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--brand-body);
+  max-width: 42ch;
+  margin: 0 0 2rem;
+}
+.hero-ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+/* -- Signature surface: the dispatch-queue card --
+   Stands in for Uber's hero ride-request form. Halcyon-team content:
+   a generic service queue (engineering operations dispatch), not
+   actual rides or drivers. Abstract gradient circles replace
+   the brand's editorial illustration system. */
+.dispatch-card {
+  background: var(--background);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 4px 16px 0 rgb(0 0 0 / 0.16);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+[data-theme="dark"] .dispatch-card {
+  box-shadow: 0 4px 16px 0 rgb(0 0 0 / 0.6);
+  border: 1px solid var(--border);
+}
+.dispatch-tabs { margin-bottom: 0.5rem; }
+.dispatch-row {
+  background: var(--brand-canvas-soft);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.dispatch-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--brand-radius-full);
+  background: var(--brand-canvas-softer);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.dispatch-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--brand-body);
+  margin: 0 0 2px;
+}
+.dispatch-value {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--foreground);
+  margin: 0;
+}
+.dispatch-row-content { flex: 1; min-width: 0; }
+.dispatch-window {
+  background: var(--brand-canvas-soft);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.dispatch-window-text { display: flex; flex-direction: column; gap: 2px; }
+.dispatch-cta { margin-top: 0.25rem; }
+.dispatch-cta .pill { width: 100%; }
+
+/* -- Section frame -- */
+.section { padding: 5rem 2rem; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'Inter', var(--font-display), system-ui, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.23;
+  letter-spacing: -0.005em;
+  margin: 0 0 0.75rem;
+  color: var(--foreground);
+}
+.section-lede {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--brand-body);
+  max-width: 56ch;
+  margin: 0 0 3rem;
+}
+
+.canvas-soft { background: var(--brand-canvas-soft); }
+
+/* -- Category chip row (the brand's horizontal-scroll signature) -- */
+.chip-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  background: var(--brand-canvas-soft);
+  color: var(--foreground);
+  border-radius: var(--brand-radius-pill);
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+.chip[data-state="active"] {
+  background: var(--foreground);
+  color: var(--background);
+}
+.chip-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--brand-radius-full);
+  background: var(--brand-body);
+  display: inline-block;
+  flex-shrink: 0;
+}
+.chip[data-state="active"] .chip-icon { background: var(--background); }
+
+/* -- Color swatches -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 1rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 3rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+.swatch-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+
+/* -- Surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 880px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.rung {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 7rem;
+}
+.rung-bg-default { background: var(--background); color: var(--foreground); }
+.rung-bg-soft { background: var(--brand-canvas-soft); color: var(--foreground); }
+.rung-bg-softer { background: var(--brand-canvas-softer); color: var(--foreground); }
+/* Always-black ink polarity (never flips). var(--foreground) flips
+ * with theme; pairing it with always-white --brand-on-dark inverts
+ * contrast in dark mode (white-on-white). Hardcode the always-black. */
+.rung-bg-ink { background: oklch(0 0 0); color: var(--brand-on-dark); border-color: oklch(0 0 0); }
+.rung-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: inherit;
+  opacity: 0.85;
+}
+.rung-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: inherit;
+}
+
+/* -- Typography roles -- */
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px dashed var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.type-display-xxl { font-family: 'Inter', var(--font-display), sans-serif; font-size: 52px; font-weight: 700; line-height: 1.23; letter-spacing: -0.01em; color: var(--foreground); }
+.type-display-xl { font-family: 'Inter', var(--font-display), sans-serif; font-size: 36px; font-weight: 700; line-height: 1.22; color: var(--foreground); }
+.type-display-lg { font-family: 'Inter', var(--font-display), sans-serif; font-size: 32px; font-weight: 700; line-height: 1.25; color: var(--foreground); }
+.type-display-md { font-family: 'Inter', var(--font-display), sans-serif; font-size: 24px; font-weight: 700; line-height: 1.33; color: var(--foreground); }
+.type-display-sm { font-family: 'Inter', var(--font-display), sans-serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--foreground); }
+.type-body-lg { font-size: 18px; font-weight: 500; line-height: 1.33; color: var(--foreground); }
+.type-body-md { font-size: 16px; font-weight: 400; line-height: 1.5; color: var(--foreground); }
+.type-body-sm { font-size: 14px; font-weight: 400; line-height: 1.43; color: var(--brand-body); }
+.type-caption { font-size: 12px; font-weight: 400; line-height: 1.67; color: var(--brand-body); }
+
+/* -- Components row -- */
+.components { display: flex; flex-direction: column; gap: 2rem; }
+.row { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+.row-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin-bottom: 0.75rem;
+}
+
+/* App-download pill (the brand's "Download the Rider app" surface) */
+.download-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 56px;
+  padding: 0.875rem 1.5rem;
+  background: oklch(0 0 0);
+  color: var(--brand-on-dark);
+  border-radius: var(--brand-radius-pill);
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+.download-pill:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.download-pill-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--brand-radius-full);
+  background: var(--brand-on-dark);
+  flex-shrink: 0;
+}
+
+/* FAQ row */
+.faq-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+.faq-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--foreground);
+  cursor: pointer;
+  gap: 1rem;
+}
+.faq-row:last-child { border-bottom: none; }
+.faq-row::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-right: 2px solid var(--foreground);
+  border-bottom: 2px solid var(--foreground);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* Pricing tiles — generic, NOT host product surface */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; } }
+.tier {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.tier[data-featured="true"] {
+  background: oklch(0 0 0);
+  color: var(--brand-on-dark);
+  border-color: oklch(0 0 0);
+}
+.tier-name {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  color: inherit;
+}
+.tier-tagline {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0 0 0.75rem;
+  color: inherit;
+  opacity: 0.78;
+}
+.tier-price {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: inherit;
+  margin: 0;
+}
+.tier-price-unit {
+  font-size: 14px;
+  font-weight: 500;
+  color: inherit;
+  opacity: 0.78;
+  margin-left: 0.25rem;
+}
+.tier-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 14px;
+  font-weight: 400;
+  color: inherit;
+}
+.tier-list li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+.tier-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  background: currentColor;
+  border-radius: 1px;
+}
+.tier .pill { width: 100%; }
+.tier[data-featured="true"] .pill[data-variant="primary"] {
+  background: var(--brand-on-dark);
+  color: oklch(0 0 0);
+}
+.tier[data-featured="true"] .pill[data-variant="primary"]:hover {
+  background: var(--brand-canvas-soft);
+}
+
+/* Promo card on dark — the brand's signature polarity-flip band.
+ * Always-black across both polarities; --foreground would flip light. */
+.promo-dark-band {
+  background: oklch(0 0 0);
+  color: var(--brand-on-dark);
+  padding: 5rem 2rem;
+}
+.promo-dark-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 880px) {
+  .promo-dark-inner { grid-template-columns: 1fr; }
+}
+.promo-dark-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+  margin: 0 0 1rem;
+}
+.promo-dark-title {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: -0.005em;
+  margin: 0 0 1rem;
+  color: var(--brand-on-dark);
+}
+.promo-dark-lede {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-on-dark);
+  opacity: 0.85;
+  margin: 0 0 2rem;
+}
+.promo-dark-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.promo-dark-cta .pill[data-variant="primary"] {
+  background: var(--brand-on-dark);
+  color: oklch(0 0 0);
+}
+.promo-dark-cta .pill[data-variant="primary"]:hover {
+  background: var(--brand-canvas-soft);
+}
+.promo-dark-cta .pill[data-variant="secondary"] {
+  background: transparent;
+  color: var(--brand-on-dark);
+  border-color: var(--brand-on-dark);
+}
+.promo-dark-cta .pill[data-variant="secondary"]:hover {
+  background: rgb(255 255 255 / 0.08);
+}
+
+/* Abstract gradient placeholder — stands in for editorial illustration */
+.placeholder-card {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(60% 70% at 25% 30%, rgb(255 255 255 / 0.18) 0%, transparent 60%),
+    radial-gradient(50% 60% at 75% 70%, rgb(255 255 255 / 0.10) 0%, transparent 65%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.05) 0%, rgb(255 255 255 / 0.02) 100%),
+    oklch(0.20 0 0);
+  border: 1px solid rgb(255 255 255 / 0.12);
+}
+
+/* -- Footer -- */
+.footer {
+  /* Polarity-locked always-black per brand documentation. --foreground
+   * would flip in dark mode, inverting against --brand-on-dark (white). */
+  background: oklch(0 0 0);
+  color: var(--brand-on-dark);
+  padding: 4rem 2rem 3rem;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+.footer-brand {
+  font-family: 'Inter', var(--font-display), sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--brand-on-dark);
+  margin: 0 0 1rem;
+  letter-spacing: -0.01em;
+}
+.footer-tagline {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+  margin: 0;
+  max-width: 28ch;
+}
+.footer-col-heading {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--brand-on-dark);
+  margin: 0 0 1rem;
+}
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.footer-links a {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--brand-on-dark);
+  opacity: 0.7;
+  text-decoration: none;
+}
+.footer-links a:hover { opacity: 1; }
+.footer-meta {
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgb(255 255 255 / 0.16);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--brand-on-dark);
+  opacity: 0.5;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <span class="topnav-brand">__DESIGN_SYSTEM_NAME__</span>
+    <div class="topnav-links">
+      <a href="#hero">Operations</a>
+      <a href="#dispatch">Dispatch</a>
+      <a href="#tiers">Plans</a>
+      <a href="#faqs">Help</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="pill" data-variant="secondary" data-size="sm" type="button">Sign in</button>
+      <button class="pill" data-variant="primary" data-size="sm" type="button">Get started</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Sentence-case · 999px pill · two-face DNA</p>
+      <h1 class="hero-headline">Routing work to the people closest to it.</h1>
+      <p class="hero-lede">A token-surface preview rendered against the design system. Sentence-case display 700, pill geometry, alternating-band rhythm — the brand's signature moves on neutral content.</p>
+      <div class="hero-ctas">
+        <button class="pill" data-variant="primary" data-size="lg" type="button">Open dispatch</button>
+        <button class="pill" data-variant="secondary" data-size="lg" type="button">Read the spec</button>
+      </div>
+    </div>
+
+    <aside class="dispatch-card" id="dispatch" aria-label="Dispatch surface">
+      <div class="tab-toggle dispatch-tabs" role="tablist" aria-label="Queue view">
+        <button class="tab" role="tab" aria-selected="true" type="button">Queue</button>
+        <button class="tab" role="tab" aria-selected="false" type="button">On-call</button>
+      </div>
+
+      <div class="dispatch-row">
+        <span class="dispatch-icon" aria-hidden="true">●</span>
+        <div class="dispatch-row-content">
+          <p class="dispatch-label">From</p>
+          <p class="dispatch-value">build-queue · halcyon-api</p>
+        </div>
+      </div>
+
+      <div class="dispatch-row">
+        <span class="dispatch-icon" aria-hidden="true">■</span>
+        <div class="dispatch-row-content">
+          <p class="dispatch-label">Route to</p>
+          <p class="dispatch-value">on-call · platform team</p>
+        </div>
+      </div>
+
+      <div class="dispatch-window">
+        <div class="dispatch-window-text">
+          <p class="dispatch-label">Window</p>
+          <p class="dispatch-value">Today · 14:30 – 15:00</p>
+        </div>
+        <button class="pill" data-variant="subtle" data-size="sm" type="button">Edit</button>
+      </div>
+
+      <div class="dispatch-cta">
+        <button class="pill" data-variant="primary" data-size="lg" type="button">See routes</button>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="section canvas-soft" aria-label="Category chips">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · pill chips</p>
+    <h2 class="section-title">Categories on the same pill grammar.</h2>
+    <p class="section-lede">The chip is the pill at smaller scale. One filled black chip per row signals the active category; the rest sit on canvas-soft. Halcyon's platform team filters the queue this way.</p>
+    <div class="chip-row" role="tablist" aria-label="Queue categories">
+      <button class="chip" data-state="active" role="tab" aria-selected="true" type="button"><span class="chip-icon" aria-hidden="true"></span>All</button>
+      <button class="chip" role="tab" aria-selected="false" type="button"><span class="chip-icon" aria-hidden="true"></span>Builds</button>
+      <button class="chip" role="tab" aria-selected="false" type="button"><span class="chip-icon" aria-hidden="true"></span>Deploys</button>
+      <button class="chip" role="tab" aria-selected="false" type="button"><span class="chip-icon" aria-hidden="true"></span>Incidents</button>
+      <button class="chip" role="tab" aria-selected="false" type="button"><span class="chip-icon" aria-hidden="true"></span>Reviews</button>
+      <button class="chip" role="tab" aria-selected="false" type="button"><span class="chip-icon" aria-hidden="true"></span>Migrations</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Colour tokens">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · colour</p>
+    <h2 class="section-title">Ink, canvas, action.</h2>
+    <p class="section-lede">A black-and-white duet with three neutral fills below canvas, and one chromatic exception reserved for inline link text in legal copy. There is no second brand accent.</p>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--background);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-canvas-soft);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--brand-canvas-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-canvas-softer);"></div><div class="swatch-role">Surface</div><div class="swatch-name">--brand-canvas-softer</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-surface-pressed);"></div><div class="swatch-role">State</div><div class="swatch-name">--brand-surface-pressed</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--foreground);"></div><div class="swatch-role">Ink · action</div><div class="swatch-name">--foreground · --primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-body);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-hairline-mid);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-hairline-mid</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-mute);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-mute</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-link);"></div><div class="swatch-role">Link</div><div class="swatch-name">--brand-link</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--border);"></div><div class="swatch-role">Hairline</div><div class="swatch-name">--border</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--destructive);"></div><div class="swatch-role">Destructive</div><div class="swatch-name">--destructive</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-black-elevated);"></div><div class="swatch-role">Hover</div><div class="swatch-name">--brand-black-elevated</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section canvas-soft" aria-label="Surface ladder">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · surface</p>
+    <h2 class="section-title">Four surfaces, no atmosphere.</h2>
+    <p class="section-lede">Canvas, canvas-soft, canvas-softer, and ink. The polarity-flipped black card carries the brand's alternating-band rhythm at small scale; gradients and shadows stay out of the system.</p>
+    <div class="ladder">
+      <div class="rung rung-bg-default">
+        <span class="rung-label">--background</span>
+        <span class="rung-name">Default canvas</span>
+      </div>
+      <div class="rung rung-bg-soft">
+        <span class="rung-label">--brand-canvas-soft</span>
+        <span class="rung-name">Chip fill</span>
+      </div>
+      <div class="rung rung-bg-softer">
+        <span class="rung-label">--brand-canvas-softer</span>
+        <span class="rung-name">Nested input</span>
+      </div>
+      <div class="rung rung-bg-ink">
+        <span class="rung-label">--foreground</span>
+        <span class="rung-name">Polarity flip</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography roles">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · type</p>
+    <h2 class="section-title">Two faces, fixed weights, sentence case.</h2>
+    <p class="section-lede">Display face at weight 700 for every headline; text face at 400 / 500 for body, button, and label. No italic, no tracking flourish, no all-caps display — only the section eyebrow takes uppercase.</p>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">display-xxl</span><span class="type-display-xxl">Routing work</span></div>
+      <div class="type-row"><span class="type-label">display-xl</span><span class="type-display-xl">Two faces, sentence case</span></div>
+      <div class="type-row"><span class="type-label">display-lg</span><span class="type-display-lg">Pill is the shape signature</span></div>
+      <div class="type-row"><span class="type-label">display-md</span><span class="type-display-md">Promo card headline scale</span></div>
+      <div class="type-row"><span class="type-label">display-sm</span><span class="type-display-sm">Sub-card heading</span></div>
+      <div class="type-row"><span class="type-label">body-lg</span><span class="type-body-lg">Lead paragraph weight 500 reads as the brand's friendly default for short copy under a headline.</span></div>
+      <div class="type-row"><span class="type-label">body-md</span><span class="type-body-md">The default paragraph role at 16px / 24 line-height. Used inside cards, body sections, and the FAQ accordion rows below.</span></div>
+      <div class="type-row"><span class="type-label">body-sm</span><span class="type-body-sm">Captions and secondary metadata. The role is also used inside the footer's column links and the deep-black band's fine print.</span></div>
+      <div class="type-row"><span class="type-label">caption</span><span class="type-caption">Fine print, footer secondary lines, legal block text — the smallest body role at 12px / 20.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section canvas-soft" aria-label="Component vocabulary">
+  <div class="section-inner">
+    <p class="eyebrow">vocabulary · components</p>
+    <h2 class="section-title">Pills, chips, accordions.</h2>
+    <p class="section-lede">Every interactive element rounds to 999px, with one documented exception (the 36px tab-toggle) and one larger context (16px radius on the dispatch-form CTA). Cards stay at 16px.</p>
+    <div class="components">
+      <div>
+        <p class="row-label">Pill variants</p>
+        <div class="row" aria-label="Pill variants">
+          <button class="pill" data-variant="primary" type="button">Primary</button>
+          <button class="pill" data-variant="secondary" type="button">Secondary</button>
+          <button class="pill" data-variant="subtle" type="button">Subtle</button>
+          <button class="pill" data-variant="floating" type="button">Floating</button>
+          <button class="pill" data-variant="primary" data-size="sm" type="button">Small</button>
+          <button class="pill" data-variant="primary" data-size="lg" type="button">Large</button>
+        </div>
+      </div>
+
+      <div>
+        <p class="row-label">Tab toggle (36px pill-tab)</p>
+        <div class="row">
+          <div class="tab-toggle" role="tablist" aria-label="View toggle">
+            <button class="tab" role="tab" aria-selected="true" type="button">Active</button>
+            <button class="tab" role="tab" aria-selected="false" type="button">Archived</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="row-label">App-download pill</p>
+        <div class="row" aria-label="App download">
+          <button class="download-pill" type="button"><span class="download-pill-icon" aria-hidden="true"></span>Get the dispatch app</button>
+          <button class="download-pill" type="button"><span class="download-pill-icon" aria-hidden="true"></span>Get the operator app</button>
+        </div>
+      </div>
+
+      <div>
+        <p class="row-label">Accordion (FAQ row · no card chrome inside)</p>
+        <div class="faq-card">
+          <div class="faq-row" role="button" tabindex="0">How does Halcyon route incidents during off-hours?</div>
+          <div class="faq-row" role="button" tabindex="0">Can a queue be paused without re-routing in-flight work?</div>
+          <div class="faq-row" role="button" tabindex="0">What does the on-call rotation look like on a Saturday?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="tiers" aria-label="Plans">
+  <div class="section-inner">
+    <p class="eyebrow">plans · generic</p>
+    <h2 class="section-title">Three plans, one geometry.</h2>
+    <p class="section-lede">Pill CTA on every tile. The featured tier inverts the canvas — the brand's polarity-flip pattern at card scale. Numbers are illustrative.</p>
+    <div class="pricing-grid">
+      <article class="tier">
+        <h3 class="tier-name">Hobby</h3>
+        <p class="tier-tagline">For solo work and weekend projects.</p>
+        <p class="tier-price">Free</p>
+        <ul class="tier-list">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <button class="pill" data-variant="secondary" type="button">Start free</button>
+      </article>
+
+      <article class="tier" data-featured="true">
+        <h3 class="tier-name">Team</h3>
+        <p class="tier-tagline">Shared queues for a small team.</p>
+        <p class="tier-price">$24<span class="tier-price-unit">/team · month</span></p>
+        <ul class="tier-list">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <button class="pill" data-variant="primary" type="button">Choose Team</button>
+      </article>
+
+      <article class="tier">
+        <h3 class="tier-name">Org-wide</h3>
+        <p class="tier-tagline">For procurement-led rollouts.</p>
+        <p class="tier-price">Custom</p>
+        <ul class="tier-list">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Production SLA</li>
+        </ul>
+        <button class="pill" data-variant="secondary" type="button">Contact sales</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section canvas-soft" id="faqs" aria-label="Frequently asked questions">
+  <div class="section-inner">
+    <p class="eyebrow">faq</p>
+    <h2 class="section-title">Questions Halcyon's platform team hears every week.</h2>
+    <p class="section-lede">Hairline dividers between rows, no card chrome inside the questions — the brand's accordion uses negative-space hierarchy over a framed list.</p>
+    <div class="faq-card">
+      <div class="faq-row" role="button" tabindex="0">Can a queue be split into parallel routes for the same team?</div>
+      <div class="faq-row" role="button" tabindex="0">How does the on-call schedule sync into the dispatch view?</div>
+      <div class="faq-row" role="button" tabindex="0">What happens to in-flight work when a window closes?</div>
+      <div class="faq-row" role="button" tabindex="0">Can a route be opened to a partner team for a single sprint?</div>
+    </div>
+  </div>
+</section>
+
+<section class="promo-dark-band" aria-label="Polarity-flipped promo band">
+  <div class="promo-dark-inner">
+    <div>
+      <p class="promo-dark-eyebrow">closing band · polarity flip</p>
+      <h2 class="promo-dark-title">Black bands are the brand's depth cue.</h2>
+      <p class="promo-dark-lede">Mid-page polarity flip breaks the white-on-white rhythm. No second accent colour ever enters the system; the shift from canvas to ink IS the visual hierarchy.</p>
+      <div class="promo-dark-cta">
+        <button class="pill" data-variant="primary" type="button">Start free</button>
+        <button class="pill" data-variant="secondary" type="button">See the spec</button>
+      </div>
+    </div>
+    <div class="placeholder-card" role="img" aria-label="Abstract gradient placeholder"></div>
+  </div>
+</section>
+
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <div>
+      <p class="footer-brand">__DESIGN_SYSTEM_NAME__</p>
+      <p class="footer-tagline">A token-surface preview from the visualize catalogue. Halcyon is a placeholder brand.</p>
+    </div>
+    <div>
+      <p class="footer-col-heading">Product</p>
+      <ul class="footer-links">
+        <li><a href="#">halcyon.dev</a></li>
+        <li><a href="#">app.halcyon.dev</a></li>
+        <li><a href="#">hlc.so</a></li>
+        <li><a href="#">@halcyon/cli</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-heading">Team</p>
+      <ul class="footer-links">
+        <li><a href="#">Engineering</a></li>
+        <li><a href="#">Platform</a></li>
+        <li><a href="#">Design</a></li>
+        <li><a href="#">Operations</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-heading">Resources</p>
+      <ul class="footer-links">
+        <li><a href="#">Spec</a></li>
+        <li><a href="#">Changelog</a></li>
+        <li><a href="#">Status</a></li>
+        <li><a href="#">team@halcyon.dev</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-meta">
+    <span>// visualize · __DESIGN_SYSTEM_NAME__</span>
+    <span>// sentence-case · 999px pill · alternating bands</span>
+  </div>
+</footer>
+
+</body>
+</html>

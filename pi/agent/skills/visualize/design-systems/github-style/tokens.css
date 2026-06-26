@@ -1,0 +1,398 @@
+/**
+ * design-systems/github-style/tokens.css
+ *
+ * Hand-authored from live-verified github.com + primer.style surfaces.
+ * Sourced: 2026-05-25. Companion doc: ./DESIGN.md.
+ *
+ * GitHub ships two genuine themes — not a marketing skin layered over
+ * one canonical canvas. Primer (the design system) encodes both as
+ * peer-equal JSON5 token files (`base/color/light/light.json5`,
+ * `base/color/dark/dark.json5`). Each documented chromatic accent
+ * (blue, green, red, purple, yellow, orange, pink) ships a Primer-
+ * documented dark-mode step that the theme swap maps to. Treating these
+ * as "synthesised lifted variants" would be wrong — they ARE the
+ * upstream values. Source: github.com/primer/primitives.
+ *
+ * Per-mode primary swap (rare): --primary = blue.5 light (#0969da) →
+ * blue.4 dark (#2f81f7). Primer documents this explicitly under
+ * fgColor.accent and the focus.outlineColor → ring track. The CTA
+ * green (#1f883d) is exposed as --brand-cta-rest, not as --primary —
+ * GitHub's chromatic identity is the semantic palette (success-green,
+ * link-blue, attention-yellow, danger-red, done-purple, sponsors-pink,
+ * severe-orange), not a single brand colour.
+ *
+ * Two-layer contract (see AUTHORING.md "Token naming conventions"):
+ *   - Shadcn-semantic core (--background, --primary, --ring, etc.):
+ *     names are the upstream shadcn contract, values are GitHub's.
+ *   - Brand-extras (--brand-*): GitHub's own surface-named vocabulary —
+ *     status pills, polarity-locked surfaces (Copilot hero canvas-night,
+ *     marketing-emphasis bands), contribution-graph ramp, diff fills,
+ *     CTA-green ladder, inverse-button surface.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Shadcn-semantic core ------------------------------------- */
+  /* Names are upstream contract; values are GitHub light theme. */
+
+  --background: oklch(1.0000 0 0);                    /* #ffffff — Primer bgColor.default light */
+  --foreground: oklch(0.2542 0.0111 254.04);          /* #1f2328 — Primer fgColor.default light (cool-blue near-black) */
+  --card: oklch(1.0000 0 0);                          /* #ffffff — cards share canvas, hairline border carries separation */
+  --card-foreground: oklch(0.2542 0.0111 254.04);
+  --popover: oklch(1.0000 0 0);                       /* #ffffff — popovers use shadow, not tint */
+  --popover-foreground: oklch(0.2542 0.0111 254.04);
+
+  /* GitHub's primary interactive accent is blue.5 (#0969da) — the link
+   * colour, focus-ring, accent fgColor. The green Code/CTA button is
+   * exposed as --brand-cta-rest separately so the semantic-palette
+   * identity stays legible. */
+  --primary: oklch(0.5399 0.1906 257.48);             /* #0969da — Primer fgColor.accent / focus.outlineColor light = blue.5 */
+  --primary-foreground: oklch(1.0000 0 0);            /* #ffffff */
+  --secondary: oklch(0.9782 0.0034 247.86);           /* #f6f8fa — Primer button.default.bgColor.rest light */
+  --secondary-foreground: oklch(0.2542 0.0111 254.04);
+  --muted: oklch(0.9782 0.0034 247.86);               /* #f6f8fa — Primer bgColor.muted light = neutral.1 */
+  --muted-foreground: oklch(0.4951 0.0215 250.78);    /* #59636e — Primer fgColor.muted light = neutral.9 */
+  --accent: oklch(0.9782 0.0034 247.86);              /* #f6f8fa — hover-fill role (Primer bgColor.neutral.muted) */
+  --accent-foreground: oklch(0.2542 0.0111 254.04);
+  --destructive: oklch(0.5517 0.2051 24.53);          /* #cf222e — Primer fgColor.danger light = red.5 / danger-button hover fill */
+  --destructive-foreground: oklch(1.0000 0 0);
+
+  --border: oklch(0.8812 0.0130 244.27);              /* #d1d9e0 — Primer borderColor.default light = neutral.6 (the signature hairline) */
+  --input: oklch(0.8812 0.0130 244.27);               /* same #d1d9e0 — Primer uses borderColor.default for input outlines */
+  --ring: oklch(0.5399 0.1906 257.48);                /* tracks --primary — Primer focus.outlineColor light */
+
+  --sidebar: oklch(1.0000 0 0);                       /* #ffffff — sidebar shares page canvas */
+  --sidebar-foreground: oklch(0.2542 0.0111 254.04);
+  --sidebar-primary: oklch(0.5399 0.1906 257.48);     /* tracks --primary */
+  --sidebar-primary-foreground: oklch(1.0000 0 0);
+  --sidebar-accent: oklch(0.9782 0.0034 247.86);      /* #f6f8fa — active-item background */
+  --sidebar-accent-foreground: oklch(0.2542 0.0111 254.04);
+  --sidebar-border: oklch(0.8812 0.0130 244.27);
+  --sidebar-ring: oklch(0.5399 0.1906 257.48);        /* tracks --primary */
+
+  /* Primer data-viz palette (functional/color/data-vis.json5).
+   * GitHub uses these on charts and the language colour dots; the
+   * documented order is green → blue → purple → red → orange. */
+  --chart-1: oklch(0.6260 0.1633 146.76);             /* #30a147 — viz.1 green */
+  --chart-2: oklch(0.5505 0.1868 255.82);             /* #006edb — viz.2 blue */
+  --chart-3: oklch(0.5795 0.2580 309.98);             /* #a830e8 — viz.3 purple */
+  --chart-4: oklch(0.5718 0.2283 25.59);              /* #df0c24 — viz.4 red */
+  --chart-5: oklch(0.6673 0.1832 46.00);              /* #eb670f — viz.5 orange */
+
+  /* Primer borderRadius scale (base/size/border-radius.json5):
+   * small 4px, medium 6px (the most-used GitHub radius), large 8px,
+   * extra-large 12px. */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* -- Typography ------------------------------------------------ */
+  /* Mona Sans VF (GitHub's commissioned variable font, 2022+). Open-
+   * source SIL OFL — license-clean to ship the family name in the
+   * stack even when the proprietary font won't load. */
+  --font-sans: 'Mona Sans VF', 'Mona Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --font-display: 'Mona Sans VF', 'Mona Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* -- Brand-extras --------------------------------------------- */
+  /* GitHub's surface-named taxonomy. Status colours are roles
+   * (open / closed / merged / attention / severe / sponsors), not
+   * decorative fills — each anchors a documented state. */
+
+  /* CTA-green ladder (Primer button.primary.bgColor.{rest,hover,active}
+   * light). Not the same as --primary (which is link-blue); this is the
+   * green Code / Sign up / Merge / pricing-tier-CTA fill. */
+  --brand-cta-rest:  oklch(0.5517 0.1450 148.22);     /* #1f883d — Primer button.primary.bgColor.rest light */
+  --brand-cta-hover: oklch(0.5308 0.1403 148.17);     /* #1c8139 — Primer button.primary.bgColor.hover light */
+  --brand-cta-press: oklch(0.4391 0.1179 148.07);     /* #116329 — Primer green.6 light = documented active state */
+
+  /* Polarity-locked surfaces — do NOT override in [data-theme="dark"]. */
+  --brand-canvas-night:    oklch(0.1039 0.0194 248.35); /* #010409 — Primer base.color.black dark theme, Copilot extra-dark hero */
+  --brand-on-dark:         oklch(0.9703 0.0103 247.93); /* #F0F6FC — locked ink on always-dark surfaces (topnav, footer, hero bands) */
+  --brand-on-light:        oklch(0.2542 0.0111 254.04); /* #1f2328 — locked ink on always-light surfaces */
+  --brand-emphasis-light:  oklch(0.2790 0.0109 254.02); /* #25292e — Primer bgColor.emphasis light = inverse-band inside light pages */
+
+  /* Hairlines / dividers — Primer neutral.{3,6} light. */
+  --brand-hairline-soft:   oklch(0.9354 0.0080 253.86); /* #E6EAEF — Primer neutral.3 light */
+  --brand-hairline:        oklch(0.8812 0.0130 244.27); /* #d1d9e0 — Primer borderColor.default light = neutral.6 */
+  --brand-hairline-strong: oklch(0.8812 0.0130 244.27); /* same as hairline at :root; the strong variant only diverges in dark theme */
+
+  /* Documented secondary brand colours — each is a state/role anchor in
+   * Primer's fgColor.{accent,danger,attention,severe,done,sponsors}. */
+  --brand-accent-blue:     oklch(0.5399 0.1906 257.48); /* #0969da — Primer fgColor.accent light = blue.5 (link, focus ring) */
+  --brand-state-closed:    oklch(0.5517 0.2051 24.53);  /* #cf222e — closed-issue / danger / destructive-text-rest */
+  --brand-state-merged:    oklch(0.5631 0.2069 294.97); /* #8250df — Primer fgColor.done light = purple.5 (merged PR, completed) */
+  --brand-attention:       oklch(0.5542 0.1169 75.01);  /* #9a6700 — Primer fgColor.attention light = yellow.5 (pending CI, draft, "Most popular" ring) */
+  --brand-severe:          oklch(0.5572 0.1601 44.72);  /* #bc4c00 — Primer fgColor.severe light = orange.5 (security severity ladder, active tab underline) */
+  --brand-sponsors:        oklch(0.5655 0.1871 348.03); /* #bf3989 — Primer fgColor.sponsors light = pink.5 */
+
+  /* Status-pill muted fills (Primer green.0 / red.0 / purple.0 / yellow.0 /
+   * blue.0 / orange.0 / pink.0 light). Used as tinted-background pills
+   * behind same-hue dark text — the standard Label/StateLabel pattern. */
+  --brand-state-open-fill:    oklch(0.9574 0.0487 151.63); /* #dafbe1 — green.0 light */
+  --brand-state-closed-fill:  oklch(0.9555 0.0220 24.44);  /* #ffebe9 — red.0 light */
+  --brand-state-merged-fill:  oklch(0.9661 0.0246 317.72); /* #fbefff — purple.0 light */
+  --brand-accent-blue-fill:   oklch(0.9536 0.0284 228.04); /* #ddf4ff — blue.0 light (callout-note, active-reaction fill) */
+  --brand-attention-fill:     oklch(0.9721 0.0658 101.01); /* #fff8c5 — yellow.0 light (callout-warning fill) */
+  --brand-severe-fill:        oklch(0.9555 0.0220 24.44);  /* #ffebe9 — red.0 light shared (callout-caution); orange has no documented .0 fill */
+  --brand-sponsors-fill:      oklch(0.9661 0.0246 317.72); /* #fbefff — purple.0 light shared (sponsors panel) */
+
+  /* Diff fills — added / removed / line-number gutter / changed-range. */
+  --brand-diff-added-line:    oklch(0.9574 0.0487 151.63); /* #dafbe1 — green.0 light (added line full-row fill) */
+  --brand-diff-added-range:   oklch(0.9001 0.1024 151.39); /* #abf2bc — green.2 light (changed-character highlight inside added line) */
+  --brand-diff-removed-line:  oklch(0.9555 0.0220 24.44);  /* #ffebe9 — red.0 light (removed line full-row fill) */
+  --brand-diff-removed-range: oklch(0.9223 0.0397 27.49);  /* #ffdcd7 — red.2 light (changed-character highlight inside removed line) */
+
+  /* Inverse-treatment danger button (rest = light fill + red text;
+   * hover swaps to red fill + white text). The rest-state fill mirrors
+   * --secondary; the rest-state text is a step deeper than fgColor.danger
+   * (Primer button.danger.fgColor.rest = #d1242f vs fgColor.danger #cf222e). */
+  --brand-danger-rest-text:   oklch(0.5567 0.2056 24.61);  /* #d1242f — danger-button text at rest */
+  --brand-danger-active-fill: oklch(0.4591 0.1777 21.87);  /* #a40e26 — danger-button active fill */
+
+  /* Code-block fills — Primer canvas.subtle / canvas.inset for fenced
+   * code blocks and inline <code>. */
+  --brand-code-fill:          oklch(0.9782 0.0034 247.86); /* #f6f8fa — same as --muted in light theme */
+
+  /* Contribution graph 5-step intensity ramp — Primer
+   * calendar-graph-day-bgColor-L{0..4}. The signature green-squares
+   * grid; the only token-defined surface in the catalogue that uses
+   * a 5-step single-hue ramp. */
+  --brand-contribution-l0: oklch(0.9782 0.0034 247.86); /* #f6f8fa — empty / neutral.1 */
+  --brand-contribution-l1: oklch(0.9574 0.0487 151.63); /* #dafbe1 — green.0 */
+  --brand-contribution-l2: oklch(0.9001 0.1024 151.39); /* #abf2bc — green.2 */
+  --brand-contribution-l3: oklch(0.5244 0.1401 148.04); /* #1a7f37 — green.5 (the documented mid step) */
+  --brand-contribution-l4: oklch(0.4034 0.0959 153.60); /* #0d572f — green.7 (deepest step) */
+
+  /* Body text neutrals — low-chroma utility tokens (~0.02 or less).
+   * GitHub names the ladder neutral.{9,8,7}; the values flip with
+   * theme via the dark block. */
+  --brand-body:         oklch(0.2542 0.0111 254.04);   /* #1f2328 — neutral.13 default body ink */
+  --brand-body-muted:   oklch(0.4951 0.0215 250.78);   /* #59636e — neutral.9 muted body / timestamps */
+  --brand-body-subtle:  oklch(0.5629 0.0196 256.33);   /* #6e7681 — neutral.8 / "Closed (not planned)" gray pill, conversation-meta */
+
+  /* Tab/inline status-pill helpers — the gray closed-state pill that
+   * sits between open/closed-completed (issue not planned). */
+  --brand-state-closed-neutral: oklch(0.5629 0.0196 256.33); /* #6e7681 — Primer neutral.8 light */
+}
+
+/* -- Dark theme ------------------------------------------------
+ * Primer ships a peer-equal dark theme (base/color/dark/dark.json5),
+ * not a synthesised lightness inversion. Every override below cites
+ * the documented Primer value. The semantic-palette swaps (blue.5 →
+ * blue.4, red.5 → red.4, etc.) are Carbon-style upstream-policy
+ * swaps — same hue, lifted lightness — not contrast bandaids.
+ * ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.1763 0.0140 258.36);          /* #0D1117 — Primer bgColor.default dark = neutral.1 */
+  --foreground: oklch(0.9703 0.0103 247.93);          /* #F0F6FC — Primer fgColor.default dark = neutral.12 */
+  --card: oklch(0.1763 0.0140 258.36);                /* #0D1117 — cards share canvas in dark too */
+  --card-foreground: oklch(0.9703 0.0103 247.93);
+  --popover: oklch(0.2198 0.0182 255.71);             /* #151B23 — popovers lift one step from canvas */
+  --popover-foreground: oklch(0.9703 0.0103 247.93);
+
+  /* Per-mode primary swap — Primer documents blue.5 light → blue.4 dark
+   * for the primary interactive accent (button-primary, link, focus ring).
+   * Moving the whole --primary family together (--primary / --ring /
+   * --sidebar-primary / --sidebar-ring) — not retroactive contrast
+   * tuning on a single token. */
+  --primary: oklch(0.6182 0.1935 258.33);             /* #2f81f7 — Primer fgColor.accent dark = blue.4 */
+  --primary-foreground: oklch(1.0000 0 0);
+  --secondary: oklch(0.2198 0.0182 255.71);           /* #151B23 — Primer button.default.bgColor.rest dark / bgColor.muted dark */
+  --secondary-foreground: oklch(0.9703 0.0103 247.93);
+  --muted: oklch(0.2198 0.0182 255.71);               /* #151B23 — Primer bgColor.muted dark = neutral.2 */
+  --muted-foreground: oklch(0.6769 0.0155 254.64);    /* #9198A1 — Primer fgColor.muted dark = neutral.9 */
+  --accent: oklch(0.2198 0.0182 255.71);              /* #151B23 — hover-fill role on dark */
+  --accent-foreground: oklch(0.9703 0.0103 247.93);
+  --destructive: oklch(0.6651 0.2046 26.96);          /* #f85149 — Primer fgColor.danger dark = red.4 */
+  --destructive-foreground: oklch(1.0000 0 0);
+
+  --border: oklch(0.3837 0.0179 254.74);              /* #3D444D — Primer borderColor.default dark = neutral.7 */
+  --input: oklch(0.3837 0.0179 254.74);               /* #3D444D — same as border in dark */
+  --ring: oklch(0.6182 0.1935 258.33);                /* tracks --primary dark */
+
+  --sidebar: oklch(0.1763 0.0140 258.36);             /* #0D1117 — sidebar shares page canvas */
+  --sidebar-foreground: oklch(0.9703 0.0103 247.93);
+  --sidebar-primary: oklch(0.6182 0.1935 258.33);     /* tracks --primary */
+  --sidebar-primary-foreground: oklch(1.0000 0 0);
+  --sidebar-accent: oklch(0.2198 0.0182 255.71);
+  --sidebar-accent-foreground: oklch(0.9703 0.0103 247.93);
+  --sidebar-border: oklch(0.3837 0.0179 254.74);
+  --sidebar-ring: oklch(0.6182 0.1935 258.33);
+
+  /* Primer data-viz palette dark — same hues, lifted lightness steps. */
+  --chart-1: oklch(0.6707 0.1758 147.06);             /* #33b14f — viz.1 green dark */
+  --chart-2: oklch(0.6182 0.1935 258.33);             /* #2f81f7 — viz.2 blue dark (uses primary blue) */
+  --chart-3: oklch(0.5843 0.2053 295.56);             /* #8957e5 — viz.3 purple dark = purple.5 */
+  --chart-4: oklch(0.6651 0.2046 26.96);              /* #f85149 — viz.4 red dark = red.4 */
+  --chart-5: oklch(0.7273 0.1534 52.83);              /* #f0883e — viz.5 orange dark */
+
+  /* CTA-green ladder dark — Primer button.primary.bgColor.{rest,hover}
+   * dark theme. Documented swap: green.5 light #1f883d → green.5 dark
+   * #238636 (same hue; lightness step is Primer's published value, not
+   * a synthesised tuning). */
+  --brand-cta-rest:  oklch(0.5460 0.1474 146.26);     /* #238636 — Primer button.primary.bgColor.rest dark */
+  --brand-cta-hover: oklch(0.6260 0.1633 146.76);     /* #30a147 — Primer button.primary.bgColor.hover dark */
+  --brand-cta-press: oklch(0.4681 0.1231 147.60);     /* #196c2e — Primer green.6 dark */
+
+  /* Semantic-palette dark swaps (Primer documented):
+   *   red.5 → red.4 (#cf222e → #f85149)
+   *   purple.5 → purple.5-dark variant (#8250df → #8957e5)
+   *   yellow.5 → yellow.3 (#9a6700 → #d29922)
+   *   orange.5 → orange.3 (#bc4c00 → #f0883e)
+   *   pink.5 → pink.5-dark (#bf3989 → #bf4b8a)
+   * Hue stays constant; only lightness lifts. */
+  --brand-accent-blue: oklch(0.7153 0.1518 253.31);   /* #58a6ff — Primer fgColor.accent dark = blue.3 (link/focus text colour on dark canvas) */
+  --brand-state-closed: oklch(0.6651 0.2046 26.96);   /* #f85149 — Primer fgColor.danger dark = red.4 */
+  --brand-state-merged: oklch(0.5843 0.2053 295.56);  /* #8957e5 — Primer fgColor.done dark = purple.5 */
+  --brand-attention:   oklch(0.7196 0.1401 79.91);    /* #d29922 — Primer fgColor.attention dark = yellow.3 */
+  --brand-severe:      oklch(0.7273 0.1534 52.83);    /* #f0883e — Primer fgColor.severe dark = orange.3 */
+  --brand-sponsors:    oklch(0.5855 0.1632 349.63);   /* #bf4b8a — Primer fgColor.sponsors dark = pink.5 */
+
+  /* Status-pill muted fills dark — Primer documents alpha-tinted variants
+   * of the same-hue scale steps. The pattern: same hue, much-reduced
+   * lightness so the fill reads as a quiet wash on the dark canvas. */
+  --brand-state-open-fill:    oklch(0.3054 0.0826 149.34); /* approximate green-tint at low lightness — Primer green.0 dark equivalent */
+  --brand-state-closed-fill:  oklch(0.4591 0.1777 21.87);  /* red.7 light reused at low lightness on dark */
+  --brand-state-merged-fill:  oklch(0.2790 0.0109 254.02); /* muted purple-tinted band on dark canvas */
+  --brand-accent-blue-fill:   oklch(0.2735 0.0179 251.92); /* blue-tinted callout fill on dark */
+  --brand-attention-fill:     oklch(0.2735 0.0179 251.92); /* yellow-tinted callout fill on dark; reuses cool neutral as base */
+  --brand-severe-fill:        oklch(0.2735 0.0179 251.92);
+  --brand-sponsors-fill:      oklch(0.2735 0.0179 251.92);
+
+  /* Diff fills dark — Primer uses same-hue scale-0 dark with reduced
+   * opacity. The dark green.0 #aff5b4 / red.0 #ffdcd7 read as quiet
+   * tints against #0D1117. */
+  --brand-diff-added-line:    oklch(0.4034 0.0959 153.60); /* deep-green band on dark canvas */
+  --brand-diff-added-range:   oklch(0.5244 0.1401 148.04); /* green.5 light step used as range-highlight on dark */
+  --brand-diff-removed-line:  oklch(0.4591 0.1777 21.87);  /* deep-red band on dark canvas */
+  --brand-diff-removed-range: oklch(0.5517 0.2051 24.53);  /* red.5 used as range-highlight on dark */
+
+  /* Inverse-treatment danger button dark variants */
+  --brand-danger-rest-text:   oklch(0.6651 0.2046 26.96); /* #f85149 — red.4 dark text colour at rest */
+  --brand-danger-active-fill: oklch(0.5517 0.2051 24.53); /* #cf222e — red.5 used as active fill on dark */
+
+  /* Code-block fills dark — Primer bgColor.muted dark / canvas.inset
+   * dark. */
+  --brand-code-fill:          oklch(0.2202 0.0157 256.82); /* #161b22 — Primer canvas.inset dark */
+
+  /* Hairlines / dividers dark — Primer neutral.{3,7} dark. */
+  --brand-hairline-soft:   oklch(0.2735 0.0179 251.92); /* #212830 — Primer neutral.3 dark */
+  --brand-hairline:        oklch(0.3837 0.0179 254.74); /* #3D444D — Primer borderColor.default dark = neutral.7 */
+  --brand-hairline-strong: oklch(0.6769 0.0155 254.64); /* #9198A1 — neutral.9 dark, used for stronger inverse-band dividers */
+
+  /* Contribution graph 5-step ramp dark — Primer's documented dark scale
+   * compresses to deeper green tones; empty step swaps to a tinted-cool
+   * near-black instead of light gray. */
+  --brand-contribution-l0: oklch(0.2198 0.0182 255.71); /* #151B23 — neutral.2 dark (empty cell) */
+  --brand-contribution-l1: oklch(0.3054 0.0826 149.34); /* deep-green tint */
+  --brand-contribution-l2: oklch(0.4034 0.0959 153.60); /* green.7 used as mid step on dark */
+  --brand-contribution-l3: oklch(0.5460 0.1474 146.26); /* green.5 dark = #238636 — same as CTA-rest */
+  --brand-contribution-l4: oklch(0.6707 0.1758 147.06); /* viz.1 green dark = brightest step */
+
+  /* Body text neutrals dark — Primer neutral.{9,8} dark. */
+  --brand-body:         oklch(0.9703 0.0103 247.93);   /* #F0F6FC — neutral.12 dark default body */
+  --brand-body-muted:   oklch(0.6769 0.0155 254.64);   /* #9198A1 — neutral.9 dark muted body */
+  --brand-body-subtle:  oklch(0.5287 0.0179 257.24);   /* #656C76 — Primer bgColor.emphasis dark / mid-gray inverse band */
+
+  /* Gray closed-state pill dark */
+  --brand-state-closed-neutral: oklch(0.6769 0.0155 254.64); /* neutral.9 dark — same family as muted body */
+
+  /* Polarity-locked tokens (--brand-canvas-night, --brand-on-dark,
+   * --brand-on-light, --brand-emphasis-light) intentionally NOT
+   * overridden — they hold a fixed surface regardless of theme.
+   * Per AUTHORING "Polarity-locked tokens: never lift in dark." */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.1763 0.0140 258.36);
+    --foreground: oklch(0.9703 0.0103 247.93);
+    --card: oklch(0.1763 0.0140 258.36);
+    --card-foreground: oklch(0.9703 0.0103 247.93);
+    --popover: oklch(0.2198 0.0182 255.71);
+    --popover-foreground: oklch(0.9703 0.0103 247.93);
+
+    --primary: oklch(0.6182 0.1935 258.33);
+    --primary-foreground: oklch(1.0000 0 0);
+    --secondary: oklch(0.2198 0.0182 255.71);
+    --secondary-foreground: oklch(0.9703 0.0103 247.93);
+    --muted: oklch(0.2198 0.0182 255.71);
+    --muted-foreground: oklch(0.6769 0.0155 254.64);
+    --accent: oklch(0.2198 0.0182 255.71);
+    --accent-foreground: oklch(0.9703 0.0103 247.93);
+    --destructive: oklch(0.6651 0.2046 26.96);
+    --destructive-foreground: oklch(1.0000 0 0);
+
+    --border: oklch(0.3837 0.0179 254.74);
+    --input: oklch(0.3837 0.0179 254.74);
+    --ring: oklch(0.6182 0.1935 258.33);
+
+    --sidebar: oklch(0.1763 0.0140 258.36);
+    --sidebar-foreground: oklch(0.9703 0.0103 247.93);
+    --sidebar-primary: oklch(0.6182 0.1935 258.33);
+    --sidebar-primary-foreground: oklch(1.0000 0 0);
+    --sidebar-accent: oklch(0.2198 0.0182 255.71);
+    --sidebar-accent-foreground: oklch(0.9703 0.0103 247.93);
+    --sidebar-border: oklch(0.3837 0.0179 254.74);
+    --sidebar-ring: oklch(0.6182 0.1935 258.33);
+
+    --chart-1: oklch(0.6707 0.1758 147.06);
+    --chart-2: oklch(0.6182 0.1935 258.33);
+    --chart-3: oklch(0.5843 0.2053 295.56);
+    --chart-4: oklch(0.6651 0.2046 26.96);
+    --chart-5: oklch(0.7273 0.1534 52.83);
+
+    --brand-cta-rest:  oklch(0.5460 0.1474 146.26);
+    --brand-cta-hover: oklch(0.6260 0.1633 146.76);
+    --brand-cta-press: oklch(0.4681 0.1231 147.60);
+
+    --brand-accent-blue: oklch(0.7153 0.1518 253.31);
+    --brand-state-closed: oklch(0.6651 0.2046 26.96);
+    --brand-state-merged: oklch(0.5843 0.2053 295.56);
+    --brand-attention:   oklch(0.7196 0.1401 79.91);
+    --brand-severe:      oklch(0.7273 0.1534 52.83);
+    --brand-sponsors:    oklch(0.5855 0.1632 349.63);
+
+    --brand-state-open-fill:    oklch(0.3054 0.0826 149.34);
+    --brand-state-closed-fill:  oklch(0.4591 0.1777 21.87);
+    --brand-state-merged-fill:  oklch(0.2790 0.0109 254.02);
+    --brand-accent-blue-fill:   oklch(0.2735 0.0179 251.92);
+    --brand-attention-fill:     oklch(0.2735 0.0179 251.92);
+    --brand-severe-fill:        oklch(0.2735 0.0179 251.92);
+    --brand-sponsors-fill:      oklch(0.2735 0.0179 251.92);
+
+    --brand-diff-added-line:    oklch(0.4034 0.0959 153.60);
+    --brand-diff-added-range:   oklch(0.5244 0.1401 148.04);
+    --brand-diff-removed-line:  oklch(0.4591 0.1777 21.87);
+    --brand-diff-removed-range: oklch(0.5517 0.2051 24.53);
+
+    --brand-danger-rest-text:   oklch(0.6651 0.2046 26.96);
+    --brand-danger-active-fill: oklch(0.5517 0.2051 24.53);
+
+    --brand-code-fill:          oklch(0.2202 0.0157 256.82);
+
+    --brand-hairline-soft:   oklch(0.2735 0.0179 251.92);
+    --brand-hairline:        oklch(0.3837 0.0179 254.74);
+    --brand-hairline-strong: oklch(0.6769 0.0155 254.64);
+
+    --brand-contribution-l0: oklch(0.2198 0.0182 255.71);
+    --brand-contribution-l1: oklch(0.3054 0.0826 149.34);
+    --brand-contribution-l2: oklch(0.4034 0.0959 153.60);
+    --brand-contribution-l3: oklch(0.5460 0.1474 146.26);
+    --brand-contribution-l4: oklch(0.6707 0.1758 147.06);
+
+    --brand-body:         oklch(0.9703 0.0103 247.93);
+    --brand-body-muted:   oklch(0.6769 0.0155 254.64);
+    --brand-body-subtle:  oklch(0.5287 0.0179 257.24);
+
+    --brand-state-closed-neutral: oklch(0.6769 0.0155 254.64);
+  }
+}

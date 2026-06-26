@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Blueprint preview shell — engineering schematic / technical drawing === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: -1px -1px;
+  min-height: 100vh;
+}
+.page { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+/* Title block — engineering drawing corner block */
+.title-block {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  border: 1px solid var(--primary);
+  background-color: var(--background);
+  margin-bottom: 2rem;
+}
+.title-block .body { padding: 1.25rem 1.5rem; border-right: 1px solid var(--primary); }
+.title-block .meta { padding: 1.25rem 1.5rem; font-size: 12px; }
+.title-block .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 11px;
+  color: var(--primary);
+  margin: 0 0 0.5rem 0;
+}
+.title-block h1 {
+  font-family: var(--font-sans, ui-sans-serif);
+  font-weight: 600;
+  font-size: 1.625rem;
+  letter-spacing: -0.005em;
+  margin: 0 0 0.5rem 0;
+  color: var(--foreground);
+}
+.title-block .subtitle { color: var(--muted-foreground); margin: 0; }
+.meta-row { display: flex; justify-content: space-between; padding: 0.25rem 0; border-bottom: 1px dotted var(--border); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .k { color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.08em; font-size: 10px; }
+.meta-row .v { color: var(--primary); font-weight: 500; }
+
+/* Schematic area */
+.schematic {
+  position: relative;
+  background-color: var(--card);
+  border: 1px solid var(--primary);
+  padding: 4rem 3rem;
+  margin-bottom: 2rem;
+  min-height: 360px;
+}
+.schematic-frame {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.node {
+  border: 2px solid var(--primary);
+  background-color: var(--background);
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+}
+.node .name {
+  font-family: var(--font-sans, ui-sans-serif);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--foreground);
+  margin-bottom: 0.25rem;
+}
+.node .id { font-size: 11px; color: var(--primary); letter-spacing: 0.08em; text-transform: uppercase; }
+.node.center { border-color: var(--primary); }
+.node.center .id { color: var(--primary); }
+
+.conn { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; }
+.conn .line { width: 100%; height: 2px; background-color: var(--primary); position: relative; }
+.conn .line::after { content: "▶"; position: absolute; right: -2px; top: -8px; color: var(--primary); font-size: 14px; }
+.conn .label { font-size: 10px; color: var(--muted-foreground); letter-spacing: 0.12em; text-transform: uppercase; }
+
+.dim {
+  position: absolute;
+  font-size: 10px;
+  color: var(--muted-foreground);
+  letter-spacing: 0.08em;
+}
+.dim-top { top: 1rem; left: 50%; transform: translateX(-50%); }
+.dim-bottom { bottom: 1rem; left: 50%; transform: translateX(-50%); }
+
+/* BOM table */
+.bom { border: 1px solid var(--primary); background-color: var(--background); }
+.bom-head {
+  display: grid;
+  grid-template-columns: 80px 1fr 100px 100px 100px;
+  padding: 0.625rem 1rem;
+  background-color: var(--card);
+  border-bottom: 1px solid var(--primary);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+  font-weight: 600;
+}
+.bom-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 100px 100px 100px;
+  padding: 0.625rem 1rem;
+  border-bottom: 1px dotted var(--border);
+  font-size: 13px;
+}
+.bom-row:last-child { border-bottom: none; }
+.bom-row .id { color: var(--primary); font-weight: 500; }
+.bom-row .qty { color: var(--foreground); }
+.bom-row .ver { color: var(--primary); }
+
+footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--primary);
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="title-block">
+    <div class="body">
+      <p class="eyebrow">Sheet 03 / 12 · Subsystem schematic</p>
+      <h1>Edge-publish data flow — write path</h1>
+      <p class="subtitle">CLI invocation → Worker validation → R2 write → KV index update → CDN propagation.</p>
+    </div>
+    <div class="meta">
+      <div class="meta-row"><span class="k">Project</span><span class="v">PUB-2026-Q2</span></div>
+      <div class="meta-row"><span class="k">Rev</span><span class="v">2.1.4</span></div>
+      <div class="meta-row"><span class="k">Drawn by</span><span class="v">CR</span></div>
+      <div class="meta-row"><span class="k">Checked</span><span class="v">RR</span></div>
+      <div class="meta-row"><span class="k">Date</span><span class="v">2026-05-21</span></div>
+      <div class="meta-row"><span class="k">Scale</span><span class="v">1:1</span></div>
+    </div>
+  </div>
+
+  <div class="schematic">
+    <span class="dim dim-top">— 1100 mm —</span>
+    <div class="schematic-frame">
+      <div class="node">
+        <div class="name">CLI</div>
+        <div class="id">U-01</div>
+      </div>
+      <div class="conn">
+        <div class="line"></div>
+        <span class="label">→ HTTPS · auth'd · ≤1 MB</span>
+      </div>
+      <div class="node center">
+        <div class="name">Edge Worker</div>
+        <div class="id">U-02 · central</div>
+      </div>
+    </div>
+    <div class="schematic-frame" style="margin-top: 2rem;">
+      <div class="node">
+        <div class="name">R2 bucket</div>
+        <div class="id">U-03 · object store</div>
+      </div>
+      <div class="conn" style="transform: rotate(180deg);">
+        <div class="line"></div>
+        <span class="label" style="transform: rotate(180deg);">← signed PUT</span>
+      </div>
+      <div class="node center">
+        <div class="name">KV index</div>
+        <div class="id">U-04 · slug → key</div>
+      </div>
+    </div>
+    <span class="dim dim-bottom">— 420 mm —</span>
+  </div>
+
+  <div class="bom">
+    <div class="bom-head">
+      <span>Ref</span><span>Component</span><span>Qty</span><span>Latency</span><span>Rev</span>
+    </div>
+    <div class="bom-row">
+      <span class="id">U-01</span><span>@halcyon/cli — publish action</span><span class="qty">1</span><span>22 ms</span><span class="ver">0.23.1</span>
+    </div>
+    <div class="bom-row">
+      <span class="id">U-02</span><span>halcyon-worker — request validator + signer</span><span class="qty">1</span><span>14 ms</span><span class="ver">2.1.4</span>
+    </div>
+    <div class="bom-row">
+      <span class="id">U-03</span><span>R2 bucket (artifacts-prod)</span><span class="qty">1</span><span>38 ms</span><span class="ver">—</span>
+    </div>
+    <div class="bom-row">
+      <span class="id">U-04</span><span>KV namespace (slug-index)</span><span class="qty">1</span><span>8 ms</span><span class="ver">—</span>
+    </div>
+    <div class="bom-row">
+      <span class="id">U-05</span><span>CDN propagation (100 PoPs)</span><span class="qty">1</span><span>120 ms</span><span class="ver">—</span>
+    </div>
+  </div>
+
+  <footer>
+    <span>visualize · __DESIGN_SYSTEM_NAME__</span>
+    <span>navy paper · warm-gold ink · grid 40 mm</span>
+  </footer>
+
+</div>
+</body>
+</html>

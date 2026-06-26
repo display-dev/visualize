@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d1d1f'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%230066cc'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. SF Pro display + Action Blue + parchment + edge-to-edge tile alternation.">
+<meta name="twitter:card" content="summary">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Apple-style preview shell — token-surface preview with the brand's
+   signature moves: thin black global nav, centered hero stacks, single
+   Action Blue accent, edge-to-edge tile alternation (white / parchment /
+   near-black tile), pill-grammar CTAs, SF Pro Display with negative
+   tracking. Content is Halcyon-themed (the catalogue's fictional brand),
+   not a clone of apple.com. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'SF Pro Text', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+}
+
+/* -- Thin black global nav (Apple signature) -- */
+.global-nav {
+  background: var(--brand-surface-black);
+  color: var(--brand-on-dark);
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.global-nav-inner {
+  width: 100%;
+  max-width: 1024px;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  letter-spacing: -0.12px;
+}
+.global-nav-mark {
+  font-family: 'SF Pro Display', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+}
+.global-nav-links {
+  display: flex;
+  gap: 2rem;
+  flex: 1;
+  justify-content: center;
+}
+.global-nav-links a {
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  opacity: 0.88;
+}
+.global-nav-links a:hover { opacity: 1; }
+.global-nav-utility {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 12px;
+}
+
+/* -- Tiles — full-bleed, color change IS the divider, no borders -- */
+.tile { padding: 5rem 1.5rem; text-align: center; }
+.tile-inner {
+  max-width: 980px;
+  margin: 0 auto;
+}
+.tile[data-mode="white"] { background: var(--background); color: var(--foreground); }
+.tile[data-mode="parchment"] { background: var(--brand-canvas-parchment); color: var(--foreground); }
+.tile[data-mode="dark"] {
+  background: var(--brand-surface-tile-1, var(--foreground));
+  color: var(--brand-on-dark, var(--primary-foreground));
+}
+[data-theme="dark"] .tile[data-mode="dark"] { background: var(--brand-surface-black); }
+[data-theme="dark"] .tile[data-mode="white"] { background: var(--background); }
+
+/* -- Hero typography — centered, negative tracking, weight 600 -- */
+/* Eyebrow uses link-blue (--brand-link, #0066cc) rather than system-blue
+ * (--primary, #0071e3) on light parchment — at 21px / weight 600,
+ * #0071e3 on #f5f5f7 lands at 4.31:1, below WCAG AA 4.5:1. Link-blue's
+ * deeper lightness clears AA, and per DESIGN.md the eyebrow reads as
+ * text-label copy (closer to link than CTA fill). */
+.hero-eyebrow {
+  font-family: 'SF Pro Display', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.19;
+  letter-spacing: 0.231px;
+  color: var(--brand-link);
+  margin: 0 0 0.5rem;
+}
+.tile[data-mode="dark"] .hero-eyebrow { color: var(--brand-primary-on-dark, var(--brand-link)); }
+.hero-display {
+  font-family: 'SF Pro Display', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.07;
+  letter-spacing: -0.28px;
+  margin: 0 0 0.75rem;
+}
+.hero-tagline {
+  font-family: 'SF Pro Display', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: 0.196px;
+  margin: 0 auto 1.5rem;
+  max-width: 36ch;
+  opacity: 0.95;
+}
+.tile[data-mode="dark"] .hero-tagline { opacity: 1; color: var(--brand-body-muted, var(--brand-on-dark)); }
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* -- Pill grammar (Apple signature) -- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--brand-radius-pill, 9999px);
+  font-family: 'SF Pro Text', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.374px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 80ms ease, background 120ms ease;
+}
+.pill:active { transform: scale(0.95); }
+.pill[data-variant="primary"] { background: var(--primary); color: var(--primary-foreground); }
+.pill[data-variant="primary"]:hover {
+  background: var(--brand-primary-hover);
+}
+.pill[data-variant="primary"]:active {
+  background: var(--brand-primary-active);
+}
+/* Outlined secondary on light surfaces uses Apple's link-blue (#0066cc)
+ * per DESIGN.md §4 button-secondary-neutral — the outlined-pill secondary
+ * is link-blue, not system-blue. */
+.pill[data-variant="ghost"] {
+  background: transparent;
+  color: var(--brand-link);
+  border-color: var(--brand-link);
+}
+/* Tile-dark uses the lifted Apple Blue (#2997ff). White text on
+ * #2997ff lands at 3.01:1 — switch to dark ink (Apple's actual
+ * dark-mode button treatment). */
+.tile[data-mode="dark"] .pill[data-variant="primary"] {
+  background: var(--brand-primary-on-dark, var(--primary));
+  color: oklch(0.15 0.005 286);
+}
+/* On dark canvas, Apple's Sky Link Blue (#2997ff) IS the equivalent of
+ * link-blue on dark — keep the outlined secondary on the brand-primary-
+ * on-dark token here. */
+.tile[data-mode="dark"] .pill[data-variant="ghost"] {
+  color: var(--brand-primary-on-dark, var(--primary));
+  border-color: var(--brand-primary-on-dark, var(--primary));
+}
+.pill[data-size="sm"] { padding: 0.5rem 1rem; font-size: 14px; letter-spacing: -0.224px; }
+
+/* -- Link-with-chevron (Apple's "Learn more" pattern) -- */
+/* Per DESIGN.md §4 button-secondary-link-chevron: NOT a button. Inline
+ * text link in link-blue (#0066cc), chevron-right appended via ::after,
+ * underline on hover. On dark canvas the colour switches to Sky Link
+ * Blue (#2997ff). */
+.link-chevron {
+  color: var(--brand-link);
+  text-decoration: none;
+  font-family: 'SF Pro Text', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.374px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.2em;
+}
+.link-chevron::after {
+  content: " \203A";
+  padding-inline-start: 0.24em;
+}
+.link-chevron:hover { text-decoration: underline; }
+.tile[data-mode="dark"] .link-chevron {
+  color: var(--brand-primary-on-dark, var(--brand-link));
+}
+
+/* -- Showcase sections — centered heading, left-aligned grid -- */
+.showcase-eyebrow {
+  font-family: 'SF Pro Display', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.19;
+  letter-spacing: 0.231px;
+  color: var(--brand-link);
+  margin: 0 0 0.5rem;
+  text-align: center;
+}
+.showcase-title {
+  font-family: 'SF Pro Display', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0;
+  margin: 0 auto 0.75rem;
+  text-align: center;
+  max-width: 24ch;
+}
+.showcase-lede {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  max-width: 48ch;
+  opacity: 0.78;
+}
+
+/* -- Color swatches: left-aligned grid in a centered tile -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+  text-align: left;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 11px);
+  padding: 0.75rem;
+  background: var(--background);
+  color: var(--foreground);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.tile[data-mode="parchment"] .swatch { background: var(--brand-surface-pearl, var(--background)); }
+.tile[data-mode="dark"] .swatch {
+  background: var(--brand-surface-tile-2, var(--card));
+  color: var(--brand-on-dark);
+  border-color: var(--brand-surface-tile-3, var(--border));
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--radius-sm, 8px);
+  border: 1px solid var(--brand-divider-soft, var(--border));
+}
+.swatch-name { font-family: 'SF Mono', ui-monospace, var(--font-mono); font-size: 12px; letter-spacing: -0.12px; }
+.swatch-role {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.224px;
+  color: var(--brand-ink-muted-48, var(--muted-foreground));
+  text-transform: uppercase;
+}
+
+/* -- Typography roles: left-aligned in a centered tile -- */
+.type-stack { display: flex; flex-direction: column; gap: 2rem; text-align: left; }
+.type-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--brand-divider-soft, var(--border));
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'SF Pro Text', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.224px;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted-48, var(--muted-foreground));
+  padding-top: 0.5rem;
+}
+.type-hero { font-family: 'SF Pro Display'; font-size: 56px; font-weight: 600; line-height: 1.07; letter-spacing: -0.28px; }
+.type-display { font-family: 'SF Pro Display'; font-size: 40px; font-weight: 600; line-height: 1.1; }
+.type-lead { font-family: 'SF Pro Display'; font-size: 28px; font-weight: 400; line-height: 1.14; letter-spacing: 0.196px; }
+.type-lead-airy { font-family: 'SF Pro Text'; font-size: 24px; font-weight: 300; line-height: 1.5; }
+.type-tagline { font-family: 'SF Pro Display'; font-size: 21px; font-weight: 600; line-height: 1.19; letter-spacing: 0.231px; }
+.type-body { font-size: 17px; font-weight: 400; line-height: 1.47; letter-spacing: -0.374px; }
+.type-caption { font-size: 14px; font-weight: 400; line-height: 1.43; letter-spacing: -0.224px; color: var(--brand-ink-muted-80, var(--muted-foreground)); }
+
+/* -- Components — pill row, utility cards, search input -- */
+.components { display: flex; flex-direction: column; gap: 2rem; text-align: left; }
+.component-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.utility-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+@media (max-width: 880px) { .utility-grid { grid-template-columns: 1fr; } }
+.utility-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 18px);
+  padding: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.tile[data-mode="parchment"] .utility-card { background: var(--background); }
+.utility-card-mark {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 0.5rem;
+  border-radius: var(--radius-sm, 8px);
+  background: var(--brand-canvas-parchment-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'SF Pro Display';
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--brand-ink-muted-80, var(--foreground));
+}
+.utility-card-name {
+  font-family: 'SF Pro Text';
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.374px;
+}
+.utility-card-price {
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--brand-ink-muted-80, var(--muted-foreground));
+}
+.utility-card-link {
+  margin-top: 0.5rem;
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--brand-link);
+  text-decoration: none;
+}
+.utility-card-link:hover { text-decoration: underline; }
+
+.search-input {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-pill, 9999px);
+  padding: 0.75rem 1.25rem;
+  height: 44px;
+  font-size: 17px;
+  letter-spacing: -0.374px;
+  color: var(--brand-ink-muted-48, var(--muted-foreground));
+  min-width: 16rem;
+}
+.search-input::before { content: "⌕"; font-size: 16px; opacity: 0.6; }
+
+/* -- Dense link footer (Apple signature: 2.41 line-height) -- */
+.footer {
+  background: var(--brand-canvas-parchment);
+  color: var(--brand-ink-muted-80, var(--muted-foreground));
+  padding: 4rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1024px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-col-title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.224px;
+  margin: 0 0 0.25rem;
+  color: var(--foreground);
+}
+.footer-col-list { list-style: none; padding: 0; margin: 0; font-size: 17px; line-height: 2.41; }
+.footer-col-list a { color: var(--brand-ink-muted-80, var(--muted-foreground)); text-decoration: none; }
+.footer-col-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1024px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-divider-soft, var(--border));
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  letter-spacing: -0.12px;
+  color: var(--brand-ink-muted-48, var(--muted-foreground));
+}
+</style>
+
+</head>
+<body>
+
+<nav class="global-nav" aria-label="Global">
+  <div class="global-nav-inner">
+    <span class="global-nav-mark">__DESIGN_SYSTEM_NAME__</span>
+    <div class="global-nav-links">
+      <a href="#">Tokens</a>
+      <a href="#">Typography</a>
+      <a href="#">Components</a>
+      <a href="#">Dark tile</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="global-nav-utility">
+      <a href="#" style="color: inherit; text-decoration: none;">⌕</a>
+      <a href="#" style="color: inherit; text-decoration: none;">◇</a>
+    </div>
+  </div>
+</nav>
+
+<section class="tile" data-mode="parchment" aria-label="Hero">
+  <div class="tile-inner">
+    <p class="hero-eyebrow">__DESIGN_SYSTEM_NAME__ · token surface</p>
+    <h1 class="hero-display">Reduced to the essentials.</h1>
+    <p class="hero-tagline">A token-surface preview rendered against the design system. Centered stacks, single accent, edge-to-edge tile alternation — the signature moves shown on neutral content.</p>
+    <div class="hero-ctas">
+      <button class="pill" data-variant="primary" type="button">Buy</button>
+      <a class="link-chevron" href="#">Learn more</a>
+    </div>
+  </div>
+</section>
+
+<section class="tile" data-mode="white" aria-label="Colour tokens">
+  <div class="tile-inner">
+    <p class="showcase-eyebrow">Tokens · Colour</p>
+    <h2 class="showcase-title">Action Blue carries every interactive element.</h2>
+    <p class="showcase-lede">A single brand accent. Two text inks (foreground + body-muted). Three canvases (white, parchment, near-black tile). Nothing else.</p>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--background); border-color: var(--brand-divider-soft, var(--border));"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-canvas-parchment);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-parchment</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-canvas-parchment-deep);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-parchment-deep</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-surface-pearl, var(--background));"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-pearl</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-surface-tile-1, var(--foreground));"></div><div class="swatch-role">Tile</div><div class="swatch-name">--brand-surface-tile-1</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-surface-tile-2, var(--foreground));"></div><div class="swatch-role">Tile</div><div class="swatch-name">--brand-surface-tile-2</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-surface-black);"></div><div class="swatch-role">Void</div><div class="swatch-name">--brand-surface-black</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-ink-muted-80, var(--muted-foreground));"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-muted-80</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-ink-muted-48, var(--muted-foreground));"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-muted-48</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--primary);"></div><div class="swatch-role">Action · CTA</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-link);"></div><div class="swatch-role">Action · Link</div><div class="swatch-name">--brand-link</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-primary-hover);"></div><div class="swatch-role">Action · Hover</div><div class="swatch-name">--brand-primary-hover</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-primary-active);"></div><div class="swatch-role">Action · Active</div><div class="swatch-name">--brand-primary-active</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-primary-focus, var(--primary));"></div><div class="swatch-role">Action · Focus</div><div class="swatch-name">--brand-primary-focus</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-primary-on-dark, var(--primary));"></div><div class="swatch-role">Action · On dark</div><div class="swatch-name">--brand-primary-on-dark</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="tile" data-mode="parchment" aria-label="Typography roles">
+  <div class="tile-inner">
+    <p class="showcase-eyebrow">Tokens · Typography</p>
+    <h2 class="showcase-title">SF Pro Display and Text, tight tracking.</h2>
+    <p class="showcase-lede">Display sizes use weight 600 with negative letter-spacing — the signature Apple-tight cadence. Body at 17px with -0.374px tracking. Weight 500 is deliberately absent.</p>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Hero</span><span class="type-hero">Halcyon.</span></div>
+      <div class="type-row"><span class="type-label">Display</span><span class="type-display">Reduced to the essentials.</span></div>
+      <div class="type-row"><span class="type-label">Lead</span><span class="type-lead">An operating system for engineering teams.</span></div>
+      <div class="type-row"><span class="type-label">Lead airy</span><span class="type-lead-airy">Weight 300, used sparingly on large reads where the content should feel airy.</span></div>
+      <div class="type-row"><span class="type-label">Tagline</span><span class="type-tagline">Tokens · Components · Templates</span></div>
+      <div class="type-row"><span class="type-label">Body</span><span class="type-body">SF Pro Text at 17 pixels, weight 400, line-height 1.47. The extra pixel gives the page an unmistakable reading-not-scanning pace.</span></div>
+      <div class="type-row"><span class="type-label">Caption</span><span class="type-caption">14 pixels, -0.224px tracking. Secondary captions, button text, fine print.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="tile" data-mode="white" aria-label="Component vocabulary">
+  <div class="tile-inner">
+    <p class="showcase-eyebrow">Vocabulary · Components</p>
+    <h2 class="showcase-title">Pills, utility cards, hairline inputs.</h2>
+    <p class="showcase-lede">9999px pill radius for actions. 18px utility-card radius. 8px dark-utility radius. Three grammars, applied with discipline.</p>
+    <div class="components">
+      <div class="component-row" aria-label="Pill variants">
+        <button class="pill" data-variant="primary" type="button">Buy</button>
+        <button class="pill" data-variant="ghost" type="button">Add to bag</button>
+        <button class="pill" data-variant="primary" data-size="sm" type="button">Small</button>
+        <button class="pill" data-variant="ghost" data-size="sm" type="button">Small ghost</button>
+      </div>
+
+      <div class="component-row" aria-label="Link with chevron">
+        <a class="link-chevron" href="#">Learn more</a>
+        <a class="link-chevron" href="#">See the lineup</a>
+        <a class="link-chevron" href="#">Read the spec</a>
+      </div>
+
+      <div class="component-row" aria-label="Search">
+        <span class="search-input">Search the catalogue</span>
+      </div>
+
+      <div class="utility-grid" aria-label="Utility cards">
+        <div class="utility-card">
+          <div class="utility-card-mark">H</div>
+          <div class="utility-card-name">Halcyon Core</div>
+          <div class="utility-card-price">From $1,299</div>
+          <a class="utility-card-link" href="#">Buy</a>
+        </div>
+        <div class="utility-card">
+          <div class="utility-card-mark">M</div>
+          <div class="utility-card-name">Halcyon Mini</div>
+          <div class="utility-card-price">From $799</div>
+          <a class="utility-card-link" href="#">Buy</a>
+        </div>
+        <div class="utility-card">
+          <div class="utility-card-mark">A</div>
+          <div class="utility-card-name">Halcyon Air</div>
+          <div class="utility-card-price">From $499</div>
+          <a class="utility-card-link" href="#">Buy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tile" data-mode="dark" aria-label="Dark tile">
+  <div class="tile-inner">
+    <p class="hero-eyebrow">Surface · Tile-1</p>
+    <h2 class="hero-display">Dark tile. Same grammar.</h2>
+    <p class="hero-tagline">The color change IS the divider. No borders, no shadows on chrome — only the surface flips. Action Blue brightens to Sky Link Blue on dark for legibility.</p>
+    <div class="hero-ctas">
+      <button class="pill" data-variant="primary" type="button">Watch the demo</button>
+      <a class="link-chevron" href="#">Learn more</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <p class="footer-col-title">Token surface</p>
+      <ul class="footer-col-list">
+        <li><a href="#">Background</a></li>
+        <li><a href="#">Foreground</a></li>
+        <li><a href="#">Primary</a></li>
+        <li><a href="#">Border</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Typography</p>
+      <ul class="footer-col-list">
+        <li><a href="#">SF Pro Display</a></li>
+        <li><a href="#">SF Pro Text</a></li>
+        <li><a href="#">Inter fallback</a></li>
+        <li><a href="#">Letter-spacing scale</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Components</p>
+      <ul class="footer-col-list">
+        <li><a href="#">Pill grammar</a></li>
+        <li><a href="#">Utility cards</a></li>
+        <li><a href="#">Search input</a></li>
+        <li><a href="#">Dense links</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-col-list">
+        <li><a href="#">halcyon.dev</a></li>
+        <li><a href="#">app.halcyon.dev</a></li>
+        <li><a href="#">hlc.so</a></li>
+        <li><a href="#">@halcyon/cli</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.22</span>
+    <span>SF Pro · Action Blue · parchment · pill · tile</span>
+  </div>
+</footer>
+
+</body>
+</html>

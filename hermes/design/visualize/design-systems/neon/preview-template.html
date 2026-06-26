@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Neon preview shell — dark-canonical cyberpunk product launch === */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  min-height: 100vh;
+}
+.shell { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+
+/* Mono-prominent chrome typography */
+.mono-chrome {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+.label-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+.label-tag::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  box-shadow: var(--glow-accent, 0 0 12px var(--accent));
+}
+
+/* Hero block */
+.hero { margin-bottom: 3rem; }
+.hero h1 {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 500;
+  line-height: 1.05;
+  margin: 0 0 1.25rem 0;
+}
+.hero h1 .accent { color: var(--primary); text-shadow: var(--glow-primary, 0 0 16px var(--primary)); }
+.hero .tagline {
+  font-size: 1.25rem;
+  color: var(--muted-foreground);
+  line-height: 1.5;
+  max-width: 56ch;
+  margin: 0 0 2rem 0;
+}
+
+/* Glow buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm, 0.125rem);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow 200ms;
+}
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: var(--glow-primary, 0 0 14px var(--primary));
+}
+.btn-primary:hover { box-shadow: 0 0 24px var(--primary), 0 0 48px var(--primary); }
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.btn-outline:hover { box-shadow: var(--glow-primary, 0 0 14px var(--primary)); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.875rem; }
+
+/* Card grid */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+@media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+
+.card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 0.25rem);
+  padding: 1.75rem;
+  box-shadow: var(--glow-soft, 0 0 10px rgb(0 0 0 / 0.20));
+}
+.card h2 {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--accent);
+  margin: 0 0 1rem 0;
+}
+.card .stat {
+  font-family: var(--font-mono);
+  font-size: 2.5rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--primary);
+  text-shadow: var(--glow-primary, 0 0 16px var(--primary));
+  margin: 0.5rem 0;
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Terminal-style code block */
+.terminal {
+  background-color: var(--background);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md, 0.25rem);
+  padding: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  margin-top: 1rem;
+  box-shadow: var(--glow-soft, 0 0 8px var(--primary));
+}
+.terminal .prompt { color: var(--accent); }
+.terminal .cmd { color: var(--foreground); }
+.terminal .out { color: var(--muted-foreground); }
+.terminal .ok { color: var(--primary); }
+
+/* Roadmap rail */
+.rail { margin-top: 3rem; }
+.rail h3 {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  margin: 0 0 1rem 0;
+}
+.rail-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr auto;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+.rail-row:last-child { border-bottom: none; }
+.rail-row .date { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted-foreground); }
+.rail-row .name { font-size: 0.9375rem; color: var(--foreground); }
+.rail-row .status {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background-color: var(--card);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+.rail-row .status.cyan { border-color: var(--accent); color: var(--accent); }
+.rail-row .status.muted { border-color: var(--border); color: var(--muted-foreground); }
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="hero">
+    <span class="label-tag">v2.0 launching · 21.05.2026</span>
+    <h1>Render at <span class="accent">light</span>.<br>Ship at glow.</h1>
+    <p class="tagline">Edge-rendered artifacts behind company SSO. Every publish is signed, every comment is auth'd, every roll-out is one push.</p>
+    <div class="btn-row">
+      <a href="#" class="btn btn-primary">Launch product</a>
+      <a href="#" class="btn btn-outline">Read changelog</a>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Edge p50</h2>
+      <span class="stat">38ms</span>
+      <p style="color: var(--muted-foreground); font-size: 0.875rem; margin: 0;">100 PoPs, no cold start.</p>
+    </div>
+    <div class="card">
+      <h2>Active streams</h2>
+      <span class="stat">12,408</span>
+      <p style="color: var(--muted-foreground); font-size: 0.875rem; margin: 0;">+18% over the last 7 days.</p>
+    </div>
+  </div>
+
+  <div class="terminal">
+    <div><span class="prompt">$</span> <span class="cmd">halcyon deploy api --region eu-west</span></div>
+    <div class="out">→ uploading 218 KB to edge cache</div>
+    <div class="out">→ signing with ed25519 keypair</div>
+    <div class="out">→ propagating to 100 PoPs</div>
+    <div><span class="ok">✓</span> <span class="cmd">https://team.hlc.so/x7K9Lq3M-q1-product-review</span></div>
+  </div>
+
+  <div class="rail">
+    <h3>// Roadmap</h3>
+    <div class="rail-row">
+      <span class="date">2026.06.04</span>
+      <span class="name">Streaming-render: HLS for artifact-as-video</span>
+      <span class="status">In flight</span>
+    </div>
+    <div class="rail-row">
+      <span class="date">2026.06.18</span>
+      <span class="name">MCP write-tool surface: comments + branding</span>
+      <span class="status cyan">Spec</span>
+    </div>
+    <div class="rail-row">
+      <span class="date">2026.07.02</span>
+      <span class="name">Custom domain + edge cert provisioning</span>
+      <span class="status muted">Backlog</span>
+    </div>
+  </div>
+
+  <footer>
+    <span>// visualize · __DESIGN_SYSTEM_NAME__</span>
+    <span>// glow over depth</span>
+  </footer>
+
+</div>
+</body>
+</html>

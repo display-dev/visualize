@@ -1,0 +1,1838 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>apple-style — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d1d1f'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%230066cc'/%3E%3C/svg%3E">
+<meta property="og:title" content="apple-style — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. SF Pro display + Action Blue + parchment + edge-to-edge tile alternation.">
+<meta name="twitter:card" content="summary">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/apple-style/tokens.css) === */
+/**
+ * design-systems/apple-style/tokens.css
+ *
+ * Live-verified against apple.com on 2026-05-26 (homepage, /iphone, /mac,
+ * /apple-watch, /apple-vision-pro, /apple-music, /newsroom, /shop,
+ * support.apple.com, developer.apple.com, developer.apple.com/fonts).
+ * Companion to ./DESIGN.md.
+ *
+ * canonical-canvas: both. Apple ships per-tile polarity on the homepage
+ * tile sequence (light + dark tiles on the same page); the global nav
+ * natively respects prefers-color-scheme via #fafafc (light) / #161617
+ * (dark); developer.apple.com offers an explicit Light/Dark/Auto toggle.
+ * Treating either polarity alone misrepresents the live brand.
+ *
+ * Dual-blue identity: --primary is system-blue #0071e3 (CTA fill);
+ * --brand-link is link-blue #0066cc (inline-link text colour). Apple
+ * uses these distinctly — never substitute one for the other.
+ *
+ * Intentional drift: --brand-ink-muted-48 holds an AA-tuned utility
+ * neutral. Documented per DESIGN.md §2 §Drift.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* shadcn-semantic core */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2316 0.0038 286.0988);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2316 0.0038 286.0988);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2316 0.0038 286.0988);
+  /* --primary: system-blue #0071e3, Apple's CTA-fill blue (the
+   * .button-elevated background on Buy / Shop CTAs). Per DESIGN.md §2,
+   * Apple ships TWO blues — system-blue #0071e3 for filled buttons and
+   * link-blue #0066cc for body-text hyperlinks. shadcn-semantic --primary
+   * carries the CTA-fill role; the inline-link colour lives in
+   * --brand-link below. Never substitute one for the other. */
+  --primary: oklch(0.5629 0.1933 256.1557);
+  --primary-foreground: oklch(1 0 0);
+  /* --secondary / --muted: parchment #f5f5f7. Per DESIGN.md §2 §Drift
+   * item 2, Apple's marketing band-alternation surface is parchment, not
+   * pure white. --background stays white (Apple does ship pure white on
+   * /iphone, /support, /newsroom — see DESIGN.md §2); parchment is the
+   * secondary/muted band fill between tiles. */
+  --secondary: oklch(0.9707 0.0027 286.3501);
+  --secondary-foreground: oklch(0.2316 0.0038 286.0988);
+  --muted: oklch(0.9707 0.0027 286.3501);
+  --muted-foreground: oklch(0.5399 0.0077 286.1391);
+  /* --accent: localnav pressed-state fill #EDEDF2 — Apple's only
+   * documented "accent" surface beyond parchment, per DESIGN.md §2 and
+   * ac-localnav.built.css (background-active: #EDEDF2). */
+  --accent: oklch(0.9475 0.0067 286.2716);
+  --accent-foreground: oklch(0.2316 0.0038 286.0988);
+  --destructive: oklch(0.5308 0.2178 29.2339);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9067 0 0);
+  --input: oklch(0.9067 0 0);
+  /* --ring tracks --primary (system-blue #0071e3) — Apple's focus-ring
+   * colour, per globalheader.css `outline:2px solid var(--sk-focus-color,
+   * #0071e3)`. Primary-family asymmetry rule: ring/primary/sidebar-primary
+   * /sidebar-ring move together. */
+  --ring: oklch(0.5629 0.1933 256.1557);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.2316 0.0038 286.0988);
+  --sidebar-primary: oklch(0.5629 0.1933 256.1557);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9475 0.0067 286.2716);
+  --sidebar-accent-foreground: oklch(0.2316 0.0038 286.0988);
+  --sidebar-border: oklch(0.9067 0 0);
+  --sidebar-ring: oklch(0.5629 0.1933 256.1557);
+  --chart-1: oklch(0.8147 0.0776 252.8793);
+  --chart-2: oklch(0.6690 0.1808 251.8396);
+  --chart-3: oklch(0.5629 0.1933 256.1557);
+  --chart-4: oklch(0.5220 0.1771 255.8297);
+  --chart-5: oklch(0.4523 0.2032 263.3978);
+
+  /* radius scale */
+  --radius-sm: 8px;
+  --radius-md: 11px;
+  --radius-lg: 18px;
+  --radius-xl: calc(0.625rem + 4px);
+
+  /* brand-specific radius extras */
+  --brand-radius-none: 0px;
+  --brand-radius-xs: 5px;
+  --brand-radius-pill: 9999px;
+  --brand-radius-full: 9999px;
+
+  /* typography tokens */
+  --font-sans: "SF Pro Text", system-ui, -apple-system, "Inter", sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: "SF Pro Display", system-ui, -apple-system, "Inter", sans-serif;
+
+  /* type scale tokens */
+  --text-display: 56px;
+  --text-heading: 40px;
+  --text-title: 21px;
+  --text-base: 17px;
+  --leading-tight: 1.07;
+  --leading-normal: 1.47;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: 0em;
+
+  /* shadow scale */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* Brand-extras — Apple's own documented token surface. */
+
+  /* --brand-link: link-blue #0066cc — Apple's body-text hyperlink colour
+   * (--sk-body-link-color in main.built.css). The OTHER blue, distinct
+   * from --primary's system-blue. Use on inline links and the "Learn
+   * more ›" link-with-chevron pattern. Per DESIGN.md §2 §Drift item 1. */
+  --brand-link: oklch(0.5220 0.1771 255.8297);
+
+  /* --brand-primary-hover / --brand-primary-active: system-blue's hover
+   * and pressed states from ac-localnav.built.css's `background-hover:
+   * #0076DF` and `background-active: #006EDB`, used on the in-page
+   * sticky Buy CTA. Per DESIGN.md §2 §Drift item 6. */
+  --brand-primary-hover: oklch(0.5708 0.1825 254.1352);
+  --brand-primary-active: oklch(0.5505 0.1868 255.8249);
+
+  /* --brand-primary-focus: kept as alias of --primary (system-blue
+   * #0071e3 = Apple's --sk-focus-color outline value). Pre-refresh
+   * consumers may still reference this name. */
+  --brand-primary-focus: oklch(0.5629 0.1933 256.1557);
+
+  /* --brand-primary-on-dark: Sky Link Blue #2997ff — Apple's documented
+   * dark-canvas link colour from .ac-gf-block-dark { --sk-blocklink-color:
+   * rgb(41, 151, 255) } in ac-globalfooter.built.css. */
+  --brand-primary-on-dark: oklch(0.6690 0.1808 251.8396);
+
+  --brand-body: oklch(0.2316 0.0038 286.0988);
+  --brand-body-on-dark: oklch(1 0 0);
+  --brand-body-muted: oklch(0.8452 0 0);
+  --brand-ink-muted-80: oklch(0.3211 0 0);
+  /* --brand-ink-muted-48: utility neutral (chroma ≈ 0) holding an
+   * AA-tuned value for swatch-role + type-label use on Apple's white +
+   * parchment canvas. Per AUTHORING.md "Brand identity vs. utility
+   * neutrals" — chroma ≈ 0 lifts are permitted for utility neutrals.
+   * Documented as intentional drift per DESIGN.md §2 §Drift item 5. */
+  --brand-ink-muted-48: oklch(0.5000 0 0);
+  --brand-divider-soft: oklch(0.9551 0 0);
+
+  /* --brand-canvas-parchment / --brand-canvas-parchment-deep: Apple's
+   * two parchment surfaces. #f5f5f7 is the body bg between tiles and
+   * the lighter band-alternation fill; #EDEDF2 is the deeper parchment
+   * used as the localnav pressed-state fill and as the more visible
+   * hairline. --background stays pure white at the page-body root
+   * (Apple ships pure white on /iphone, /support, /newsroom). Per
+   * DESIGN.md §2 §Drift item 3. */
+  --brand-canvas-parchment: oklch(0.9707 0.0027 286.3501);
+  --brand-canvas-parchment-deep: oklch(0.9475 0.0067 286.2716);
+
+  --brand-surface-pearl: oklch(0.9857 0.0026 286.3511);
+  --brand-surface-tile-1: oklch(0.2735 0.0036 286.1561);
+  --brand-surface-tile-2: oklch(0.2858 0.0036 286.1692);
+  --brand-surface-tile-3: oklch(0.2653 0.0037 286.1464);
+  --brand-surface-black: oklch(0 0 0);
+  --brand-surface-chip-translucent: oklch(0.8652 0.0068 286.2561);
+  --brand-on-dark: oklch(1 0 0);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.2735 0.0036 286.1561);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.2858 0.0036 286.1692);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.2858 0.0036 286.1692);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.6690 0.1808 251.8396);
+  /* --primary-foreground: dark ink on Apple's Sky Link Blue dark
+   * primary (#2997ff). Apple uses #2997ff as a body-link colour on dark
+   * (per .ac-gf-block-dark { --sk-blocklink-color }) — never as a CTA
+   * fill — so there is no live-observed text-on-#2997ff colour. Dark
+   * ink mirrors Apple's near-black foreground for legibility on the
+   * lighter blue. */
+  --primary-foreground: oklch(0.1500 0.0050 286);
+  --secondary: oklch(0.2858 0.0036 286.1692);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.2858 0.0036 286.1692);
+  --muted-foreground: oklch(0.7200 0.0030 286);
+  --accent: oklch(0.3200 0.0036 286);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.6200 0.2178 29);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.3800 0.0036 286);
+  --input: oklch(0.3800 0.0036 286);
+  --ring: oklch(0.6690 0.1808 251.8396);
+  --sidebar: oklch(0.2653 0.0037 286.1464);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.6690 0.1808 251.8396);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.3200 0.0036 286);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3800 0.0036 286);
+  --sidebar-ring: oklch(0.6690 0.1808 251.8396);
+  --chart-1: oklch(0.8147 0.0776 252.8793);
+  --chart-2: oklch(0.6690 0.1808 251.8396);
+  --chart-3: oklch(0.5629 0.1933 256.1557);
+  --chart-4: oklch(0.5220 0.1771 255.8297);
+  --chart-5: oklch(0.4523 0.2032 263.3978);
+
+  /* Brand extras — dark-context overrides. Apple's dark-canvas link
+   * colour is Sky Link Blue #2997ff (per ac-globalfooter.built.css
+   * `.ac-gf-block-dark { --sk-blocklink-color: rgb(41, 151, 255) }`).
+   * Hover/active for system-blue on dark are not documented by Apple
+   * — fall through to the cascade rather than synthesising values. */
+  --brand-link: oklch(0.6690 0.1808 251.8396);
+  --brand-canvas-parchment: oklch(0.2653 0.0037 286.1464);
+  --brand-canvas-parchment-deep: oklch(0.2858 0.0036 286.1692);
+  --brand-surface-pearl: oklch(0.2858 0.0036 286.1692);
+  --brand-divider-soft: oklch(0.3400 0.0036 286);
+  --brand-ink-muted-80: oklch(0.7800 0.0030 286);
+  --brand-ink-muted-48: oklch(0.6800 0.0030 286);
+  --brand-body: oklch(1 0 0);
+  --brand-body-muted: oklch(0.8000 0.0030 286);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background: oklch(0.2735 0.0036 286.1561);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2858 0.0036 286.1692);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.2858 0.0036 286.1692);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(0.6690 0.1808 251.8396);
+    --primary-foreground: oklch(0.1500 0.0050 286);
+    --secondary: oklch(0.2858 0.0036 286.1692);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.2858 0.0036 286.1692);
+    --muted-foreground: oklch(0.7200 0.0030 286);
+    --accent: oklch(0.3200 0.0036 286);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.6200 0.2178 29);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.3800 0.0036 286);
+    --input: oklch(0.3800 0.0036 286);
+    --ring: oklch(0.6690 0.1808 251.8396);
+    --sidebar: oklch(0.2653 0.0037 286.1464);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(0.6690 0.1808 251.8396);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.3200 0.0036 286);
+    --sidebar-accent-foreground: oklch(1 0 0);
+    --sidebar-border: oklch(0.3800 0.0036 286);
+    --sidebar-ring: oklch(0.6690 0.1808 251.8396);
+    --chart-1: oklch(0.8147 0.0776 252.8793);
+    --chart-2: oklch(0.6690 0.1808 251.8396);
+    --chart-3: oklch(0.5629 0.1933 256.1557);
+    --chart-4: oklch(0.5220 0.1771 255.8297);
+    --chart-5: oklch(0.4523 0.2032 263.3978);
+
+    --brand-link: oklch(0.6690 0.1808 251.8396);
+    --brand-canvas-parchment: oklch(0.2653 0.0037 286.1464);
+    --brand-canvas-parchment-deep: oklch(0.2858 0.0036 286.1692);
+    --brand-surface-pearl: oklch(0.2858 0.0036 286.1692);
+    --brand-divider-soft: oklch(0.3400 0.0036 286);
+    --brand-ink-muted-80: oklch(0.7800 0.0030 286);
+    --brand-ink-muted-48: oklch(0.6800 0.0030 286);
+    --brand-body: oklch(1 0 0);
+    --brand-body-muted: oklch(0.8000 0.0030 286);
+  }
+}
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* === preview-kit/fixture-styles/legacy-preview-components.css === */
+/* === preview-kit/fixture-styles/legacy/alert/alert.css === */
+@layer components {
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      color: var(--destructive);
+
+      & .alert-title {
+        color: var(--destructive);
+      }
+
+      & .alert-description {
+        color: var(--destructive);
+        opacity: 0.9;
+      }
+
+      & .alert-icon {
+        color: var(--destructive);
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--foreground);
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  .alert-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .alert-action {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/badge/badge.css === */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &[data-variant="outline"] {
+      background-color: transparent;
+      border-color: currentColor;
+      color: var(--foreground);
+    }
+
+    &[data-size="sm"] {
+      padding: 0.0625rem 0.5rem;
+      font-size: 0.6875rem;
+    }
+
+    &:is(a):hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge {
+      background-color: ButtonFace;
+      color: ButtonText;
+      border-color: ButtonText;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/card/card.css === */
+@layer components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    padding: 1.5rem;
+
+    &[data-variant="interactive"] {
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background-color: var(--accent);
+        border-color: var(--accent-foreground);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+    }
+
+    &[data-variant="elevated"] {
+      border: none;
+      box-shadow: 0 1px 2px 0 oklch(0 0 0 / 0.06),
+                  0 4px 8px -2px oklch(0 0 0 / 0.08);
+    }
+
+    &[data-variant="ghost"] {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--card-foreground);
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .card-content {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  @media (forced-colors: active) {
+    .card { border-color: CanvasText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/progress/progress.css === */
+@layer components {
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &::-webkit-progress-bar {
+      background-color: var(--secondary);
+      border-radius: 9999px;
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--primary);
+      border-radius: 9999px;
+      transition: inline-size 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--primary);
+      border-radius: 9999px;
+    }
+
+    &[data-size="sm"] {
+      height: 0.25rem;
+    }
+
+    &:indeterminate {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary) 0%,
+        var(--primary) 50%,
+        var(--secondary) 100%
+      );
+      background-size: 200% 100%;
+      animation: progress-indeterminate 1.4s linear infinite;
+    }
+
+    &:indeterminate::-webkit-progress-bar { background: transparent; }
+    &:indeterminate::-moz-progress-bar { background: transparent; }
+  }
+
+  @keyframes progress-indeterminate {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress:indeterminate {
+      animation: progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+  }
+
+  .progress-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .progress-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+  }
+
+  @media (forced-colors: active) {
+    .progress {
+      background-color: Field;
+      border: 1px solid CanvasText;
+    }
+    .progress::-webkit-progress-value,
+    .progress::-moz-progress-bar {
+      background-color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/separator/separator.css === */
+/* -- Separator component ---------------------------------------- */
+
+@layer components {
+  .separator {
+    border: none;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--border);
+
+    /* Horizontal (default) */
+    height: 1px;
+    width: 100%;
+
+    /* Vertical */
+    &[data-orientation="vertical"] {
+      height: auto;
+      width: 1px;
+      align-self: stretch;
+    }
+
+    /* Decorative — hidden from assistive technology */
+    &[aria-hidden="true"],
+    &[role="none"] {
+      /* No visual change — purely semantic */
+    }
+  }
+
+  /* -- Labeled separator ------------------------------------- */
+  .separator-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & .separator { flex: 1; }
+
+    & span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------- */
+  @media (forced-colors: active) {
+    .separator {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .separator {
+      background: var(--foreground);
+      height: 2px;
+
+      &[data-orientation="vertical"] {
+        width: 2px;
+        height: auto;
+      }
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/statistic/statistic.css === */
+@layer components {
+  .statistic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .statistic-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.01em;
+  }
+
+  .statistic-value {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .statistic-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .statistic-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 500;
+
+    & svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &[data-trend="up"] {
+      color: #16a34a;
+    }
+
+    &[data-trend="down"] {
+      color: #dc2626;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/table/table.css === */
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    container-type: inline-size;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  .table-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  .table-head {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-lg);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-lg);
+    }
+  }
+
+  .table-row {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    tbody &:hover {
+      background-color: var(--muted);
+    }
+  }
+
+  .table-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    color: var(--foreground);
+  }
+
+  tfoot .table-row {
+    background-color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  tfoot .table-cell:first-child {
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  tfoot .table-cell:last-child {
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  /* -- Container query: compact table in narrow containers -- */
+  @container (max-width: 480px) {
+    .table-head,
+    .table-cell { padding: 0.5rem 0.75rem; font-size: 0.8125rem; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/tabs/tabs.css === */
+@layer components {
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tabs-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-trigger {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &[aria-selected="true"] {
+      color: var(--foreground);
+      border-bottom-color: var(--primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .tabs-panel {
+    color: var(--foreground);
+  }
+
+  .tabs-panel[hidden] {
+    display: none;
+  }
+
+  /* CSS-only radio-driven variant */
+  .tabs[data-variant="radio"] {
+    display: grid;
+    grid-template-columns: repeat(var(--tab-count, 4), auto) 1fr;
+
+    & .tabs-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .tabs-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & .tabs-panel {
+      grid-column: 1 / -1;
+      display: none;
+    }
+  }
+
+  .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+    color: var(--foreground);
+    border-bottom-color: var(--primary);
+  }
+
+  @media (forced-colors: active) {
+    .tabs-trigger[aria-selected="true"],
+    .tabs[data-variant="radio"] .tabs-radio:checked + .tabs-trigger {
+      border-bottom-color: Highlight;
+      color: Highlight;
+    }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/timeline/timeline.css === */
+@layer components {
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.4375rem;
+      top: 0.75rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background-color: var(--border);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 9999px;
+      background-color: var(--foreground);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    &[data-state="active"]::after {
+      background-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px oklch(from var(--primary) l c h / 0.18);
+    }
+
+    &[data-state="upcoming"]::after {
+      background-color: var(--background);
+    }
+
+    &[data-state="upcoming"] .timeline-title,
+    &[data-state="upcoming"] .timeline-description,
+    &[data-state="upcoming"] .timeline-time {
+      color: var(--muted-foreground);
+    }
+  }
+
+  .timeline-time {
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .timeline-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .timeline-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  @media (forced-colors: active) {
+    .timeline-item::before { background-color: CanvasText; }
+    .timeline-item::after { background-color: LinkText; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/toast/toast.css === */
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.12),
+                0 2px 4px -1px oklch(0 0 0 / 0.06);
+    min-width: 18rem;
+    max-width: 28rem;
+
+    /* Native enter via @starting-style */
+    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &[data-variant="destructive"] {
+      border-color: var(--destructive);
+      background-color: oklch(from var(--destructive) l c h / 0.08);
+
+      & .toast-title { color: var(--destructive); }
+    }
+
+    &[data-variant="success"] {
+      border-color: var(--primary);
+      background-color: oklch(from var(--primary) l c h / 0.06);
+
+      & .toast-title { color: var(--primary); }
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .toast-description {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    overflow-wrap: anywhere;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .toast-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 1.125rem;
+    line-height: 1;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+
+    &:hover { color: var(--foreground); }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: opacity 200ms linear;
+      transform: none;
+      @starting-style {
+        opacity: 0;
+        transform: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .toast {
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+    }
+    .toast[data-variant="destructive"] { border-color: Mark; }
+  }
+}
+
+/* === preview-kit/fixture-styles/legacy/typography/typography.css === */
+/* -- Typography component --------------------------------------- */
+
+/* -- Base text ---------------------------------------------- */
+/* Sets the default font size for the entire page.            */
+/* All typography classes are sized relative to this baseline. */
+@layer base {
+  body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* -- Headings ---------------------------------------------- */
+  .h1 {
+    scroll-margin-top: 5rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h2 {
+    scroll-margin-top: 5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  .h3 {
+    scroll-margin-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  .h4 {
+    scroll-margin-top: 5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+    color: var(--foreground);
+  }
+
+  /* -- Paragraph --------------------------------------------- */
+  .p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--foreground);
+
+    &:not(:first-child) { margin-top: 1.5rem; }
+  }
+
+  /* -- Lead --------------------------------------------------- */
+  .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+
+  /* -- Large -------------------------------------------------- */
+  .large {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Small -------------------------------------------------- */
+  .small {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+
+  /* -- Muted -------------------------------------------------- */
+  .muted {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* -- Blockquote --------------------------------------------- */
+  .blockquote {
+    margin-top: 1.5rem;
+    border-inline-start: 2px solid var(--border);
+    padding-inline-start: 1.5rem;
+    font-style: italic;
+    hanging-punctuation: first last;
+    color: var(--foreground);
+
+    & p { margin: 0; }
+  }
+
+  /* -- Inline code -------------------------------------------- */
+  .code {
+    position: relative;
+    border-radius: var(--radius-sm);
+    background: var(--muted);
+    padding: 0.2rem 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  /* -- Accessibility ------------------------------------------ */
+
+  @media (prefers-contrast: more) {
+    .h1, .h2, .h3, .h4 {
+      letter-spacing: 0;
+    }
+
+    .blockquote {
+      border-inline-start-width: 3px;
+    }
+
+    .code {
+      outline: 1px solid var(--border);
+    }
+
+    .muted {
+      color: var(--foreground);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .blockquote {
+      border-inline-start-color: CanvasText;
+    }
+
+    .code {
+      background: Canvas;
+      outline: 1px solid CanvasText;
+      color: CanvasText;
+    }
+  }
+}
+
+
+/* === preview-kit/fixture-styles/pattern-fixtures.css === */
+
+:root{--background:oklch(0.99 0.005 95);--foreground:oklch(0.2 0.015 250);--card:oklch(1 0 0);--muted:oklch(0.95 0.006 95);--muted-foreground:oklch(0.43 0.02 250);--border:oklch(0.86 0.01 250);--primary:oklch(0.48 0.12 245);--primary-foreground:oklch(0.99 0 0);--destructive:oklch(0.55 0.18 30);--success:oklch(0.52 0.13 145);font-family:Inter,ui-sans-serif,system-ui,sans-serif}body{margin:0;background:var(--background);color:var(--foreground);font-family:inherit}.page{max-width:880px;margin:0 auto;padding:40px 20px}.panel{background:var(--card);border:1px solid var(--border);padding:20px}h1{font-size:1.75rem;line-height:1.15;margin:0 0 8px}p{line-height:1.55}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:16px}.meta-grid div{min-width:0}.meta-grid dt{font-size:.72rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.06em}.meta-grid dd{margin:3px 0 0;font-size:.92rem}.toc nav{border-top:1px solid var(--border);padding-top:14px}.toc ol{display:grid;gap:8px;margin:0;padding-left:22px}.toc a{color:var(--foreground);text-decoration-thickness:1px;text-underline-offset:3px}table{width:100%;border-collapse:collapse;font-size:.92rem}caption{text-align:left;color:var(--muted-foreground);font-size:.86rem;padding:0 0 10px}th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground)}tbody th{font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums}.callout{border:1px solid var(--border);background:var(--muted);padding:16px}.callout[data-tone=risk]{border-color:oklch(from var(--destructive) l c h / .45);background:oklch(from var(--destructive) l c h / .08)}.callout strong{display:block;margin-bottom:4px}@media(max-width:520px){.page{padding:24px 14px}.meta-grid{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}.panel{padding:16px}}
+
+</style>
+
+<style>
+/* === Apple-style preview shell — token-surface preview with the brand's
+   signature moves: thin black global nav, centered hero stacks, single
+   Action Blue accent, edge-to-edge tile alternation (white / parchment /
+   near-black tile), pill-grammar CTAs, SF Pro Display with negative
+   tracking. Content is Halcyon-themed (the catalogue's fictional brand),
+   not a clone of apple.com. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'SF Pro Text', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+}
+
+/* -- Thin black global nav (Apple signature) -- */
+.global-nav {
+  background: var(--brand-surface-black);
+  color: var(--brand-on-dark);
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.global-nav-inner {
+  width: 100%;
+  max-width: 1024px;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  letter-spacing: -0.12px;
+}
+.global-nav-mark {
+  font-family: 'SF Pro Display', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+}
+.global-nav-links {
+  display: flex;
+  gap: 2rem;
+  flex: 1;
+  justify-content: center;
+}
+.global-nav-links a {
+  color: var(--brand-on-dark);
+  text-decoration: none;
+  opacity: 0.88;
+}
+.global-nav-links a:hover { opacity: 1; }
+.global-nav-utility {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 12px;
+}
+
+/* -- Tiles — full-bleed, color change IS the divider, no borders -- */
+.tile { padding: 5rem 1.5rem; text-align: center; }
+.tile-inner {
+  max-width: 980px;
+  margin: 0 auto;
+}
+.tile[data-mode="white"] { background: var(--background); color: var(--foreground); }
+.tile[data-mode="parchment"] { background: var(--brand-canvas-parchment); color: var(--foreground); }
+.tile[data-mode="dark"] {
+  background: var(--brand-surface-tile-1, var(--foreground));
+  color: var(--brand-on-dark, var(--primary-foreground));
+}
+[data-theme="dark"] .tile[data-mode="dark"] { background: var(--brand-surface-black); }
+[data-theme="dark"] .tile[data-mode="white"] { background: var(--background); }
+
+/* -- Hero typography — centered, negative tracking, weight 600 -- */
+/* Eyebrow uses link-blue (--brand-link, #0066cc) rather than system-blue
+ * (--primary, #0071e3) on light parchment — at 21px / weight 600,
+ * #0071e3 on #f5f5f7 lands at 4.31:1, below WCAG AA 4.5:1. Link-blue's
+ * deeper lightness clears AA, and per DESIGN.md the eyebrow reads as
+ * text-label copy (closer to link than CTA fill). */
+.hero-eyebrow {
+  font-family: 'SF Pro Display', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.19;
+  letter-spacing: 0.231px;
+  color: var(--brand-link);
+  margin: 0 0 0.5rem;
+}
+.tile[data-mode="dark"] .hero-eyebrow { color: var(--brand-primary-on-dark, var(--brand-link)); }
+.hero-display {
+  font-family: 'SF Pro Display', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.07;
+  letter-spacing: -0.28px;
+  margin: 0 0 0.75rem;
+}
+.hero-tagline {
+  font-family: 'SF Pro Display', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: 0.196px;
+  margin: 0 auto 1.5rem;
+  max-width: 36ch;
+  opacity: 0.95;
+}
+.tile[data-mode="dark"] .hero-tagline { opacity: 1; color: var(--brand-body-muted, var(--brand-on-dark)); }
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* -- Pill grammar (Apple signature) -- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--brand-radius-pill, 9999px);
+  font-family: 'SF Pro Text', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.374px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 80ms ease, background 120ms ease;
+}
+.pill:active { transform: scale(0.95); }
+.pill[data-variant="primary"] { background: var(--primary); color: var(--primary-foreground); }
+.pill[data-variant="primary"]:hover {
+  background: var(--brand-primary-hover);
+}
+.pill[data-variant="primary"]:active {
+  background: var(--brand-primary-active);
+}
+/* Outlined secondary on light surfaces uses Apple's link-blue (#0066cc)
+ * per DESIGN.md §4 button-secondary-neutral — the outlined-pill secondary
+ * is link-blue, not system-blue. */
+.pill[data-variant="ghost"] {
+  background: transparent;
+  color: var(--brand-link);
+  border-color: var(--brand-link);
+}
+/* Tile-dark uses the lifted Apple Blue (#2997ff). White text on
+ * #2997ff lands at 3.01:1 — switch to dark ink (Apple's actual
+ * dark-mode button treatment). */
+.tile[data-mode="dark"] .pill[data-variant="primary"] {
+  background: var(--brand-primary-on-dark, var(--primary));
+  color: oklch(0.15 0.005 286);
+}
+/* On dark canvas, Apple's Sky Link Blue (#2997ff) IS the equivalent of
+ * link-blue on dark — keep the outlined secondary on the brand-primary-
+ * on-dark token here. */
+.tile[data-mode="dark"] .pill[data-variant="ghost"] {
+  color: var(--brand-primary-on-dark, var(--primary));
+  border-color: var(--brand-primary-on-dark, var(--primary));
+}
+.pill[data-size="sm"] { padding: 0.5rem 1rem; font-size: 14px; letter-spacing: -0.224px; }
+
+/* -- Link-with-chevron (Apple's "Learn more" pattern) -- */
+/* Per DESIGN.md §4 button-secondary-link-chevron: NOT a button. Inline
+ * text link in link-blue (#0066cc), chevron-right appended via ::after,
+ * underline on hover. On dark canvas the colour switches to Sky Link
+ * Blue (#2997ff). */
+.link-chevron {
+  color: var(--brand-link);
+  text-decoration: none;
+  font-family: 'SF Pro Text', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.374px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.2em;
+}
+.link-chevron::after {
+  content: " \203A";
+  padding-inline-start: 0.24em;
+}
+.link-chevron:hover { text-decoration: underline; }
+.tile[data-mode="dark"] .link-chevron {
+  color: var(--brand-primary-on-dark, var(--brand-link));
+}
+
+/* -- Showcase sections — centered heading, left-aligned grid -- */
+.showcase-eyebrow {
+  font-family: 'SF Pro Display', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.19;
+  letter-spacing: 0.231px;
+  color: var(--brand-link);
+  margin: 0 0 0.5rem;
+  text-align: center;
+}
+.showcase-title {
+  font-family: 'SF Pro Display', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0;
+  margin: 0 auto 0.75rem;
+  text-align: center;
+  max-width: 24ch;
+}
+.showcase-lede {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  max-width: 48ch;
+  opacity: 0.78;
+}
+
+/* -- Color swatches: left-aligned grid in a centered tile -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+  text-align: left;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 11px);
+  padding: 0.75rem;
+  background: var(--background);
+  color: var(--foreground);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.tile[data-mode="parchment"] .swatch { background: var(--brand-surface-pearl, var(--background)); }
+.tile[data-mode="dark"] .swatch {
+  background: var(--brand-surface-tile-2, var(--card));
+  color: var(--brand-on-dark);
+  border-color: var(--brand-surface-tile-3, var(--border));
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--radius-sm, 8px);
+  border: 1px solid var(--brand-divider-soft, var(--border));
+}
+.swatch-name { font-family: 'SF Mono', ui-monospace, var(--font-mono); font-size: 12px; letter-spacing: -0.12px; }
+.swatch-role {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.224px;
+  color: var(--brand-ink-muted-48, var(--muted-foreground));
+  text-transform: uppercase;
+}
+
+/* -- Typography roles: left-aligned in a centered tile -- */
+.type-stack { display: flex; flex-direction: column; gap: 2rem; text-align: left; }
+.type-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--brand-divider-soft, var(--border));
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'SF Pro Text', system-ui, -apple-system, 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.224px;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted-48, var(--muted-foreground));
+  padding-top: 0.5rem;
+}
+.type-hero { font-family: 'SF Pro Display'; font-size: 56px; font-weight: 600; line-height: 1.07; letter-spacing: -0.28px; }
+.type-display { font-family: 'SF Pro Display'; font-size: 40px; font-weight: 600; line-height: 1.1; }
+.type-lead { font-family: 'SF Pro Display'; font-size: 28px; font-weight: 400; line-height: 1.14; letter-spacing: 0.196px; }
+.type-lead-airy { font-family: 'SF Pro Text'; font-size: 24px; font-weight: 300; line-height: 1.5; }
+.type-tagline { font-family: 'SF Pro Display'; font-size: 21px; font-weight: 600; line-height: 1.19; letter-spacing: 0.231px; }
+.type-body { font-size: 17px; font-weight: 400; line-height: 1.47; letter-spacing: -0.374px; }
+.type-caption { font-size: 14px; font-weight: 400; line-height: 1.43; letter-spacing: -0.224px; color: var(--brand-ink-muted-80, var(--muted-foreground)); }
+
+/* -- Components — pill row, utility cards, search input -- */
+.components { display: flex; flex-direction: column; gap: 2rem; text-align: left; }
+.component-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.utility-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+@media (max-width: 880px) { .utility-grid { grid-template-columns: 1fr; } }
+.utility-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 18px);
+  padding: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.tile[data-mode="parchment"] .utility-card { background: var(--background); }
+.utility-card-mark {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 0.5rem;
+  border-radius: var(--radius-sm, 8px);
+  background: var(--brand-canvas-parchment-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'SF Pro Display';
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--brand-ink-muted-80, var(--foreground));
+}
+.utility-card-name {
+  font-family: 'SF Pro Text';
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.374px;
+}
+.utility-card-price {
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--brand-ink-muted-80, var(--muted-foreground));
+}
+.utility-card-link {
+  margin-top: 0.5rem;
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--brand-link);
+  text-decoration: none;
+}
+.utility-card-link:hover { text-decoration: underline; }
+
+.search-input {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--brand-radius-pill, 9999px);
+  padding: 0.75rem 1.25rem;
+  height: 44px;
+  font-size: 17px;
+  letter-spacing: -0.374px;
+  color: var(--brand-ink-muted-48, var(--muted-foreground));
+  min-width: 16rem;
+}
+.search-input::before { content: "⌕"; font-size: 16px; opacity: 0.6; }
+
+/* -- Dense link footer (Apple signature: 2.41 line-height) -- */
+.footer {
+  background: var(--brand-canvas-parchment);
+  color: var(--brand-ink-muted-80, var(--muted-foreground));
+  padding: 4rem 1.5rem 2rem;
+}
+.footer-inner {
+  max-width: 1024px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-col-title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.224px;
+  margin: 0 0 0.25rem;
+  color: var(--foreground);
+}
+.footer-col-list { list-style: none; padding: 0; margin: 0; font-size: 17px; line-height: 2.41; }
+.footer-col-list a { color: var(--brand-ink-muted-80, var(--muted-foreground)); text-decoration: none; }
+.footer-col-list a:hover { color: var(--foreground); }
+.footer-legal {
+  max-width: 1024px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brand-divider-soft, var(--border));
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  letter-spacing: -0.12px;
+  color: var(--brand-ink-muted-48, var(--muted-foreground));
+}
+</style>
+
+</head>
+<body>
+
+<nav class="global-nav" aria-label="Global">
+  <div class="global-nav-inner">
+    <span class="global-nav-mark">apple-style</span>
+    <div class="global-nav-links">
+      <a href="#">Tokens</a>
+      <a href="#">Typography</a>
+      <a href="#">Components</a>
+      <a href="#">Dark tile</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="global-nav-utility">
+      <a href="#" style="color: inherit; text-decoration: none;">⌕</a>
+      <a href="#" style="color: inherit; text-decoration: none;">◇</a>
+    </div>
+  </div>
+</nav>
+
+<section class="tile" data-mode="parchment" aria-label="Hero">
+  <div class="tile-inner">
+    <p class="hero-eyebrow">apple-style · token surface</p>
+    <h1 class="hero-display">Reduced to the essentials.</h1>
+    <p class="hero-tagline">A token-surface preview rendered against the design system. Centered stacks, single accent, edge-to-edge tile alternation — the signature moves shown on neutral content.</p>
+    <div class="hero-ctas">
+      <button class="pill" data-variant="primary" type="button">Buy</button>
+      <a class="link-chevron" href="#">Learn more</a>
+    </div>
+  </div>
+</section>
+
+<section class="tile" data-mode="white" aria-label="Colour tokens">
+  <div class="tile-inner">
+    <p class="showcase-eyebrow">Tokens · Colour</p>
+    <h2 class="showcase-title">Action Blue carries every interactive element.</h2>
+    <p class="showcase-lede">A single brand accent. Two text inks (foreground + body-muted). Three canvases (white, parchment, near-black tile). Nothing else.</p>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--background); border-color: var(--brand-divider-soft, var(--border));"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-canvas-parchment);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-parchment</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-canvas-parchment-deep);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-canvas-parchment-deep</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-surface-pearl, var(--background));"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--brand-surface-pearl</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-surface-tile-1, var(--foreground));"></div><div class="swatch-role">Tile</div><div class="swatch-name">--brand-surface-tile-1</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-surface-tile-2, var(--foreground));"></div><div class="swatch-role">Tile</div><div class="swatch-name">--brand-surface-tile-2</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-surface-black);"></div><div class="swatch-role">Void</div><div class="swatch-name">--brand-surface-black</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--foreground);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-ink-muted-80, var(--muted-foreground));"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-muted-80</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-ink-muted-48, var(--muted-foreground));"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-ink-muted-48</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--primary);"></div><div class="swatch-role">Action · CTA</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-link);"></div><div class="swatch-role">Action · Link</div><div class="swatch-name">--brand-link</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-primary-hover);"></div><div class="swatch-role">Action · Hover</div><div class="swatch-name">--brand-primary-hover</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-primary-active);"></div><div class="swatch-role">Action · Active</div><div class="swatch-name">--brand-primary-active</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-primary-focus, var(--primary));"></div><div class="swatch-role">Action · Focus</div><div class="swatch-name">--brand-primary-focus</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background-color: var(--brand-primary-on-dark, var(--primary));"></div><div class="swatch-role">Action · On dark</div><div class="swatch-name">--brand-primary-on-dark</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="tile" data-mode="parchment" aria-label="Typography roles">
+  <div class="tile-inner">
+    <p class="showcase-eyebrow">Tokens · Typography</p>
+    <h2 class="showcase-title">SF Pro Display and Text, tight tracking.</h2>
+    <p class="showcase-lede">Display sizes use weight 600 with negative letter-spacing — the signature Apple-tight cadence. Body at 17px with -0.374px tracking. Weight 500 is deliberately absent.</p>
+    <div class="type-stack">
+      <div class="type-row"><span class="type-label">Hero</span><span class="type-hero">Halcyon.</span></div>
+      <div class="type-row"><span class="type-label">Display</span><span class="type-display">Reduced to the essentials.</span></div>
+      <div class="type-row"><span class="type-label">Lead</span><span class="type-lead">An operating system for engineering teams.</span></div>
+      <div class="type-row"><span class="type-label">Lead airy</span><span class="type-lead-airy">Weight 300, used sparingly on large reads where the content should feel airy.</span></div>
+      <div class="type-row"><span class="type-label">Tagline</span><span class="type-tagline">Tokens · Components · Templates</span></div>
+      <div class="type-row"><span class="type-label">Body</span><span class="type-body">SF Pro Text at 17 pixels, weight 400, line-height 1.47. The extra pixel gives the page an unmistakable reading-not-scanning pace.</span></div>
+      <div class="type-row"><span class="type-label">Caption</span><span class="type-caption">14 pixels, -0.224px tracking. Secondary captions, button text, fine print.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="tile" data-mode="white" aria-label="Component vocabulary">
+  <div class="tile-inner">
+    <p class="showcase-eyebrow">Vocabulary · Components</p>
+    <h2 class="showcase-title">Pills, utility cards, hairline inputs.</h2>
+    <p class="showcase-lede">9999px pill radius for actions. 18px utility-card radius. 8px dark-utility radius. Three grammars, applied with discipline.</p>
+    <div class="components">
+      <div class="component-row" aria-label="Pill variants">
+        <button class="pill" data-variant="primary" type="button">Buy</button>
+        <button class="pill" data-variant="ghost" type="button">Add to bag</button>
+        <button class="pill" data-variant="primary" data-size="sm" type="button">Small</button>
+        <button class="pill" data-variant="ghost" data-size="sm" type="button">Small ghost</button>
+      </div>
+
+      <div class="component-row" aria-label="Link with chevron">
+        <a class="link-chevron" href="#">Learn more</a>
+        <a class="link-chevron" href="#">See the lineup</a>
+        <a class="link-chevron" href="#">Read the spec</a>
+      </div>
+
+      <div class="component-row" aria-label="Search">
+        <span class="search-input">Search the catalogue</span>
+      </div>
+
+      <div class="utility-grid" aria-label="Utility cards">
+        <div class="utility-card">
+          <div class="utility-card-mark">H</div>
+          <div class="utility-card-name">Halcyon Core</div>
+          <div class="utility-card-price">From $1,299</div>
+          <a class="utility-card-link" href="#">Buy</a>
+        </div>
+        <div class="utility-card">
+          <div class="utility-card-mark">M</div>
+          <div class="utility-card-name">Halcyon Mini</div>
+          <div class="utility-card-price">From $799</div>
+          <a class="utility-card-link" href="#">Buy</a>
+        </div>
+        <div class="utility-card">
+          <div class="utility-card-mark">A</div>
+          <div class="utility-card-name">Halcyon Air</div>
+          <div class="utility-card-price">From $499</div>
+          <a class="utility-card-link" href="#">Buy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tile" data-mode="dark" aria-label="Dark tile">
+  <div class="tile-inner">
+    <p class="hero-eyebrow">Surface · Tile-1</p>
+    <h2 class="hero-display">Dark tile. Same grammar.</h2>
+    <p class="hero-tagline">The color change IS the divider. No borders, no shadows on chrome — only the surface flips. Action Blue brightens to Sky Link Blue on dark for legibility.</p>
+    <div class="hero-ctas">
+      <button class="pill" data-variant="primary" type="button">Watch the demo</button>
+      <a class="link-chevron" href="#">Learn more</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <p class="footer-col-title">Token surface</p>
+      <ul class="footer-col-list">
+        <li><a href="#">Background</a></li>
+        <li><a href="#">Foreground</a></li>
+        <li><a href="#">Primary</a></li>
+        <li><a href="#">Border</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Typography</p>
+      <ul class="footer-col-list">
+        <li><a href="#">SF Pro Display</a></li>
+        <li><a href="#">SF Pro Text</a></li>
+        <li><a href="#">Inter fallback</a></li>
+        <li><a href="#">Letter-spacing scale</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Components</p>
+      <ul class="footer-col-list">
+        <li><a href="#">Pill grammar</a></li>
+        <li><a href="#">Utility cards</a></li>
+        <li><a href="#">Search input</a></li>
+        <li><a href="#">Dense links</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-col-list">
+        <li><a href="#">halcyon.dev</a></li>
+        <li><a href="#">app.halcyon.dev</a></li>
+        <li><a href="#">hlc.so</a></li>
+        <li><a href="#">@halcyon/cli</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>apple-style · token surface preview · 2026.05.22</span>
+    <span>SF Pro · Action Blue · parchment · pill · tile</span>
+  </div>
+</footer>
+
+</body>
+</html>

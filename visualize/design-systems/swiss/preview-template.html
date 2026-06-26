@@ -1,0 +1,1412 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ffffff'/%3E%3Crect x='4' y='4' width='24' height='24' fill='none' stroke='%23000' stroke-width='2'/%3E%3Ccircle cx='20' cy='12' r='5' fill='%23ff3000'/%3E%3Crect x='6' y='18' width='8' height='10' fill='%23000'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="International Typographic Style preview from visualize. Pure white canvas + grotesque sans + single Swiss Red signal + four CSS pattern textures + asymmetric Bauhaus composition.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Swiss preview shell — token-surface showcase for the
+   International Typographic Style register. One signature mockup
+   combines the system's three voltage moments: a Massive Responsive
+   Headline at the hero scale, a Layered Geometric Composition
+   (Bauhaus circles + rectangles + lines with the lone red disc and
+   its 8px translucent halo), and the four pattern texture surfaces
+   (24px grid, 16px dots, 45° diagonals, fractal noise) rendered as
+   the compositional ground. Everything else is token demo. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+/* Body-level fractal noise overlay — the global texture per spec.
+   1.5% opacity, fixed across the viewport. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: var(--brand-pattern-noise-alpha);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+main, .topnav, .footer { position: relative; z-index: 2; }
+
+/* === Sticky top nav — grid-defined === */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 64px;
+  background: var(--background);
+  border-bottom: 4px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topnav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.topnav-brand-mark {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  border: 2px solid var(--foreground);
+}
+.topnav-brand-mark::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+}
+.topnav-links {
+  display: flex;
+  gap: 2rem;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.topnav-links a {
+  color: var(--foreground);
+  text-decoration: none;
+  position: relative;
+  padding: 0.5rem 0;
+}
+.topnav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width var(--brand-motion-mechanical);
+}
+.topnav-links a:hover::after { width: 100%; }
+.topnav-links a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.topnav-actions { display: flex; gap: 0.75rem; align-items: center; }
+@media (max-width: 880px) { .topnav-links { display: none; } }
+
+/* === Buttons === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0;
+  font-family: inherit;
+  /* Large-text floor (14px + 700) — keeps the signal variant
+     readable; white-on-red is sub-body but clears large-text. */
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--brand-motion-snap), color var(--brand-motion-snap);
+}
+.btn[data-variant="primary"] {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  border-color: var(--secondary);
+}
+.btn[data-variant="primary"]:hover {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="secondary"] {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+.btn[data-variant="secondary"]:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+.btn[data-variant="signal"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+  font-size: 19px;
+}
+.btn[data-variant="signal"]:hover {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* === Numbered section label === */
+.section-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+/* Enumerator stays on --foreground at body sizes — the brand red
+   only earns its presence on accent surfaces (hero headline, signal
+   button, stat highlights), not on body-size enumerator labels. */
+.section-label .num {
+  color: var(--foreground);
+}
+.section-label .word {
+  color: var(--foreground);
+}
+
+/* === SIGNATURE — hero composition with massive headline + Bauhaus geometry === */
+.hero {
+  position: relative;
+  border-bottom: 4px solid var(--border);
+  overflow: hidden;
+  /* 24px grid pattern at 3% opacity — applied to the hero
+     composition area per spec. */
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-grid-alpha) * 100%), transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-grid-alpha) * 100%), transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-color: var(--background);
+}
+.hero-inner {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 5rem 2rem 6rem;
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 3rem;
+  min-height: 640px;
+}
+@media (max-width: 880px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    padding: 3rem 1.5rem 4rem;
+    min-height: auto;
+  }
+}
+
+.hero-content { position: relative; z-index: 3; }
+.hero-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--foreground);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.hero-eyebrow .num { color: var(--primary); }
+.hero-eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: var(--foreground);
+  max-width: 200px;
+}
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 12vw, 10rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  margin: 0 0 2rem;
+  color: var(--foreground);
+}
+.hero-headline .signal {
+  color: var(--primary);
+  display: inline-block;
+}
+.hero-lede {
+  max-width: 28rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0 0 2.5rem;
+  color: var(--foreground);
+}
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.hero-meta {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--foreground);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.hero-meta-row dt {
+  font-weight: 500;
+  color: var(--brand-body-muted);
+  margin-bottom: 0.25rem;
+}
+.hero-meta-row dd {
+  margin: 0;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+/* Bauhaus composition — the system's voltage moment.
+   Red disc (with 8px translucent halo) + black tall rectangle +
+   thin diagonal line + secondary off-axis ring. Asymmetric
+   placement per spec §"The Grid as Law." */
+.hero-composition {
+  position: relative;
+  z-index: 2;
+  min-height: 480px;
+}
+@media (max-width: 880px) {
+  .hero-composition {
+    min-height: 320px;
+    margin-top: 2rem;
+  }
+}
+.shape-disc {
+  position: absolute;
+  top: 12%;
+  right: 8%;
+  width: 220px;
+  height: 220px;
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 0 8px var(--brand-ring-red-halo);
+}
+.shape-rect-tall {
+  position: absolute;
+  top: 0;
+  right: 32%;
+  width: 64px;
+  height: 100%;
+  background: var(--foreground);
+}
+.shape-ring {
+  position: absolute;
+  bottom: 8%;
+  right: 28%;
+  width: 96px;
+  height: 96px;
+  border: 4px solid var(--foreground);
+  border-radius: 50%;
+}
+.shape-diagonal {
+  position: absolute;
+  top: 38%;
+  right: -8%;
+  width: 320px;
+  height: 4px;
+  background: var(--primary);
+  transform: rotate(-32deg);
+  transform-origin: right center;
+}
+.shape-square {
+  position: absolute;
+  bottom: 20%;
+  right: 56%;
+  width: 56px;
+  height: 56px;
+  background: var(--background);
+  border: 2px solid var(--foreground);
+}
+
+/* === Token demo: colour swatch band === */
+.swatches {
+  border-bottom: 4px solid var(--border);
+  padding: 4rem 0;
+  background: var(--background);
+}
+.swatches-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.swatches-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border: 2px solid var(--foreground);
+}
+@media (max-width: 880px) {
+  .swatches-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.swatch {
+  padding: 2rem 1.5rem;
+  border-right: 2px solid var(--foreground);
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.swatch:last-child { border-right: none; }
+/* Surface is polarity-locked white; ink is always-black so the dark
+   theme doesn't render white-on-white. */
+.swatch-paper { background: var(--brand-canvas-paper); color: oklch(0 0 0); }
+.swatch-ink { background: var(--foreground); color: var(--background); }
+.swatch-muted { background: var(--brand-canvas-muted); color: var(--foreground); }
+/* Signal swatch demoes the brand red — fill is sacrosanct. Pair with
+   always-black ink so small mono labels (10-11px) clear body 4.5:1
+   instead of the 3.70:1 white-on-red would deliver. */
+.swatch-signal { background: var(--primary); color: oklch(0 0 0); }
+.swatch-frame { background: var(--background); color: var(--foreground); border: 4px solid var(--foreground); border-right-width: 2px; }
+.swatch-frame:last-child { border-right-width: 4px; }
+.swatch-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  /* 0.85 keeps the muted-rhythm look while ink-on-red clears 4.5:1. */
+  opacity: 0.85;
+}
+.swatch-name {
+  /* 14px/700 qualifies large-text 3:1 — keeps the swatch name
+     readable on the signal red fill. */
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.swatch-token {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  margin-top: 0.5rem;
+  opacity: 0.85;
+}
+
+/* === Token demo: pattern texture surfaces 2×2 === */
+.patterns {
+  border-bottom: 4px solid var(--border);
+  padding: 4rem 0;
+  background: var(--background);
+}
+.patterns-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.patterns-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border: 4px solid var(--foreground);
+}
+@media (max-width: 720px) {
+  .patterns-grid { grid-template-columns: 1fr; }
+}
+.pattern-cell {
+  position: relative;
+  min-height: 220px;
+  padding: 2rem;
+  background: var(--brand-canvas-muted);
+  border-right: 4px solid var(--foreground);
+  border-bottom: 4px solid var(--foreground);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.pattern-cell:nth-child(2n) { border-right: none; }
+.pattern-cell:nth-last-child(-n+2) { border-bottom: none; }
+@media (max-width: 720px) {
+  .pattern-cell { border-right: none; }
+  .pattern-cell:not(:last-child) { border-bottom: 4px solid var(--foreground); }
+}
+
+.pattern-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-grid-alpha) * 100%), transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-grid-alpha) * 100%), transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.pattern-dots::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-dots-alpha) * 100%), transparent) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+}
+.pattern-diagonal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(45deg, color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-diagonal-alpha) * 100%), transparent) 0 1px, transparent 1px 10px);
+}
+.pattern-noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: var(--brand-pattern-noise-alpha);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.pattern-cell > * { position: relative; z-index: 2; }
+
+.pattern-cell-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+.pattern-cell-head .num { color: var(--foreground); }
+.pattern-cell-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.pattern-cell-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--brand-body-muted);
+  letter-spacing: 0.02em;
+}
+
+/* === Token demo: surface elevation ladder (hairlines only) === */
+.ladder {
+  border-bottom: 4px solid var(--border);
+  padding: 4rem 0;
+  background: var(--brand-canvas-muted);
+  position: relative;
+  overflow: hidden;
+}
+.ladder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-grid-alpha) * 100%), transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-grid-alpha) * 100%), transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.ladder-inner {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.ladder-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 2rem;
+}
+@media (max-width: 880px) {
+  .ladder-grid { grid-template-columns: 1fr; }
+}
+.ladder-card {
+  background: var(--background);
+  border: 2px solid var(--foreground);
+  padding: 2rem;
+}
+.ladder-card.is-strong { border-width: 4px; }
+.ladder-card.is-signal {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.ladder-card.is-inverted {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+.ladder-card-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+}
+.ladder-card-body {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.ladder-card-foot {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+.ladder-stack {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0;
+  border: 4px solid var(--foreground);
+}
+.ladder-stack-row {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--foreground);
+  font-size: 13px;
+  font-weight: 500;
+}
+.ladder-stack-row:last-child { border-bottom: none; }
+.ladder-stack-row .num {
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+/* === Typography roles === */
+.type {
+  border-bottom: 4px solid var(--border);
+  padding: 4rem 0;
+  background: var(--background);
+}
+.type-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.type-rows {
+  margin-top: 2rem;
+  border-top: 4px solid var(--foreground);
+}
+.type-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 240px;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 2px solid var(--foreground);
+  align-items: baseline;
+}
+@media (max-width: 880px) {
+  .type-row { grid-template-columns: 1fr; gap: 0.75rem; padding: 1.5rem 0; }
+}
+.type-row-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--foreground);
+}
+/* Enumerator on --foreground — matches .section-label .num. */
+.type-row-label .num { color: var(--foreground); }
+.type-row-sample {
+  font-family: var(--font-display);
+  color: var(--foreground);
+}
+.type-row-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--brand-body-muted);
+  letter-spacing: 0.02em;
+}
+.type-display {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+.type-heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+.type-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.type-body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.type-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.type-mono {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+/* === Component vocabulary band === */
+.components {
+  border-bottom: 4px solid var(--border);
+  padding: 4rem 0;
+  background: var(--background);
+}
+.components-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.components-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 0;
+  border: 4px solid var(--foreground);
+}
+@media (max-width: 880px) {
+  .components-grid { grid-template-columns: 1fr; }
+}
+.components-cell {
+  padding: 2.5rem;
+  border-right: 4px solid var(--foreground);
+  background: var(--background);
+}
+.components-cell:last-child { border-right: none; }
+@media (max-width: 880px) {
+  .components-cell { border-right: none; border-bottom: 4px solid var(--foreground); }
+  .components-cell:last-child { border-bottom: none; }
+}
+.components-cell.is-muted {
+  background: var(--brand-canvas-muted);
+  position: relative;
+  overflow: hidden;
+}
+.components-cell.is-muted::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(color-mix(in srgb, var(--foreground) calc(var(--brand-pattern-dots-alpha) * 100%), transparent) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+  pointer-events: none;
+}
+.components-cell > * { position: relative; z-index: 2; }
+.components-cell-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+.components-cell-title .num { color: var(--foreground); }
+.button-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.input-stack {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.input-field {
+  display: grid;
+  gap: 0.5rem;
+}
+.input-field label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--foreground);
+}
+.input-underline {
+  border: none;
+  border-bottom: 2px solid var(--foreground);
+  background: transparent;
+  padding: 0.5rem 0;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--foreground);
+}
+.input-underline::placeholder { color: var(--brand-body-muted); }
+.input-underline:focus { outline: none; border-bottom-color: var(--primary); }
+.input-box {
+  border: 2px solid var(--foreground);
+  background: var(--background);
+  padding: 0.75rem;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--foreground);
+  border-radius: 0;
+}
+.input-box:focus { outline: none; border-color: var(--primary); }
+
+.card-demo {
+  border: 2px solid var(--foreground);
+  background: var(--background);
+  padding: 1.5rem;
+  transition: background var(--brand-motion-snap), color var(--brand-motion-snap);
+}
+.card-demo:hover {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.card-demo-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--brand-body-muted);
+  margin-bottom: 0.75rem;
+}
+.card-demo:hover .card-demo-eyebrow { color: var(--primary-foreground); }
+.card-demo-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+}
+.card-demo-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.card-arrow {
+  display: inline-block;
+  transform: rotate(-45deg);
+  transition: transform var(--brand-motion-mechanical);
+  font-size: 14px;
+}
+.card-demo:hover .card-arrow { transform: rotate(0deg); }
+@media (prefers-reduced-motion: reduce) {
+  .card-demo, .card-arrow { transition: none; }
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  margin-top: 1.5rem;
+  border: 2px solid var(--foreground);
+}
+.stat-cell {
+  padding: 1.5rem;
+  border-right: 2px solid var(--foreground);
+  border-bottom: 2px solid var(--foreground);
+  background: var(--background);
+}
+.stat-cell:nth-child(2n) { border-right: none; }
+.stat-cell:nth-last-child(-n+2) { border-bottom: none; }
+.stat-cell-num {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+.stat-cell-num .signal { color: var(--primary); }
+.stat-cell-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--foreground);
+}
+
+/* === Footer === */
+.footer {
+  border-top: 4px solid var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
+  padding: 3rem 0 2rem;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 3rem;
+}
+@media (max-width: 880px) {
+  .footer-inner { grid-template-columns: 1fr; }
+}
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.footer-mark {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.footer-mark .signal { color: var(--primary); }
+.footer-meta {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  color: var(--background);
+  opacity: 0.7;
+}
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 640px) {
+  .footer-links { grid-template-columns: repeat(2, 1fr); }
+}
+.footer-column h4 {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  /* Footer canvas is --foreground; subhead routes to --background
+     (inverse-canvas, 21:1) — red-on-black would land 3.70:1. */
+  color: var(--background);
+  margin: 0 0 1rem;
+}
+.footer-column ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.footer-column a {
+  font-size: 13px;
+  color: var(--background);
+  text-decoration: none;
+  font-weight: 500;
+}
+.footer-column a:hover { color: var(--primary); }
+.footer-column a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  border-bottom: 4px solid var(--foreground);
+  padding-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.section-head-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.section-head-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--brand-body-muted);
+  letter-spacing: 0.05em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- === Sticky top nav ============================================== -->
+<header class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="#">
+      <span class="topnav-brand-mark" aria-hidden="true"></span>
+      <span>__DESIGN_SYSTEM_NAME__</span>
+    </a>
+    <nav class="topnav-links" aria-label="Primary">
+      <a href="#system">01. System</a>
+      <a href="#method">02. Method</a>
+      <a href="#advantages">03. Advantages</a>
+      <a href="#journal">04. Journal</a>
+    </nav>
+    <div class="topnav-actions">
+      <a class="btn" data-variant="secondary" href="#">Read</a>
+      <a class="btn" data-variant="primary" href="#">Open</a>
+    </div>
+  </div>
+</header>
+
+<!-- === SIGNATURE — hero: massive headline + Bauhaus composition over 24px grid pattern ===
+     Combines spec voltage moments: Massive Responsive Headline +
+     Layered Geometric Composition + Pattern-Based Texture. -->
+<main>
+<section class="hero" aria-labelledby="hero-headline">
+  <div class="hero-inner">
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">
+        <span class="num">01.</span>
+        <span>System &nbsp;/&nbsp; __DESIGN_SYSTEM_NAME__ &nbsp;/&nbsp; Edition 12</span>
+      </p>
+
+      <h1 id="hero-headline" class="hero-headline">
+        Order is<br>
+        <span class="signal">a tool,</span><br>
+        not a style.
+      </h1>
+
+      <p class="hero-lede">
+        A token surface for teams that treat layout as logic. Grid is law, ink is absolute, and the signal colour earns its presence one decision at a time.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn" data-variant="primary" href="#">Read the system</a>
+        <a class="btn" data-variant="secondary" href="#">Specimen pack</a>
+        <a class="btn" data-variant="signal" href="#">02. Method</a>
+      </div>
+
+      <dl class="hero-meta">
+        <div class="hero-meta-row">
+          <dt>Family</dt>
+          <dd>Inter / Helvetica</dd>
+        </div>
+        <div class="hero-meta-row">
+          <dt>Signal</dt>
+          <dd>#FF3000</dd>
+        </div>
+        <div class="hero-meta-row">
+          <dt>Grid</dt>
+          <dd>24 / 16 / 10px</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="hero-composition" aria-hidden="true">
+      <span class="shape-rect-tall"></span>
+      <span class="shape-disc"></span>
+      <span class="shape-diagonal"></span>
+      <span class="shape-ring"></span>
+      <span class="shape-square"></span>
+    </div>
+
+  </div>
+</section>
+
+<!-- === Colour swatch band ============================================= -->
+<section class="swatches" id="system" aria-labelledby="swatches-head">
+  <div class="swatches-inner">
+    <div class="section-head">
+      <div>
+        <p class="section-label"><span class="num">01.</span><span class="word">System</span></p>
+        <h2 id="swatches-head" class="section-head-title">Five values.<br>No decoration.</h2>
+      </div>
+      <p class="section-head-meta">
+        TOKENS<br>
+        --background / --foreground / --muted /<br>
+        --primary / --border
+      </p>
+    </div>
+
+    <div class="swatches-grid">
+      <div class="swatch swatch-paper">
+        <p class="swatch-num">01</p>
+        <div>
+          <p class="swatch-name">Paper</p>
+          <p class="swatch-token">--background · #FFFFFF</p>
+        </div>
+      </div>
+      <div class="swatch swatch-ink">
+        <p class="swatch-num">02</p>
+        <div>
+          <p class="swatch-name">Ink</p>
+          <p class="swatch-token">--foreground · #000000</p>
+        </div>
+      </div>
+      <div class="swatch swatch-muted">
+        <p class="swatch-num">03</p>
+        <div>
+          <p class="swatch-name">Muted</p>
+          <p class="swatch-token">--muted · #F2F2F2</p>
+        </div>
+      </div>
+      <div class="swatch swatch-signal">
+        <p class="swatch-num">04</p>
+        <div>
+          <p class="swatch-name">Signal</p>
+          <p class="swatch-token">--primary · #FF3000</p>
+        </div>
+      </div>
+      <div class="swatch swatch-frame">
+        <p class="swatch-num">05</p>
+        <div>
+          <p class="swatch-name">Border</p>
+          <p class="swatch-token">--border · #000000</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === Pattern texture 2×2 ============================================= -->
+<section class="patterns" id="method" aria-labelledby="patterns-head">
+  <div class="patterns-inner">
+    <div class="section-head">
+      <div>
+        <p class="section-label"><span class="num">02.</span><span class="word">Method</span></p>
+        <h2 id="patterns-head" class="section-head-title">Depth from<br>pattern, not shadow.</h2>
+      </div>
+      <p class="section-head-meta">
+        FOUR SURFACES<br>
+        Grid · Dots · Diagonal · Noise
+      </p>
+    </div>
+
+    <div class="patterns-grid">
+      <article class="pattern-cell pattern-grid">
+        <p class="pattern-cell-head"><span class="num">A.</span><span>Grid · 24px</span></p>
+        <div>
+          <h3 class="pattern-cell-name">Skeleton<br>of structure</h3>
+          <p class="pattern-cell-meta">opacity 3.0% / linear 24×24 / orthogonal</p>
+        </div>
+      </article>
+      <article class="pattern-cell pattern-dots">
+        <p class="pattern-cell-head"><span class="num">B.</span><span>Dots · 16px</span></p>
+        <div>
+          <h3 class="pattern-cell-name">Print<br>halftone</h3>
+          <p class="pattern-cell-meta">opacity 4.0% / radial 16×16 / matrix</p>
+        </div>
+      </article>
+      <article class="pattern-cell pattern-diagonal">
+        <p class="pattern-cell-head"><span class="num">C.</span><span>Diagonal · 10px</span></p>
+        <div>
+          <h3 class="pattern-cell-name">Direction<br>without arrow</h3>
+          <p class="pattern-cell-meta">opacity 2.0% / repeating 45° / 10px stride</p>
+        </div>
+      </article>
+      <article class="pattern-cell pattern-noise">
+        <p class="pattern-cell-head"><span class="num">D.</span><span>Noise · global</span></p>
+        <div>
+          <h3 class="pattern-cell-name">Paper<br>grain</h3>
+          <p class="pattern-cell-meta">opacity 1.5% / fractal SVG / fixed</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- === Surface ladder ================================================= -->
+<section class="ladder" id="advantages" aria-labelledby="ladder-head">
+  <div class="ladder-inner">
+    <div class="section-head">
+      <div>
+        <p class="section-label"><span class="num">03.</span><span class="word">Advantages</span></p>
+        <h2 id="ladder-head" class="section-head-title">Hairlines,<br>not elevation.</h2>
+      </div>
+      <p class="section-head-meta">
+        BORDERS DEFINE THE GRID<br>
+        2px fine / 4px strong
+      </p>
+    </div>
+
+    <div class="ladder-grid">
+      <div class="ladder-card is-strong">
+        <p class="ladder-card-title">Paper surface · 4px frame</p>
+        <p class="ladder-card-body">The frame is the elevation.</p>
+        <div class="ladder-card-foot">
+          <span>--background · --border</span>
+          <span>01 / 04</span>
+        </div>
+      </div>
+
+      <div class="ladder-stack">
+        <div class="ladder-stack-row">
+          <span>Paper surface · 2px hairline</span>
+          <span class="num">A. fine</span>
+        </div>
+        <div class="ladder-stack-row" style="background: var(--brand-canvas-muted);">
+          <span>Muted band · 2px hairline</span>
+          <span class="num">B. rhythm</span>
+        </div>
+        <div class="ladder-stack-row" style="background: var(--foreground); color: var(--background);">
+          <span>Inverted surface · 2px hairline</span>
+          <span class="num" style="color: var(--primary);">C. signal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === Typography roles =============================================== -->
+<section class="type" aria-labelledby="type-head">
+  <div class="type-inner">
+    <div class="section-head">
+      <div>
+        <p class="section-label"><span class="num">04.</span><span class="word">Journal</span></p>
+        <h2 id="type-head" class="section-head-title">Type does<br>the work.</h2>
+      </div>
+      <p class="section-head-meta">
+        SIX ROLES<br>
+        Inter · 400 / 500 / 700 / 900
+      </p>
+    </div>
+
+    <div class="type-rows">
+
+      <div class="type-row">
+        <p class="type-row-label"><span class="num">A.</span> Display · 900</p>
+        <p class="type-row-sample type-display">Universal Clarity</p>
+        <p class="type-row-meta">clamp(3rem, 12vw, 10rem) / -0.04em / 0.85</p>
+      </div>
+
+      <div class="type-row">
+        <p class="type-row-label"><span class="num">B.</span> Heading · 700</p>
+        <p class="type-row-sample type-heading">The grid is the law.</p>
+        <p class="type-row-meta">clamp(2rem, 5vw, 4rem) / -0.02em / 0.95</p>
+      </div>
+
+      <div class="type-row">
+        <p class="type-row-label"><span class="num">C.</span> Title · 700</p>
+        <p class="type-row-sample type-title">Structure is visible.</p>
+        <p class="type-row-meta">1.5rem / -0.01em / 1.1</p>
+      </div>
+
+      <div class="type-row">
+        <p class="type-row-label"><span class="num">D.</span> Body · 400</p>
+        <p class="type-row-sample type-body">A token-surface preview should feel like a well-engineered building — every element justified by the content's needs, every line carrying its share of the structure. White space is active. Type is the interface. The signal colour earns its placement once per surface.</p>
+        <p class="type-row-meta">1rem / 0 / 1.5</p>
+      </div>
+
+      <div class="type-row">
+        <p class="type-row-label"><span class="num">E.</span> Label · 500</p>
+        <p class="type-row-sample type-label">UPPERCASE · TRACKING-WIDEST · 12PX</p>
+        <p class="type-row-meta">0.75rem / 0.1em / 1.2</p>
+      </div>
+
+      <div class="type-row">
+        <p class="type-row-label"><span class="num">F.</span> Mono · 400</p>
+        <p class="type-row-sample type-mono">/etc/system/tokens · sha256:7b9c41…</p>
+        <p class="type-row-meta">0.875rem / 0 / 1.5</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- === Component vocabulary =========================================== -->
+<section class="components" aria-labelledby="components-head">
+  <div class="components-inner">
+    <div class="section-head">
+      <div>
+        <p class="section-label"><span class="num">05.</span><span class="word">Parts</span></p>
+        <h2 id="components-head" class="section-head-title">Pieces, not<br>flourishes.</h2>
+      </div>
+      <p class="section-head-meta">
+        BUTTONS · INPUTS · CARDS · STATS<br>
+        rect, 0px, 2-4px border
+      </p>
+    </div>
+
+    <div class="components-grid">
+
+      <div class="components-cell">
+        <p class="components-cell-title"><span class="num">A.</span><span>Buttons &amp; inputs</span></p>
+
+        <div class="button-row">
+          <button class="btn" data-variant="primary" type="button">Primary</button>
+          <button class="btn" data-variant="secondary" type="button">Secondary</button>
+          <button class="btn" data-variant="signal" type="button">Signal</button>
+        </div>
+
+        <div class="input-stack">
+          <div class="input-field">
+            <label for="ifu">Underlined</label>
+            <input id="ifu" class="input-underline" type="text" placeholder="Type a section number">
+          </div>
+          <div class="input-field">
+            <label for="ifb">Bordered</label>
+            <input id="ifb" class="input-box" type="text" placeholder="Type a token name">
+          </div>
+        </div>
+      </div>
+
+      <div class="components-cell is-muted">
+        <p class="components-cell-title"><span class="num">B.</span><span>Cards &amp; stats</span></p>
+
+        <div class="card-demo">
+          <p class="card-demo-eyebrow">Specimen · 01</p>
+          <h3 class="card-demo-title">Hover inverts.<br>Snap, not fade.</h3>
+          <div class="card-demo-meta">
+            <span>Mechanical · 200ms ease-out</span>
+            <span class="card-arrow" aria-hidden="true">&rarr;</span>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-cell">
+            <p class="stat-cell-num">21<span class="signal">:1</span></p>
+            <p class="stat-cell-label">Ink ratio</p>
+          </div>
+          <div class="stat-cell">
+            <p class="stat-cell-num">04</p>
+            <p class="stat-cell-label">Pattern surfaces</p>
+          </div>
+          <div class="stat-cell">
+            <p class="stat-cell-num">0<span class="signal">px</span></p>
+            <p class="stat-cell-label">Corner radius</p>
+          </div>
+          <div class="stat-cell">
+            <p class="stat-cell-num">200<span class="signal">ms</span></p>
+            <p class="stat-cell-label">Snap interval</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- === Footer ========================================================= -->
+<footer class="footer" id="journal">
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <h2 class="footer-mark">
+        __DESIGN_SYSTEM_NAME__<br>
+        <span class="signal">— a system, not a style.</span>
+      </h2>
+      <p class="footer-meta">
+        Edition 12 &nbsp;·&nbsp; ISBN 0-000-00012-7 &nbsp;·&nbsp; halcyon.dev
+      </p>
+    </div>
+
+    <div class="footer-links">
+
+      <div class="footer-column">
+        <h4>01. System</h4>
+        <ul>
+          <li><a href="#">Tokens</a></li>
+          <li><a href="#">Grid</a></li>
+          <li><a href="#">Type ladder</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>02. Method</h4>
+        <ul>
+          <li><a href="#">Pattern surfaces</a></li>
+          <li><a href="#">Compositions</a></li>
+          <li><a href="#">Motion vocabulary</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>03. Journal</h4>
+        <ul>
+          <li><a href="#">Specimen pack</a></li>
+          <li><a href="#">Field notes</a></li>
+          <li><a href="#">team@halcyon.dev</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>

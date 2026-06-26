@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>slide-canvas-overflow good fixture</title>
+  <style>
+    html, body { margin: 0; width: 100%; height: 100%; }
+    slide-canvas { display: block; width: 100%; height: 100%; }
+    .slide-canvas-canvas { position: relative; width: 1920px; height: 1080px; }
+    section { position: absolute; inset: 0; width: 1920px; height: 1080px; box-sizing: border-box; padding: 120px; font: 18px/1.45 system-ui, sans-serif; }
+    section[inert] { visibility: hidden; }
+    h1 { margin: 0 0 24px; font-size: 96px; line-height: 1; }
+    p { width: 720px; margin: 0; }
+  </style>
+  <script>
+    customElements.define('slide-canvas', class extends HTMLElement {
+      connectedCallback() {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => this.connectedCallback(), { once: true });
+          return;
+        }
+        if (this.querySelector(':scope > .slide-canvas-canvas')) return;
+        const canvas = document.createElement('div');
+        canvas.className = 'slide-canvas-canvas';
+        while (this.firstChild) canvas.appendChild(this.firstChild);
+        this.appendChild(canvas);
+      }
+    });
+  </script>
+</head>
+<body>
+  <slide-canvas noscale>
+    <section data-visualize-validate="no-overflowing-text no-overflowing-content no-overlapping-text slide-sized-text">
+      <h1>Clean slide</h1>
+      <p>Every visible text range fits the authored canvas, uses slide-sized type, and stays out of other text.</p>
+    </section>
+    <section data-visualize-validate="none">
+      <p style="position:absolute; left:1840px; top:120px; width:260px; font-size:8px">Skipped by marker.</p>
+    </section>
+  </slide-canvas>
+</body>
+</html>

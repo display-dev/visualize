@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%231f2f48'/%3E%3Cpath d='M16 4 A12 12 0 0 1 28 16 L16 16 Z' fill='%231c69d4'/%3E%3Cpath d='M16 28 A12 12 0 0 1 4 16 L16 16 Z' fill='%231c69d4'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Measured corporate-automotive surface — cream-tinted white canvas, corporate blue primary CTA, dark navy hero band for the signature moment. Two-weight type system (700 display, 300 body).">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === BMW-style preview shell — measured corporate-automotive.
+   Light cream-tinted white canvas, BMW corporate blue primary CTA,
+   dark navy hero band for the signature moment. Two-weight type
+   system: 700 display, 300 body. 4-up configuration-card grid as the
+   signature mockup. Halcyon-themed neutral content (configurations,
+   not vehicle models). */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga";
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -- Always-navy signature canvas (hero band). Locked across both
+ * polarities via --brand-surface-dark. -- */
+.canvas-navy {
+  background: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+}
+.canvas-navy .section-title,
+.canvas-navy .section-eyebrow,
+.canvas-navy .section-lede { color: var(--brand-on-dark); }
+.canvas-navy .section-lede { color: var(--brand-on-dark-soft); }
+
+/* -- Top nav (light) -- */
+.topnav {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.topnav-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--brand-body-strong);
+  text-decoration: none;
+}
+.brand-glyph {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-block;
+  background:
+    conic-gradient(from 90deg, var(--brand-surface-dark) 0deg 90deg, var(--primary) 90deg 180deg, var(--brand-surface-dark) 180deg 270deg, var(--primary) 270deg 360deg);
+  border: 2px solid var(--brand-surface-dark);
+  position: relative;
+}
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 14px;
+  font-weight: 400;
+  flex: 1;
+  margin-left: 2rem;
+  color: var(--brand-body);
+}
+.topnav-links a { color: inherit; text-decoration: none; }
+.topnav-links a:hover { color: var(--brand-body-strong); }
+.topnav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 14px;
+}
+.topnav-actions a {
+  color: var(--brand-body);
+  text-decoration: none;
+  font-weight: 400;
+}
+.topnav-actions a:hover { color: var(--brand-body-strong); }
+@media (max-width: 900px) { .topnav-links { display: none; } }
+
+/* -- Buttons -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border-radius: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+.btn[data-variant="primary"]:hover { background: var(--brand-primary-active); border-color: var(--brand-primary-active); }
+.btn[data-variant="secondary"] {
+  background: transparent;
+  color: var(--brand-body-strong);
+  border-color: var(--brand-body-strong);
+}
+.btn[data-variant="secondary"]:hover { background: var(--brand-body-strong); color: var(--background); }
+.btn[data-variant="on-dark"] {
+  background: transparent;
+  color: var(--brand-on-dark);
+  border-color: var(--brand-on-dark);
+}
+.btn[data-variant="on-dark"]:hover { background: var(--brand-on-dark); color: var(--brand-surface-dark); }
+.btn[data-size="lg"] { min-height: 48px; padding: 0 1.75rem; font-size: 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Hero (signature navy band) -- */
+.hero {
+  padding: 5rem 1.5rem 6rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(80% 100% at 75% 50%, var(--brand-surface-dark-elevated) 0%, var(--brand-surface-dark) 60%);
+  z-index: -1;
+}
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 960px) { .hero-inner { grid-template-columns: 1fr; gap: 2rem; } }
+.hero-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-on-dark-soft);
+  margin: 0 0 1.25rem;
+}
+.hero-display {
+  font-family: var(--font-sans);
+  font-size: clamp(2.75rem, 6vw, 4.25rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0;
+  color: var(--brand-on-dark);
+  margin: 0 0 1.5rem;
+  max-width: 18ch;
+}
+.hero-lede {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--brand-on-dark-soft);
+  max-width: 38rem;
+  margin: 0 0 2rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+/* -- Signature: photography-style configuration render -- */
+.config-render {
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
+  background:
+    radial-gradient(50% 70% at 50% 60%, oklch(0.85 0.04 250) 0%, oklch(0.65 0.06 248) 50%, oklch(0.40 0.08 250) 100%),
+    var(--brand-surface-dark-elevated);
+  position: relative;
+  overflow: hidden;
+}
+.config-render::before {
+  content: "";
+  position: absolute;
+  inset: 30% 18% 18%;
+  border-radius: 12px;
+  background:
+    linear-gradient(120deg,
+      oklch(0.92 0 0) 0%,
+      oklch(0.82 0 0) 28%,
+      oklch(0.40 0.01 250) 60%,
+      oklch(0.25 0.02 248) 100%);
+  clip-path: polygon(0% 60%, 8% 25%, 22% 18%, 78% 18%, 92% 25%, 100% 60%, 96% 90%, 82% 100%, 18% 100%, 4% 90%);
+  box-shadow: 0 8px 24px hsl(0 0% 0% / 0.45);
+}
+.config-render::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 4% 0;
+  height: 10%;
+  background: radial-gradient(60% 100% at 50% 0%, hsl(0 0% 0% / 0.35) 0%, transparent 70%);
+}
+
+/* -- 4-up configuration grid (signature card pattern) -- */
+.config-section {
+  padding: 5rem 1.5rem;
+}
+.config-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.config-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+@media (max-width: 1080px) { .config-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .config-grid { grid-template-columns: 1fr; } }
+.config-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+.config-card-render {
+  aspect-ratio: 4 / 3;
+  background:
+    linear-gradient(180deg, oklch(0.86 0.01 250) 0%, oklch(0.74 0.02 248) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.config-card-render::before {
+  content: "";
+  position: absolute;
+  inset: 30% 16% 18%;
+  border-radius: 8px;
+  background:
+    linear-gradient(120deg,
+      oklch(0.85 0 0) 0%,
+      oklch(0.72 0 0) 30%,
+      oklch(0.40 0.01 250) 60%,
+      oklch(0.25 0.02 248) 100%);
+  clip-path: polygon(0% 60%, 8% 25%, 22% 18%, 78% 18%, 92% 25%, 100% 60%, 96% 90%, 82% 100%, 18% 100%, 4% 90%);
+  box-shadow: 0 6px 14px hsl(0 0% 0% / 0.3);
+}
+.config-card[data-tone="dark"] .config-card-render {
+  background: linear-gradient(180deg, oklch(0.30 0.02 250) 0%, oklch(0.16 0.02 248) 100%);
+}
+.config-card[data-tone="cream"] .config-card-render {
+  background: linear-gradient(180deg, oklch(0.95 0.02 70) 0%, oklch(0.86 0.04 60) 100%);
+}
+.config-card[data-tone="m-blue"] .config-card-render {
+  background: linear-gradient(180deg, oklch(0.50 0.14 250) 0%, oklch(0.35 0.16 252) 100%);
+}
+.config-card-body {
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+.config-card-name {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--brand-body-strong);
+  margin: 0 0 0.25rem;
+}
+.config-card-tag {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+  margin: 0 0 0.875rem;
+}
+.config-card-cta {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  /* Card CTA must read on both polarities. --primary is the brand corp
+   * blue but lands sub-AA on the dark card bg (oklch 0.5 blue on 0.30
+   * navy = ~3:1). Use --foreground so the link color flips with the
+   * card it sits on; corp blue stays the button voltage. */
+  color: var(--foreground);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+.config-card-cta:hover { opacity: 0.7; }
+.config-card-cta::after { content: "›"; font-size: 16px; color: var(--primary); }
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; }
+.section[data-tight] { padding: 3.5rem 1.5rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { max-width: 40rem; margin-bottom: 2.5rem; }
+.section-header[data-center] { text-align: center; margin-left: auto; margin-right: auto; }
+.section-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: var(--font-sans);
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  max-width: 22ch;
+}
+.section-header[data-center] .section-title { margin-left: auto; margin-right: auto; }
+.section-lede {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--brand-body);
+  margin: 0;
+  max-width: 38rem;
+}
+.section-header[data-center] .section-lede { margin-left: auto; margin-right: auto; }
+
+/* -- Token-demo: color swatch grid -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.625rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  padding: 0.75rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border: 1px solid var(--brand-hairline-strong);
+}
+.swatch-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: var(--brand-body-strong);
+}
+.swatch-role {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+}
+
+/* -- Token-demo: surface ladder -- */
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.625rem;
+}
+@media (max-width: 880px) { .ladder { grid-template-columns: repeat(2, 1fr); } }
+.ladder-step {
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 11rem;
+  border: 1px solid var(--border);
+}
+.ladder-step[data-step="canvas"] { background: var(--background); color: var(--brand-body-strong); }
+.ladder-step[data-step="soft"]   { background: var(--brand-surface-strong); color: var(--brand-body-strong); }
+.ladder-step[data-step="dark"]   { background: var(--brand-surface-dark); color: var(--brand-on-dark); border-color: var(--brand-surface-dark); }
+.ladder-step[data-step="blue"]   { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+.ladder-num {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.ladder-name {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+}
+.ladder-role {
+  font-size: 13px;
+  font-weight: 300;
+  margin-top: auto;
+  line-height: 1.45;
+}
+
+/* -- Pricing tile (generic SaaS shape) -- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; max-width: 32rem; } }
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--brand-body-strong);
+}
+.pricing-card[data-featured] {
+  background: var(--brand-surface-dark);
+  border-color: var(--brand-surface-dark);
+  color: var(--brand-on-dark);
+}
+.pricing-name {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+.pricing-price {
+  font-family: var(--font-sans);
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+}
+.pricing-tagline {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--brand-body);
+  margin: 0;
+  line-height: 1.55;
+  min-height: 2.8em;
+}
+.pricing-card[data-featured] .pricing-tagline { color: var(--brand-on-dark-soft); }
+.pricing-cta { margin-top: 0.25rem; }
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--brand-body);
+}
+.pricing-card[data-featured] .pricing-features { border-top-color: oklch(1 0 0 / 0.18); color: var(--brand-on-dark-soft); }
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before {
+  content: "—";
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 14px;
+}
+.pricing-card[data-featured] .pricing-features li::before { color: var(--brand-on-dark); }
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+}
+.type-display {
+  font-family: var(--font-sans);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.05;
+  color: var(--foreground);
+}
+.type-heading {
+  font-family: var(--font-sans);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+.type-body { font-size: 14px; font-weight: 300; line-height: 1.6; color: var(--brand-body); }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-muted-soft);
+  width: 100%;
+}
+
+/* -- Footer (light) -- */
+.footer {
+  background: var(--brand-surface-strong);
+  border-top: 1px solid var(--border);
+  padding: 3rem 1.5rem 2rem;
+  color: var(--brand-body-strong);
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-tagline { font-size: 13px; color: var(--brand-body); line-height: 1.55; margin: 0; font-weight: 300; }
+.footer-col-title {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-body-strong);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a { font-size: 13px; font-weight: 300; color: var(--brand-body); text-decoration: none; }
+.footer-list a:hover { color: var(--brand-body-strong); }
+.footer-legal {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--brand-muted-soft);
+}
+.footer-legal-meta { font-family: ui-monospace, Menlo, monospace; }
+</style>
+
+</head>
+<body>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true"></span>__DESIGN_SYSTEM_NAME__</a>
+    <div class="topnav-links">
+      <a href="#">Configurations</a>
+      <a href="#">Platform</a>
+      <a href="#">Operations</a>
+      <a href="#">Enterprise</a>
+      <a href="#">Resources</a>
+    </div>
+    <div class="topnav-actions">
+      <a href="#">Sign in</a>
+      <button class="btn" data-variant="primary" type="button">Get a quote</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero canvas-navy" aria-label="Hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Halcyon · Configurations · 2026</p>
+      <h1 class="hero-display">A measured fleet for the operating team.</h1>
+      <p class="hero-lede">Four configurations on a single platform — Performance, Reliability, Compliance, and Operations. Halcyon's team picks one tier, the rest of the stack adapts in step.</p>
+      <div class="hero-ctas">
+        <button class="btn" data-variant="primary" data-size="lg" type="button">Get a quote</button>
+        <button class="btn" data-variant="on-dark" data-size="lg" type="button">Configure</button>
+      </div>
+    </div>
+    <div class="config-render" aria-hidden="true"></div>
+  </div>
+</header>
+
+<section class="config-section" aria-label="Configuration grid signature">
+  <div class="config-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Configurations · Four-up signature</p>
+      <h2 class="section-title">Pick the configuration. The stack follows.</h2>
+      <p class="section-lede">Each card carries a stylised render, a configuration name in 700-weight display, a tier tag, and a single corporate-blue "Learn more" link. The grid is the brand's signature commerce pattern.</p>
+    </div>
+
+    <div class="config-grid">
+      <article class="config-card" data-tone="light">
+        <div class="config-card-render" aria-hidden="true"></div>
+        <div class="config-card-body">
+          <h3 class="config-card-name">Performance</h3>
+          <p class="config-card-tag">Engineering · production load</p>
+          <a class="config-card-cta" href="#">Learn more</a>
+        </div>
+      </article>
+      <article class="config-card" data-tone="cream">
+        <div class="config-card-render" aria-hidden="true"></div>
+        <div class="config-card-body">
+          <h3 class="config-card-name">Reliability</h3>
+          <p class="config-card-tag">SRE · paging surfaces</p>
+          <a class="config-card-cta" href="#">Learn more</a>
+        </div>
+      </article>
+      <article class="config-card" data-tone="dark">
+        <div class="config-card-render" aria-hidden="true"></div>
+        <div class="config-card-body">
+          <h3 class="config-card-name">Compliance</h3>
+          <p class="config-card-tag">Procurement-ready · audited</p>
+          <a class="config-card-cta" href="#">Learn more</a>
+        </div>
+      </article>
+      <article class="config-card" data-tone="m-blue">
+        <div class="config-card-render" aria-hidden="true"></div>
+        <div class="config-card-body">
+          <h3 class="config-card-name">Operations</h3>
+          <p class="config-card-tag">Cross-team · scheduling</p>
+          <a class="config-card-cta" href="#">Learn more</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Color tokens">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Colour</p>
+      <h2 class="section-title">Corporate blue, navy band, restrained palette.</h2>
+      <p class="section-lede">Corporate blue carries every primary CTA. Navy hero band frames the signature moment. The rest of the system stays in cream-tinted neutrals; chromatic excitement is reserved for the blue voltage and the occasional M-red status accent.</p>
+    </div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-strong);"></div><div class="swatch-role">Soft</div><div class="swatch-name">--brand-surface-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-dark);"></div><div class="swatch-role">Navy</div><div class="swatch-name">--brand-surface-dark</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-surface-dark-elevated);"></div><div class="swatch-role">Navy-up</div><div class="swatch-name">--brand-surface-dark-elevated</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Voltage</div><div class="swatch-name">--primary · corp blue</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-m-red);"></div><div class="swatch-role">Accent</div><div class="swatch-name">--brand-m-red</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body-strong);"></div><div class="swatch-role">Ink</div><div class="swatch-name">--brand-body-strong</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-muted-soft);"></div><div class="swatch-role">Mute</div><div class="swatch-name">--brand-muted-soft</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Surfaces · Four polarities</p>
+      <h2 class="section-title">Four surfaces, one voltage.</h2>
+      <p class="section-lede">White canvas, soft cream tile, navy hero band, corporate-blue pill. The blue is the only chromatic surface; every other position is grayscale neutrality.</p>
+    </div>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Canvas</span>
+        <span class="ladder-name">--background</span>
+        <span class="ladder-role">page floor · body sections</span>
+      </div>
+      <div class="ladder-step" data-step="soft">
+        <span class="ladder-num">Soft</span>
+        <span class="ladder-name">--brand-surface-strong</span>
+        <span class="ladder-role">alternating band · footer</span>
+      </div>
+      <div class="ladder-step" data-step="dark">
+        <span class="ladder-num">Navy</span>
+        <span class="ladder-name">--brand-surface-dark</span>
+        <span class="ladder-role">hero band · featured tier</span>
+      </div>
+      <div class="ladder-step" data-step="blue">
+        <span class="ladder-num">Voltage</span>
+        <span class="ladder-name">--primary</span>
+        <span class="ladder-role">every primary CTA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Pricing">
+  <div class="section-inner">
+    <div class="section-header" data-center>
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Three tiers, one quote process.</h2>
+      <p class="section-lede">Pricing tiles follow the brand's settled register — no decorative gradient, no shadow, square corners. Featured tier inverted to navy with corp-blue holding the CTA inside.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">Hobby</h3>
+        <div class="pricing-price">Free</div>
+        <p class="pricing-tagline">For personal projects and weekend experiments.</p>
+        <ul class="pricing-features">
+          <li>Personal use</li>
+          <li>Standard quota</li>
+          <li>Best-effort support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Get started</button></div>
+      </div>
+
+      <div class="pricing-card" data-featured>
+        <h3 class="pricing-name">Team</h3>
+        <div class="pricing-price">Standard</div>
+        <p class="pricing-tagline">For small teams shipping into production.</p>
+        <ul class="pricing-features">
+          <li>Team workspaces</li>
+          <li>Increased quota</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="primary" type="button">Start Team</button></div>
+      </div>
+
+      <div class="pricing-card">
+        <h3 class="pricing-name">Org-wide</h3>
+        <div class="pricing-price">Custom</div>
+        <p class="pricing-tagline">For organisations with procurement and security review.</p>
+        <ul class="pricing-features">
+          <li>Org-wide deployment</li>
+          <li>Custom quota + region</li>
+          <li>Dedicated success</li>
+          <li>Procurement-ready paperwork</li>
+        </ul>
+        <div class="pricing-cta"><button class="btn" data-variant="secondary" type="button">Talk to sales</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Tokens · Type + components</p>
+      <h2 class="section-title">Two weights, one type system.</h2>
+      <p class="section-lede">BMW Type Next Latin runs the entire hierarchy on two weights — heavy 700 display and light 300 body. The brand never reaches for a middle weight. Buttons are square-cornered with upper-case labels and 0.4 px tracked spacing.</p>
+    </div>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Two weights, one canvas.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">BMW Type Next · 700 · 24</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy at 16 px BMW Type Next Latin 300, line-height 1.55. The light weight is unusual for a corporate site; it gives the body register a settled, measured quality.</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · square corners · upper-case</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <button class="btn" data-variant="primary" type="button">Get a quote</button>
+            <button class="btn" data-variant="secondary" type="button">Configure</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Card CTA · corporate-blue link with chevron</span>
+          <div class="cmp-row" style="margin-top:0.5rem;">
+            <a class="config-card-cta" href="#">Learn more</a>
+            <a class="config-card-cta" href="#">Configure</a>
+            <a class="config-card-cta" href="#">View tier</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="brand-mark" href="#"><span class="brand-glyph" aria-hidden="true"></span>__DESIGN_SYSTEM_NAME__</a>
+      <p class="footer-tagline">A token-surface preview rendered against the measured corporate-automotive design system. Cream-tinted white canvas, corporate-blue voltage, navy hero band. Halcyon-themed neutral configuration content.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Configurations</p>
+      <ul class="footer-list"><li><a href="#">Performance</a></li><li><a href="#">Reliability</a></li><li><a href="#">Compliance</a></li><li><a href="#">Operations</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Platform</p>
+      <ul class="footer-list"><li><a href="#">Pricing</a></li><li><a href="#">Enterprise</a></li><li><a href="#">Security</a></li><li><a href="#">Status</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">app.halcyon.dev</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">hlc.so</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.24</span>
+    <span class="footer-legal-meta">cream canvas · corp-blue voltage · navy hero · type-next 700/300</span>
+  </div>
+</footer>
+
+</body>
+</html>

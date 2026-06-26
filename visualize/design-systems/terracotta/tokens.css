@@ -1,0 +1,243 @@
+/**
+ * Terracotta theme — warm-earth editorial register. Sand chassis
+ * (hue 60), terracotta red-clay primary (hue 30), sage accent
+ * (hue 110), humanist serif display + warm sans body, slow-pace
+ * voice.
+ *
+ * Mode priority: light-canonical. Dark mode is designed (not
+ * synthesised) as warm-firelit-room — chassis L inverts but stays
+ * warm; primary stays clay; sage lifts modestly for dark-mode
+ * legibility.
+ *
+ * Distinct from every other visualize design system on four axes:
+ *
+ *   1. **Hue-60 sand chassis.** Paper-ink sits at hue 80 (cooler
+ *      parchment); Bento at hue 70 (cream-modern); Terracotta at
+ *      hue 60 is the warmest. The chassis reads as "sand" / "warm
+ *      earth" rather than "cream" / "parchment".
+ *
+ *   2. **Fired-clay primary at chroma 0.18.** Brutalist's primary
+ *      is hue 25 / chroma 0.22 (unrestrained cadmium); Bento's is
+ *      hue 35 / chroma 0.15 (warm-modern coral); Terracotta's at
+ *      hue 30 / chroma 0.18 is *fired clay* — warm-red but earthy.
+ *      The chroma boundary is identity-load-bearing: at 0.22 it
+ *      reads cadmium, at 0.15 it reads coral.
+ *
+ *   3. **Two-tone *warm* voltage (warm primary + warm-green accent).**
+ *      Bento pairs warm primary with cool accent (hue 200 teal).
+ *      Terracotta pairs warm primary with warm-green accent (hue 110
+ *      olive-sage). Both voltage poles sit on the warm/earth side of
+ *      the wheel — the sage grounds the clay rather than contrasting
+ *      against it. This is the choice that makes Terracotta a
+ *      *single-mood* warm register rather than a two-temperature
+ *      modern grid.
+ *
+ *   4. **Humanist serif display at weight 500 with sans body.** Riso's
+ *      display is chunky serif at weight 700 (zine poster); Editorial's
+ *      is light display serif at weight 400 (longform magazine);
+ *      Whitepaper's is sans at weight 600 (academic). Terracotta's
+ *      humanist serif at weight 500 — confident-but-not-blocky — is
+ *      the slow-pace signal that distinguishes it from those.
+ *
+ * Blessed templates: Long-form essay / blog post, Sustainability or
+ * impact report, Grounded retrospective (reflection-heavy, not
+ * incident-shape), Agency / craft portfolio, Annual review with
+ * narrative emphasis.
+ *
+ * Discouraged: Tech documentation (warm chassis + serif display fight
+ * dev-default register — use Console / IDE / Clean); Dashboard / data
+ * table (slow-pace identity collapses under density); Pitch deck
+ * (Bento / Brutalist suit slide-shape better — Terracotta's editorial
+ * flow doesn't slice into slides); Release announcement / product
+ * launch (warm-earth chassis reads under-energetic against launch voice).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Sand chassis (hue 60) ------------------------------------ */
+  --background:              oklch(0.94 0.014 60);
+  --foreground:              oklch(0.22 0.020 40);
+
+  --card:                    oklch(0.96 0.012 60);
+  --card-foreground:         oklch(0.22 0.020 40);
+
+  --popover:                 oklch(0.96 0.012 60);
+  --popover-foreground:      oklch(0.22 0.020 40);
+
+  /* Fired-clay primary — hue 30, chroma 0.18 (not 0.22 like Brutalist's
+   * cadmium, not 0.15 like Bento's coral). The middle is identity-load-
+   * bearing. */
+  --primary:                 oklch(0.46 0.18 30);
+  --primary-foreground:      oklch(0.96 0.012 60);
+
+  --secondary:               oklch(0.88 0.024 60);
+  --secondary-foreground:    oklch(0.22 0.020 40);
+
+  --muted:                   oklch(0.91 0.014 60);
+  --muted-foreground:        oklch(0.46 0.018 40);
+
+  /* Sage accent — hue 110, the warm green that grounds rather than
+   * contrasts. Pure cool green (hue 140+) reads chlorophyll-clinical. */
+  --accent:                  oklch(0.68 0.11 110);
+  --accent-foreground:       oklch(0.96 0.012 60);
+
+  --destructive:             oklch(0.50 0.20 25);
+  --destructive-foreground:  oklch(0.96 0.012 60);
+
+  --border:                  oklch(0.84 0.018 60);
+  --input:                   oklch(0.84 0.018 60);
+  --ring:                    oklch(0.55 0.18 30);
+
+  --sidebar:                 oklch(0.91 0.014 60);
+  --sidebar-foreground:      oklch(0.22 0.020 40);
+  --sidebar-primary:         oklch(0.55 0.18 30);
+  --sidebar-primary-foreground: oklch(0.96 0.012 60);
+  --sidebar-accent:          oklch(0.88 0.024 60);
+  --sidebar-accent-foreground: oklch(0.22 0.020 40);
+  --sidebar-border:          oklch(0.84 0.018 60);
+  --sidebar-ring:            oklch(0.55 0.18 30);
+
+  /* -- Chart palette: single-mood warm-earth ramp --------------- */
+  --chart-1:                 oklch(0.55 0.18 30);
+  --chart-2:                 oklch(0.62 0.14 50);
+  --chart-3:                 oklch(0.58 0.10 110);
+  --chart-4:                 oklch(0.50 0.12 90);
+  --chart-5:                 oklch(0.65 0.10 70);
+
+  /* -- Radius (moderate) ---------------------------------------- */
+  --radius-sm:               0.1875rem;
+  --radius-md:               0.3125rem;
+  --radius-lg:               0.5rem;
+  --radius-xl:               0.75rem;
+
+  --space-xs:                0.375rem;
+  --space-sm:                0.625rem;
+  --space-md:                1.125rem;
+  --space-lg:                1.75rem;
+  --space-xl:                2.75rem;
+
+  /* -- Shadow (soft warm-shifted) ------------------------------- */
+  --shadow-sm:               0 1px 3px 0 hsl(30 30% 25% / 0.08), 0 1px 2px -1px hsl(30 30% 25% / 0.08);
+  --shadow-md:               0 2px 6px -1px hsl(30 30% 25% / 0.10), 0 2px 4px -1px hsl(30 30% 25% / 0.10);
+  --shadow-lg:               0 8px 24px -4px hsl(30 30% 25% / 0.12);
+  --shadow-2xs:              0 1px 2px 0 hsl(30 30% 25% / 0.04);
+  --shadow-xs:               0 1px 2px 0 hsl(30 30% 25% / 0.06);
+  --shadow-xl:               0 12px 32px -6px hsl(30 30% 25% / 0.14);
+  --shadow-2xl:              0 20px 48px -8px hsl(30 30% 25% / 0.18);
+  /* typography tokens */
+  --font-sans: 'Inter', 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Source Serif Pro', 'Charter', 'Iowan Old Style', Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: var(--font-serif);
+
+  /* type scale tokens */
+  --text-display: clamp(2.25rem, 5.5vw, 3.5rem);
+  --text-heading: 1.75rem;
+  --text-title: 1.25rem;
+  --text-base: 17px;
+  --leading-tight: 1.15;
+  --leading-normal: 1.65;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: -0.005em;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Dark register — warm firelit-room. Chassis L inverts but stays
+   * warm; primary stays clay-leaning; sage lifts modestly for dark-mode
+   * legibility. */
+
+  --background:              oklch(0.17 0.018 40);
+  --foreground:              oklch(0.92 0.012 60);
+
+  --card:                    oklch(0.21 0.020 40);
+  --card-foreground:         oklch(0.92 0.012 60);
+
+  --popover:                 oklch(0.21 0.020 40);
+  --popover-foreground:      oklch(0.92 0.012 60);
+
+  --primary:                 oklch(0.62 0.19 30);
+  --primary-foreground:      oklch(0.17 0.018 40);
+
+  --secondary:               oklch(0.30 0.030 40);
+  --secondary-foreground:    oklch(0.92 0.012 60);
+
+  --muted:                   oklch(0.25 0.016 40);
+  --muted-foreground:        oklch(0.68 0.014 60);
+
+  --accent:                  oklch(0.62 0.12 110);
+  --accent-foreground:       oklch(0.17 0.018 40);
+
+  --destructive:             oklch(0.58 0.22 25);
+  --destructive-foreground:  oklch(0.17 0.018 40);
+
+  --border:                  oklch(0.32 0.018 40);
+  --input:                   oklch(0.32 0.018 40);
+  --ring:                    oklch(0.62 0.19 30);
+
+  --sidebar:                 oklch(0.21 0.020 40);
+  --sidebar-foreground:      oklch(0.92 0.012 60);
+  --sidebar-primary:         oklch(0.62 0.19 30);
+  --sidebar-primary-foreground: oklch(0.17 0.018 40);
+  --sidebar-accent:          oklch(0.30 0.030 40);
+  --sidebar-accent-foreground: oklch(0.92 0.012 60);
+  --sidebar-border:          oklch(0.32 0.018 40);
+  --sidebar-ring:            oklch(0.62 0.19 30);
+
+  --chart-1:                 oklch(0.62 0.19 30);
+  --chart-2:                 oklch(0.68 0.15 50);
+  --chart-3:                 oklch(0.62 0.12 110);
+  --chart-4:                 oklch(0.56 0.13 90);
+  --chart-5:                 oklch(0.70 0.11 70);
+
+  --shadow-sm:               0 1px 3px 0 hsl(30 20% 5% / 0.40), 0 1px 2px -1px hsl(30 20% 5% / 0.40);
+  --shadow-md:               0 2px 6px -1px hsl(30 20% 5% / 0.50);
+  --shadow-lg:               0 8px 24px -4px hsl(30 20% 5% / 0.55);
+  --shadow-2xs:              0 1px 2px 0 hsl(30 20% 5% / 0.30);
+  --shadow-xs:               0 1px 2px 0 hsl(30 20% 5% / 0.35);
+  --shadow-xl:               0 12px 32px -6px hsl(30 20% 5% / 0.60);
+  --shadow-2xl:              0 20px 48px -8px hsl(30 20% 5% / 0.70);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background:            oklch(0.17 0.018 40);
+    --foreground:            oklch(0.92 0.012 60);
+    --card:                  oklch(0.21 0.020 40);
+    --card-foreground:       oklch(0.92 0.012 60);
+    --popover:               oklch(0.21 0.020 40);
+    --popover-foreground:    oklch(0.92 0.012 60);
+    --primary:               oklch(0.62 0.19 30);
+    --primary-foreground:    oklch(0.17 0.018 40);
+    --secondary:             oklch(0.30 0.030 40);
+    --secondary-foreground:  oklch(0.92 0.012 60);
+    --muted:                 oklch(0.25 0.016 40);
+    --muted-foreground:      oklch(0.68 0.014 60);
+    --accent:                oklch(0.62 0.12 110);
+    --accent-foreground:     oklch(0.17 0.018 40);
+    --destructive:           oklch(0.58 0.22 25);
+    --destructive-foreground: oklch(0.17 0.018 40);
+    --border:                oklch(0.32 0.018 40);
+    --input:                 oklch(0.32 0.018 40);
+    --ring:                  oklch(0.62 0.19 30);
+    --sidebar:               oklch(0.21 0.020 40);
+    --sidebar-foreground:    oklch(0.92 0.012 60);
+    --sidebar-primary:       oklch(0.62 0.19 30);
+    --sidebar-primary-foreground: oklch(0.17 0.018 40);
+    --sidebar-accent:        oklch(0.30 0.030 40);
+    --sidebar-accent-foreground: oklch(0.92 0.012 60);
+    --sidebar-border:        oklch(0.32 0.018 40);
+    --sidebar-ring:          oklch(0.62 0.19 30);
+    --chart-1:               oklch(0.62 0.19 30);
+    --chart-2:               oklch(0.68 0.15 50);
+    --chart-3:               oklch(0.62 0.12 110);
+    --chart-4:               oklch(0.56 0.13 90);
+    --chart-5:               oklch(0.70 0.11 70);
+  }
+}

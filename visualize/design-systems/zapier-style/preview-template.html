@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="en"__ROOT_ATTR__>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__DESIGN_SYSTEM_NAME__ — preview</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23fffefb'/%3E%3Cpath d='M9 6h14l-9 11h9L9 28l3-11H4z' fill='%23ff4f00'/%3E%3C/svg%3E">
+<meta property="og:title" content="__DESIGN_SYSTEM_NAME__ — token-surface preview">
+<meta property="og:description" content="Brand-style design-system preview from visualize. Warm-cream canvas, deep coffee ink, single saturated orange CTA, Degular Display hero with Inter body, and a workflow-chain signature surface showing trigger → action automation.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* === Design-system tokens (inlined from design-systems/__DESIGN_SYSTEM_NAME__/tokens.css) === */
+/* __TOKENS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Preview fixture styles (inlined from preview-kit/fixture-styles/) === */
+/* __COMPONENTS_PLACEHOLDER__ */
+</style>
+
+<style>
+/* === Zapier-style preview shell — warm-cream canvas (--background), deep
+   coffee ink (--foreground), single saturated orange CTA (--primary),
+   12px button + card radius. The signature surface is a workflow-chain
+   card: trigger → action → action, the visual idiom Zapier is
+   recognized by. Halcyon's team uses it for internal ops automation;
+   actions are generic (Slack post / Sheet row / Email send / GitHub
+   action) — not Zapier's branded primitives. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -- Top nav (warm-cream canvas, ink links, orange CTA) -- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--background);
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.topnav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.brand-glyph {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  color: var(--brand-on-coffee);
+  flex-shrink: 0;
+}
+.brand-glyph svg { display: block; }
+.topnav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 15px;
+  font-weight: 500;
+  flex: 1;
+  margin-left: 1.5rem;
+}
+.topnav-links a { color: var(--foreground); text-decoration: none; opacity: 0.92; }
+.topnav-links a:hover { opacity: 1; }
+.topnav-actions { display: flex; gap: 0.5rem; align-items: center; }
+@media (max-width: 960px) { .topnav-links { display: none; } }
+
+/* -- Buttons (12px radius, 44px min touch, focus-visible, reduced-motion-aware) -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+  white-space: nowrap;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+/* Primary button — coffee ink on saturated orange. The brand-documented
+   #fffefb cream ink on #ff4f00 scores 3.02:1 (below AA body 4.5:1). Coffee
+   ink on the orange clears 6.4:1 and preserves the brand's voltage.
+   Same approach used in pricing-card-featured per DESIGN.md (which renders
+   text in primary-foreground = cream, but the brand's pricing-card-default
+   uses foreground ink — we pick the higher-contrast option). */
+.btn[data-variant="primary"] {
+  background: var(--primary);
+  color: var(--brand-on-cream);
+}
+/* Zapier's live CTAs ship no hover variant on the orange — verified against
+   homepage / /apps / /pricing / /platform 2026-05-25. Match the brand: same
+   orange, voltage-locked on hover too. */
+.btn[data-variant="primary"]:hover { background: var(--primary); color: var(--brand-on-cream); }
+/* Secondary button — polarity-locked dark-coffee surface with always-cream
+   ink. NOT var(--foreground) (which flips in dark and produces cream-on-cream)
+   — uses --brand-coffee-deep + --brand-on-coffee which are both polarity-locked
+   at :root values. */
+.btn[data-variant="secondary"] {
+  background: var(--brand-coffee-deep);
+  color: var(--brand-on-coffee);
+}
+.btn[data-variant="secondary"]:hover { background: var(--brand-coffee-soft); }
+.btn[data-variant="outline"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+.btn[data-variant="outline"]:hover { background: var(--brand-canvas-soft); }
+.btn[data-variant="ghost"] {
+  background: transparent;
+  color: var(--foreground);
+  border-color: transparent;
+  padding: 0.75rem 0.75rem;
+}
+.btn[data-variant="ghost"]:hover { color: var(--primary); }
+.btn[data-size="sm"] { min-height: 36px; padding: 0.5rem 0.75rem; font-size: 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* -- Section frame -- */
+.section { padding: 5rem 1.5rem; }
+.section[data-tight] { padding: 3rem 1.5rem; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+
+.eyebrow {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+}
+.section-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0 0 1rem;
+  color: var(--foreground);
+  max-width: 22ch;
+}
+.section-title .accent { color: var(--primary); }
+.section-lede {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--brand-body);
+  max-width: 56ch;
+  margin: 0 0 3rem;
+}
+
+/* -- Hero band (warm cream, ink display, orange CTA) -- */
+.hero {
+  padding: 5rem 1.5rem 4rem;
+  background: var(--background);
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+.hero-eyebrow {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--brand-body);
+  margin: 0;
+}
+.hero-display {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 18ch;
+}
+.hero-display .accent { color: var(--primary); }
+.hero-lede {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brand-body);
+  max-width: 52ch;
+  margin: 0;
+}
+.hero-ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem; }
+
+/* === Signature surface: workflow-chain card =============================
+   One trigger card on the left, three action cards in a connected chain.
+   Trigger has the orange edge accent (the signature voltage); actions
+   carry generic app glyphs. The connecting arrow is the brand's visual
+   idiom — Zapier's recognizability is "two boxes connected by an arrow."
+   ====================================================================== */
+.workflow-band {
+  padding: 4rem 1.5rem 6rem;
+  background: var(--background);
+}
+.workflow-frame {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--brand-canvas-soft);
+  border-radius: calc(var(--radius-md) + 4px);
+  padding: 2.5rem;
+}
+.workflow-frame-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.workflow-name {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0;
+}
+.workflow-meta {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--brand-body);
+}
+.workflow-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--foreground);
+  background: var(--background);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--brand-radius-pill);
+  padding: 0.5rem 0.75rem;
+}
+.workflow-status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--primary);
+  display: inline-block;
+}
+
+.workflow-chain {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  gap: 0.5rem;
+  align-items: center;
+}
+@media (max-width: 1000px) {
+  .workflow-chain {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+.workflow-step {
+  background: var(--background);
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 11rem;
+  position: relative;
+}
+.workflow-step[data-step="trigger"] {
+  border-color: var(--primary);
+  border-width: 2px;
+  padding: calc(1.25rem - 1px);
+}
+.workflow-step-eyebrow {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+/* trigger eyebrow uses the brand's body ink — orange-on-cream at body size
+   doesn't clear AA, and per AUTHORING.md the fix is the surface, not the
+   colour (zapier.com doesn't render orange as small-body text either; the
+   voltage lives on CTA fills + glyphs, not labels). */
+.workflow-step[data-step="trigger"] .workflow-step-eyebrow { color: var(--brand-body); }
+.workflow-step-glyph {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-sm);
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+/* Workflow-step glyph backgrounds: each chip needs ≥ 4.5:1 between glyph text
+   and chip bg. Glyph ink is always-cream (polarity-locked), so chip bg must be
+   dark enough to clear AA against cream. Default ink for the email chip is
+   coffee (--brand-on-cream) because orange + cream lands at ~3:1. */
+.workflow-step-glyph[data-app="github"] { background: var(--brand-coffee-deep); color: var(--brand-on-coffee); }
+.workflow-step-glyph[data-app="slack"] { background: oklch(0.4200 0.1700 285); color: var(--brand-on-coffee); }
+.workflow-step-glyph[data-app="sheets"] { background: oklch(0.4200 0.1500 145); color: var(--brand-on-coffee); }
+.workflow-step-glyph[data-app="email"] { background: var(--primary); color: var(--brand-on-cream); }
+.workflow-step-app {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brand-body);
+}
+.workflow-step-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--foreground);
+  margin: 0;
+  margin-top: auto;
+}
+.workflow-step-detail {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--brand-body);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.workflow-arrow {
+  display: grid;
+  place-items: center;
+  color: var(--brand-body-mid);
+}
+.workflow-arrow svg { display: block; }
+@media (max-width: 1000px) {
+  .workflow-arrow {
+    transform: rotate(90deg);
+  }
+}
+
+/* -- Color swatch grid (token demo) -- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+.swatch {
+  border: 1px solid var(--brand-hairline-soft);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.swatch-chip {
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.swatch-name {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+.swatch-role {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-body);
+}
+
+/* -- Surface ladder (token demo) -- */
+.surface-band { background: var(--brand-canvas-soft); }
+.ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) { .ladder { grid-template-columns: 1fr; } }
+.ladder-step {
+  border-radius: var(--radius-md);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 10rem;
+}
+.ladder-step[data-step="canvas"] {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.ladder-step[data-step="soft"] {
+  background: var(--brand-canvas-cream);
+  color: var(--foreground);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.ladder-step[data-step="coffee"] {
+  background: var(--brand-coffee-deep);
+  color: var(--brand-on-coffee);
+}
+.ladder-num {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: currentColor;
+  opacity: 0.78;
+}
+.ladder-name {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: currentColor;
+}
+.ladder-role {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: currentColor;
+  opacity: 0.86;
+  margin-top: auto;
+}
+
+/* -- Type + components row -- */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+@media (max-width: 960px) { .split-row { grid-template-columns: 1fr; gap: 2.5rem; } }
+.type-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--brand-hairline-soft);
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.type-display { font-family: 'Inter', system-ui, sans-serif; font-size: 48px; font-weight: 600; line-height: 1.05; letter-spacing: -0.035em; color: var(--foreground); }
+.type-heading { font-family: 'Inter', system-ui, sans-serif; font-size: 32px; font-weight: 600; line-height: 1.15; letter-spacing: -0.025em; color: var(--foreground); }
+.type-title { font-family: 'Inter', system-ui, sans-serif; font-size: 20px; font-weight: 600; line-height: 1.3; letter-spacing: -0.015em; color: var(--foreground); }
+.type-body { font-family: 'Inter', system-ui, sans-serif; font-size: 16px; line-height: 1.55; color: var(--brand-body); }
+.type-mono { font-family: var(--font-mono); font-size: 14px; color: var(--foreground); background: var(--brand-canvas-soft); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); display: inline-block; }
+
+.cmp-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.cmp-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.cmp-row-label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  width: 100%;
+  margin-bottom: 0;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--brand-radius-pill);
+  background: var(--brand-canvas-soft);
+  color: var(--foreground);
+}
+/* Primary tone badge — coffee-deep ink on subdued-orange surface in light
+   mode (was orange on subdued-orange = 2.67:1). The 22% orange mix renders
+   light-pink on white canvas and a deep maroon on coffee canvas — the dark
+   maroon would blend with coffee ink, so we lift the ink to cream in dark
+   mode via the polarity-aware foreground token. */
+.badge[data-tone="primary"] {
+  background: color-mix(in srgb, var(--primary) 22%, transparent);
+  color: var(--brand-coffee-deep);
+}
+[data-theme="dark"] .badge[data-tone="primary"] {
+  background: color-mix(in srgb, var(--primary) 28%, transparent);
+  color: var(--brand-on-coffee);
+}
+.badge[data-tone="success"] {
+  background: oklch(0.94 0.06 145 / 0.6);
+  color: oklch(0.28 0.10 145);
+}
+.badge[data-tone="neutral"] {
+  background: var(--brand-canvas-soft);
+  color: var(--brand-body);
+}
+
+/* card vocabulary chips */
+.card-vocab {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+.vocab-tile {
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+/* Vocab tile label — no opacity blend. Opacity-blended ink on the bright
+   orange tile lands below AA (per AUTHORING.md "Opacity-blended labels"
+   gotcha — 0.55-0.7 on always-dark ink against always-light bg typically
+   lands at 3.3-4.0:1). Use a fixed mid-warm-coffee token instead. */
+.vocab-tile-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+}
+.vocab-tile-name { font-weight: 600; }
+.vocab-tile[data-tile="cream"] {
+  background: var(--brand-canvas-soft);
+  color: var(--foreground);
+  border: 1px solid var(--brand-hairline-soft);
+}
+.vocab-tile[data-tile="canvas"] {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+}
+.vocab-tile[data-tile="coffee"] {
+  background: var(--brand-coffee-deep);
+  color: var(--brand-on-coffee);
+}
+/* Orange voltage tile — coffee ink (not cream) so label + name both pass AA
+   against #ff4f00. Cream-on-orange scores 3.02:1, coffee-on-orange clears AA.
+   Override label color since the brand-body default reads pale here. */
+.vocab-tile[data-tile="orange"] {
+  background: var(--primary);
+  color: var(--brand-on-cream);
+}
+.vocab-tile[data-tile="orange"] .vocab-tile-label { color: var(--brand-on-cream); }
+.vocab-tile[data-tile="coffee"] .vocab-tile-label { color: var(--brand-on-coffee); }
+.vocab-tile[data-tile="canvas"] .vocab-tile-label,
+.vocab-tile[data-tile="cream"] .vocab-tile-label { color: var(--brand-body); }
+
+/* -- Closing cream band (decorative, not a CTA card) -- */
+.closing-band {
+  padding: 5rem 1.5rem;
+  background: var(--brand-canvas-cream);
+  border-top: 1px solid var(--brand-hairline-soft);
+}
+.closing-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.closing-eyebrow {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-body);
+  margin: 0;
+}
+.closing-line {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  margin: 0;
+  max-width: 22ch;
+}
+/* Headline accent stays in the brand's coffee ink. The orange voltage is the
+   CTA-button signature on zapier.com, not a headline-word treatment — keeping
+   the accent in ink matches the live brand's headline behavior. */
+.closing-line .accent { color: var(--foreground); }
+
+/* -- Footer (deep coffee, polarity-locked) -- */
+.footer {
+  background: var(--brand-coffee-deep);
+  color: var(--brand-on-coffee);
+  padding: 4rem 1.5rem 2.5rem;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.6fr repeat(4, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+.footer-brand-block { display: flex; flex-direction: column; gap: 0.75rem; max-width: 32ch; }
+.footer-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--brand-on-coffee);
+  text-decoration: none;
+}
+.footer-tagline {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0;
+  color: var(--brand-on-coffee);
+  opacity: 0.78;
+}
+.footer-col-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-on-coffee);
+  margin: 0 0 1rem;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-list a {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--brand-on-coffee);
+  opacity: 0.82;
+  text-decoration: none;
+}
+.footer-list a:hover { opacity: 1; color: var(--brand-on-coffee); }
+.footer-legal {
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid color-mix(in srgb, var(--brand-on-coffee) 18%, transparent);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  color: var(--brand-on-coffee);
+  opacity: 0.72;
+}
+</style>
+
+</head>
+<body>
+
+<header class="topnav" aria-label="Primary">
+  <div class="topnav-inner">
+    <a class="brand-mark" href="#">
+      <span class="brand-glyph" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 1.5h6l-4 4.5h4L4 12.5l1.25-4.5H2.25z" fill="currentColor"/>
+        </svg>
+      </span>
+      __DESIGN_SYSTEM_NAME__
+    </a>
+    <div class="topnav-links">
+      <a href="#">Product</a>
+      <a href="#">Solutions</a>
+      <a href="#">Templates</a>
+      <a href="#">Docs</a>
+      <a href="#">Pricing</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="btn" data-variant="ghost" data-size="sm" type="button">Sign in</button>
+      <button class="btn" data-variant="primary" data-size="sm" type="button">Start free</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Halcyon · internal ops</p>
+    <h1 class="hero-display">The team runs on <span class="accent">small chains.</span></h1>
+    <p class="hero-lede">Halcyon's engineering, design, and ops teams wire short trigger-to-action chains for the work that used to be a Friday email. A PR opens, a row updates, a digest sends. The board moves on its own.</p>
+    <div class="hero-ctas">
+      <button class="btn" data-variant="primary" type="button">Wire a chain</button>
+      <button class="btn" data-variant="outline" type="button">Browse templates</button>
+    </div>
+  </div>
+</section>
+
+<section class="workflow-band" aria-label="Workflow signature">
+  <div class="workflow-frame">
+    <div class="workflow-frame-head">
+      <div>
+        <p class="workflow-name">PR merged → ship-it digest</p>
+        <p class="workflow-meta">Owned by platform · runs weekdays · last fired 4 minutes ago</p>
+      </div>
+      <span class="workflow-status">
+        <span class="workflow-status-dot" aria-hidden="true"></span>
+        Active
+      </span>
+    </div>
+
+    <div class="workflow-chain" role="list" aria-label="Workflow steps">
+      <div class="workflow-step" data-step="trigger" role="listitem">
+        <span class="workflow-step-eyebrow">Trigger</span>
+        <span class="workflow-step-glyph" data-app="github" aria-label="GitHub">GH</span>
+        <span class="workflow-step-app">GitHub</span>
+        <p class="workflow-step-title">Pull request merged</p>
+        <p class="workflow-step-detail">In halcyon-api on master · author and PR title forwarded</p>
+      </div>
+
+      <div class="workflow-arrow" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="workflow-step" data-step="action" role="listitem">
+        <span class="workflow-step-eyebrow">Action 1</span>
+        <span class="workflow-step-glyph" data-app="sheets" aria-label="Sheets">SH</span>
+        <span class="workflow-step-app">Spreadsheet</span>
+        <p class="workflow-step-title">Append row</p>
+        <p class="workflow-step-detail">To "Ship log Q2" · with author, repo, PR title, merge SHA</p>
+      </div>
+
+      <div class="workflow-arrow" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="workflow-step" data-step="action" role="listitem">
+        <span class="workflow-step-eyebrow">Action 2</span>
+        <span class="workflow-step-glyph" data-app="slack" aria-label="Slack">SL</span>
+        <span class="workflow-step-app">Team chat</span>
+        <p class="workflow-step-title">Post to #ship-it</p>
+        <p class="workflow-step-detail">Threaded under the day's anchor message · author tagged</p>
+      </div>
+
+      <div class="workflow-arrow" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="workflow-step" data-step="action" role="listitem">
+        <span class="workflow-step-eyebrow">Action 3</span>
+        <span class="workflow-step-glyph" data-app="email" aria-label="Email">EM</span>
+        <span class="workflow-step-app">Email digest</span>
+        <p class="workflow-step-title">Send Friday roll-up</p>
+        <p class="workflow-step-detail">To team@halcyon.dev · Fridays at 16:00 · summarises the week's rows</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-tight aria-label="Color tokens">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · colour</p>
+    <h2 class="section-title">Cream, coffee, <span class="accent">one orange.</span></h2>
+    <p class="section-lede">The brand resolves to three temperatures: a warm-cream canvas, a deep coffee ink, a single saturated orange CTA. Every neutral carries warmth — none are cool grey. Tokens resolve from <code style="font-family: var(--font-mono); font-size: 0.875em; background: var(--brand-canvas-soft); padding: 0.125rem 0.375rem; border-radius: 4px;">tokens.css</code>.</p>
+    <div class="swatch-grid" aria-label="Color swatches">
+      <div class="swatch"><div class="swatch-chip" style="background: var(--primary);"></div><div class="swatch-role">Action</div><div class="swatch-name">--primary</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--background);"></div><div class="swatch-role">Surface · canvas</div><div class="swatch-name">--background</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-soft);"></div><div class="swatch-role">Surface · break</div><div class="swatch-name">--brand-canvas-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-canvas-cream);"></div><div class="swatch-role">Surface · closing</div><div class="swatch-name">--brand-canvas-cream</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-coffee-deep);"></div><div class="swatch-role">Surface · inverse</div><div class="swatch-name">--brand-coffee-deep</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--foreground);"></div><div class="swatch-role">Ink · primary</div><div class="swatch-name">--foreground</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ink-soft);"></div><div class="swatch-role">Ink · soft</div><div class="swatch-name">--brand-ink-soft</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-ink-mid);"></div><div class="swatch-role">Ink · mid</div><div class="swatch-name">--brand-ink-mid</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body);"></div><div class="swatch-role">Ink · body</div><div class="swatch-name">--brand-body</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-body-mid);"></div><div class="swatch-role">Ink · meta</div><div class="swatch-name">--brand-body-mid</div></div>
+      <div class="swatch"><div class="swatch-chip" style="background: var(--brand-mute);"></div><div class="swatch-role">Ink · mute</div><div class="swatch-name">--brand-mute</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section surface-band" data-tight aria-label="Surface ladder">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · surface</p>
+    <h2 class="section-title">Three rungs of <span class="accent">warm.</span></h2>
+    <p class="section-lede">Canvas as the floor. Cream as the section break. Coffee as the inverse plate for footers and high-emphasis cards. Every rung is warm; nothing reads as cool grey.</p>
+    <div class="ladder">
+      <div class="ladder-step" data-step="canvas">
+        <span class="ladder-num">Floor</span>
+        <span class="ladder-name">Canvas</span>
+        <span class="ladder-role">--background · body region, hero, workflow plate</span>
+      </div>
+      <div class="ladder-step" data-step="soft">
+        <span class="ladder-num">Break</span>
+        <span class="ladder-name">Cream</span>
+        <span class="ladder-role">--brand-canvas-soft · section dividers, inset bands</span>
+      </div>
+      <div class="ladder-step" data-step="coffee">
+        <span class="ladder-num">Inverse</span>
+        <span class="ladder-name">Coffee</span>
+        <span class="ladder-role">--brand-coffee-deep · footer, polarity-flipped cards</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Typography and components">
+  <div class="section-inner">
+    <p class="eyebrow">tokens · type + components</p>
+    <h2 class="section-title">Inter holds the <span class="accent">line.</span></h2>
+    <p class="section-lede">Inter at weight 600 carries every display surface; weight 400 carries body. Buttons share the 12px radius the brand puts on every card — middle-rounded, never pills, never sharp.</p>
+
+    <div class="split-row">
+      <div class="type-stack">
+        <div class="type-row"><span class="type-label">Display</span><span class="type-display">Halcyon ships.</span></div>
+        <div class="type-row"><span class="type-label">Heading</span><span class="type-heading">Quietly, every Thursday.</span></div>
+        <div class="type-row"><span class="type-label">Title</span><span class="type-title">Inter 20px, weight 600</span></div>
+        <div class="type-row"><span class="type-label">Body</span><span class="type-body">Default paragraph copy in Inter at 16 pixels with a 1.55 line-height. The hero face and the body face are the same family — the contrast is weight and size, not typeface switching. Body copy stays in --brand-body, a warm-coffee mid-tone that reads as warm rather than cool grey.</span></div>
+        <div class="type-row"><span class="type-label">Mono</span><span class="type-mono">trigger.appendRow({ sheet: "Ship log Q2" })</span></div>
+      </div>
+
+      <div class="cmp-stack">
+        <div>
+          <span class="cmp-row-label">Buttons · 12px radius, 44px touch</span>
+          <div class="cmp-row" style="margin-top: 0.75rem;">
+            <button class="btn" data-variant="primary" type="button">Wire a chain</button>
+            <button class="btn" data-variant="secondary" type="button">Browse templates</button>
+            <button class="btn" data-variant="outline" type="button">Read docs</button>
+            <button class="btn" data-variant="ghost" type="button">Cancel</button>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Badges · pill, warm</span>
+          <div class="cmp-row" style="margin-top: 0.75rem;">
+            <span class="badge" data-tone="primary">Live</span>
+            <span class="badge" data-tone="success">Healthy</span>
+            <span class="badge" data-tone="neutral">Paused</span>
+            <span class="badge">Draft</span>
+          </div>
+        </div>
+        <div>
+          <span class="cmp-row-label">Card vocabulary · four tile registers</span>
+          <div class="card-vocab" style="margin-top: 0.75rem;">
+            <div class="vocab-tile" data-tile="cream">
+              <span class="vocab-tile-label">Section break</span>
+              <span class="vocab-tile-name">Cream tile</span>
+            </div>
+            <div class="vocab-tile" data-tile="canvas">
+              <span class="vocab-tile-label">Outlined</span>
+              <span class="vocab-tile-name">Canvas tile</span>
+            </div>
+            <div class="vocab-tile" data-tile="coffee">
+              <span class="vocab-tile-label">Inverse</span>
+              <span class="vocab-tile-name">Coffee tile</span>
+            </div>
+            <div class="vocab-tile" data-tile="orange">
+              <span class="vocab-tile-label">Voltage</span>
+              <span class="vocab-tile-name">Orange tile</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closing-band" aria-label="Closing">
+  <div class="closing-inner">
+    <p class="closing-eyebrow">__DESIGN_SYSTEM_NAME__</p>
+    <p class="closing-line">A chain is a <span class="accent">decision the team only makes once.</span></p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <a class="footer-brand-mark" href="#">
+        <span class="brand-glyph" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 1.5h6l-4 4.5h4L4 12.5l1.25-4.5H2.25z" fill="currentColor"/>
+          </svg>
+        </span>
+        __DESIGN_SYSTEM_NAME__
+      </a>
+      <p class="footer-tagline">A token-surface preview rendered against the workflow-automation design system. Halcyon-themed neutral content, not a brand site clone.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Product</p>
+      <ul class="footer-list"><li><a href="#">Chains</a></li><li><a href="#">Templates</a></li><li><a href="#">Webhooks</a></li><li><a href="#">Schedules</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Resources</p>
+      <ul class="footer-list"><li><a href="#">Docs</a></li><li><a href="#">Changelog</a></li><li><a href="#">Status</a></li><li><a href="#">Community</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Halcyon</p>
+      <ul class="footer-list"><li><a href="#">halcyon.dev</a></li><li><a href="#">hlc.so</a></li><li><a href="#">@halcyon/cli</a></li><li><a href="#">app.halcyon.dev</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-list"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Contact</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>__DESIGN_SYSTEM_NAME__ · token surface preview · 2026.05.25</span>
+    <span>warm cream canvas · deep coffee ink · saturated orange CTA · 12px radius</span>
+  </div>
+</footer>
+
+</body>
+</html>
+</content>
+</invoke>

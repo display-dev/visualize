@@ -1,0 +1,240 @@
+/**
+ * Bento theme — modular card-grid register where cards are the spatial
+ * unit, not a decoration. Warm-neutral surface ramp (hue 70), lifted
+ * card surfaces, generous radius, two-tone accent rhythm (warm coral
+ * primary + cool teal accent).
+ *
+ * Mode priority: light-canonical. Dark mode is fully designed (not
+ * synthesised); the dark register keeps the warm hue but inverts
+ * lightness for surfaces and lifts primary L modestly to maintain
+ * CTA legibility against the dark card surfaces.
+ *
+ * Distinct from every other visualize design system on three axes:
+ *
+ *   1. **Card-as-spatial-unit.** Clean / Whitepaper / Editorial treat
+ *      cards as containers placed on a flowing page. Bento treats the
+ *      card grid as the page — sections live inside cards, not the
+ *      reverse. Tokens reflect this: --card lifts from --background
+ *      by a 0.02-lightness shift (oklch 0.97 → 0.99) that's deliberately
+ *      perceptible at standard viewing distance, so the card edges
+ *      read as the structural seams. Compare Clean's --card == --background
+ *      (cards are flat on the page) vs Editorial's --card slightly
+ *      warmer (cards as warm pockets on a cool page).
+ *
+ *   2. **Warm-hue-70 surface ramp.** Background, card, popover, muted,
+ *      and sidebar all sit at hue 70 (warm cream). Pure-neutral surfaces
+ *      (hue 0, chroma 0) belong to Clean's monochrome register. Bento's
+ *      hue-70 chassis means even pure-white tokens read out-of-register;
+ *      the warmth has to carry through every surface, or the warm
+ *      primary reads disconnected from the chassis.
+ *
+ *   3. **Two-tone accent (warm primary + cool accent).** --primary at
+ *      hue 35 (warm coral) and --accent at hue 200 (cool teal). Most
+ *      visualize systems carry a single accent or none. Bento needs
+ *      both — the card-grid rhythm benefits from a secondary tone for
+ *      highlighted tiles (e.g. a "feature card" amid standard tiles),
+ *      and the cool-vs-warm pairing gives the warm chassis breathing
+ *      room without introducing a third hue.
+ *
+ * Blessed templates: Pitch deck (card-tile composition fits slide-shape),
+ * Product feature grid, Dashboard (card-per-metric), OKR summary,
+ * Comparison matrix (each comparand a card), Roadmap (cards-as-phases).
+ *
+ * Discouraged: Long-form Editorial / Whitepaper / Postmortem (card-per-
+ * paragraph fights long prose); Dense IDE / Console artifacts (the
+ * warm chassis undermines tech-document register); Manifesto / Release
+ * announcement (Bento's egalitarian card weight prevents any one
+ * statement from dominating).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* -- Surface / Foreground pairs (warm hue 70) ----------------- */
+  --background:              oklch(0.97 0.006 70);
+  --foreground:              oklch(0.18 0.008 70);
+
+  --card:                    oklch(0.99 0.004 70);
+  --card-foreground:         oklch(0.18 0.008 70);
+
+  --popover:                 oklch(0.99 0.004 70);
+  --popover-foreground:      oklch(0.18 0.008 70);
+
+  /* Coral primary — warm voltage. Hue 35. Light variant lowered to
+   * 0.52 from 0.65 so coral text on light tiles passes WCAG AA (was
+   * 3.34 on near-white). Dark variant in [data-theme="dark"] stays
+   * brighter to render legibly on dark tiles. */
+  --primary:                 oklch(0.52 0.16 35);
+  --primary-foreground:      oklch(0.99 0 0);
+
+  --secondary:               oklch(0.93 0.012 220);
+  --secondary-foreground:    oklch(0.18 0.008 70);
+
+  --muted:                   oklch(0.94 0.006 70);
+  --muted-foreground:        oklch(0.50 0.008 70);
+
+  /* Cool teal accent — the two-tone counterpoint. Hue 200. */
+  --accent:                  oklch(0.88 0.030 200);
+  --accent-foreground:       oklch(0.18 0.008 70);
+
+  --destructive:             oklch(0.55 0.20 25);
+  --destructive-foreground:  oklch(0.99 0 0);
+
+  /* -- Utility tokens ------------------------------------------- */
+  --border:                  oklch(0.90 0.008 70);
+  --input:                   oklch(0.90 0.008 70);
+  --ring:                    oklch(0.65 0.15 35);
+
+  /* -- Sidebar tokens ------------------------------------------- */
+  --sidebar:                 oklch(0.94 0.006 70);
+  --sidebar-foreground:      oklch(0.18 0.008 70);
+  --sidebar-primary:         oklch(0.65 0.15 35);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent:          oklch(0.88 0.030 200);
+  --sidebar-accent-foreground: oklch(0.18 0.008 70);
+  --sidebar-border:          oklch(0.90 0.008 70);
+  --sidebar-ring:            oklch(0.65 0.15 35);
+
+  /* -- Chart tokens: two-tone progression (warm + cool + green) - */
+  --chart-1:                 oklch(0.78 0.12 35);
+  --chart-2:                 oklch(0.70 0.13 60);
+  --chart-3:                 oklch(0.65 0.10 200);
+  --chart-4:                 oklch(0.60 0.12 230);
+  --chart-5:                 oklch(0.70 0.10 150);
+
+  /* -- Radius (generous; soft corners are part of the identity) - */
+  --radius-sm:               0.375rem;
+  --radius-md:               0.625rem;
+  --radius-lg:               1rem;
+  --radius-xl:               1.5rem;
+
+  /* -- Spacing (card-grid rhythm) ------------------------------- */
+  --space-xs:                0.5rem;
+  --space-sm:                0.75rem;
+  --space-md:                1.25rem;
+  --space-lg:                2rem;
+  --space-xl:                3rem;
+
+  /* -- Shadow (state-only) -------------------------------------- */
+  --shadow-sm:               0 1px 3px 0 hsl(35 30% 20% / 0.06), 0 1px 2px -1px hsl(35 30% 20% / 0.06);
+  --shadow-md:               0 2px 6px -1px hsl(35 30% 20% / 0.08), 0 2px 4px -1px hsl(35 30% 20% / 0.08);
+  --shadow-lg:               0 8px 20px -4px hsl(35 30% 20% / 0.10);
+  --shadow-2xs:              0 1px 2px 0 hsl(35 30% 20% / 0.03);
+  --shadow-xs:               0 1px 2px 0 hsl(35 30% 20% / 0.05);
+  --shadow-xl:               0 12px 28px -6px hsl(35 30% 20% / 0.12);
+  --shadow-2xl:              0 20px 40px -8px hsl(35 30% 20% / 0.18);
+  /* typography tokens */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: var(--font-sans);
+
+  /* type scale tokens */
+  --text-display: clamp(2rem, 5vw, 3rem);
+  --text-heading: 1.875rem;
+  --text-title: 1.25rem;
+  --text-base: 16px;
+  --leading-tight: 1.15;
+  --leading-normal: 1.6;
+
+  /* spacing + tracking */
+  --spacing: 0.25rem;
+  --tracking-normal: -0.01em;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Dark register preserves the warm-hue-70 chassis; lightness
+   * inverts for surfaces, primary lifts modestly for CTA legibility. */
+
+  --background:              oklch(0.16 0.008 70);
+  --foreground:              oklch(0.94 0.006 70);
+
+  --card:                    oklch(0.20 0.010 70);
+  --card-foreground:         oklch(0.94 0.006 70);
+
+  --popover:                 oklch(0.20 0.010 70);
+  --popover-foreground:      oklch(0.94 0.006 70);
+
+  --primary:                 oklch(0.70 0.16 35);
+  --primary-foreground:      oklch(0.16 0.008 70);
+
+  --secondary:               oklch(0.32 0.018 220);
+  --secondary-foreground:    oklch(0.94 0.006 70);
+
+  --muted:                   oklch(0.24 0.008 70);
+  --muted-foreground:        oklch(0.65 0.008 70);
+
+  --accent:                  oklch(0.42 0.040 200);
+  --accent-foreground:       oklch(0.94 0.006 70);
+
+  --destructive:             oklch(0.60 0.22 25);
+  --destructive-foreground:  oklch(0.99 0 0);
+
+  --border:                  oklch(0.28 0.010 70);
+  --input:                   oklch(0.28 0.010 70);
+  --ring:                    oklch(0.70 0.16 35);
+
+  --sidebar:                 oklch(0.20 0.010 70);
+  --sidebar-foreground:      oklch(0.94 0.006 70);
+  --sidebar-primary:         oklch(0.70 0.16 35);
+  --sidebar-primary-foreground: oklch(0.16 0.008 70);
+  --sidebar-accent:          oklch(0.42 0.040 200);
+  --sidebar-accent-foreground: oklch(0.94 0.006 70);
+  --sidebar-border:          oklch(0.28 0.010 70);
+  --sidebar-ring:            oklch(0.70 0.16 35);
+
+  --chart-1:                 oklch(0.72 0.14 35);
+  --chart-2:                 oklch(0.66 0.15 60);
+  --chart-3:                 oklch(0.62 0.12 200);
+  --chart-4:                 oklch(0.58 0.14 230);
+  --chart-5:                 oklch(0.66 0.12 150);
+
+  --shadow-sm:               0 1px 3px 0 hsl(0 0% 0% / 0.30), 0 1px 2px -1px hsl(0 0% 0% / 0.30);
+  --shadow-md:               0 2px 6px -1px hsl(0 0% 0% / 0.40);
+  --shadow-lg:               0 8px 20px -4px hsl(0 0% 0% / 0.50);
+  --shadow-2xs:              0 1px 2px 0 hsl(0 0% 0% / 0.20);
+  --shadow-xs:               0 1px 2px 0 hsl(0 0% 0% / 0.25);
+  --shadow-xl:               0 12px 28px -6px hsl(0 0% 0% / 0.55);
+  --shadow-2xl:              0 20px 40px -8px hsl(0 0% 0% / 0.65);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+
+    --background:            oklch(0.16 0.008 70);
+    --foreground:            oklch(0.94 0.006 70);
+    --card:                  oklch(0.20 0.010 70);
+    --card-foreground:       oklch(0.94 0.006 70);
+    --popover:               oklch(0.20 0.010 70);
+    --popover-foreground:    oklch(0.94 0.006 70);
+    --primary:               oklch(0.70 0.16 35);
+    --primary-foreground:    oklch(0.16 0.008 70);
+    --secondary:             oklch(0.32 0.018 220);
+    --secondary-foreground:  oklch(0.94 0.006 70);
+    --muted:                 oklch(0.24 0.008 70);
+    --muted-foreground:      oklch(0.65 0.008 70);
+    --accent:                oklch(0.42 0.040 200);
+    --accent-foreground:     oklch(0.94 0.006 70);
+    --destructive:           oklch(0.60 0.22 25);
+    --destructive-foreground: oklch(0.99 0 0);
+    --border:                oklch(0.28 0.010 70);
+    --input:                 oklch(0.28 0.010 70);
+    --ring:                  oklch(0.70 0.16 35);
+    --sidebar:               oklch(0.20 0.010 70);
+    --sidebar-foreground:    oklch(0.94 0.006 70);
+    --sidebar-primary:       oklch(0.70 0.16 35);
+    --sidebar-primary-foreground: oklch(0.16 0.008 70);
+    --sidebar-accent:        oklch(0.42 0.040 200);
+    --sidebar-accent-foreground: oklch(0.94 0.006 70);
+    --sidebar-border:        oklch(0.28 0.010 70);
+    --sidebar-ring:          oklch(0.70 0.16 35);
+    --chart-1:               oklch(0.72 0.14 35);
+    --chart-2:               oklch(0.66 0.15 60);
+    --chart-3:               oklch(0.62 0.12 200);
+    --chart-4:               oklch(0.58 0.14 230);
+    --chart-5:               oklch(0.66 0.12 150);
+  }
+}
