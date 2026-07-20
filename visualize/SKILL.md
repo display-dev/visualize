@@ -36,6 +36,14 @@ description: >
 
 Generate self-contained HTML artifacts composed from `templates/*/template.md` contracts against brand tokens from the project's `DESIGN.md` + sidecar `tokens.css` (or a one-run greenfield seed when no `DESIGN.md` is present). The agent reads `DESIGN.md` + `PRODUCT.md` from the project root so every artifact reads as the same brand. Shared pattern recipes live in `patterns/` and are read only when the selected template and user ask make them relevant; shell mechanics are loaded automatically only when a template declares `shell: <slug>`.
 
+## Design judgment
+
+Find the artifact's organizing idea before choosing its visual treatment. Look for a relationship, contrast, sequence, decision, or object in the source that the composition itself can make easier to understand. Use that idea to shape the opening, section rhythm, and any explanatory primitive. When the source has no useful spatial or structural idea, prefer a restrained reading experience over manufacturing one.
+
+Artifact mode describes how the reader consumes the information, not the aesthetic family it must use. A document can use product-native, application-like, spatial, editorial, or technical-drawing grammar when that grammar serves the source, reader, and brand. Do not equate `document` with editorial publishing, or `canvas` with diagram chrome.
+
+Visual conviction can come from composition, typography, density, spatial rhythm, imagery, interaction, or color. Do not add hues, decoration, or components merely to make an artifact feel designed. A restrained palette can carry a strong point of view when another dimension does the expressive work.
+
 ## Commands
 
 `{{command_prefix}}visualize` invokes the skill. The argument tells the agent what to do.
@@ -153,7 +161,7 @@ These are not brand aesthetics; they are observed model reflexes with required c
 - **Crude SVG fallback:** do not draw rough SVG scenes because no real asset is available. Use generated bitmap imagery, a geometric diagram, or no illustration.
 - **Compressed display type:** keep display heading letter-spacing ≥ -0.04em and clamp max ≤ 6rem unless the template is a slide/poster register that explicitly needs larger type.
 - **Meta-contrast copy:** avoid "X theater", "actually X", and "not just X, it's Y" framing. Say what the artifact literally does.
-- **Under-expressive neutral palette:** before writing CSS, assign 3-5 semantic color roles in the shape gate and use them consistently: thesis/verdict, metadata/navigation, evidence/comparison, risk/state, source/provenance, signature emphasis. Color must carry hierarchy, not just state. Revision trigger: if the first viewport uses only neutral surfaces plus one accent, and the user did not ask for a plain memo, revise the visual system before detector, publish, or final delivery.
+- **Palette as a substitute for composition:** assign semantic color roles in the shape gate and use them consistently, but do not add accent tracks merely to manufacture visual interest. Neutral surfaces plus one accent are valid when composition, type, density, imagery, or interaction carries the point of view. Revise when the opening has no expressive dimension, not when it has too few hues.
 
 **Gemini-specific guard:**
 
@@ -196,4 +204,4 @@ Apply on every command, every template, every prompt. These override any single-
 7. **Detector output is defect-evidence, never done-evidence.** A clean `detect.mjs` result is not proof the artifact is strong — it's proof the mechanical floor passes. The detector catches what regex can identify; verb work covers everything else. Don't declare done on a clean detector reading.
 8. **Rendered mobile beats desktop theory.** A desktop-strong composition that merely stacks on phone can still be worse than a plain document. Judge the first two mobile screens as a finished reading state: heading scale, metadata wraps, TOC placement, card chrome, and body rhythm all have to feel intentional at narrow width.
 9. **Metadata should explain itself.** Bare chips such as `display.dev strategy` or `Updated May 29, 2026` force the reader to infer the field. Prefer explicit labels: `Memo type / display.dev strategy`, `Updated / May 29, 2026`, `Input / method, vision, competitor refresh`. For document artifacts, those labels belong near the opening argument, not in a side rail that competes with the body.
-10. **Clean is not enough.** An artifact can pass every ban, detector rule, and mobile check and still fail because it has no visual point of view. Boring-but-clean is a failure when the user asked for a visual artifact. The output needs at least one deliberate composition choice that helps the reader understand the content faster or remember it longer.
+10. **Clean is not enough.** An artifact can pass every ban, detector rule, and mobile check and still fail because it has no visual point of view. Boring-but-clean is a failure when the user asked for a visual artifact. The output needs at least one deliberate composition choice that helps the reader understand the content faster or remember it longer. If the strongest honest description of the first viewport is only "clean," "polished," "on-brand," or "easy to read," the composition is unfinished; its strongest quality should describe what this specific artifact helps the reader see.
