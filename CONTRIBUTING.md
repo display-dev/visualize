@@ -129,7 +129,7 @@ Every template the skill emits is meant to be self-contained HTML — inlined CS
 **Forbidden:**
 
 - Any `<script src>` reference outside the allowlist above. Adding a library requires updating `dev-scripts/check-library-policy.mjs` AND the policy appendix in the spec in the same change. CI runs `node dev-scripts/check-library-policy.mjs --quiet` and fails the build on violation.
-- ECharts (too large; Chart.js covers v0.1.0 chart needs).
+- ECharts (too large; Chart.js covers current chart needs).
 - jQuery / Lodash / utility libraries (templates don't need them; the agent writes the JS each template ships inline).
 
 **Syntax highlighting:** templates that show code (`tutorial`, `runbook`, `diff-review`, `slide-deck`) use the **agent-hand-classed + CSS tokens** approach — no library. The agent adds `<span class="kw">` / `.str` / `.cmt` etc. classes; `--syntax-*` CSS tokens style them per design system. This is brand-aware and zero-maintenance. If a future template's code volumes outgrow hand-classing, vendor a highlight.js subset (~30KB) inline.

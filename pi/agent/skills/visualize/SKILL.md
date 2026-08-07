@@ -1,6 +1,6 @@
 ---
 name: visualize
-version: 0.1.0
+version: 0.2.0
 license: MIT
 user-invocable: true
 argument-hint: "[teach | simplify | bolder | quieter | animate | polish | review | publish] [<topic-or-path>]"

@@ -28,13 +28,13 @@ Three problems with how agents publish HTML today:
 
 <p><img src="assets/showcase.png" alt="A 4×4 grid showing 16 visualize design systems rendered in light and dark mode" width="1280"></p>
 
-### Templates — 34 across 7 categories
+### Templates — 35 across 7 categories
 
 <p><img src="assets/templates-showcase.png" alt="A 4×4 grid showing 16 visualize templates across marketing, operations, technical, decision, long-form, and data surfaces" width="1280"></p>
 
 | Category | Templates |
 |---|---|
-| Explanation / reference | diagram · architecture-overview · implementation-plan · diff-review · plan-review · project-recap · fact-check-report · comparison · faq |
+| Explanation / reference | explainer · diagram · architecture-overview · implementation-plan · diff-review · plan-review · project-recap · fact-check-report · comparison · faq |
 | Status / tracking | dashboard · roadmap-timeline · changelog · status-page · release-announcement |
 | Decision / narrative | adr · rfc · postmortem · proposal |
 | Long-form | report · whitepaper · case-study · research-brief |

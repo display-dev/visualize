@@ -2,7 +2,7 @@
 
 Before following the instructions below, apply the shared rules in SKILL.md.
 
-The default invocation creates a new artifact. The agent picks a template across all 34 in `templates/`, composes against the resolved context and tokens from SKILL.md, and writes self-contained HTML.
+The default invocation creates a new artifact. The agent picks a template across all 35 in `templates/`, composes against the resolved context and tokens from SKILL.md, and writes self-contained HTML.
 
 Autonomous harnesses (Codex-class) have been observed jumping to file writes before the user confirms direction. Gates below prevent that.
 

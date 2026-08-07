@@ -141,7 +141,7 @@ Skip explicitly when the artifact contains no chart, sparkline, KPI tile, or dat
 
 ## Per-template-category notes
 
-Most of the dimension list applies the same way across all 34 templates. These four categories shift the weighting in ways that are easy to get wrong:
+Most of the dimension list applies the same way across all templates. These four categories shift the weighting in ways that are easy to get wrong:
 
 - **Slide deck** (`pitch-deck`, `slide-deck`): typography and motion carry disproportionate weight — slide-to-slide consistency is the dimension polish often misses. Walk every slide for the same display scale, the same dark/light treatment, the same caption position. Motion: enter transitions only, no parallax, no scroll-jacking (a slide deck has no scroll).
 - **Dashboard / data-explorer** (`dashboard`, `data-explorer`, `status-page`, `survey-results`): spatial and edge-data carry disproportionate weight. KPI tile alignment, table density, no-data states, long label truncation. Motion: only on data updates, not on chrome.

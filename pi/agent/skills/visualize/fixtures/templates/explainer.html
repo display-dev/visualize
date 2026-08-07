@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A progressive explanation of why checkout reserves inventory before payment capture.">
+  <meta property="og:title" content="Reserve first, capture second">
+  <meta property="og:description" content="The checkout invariant that prevents paid orders from competing for unavailable stock.">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23171717'/%3E%3Cpath d='M8 16h16M18 10l6 6-6 6' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+  <title>Reserve first, capture second</title>
+  <style>
+/* __TOKENS_PLACEHOLDER__ */
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:var(--text-base);line-height:var(--leading-normal)}main{width:min(calc(100% - 40px),1040px);margin:0 auto;padding:64px 0 80px}.eyebrow,.kicker,.stage-label{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.eyebrow,.kicker{color:var(--muted-foreground)}h1,h2,h3{font-family:var(--font-display);line-height:var(--leading-tight);letter-spacing:-.025em}h1{max-width:760px;margin:12px 0 20px;font-size:clamp(2.5rem,7vw,5.75rem)}h2{margin:0 0 16px;font-size:clamp(1.65rem,4vw,2.5rem)}h3{margin:8px 0;font-size:1.1rem}.lede{max-width:690px;margin:0;font-size:clamp(1.1rem,2vw,1.35rem);color:var(--muted-foreground)}.meta{display:flex;gap:28px;margin:32px 0 0;padding:18px 0;border-block:1px solid var(--border)}.meta div{display:grid;gap:2px;min-width:0}.meta dt{font-size:.7rem;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.07em}.meta dd{margin:0;font-size:.9rem;overflow-wrap:anywhere}.mental-model{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:12px;margin:56px 0 28px}.stage{min-width:0;padding:22px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card);color:var(--card-foreground)}.stage strong{display:block;margin:8px 0 6px;font-size:1.05rem}.stage p{margin:0;color:var(--muted-foreground);font-size:.92rem}.connector{align-self:center;color:var(--muted-foreground);font-size:1.5rem}.model-line{max-width:720px;margin:0;font-size:1.15rem}.model-line strong{color:var(--foreground)}section{padding-top:64px}.split{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:56px;align-items:start}.prose{max-width:660px}.prose p{margin:0 0 18px}.example{border-left:3px solid var(--primary);padding:4px 0 4px 20px}.example p{margin:8px 0 0;color:var(--muted-foreground)}.sequence{margin:0;padding:0;list-style:none;border-top:1px solid var(--border)}.sequence li{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--border)}.sequence .num{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--primary);color:var(--primary-foreground);font-size:.8rem;font-weight:700}.sequence p{margin:2px 0 0;color:var(--muted-foreground);font-size:.9rem}.boundary{padding:24px;background:var(--muted);border-radius:var(--radius-lg)}.boundary h3{margin-top:0}.boundary ul{margin:12px 0 0;padding-left:20px}.boundary li+li{margin-top:8px}.retention{border-top:1px solid var(--border);margin-top:64px}.retention-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}.rule{font-size:clamp(1.45rem,3vw,2.25rem);line-height:1.25;letter-spacing:-.025em}.recall{padding:22px;border:1px solid var(--border);border-radius:var(--radius-lg)}.recall p{margin:6px 0 0;color:var(--muted-foreground)}@media(max-width:760px){main{width:min(calc(100% - 28px),1040px);padding:36px 0 56px}h1{font-size:clamp(2.35rem,11.5vw,3.2rem)}.meta{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px}.mental-model{grid-template-columns:1fr;margin-top:40px}.connector{transform:rotate(90deg);justify-self:center}.split,.retention-grid{grid-template-columns:1fr;gap:28px}section{padding-top:48px}.retention{margin-top:48px}}@media print{main{width:100%;padding:0}.stage,.boundary,.recall{break-inside:avoid}.connector{color:var(--foreground)}}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="eyebrow">Checkout mechanics</div>
+      <h1>Reserve first, capture second</h1>
+      <p class="lede">A checkout does not prove inventory exists and then hope it remains. It temporarily claims the stock before money changes hands.</p>
+      <dl class="meta">
+        <div><dt>Audience</dt><dd>Engineers new to checkout</dd></div>
+        <div><dt>Assumes</dt><dd>Basic request/response knowledge</dd></div>
+        <div><dt>Source</dt><dd>Checkout request-flow note</dd></div>
+      </dl>
+    </header>
+
+    <div class="mental-model" aria-label="Checkout causal sequence">
+      <div class="stage"><span class="stage-label">1 · Check</span><strong>Find available units</strong><p>The API reads the current sellable quantity.</p></div>
+      <div class="connector" aria-hidden="true">→</div>
+      <div class="stage"><span class="stage-label">2 · Hold</span><strong>Create a reservation</strong><p>Those units stop competing with another checkout.</p></div>
+      <div class="connector" aria-hidden="true">→</div>
+      <div class="stage"><span class="stage-label">3 · Capture</span><strong>Commit payment</strong><p>Money moves only after the stock claim succeeds.</p></div>
+    </div>
+    <p class="model-line"><strong>The invariant:</strong> a captured payment always has a live inventory claim behind it.</p>
+
+    <section class="split" aria-labelledby="mechanism-title">
+      <div class="prose">
+        <div class="kicker">Mechanism</div>
+        <h2 id="mechanism-title">The hold closes a race window</h2>
+        <p>Availability is only a snapshot. If two buyers see the last unit at the same time, a read alone lets both continue. The reservation turns that snapshot into an exclusive, time-bounded claim.</p>
+        <div class="example">
+          <strong>Grounded example: one unit, two requests</strong>
+          <p>Request A reserves the unit first. Request B then reads zero sellable units and stops before payment capture. If A's payment fails, its reservation expires and the unit becomes sellable again.</p>
+        </div>
+      </div>
+      <ol class="sequence" aria-label="Request sequence">
+        <li><span class="num">1</span><div><strong>Checkout asks inventory to reserve</strong><p>The operation succeeds only if the requested units are still sellable.</p></div></li>
+        <li><span class="num">2</span><div><strong>Inventory returns a reservation ID</strong><p>The ID ties a bounded claim to this checkout attempt.</p></div></li>
+        <li><span class="num">3</span><div><strong>Checkout captures payment</strong><p>A successful capture converts the temporary claim into the order's committed allocation.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="split" aria-labelledby="boundaries-title">
+      <div class="prose">
+        <div class="kicker">Deeper model</div>
+        <h2 id="boundaries-title">A reservation is not an order</h2>
+        <p>The hold protects one invariant, but it does not mean checkout is complete. Payment can still fail, the customer can abandon the flow, or the reservation can expire. The system needs a release path because scarcity without expiry would strand inventory.</p>
+      </div>
+      <aside class="boundary" aria-label="Important boundaries">
+        <h3>Do not confuse</h3>
+        <ul>
+          <li><strong>Available</strong> with guaranteed.</li>
+          <li><strong>Reserved</strong> with purchased.</li>
+          <li><strong>Payment authorized</strong> with inventory committed.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="retention" aria-labelledby="retain-title">
+      <div class="retention-grid">
+        <div>
+          <div class="kicker">Retain this</div>
+          <h2 id="retain-title">One compact model</h2>
+          <p class="rule">Read shows possibility. Reservation creates exclusivity. Capture commits value.</p>
+        </div>
+        <div class="recall">
+          <strong>Active recall</strong>
+          <p>If payment happened before reservation, which invariant could no longer be guaranteed?</p>
+          <p><strong>Answer:</strong> that every captured payment has a live inventory claim behind it.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

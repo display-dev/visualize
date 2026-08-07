@@ -14,8 +14,8 @@
 // pass smoke, which runs `node detect.mjs --strict <each-template>` to
 // verify the catalogue stays clean as templates evolve. User projects
 // that want a publish-gate (block CI deploys when artifacts trip
-// errors) can wire it the same way — but that's hypothetical for
-// v0.1.0; the in-repo smoke is the only concrete consumer.
+// errors) can wire it the same way — but that remains hypothetical;
+// the in-repo smoke is the only concrete consumer.
 //
 // Usage:
 //   node detect.mjs ./artifact.html
