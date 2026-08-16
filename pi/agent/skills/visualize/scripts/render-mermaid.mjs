@@ -4,7 +4,7 @@
 
 import { existsSync, mkdtempSync, readFileSync, realpathSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { homedir, tmpdir } from 'node:os';
-import { basename, dirname, join, resolve } from 'node:path';
+import { basename, dirname, join, resolve, win32 as win32Path } from 'node:path';
 import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import {
@@ -143,13 +143,30 @@ function mermaidEnvironment(environment = process.env) {
   return { ...environment, PUPPETEER_SKIP_DOWNLOAD: 'true' };
 }
 
+function windowsNpxCliCandidates(execPath, environment) {
+  return [...new Set([
+    environment.npm_execpath ? win32Path.join(win32Path.dirname(environment.npm_execpath), 'npx-cli.js') : null,
+    win32Path.join(win32Path.dirname(execPath), 'node_modules', 'npm', 'bin', 'npx-cli.js'),
+    environment.APPDATA ? win32Path.join(environment.APPDATA, 'npm', 'node_modules', 'npm', 'bin', 'npx-cli.js') : null,
+  ].filter(Boolean))];
+}
+
+function npxInvocation(args, platform = process.platform, environment = process.env, execPath = process.execPath, fileExists = existsSync) {
+  if (platform === 'win32') {
+    const npxCli = windowsNpxCliCandidates(execPath, environment).find(fileExists);
+    if (!npxCli) throw new Error('npm npx-cli.js was not found beside Node.js or in the npm installation. Reinstall Node.js with npm, then retry.');
+    return { command: execPath, args: [npxCli, ...args] };
+  }
+  return { command: 'npx', args };
+}
+
 async function renderMermaidWorker(input, output, workDir) {
   validateInput(input);
   if (!existsSync(workDir) || !statSync(workDir).isDirectory()) throw new Error(`render work directory is unavailable: ${workDir}`);
   const config = join(workDir, 'puppeteer.json');
   writeFileSync(config, JSON.stringify({ executablePath: await resolveChromeExecutable(), headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] }));
-  const npxCommand = process.platform === 'win32' ? 'npx.cmd' : 'npx';
-  const result = spawnSync(npxCommand, ['--yes', '--prefer-offline', MERMAID_PACKAGE, '-p', config, '-i', input, '-o', output, '--quiet'], { encoding: 'utf8', stdio: 'pipe', env: mermaidEnvironment() });
+  const invocation = npxInvocation(['--yes', '--prefer-offline', MERMAID_PACKAGE, '-p', config, '-i', input, '-o', output, '--quiet']);
+  const result = spawnSync(invocation.command, invocation.args, { encoding: 'utf8', stdio: 'pipe', env: mermaidEnvironment() });
   if (result.error) throw new Error(`Mermaid CLI could not start: ${result.error.message}`);
   if (result.signal) throw new Error(`Mermaid CLI stopped unexpectedly with signal ${result.signal}.`);
   if (result.status !== 0) {
@@ -189,6 +206,10 @@ async function selfTest() {
   const workDir = mkdtempSync(join(tmpdir(), 'visualize-mermaid-self-test-'));
   try {
     if (mermaidEnvironment({}).PUPPETEER_SKIP_DOWNLOAD !== 'true') throw new Error('Mermaid subprocess would download a redundant browser');
+    const windowsNode = 'C:\\hostedtoolcache\\windows\\node\\24.1.0\\x64\\node.exe';
+    const expectedNpxCli = 'C:\\hostedtoolcache\\windows\\node\\24.1.0\\x64\\node_modules\\npm\\bin\\npx-cli.js';
+    const windowsInvocation = npxInvocation(['--version'], 'win32', {}, windowsNode, (candidate) => candidate === expectedNpxCli);
+    if (windowsInvocation.command !== windowsNode || windowsInvocation.args[0] !== expectedNpxCli || windowsInvocation.args[1] !== '--version') throw new Error('Windows Mermaid subprocess would not execute npx-cli.js directly through Node.js');
     const timeoutMs = 100;
     const stalledScript = `const { spawn } = require('node:child_process'); const child = spawn(process.execPath, ['-e', 'process.on("SIGTERM", () => {}); setInterval(() => {}, 1000)'], { stdio: 'ignore' }); console.log(child.pid); setInterval(() => {}, 1000);`;
     const startedAt = Date.now();
