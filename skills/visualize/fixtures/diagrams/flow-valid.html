@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Request flow</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6' fill='%231f5a4a'/%3E%3C/svg%3E">
+  <meta property="og:title" content="Request flow">
+  <meta property="og:description" content="A source-backed request flow fixture.">
+  <meta name="twitter:card" content="summary">
+  <style>
+    :root { color-scheme: light; --background: #f7f6f2; --foreground: #17211e; --muted: #56645f; --line: #6d7a75; --accent: #1f5a4a; --surface: #ffffff; }
+    [data-theme="dark"] { color-scheme: dark; --background: #17211e; --foreground: #f7f6f2; --muted: #b7c2bd; --line: #a5b1ac; --accent: #82c8b1; --surface: #21302b; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]):not([data-theme="dark"]) { color-scheme: dark; --background: #17211e; --foreground: #f7f6f2; --muted: #b7c2bd; --line: #a5b1ac; --accent: #82c8b1; --surface: #21302b; } }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--background); color: var(--foreground); font-family: Arial, sans-serif; }
+    main { max-width: 64rem; margin: 0 auto; padding: 2rem; }
+    h1 { font-size: clamp(1.75rem, 4vw, 3rem); letter-spacing: -0.025em; }
+    figure { margin: 2rem 0 0; }
+    svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .node rect { fill: var(--surface); stroke: var(--foreground); stroke-width: 2; }
+    .node text, .edge-label { fill: var(--foreground); font-size: 16px; }
+    .edge { fill: none; stroke: var(--line); stroke-width: 2; marker-end: url(#arrow); }
+    .edge.primary { stroke: var(--accent); }
+    .edge-label { font-size: 13px; fill: var(--muted); }
+    figcaption { margin-top: 1rem; color: var(--muted); line-height: 1.5; }
+    .mobile { display: none; }
+    @media (max-width: 560px) { .desktop { display: none; } .mobile { display: block; } main { padding: 1.25rem; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Request flow</h1>
+  <figure class="desktop" data-visualize-diagram="flow">
+    <svg role="img" aria-labelledby="desktop-title desktop-desc" viewBox="0 0 920 360">
+      <title id="desktop-title">Request flow with accepted and rejected branches</title>
+      <desc id="desktop-desc">The browser sends an HTTPS request to the API. Accepted work goes to the worker and returns to the browser. Rejected work goes to an error response.</desc>
+      <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="context-stroke"/></marker></defs>
+      <path class="edge primary" data-diagram-edge="request" data-from="browser" data-to="api" data-edge-kind="HTTPS request" d="M210 150 H330"/>
+      <path class="edge primary" data-diagram-edge="accepted" data-from="api" data-to="worker" data-edge-kind="accepted" d="M510 150 H650"/>
+      <path class="edge" data-diagram-edge="rejected" data-from="api" data-to="error" data-edge-kind="rejected" d="M420 200 V270 H650"/>
+      <path class="edge" data-diagram-edge="result" data-from="worker" data-to="browser" data-edge-kind="result" d="M740 100 V50 H120 V100"/>
+      <text class="edge-label" data-diagram-label x="270" y="136" text-anchor="middle">HTTPS request</text>
+      <text class="edge-label" data-diagram-label x="580" y="136" text-anchor="middle">Accepted</text>
+      <text class="edge-label" data-diagram-label x="530" y="288" text-anchor="middle">Rejected</text>
+      <text class="edge-label" data-diagram-label x="430" y="38" text-anchor="middle">Result</text>
+      <g class="node" data-diagram-node="browser"><rect x="30" y="100" width="180" height="100" rx="8"/><text x="120" y="158" text-anchor="middle">Browser</text></g>
+      <g class="node" data-diagram-node="api"><rect x="330" y="100" width="180" height="100" rx="8"/><text x="420" y="158" text-anchor="middle">API</text></g>
+      <g class="node" data-diagram-node="worker"><rect x="650" y="100" width="180" height="100" rx="8"/><text x="740" y="158" text-anchor="middle">Worker</text></g>
+      <g class="node" data-diagram-node="error"><rect x="650" y="250" width="180" height="80" rx="8"/><text x="740" y="298" text-anchor="middle">Error response</text></g>
+    </svg>
+    <figcaption>The responsive desktop topology retains both branches and the return path.</figcaption>
+  </figure>
+  <figure class="mobile" data-visualize-diagram="flow">
+    <svg role="img" aria-labelledby="mobile-title mobile-desc" viewBox="0 0 360 760">
+      <title id="mobile-title">Mobile request flow</title>
+      <desc id="mobile-desc">The same request flow is redrawn vertically. The accepted branch continues to the worker and returns to the browser; the rejected branch leads to an error response.</desc>
+      <defs><marker id="arrow-mobile" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="context-stroke"/></marker></defs>
+      <path class="edge primary" style="marker-end:url(#arrow-mobile)" data-diagram-edge="mobile-request" data-from="mobile-browser" data-to="mobile-api" data-edge-kind="HTTPS request" d="M180 130 V220"/>
+      <path class="edge primary" style="marker-end:url(#arrow-mobile)" data-diagram-edge="mobile-accepted" data-from="mobile-api" data-to="mobile-worker" data-edge-kind="accepted" d="M180 320 V430"/>
+      <path class="edge" style="marker-end:url(#arrow-mobile)" data-diagram-edge="mobile-rejected" data-from="mobile-api" data-to="mobile-error" data-edge-kind="rejected" d="M270 270 H320 V600 H270"/>
+      <path class="edge" style="marker-end:url(#arrow-mobile)" data-diagram-edge="mobile-result" data-from="mobile-worker" data-to="mobile-browser" data-edge-kind="result" d="M90 480 H40 V80 H90"/>
+      <text class="edge-label" data-diagram-label x="190" y="180">HTTPS request</text>
+      <text class="edge-label" data-diagram-label x="190" y="380">Accepted</text>
+      <text class="edge-label" data-diagram-label x="278" y="580">Rejected</text>
+      <text class="edge-label" data-diagram-label x="48" y="370">Result</text>
+      <g class="node" data-diagram-node="mobile-browser"><rect x="90" y="30" width="180" height="100" rx="8"/><text x="180" y="88" text-anchor="middle">Browser</text></g>
+      <g class="node" data-diagram-node="mobile-api"><rect x="90" y="220" width="180" height="100" rx="8"/><text x="180" y="278" text-anchor="middle">API</text></g>
+      <g class="node" data-diagram-node="mobile-worker"><rect x="90" y="430" width="180" height="100" rx="8"/><text x="180" y="488" text-anchor="middle">Worker</text></g>
+      <g class="node" data-diagram-node="mobile-error"><rect x="90" y="600" width="180" height="100" rx="8"/><text x="180" y="658" text-anchor="middle">Error response</text></g>
+    </svg>
+    <figcaption>The phone-specific redraw preserves the accepted branch, rejected branch, and feedback path.</figcaption>
+  </figure>
+</main>
+</body>
+</html>

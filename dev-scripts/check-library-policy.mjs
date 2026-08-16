@@ -13,12 +13,11 @@
 // source templates is enough.
 //
 // Allowlist (spec § "Appendix: library and CDN policy"):
-//   - cdn.jsdelivr.net/npm/mermaid@<version>
 //   - cdn.jsdelivr.net/npm/chart.js@<version>
 //
 // Inline `<script>…</script>` blocks (no src= attribute) are
 // fine — those carry template-local logic (slide nav, faq accordion,
-// mermaid initialise, etc.) and don't pull external bytes.
+// local artifact interaction, etc.) and don't pull external bytes.
 //
 // Usage:
 //   node check-library-policy.mjs            (exits 0 on pass, 1 on fail)
@@ -33,9 +32,11 @@ const VIS_ROOT = resolve(SCRIPT_DIR, '..', 'visualize');
 const FIXTURES_DIR = resolve(VIS_ROOT, 'fixtures');
 const PREVIEW_KIT_TEMPLATE = resolve(VIS_ROOT, 'preview-kit', 'template.html');
 const DESIGN_SYSTEMS_DIR = resolve(VIS_ROOT, 'design-systems');
+const EXPECTED_POLICY_FAILURE_FIXTURES = new Set([
+  resolve(FIXTURES_DIR, 'diagrams', 'mermaid-runtime-bad.html'),
+]);
 
 const ALLOWLIST = [
-  /^https:\/\/cdn\.jsdelivr\.net\/npm\/mermaid@[\w.\-]+\/[\w./\-]+$/,
   /^https:\/\/cdn\.jsdelivr\.net\/npm\/chart\.js@[\w.\-]+\/[\w./\-]+$/,
 ];
 
@@ -70,6 +71,9 @@ const violations = [];
 
 for (const file of files) {
   const text = readFileSync(file, 'utf8');
+  // This exact negative fixture is exercised by check-fixtures.mjs. Keeping the
+  // exception runner-owned prevents fixture markup from authorizing policy skips.
+  if (EXPECTED_POLICY_FAILURE_FIXTURES.has(file)) continue;
   const refs = [...text.matchAll(SRC_RE)].map((m) => m[1]);
   const externalRefs = refs.filter((url) => /^https?:\/\//.test(url));
   const offending = externalRefs.filter((url) => !ALLOWLIST.some((re) => re.test(url)));
@@ -96,7 +100,6 @@ if (violations.length > 0) {
   }
   console.error('');
   console.error('Allowlist (per spec § "Appendix: library and CDN policy"):');
-  console.error('  cdn.jsdelivr.net/npm/mermaid@<version>');
   console.error('  cdn.jsdelivr.net/npm/chart.js@<version>');
   console.error('');
   console.error('Adding a library requires updating ALLOWLIST in this script');

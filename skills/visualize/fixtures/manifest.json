@@ -53,5 +53,319 @@
         "print"
       ]
     }
+  ],
+  "diagramFixtures": [
+    {
+      "name": "valid connected responsive flow",
+      "file": "diagrams/flow-valid.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 0, "findings": [] },
+        { "runner": "browser-diagram", "expectedExit": 0, "findings": [] }
+      ]
+    },
+    {
+      "name": "responsive geometry is selected at each viewport's initial load",
+      "file": "diagrams/initial-load-responsive-good.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 0, "findings": [] },
+        { "runner": "browser-diagram", "expectedExit": 0, "findings": [] }
+      ]
+    },
+    {
+      "name": "unmarked relative Mermaid helper remains outside diagram policy",
+      "file": "diagrams/unmarked-relative-mermaid-good.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 0, "findings": [] }
+      ]
+    },
+    {
+      "name": "valid Mermaid authoring source",
+      "file": "diagrams/flow-valid.mmd",
+      "checks": [
+        { "runner": "mermaid-render", "expectedExit": 0 }
+      ]
+    },
+    {
+      "name": "invalid Mermaid authoring source",
+      "file": "diagrams/invalid-mermaid-source.mmd",
+      "checks": [
+        { "runner": "mermaid-render", "expectedExit": 1 }
+      ]
+    },
+    {
+      "name": "normative accessible diagram",
+      "file": "diagrams/accessibility-normative-good.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 0, "findings": [] }
+      ]
+    },
+    {
+      "name": "valid intentional spatial overlap",
+      "file": "diagrams/geometry-spatial-overlap-good.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 0, "findings": [] },
+        { "runner": "browser-diagram", "expectedExit": 0, "findings": [] }
+      ]
+    },
+    {
+      "name": "invalid spatial-overlap exemption",
+      "file": "diagrams/overlap-exemption-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/overlap-exemption", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "overlap exemption pair keys do not collide",
+      "file": "diagrams/geometry-overlap-pair-collision-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 0, "findings": [] },
+        { "runner": "browser-diagram", "expectedExit": 2, "findings": [{ "ruleId": "diagram/node-overlap", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "empty edge geometry",
+      "file": "diagrams/empty-edge-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/edges", "severity": "error" }] },
+        { "runner": "browser-diagram", "expectedExit": 2, "findings": [{ "ruleId": "diagram/edge-geometry", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "runtime JavaScript cannot repair degenerate delivered edge geometry",
+      "file": "diagrams/runtime-repaired-edge-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/edges", "severity": "error" }] },
+        { "runner": "browser-diagram", "expectedExit": 2, "findings": [{ "ruleId": "diagram/edge-geometry", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "hidden edge geometry",
+      "file": "diagrams/hidden-edge-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 0, "findings": [] },
+        { "runner": "browser-diagram", "expectedExit": 2, "findings": [{ "ruleId": "diagram/edge-geometry", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "transparent edge geometry",
+      "file": "diagrams/transparent-edge-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 0, "findings": [] },
+        { "runner": "browser-diagram", "expectedExit": 2, "findings": [{ "ruleId": "diagram/edge-geometry", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "upscaled edge through narrow node",
+      "file": "diagrams/geometry-upscaled-node-crossing-bad.html",
+      "checks": [
+        { "runner": "browser-diagram", "expectedExit": 2, "findings": [{ "ruleId": "diagram/edge-through-node", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "disconnected card impostor",
+      "file": "diagrams/card-impostor-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/card-impostor", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "dangling edge endpoint",
+      "file": "diagrams/dangling-edge-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/edges", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "valid nested groups",
+      "file": "diagrams/groups-good.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 0, "findings": [] }
+      ]
+    },
+    {
+      "name": "duplicate and unresolved groups",
+      "file": "diagrams/groups-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/groups", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "valid pair-scoped crossing exemption",
+      "file": "diagrams/crossing-good.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 0, "findings": [] },
+        { "runner": "browser-diagram", "expectedExit": 0, "findings": [] }
+      ]
+    },
+    {
+      "name": "invalid pair-scoped crossing exemption",
+      "file": "diagrams/crossing-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/crossing-exemption", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "missing diagram type",
+      "file": "diagrams/missing-type-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/type", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "unrendered Mermaid and runtime dependency",
+      "file": "diagrams/mermaid-runtime-bad.html",
+      "checks": [
+        {
+          "runner": "detect",
+          "expectedExit": 2,
+          "findings": [
+            { "ruleId": "diagram/accessibility", "severity": "error" },
+            { "ruleId": "diagram/nodes", "severity": "error" },
+            { "ruleId": "diagram/unrendered-source", "severity": "error" },
+            { "ruleId": "meta/external-script", "severity": "error" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "duplicate node and edge identifiers",
+      "file": "diagrams/duplicate-ids-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/nodes", "severity": "error" }, { "ruleId": "diagram/edges", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "unsupported diagram type",
+      "file": "diagrams/unsupported-type-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/type", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "malformed diagram accessibility",
+      "file": "diagrams/accessibility-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/accessibility", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "empty group and parent identifiers",
+      "file": "diagrams/group-id-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/groups", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "cross-figure parent reference",
+      "file": "diagrams/cross-figure-parent-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/groups", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "semantic markers outside delivered SVG",
+      "file": "diagrams/markers-outside-svg-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/nodes", "severity": "error" }, { "ruleId": "diagram/card-impostor", "severity": "error" }, { "ruleId": "diagram/markup-scope", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "invalid unrendered Mermaid source",
+      "file": "diagrams/invalid-mermaid-source-bad.html",
+      "checks": [
+        { "runner": "detect", "expectedExit": 2, "findings": [{ "ruleId": "diagram/nodes", "severity": "error" }, { "ruleId": "diagram/accessibility", "severity": "error" }, { "ruleId": "diagram/unrendered-source", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "clean shared endpoint under scaled viewBox",
+      "file": "diagrams/geometry-clean-scaled.html",
+      "checks": [
+        { "runner": "browser-diagram", "expectedExit": 0, "findings": [] }
+      ]
+    },
+    {
+      "name": "clipped node and label",
+      "file": "diagrams/geometry-clipping-bad.html",
+      "checks": [
+        { "runner": "browser-diagram", "expectedExit": 2, "findings": [{ "ruleId": "diagram/clipping", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "node and label overlap",
+      "file": "diagrams/geometry-overlap-bad.html",
+      "checks": [
+        { "runner": "browser-diagram", "expectedExit": 2, "findings": [{ "ruleId": "diagram/node-overlap", "severity": "error" }, { "ruleId": "diagram/label-overlap", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "edge through unrelated node",
+      "file": "diagrams/geometry-node-crossing-bad.html",
+      "checks": [
+        { "runner": "browser-diagram", "expectedExit": 2, "findings": [{ "ruleId": "diagram/edge-through-node", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "intersecting and coincident edges",
+      "file": "diagrams/geometry-edges-bad.html",
+      "checks": [
+        { "runner": "browser-diagram", "expectedExit": 0, "findings": [{ "ruleId": "diagram/edge-intersection", "severity": "warn" }, { "ruleId": "diagram/edge-coincident", "severity": "warn" }] }
+      ]
+    },
+    {
+      "name": "implausibly distant endpoint",
+      "file": "diagrams/geometry-endpoint-bad.html",
+      "checks": [
+        { "runner": "browser-diagram", "expectedExit": 2, "findings": [{ "ruleId": "diagram/endpoint-distance", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "computed diagram contrast",
+      "file": "diagrams/geometry-contrast-bad.html",
+      "checks": [
+        { "runner": "browser-diagram", "expectedExit": 2, "findings": [{ "ruleId": "diagram/contrast", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "extreme rendered aspect ratio",
+      "file": "diagrams/geometry-aspect-bad.html",
+      "checks": [
+        { "runner": "browser-diagram", "expectedExit": 0, "findings": [{ "ruleId": "diagram/aspect-ratio", "severity": "warn" }] }
+      ]
+    },
+    {
+      "name": "crossing at a sample boundary",
+      "file": "diagrams/geometry-sample-crossing-bad.html",
+      "checks": [
+        { "runner": "browser-diagram", "expectedExit": 0, "findings": [{ "ruleId": "diagram/edge-intersection", "severity": "warn" }] }
+      ]
+    },
+    {
+      "name": "external diagram resource",
+      "file": "diagrams/geometry-network-bad.html",
+      "checks": [
+        { "runner": "browser-diagram", "expectedExit": 2, "findings": [{ "ruleId": "diagram/network-dependency", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "unmarked ordinary SVG label clipping",
+      "file": "diagrams/geometry-ordinary-label-bad.html",
+      "checks": [
+        { "runner": "browser-diagram", "expectedExit": 2, "findings": [{ "ruleId": "diagram/clipping", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "relative diagram resource",
+      "file": "diagrams/geometry-relative-resource-bad.html",
+      "checks": [
+        { "runner": "browser-diagram", "expectedExit": 2, "findings": [{ "ruleId": "diagram/network-dependency", "severity": "error" }] }
+      ]
+    },
+    {
+      "name": "shape-aware label background",
+      "file": "diagrams/geometry-shape-hole-clean.html",
+      "checks": [
+        { "runner": "browser-diagram", "expectedExit": 0, "findings": [] }
+      ]
+    }
   ]
 }

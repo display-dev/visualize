@@ -23,6 +23,8 @@ Do not use this when a simpler memo, plain prose answer, or a more specific temp
 
 ## Creation guidance
 
+Read `reference/diagram.md` and the routed type reference for the primary figure. The figure's relationships must carry the explanation: repeated disconnected panels are not a substitute for topology. Keep the outer Diagram shell distinct from the figure's flow, system, sequence, state, hierarchy, or spatial grammar.
+
 Read pattern recipes only when the content calls for them: `metadata` for document context, `toc` for navigable long-form artifacts, `table` for dense comparisons or evidence, `callout` for a bounded warning/decision/note, `section-header` for dense hierarchy, `source-list` for provenance, `stat` for KPIs, and `timeline` for dated sequences. Do not include a pattern just because the old HTML example had one.
 
 Prior visual variants are no longer live authoring files. If the ask needs a distinct register or rendering route, express that choice in the artifact-local composition and document the reason in visible copy only when it helps the reader.
@@ -37,10 +39,10 @@ The first two phone screens must show the title, scope, and a usable diagram vie
 
 ## Failure modes
 
-**Single-viewport constraint.** The diagram fits the artifact's viewport at standard zoom. A diagram requiring horizontal scroll has misfired — the artifact wants to be an Architecture overview (which composes multiple focused diagrams with prose between them), not a Diagram that overflows.
+**Single-viewport constraint.** The diagram fits the artifact's viewport at standard zoom. A diagram requiring horizontal scroll has misfired; split or redraw it. Architecture overview is appropriate only when the reader needs a multi-section, prose-supported shell, not as an escape hatch for weak diagram geometry.
 
-**`<svg role="img">` with described semantics.** The `<svg>` carries `role="img"`, `aria-labelledby` pointing at the title element, and a `<desc>` child that summarises the diagram in prose for screen readers. Every node has a visible text label. Every edge with semantic meaning is described in the `<desc>` or `<figcaption>` — edges themselves stay `aria-hidden="true"` so they don't fragment the screen-reader pass. Mermaid-routed diagrams carry a wrapping `<figure>` + `<figcaption>` instead.
+**Marked inline SVG.** Deliver one semantically marked inline SVG per relationship figure using `reference/diagram.md`: accessible title and description, unique nodes and groups, resolvable edges, and no diagram runtime or network dependency. Every node has a visible label. Mermaid remains an authoring option only: render it locally, fail on invalid source, normalize the resulting inline SVG, then remove Mermaid source/runtime dependencies before delivery.
 
-**Content-medium discrimination.** The medium routing is content-driven, not user-preference-driven. A 30-node flowchart hand-positioned in `css-svg` is the wrong tool; a 4-box happy-path drawn in Mermaid pays library cost for nothing. The detector reads the artifact's shape (node count, library presence, content type) and flags medium mismatch.
+**Disconnected-card impostor.** A marked non-spatial relationship figure with explanatory panels but no connector-bearing topology has failed even if the page looks polished.
 
 The brand profile + universal laws + reflex-aesthetics list handle everything else.

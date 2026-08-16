@@ -181,6 +181,58 @@ function hasGuardedPrefersDarkFallback(css) {
   return /@media\s*\([^)]*prefers-color-scheme\s*:\s*dark[^)]*\)\s*\{\s*:root:not\(\s*\[data-theme\s*=\s*["']light["']\]\s*\):not\(\s*\[data-theme\s*=\s*["']dark["']\]\s*\)/i.test(css);
 }
 
+const DIAGRAM_TYPES = new Set(['flow', 'system', 'sequence', 'state', 'hierarchy', 'spatial']);
+
+function markedDiagramFigures(root) {
+  return root.querySelectorAll('figure').filter((figure) => figure.getAttribute('data-visualize-diagram') !== undefined);
+}
+
+function semanticDiagramFigures(root) {
+  return root.querySelectorAll('figure').filter((figure) =>
+    figure.querySelector('[data-diagram-node]') ||
+    figure.querySelector('[data-diagram-edge]') ||
+    figure.querySelector('[data-diagram-group]')
+  );
+}
+
+function diagramSvg(figure) {
+  return figure.querySelector('svg');
+}
+
+function trimmedAttr(node, name) {
+  const value = node.getAttribute(name);
+  return value === undefined ? null : value.trim();
+}
+
+function duplicateValues(nodes, attribute) {
+  const seen = new Set();
+  const duplicates = new Set();
+  for (const node of nodes) {
+    const value = trimmedAttr(node, attribute);
+    if (!value) continue;
+    if (seen.has(value)) duplicates.add(value);
+    seen.add(value);
+  }
+  return duplicates;
+}
+
+function hasDeclaredEdgeGeometry(edge) {
+  const tag = (edge.tagName || '').toLowerCase();
+  if (tag === 'path') return /[LlHhVvCcSsQqTtAa]/.test(trimmedAttr(edge, 'd') || '');
+  if (tag === 'line') {
+    const raw = ['x1', 'y1', 'x2', 'y2'].map((attr) => trimmedAttr(edge, attr));
+    if (raw.some((value) => value === null || value === '')) return false;
+    const points = raw.map(Number);
+    return points.every(Number.isFinite) && (points[0] !== points[2] || points[1] !== points[3]);
+  }
+  if (tag === 'polyline') {
+    const values = (trimmedAttr(edge, 'points') || '').match(/-?\d*\.?\d+(?:e[-+]?\d+)?/gi)?.map(Number) || [];
+    if (values.length < 4 || values.length % 2 !== 0) return false;
+    return values.some((value, index) => index >= 2 && value !== values[index % 2]);
+  }
+  return false;
+}
+
 // ============================================================
 // Rules
 // ============================================================
@@ -1127,6 +1179,277 @@ rule({
   },
 });
 
+// --- Relationship diagrams (opt-in through semantic markers) ---
+
+rule({
+  id: 'diagram/type',
+  category: 'diagram',
+  defaultSeverity: 'error',
+  description: 'Semantically marked diagram figure missing a supported type family.',
+  run({ root }) {
+    const findings = [];
+    const figures = new Set([...markedDiagramFigures(root), ...semanticDiagramFigures(root)]);
+    for (const figure of figures) {
+      const type = trimmedAttr(figure, 'data-visualize-diagram');
+      if (!type) {
+        findings.push({ locator: selectorPath(figure), message: 'Diagram figure is missing a non-empty data-visualize-diagram type.', suggestion: 'Use flow, system, sequence, state, hierarchy, or spatial.' });
+      } else if (!DIAGRAM_TYPES.has(type)) {
+        findings.push({ locator: selectorPath(figure), message: `Unsupported diagram type "${type}".`, suggestion: 'Use flow, system, sequence, state, hierarchy, or spatial.' });
+      }
+    }
+    return findings;
+  },
+});
+
+rule({
+  id: 'diagram/nodes',
+  category: 'diagram',
+  defaultSeverity: 'error',
+  description: 'Marked diagram nodes must have unique non-empty identifiers.',
+  run({ root }) {
+    const findings = [];
+    for (const figure of markedDiagramFigures(root)) {
+      const svg = diagramSvg(figure);
+      const nodes = svg ? svg.querySelectorAll('[data-diagram-node]') : [];
+      if (nodes.length === 0) {
+        findings.push({ locator: selectorPath(figure), message: 'Marked diagram declares no nodes.', suggestion: 'Mark every semantic entity with a unique data-diagram-node identifier.' });
+        continue;
+      }
+      for (const node of nodes) {
+        if (!trimmedAttr(node, 'data-diagram-node')) findings.push({ locator: selectorPath(node), message: 'Diagram node has an empty identifier.' });
+      }
+      for (const id of duplicateValues(nodes, 'data-diagram-node')) {
+        findings.push({ locator: selectorPath(figure), message: `Duplicate diagram node identifier "${id}".` });
+      }
+    }
+    return findings;
+  },
+});
+
+rule({
+  id: 'diagram/edges',
+  category: 'diagram',
+  defaultSeverity: 'error',
+  description: 'Marked diagram edges must be uniquely identified and resolve endpoints inside their figure.',
+  run({ root }) {
+    const findings = [];
+    for (const figure of markedDiagramFigures(root)) {
+      const svg = diagramSvg(figure);
+      const nodeIds = new Set((svg ? svg.querySelectorAll('[data-diagram-node]') : []).map((node) => trimmedAttr(node, 'data-diagram-node')).filter(Boolean));
+      const edges = svg ? svg.querySelectorAll('[data-diagram-edge]') : [];
+      for (const edge of edges) {
+        const edgeId = trimmedAttr(edge, 'data-diagram-edge');
+        if (!edgeId) findings.push({ locator: selectorPath(edge), message: 'Diagram edge has an empty identifier.' });
+        if (!hasDeclaredEdgeGeometry(edge)) findings.push({ locator: selectorPath(edge), message: `Diagram edge "${edgeId || '(empty)'}" has empty or degenerate connector geometry.` });
+        for (const attr of ['data-from', 'data-to']) {
+          const endpoint = trimmedAttr(edge, attr);
+          if (!endpoint) {
+            findings.push({ locator: selectorPath(edge), message: `Diagram edge "${edgeId || '(empty)'}" is missing ${attr}.` });
+          } else if (!nodeIds.has(endpoint)) {
+            findings.push({ locator: selectorPath(edge), message: `Diagram edge "${edgeId || '(empty)'}" has unresolved ${attr} endpoint "${endpoint}".` });
+          }
+        }
+      }
+      for (const id of duplicateValues(edges, 'data-diagram-edge')) {
+        findings.push({ locator: selectorPath(figure), message: `Duplicate diagram edge identifier "${id}".` });
+      }
+    }
+    return findings;
+  },
+});
+
+rule({
+  id: 'diagram/groups',
+  category: 'diagram',
+  defaultSeverity: 'error',
+  description: 'Diagram groups and parent references must be unique and resolve inside their figure.',
+  run({ root }) {
+    const findings = [];
+    for (const figure of markedDiagramFigures(root)) {
+      const svg = diagramSvg(figure);
+      const groups = svg ? svg.querySelectorAll('[data-diagram-group]') : [];
+      const groupIds = new Set(groups.map((group) => trimmedAttr(group, 'data-diagram-group')).filter(Boolean));
+      for (const group of groups) {
+        if (!trimmedAttr(group, 'data-diagram-group')) findings.push({ locator: selectorPath(group), message: 'Diagram group has an empty identifier.' });
+      }
+      for (const id of duplicateValues(groups, 'data-diagram-group')) {
+        findings.push({ locator: selectorPath(figure), message: `Duplicate diagram group identifier "${id}".` });
+      }
+      const children = [...(svg ? svg.querySelectorAll('[data-diagram-node]') : []), ...groups];
+      for (const child of children) {
+        const parent = trimmedAttr(child, 'data-diagram-parent');
+        if (parent === '') {
+          findings.push({ locator: selectorPath(child), message: 'data-diagram-parent is empty.' });
+        } else if (parent && !groupIds.has(parent)) {
+          findings.push({ locator: selectorPath(child), message: `Unresolved diagram parent "${parent}".` });
+        }
+      }
+    }
+    return findings;
+  },
+});
+
+rule({
+  id: 'diagram/accessibility',
+  category: 'diagram',
+  defaultSeverity: 'error',
+  description: 'Marked diagrams require an inline SVG with a labelled non-empty title and description.',
+  run({ root }) {
+    const findings = [];
+    for (const figure of markedDiagramFigures(root)) {
+      const svg = diagramSvg(figure);
+      if (!svg) {
+        findings.push({ locator: selectorPath(figure), message: 'Marked diagram is missing delivered inline SVG.', suggestion: 'Render and normalize the diagram to inline SVG before delivery.' });
+        continue;
+      }
+      if ((svg.getAttribute('role') || '').trim() !== 'img') findings.push({ locator: selectorPath(svg), message: 'Diagram SVG must use role="img".' });
+      const title = svg.querySelector('title');
+      const desc = svg.querySelector('desc');
+      if (!title || !title.text.trim()) findings.push({ locator: selectorPath(svg), message: 'Diagram SVG is missing a non-empty <title>.' });
+      if (!desc || !desc.text.trim()) findings.push({ locator: selectorPath(svg), message: 'Diagram SVG is missing a non-empty <desc>.' });
+      const titleId = title ? trimmedAttr(title, 'id') : null;
+      if (title && !titleId) findings.push({ locator: selectorPath(title), message: 'Diagram <title> requires a non-empty id.' });
+      const labelledBy = (svg.getAttribute('aria-labelledby') || '').trim().split(/\s+/).filter(Boolean);
+      if (labelledBy.length === 0) {
+        findings.push({ locator: selectorPath(svg), message: 'Diagram SVG is missing aria-labelledby.' });
+      } else {
+        const ids = new Set(svg.querySelectorAll('[id]').map((node) => node.getAttribute('id')));
+        for (const id of labelledBy) {
+          if (!ids.has(id)) findings.push({ locator: selectorPath(svg), message: `aria-labelledby target "${id}" does not resolve inside the diagram SVG.` });
+        }
+        if (titleId && !labelledBy.includes(titleId)) findings.push({ locator: selectorPath(svg), message: 'aria-labelledby does not include the diagram title id.' });
+      }
+    }
+    return findings;
+  },
+});
+
+rule({
+  id: 'diagram/crossing-exemption',
+  category: 'diagram',
+  defaultSeverity: 'error',
+  description: 'Intentional crossing exemptions must name two distinct valid edges and a reason.',
+  run({ root }) {
+    const findings = [];
+    for (const figure of markedDiagramFigures(root)) {
+      const svg = diagramSvg(figure);
+      const edgeIds = new Set((svg ? svg.querySelectorAll('[data-diagram-edge]') : []).map((edge) => trimmedAttr(edge, 'data-diagram-edge')).filter(Boolean));
+      for (const exemption of svg ? svg.querySelectorAll('[data-diagram-crossing-ok]') : []) {
+        const a = trimmedAttr(exemption, 'data-edge-a');
+        const b = trimmedAttr(exemption, 'data-edge-b');
+        const reason = trimmedAttr(exemption, 'data-reason');
+        if (!a || !b) findings.push({ locator: selectorPath(exemption), message: 'Crossing exemption must name non-empty data-edge-a and data-edge-b identifiers.' });
+        else if (a === b) findings.push({ locator: selectorPath(exemption), message: `Crossing exemption names the same edge twice: "${a}".` });
+        else {
+          if (!edgeIds.has(a)) findings.push({ locator: selectorPath(exemption), message: `Crossing exemption references unknown edge "${a}".` });
+          if (!edgeIds.has(b)) findings.push({ locator: selectorPath(exemption), message: `Crossing exemption references unknown edge "${b}".` });
+        }
+        if (!reason) findings.push({ locator: selectorPath(exemption), message: 'Crossing exemption is missing a non-empty data-reason.' });
+      }
+    }
+    return findings;
+  },
+});
+
+rule({
+  id: 'diagram/overlap-exemption',
+  category: 'diagram',
+  defaultSeverity: 'error',
+  description: 'Intentional spatial-overlap exemptions must name two distinct valid nodes and a reason.',
+  run({ root }) {
+    const findings = [];
+    for (const figure of markedDiagramFigures(root)) {
+      const svg = diagramSvg(figure);
+      const nodeIds = new Set((svg ? svg.querySelectorAll('[data-diagram-node]') : []).map((node) => trimmedAttr(node, 'data-diagram-node')).filter(Boolean));
+      for (const exemption of svg ? svg.querySelectorAll('[data-diagram-overlap-ok]') : []) {
+        const a = trimmedAttr(exemption, 'data-node-a');
+        const b = trimmedAttr(exemption, 'data-node-b');
+        const reason = trimmedAttr(exemption, 'data-reason');
+        if (trimmedAttr(figure, 'data-visualize-diagram') !== 'spatial') findings.push({ locator: selectorPath(exemption), message: 'Overlap exemptions are allowed only in spatial diagrams.' });
+        if (!a || !b) findings.push({ locator: selectorPath(exemption), message: 'Overlap exemption must name non-empty data-node-a and data-node-b identifiers.' });
+        else if (a === b) findings.push({ locator: selectorPath(exemption), message: `Overlap exemption names the same node twice: "${a}".` });
+        else {
+          if (!nodeIds.has(a)) findings.push({ locator: selectorPath(exemption), message: `Overlap exemption references unknown node "${a}".` });
+          if (!nodeIds.has(b)) findings.push({ locator: selectorPath(exemption), message: `Overlap exemption references unknown node "${b}".` });
+        }
+        if (!reason) findings.push({ locator: selectorPath(exemption), message: 'Overlap exemption is missing a non-empty data-reason.' });
+      }
+    }
+    return findings;
+  },
+});
+
+rule({
+  id: 'diagram/card-impostor',
+  category: 'diagram',
+  defaultSeverity: 'error',
+  description: 'Marked connector-bearing diagrams cannot substitute repeated disconnected cards for topology.',
+  run({ root }) {
+    const findings = [];
+    for (const figure of markedDiagramFigures(root)) {
+      const type = trimmedAttr(figure, 'data-visualize-diagram');
+      if (!type || type === 'spatial') continue;
+      const svg = diagramSvg(figure);
+      const edges = svg ? svg.querySelectorAll('path[data-diagram-edge], line[data-diagram-edge], polyline[data-diagram-edge]').filter(hasDeclaredEdgeGeometry) : [];
+      if (edges.length > 0) continue;
+      const groups = svg ? svg.querySelectorAll('[data-diagram-group]') : [];
+      const nodes = svg ? svg.querySelectorAll('[data-diagram-node]') : [];
+      const groupOnlyContainment = groups.length > 0 && nodes.length > 0 && nodes.every((node) => Boolean(trimmedAttr(node, 'data-diagram-parent')));
+      if (groupOnlyContainment) continue;
+      const panels = figure.querySelectorAll('[class]').filter((node) => /(?:^|\s|[-_])(card|panel)(?:$|\s|[-_])/i.test(node.getAttribute('class') || ''));
+      if (panels.length >= 2) {
+        findings.push({ locator: selectorPath(figure), message: `Marked ${type} diagram contains ${panels.length} repeated panels but no declared connector topology.`, suggestion: 'Author a relationship-bearing inline SVG or choose a non-diagram artifact structure.' });
+      }
+    }
+    return findings;
+  },
+});
+
+rule({
+  id: 'diagram/markup-scope',
+  category: 'diagram',
+  defaultSeverity: 'error',
+  description: 'Diagram semantic markers must belong to the delivered SVG and edges must use connector geometry.',
+  run({ root }) {
+    const findings = [];
+    for (const figure of markedDiagramFigures(root)) {
+      const svg = diagramSvg(figure);
+      if (!svg) continue;
+      const scoped = new Set([
+        ...svg.querySelectorAll('[data-diagram-node]'),
+        ...svg.querySelectorAll('[data-diagram-edge]'),
+        ...svg.querySelectorAll('[data-diagram-group]'),
+        ...svg.querySelectorAll('[data-diagram-crossing-ok]'),
+        ...svg.querySelectorAll('[data-diagram-overlap-ok]'),
+      ]);
+      const all = figure.querySelectorAll('[data-diagram-node], [data-diagram-edge], [data-diagram-group], [data-diagram-crossing-ok], [data-diagram-overlap-ok]');
+      for (const node of all) {
+        if (!scoped.has(node)) findings.push({ locator: selectorPath(node), message: 'Diagram semantic marker sits outside the delivered inline SVG.' });
+      }
+      for (const edge of svg.querySelectorAll('[data-diagram-edge]')) {
+        const tag = (edge.tagName || '').toLowerCase();
+        if (!['path', 'line', 'polyline'].includes(tag)) findings.push({ locator: selectorPath(edge), message: `Diagram edge marker must use SVG path, line, or polyline geometry, not <${tag || 'unknown'}>.` });
+      }
+    }
+    return findings;
+  },
+});
+
+rule({
+  id: 'diagram/unrendered-source',
+  category: 'diagram',
+  defaultSeverity: 'error',
+  description: 'Delivered marked diagrams cannot contain unrendered Mermaid source.',
+  run({ root }) {
+    const findings = [];
+    for (const figure of markedDiagramFigures(root)) {
+      const mermaid = figure.querySelectorAll('[class]').filter((node) => /(?:^|\s)mermaid(?:\s|$)/i.test(node.getAttribute('class') || ''));
+      for (const node of mermaid) findings.push({ locator: selectorPath(node), message: 'Marked diagram contains unrendered Mermaid source.', suggestion: 'Render locally and normalize the result to semantic inline SVG.' });
+    }
+    return findings;
+  },
+});
+
 // --- Accessibility ---
 
 rule({
@@ -1299,11 +1622,11 @@ rule({
   id: 'meta/external-script',
   category: 'meta',
   defaultSeverity: 'error',
-  description: 'External <script src> not on the allowlist (Mermaid + Chart.js on cdn.jsdelivr.net; unpkg; displaydev).',
+  description: 'External <script src> not on the allowlist (Chart.js on cdn.jsdelivr.net; unpkg; displaydev).',
   run({ root }) {
     const findings = [];
+    const hasMarkedDiagram = markedDiagramFigures(root).length > 0;
     const allow = [
-      /^https:\/\/cdn\.jsdelivr\.net\/npm\/mermaid@/i,
       /^https:\/\/cdn\.jsdelivr\.net\/npm\/chart\.js@/i,
       /^https:\/\/unpkg\.com\//i,
       /^https:\/\/(?:cdn\.)?displaydev\.com\//i,
@@ -1311,13 +1634,21 @@ rule({
     for (const s of root.querySelectorAll('script')) {
       const src = s.getAttribute('src');
       if (!src) continue;
-      // Skip relative + same-origin
+      if (hasMarkedDiagram && /\bmermaid(?:\.min)?(?:\.js)?\b|\/mermaid@/i.test(src)) {
+        findings.push({
+          locator: selectorPath(s),
+          message: `Delivered diagrams cannot depend on a Mermaid runtime: ${src}`,
+          suggestion: 'Render Mermaid locally, normalize the result to semantic inline SVG, and remove the runtime script before delivery.',
+        });
+        continue;
+      }
+      // Skip other relative + same-origin scripts.
       if (!/^https?:\/\//i.test(src) && !src.startsWith('//')) continue;
       if (allow.some((re) => re.test(src))) continue;
       findings.push({
         locator: selectorPath(s),
         message: `External script not on allowlist: ${src}`,
-        suggestion: 'Move to allowlist (mermaid / chart.js on jsdelivr; unpkg; displaydev), inline the library, or remove.',
+        suggestion: 'Move to the allowlist (chart.js on jsdelivr; unpkg; displaydev), inline the library, or remove. Diagram runtimes such as Mermaid must be rendered and normalized to inline SVG before delivery.',
       });
     }
     return findings;

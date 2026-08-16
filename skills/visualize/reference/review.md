@@ -4,7 +4,7 @@ Before following the instructions below, apply the shared rules in SKILL.md.
 
 `/visualize review <path>` is the **Evaluate** verb. It reports findings — it does **not** modify the file and does **not** hand off to `polish`. The user reads the report and decides which Refine verb (`polish`, `simplify`, `bolder`, `quieter`, `animate`) to run next, or whether to fix by hand.
 
-Review runs deterministic checks first (Layer 1 via `detect.mjs` for static patterns, Layer 1b via `browser-contrast.mjs` for browser-computed contrast), then LLM judgment via the rules below. Each layer catches what the others can't reliably see.
+Review runs deterministic checks first (Layer 1 via `detect.mjs` for static patterns, Layer 1b via `browser-contrast.mjs` for browser-computed contrast, and a conditional diagram-geometry layer), then LLM judgment via the rules below. Each layer catches what the others can't reliably see.
 
 Review does not load or cite `patterns/` recipes. Findings name the concrete rendered issue and repair direction; recipes are creation guidance, not review rubrics.
 
@@ -18,7 +18,7 @@ node $SKILL_DIR/scripts/detect.mjs --json <path-to-artifact.html>
 
 NDJSON: one finding per line + trailing summary. Each finding carries `{ ruleId, category, severity, locator, message, snippet?, suggestion? }`. The detector **auto-loads `DESIGN.md` from ancestor directories of the artifact path** (not the agent's cwd) so file-backed brand-aware rules work without configuration. Currently `slop/system-default-font` is the only rule that reads that file-backed profile (it skips firing when the declared font matches the body); `slop/non-token-color` is token-discipline-aware, not brand-aware. If the artifact lives outside the project tree (e.g. `/tmp/<file>`), pass `--brand <path-to-DESIGN.md>` explicitly.
 
-The detector ships rules across five categories, all mechanical: HTML/CSS patterns regex can identify or that `node-html-parser` walks reliably, plus WCAG contrast computed via `culori`. Categories: `fossil` (placeholders, citation artifacts, AI-attribution disclaimers), `slop` (gradients, gradient text, glow, glassmorphism, emoji headings, monotonous spacing, bounce easing, side-tab, hardcoded-hex token-discipline, font when brand-aware), `a11y` (alt, lang, empty link, low contrast, heading structure), `meta` (title, favicon, OG, external script), `perf` (layout thrash, missing img dimensions).
+The detector ships rules across six categories, all mechanical: HTML/CSS patterns regex can identify or that `node-html-parser` walks reliably, plus WCAG contrast computed via `culori`. Categories: `fossil` (placeholders, citation artifacts, AI-attribution disclaimers), `slop` (gradients, gradient text, glow, glassmorphism, emoji headings, monotonous spacing, bounce easing, side-tab, hardcoded-hex token-discipline, font when brand-aware), `diagram` (declared topology, groups, accessibility, and delivered SVG), `a11y` (alt, lang, empty link, low contrast, heading structure), `meta` (title, favicon, OG, external script), `perf` (layout thrash, missing img dimensions).
 
 Run `node $SKILL_DIR/scripts/detect.mjs --list-rules` (or `--list-rules --json`) for the authoritative ruleset at this skill version: IDs, default severities, one-line descriptions. The catalogue evolves; the command is the source of truth.
 
@@ -39,6 +39,16 @@ The sidecar needs Node 22.12+ and either system Google Chrome or outbound HTTPS 
 Run these scripts through the agent's shell/Bash tool as normal `node` commands. Do not import the vendored Puppeteer bundle from a Node REPL MCP just to drive screenshots or browser checks: some REPL sandboxes block Node builtins such as `node:process`, which makes the REPL path fail even though the vendored script path is healthy. The reliable path is `node $SKILL_DIR/scripts/...` from shell; use a browser/DevTools tool for visual inspection.
 
 Union the Layer 1b findings with Layer 1's output before the LLM judgment pass below.
+
+## Conditional diagram layer — rendered geometry and semantic review
+
+When the artifact contains `figure[data-visualize-diagram]`, read [diagram.md](diagram.md) plus each distinct non-spatial type reference named by those figures, then run:
+
+```sh
+node $SKILL_DIR/scripts/browser-diagram.mjs --json <path-to-artifact.html>
+```
+
+Union its structured `diagram/*` findings with Layers 1 and 1b. Inspect the required desktop and mobile screenshots and judge what the checkers cannot: whether the principal topology, direction, boundaries, connector meaning, branches or loops, and mobile transformation remain recoverable from the figure. Cite the viewport evidence. `review` remains read-only: report repair direction, but make no change and do not silently route to a mutation verb. If the user later requests a repair, use creation or the Refine command whose mutation contract fits it.
 
 ## Rendered screenshot gate
 

@@ -37,6 +37,8 @@ jobs:
           node --check visualize/scripts/palette.mjs
           node --check visualize/scripts/detect.mjs
           node --check visualize/scripts/browser-contrast.mjs
+          node --check visualize/scripts/browser-diagram.mjs
+          node --check visualize/scripts/render-mermaid.mjs
           node --check visualize/scripts/print-check.mjs
           node --check visualize/scripts/slide-canvas-overflow.mjs
           node --check visualize/scripts/slide-canvas-smoke.mjs
@@ -85,9 +87,15 @@ jobs:
 
       - name: Library / CDN policy enforcement
         # Fails the build if any template <script src=...> references a
-        # URL outside the allowlist (Mermaid + Chart.js on cdn.jsdelivr.net).
+        # URL outside the allowlist (Chart.js on cdn.jsdelivr.net).
         # See dev-scripts/check-library-policy.mjs for the allowlist.
         run: node dev-scripts/check-library-policy.mjs --quiet
+
+      - name: Diagram geometry self-test
+        run: node visualize/scripts/browser-diagram.mjs --self-test
+
+      - name: Mermaid authoring-path self-test
+        run: node visualize/scripts/render-mermaid.mjs --self-test
 
       - name: Fixture manifest checks
         # Runs each detect / contrast / smoke check declared in fixtures/manifest.json.
@@ -121,3 +129,14 @@ jobs:
       # contracts the publish path hits (POST /v1/public/artifacts) are
       # stable display.dev surfaces; any drift would surface in
       # `@displaydev/cli`'s own tests before reaching this skill.
+
+  mermaid-windows:
+    runs-on: windows-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Mermaid authoring path on Windows
+        # Covers npx.cmd launch, valid and invalid source, the end-to-end
+        # deadline, and taskkill-based descendant cleanup.
+        run: node visualize/scripts/render-mermaid.mjs --self-test

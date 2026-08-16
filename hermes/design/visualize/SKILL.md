@@ -7,12 +7,16 @@ argument-hint: "[teach | simplify | bolder | quieter | animate | polish | review
 allowed-tools:
   - Bash(node $SKILL_DIR/scripts/detect.mjs*)
   - Bash(node $SKILL_DIR/scripts/browser-contrast.mjs*)
+  - Bash(node $SKILL_DIR/scripts/browser-diagram.mjs*)
+  - Bash(node $SKILL_DIR/scripts/render-mermaid.mjs*)
   - Bash(node $SKILL_DIR/scripts/palette.mjs*)
   - Bash(node $SKILL_DIR/scripts/teach.mjs*)
   - Bash(bash $SKILL_DIR/scripts/publish.sh*)
   - Bash($SKILL_DIR/scripts/publish.sh*)
   - Bash(node */visualize/scripts/detect.mjs*)
   - Bash(node */visualize/scripts/browser-contrast.mjs*)
+  - Bash(node */visualize/scripts/browser-diagram.mjs*)
+  - Bash(node */visualize/scripts/render-mermaid.mjs*)
   - Bash(node */visualize/scripts/palette.mjs*)
   - Bash(node */visualize/scripts/teach.mjs*)
   - Bash(bash */visualize/scripts/publish.sh*)
@@ -70,6 +74,7 @@ Invocation forms: `/visualize teach`, `/visualize polish ./report.html`, `/visua
 1. **No argument**: render the Commands table above as the user-facing menu, grouped by category. Ask what they'd like to do.
 2. **First word matches a command**: **load its reference file before doing anything else.** Non-negotiable — the table row + this section is insufficient; the procedure lives in the reference. Everything after the command name is the target.
 3. **First word doesn't match a command**: treat the whole argument as the topic for the default creation flow. Load `reference/create.md`.
+4. **Relationship-diagram route during creation**: when preflight first identifies a likely relationship diagram, load `reference/diagram.md` and the one tentative non-spatial type reference needed for that figure before presenting the shape gate. For multi-figure artifacts, load one reference for each distinct tentative family: `reference/diagram-flow.md`, `reference/diagram-system.md`, `reference/diagram-sequence.md`, `reference/diagram-state.md`, or `reference/diagram-hierarchy.md`. Spatial figures use `reference/diagram.md` alone. If approval changes a figure's type, load the replacement reference before authoring; do not load unrelated families.
 
 ## Hand-off output shape
 

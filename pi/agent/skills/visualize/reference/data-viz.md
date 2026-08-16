@@ -4,6 +4,8 @@ Honesty, density, and comparison structure for charts and data displays inside v
 
 The principles below are LLM-judgement calls, not detector rules — the detector catches mechanical anti-patterns (gradient text on metrics, etc.), but data-visual relationships don't reduce to regex.
 
+A chart answers a quantitative comparison. When the reader instead needs entities, ordering, containment, causality, flow, overlap, or a qualitative continuum, use [diagram.md](diagram.md). Do not route measured encodings through the relationship-diagram grammar.
+
 **Apply the analytical principles (proportional encoding, comparison structure, data-ink ratio); do not apply the cream + Georgia + side-margin-notes aesthetic** — that's second-order slop for non-editorial topics (SKILL.md). The brand profile owns colours and type; this reference owns chart honesty and density.
 
 ## Honesty
