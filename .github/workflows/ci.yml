@@ -136,6 +136,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Prepare pinned Mermaid CLI
+        # Keep cold package acquisition outside the renderer's 60-second
+        # availability deadline; the self-test below exercises the prepared CLI.
+        run: npx --yes --prefer-offline @mermaid-js/mermaid-cli@11.12.0 --version
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: "true"
+
       - name: Mermaid authoring path on Windows
         # Covers direct npx-cli.js execution through Node, valid and invalid
         # source, the end-to-end deadline, and taskkill-based descendant cleanup.
