@@ -65,7 +65,7 @@ test('generate-image CLI keeps its JSON envelope and runs through a symlink', as
   assert.equal(invalid.status, 1);
   assert.equal(invalid.stderr, '');
   assert.equal(JSON.parse(invalid.stdout).error.code, 'invalid-arguments');
-  const oversized = spawnSync(process.execPath, [script, `--${'x'.repeat(200_000)}`], { encoding: 'utf8' });
+  const oversized = spawnSync(process.execPath, [script, `--${'x'.repeat(100_000)}`], { encoding: 'utf8' });
   assert.equal(oversized.status, 1);
   assert.ok(oversized.stdout.length < 512);
 
