@@ -97,6 +97,12 @@ node scripts/browser-diagram.mjs --strict artifact.html
 node scripts/browser-diagram.mjs --self-test
 ```
 
+### Portable image generation
+
+The portable contract can create one local PNG or JPEG through an explicitly selected released route. It preserves provider bytes, reports ordinary route/output diagnostics, and requires the active agent to open and visually inspect the image before using it. Ambiguous attempts stop without retry or fallback.
+
+See [`visualize/reference/image-generation.md`](visualize/reference/image-generation.md) for the canonical route, limits, billing, validation, and recovery contract. [`HARNESSES.md`](HARNESSES.md) records only current observed host and route evidence; routes without that evidence remain maintainer candidates.
+
 ## Commands
 
 `/visualize` invokes the skill. The argument tells the agent what to do.

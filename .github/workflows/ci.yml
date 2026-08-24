@@ -39,6 +39,9 @@ jobs:
           node --check visualize/scripts/browser-contrast.mjs
           node --check visualize/scripts/browser-diagram.mjs
           node --check visualize/scripts/render-mermaid.mjs
+          node --check visualize/scripts/image-contract.mjs
+          node --check visualize/scripts/generate-image.mjs
+          node --check visualize/scripts/record-image.mjs
           node --check visualize/scripts/print-check.mjs
           node --check visualize/scripts/slide-canvas-overflow.mjs
           node --check visualize/scripts/slide-canvas-smoke.mjs
@@ -77,6 +80,9 @@ jobs:
         # Pure-logic helpers (computeScale, parseSlideHash, static API).
         # Zero deps; runs with the bundled node:test runner.
         run: node --test visualize/shells/slide-canvas/slide-canvas.test.mjs
+
+      - name: Portable image-generation contract
+        run: node --test visualize/scripts/image-contract.test.mjs visualize/scripts/image-generation.test.mjs visualize/scripts/image-routes.test.mjs
 
       - name: Authoring contract
         # Enforces the template.md / patterns / shells / fixtures model.

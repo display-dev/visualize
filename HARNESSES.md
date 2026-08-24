@@ -35,6 +35,18 @@ The mirrors are byte-identical to the canonical mount. `bin/sync-mounts.sh --che
 - **Hermes.** Surface the skill in the `design` category (sibling to `productivity` where display-dev/skill lives).
 - **Pi / OpenClaw.** The Pi mount is rooted at `pi/agent/skills/visualize/` so frameworks built on Pi can pick it up without per-framework adapters.
 
-## Quirks (none yet)
+## Image-route evidence
 
-This file gets populated as host-specific behaviours surface during testing. Currently every host loads the same canonical mount with no per-host overrides.
+This table records observed host/route evidence, not operating instructions. The canonical route, limits, billing, validation, and recovery contract is [`visualize/reference/image-generation.md`](visualize/reference/image-generation.md). A route without current file-producing evidence remains a maintainer candidate.
+
+| Route | Status on 2026-08-24 | Characterization |
+|---|---|---|
+| `fake` | verified | contract/adapter tests; isolated installed-skill PNG smoke; no network or credential |
+| `codex-native`, `antigravity-native` | uncharacterized | no current file-producing host evidence recorded |
+| `codex-mcp` | verified for Claude Code 2.1.221 with configured Codex MCP | one general `mcp__codex__codex` session delegation using the bounded native-image instruction; one staged PNG; common finalizer returned `codex-mcp`; no retry or fallback; recorder recovery tests pass |
+| `codex-cli` | verified with Codex CLI 0.145.0 authenticated through ChatGPT on 2026-08-24 | one `codex exec --ephemeral` dispatch through the production adapter; one visually inspected 1024×1024 PNG (1,440,469 bytes); `host-managed` billing diagnostic; exact staged-file checks and successful staging cleanup; no retry or fallback; termination/recovery behavior remains covered by adapter tests |
+| `antigravity-cli` | uncharacterized | no current authenticated file-producing evidence recorded |
+| `gemini-api` | verified with configured Gemini API on 2026-08-22 | `gemini-3.1-flash-image` through `v1beta/interactions`; no-reference acceptance produced a visually inspected 1024×1024 JPEG (463,008 bytes), and single-JPEG-reference acceptance produced a visually inspected 1264×848 JPEG (305,691 bytes); `api-key` billing diagnostic; provider bytes and dimensions preserved; one request in each successful run |
+| `openai-api` | verified with configured OpenAI API on 2026-08-24 | `gpt-image-2` through the Images API; one no-reference generation produced a visually inspected 1024×1024 PNG (1,465,663 bytes), and one single-reference edit produced a visually inspected 1536×1024 JPEG (149,859 bytes); `api-key` billing diagnostic; provider bytes and dimensions preserved; one request in each successful run, with no retry or fallback |
+
+Distribution evidence is credential-free: `skills@1.5.20` resolved exactly one local candidate skill and exactly one current public skill in isolated workspaces; Pi's pinned Git package exposed exactly one skill under `pi/agent/skills`; Codex/Cursor manifests parse; and all three committed mirrors match the canonical mount.

@@ -25,7 +25,7 @@ If MCP isn't registered but a publish CLI is on `PATH`, invoke it:
 <cli> publish <path-to-html-or-md> [--name "Artifact title"] [--visibility public|org|private] [--share-with email1,email2]
 ```
 
-The CLI handles richer flows the bundled bash helper deliberately doesn't (`--visibility org|private`, `--share-with`, multifile, SSO login). When the user wants those flags, this is the tier that delivers them.
+The CLI handles richer single-file flows the bundled bash helper deliberately doesn't (`--visibility org|private`, `--share-with`, SSO login). When the user wants those flags, this is the tier that delivers them.
 
 The binary name and flag set are CLI-specific. If neither the agent nor the host knows the binary name, skip this tier and fall through to Tier 3.
 
@@ -46,6 +46,10 @@ Bundled jq + zero Node dependency. Works in any agent host that exposes a bash t
 - Output: pass through whatever the response contains (URL on auth'd publish; URL + claim URL + TTL on anonymous publish). Both human-readable (so the user sees them in chat) and machine-readable (so the agent can chain calls).
 
 The combination of universal HTTP fallback + unauthenticated publish path means the skill is fully usable end-to-end **without any account or installed CLI/MCP**. A user installing visualize for the first time can generate a Report, publish it, and share a URL on first invocation.
+
+## Generated image assets
+
+Every display.dev transport above publishes one HTML or Markdown file. It does not upload an adjacent generated PNG or JPEG. Before using this publish cascade, make the reviewed HTML self-contained by embedding the image bytes as a data URL, then verify the rendered artifact. If the artifact must remain multi-file, do not use this cascade; keep it local or choose a host that accepts the reviewed asset set.
 
 ## Post-publish output
 
