@@ -1,9 +1,9 @@
 ---
 name: visualize
-version: 0.3.0
+version: 0.4.0
 license: MIT
 user-invocable: true
-argument-hint: "[teach | simplify | bolder | quieter | animate | polish | review | publish] [<topic-or-path>]"
+argument-hint: "[teach | explore | simplify | bolder | quieter | animate | polish | review | publish] [<topic-or-path>]"
 allowed-tools:
   - Bash(node $SKILL_DIR/scripts/detect.mjs*)
   - Bash(node $SKILL_DIR/scripts/browser-contrast.mjs*)
@@ -31,7 +31,8 @@ description: >
   intents ("create a plan", "make me an implementation plan",
   "generate a diagram", "build a slide deck", "draft a recap",
   "visualize this", "render this as HTML", "make me a status update")
-  and iteration intents ("make this beautiful", "polish this report",
+  and exploration intents ("show me three layouts", "explore document
+  shapes", "compare page directions") and iteration intents ("make this beautiful", "polish this report",
   "make this less generic", "design this", "theme this", "use my
   brand", "iterate on this design", "review this artifact", "make
   this bolder", "make this quieter", "simplify this design",
@@ -63,6 +64,7 @@ Visual conviction can come from composition, typography, density, spatial rhythm
 | Category | Command | Argument | What it does | Reference |
 |---|---|---|---|---|
 | **Build** | `teach` | none | Bootstrap (or refresh) the brand profile. Writes `DESIGN.md` + `PRODUCT.md` at the project root. | `reference/teach.md` |
+| **Build** | `explore` | `artifact <topic-or-path>` | Compare responsive document structures inside the current visual system; waits for selection before changing the target. | `reference/explore.md` |
 | **Refine** | `simplify` | `<path>` | Strip decoration that isn't earning its pixel. Hands off to `polish`. | `reference/simplify.md` |
 | **Refine** | `bolder` | `<path>` | Amplify visual punch on safe / generic artifacts. Hands off to `polish`. | `reference/bolder.md` |
 | **Refine** | `quieter` | `<path>` | Tone down over-decoration without going generic. Hands off to `polish`. | `reference/quieter.md` |
@@ -71,7 +73,7 @@ Visual conviction can come from composition, typography, density, spatial rhythm
 | **Evaluate** | `review` | `<path>` | Deterministic detector findings + LLM judgment. Reports; doesn't modify the file. | `reference/review.md` |
 | **Publish** | `publish` | `<path>` | Push the artifact to display.dev via MCP / CLI / HTTP cascade. | `reference/publish.md` |
 
-Invocation forms: `{{command_prefix}}visualize teach`, `{{command_prefix}}visualize polish ./report.html`, `{{command_prefix}}visualize publish ./diagram.html`. On hosts without a slash-command form, the skill loads on intent-match from the description above; natural-language is the primary entry there.
+Invocation forms: `{{command_prefix}}visualize teach`, `{{command_prefix}}visualize explore artifact ./report.html`, `{{command_prefix}}visualize polish ./report.html`, `{{command_prefix}}visualize publish ./diagram.html`. On hosts without a slash-command form, the skill loads on intent-match from the description above; natural-language is the primary entry there.
 
 ## Routing rules
 
@@ -80,6 +82,7 @@ Invocation forms: `{{command_prefix}}visualize teach`, `{{command_prefix}}visual
 3. **First word doesn't match a command**: treat the whole argument as the topic for the default creation flow. Load `reference/create.md`.
 4. **Relationship-diagram route during creation**: when preflight first identifies a likely relationship diagram, load `reference/diagram.md` and the one tentative non-spatial type reference needed for that figure before presenting the shape gate. For multi-figure artifacts, load one reference for each distinct tentative family: `reference/diagram-flow.md`, `reference/diagram-system.md`, `reference/diagram-sequence.md`, `reference/diagram-state.md`, or `reference/diagram-hierarchy.md`. Spatial figures use `reference/diagram.md` alone. If approval changes a figure's type, load the replacement reference before authoring; do not load unrelated families.
 5. **Generated-image route during creation**: when the approved shape requires generated bitmap imagery, load `reference/image-generation.md` before selecting or invoking a route. Use only the active callable inventory or an explicitly selected API adapter. Never infer a route from a key, executable, mount, or model claim, and never retry or fall back after an ambiguous attempt.
+6. **Explore scope**: `explore` always loads `reference/explore.md`, which dispatches the named scope. Artifact Explore has no missing-brand fallback: it stops for `teach` when an incumbent is uncaptured and stops truthfully when no visual authority exists. It never reads the design-system catalog.
 
 ## Hand-off output shape
 

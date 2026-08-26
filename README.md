@@ -16,13 +16,15 @@ Works across Claude Code, Cursor, Codex, OpenCode, Hermes, and Pi.
 
 ## Why visualize?
 
-Three problems with how agents publish HTML today:
+Four problems with how agents publish HTML today:
 
 **1. Every artifact looks the same.** Every coding agent was trained on the same SaaS templates: Inter for everything, purple-to-blue gradients, rounded-square icon tile above every heading, six metric cards in a row, "Get started for free" CTA. Skip the brand guidance and every Report reads as the same Report. A Report from your company should look like your company's Report; today it looks like a generic shadcn demo regardless of who shipped it.
 
 **2. No brand context.** Pasting brand colors into every prompt isn't sustainable, and the agent forgets between sessions. visualize captures voice + visual identity once via `teach`, then every render reads the brand profile and produces a Report that visibly belongs to your company.
 
-**3. Iteration verbs with real contracts.** visualize has five Refine verbs (`simplify`, `bolder`, `quieter`, `animate`, `polish`) plus one Evaluate verb (`review`). Each does one specific thing — `bolder` amplifies visual punch, `simplify` strips decoration, `quieter` tones intensity, `animate` covers motion, `polish` is the terminal quality pass the other Refine verbs hand off to. `review` reports findings without modifying the file.
+**3. Compare real directions before choosing.** `explore artifact` holds the current visual system, content, facts, assets, and actions fixed while it builds materially different responsive document structures in one self-contained HTML review. Switch between wide and 390 px states, scroll each full document normally, and choose before the target changes.
+
+**4. Iteration verbs with real contracts.** visualize has five Refine verbs (`simplify`, `bolder`, `quieter`, `animate`, `polish`) plus one Evaluate verb (`review`). Each does one specific thing — `bolder` amplifies visual punch, `simplify` strips decoration, `quieter` tones intensity, `animate` covers motion, `polish` is the terminal quality pass the other Refine verbs hand off to. `review` reports findings without modifying the file.
 
 ## What's inside
 
@@ -111,6 +113,7 @@ See [`visualize/reference/image-generation.md`](visualize/reference/image-genera
 |---|---|
 | `/visualize <topic-or-path>` | Pick template from intent; compose against brand tokens; write self-contained HTML |
 | `/visualize teach` | Bootstrap (or refresh) the brand profile |
+| `/visualize explore artifact <topic-or-path>` | Compare responsive document structures inside the current visual system |
 | `/visualize polish <path>` | Iteration: alignment, spacing, consistency |
 | `/visualize review <path>` | Iteration: detector findings + LLM judgment |
 | `/visualize simplify <path>` | Iteration: strip decoration |

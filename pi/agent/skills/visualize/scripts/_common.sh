@@ -48,7 +48,7 @@ fi
 # to attribute publish events to the visualize-skill channel
 # (distinct from display-dev-skill, which has its own attribution).
 # Set `SKILL_VERSION_OVERRIDE` to test attribution locally without retagging.
-SKILL_VERSION="${SKILL_VERSION_OVERRIDE:-0.3.0}"
+SKILL_VERSION="${SKILL_VERSION_OVERRIDE:-0.4.0}"
 CLIENT_SOURCE="visualize-skill@${SKILL_VERSION}"
 
 require_jq_or_exit() {

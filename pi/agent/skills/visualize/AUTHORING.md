@@ -18,6 +18,8 @@ The composition reflex check runs in preflight, before shape sketching. Its outp
 
 `design-systems/catalog-index.json` and the per-system `DESIGN.md` files are reference packages `teach` reads when *deriving* a brand profile. At creation time the model uses the brand profile it has — browsing the catalog as a substitute for the resolved brand is drift, not fidelity. No per-artifact creation pass browses the catalog.
 
+Artifact Explore is also catalog-blind. It explores document structure inside an already resolved visual world; catalog access would silently reopen the identity decision. The future System Explore scope may use catalog entries only as calibration evidence under its own contract.
+
 ### 4. Required shape-gate fields are source-conditional
 
 Unconditional gate fields — pre-committed visible ingredients, primitive budgets, mandatory signature moves — induce format-induced collapse (Findings-EMNLP 2025: SFT 20.8% → DPO 10.8% diversity drop under structured-output requirements). Primitives follow sections that need them. Signature moves exist only when the source motivates one. Ingredients are derived from sections + primitives, not separately listed.
@@ -58,6 +60,8 @@ Recipes live at `patterns/<slug>.md`. They are creation guidance for recurring r
 ## Shells
 
 Shells live at `shells/<slug>/` and exist only for behavior-heavy mechanics: slide navigation, keyboard control, hash sync, scaling, print, or similar. A shell README documents content slots, behaviors, accessibility invariants, print/export expectations, and what an agent may customize. Runtime files are read only when the artifact needs to inline or modify mechanics.
+
+Artifact Explore follows the same single-file harness shape as a prototype exploration: review controls sit outside same-DOM candidate roots, each direction scopes its CSS to its own root, and width controls never impose a fixed document height. Temporary candidate drafts and screenshots are construction evidence, not fixtures or a publishable package.
 
 ## Fixtures
 
