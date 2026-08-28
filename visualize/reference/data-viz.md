@@ -25,7 +25,7 @@ Erase what isn't carrying information. The eraser test: cover an element with yo
 - **Grids.** Mute or remove. If the reader needs a reference line, draw one specific reference line at a meaningful value (target, threshold, last-period mean), not a full grid.
 - **Axes.** Thin, neutral-foreground, no tick chrome beyond what the labels need. A range-frame (axis line spanning only the data extent) carries the data range without an extra annotation.
 - **Labels.** Direct labels on the data marks beat a separate legend when the chart has ≤5 series. Legends are an indirection the eye has to resolve; direct labels skip it.
-- **Colour by default neutral.** Neutral fills (`--muted-foreground` family) on non-focal series, `--primary` reserved for the highlighted series or the current-period mark. Four hand-picked accents for four series reads as "I had access to a colour wheel" — same failure mode as the `color.md` six-accent ban.
+- **Choose color for the comparison.** A focal-series comparison can use neutral supporting marks and primary emphasis. A categorical comparison may need several distinct hues; preserve established category mappings and direct labels or other non-color cues. Follow [color.md](color.md) for palette choices, not a fixed hue-count limit.
 - **Classify every colour.** Each colour on a chart serves one of four roles: *label* (categorical distinction), *measure* (sequential / diverging scale), *represent* (status, brand mark, real-world referent), or *decorate* (no function). Drop colours that only decorate.
 - **Ordered quantities want a single hue, light→dark.** Heatmaps, severity ramps, sparkline gradients, progress chips — single-hue value ramp (`oklch(...)` stepping L while holding C and H). The equal-saturation rainbow (ROYGBIV) most chart libs ship reads as unordered; the eye doesn't naturally read red→orange→yellow→green as ascending.
 - **Red-vs-green alone fails ~5–10% of viewers.** When colour carries the signal, the contrast must survive desaturation. Add a shape, pattern, or label channel when colour is the only cue.
@@ -82,7 +82,7 @@ Default to a horizontal rectangle, ~1.5:1 wider than tall. The eye is trained on
 
 ## Failure modes the agent reaches for
 
-- **Six-series chart with six accent hues.** Mirrors the `color.md` failure. Use a neutral ramp with primary on the focal series.
+- **Color competes with the chart's comparison.** Reduce emphasis that obscures the focal series, but preserve distinct hues when they carry categorical meaning. Do not replace categorical colors with a sequential ramp merely because there are several series.
 - **3D bar chart, donut with depth, area chart with gradient fill below the line.** Direct fake-dimension violation. Use 2D fills with a single neutral.
 - **Y-axis truncated to amplify a small change, no axis break shown.** Lie factor > 1. Either start at zero or mark the break and call it out.
 - **Pie chart with eight slices.** Use a sorted horizontal bar.

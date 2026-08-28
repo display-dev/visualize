@@ -1685,46 +1685,17 @@ const hueDist = (a, b) => {
   return Math.min(d, 360 - d);
 };
 
-// hi may exceed 360 for bands that wrap (e.g. [315, 365) = 315–360 ∪ 0–5).
-const inBand = (h, lo, hi) => {
-  const n = ((h % 360) + 360) % 360;
-  if (hi <= 360) return n >= lo && n < hi;
-  return n >= lo || n < hi - 360;
-};
-
-// Nudge a hue off the pure 0/60/120/... axes (Datawrapper rule: pure
-// primary-axis hues read as defaults; offset >= 5-10°).
-function nudgeOffAxis(h) {
-  const n = ((h % 360) + 360) % 360;
-  const m = n % 60;
-  if (m < 5 || m > 55) return (n + 7) % 360;
-  return n;
-}
-
-// BAN 6 (SKILL.md): the purple-cyan / purple-magenta cross-hue stack is the
-// most-trained-on AI palette. Bands are deliberately generous (aubergine at
-// h315 + cyan is the same slop as iris at h290 + cyan) and the magenta band
-// wraps through 0°.
-const PURPLE_BAND = [255, 330];
-const CYAN_BAND = [175, 215];
-const MAGENTA_BAND = [315, 365]; // wraps: 315–360 ∪ 0–5
-function ban6Conflicts(seedH) {
-  const out = [];
-  if (inBand(seedH, ...PURPLE_BAND)) out.push(CYAN_BAND, MAGENTA_BAND);
-  if (inBand(seedH, ...CYAN_BAND) || inBand(seedH, ...MAGENTA_BAND)) out.push(PURPLE_BAND);
-  return out;
-}
+// Hue angles are optional starting points, not palette-quality gates.
+const normalizeHue = (h) => ((h % 360) + 360) % 360;
 
 function accentHues(seed) {
-  const conflicts = ban6Conflicts(seed.H);
-  const ok = (h) =>
-    hueDist(h, seed.H) >= 25 && !conflicts.some(([lo, hi]) => inBand(h, lo, hi));
+  const ok = (h) => hueDist(h, seed.H) >= 25;
   const candidates = [seed.H + 60, seed.H + 180, seed.H + 300, seed.H + 90, seed.H + 270]
-    .map(nudgeOffAxis)
+    .map(normalizeHue)
     .filter(ok);
   const out = [];
   for (const h of candidates) {
-    if (out.every((o) => hueDist(o, h) >= 20)) out.push(Math.round(h));
+    if (out.every((o) => hueDist(o, h) >= 20)) out.push(normalizeHue(Math.round(h)));
     if (out.length === 2) break;
   }
   return out;
@@ -1735,12 +1706,12 @@ function accentHues(seed) {
 // lightness alternation per the ramp rules.
 function chartHues(seed) {
   return [0, 145, 70, 215, 290]
-    .map((off) => nudgeOffAxis(seed.H + off))
-    .map((h) => Math.round(h));
+    .map((off) => normalizeHue(seed.H + off))
+    .map((h) => normalizeHue(Math.round(h)));
 }
 
-// Conventional state hues (error / warning / success), already nudged off
-// the pure 0/60/120 axes. When the seed itself occupies one of these zones,
+// Optional conventional state hues (error / warning / success).
+// When the seed itself occupies one of these zones,
 // the seed keeps identity and the state color differentiates by L/C.
 const STATE_HUES = { destructive: 27, warning: 85, success: 152 };
 
@@ -1811,22 +1782,22 @@ function buildDerived(seed) {
 }
 
 const RULES = [
-  'Background purity: default the LIGHT theme to pure white oklch(1 0 0), or pure near-black (L 0.04-0.12, C 0) when the brand lives dark. Tint the bg (C 0.015-0.05) only when the mood names a physical environment or the seed is desaturated (C < 0.10); "feels warm" is not a reason — put warmth in the primary. Dark MODE bg is a separate thing: ladders.dark.bg, tinted with the seed hue.',
-  'Contrast floors, both metrics: body ink vs bg >= 7:1 WCAG (compliance floor) and APCA |Lc| >= 75 (quality bar, 90 preferred). Secondary text >= 4.5:1 and |Lc| >= 60. APCA is polarity-aware — negative Lc just means light-on-dark; compare absolute values.',
-  'Text on saturated fills (L 0.42-0.78, C >= 0.08): use white text even where WCAG passes dark — saturated colors read brighter than their luminance (Helmholtz-Kohlrausch). Exceptions: bright-cusp hues (yellow/amber/lime/mint/sky) and fills where white can’t reach 3:1 take dark text; the seed’s textOnSolid field has this precomputed. Never delegate this to CSS contrast-color().',
-  'Dark mode is a remap, never a hue flip: bg = near-black tinted with the seed hue at neutral chroma (ladders.dark.bg), primary moves lighter AND drops 25-40% chroma (light-mode saturation vibrates on dark), elevation = lighter surfaces, not shadows.',
-  'Stay inside the sRGB chroma budget at every role’s lightness — browsers clip out-of-gamut OKLCH silently and the budget varies ~2x by hue, so no flat "safe chroma" exists. chromaBudget covers the SEED hue only; hueBudgets covers the suggested accent/chart/state hues; any other hue, pick conservatively and let --check verify.',
-  'Accent must differ from primary in BOTH hue and lightness, and must never be a muddy mid-tone (L 0.45-0.72 with C < 0.10) — that can’t carry text either way. Saturate it or push it clearly light or dark.',
-  'Ramps and tints: hold OKLCH hue constant and move L monotonically. Never darken yellow/orange by dropping L alone — it reads brown; rotate the hue warm instead.',
-  'Neutrals carry the seed hue at derived.neutrals.chroma (~seed C/6) — tinted gray, not pure gray, and never the warm-cream band (L 0.84-0.97, C < 0.06, hue 40-100).',
+  'Use the approved brief and existing visual authority. Neutral gray, tinted surfaces, white, black, red primaries, and multiple accents are valid; seed strategies describe possible compositions, not exclusions.',
+  'The generated body-ink ladders target >= 7:1 WCAG and APCA |Lc| >= 75; secondary text targets >= 4.5:1 and |Lc| >= 60. Verify actual rendered pairs at their text size, weight, surface, and state. APCA is supplemental guidance, not a replacement for WCAG.',
+  'textOnSolid is a starting suggestion. Measure the chosen foreground against its actual fill, including image/overlay composites; a suggested white or dark foreground does not waive contrast requirements.',
+  'Design dark mode in context. Adjust surfaces and accents to preserve hierarchy and readable pairs; do not require a fixed chroma reduction, background band, or hue change when the existing value works.',
+  'Stay inside the target gamut at every role’s lightness. chromaBudget covers the seed hue; hueBudgets covers suggested accent/chart/state hues. Other hues need their own budget and contrast verification.',
+  'Accent distinction can come from lightness, chroma, placement, or coverage as well as hue. Related colors and muted midtones are valid; check their actual foreground/background pairs.',
+  'Ramps should express the intended ordering. Vary lightness, chroma, and hue deliberately and inspect the result instead of treating equal angular spacing as proof of harmony.',
+  'derived.neutrals is an optional tinted-neutral suggestion. Achromatic gray and warm or cool surfaces are equally available when they fit the brief.',
 ];
 
 const GUIDANCE = [
-  'Temporary seed for greenfield only — use when no DESIGN.md and no usable repo guidance exists. Named brand cues always override this seed.',
-  'The mood and strategy are hints, not commands — the artifact brief drives composition. Before composing, write one granular mood phrase ("Negroni hour on a Milan rooftop", not "modern and clean") and let it pick the strategy: restrained, committed, or drenched.',
-  'Compose every token from the seed + the brief: bg/surface/ink per derived.ladders, primary anchored to the seed hue (stay within ~10°, pick L/C for the mood within chromaBudget), accent from derived.accentHues — unless the strategy prose names a different accent; the strategy wins — charts from derived.chartHues with alternating lightness, state tokens from derived.stateHues (when the seed itself occupies a state hue, the seed keeps identity; differentiate the state color by lightness and depth). Real designs are one committed color on a near-white or near-black scaffold — name the scaffold first. Do not copy the seed value into multiple roles.',
-  'If the seed’s register fights the brief, re-run with --not <zone,...> (deterministic veto) or --vary <n> (salted re-draw) and say so in the shape gate. Do not silently override the seed. (--id pins a specific seed for reproduction or preview; in the create flow prefer --not/--vary so the draw stays explainable.)',
-  'After composing, run --check --strict on the tokens (or the finished HTML) and fix error findings (exit 2) before render. Nudge the teach verb once per session so this one-run seed becomes a real brand profile.',
+  'Temporary seed for greenfield only: use when no approved artifact reference or usable project guidance supplies the visual baseline. Approved visual choices take precedence.',
+  'The seed mood and strategy are illustrative composition ideas. Their suggested counts, companion hues, tint, and coverage never prohibit alternatives from the approved brief. Use reference/color.md to explain palette character, roles, and distribution.',
+  'Compose semantic roles from the seed and brief. The derived ladders provide measured starting values; accentHues, chartHues, stateHues, and neutrals are suggestions rather than a complete palette or role-count limit. Do not invent visible UI states for a non-UI artifact.',
+  'If the seed fights the brief, use --not <zone,...> or --vary <n> for another starting point and explain the choice. --id pins a seed for reproduction. User-approved colors do not need another random draw.',
+  'For newly composed OKLCH tokens, run --check --strict and fix mechanical errors before rendering. Verify computed colors and other CSS formats with the existing browser contrast checks. Offer teach when the user wants to persist project authority.',
 ];
 
 // ============================================================
@@ -2128,7 +2099,7 @@ function runCheck(args) {
       if (!c) {
         if (/^(transparent|none|inherit|currentcolor)$/i.test(value)) continue;
         const core = CORE_CONTRAST_TOKENS.has(name);
-        add('non-oklch', core ? 'error' : 'warn', `${label} --${name}`, `Color token is not an oklch() literal ("${String(value).slice(0, 40)}") — palette rules require OKLCH${core ? ', and contrast floors cannot be verified on this token' : ''}.`);
+        add('non-oklch', core ? 'error' : 'warn', `${label} --${name}`, `Color token is not an oklch() literal ("${String(value).slice(0, 40)}") — this helper supports OKLCH literals${core ? ', and contrast floors cannot be verified on this token' : ''}.`);
         continue;
       }
       if (c.alpha < 1) {
@@ -2160,7 +2131,7 @@ function runCheck(args) {
     }
   };
 
-  const checkBlock = (tokens, label, isDark) => {
+  const checkBlock = (tokens, label) => {
     if (tokens.size === 0) return null;
     const colors = parsedBlock(tokens, label);
 
@@ -2173,55 +2144,17 @@ function runCheck(args) {
     checkPair(colors, label, 'primary-foreground', 'primary', 4.5, 0, 'error');
     checkPair(colors, label, 'card-foreground', 'card', 7, 0, 'warn');
 
-    const primary = colors.get('primary'), accent = colors.get('accent');
-    if (primary && accent && accent.C >= 0.08) {
-      const conflict = ban6Conflicts(primary.H);
-      if (primary.C >= 0.08 && conflict.some(([lo, hi]) => inBand(accent.H, lo, hi))) {
-        add('ban6-stack', 'error', `${label} --primary + --accent`, `Purple-cyan/purple-magenta cross-hue stack (primary h${Math.round(primary.H)} + accent h${Math.round(accent.H)}) — the most-trained-on AI palette (BAN 6).`);
-      }
-      if (hueDist(primary.H, accent.H) < 25 && Math.abs(primary.L - accent.L) < 0.12) {
-        add('accent-indistinct', 'warn', `${label} --accent`, `Accent is within 25° hue and 0.12 L of primary — two variants of one color, not a second role.`);
-      }
-    }
-    if (accent && accent.L >= 0.45 && accent.L <= 0.72 && accent.C >= 0.04 && accent.C < 0.10) {
-      add('muddy-accent', 'warn', `${label} --accent`, `Mid-lightness low-chroma accent (L ${accent.L}, C ${accent.C}) reads muddy and can't carry text — saturate it or push it clearly light/dark.`);
-    }
-
-    // H-K: dark text sitting on a saturated mid-luminance fill that the
-    // precomputed polarity says should carry white.
-    const pf = colors.get('primary-foreground');
-    if (primary && pf && pf.L < 0.5 && primary.C >= 0.08 && textOnSolid(primary) === 'white') {
-      add('hk-dark-text-on-saturated', 'warn', `${label} --primary-foreground`, 'Dark text on a saturated mid-luminance primary — Helmholtz-Kohlrausch makes the fill read brighter than measured; use white/near-white text.');
-    }
-
-    const bg = colors.get('background');
-    if (isDark && bg && (bg.L < 0.04 || bg.L > 0.25)) {
-      add('dark-bg-band', 'warn', `${label} --background`, `Dark bg L ${bg.L} outside the 0.04-0.25 band (Material tone-6 doctrine ~0.18-0.22).`);
-    }
     return colors;
   };
 
-  const lightColors = checkBlock(blocks.light, ':root', false);
-  const darkColors = checkBlock(dark, darkLabel, true);
+  checkBlock(blocks.light, ':root');
+  checkBlock(dark, darkLabel);
 
   // When both dark paths exist but diverge, the OS-dark block gets its own
   // value pass — a broken media block must not hide behind a clean explicit one.
   const mapsEqual = (a, b) => a.size === b.size && [...a].every(([k, v]) => b.get(k) === v);
   if (blocks.darkExplicit.size && blocks.darkOs.size && !mapsEqual(blocks.darkExplicit, blocks.darkOs)) {
-    checkBlock(blocks.darkOs, '@media dark :root', true);
-  }
-
-  if (lightColors && darkColors) {
-    const lp = lightColors.get('primary'), dp = darkColors.get('primary');
-    if (lp && dp) {
-      if (dp.C > lp.C + 0.01 && dp.L >= 0.5) {
-        add('dark-primary-chroma', 'warn', `${darkLabel} --primary`, `Dark primary chroma (${dp.C}) exceeds light (${lp.C}) — dark-mode primaries drop 25-40% chroma so they don't vibrate.`);
-      }
-      const lb = lightColors.get('background'), db = darkColors.get('background');
-      if (lb && db && Math.abs(lb.L - db.L) > 0.4 && Math.abs(dp.L - lp.L) < 0.05 && Math.abs(dp.C - lp.C) < 0.01) {
-        add('dark-primary-unchanged', 'warn', `${darkLabel} --primary`, 'Background flipped but primary is unchanged — dark mode is a remap (lighter, less chroma), not a bg swap.');
-      }
-    }
+    checkBlock(blocks.darkOs, '@media dark :root');
   }
 
   const order = { error: 0, warn: 1 };

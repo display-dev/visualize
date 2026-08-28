@@ -37,7 +37,7 @@ Nine dimensions, plus a tenth — **data graphics** — when the artifact contai
 **Triage every finding as functional or cosmetic.** Tag it inline in the run summary:
 
 - **Functional**: blocks or confuses the reader. A11y blockers (missing alt, low contrast, missing landmarks), heading-order breaks, edge-data overflow that pushes the layout sideways, motion that misses `prefers-reduced-motion`, contrast failures. These ship-block — fix every one.
-- **Cosmetic**: looks off but doesn't impede the reader. Off-grid spacing, neutrals that should be tinted, a focus ring that uses the system default, mono accent on a chrome label. Negotiable when polish time is tight; land in a follow-up if needed.
+- **Cosmetic**: looks off but doesn't impede the reader. Off-grid spacing, neutral temperature at odds with the resolved context, a focus ring that uses the system default, mono accent on a chrome label. Negotiable when polish time is tight; land in a follow-up if needed.
 
 If the artifact ships in 30 minutes, fix functional first, defer cosmetic, surface the deferred list in the run summary. If there's runway, fix both. Don't perfect one corner while another is broken — consistent quality beats peak quality in one place.
 
@@ -57,12 +57,10 @@ Consult [typography.md](typography.md) for the deeper material.
 ### 2. Color & contrast
 Consult [color.md](color.md) for the deeper material.
 
-- Every authored color is OKLCH (hex only on embedded SVGs / email surfaces)?
-- WCAG AA on body (4.5:1), AA-large on chrome (3:1)? Project / sunlight / low-quality monitor → push to AAA.
-- Three tracks only (surface+foreground / primary+on-primary / semantic)? No fourth decorative track.
-- Dark mode designed, not inverted? Saturated brand colors lifted, neutral surfaces chroma-dropped, focus ring visible.
-- No pure `#000` / `#fff` on prose-heavy artifacts — both poles warm-tinted.
-- Severity colors reserved for state (red = destructive, amber = warning, green = success)? Not on primary CTAs.
+- Does color support the approved hierarchy, meaning, and atmosphere without replacing settled palette choices?
+- Do actual text/background pairs pass the applicable contrast threshold in each relevant state and theme? Small labels are ordinary text, not exempt chrome.
+- Are state and data meanings stable and understandable without color alone?
+- Are light/dark surfaces and foregrounds readable, including overlays and focus indicators?
 
 ### 3. Spatial
 Consult [spatial.md](spatial.md) for the deeper material. For dense / data-heavy templates (dashboards, research-briefs), also consult [cognitive-load.md](cognitive-load.md) — density-without-layering is the dominant failure here.
@@ -101,7 +99,7 @@ The small stuff that separates shipped from polished.
 - Header-to-contents separators collapse to one rule on mobile? Remove either the header bottom border or the contents/TOC top border at the narrow breakpoint. Two horizontal lines separated by blank space is a visible bug.
 - Mobile TOC reads as navigation, not a word cloud? Replace wrapping inline links with a list, numbered grid, or compact rows. Links need row/column structure, consistent spacing, and a clear relationship to the `Contents` label.
 - Dark-mode shadows flipped (lighter shadows on dark surface, not the same shadow that worked on light)?
-- Neutrals tinted toward the brand hue (chroma 0.005–0.01) instead of pure gray?
+- Neutral temperature matches the resolved context? Do not tint an approved gray palette merely to add color.
 - Hover-states on every interactive element? Default-only buttons read as broken.
 - Selection color matches the brand `--primary`, not the OS default blue?
 
@@ -135,7 +133,7 @@ Skip explicitly when the artifact contains no chart, sparkline, KPI tile, or dat
 - No 3D depth, drop shadow, or gradient fill on data marks?
 - Every chart answers "compared to what?" — comparison legible without re-reading the title?
 - Sparklines word-sized, not hero-scaled? Direct labels on data marks over legends when ≤5 series?
-- Neutrals on non-focal series, `--primary` on the focal series — not six accent hues across one chart?
+- Chart colors support the intended comparison and preserve meaningful category mappings?
 - Layering reads at squint distance: primary data dominates, grids/references recede?
 - Table typography reads as a table, not a poster? Captions are small and attached, headers are label-sized, body cells are regular, and mono is scoped to fixed-width values.
 

@@ -317,32 +317,6 @@ rule({
 // --- Slop / aesthetic ---
 
 rule({
-  id: 'slop/generic-gradient',
-  category: 'slop',
-  defaultSeverity: 'error',
-  description: 'Purple→pink / indigo→cyan / generic AI gradients. Detected by hue-distance in OKLCH.',
-  run({ css }) {
-    const findings = [];
-    const gradRe = /(?:linear|radial|conic)-gradient\s*\(([^)]+)\)/gi;
-    let m;
-    while ((m = gradRe.exec(css))) {
-      const stops = parseGradientStops(m[1]);
-      if (stops.length < 2) continue;
-      const isGeneric = isGenericAiGradient(stops);
-      if (isGeneric) {
-        findings.push({
-          locator: 'gradient',
-          message: 'Generic AI-register gradient (purple/pink/indigo/cyan corridor).',
-          snippet: m[0].slice(0, 120),
-          suggestion: 'Use brand `--primary` as a flat fill, or drop the gradient.',
-        });
-      }
-    }
-    return findings;
-  },
-});
-
-rule({
   id: 'slop/gradient-text',
   category: 'slop',
   defaultSeverity: 'error',
@@ -504,47 +478,6 @@ rule({
       }];
     }
     return [];
-  },
-});
-
-rule({
-  id: 'slop/cream-palette',
-  category: 'slop',
-  defaultSeverity: 'info',
-  description: 'Cream, beige, paper, or sand-colored page background.',
-  run({ css, cssRules, cssVars }) {
-    const findings = [];
-    const tokenNames = [...cssVars.keys()].filter((name) => /(?:cream|beige|sand|bone|linen|parchment|ivory|paper|wheat|almond|oat)/i.test(name));
-    if (tokenNames.length >= 2) {
-      findings.push({
-        locator: ':root',
-        message: `Multiple warm-paper token names (${tokenNames.slice(0, 4).join(', ')}) suggest the page is defaulting to cream/beige styling.`,
-        suggestion: 'Use a true neutral background, a brand-tinted neutral, or a clearly intentional color surface.',
-      });
-    }
-
-    const candidates = [];
-    for (const { selector, declarations } of declarationsForSelector(cssRules, /(^|,)\s*(?:html|body|:root)\b/i)) {
-      const bg = declarationValue(declarations, 'background(?:-color)?') || declarationValue(declarations, '--background');
-      if (bg) candidates.push({ selector, value: resolveCssColorValue(bg, cssVars) });
-    }
-    for (const [name, value] of cssVars) {
-      if (/(?:foreground|text|ink)/i.test(name)) continue;
-      if (/^--(?:background|card|popover|paper|surface|canvas|cream|sand|beige|ivory|linen|bone|almond|oat)\b/i.test(name)) {
-        candidates.push({ selector: name, value: resolveCssColorValue(value, cssVars) });
-      }
-    }
-
-    for (const candidate of candidates) {
-      if (!candidate.value || !isWarmCreamColor(candidate.value)) continue;
-      findings.push({
-        locator: candidate.selector,
-        message: `Page/surface color (${candidate.value}) is in the cream/beige range.`,
-        suggestion: 'Use a true neutral, a brand-tinted neutral, or a committed color surface.',
-      });
-      break;
-    }
-    return findings.slice(0, 2);
   },
 });
 
@@ -1915,38 +1848,6 @@ function safeParseColor(s) {
   }
 }
 
-function resolveCssColorValue(value, cssVars, depth = 0) {
-  if (!value || depth > 3) return null;
-  const trimmed = String(value).trim();
-  const varMatch = trimmed.match(/var\(\s*(--[\w-]+)\s*(?:,[^)]+)?\)/i);
-  if (varMatch) {
-    const resolved = cssVars.get(varMatch[1].toLowerCase());
-    return resolved ? resolveCssColorValue(resolved, cssVars, depth + 1) : null;
-  }
-  const colorMatch = trimmed.match(/oklch\([^)]+\)|rgba?\([^)]+\)|hsla?\([^)]+\)|#[0-9a-f]{3,8}\b|\b(?:white|black|ivory|beige|linen|oldlace|seashell|antiquewhite)\b/i);
-  return colorMatch ? colorMatch[0] : null;
-}
-
-function isWarmCreamColor(value) {
-  const text = String(value).trim().toLowerCase();
-  if (/\b(?:ivory|beige|linen|oldlace|seashell|antiquewhite)\b/.test(text)) return true;
-  const oklchMatch = text.match(/oklch\(\s*([\d.]+%?)\s+([\d.]+)\s+([\d.]+)/);
-  if (oklchMatch) {
-    const lRaw = oklchMatch[1];
-    const l = lRaw.endsWith('%') ? Number(lRaw.slice(0, -1)) / 100 : Number(lRaw);
-    const c = Number(oklchMatch[2]);
-    const h = Number(oklchMatch[3]);
-    return l >= 0.84 && l <= 0.97 && c > 0 && c < 0.06 && h >= 40 && h <= 100;
-  }
-  const parsed = safeParseColor(text);
-  if (!parsed || parsed.mode !== 'rgb') return false;
-  const { r, g, b } = parsed;
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
-  const warmBias = r >= g && g >= b;
-  return max >= 0.84 && max <= 0.99 && max - min > 0.015 && max - min < 0.12 && warmBias;
-}
-
 function toOklch(color) {
   if (!color) return null;
   if (color.mode === 'oklch') return color;
@@ -2285,42 +2186,6 @@ function maxShadowBlurPx(shadow) {
     if (lengths.length >= 3) max = Math.max(max, lengths[2]);
   }
   return max;
-}
-
-function parseGradientStops(content) {
-  // Extract color stops from a gradient() body
-  const stops = [];
-  // Find color values (hex / rgb / oklch / named)
-  const colorRe = /#[0-9a-f]{3,8}\b|rgba?\([^)]+\)|oklch\([^)]+\)|hsla?\([^)]+\)|\b(purple|magenta|fuchsia|hotpink|violet|orchid|cyan|indigo|teal|amber|emerald)\b/gi;
-  let m;
-  while ((m = colorRe.exec(content))) {
-    const parsed = safeParseColor(m[0]);
-    if (parsed) stops.push(parsed);
-  }
-  return stops;
-}
-
-function isGenericAiGradient(stops) {
-  // Detect: ≥2 stops where ≥2 fall into the purple/pink/indigo/cyan corridor.
-  // OKLCH hue 220-340 = blue→violet→pink. Chroma > 0.10 = saturated.
-  let inCorridor = 0;
-  for (const stop of stops) {
-    const oklch = toOklch(stop);
-    if (!oklch) continue;
-    // Without real OKLCH conversion we use a proxy — check RGB pattern
-    if (stop.mode === 'rgb' && stop.r !== undefined) {
-      const { r, g, b } = stop;
-      // Purple/pink: high R + high B, low G
-      const isPurplePink = b > 0.5 && r > 0.3 && g < r * 0.7 && g < b * 0.7;
-      // Indigo/cyan: high B, low R, mid G
-      const isIndigoCyan = b > 0.6 && r < 0.3 && g > 0.3;
-      if (isPurplePink || isIndigoCyan) inCorridor++;
-    }
-    if (oklch.c > 0.10) {
-      // generic high-chroma stop is a clue but not conclusive
-    }
-  }
-  return inCorridor >= 2;
 }
 
 // ============================================================

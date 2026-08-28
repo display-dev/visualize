@@ -4,7 +4,7 @@ Before following the instructions below, apply the shared rules in SKILL.md.
 
 `{{command_prefix}}visualize bolder <path>` increases visual impact through stronger hierarchy, more committed scale, decisive type, and brand-true color amplification. Hands off to `polish` at the end.
 
-Bold means distinctive, not "more effects." Don't reach for gradient text, neon accents, glassmorphism, or purple-to-cyan stacks — they're the most-trained-on visual reflex and read as anonymous. Every Absolute ban in SKILL.md applies during bolder.
+Bold means distinctive, not "more effects." Don't reach for gradient text or glassmorphism — they're the most-trained-on visual reflex and read as anonymous. Every Absolute ban in SKILL.md applies during bolder.
 
 ## Before you start
 
@@ -47,7 +47,7 @@ Three amplification axes (pick at most two):
 
 - **Type scale**: dramatic display heading, weight contrast (200 ↔ 700), generous leading or tight tracking depending on the brand.
 - **Spatial drama**: extreme scale jumps (3–5x between hero and supporting), asymmetric layout, hero element escaping its container.
-- **Committed color**: one brand color carrying 30–60% of a surface (the brand's actual color, not the AI-default purple). Or a single dramatic dark / light surface.
+- **Committed color**: one brand color carrying 30–60% of a surface (the resolved palette's color). Or a single dramatic dark / light surface.
 
 Don't amplify across all three axes at once. That's not bolder, that's chaos.
 
@@ -112,7 +112,7 @@ Effects compose with the lane (the defaults — resolved context can override):
 - Sacrifice readability for impact. Body prose still wraps at 65–75ch. Contrast still meets WCAG AA.
 - Use bounce / elastic easing. Reads as toy, not bold.
 - Add decoration without a focal moment. Bolder without a hero element is just louder.
-- Drift to AI-default purple / cyan / pink / indigo. Use the resolved context's actual hue or stay neutral.
+- Replace approved palette choices merely to amplify intensity. Adjust color coverage, placement, or contrast within the brief; no hue is inherently bolder or more generic.
 
 ## Per-template-category notes
 

@@ -41,7 +41,7 @@ State which strategy is primary (and which are secondary, if any) in the run sum
 ### Decoration
 
 - Drop shadows on cards that already have borders → keep one or the other.
-- Background gradients on neutral surfaces → flat color.
+- Background gradients that compete with content without carrying identity or meaning → flat color.
 - Per-heading icon tiles → just the heading. (Also a hard Ban — see SKILL.md BAN 5.)
 - Stat tiles around a single number when the artifact isn't a dashboard → inline the number in body prose.
 - Decorative borders on every section → only where the section break needs visual separation.
@@ -49,12 +49,12 @@ State which strategy is primary (and which are secondary, if any) in the run sum
 
 ### Color
 
-Consult [color.md](color.md). Cuts:
+Consult [color.md](color.md) for palette and role decisions. Cut color treatments only when they add noise without carrying meaning or identity:
 
-- Four+ accent hues on a chart → sequential ramp of neutrals + the primary on the highlighted series.
+- Chart colors that add emphasis without distinguishing categories or quantities → reduce redundant emphasis. Use [data-viz.md](data-viz.md) to preserve the chart's encoding; hue count alone is not a reason to recolor it.
 - Coloured backgrounds on text blocks that don't need to land separately → no background.
-- Severity colors used decoratively → reserve red/amber/green for state.
-- Gradient on anything that isn't a deliberate hero moment → solid color.
+- Decorative state-like emphasis that falsely implies urgency or status → remove that emphasis, not the hue from unrelated identity or data roles.
+- Gradients that obscure content or compete with its hierarchy → simplify the treatment where the problem occurs.
 
 ### Spatial
 
@@ -72,7 +72,7 @@ Consult [copy.md](copy.md). Cuts:
 - Restated headings ("This section covers X" under an `<h2>X` heading) → drop the restatement.
 - Hedging wrappers ("It is worth noting that…" / "Consider…") → drop the wrapper, keep the claim.
 - Em-dash overuse (>2 per paragraph) → commas, parentheses, sentence breaks.
-- Sycophant footers / AI-attribution → out. (Also BAN 8.)
+- Sycophant footers / AI-attribution → out. (Also BAN 7.)
 - "In conclusion" / "To summarize" → just write the final paragraph.
 
 ### Motion

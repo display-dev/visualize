@@ -35,7 +35,7 @@ The first two phone screens must deliver title, thesis, and essential context wi
 
 ## Failure modes
 
-**Genre reflex.** Postmortems are the template most prone to incident-dashboard chrome — red banner across the top, severity bars, alarm glyphs, "OUTAGE" all-caps banner. Resist. A reader who needs the alarm chrome to know it's a postmortem is a reader you're insulting; the title and structure already say so. No element wider than 6rem may use a fully-saturated red (chroma > 0.18); `--destructive` is text/border only, never a background fill. Status, severity, window, and owner render as labeled metadata, not screen-width alerts or pill rows.
+**Genre reflex.** Postmortems are the template most prone to incident-dashboard chrome — red banner across the top, severity bars, alarm glyphs, "OUTAGE" all-caps banner. Resist. A reader who needs the alarm chrome to know it's a postmortem is a reader you're insulting; the title and structure already say so. Use alert treatment only when it conveys a real current status, not to decorate a historical analysis. A red-led approved identity remains valid. Status, severity, window, and owner render as labeled metadata, not screen-width alerts or pill rows.
 
 **Reflection requires both sides.** A reflection section with only "didn't work" reads as a blame document. Lead with what held up; then say what didn't. Both columns populated, or the section is wrong.
 

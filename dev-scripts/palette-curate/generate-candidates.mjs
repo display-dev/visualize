@@ -20,7 +20,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  oklchToOklab, oklabDist, maxChroma, inCreamBand, textOnSolid,
+  oklchToOklab, oklabDist, maxChroma, textOnSolid,
   ZONE_NAMES, L_BANDS, mulberry32, fmtOklch, parseOklch, zoneOf, bandOf,
 } from './oklch-lib.mjs';
 
@@ -63,7 +63,6 @@ function tryPick(rand, bounds, quota, zoneFilter) {
     const cMax = Math.min(maxChroma(L, H) - GAMUT_MARGIN, bounds.cMax);
     if (cMax <= bounds.cMin) continue;
     const C = bounds.cMin + rand() * (cMax - bounds.cMin);
-    if (inCreamBand(L, C, H)) continue;
     if (zoneFilter && zoneOf(L, C, H) !== zoneFilter) continue;
     pool.push({ L, C, H, lab: oklchToOklab(L, C, H) });
   }

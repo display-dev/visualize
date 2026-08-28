@@ -401,7 +401,7 @@ These are the dimensions where authoring routinely leaves gaps. Walk each one be
 | **Touch targets** | Buttons have `min-height: 44px` (WCAG AA touch-target floor). Default 14px text + 0.5rem padding lands around ~38px — under floor. |
 | **Reduced motion** | If any hover state transforms / animates, wrap a `@media (prefers-reduced-motion: reduce)` override that disables the motion. |
 | **Dark-mode shadows** | Hard offset-shadow elements (`box-shadow: 2px 2px 0 0 var(--brand-charcoal)`) are invisible in dark mode when the shadow color stays dark. Either flip via a local CSS var (`--preview-button-shadow` pattern) or use `var(--foreground)` so it inverts with the canvas. Same for borders on cards. |
-| **Tinted neutrals** | All borders/canvas use a slight chroma tint, not pure gray. PostHog's olive tint, Stripe's warm-canvas, Notion's pastels — never `oklch(0.x 0 0)` body surfaces. |
+| **Neutral temperature** | Follow the system’s documented identity. Neutral gray and warm/cool tints are all valid; inspect foreground/background pairs rather than forcing a tint. |
 | **Typography hierarchy** | Same elements use same sizes/weights across the page. Hero / section title / card title scale stays consistent. |
 | **Contrast** | Body text passes WCAG AA on both canvases. Muted labels stay above 4.5:1. |
 | **Inline styles** | If you reach for `style="margin-top:0.5rem"` more than 2-3 times, the spacing was wrong somewhere — fix the source. |

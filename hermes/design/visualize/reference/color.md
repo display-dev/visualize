@@ -1,179 +1,105 @@
 # Color
 
-Palette construction, contrast, dark-mode, modern color CSS for visualize artifacts. Brand profile overrides — if `DESIGN.md` declares a palette, use it. The rules below are the fallback when the brand profile is silent. Every authored color is a token in `tokens.css`; never inline a literal in template HTML.
+Use color for reading hierarchy, meaning, and atmosphere. Apply the resolved visual context from SKILL.md, including approved artifact-theme exceptions. Color refinement does not authorize replacing project identity or writing project tokens.
 
-## OKLCH over hex
+## Decide what color should do
 
-Use OKLCH for every authored color. Hex is a legacy fallback for embedded SVGs and email surfaces.
+Start with the brief and representative content. Identify settled choices, then name the open question: mood, clearer emphasis, readable text on a surface, or a supporting accent. A report may need only ink and paper; a poster may use large colored fields; an interface may also need action and state colors.
 
-Three axes:
-- **L** (lightness) — 0–1 (or `0%`–`100%`). Perceptually uniform: equal L steps look like equal lightness steps. HSL doesn't have this — `hsl(60 100% 50%)` (yellow) and `hsl(240 100% 50%)` (blue) read as very different brightnesses despite identical L.
-- **C** (chroma) — practical sRGB ceiling sits around ~0.32 depending on L and H (pure red ~0.26, pure green ~0.30, pure blue ~0.31). UI tokens typically stay ≤~0.30. Anything above ~0.32 is wide-gamut territory and will be gamut-mapped in sRGB browsers — usually unpredictably. Reduce C as L approaches 0 or 1; drop C below ~0.05 as L crosses ~0.05 or ~0.95.
-- **H** (hue) — 0–360°. Note red sits at ~29°, not 0° (hue 0 is magenta in OKLCH); common brand blues land in the 250°–265° band (pure sRGB blue is ~264°; design systems often pick ~250° for a more violet-leaning blue); green ~145°. Pick by visual intent, not by HSL-trained instinct.
+Explain alternatives through the dimensions that actually differ:
 
-The hue is a brand decision, not a default. Reflex picks (blue 250, warm orange 60) are the dominant AI-design defaults — the slop is the reflex, not the hue band itself. A brand whose `DESIGN.md` declares a single primary hue in any band is fine.
+- **Character:** pale, muted, vivid, or deep. Lightness and chroma can change character without changing hue.
+- **Relationships:** related hues, warm/cool tension, complements, or several accents. Hue-wheel geometry is a starting idea, not proof that colors work together or clash.
+- **Distribution:** area, placement, repetition, and prominence. A small vivid mark and a full colored canvas can use the same palette but direct attention differently.
 
-## Tinted neutrals
+Neutral gray, tinted neutrals, white, black, red-led identities, and multiple accents are valid. Sparse accents and 60/30/10 are optional composition heuristics, not limits. A color field can establish atmosphere without encoding a data category or UI state.
 
-Pure gray is dead. Neutrals get chroma 0.005–0.015 toward the brand hue. Small enough to be subconscious; large enough to break the "stock template" feeling. A brand-teal artifact gets teal-tinted neutrals; brand-amber gets amber-tinted.
+## Separate colors from roles
 
-The tint hue is a brand decision the same way the primary hue is. Tinting always-warm-or-always-cool by reflex is the same monoculture failure as picking blue 250 by reflex.
+Palette values describe available colors. Semantic roles describe their use: canvas, text, emphasis, supporting accent, atmosphere, action, state, or data. One color can serve compatible roles; one role may need different shades across surfaces and themes. Do not invent a hue for every role.
 
-Above chroma ~0.02, the tint stops reading as subconscious and starts reading as a deliberate accent — readers try to assign meaning to it. Stay under the threshold.
+Use the existing semantic token surface. Add only roles the artifact needs; a report need not display success/error controls because its reference package includes those tokens. Keep required token fields intact when deriving a complete system.
 
-## Palette structure — four roles
+Meanings follow context. Red can be a brand primary, a chart series, or a destructive action. Where destructive actions exist, distinguish them from ordinary actions through labels, grouping, and more than color alone. Preserve established category and state mappings. Do not reserve a hue across every artifact.
 
-Cap, not floor. Four roles cover the working palette; secondary / tertiary roles are added only when a role genuinely needs them (most artifacts don't).
+Chart scale and series decisions live in [data-viz.md](data-viz.md). Logos and factual imagery retain their approved colors unless alteration is explicitly in scope.
 
-1. **Primary** — one brand hue, 3–5 shades. CTAs, focus rings, the highlight on the focal element. Not a fill on the wordmark (chrome stays monochrome).
-2. **Neutral** — 9–11 shade scale, tinted toward the brand hue per the section above. Text, borders, the `--muted-foreground` band, the `--border-muted` band — the *typographic* gradations of darkness.
-3. **Semantic** — `--destructive` (red), `--warning` (amber), `--success` (green, optional). Reserved for state, not decoration. Red stays bound to destructive state — a red primary-action button reads as a destroy operation.
-4. **Surface** — 2–3 elevation levels (`--background` / `--card` / `--popover`), each with its own designed foreground pair. Each pair is consumed as a unit (`--card-foreground` only over `--card`, never over `--background`). Surfaces are *elevation*, not text-darkness — they live separately from the Neutral ramp.
+## Make feedback testable
 
-Chart-series encoding has its own rules — see [data-viz.md](data-viz.md) for direct labels, single-hue ramps, and series-count limits.
+“Quieter secondary” may mean lower chroma, different lightness, less area, less prominent placement, or another hue. Choose the interpretation supported by context; ask when ambiguity would change an approved choice. “Opposite” may mean a hue complement, warm versus cool, or light versus dark.
 
-## 60-30-10
+For a focused comparison, preserve settled choices and an unchanged control. With Coral primary fixed, compare a softer secondary or the same secondary covering less space; change hue only when that dimension is open. Explain the changed variable on representative content. Swatches and role labels supplement the rendered comparison, not replace it. No fixed count, harmony sequence, or palette score is required.
 
-Visual weight, not pixel count. The artifact's color budget breaks down roughly as 60% neutral surface, 30% secondary (body text, borders, inactive states), 10% accent (CTAs, focus, the one highlighted KPI).
+For an approved image, website, or artifact input, use the existing input workflow. Sampled prominence is evidence, not semantic authority: the largest region may be a background rather than an accent. Propose roles and supporting shades without silently replacing approved identity.
 
-Accents work because they're rare. The common failure is using the brand accent everywhere "because it's the brand color" — at that point the reader sees repeating chrome, not "look here." Reserve primary for the one moment per surface that matters.
+## Derive usable values
 
-## Contrast
+Preserve an existing system's color notation. For new web palettes, prefer OKLCH when adjusting lightness and chroma independently:
 
-WCAG AA / AAA across content types:
+- **L** controls perceptual lightness, not contrast ratio.
+- **C** controls chroma. Gamut depends on lightness and hue; no universal chroma ceiling is reliable.
+- **H** controls hue. Equal angular spacing does not guarantee equal perceptual distinction or a successful palette.
 
-| Content | AA | AAA |
-|---|---|---|
-| Body text | 4.5:1 | 7:1 |
-| Large text (≥18pt / ~24px normal, or ≥14pt / ~18.5px bold) | 3:1 | 4.5:1 |
-| UI components, icons that carry meaning | 3:1 | — |
-| Decorative elements | none | none |
+Reuse the palette helper and existing color math for new OKLCH ramps, gamut budgets, and contrast. Near white or black, less chroma is generally available. Inspect the result rather than assuming equal numerical steps look equally spaced. Generated accent angles, neutral tints, state hues, and seed strategies are suggestions, not restrictions on approved palettes.
 
-No rounding: 4.47:1 fails AA even if it looks identical to 4.5:1. Placeholder text still needs 4.5:1 — the default light-gray placeholder fails on most form fields. Inactive UI components are exempt (the low contrast IS the affordance for "disabled"); text-disabled prose still meets the threshold for legibility. All interactive states (hover, focus, active) independently meet the threshold; easy to ship a rest state at AA and a hover state that fails.
+`palette.mjs --check` validates its supported OKLCH token surface, not taste or arbitrary CSS. For other color formats or computed colors, verify resolved pairs with existing browser contrast checks. Do not rewrite approved colors merely to satisfy a helper's input format.
 
-Push to AAA when the artifact will display under projection, sunlight, or low-quality monitor — visualize ships things into conference rooms, where projectors lose ~30% of designed contrast.
+## Verify actual pairings
 
-## Dangerous color combinations
+Check the rendered foreground against its real background at the actual text size and weight:
 
-Some pairings fail at the perceptual level regardless of measured contrast. The match-and-refuse set (the contrast section above covers low-gray-on-white and placeholder thresholds; Color-blind testing below covers red-green specifically):
+| Content | WCAG AA minimum |
+|---|---|
+| Ordinary text, including small labels | 4.5:1 |
+| Large text: at least 24px normal or about 18.67px bold | 3:1 |
+| Visual information needed to identify controls, states, or meaningful graphics | 3:1 against adjacent colors |
 
-- **Gray text on a colored background** — gray reads washed-out on any saturated surface (the eye reads the gray as desaturation noise, not as text). Use a darker shade of the background's own hue, or transparency on the foreground.
-- **Blue on red, or vice versa** — chromatic aberration in the eye causes visual vibration; the text appears to shimmer at long focal lengths.
-- **Yellow on white** — almost always fails AA regardless of how the yellow is tuned. Pair yellow with `--foreground` or a dark surface.
-- **Thin light text on images or gradients** — the contrast varies pixel-by-pixel against the worst region of the background. Either thicken the text, add a backdrop overlay, or use a solid surface behind the text block.
+Do not round failures up. Check relevant hover, focus, selection, and theme states. Logos, decorative elements, and inactive controls have specific exceptions; ordinary prose does not. Use stronger contrast for demanding viewing conditions. The seed helper retains its conservative 7:1 body-token floor; generated ramps still need rendered verification.
 
-## Modern color CSS
+“Gray on color,” “blue on red,” and “yellow on white” do not fail merely because of their names. Some pairs need lightness changes or can vibrate perceptually. Check actual contrast and readability, then adjust the responsible foreground, surface, weight, or placement. For imagery, gradients, or translucent overlays, inspect the least favorable region behind the text; one sampled pixel or token pair is insufficient.
 
-Three modern functions worth reaching for:
+Color cannot be the only way to convey required information. Add meaningful labels, shapes, patterns, or other cues. Grayscale review can expose missing cues but does not prove contrast or color-vision accessibility. Simulate relevant vision deficiencies when judging category or state discrimination.
 
-- `light-dark()` — Baseline May 13, 2024. Required.
-- Relative color syntax (`oklch(from …)`) — Baseline September 16, 2024. Required.
-- `contrast-color()` — Baseline April 10, 2026. Behind `@supports`.
+## Compose both themes
 
-```css
-:root {
-  /* Required: color-scheme tells the engine both branches of light-dark() may resolve here. */
-  color-scheme: light dark;
+Design light and dark as related treatments, not mechanical inversions. Adjust foregrounds, surfaces, and accents to retain hierarchy and meaning. An accent may need a lighter, darker, or less chromatic counterpart, or may remain unchanged when it works in both contexts. Test rather than forcing a percentage change.
 
-  /* Theme-aware token. Resolves at use-time per the cascade's color-scheme. */
-  --foreground: light-dark(oklch(0.18 0.005 85), oklch(0.92 0.005 85));
+Black, neutral gray, and tinted dark surfaces are valid. Separate neighboring surfaces where content or interaction needs it; elevation need not invent a fixed number of panels. Recheck text, focus, overlays, and data encodings in each mode.
 
-  /* Derive shades from the brand token. One change re-tunes the family. */
-  --primary-hover: oklch(from var(--primary) calc(l - 0.06) c h);
-  --primary-muted: oklch(from var(--primary) calc(l + 0.12) calc(c * 0.5) h);
-}
+### Explicit theme overrides
 
-/* Auto-pick contrasting text against a dynamic background. Set a static fallback before the guard. */
-.badge { color: var(--card-foreground); }
-@supports (color: contrast-color(white)) {
-  .badge { color: contrast-color(var(--badge-bg)); }
-}
-```
-
-`light-dark()` resolves where the property is computed — the `color-scheme` declaration must reach the element through the cascade (typically declared on `:root`, or on a themed subtree). Without it, the function silently picks the light branch. Relative color syntax `oklch(from <color> L C H)` lets `--primary` define the family; `--primary-hover` and `--primary-muted` derive instead of being hand-picked.
-
-## Dark mode is not inverted
-
-Different design decisions, not a hex swap.
-
-- **Lift saturated brand colors.** A `--primary` of `oklch(0.45 0.2 25)` on a light background needs lifting to `oklch(0.7 0.2 25)` on dark to keep similar perceptual weight. Desaturate slightly along the way — a vivid primary that pops on white over-saturates on dark.
-- **Background sits at L ~0.12–0.15**, not `oklch(0 0 0)`. Pure black on elevated surfaces produces flat vibrating contrast; the brand-tinted dark gives depth without shadows.
-- **Surface scale (3 steps) for elevation, not shadow.** Higher elevation = lighter surface, stepped above the background. If background is `oklch(0.12 0.005 h)`, the elevation scale runs `oklch(0.17 0.005 h)` → `oklch(0.22 0.005 h)` → `oklch(0.27 0.005 h)`. Same hue and chroma as the brand's tinted neutrals; only L varies, always stepping up from the background.
-- **Body weight reduction.** Light-on-dark reads heavier than dark-on-light (irradiation illusion). Drop body weight one notch — 400 → 350 if the variable font supports it. (Same family of compensation the [typography.md](typography.md) light-on-dark section covers.)
-- **Focus ring re-tested in dark.** Light-mode rings often disappear against the lifted-neutral surface scale; redesign with the dark palette in hand.
-
-Both modes are first-class. Dark is not an inverted afterthought.
-
-## Theme override contract
-
-Generated artifacts that ship dark-mode tokens must support explicit display.dev theme overrides. The token stack travels as three blocks:
+Preserve the existing three-path token contract:
 
 ```css
-:root { /* canonical light tokens */ }
-
-[data-theme="dark"] { /* explicit chrome/user dark override */ }
-
+:root { /* light tokens */ }
+[data-theme="dark"] { /* explicit dark override */ }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]):not([data-theme="dark"]) {
-    /* raw HTML/system dark fallback */
+    /* system dark fallback */
   }
 }
 ```
 
-The media query is fallback only. Never let `@media (prefers-color-scheme: dark) { :root { ... } }` override an explicit `data-theme="light"` choice, and never ship system dark mode without a `[data-theme="dark"]` selector. The display.dev bar writes `data-theme` on `<html>`; artifact CSS has to respect it.
+System dark never overrides explicit light. The display.dev bar sets `data-theme` on `<html>`. Follow Explore's direction-scoping contract in comparisons so one candidate's tokens cannot recolor another.
 
-## Token hierarchy — two layers
+## Apply through tokens
 
-Primitive tokens define the vocabulary; semantic tokens reference them.
+Use semantic tokens in authored styles. Preserve an existing primitive/semantic structure rather than creating a second token model. Relative color syntax and `color-mix()` can derive values, but their output still needs contrast and gamut checks. `light-dark()` requires an appropriate inherited `color-scheme`; theme controls must update that scheme when the function is used. Keep a verified fallback for newer CSS functions whose target support is not established.
 
-```css
-:root {
-  /* Primitives — never consumed directly by templates. */
-  --gray-50: oklch(0.98 0.005 85);
-  --gray-900: oklch(0.18 0.005 85);
-  --blue-500: oklch(0.55 0.18 250);
+Transparency is useful for overlays and atmosphere. It makes the result depend on underlying content; define purposeful overlay tokens and test the actual composite instead of stacking arbitrary alpha values.
 
-  /* Semantic — what templates consume. */
-  --background: var(--gray-50);
-  --foreground: var(--gray-900);
-  --primary: var(--blue-500);
-}
+## Review failures, not hue names
 
-[data-theme="dark"] {
-  --background: var(--gray-900);
-  --foreground: var(--gray-50);
-  --primary: oklch(from var(--blue-500) 0.7 c h);
-}
-```
+- A new palette silently replaces approved colors or meanings.
+- Accent placement or coverage obscures hierarchy.
+- A suggested tint, color count, or harmony angle becomes a mandatory gate.
+- Swatches hide text, surface, or responsive failures.
+- A passing token pair is reused on a different background without checking.
+- State or data distinctions disappear without hue differences.
+- An aesthetic finding names a hue but cannot explain a mismatch with the brief or artifact.
 
-Dark mode redefines the **semantic** layer, never the primitive. Templates always consume semantic tokens (`var(--primary)`, not `var(--blue-500)`). Hand-coding a primitive in a template breaks brand-trump — a brand color change at the primitive layer should re-tune every semantic that references it.
+Unrelated SKILL.md pattern rules still apply, including gradient text. Removing hue-only refusal does not make every palette effective.
 
-## Alpha is a design smell
+## Sources
 
-Heavy `rgba()` / `hsla()` usage usually means the palette is incomplete. Stacked translucent panels — modal-over-card-over-background, three layers of `0.6` alpha — produce unpredictable contrast (the underlying pixel determines the final color) and FPS hits on retina-class renders.
-
-Define explicit overlay tokens for each context (`--overlay-modal`, `--overlay-tooltip`, `--surface-tint`) instead of `rgba(0, 0, 0, 0.4)` everywhere. Carve-out: focus rings and interactive states genuinely need see-through (the underlying color matters for affordance).
-
-## Color-blind testing
-
-8% of men, 0.5% of women — globally ~300M readers. Color alone never carries state in a visualize artifact; pair with shape (▲ / ▼ / ●), pattern (solid / dashed / dotted), or label.
-
-Categorical pairs to avoid: red-green, green-brown, blue-purple, light-green + yellow. Prefer blue-orange or purple-yellow for high-contrast categorical encoding.
-
-Grayscale test as the floor: if the artifact still parses with all color stripped, color isn't the only signal. Browser DevTools → Rendering → Emulate vision deficiencies runs the simulation per-deficiency type.
-
-## Failure modes the agent reaches for
-
-- **Purple-to-pink hero gradient.** Detector flags it; AI-essay register tell. Don't reach for it.
-- **Gradient text on metrics or headings.** `background-clip: text` + gradient background. Match-and-refuse — no brand redeems it.
-- **Neon glow on dark mode.** `text-shadow: 0 0 20px <color>` reads as 2017 cyberpunk template. Skip unless the brand carries a deliberate retro-tech register, and even then use once, not on every heading.
-- **Six accent hues on a chart.** Chart-encoding rules live in [data-viz.md](data-viz.md); the color-side note is that six hand-picked accents reads as "I had access to a color wheel" regardless of which palette they came from.
-- **AI palette token stack.** Purple primary + cyan accent (or magenta + indigo) — the most-trained-on AI-startup gestalt. Single-hue brand identity is fine; the *combination* is the slop.
-- **Wikipedia-blue + Wikipedia-purple visited links.** Brand `--primary` on both states, or `--foreground` with underline on both.
-- **Severity color on non-severity chrome.** Red on a "primary action" button reads as destructive. Reserve red for destructive state.
-- **Pure black on pure white.** `oklch(1 0 0)` background + `oklch(0.1 0 0)` foreground reads as harsh — and as unstyled `<body>` on prose-heavy artifacts. Warm-tint both poles.
-- **Tinting always-warm-or-always-cool by reflex.** Brand-decision-not-default applies to the tint hue as much as the primary hue.
-- **One vivid primary serving both light and dark mode.** A `--primary` that pops on white over-saturates on a dark surface; lift L and drop C slightly per-mode.
-- **Alpha-stacked surfaces.** Three layers of `rgba(0,0,0,0.05)` to imply depth. Use defined surface tokens from the elevation scale.
-- **Hover / focus / placeholder states not independently meeting WCAG.** Rest state designed to AA; hover or placeholder ships at 3:1 against the same background. Check every state.
-- **Color as the only signal in a chart series.** Red-up / green-down distinguishable only by hue is the color-side failure; chart-side remediation (shape, pattern, direct label) lives in [data-viz.md](data-viz.md).
+Selected principles were adapted from [Impeccable colorize](https://github.com/pbakaus/impeccable/blob/main/plugin/skills/impeccable/reference/colorize.md) by Paul Bakaus (Apache-2.0) and [Color Expert](https://github.com/meodai/skill.color-expert/blob/main/SKILL.md) by meodai (CC BY 4.0; separate terms apply to third-party references). The procedure and wording here are adapted for Visualize; their tool requirements and full workflows are not imported. Accessibility requirements follow [WCAG contrast](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html) and [use of color](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html).

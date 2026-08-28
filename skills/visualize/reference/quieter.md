@@ -28,7 +28,7 @@ Refuse and route when:
 
 Pick a primary strategy. Three shapes (a run can combine them, but declare one as primary):
 
-- **Saturation pullback**: brand colors drop from full-saturation to 70–85% of their declared chroma. Surface backgrounds shift from full color to a tinted neutral.
+- **Saturation pullback**: reduce chroma or colored coverage where it causes excess intensity, while retaining approved palette commitments and contrast.
 - **Weight reduction**: 900-weight headings → 700; 700-weight subheads → 600; body 500 → 400. Hierarchy stays, weight contrast tightens.
 - **Decoration removal**: shadows / glows / gradients / multiple borders → simpler chrome. (Overlaps with `simplify`, but quieter keeps the elements and tones them; simplify removes them.)
 
@@ -39,11 +39,9 @@ State the strategy in the run summary. "Quieter without intent" collapses to gen
 ### Color
 Consult [color.md](color.md).
 
-- Drop `--primary` chroma to 70–85% of its current value. Stay in OKLCH; preserve the hue.
-- Replace pure `#000` / `#fff` poles with warm-tinted equivalents (cream-near-white, ink-near-black).
-- Reduce accent variety. Five hues → primary + one accent.
-- Tint neutrals toward the brand hue (chroma 0.005–0.01). Pure gray reads as cold; tinted gray reads as designed.
-- Never gray text on colored background. If you find gray-on-color in the existing artifact, swap to a darker shade of the background's hue or use transparency.
+- Identify whether intensity comes from chroma, lightness contrast, area, placement, or repetition. Change that variable within the approved scope.
+- Preserve settled hues, neutral temperature, and meaningful color mappings. Fewer hues or tinted neutrals are options, not required outcomes.
+- Check actual foreground/background pairs after changes; quieter must not mean unreadable or dependent on color alone.
 
 ### Typography
 Consult [typography.md](typography.md).

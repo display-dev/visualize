@@ -127,12 +127,6 @@ export function bandOf(L) {
   return b ? b.name : null;
 }
 
-// The cream tell (banned AI default): warm-neutral band the library must
-// never offer as a seed.
-export function inCreamBand(L, C, H) {
-  return L >= 0.84 && L <= 0.97 && C < 0.06 && H >= 40 && H <= 100;
-}
-
 export function mulberry32(a) {
   return function () {
     a |= 0;

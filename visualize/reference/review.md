@@ -85,7 +85,7 @@ Things detect.mjs deliberately doesn't try to catch: register-dependence, vocab-
 
 **Brand- and register-dependent slop** (mechanical detector would false-positive). When deciding these calls, consult [color.md](color.md) / [typography.md](typography.md) / [spatial.md](spatial.md) / [copy.md](copy.md) for the deeper material:
 
-- **AI color palette**: is the primary / accent stack a generic purple-pink-cyan trio, OR is it the brand's actual identity?
+- **Color fit**: do palette character, relationships, and coverage support the brief and approved identity? Name the rendered mismatch; hue names alone are not a finding.
 - **Icon-tile-stack**: every section heading has a rounded-square icon above it. Genuine AI section-marker tell, or is this a deliberate icon-led design system?
 - **Center-everything**: body prose centered, section after section. False positive for Bauhaus / Swiss-poster / academic preprint registers; real signal for AI-essay register.
 - **Uppercase body**: long all-caps passages. False positive for brutalist / letterpress / show-bill registers; real signal otherwise. Acronyms (HTML / POST / REST / WCAG) don't count.
@@ -111,21 +111,21 @@ Things detect.mjs deliberately doesn't try to catch: register-dependence, vocab-
 - **Separator semantics**: do rules mark real boundaries, or did responsive stacking leave two borders around one boundary?
 - **Navigation semantics**: does the mobile contents block read as a list of destinations, or as unrelated words floating in space?
 - **Table semantics**: does the table explain itself with a concise caption/source note and readable headers, or does a large unpadded sentence sit inside the table chrome as if it were body prose?
-- **AI palette judgment (vs `slop/generic-gradient` detector)**: the detector catches *the gradient stops* (purple→pink, indigo→cyan, etc., which IS slop regardless of brand and stays a detector error). Your call in Layer 2 is about the *token stack*: does `--primary` + `--accent` + `--neutral` together feel like a generic AI palette, or is THIS brand's identity genuinely in that hue range? Stripe's purple-indigo is legitimate; a no-name SaaS using the same hue without brand context is slop.
+- **Palette judgment**: assess the rendered hierarchy, meaning, and atmosphere using color.md. The detector does not judge hue combinations or neutral temperature. A gradient can fit the brief; gradient text remains a separate pattern rule.
 
 **Data-graphics failures** (content-gated: skip when the artifact has no chart, sparkline, KPI tile, or data table). Consult [data-viz.md](data-viz.md) for the deeper material:
 
 - **Lie factor**: visual proportion doesn't match data proportion. Truncated y-axis on comparison bars without a visible axis-break callout, linear data encoded as area or volume, dual-y-axis chart inviting false correlation from coincidentally-scaled axes.
 - **3D on data marks**: bars with depth, pies/donuts with shadow, area charts with gradient fill below the line. Fake-dimension violation regardless of brand.
 - **Missing comparison structure**: a chart that can't answer "compared to what?" One-bar bar chart for a single KPI (render the number, not a chart of the number). Pie chart with eight slices (use a sorted horizontal bar).
-- **Chartjunk-density**: heavy gridlines competing with the data, six-accent-hue series across one chart, hero-scaled sparklines, every chart fragmented into its own drop-shadowed card.
+- **Chartjunk-density**: heavy gridlines competing with the data, hero-scaled sparklines, every chart fragmented into its own drop-shadowed card.
 - **Table-type hierarchy**: table captions/intros at `1.2rem+`, headers that compete with body values, whole-cell bold paragraphs, or mono-washed prose. Use the table type roles from [typography.md](typography.md) / [data-viz.md](data-viz.md).
 
 ## Override grid (apply to BOTH layers)
 
 - **Universal law 1**: resolved context overrides any single-rule finding *except* the **absolute-ban rules**. A `slop/system-default-font` hit on a context that declares Inter is a category error; demote. When demoting: don't drop the finding silently. Surface it under the "Context-suppressed" section of the output (see below) so the user sees the chain "detector caught X, context says it's correct, demoted to info." Audit trail matters.
-  - **Absolute-ban rules (NOT brand-suppressible):** every `fossil/*` rule, plus `slop/generic-gradient` + `slop/gradient-text`. These patterns are slop *regardless* of brand. A brand can't whitelist purple-pink gradient text by declaring it as their identity; the pattern itself disqualifies. If an artifact carrying one of these belongs to a brand that genuinely uses that aesthetic (rare), the brand needs to declare a `skip` entry in `.visualize-detect.json` rather than expect runtime suppression. Same model as pilcrow's "AI fossils" list: match-and-refuse, no exceptions.
-  - **Cross-reference**: the SKILL.md `Absolute bans` block lists the patterns the agent must refuse during *creation* and *Refine* runs (gradient text, side-stripe callouts, triple-feature-cards, hero-metric template, icon-tile section markers, purple-cyan stacks, imperative tricolon, sycophant footers). Review's job is to *flag* these post-hoc when they slipped through — every Absolute ban from SKILL.md should be surfaced as `Errors (ship-blockers)` even if the detector doesn't have a rule ID for it.
+  - **Absolute-ban rules (NOT brand-suppressible):** every `fossil/*` rule, plus `slop/gradient-text`. These patterns are slop *regardless* of brand. A brand can't whitelist gradient text by declaring it as their identity; the pattern itself disqualifies. If an artifact carrying one of these belongs to a brand that genuinely uses that aesthetic (rare), the brand needs to declare a `skip` entry in `.visualize-detect.json` rather than expect runtime suppression. Same model as pilcrow's "AI fossils" list: match-and-refuse, no exceptions.
+  - **Cross-reference**: the SKILL.md `Absolute bans` block lists the patterns the agent must refuse during *creation* and *Refine* runs (gradient text, side-stripe callouts, triple-feature-cards, hero-metric template, icon-tile section markers, imperative tricolon, sycophant footers). Review's job is to *flag* these post-hoc when they slipped through — every Absolute ban from SKILL.md should be surfaced as `Errors (ship-blockers)` even if the detector doesn't have a rule ID for it.
 - **Universal law 4**: info-severity rules ship-block in aggregate. Threshold calibration (use these as anchors when deciding):
   - **6 `slop/emoji-heading` across a presentation = pattern.** 1 = taste-call.
   - **≥3 hardcoded hex literals in a file that otherwise uses `var(--*)` = token-discipline pattern.** 1–2 = exception (e.g., favicon data-URL).
@@ -188,7 +188,7 @@ If a section has no items, omit it entirely (don't render empty headings) — ex
 
 ## Layer-2 finding IDs
 
-Detector findings carry `ruleId` strings (`slop/generic-gradient`, `a11y/missing-alt`, etc.) drawn from the detector's namespace. Layer-2 findings are agent-authored; they don't have stable IDs in any namespace. Use a descriptive label that signals the category but doesn't pretend to be a detector rule: `**Missing landmarks** · body`, `**Heading-slot register** · h2`, `**AI-palette token-stack** · :root`. Don't invent `semantic/*` or `slop/*` rule IDs for Layer-2 findings; there's no detector rule behind them to look up.
+Detector findings carry `ruleId` strings (`slop/gradient-text`, `a11y/missing-alt`, etc.) drawn from the detector's namespace. Layer-2 findings are agent-authored; they don't have stable IDs in any namespace. Use a descriptive label that signals the category but doesn't pretend to be a detector rule: `**Missing landmarks** · body`, `**Heading-slot register** · h2`, `**Competing accent hierarchy** · :root`. Don't invent `semantic/*` or `slop/*` rule IDs for Layer-2 findings; there's no detector rule behind them to look up.
 
 ## Review does not modify the file
 

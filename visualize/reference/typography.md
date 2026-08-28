@@ -111,7 +111,7 @@ Light text on dark surfaces halates (irradiation illusion) — reads heavier and
 2. Add `letter-spacing` +0.01em to +0.02em.
 3. Step weight down one notch — 700 → 600 on headings; 400 → 350 on body if the variable font supports it.
 
-Both poles stay warm-tinted (see [color.md](color.md)) — pure-white-on-pure-black amplifies the halation.
+If light-on-dark text appears to glow or lose definition, inspect its rendered weight, spacing, and foreground/background lightness. Follow [color.md](color.md) when adjusting the pair; warm tinting is not a required remedy, and approved neutral surfaces need not change.
 
 Visualize artifacts default dark often (slide decks under projection, dashboards in NOC contexts) — this compensation is per-template-category critical, not optional polish.
 

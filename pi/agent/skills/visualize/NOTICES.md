@@ -22,3 +22,12 @@ The skill vendors a small set of npm-distributed libraries as single-file bundle
 - `@puppeteer/browsers` — Apache-2.0 — https://github.com/puppeteer/puppeteer
 
 The combined `puppeteer.mjs` bundle inlines transitive code under MIT, ISC, and Apache-2.0 — representative packages include `debug`, `ws`, `chromium-bidi`, `tar-fs`, `tar-stream`, `yargs`, `progress`, `streamx`, `b4a`, `fast-fifo`, `cliui`. Legal comments and SPDX identifiers from each upstream package are preserved inline via `esbuild --legal-comments=inline`; consult the bundle directly for the authoritative per-package text.
+
+## Adapted color guidance
+
+`reference/color.md` adapts selected procedural principles and color vocabulary, with new wording and scope for Visualize. No external executable code, tools, or third-party reference collection is imported.
+
+- [pbakaus/impeccable](https://github.com/pbakaus/impeccable/blob/09506a9bb5bd4fc87e696718f0f9c8ba2b60692c/plugin/skills/impeccable/reference/colorize.md), revision `09506a9bb5bd4fc87e696718f0f9c8ba2b60692c`. [Original license](reference/licenses/impeccable-Apache-2.0.txt). Adapted on 2026-08-28.
+- [meodai/skill.color-expert](https://github.com/meodai/skill.color-expert/blob/d60f17973cab5bafb6caef605e9592dfe832b90b/SKILL.md), revision `d60f17973cab5bafb6caef605e9592dfe832b90b`. [Original license](reference/licenses/color-expert.txt). Adapted on 2026-08-28.
+
+Impeccable is by Paul Bakaus, under Apache-2.0. Color Expert is by meodai, under CC BY 4.0 for its original material; third-party reference content has separate terms and was not imported. Color Expert-derived adaptations remain attributed and licensed under CC BY 4.0; the repository MIT license does not replace these source terms.

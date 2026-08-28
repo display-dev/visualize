@@ -5,7 +5,7 @@
 // integrity (gamut, fields, zone coverage), deterministic sampling
 // (--from / --vary / --not), stratified-zone distribution over random
 // runs, derived-block invariants (ladders hit their WCAG floors, accent
-// suggestions respect BAN 6), and the --check validator on clean / dirty
+// suggestions remain usable), and the --check validator on clean / dirty
 // / HTML fixtures.
 //
 // Run: node dev-scripts/palette-smoke.mjs
@@ -16,6 +16,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { writeFileSync, readFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
+import { detect } from '../visualize/scripts/detect.mjs';
 import { parse as parseColor, converter, wcagContrast, wcagLuminance } from '../visualize/scripts/vendor/culori.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -84,19 +85,10 @@ for (const id of ids) {
   check(d.chartHues.length === 5, `${id}: 5 chartHues`);
   check(d.seedMaxC >= 0, `${id}: seedMaxC present`);
 
-  // accent suggestions never form the BAN 6 stack with the seed
-  const h = parseFloat(s.oklch.match(/oklch\([\d.]+ [\d.]+ ([\d.]+)\)/)[1]);
-  const inBand = (x, lo, hi) => { const n = ((x % 360) + 360) % 360; return n >= lo && n < hi; };
-  if (inBand(h, 260, 310)) {
-    for (const a of d.accentHues) {
-      check(!inBand(a, 180, 210) && !inBand(a, 320, 360), `${id}: accent h${a} avoids BAN6 vs purple seed h${h}`);
-    }
+  for (const hue of d.accentHues) {
+    check(Number.isFinite(hue) && hue >= 0 && hue < 360, `${id}: usable accent hue ${hue}`);
   }
-  if (inBand(h, 180, 210) || inBand(h, 320, 360)) {
-    for (const a of d.accentHues) {
-      check(!inBand(a, 260, 310), `${id}: accent h${a} avoids BAN6 (reverse) vs seed h${h}`);
-    }
-  }
+
 }
 
 // ------------------------------------------------------------
@@ -201,7 +193,7 @@ console.log('6. --check on dirty fixture');
 {
   const tmp = mkdtempSync(join(tmpdir(), 'palette-smoke-'));
   try {
-    // low-contrast fg, out-of-gamut chart-1, BAN6 primary+accent, no dark block
+    // low-contrast fg, out-of-gamut chart-1, no dark block
     const bad = `:root {
       --background: oklch(1 0 0);
       --foreground: oklch(0.60 0.02 260);
@@ -214,7 +206,7 @@ console.log('6. --check on dirty fixture');
     const out = run(['--check', join(tmp, 'bad.css'), '--json']);
     const findings = out.trim().split('\n').map((l) => JSON.parse(l));
     const idsFound = new Set(findings.map((f) => f.ruleId));
-    for (const want of ['palette/contrast-wcag', 'palette/out-of-gamut', 'palette/ban6-stack', 'palette/missing-dark-block']) {
+    for (const want of ['palette/contrast-wcag', 'palette/out-of-gamut', 'palette/missing-dark-block']) {
       check(idsFound.has(want), `dirty fixture triggers ${want} (got: ${[...idsFound].join(', ')})`);
     }
     check(runExpectFail(['--check', join(tmp, 'bad.css'), '--strict']) === 2, '--strict exits 2 on errors');
@@ -223,7 +215,7 @@ console.log('6. --check on dirty fixture');
     writeFileSync(join(tmp, 'bad.html'), `<!doctype html><html><head><style>${bad}</style></head><body></body></html>`);
     const htmlOut = run(['--check', join(tmp, 'bad.html'), '--json']);
     const htmlIds = new Set(htmlOut.trim().split('\n').map((l) => JSON.parse(l).ruleId));
-    check(htmlIds.has('palette/ban6-stack'), 'HTML artifact input parsed (<style> extraction)');
+    check(htmlIds.has('palette/out-of-gamut') && htmlIds.has('palette/contrast-wcag'), 'HTML artifact input parsed (<style> extraction)');
 
     check(runExpectFail(['--check', join(tmp, 'missing.css')]) === 1, 'unreadable input exits 1');
   } finally {
@@ -247,8 +239,8 @@ console.log('7. regressions from adversarial + consumer testing');
     check(!srcBytes.includes(0), 'source contains no NUL byte');
 
     // B2: last declaration without trailing semicolon is still parsed
-    const f2 = writeRun('no-semi.css', `:root { --background: oklch(1 0 0); --foreground: oklch(0 0 0); --primary: oklch(0.55 0.20 280); --accent: oklch(0.70 0.15 195) }`);
-    check(f2.some((f) => f.ruleId === 'palette/ban6-stack'), `semicolon-less final declaration still checked (got: ${f2.map((f) => f.ruleId).join(',')})`);
+    const f2 = writeRun('no-semi.css', `:root { --background: oklch(1 0 0); --foreground: oklch(0 0 0); --primary: oklch(0.55 0.20 280); --accent: oklch(0.70 0.40 195) }`);
+    check(f2.some((f) => f.ruleId === 'palette/out-of-gamut' && f.locator.includes('--accent')), `semicolon-less final declaration still checked (got: ${f2.map((f) => f.ruleId).join(',')})`);
 
     // B3: var() fallback must not mask the resolved value
     const f3 = writeRun('var-fallback.css', `:root { --brand: oklch(0.95 0.02 100); --background: oklch(1 0 0); --foreground: var(--brand, oklch(0 0 0)); --primary: oklch(0.4 0.1 250); }`);
@@ -293,12 +285,21 @@ console.log('7. regressions from adversarial + consumer testing');
 @media (prefers-color-scheme: dark) { :root { --background: oklch(0.19 0 0); --foreground: oklch(0.93 0 0); --primary: oklch(0.83 0.08 265); } }`);
     check(!f10.some((f) => f.severity === 'error'), `:root.dark block does not pollute the light map (got: ${f10.filter((f) => f.severity === 'error').map((f) => f.ruleId).join(',') || 'none'})`);
 
-    // S2: widened BAN6 bands — aubergine-hue primary + cyan accent caught,
-    // and the magenta band wraps through 0°.
-    const f11 = writeRun('ban6-315.css', `:root { --background: oklch(1 0 0); --foreground: oklch(0 0 0); --primary: oklch(0.50 0.15 315); --accent: oklch(0.70 0.15 195); }`);
-    check(f11.some((f) => f.ruleId === 'palette/ban6-stack'), 'ban6 catches h315 purple + cyan accent');
-    const f12 = writeRun('ban6-wrap.css', `:root { --background: oklch(1 0 0); --foreground: oklch(0 0 0); --primary: oklch(0.50 0.15 280); --accent: oklch(0.60 0.20 2); }`);
-    check(f12.some((f) => f.ruleId === 'palette/ban6-stack'), 'ban6 magenta band wraps through 0° (accent h2)');
+    // Hue relationships are not validation failures. Keep real palette checks.
+    for (const [name, primary, accent] of [
+      ['purple-cyan', 315, 195], ['indigo-pink-wrap', 280, 2],
+      ['cyan-purple', 195, 280], ['red-gray-multicolor', 29, 145],
+    ]) {
+      const roles = `--primary: oklch(0.60 0.08 ${primary}); --accent: oklch(0.70 0.08 ${accent});
+        --chart-1: oklch(0.65 0.08 85); --chart-2: oklch(0.65 0.08 255);`;
+      const dark = `--background: oklch(0.12 0 0); --foreground: oklch(0.98 0 0); ${roles}`;
+      const css = `:root { --background: oklch(0.98 0 0); --foreground: oklch(0.12 0 0); ${roles} }
+        [data-theme="dark"] { ${dark} }
+        @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]):not([data-theme="dark"]) { ${dark} } }`;
+      const findings = writeRun(`${name}.css`, css);
+      check(!findings.some((f) => f.severity === 'error'), `${name}: valid palette is accepted (${findings.map((f) => f.ruleId).join(',')})`);
+      check(runExpectFail(['--check', join(tmp, `${name}.css`), '--strict']) === null, `${name}: strict validation succeeds`);
+    }
 
     // Ladder self-consistency: tokens composed verbatim from the script's own
     // ladders/neutrals must produce ZERO findings (warns included).
@@ -349,6 +350,20 @@ console.log('7. regressions from adversarial + consumer testing');
     check(runExpectFail(['--id', 'clay', '--not', 'red']) === 2, '--id + --not rejected');
   } finally {
     rmSync(tmp, { recursive: true, force: true });
+  }
+}
+
+// ------------------------------------------------------------
+console.log('8. color freedom does not disable detector safety checks');
+{
+  const purple = pick(['--id', 'ultramarine']);
+  check(purple.derived.accentHues.some((hue) => hue >= 315 || hue < 5), 'purple seed may suggest a pink companion rather than filtering it by hue');
+  const document = (css, body) => `<!doctype html><html lang="en"><head><title>Color fixture</title><style>body { color: #111; background: #fff; font: 16px Georgia; } ${css}</style></head><body><h1>Color study</h1>${body}</body></html>`;
+  const allowed = await detect({ html: document('body { background: #f5eee4; } .field { background: linear-gradient(90deg, #6633cc, #ee33bb, #00bbdd); height: 100px; }', '<p>Paper and colored fields.</p><div class="field"></div>') });
+  check(!allowed.some((f) => ['slop/generic-gradient', 'slop/cream-palette'].includes(f.ruleId)), 'gradient hue and warm paper are not detector findings');
+  const unsafe = await detect({ html: document('p { color: #aaa; background: #fff; }', '<h2 style="background:linear-gradient(90deg,red,blue);background-clip:text;color:transparent">Gradient text</h2><p>Low-contrast text.</p><img src="missing.png" width="10" height="10">') });
+  for (const id of ['slop/gradient-text', 'a11y/low-contrast', 'a11y/missing-alt']) {
+    check(unsafe.some((f) => f.ruleId === id && f.severity === 'error'), `retained detector catches ${id}`);
   }
 }
 
