@@ -73,6 +73,8 @@ dev-scripts/build-previews.sh
 
 Commit the generated `preview.html` + `preview-dark.html` alongside `DESIGN.md` + `tokens.css`. CI runs `build-previews.sh --check` and fails the build if the committed previews drift from regenerated output.
 
+A package may also include a short `README.md` linking its design guidance, tokens, and previews, with an example of theme usage; see Editorial. Keep system-specific identity and adaptation rules in `DESIGN.md`, and application/override procedure in SKILL.md's Artifact themes section. Do not duplicate the shared workflow across package READMEs.
+
 ## Adding a per-system preview-template
 
 A design system can ship its own `preview-template.html` that overrides the generic `preview-kit/template.html` shell. Most design systems carry one so the preview can show their signature moves; systems without an override fall back to the preview-kit shell with only their tokens applied.

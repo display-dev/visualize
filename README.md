@@ -22,7 +22,7 @@ Four problems with how agents publish HTML today:
 
 **2. No brand context.** Pasting brand colors into every prompt isn't sustainable, and the agent forgets between sessions. visualize captures voice + visual identity once via `teach`, then every render reads the brand profile and produces a Report that visibly belongs to your company.
 
-**3. Compare real directions before choosing.** `explore artifact` holds the current visual system, content, facts, assets, and actions fixed while it builds materially different responsive document structures in one self-contained HTML review. Switch between wide and 390 px states, scroll each full document normally, and choose before the target changes.
+**3. Compare real directions before choosing.** `explore artifact` compares structure, visual treatment, or both in one self-contained HTML review. Content, facts, assets, actions, and non-overridden project choices stay fixed. Switch between wide and 390 px states, scroll each full document normally, and choose before the target changes. Apply a named reference theme directly when the direction is already chosen.
 
 **4. Iteration verbs with real contracts.** visualize has five Refine verbs (`simplify`, `bolder`, `quieter`, `animate`, `polish`) plus one Evaluate verb (`review`). Each does one specific thing — `bolder` amplifies visual punch, `simplify` strips decoration, `quieter` tones intensity, `animate` covers motion, `polish` is the terminal quality pass the other Refine verbs hand off to. `review` reports findings without modifying the file.
 
@@ -44,14 +44,18 @@ Four problems with how agents publish HTML today:
 | Data-shaped | data-explorer · survey-results |
 | Presentation / marketing | slide-deck · pitch-deck · one-pager · org-chart · resume-bio |
 
-### Design systems — 103 reference token packages
+### Design systems and artifact themes
 
-Reference token packages `teach` borrows from during brand derivation. Custom-derived per project, never picked from a menu. Two layers:
+Reference packages with visual guidance, tokens, and previews. Use them when deriving a project identity with `teach`, apply one as an artifact theme, or compare treatments with `explore artifact`. Two layers:
 
 - **40 native register-family references** — Clean (default), Editorial, Console, IDE, Terminal, Blueprint, Brutalist, Deck, Paper-ink, Whitepaper, plus broader artifact registers like Bento, Neon, Riso, Terracotta, Glassmorphism, Dithered, Luxury, Sketch, Monograph, News-print, Swiss, Win98, and more.
 - **63 brand-style entries** — `airbnb-style`, `apple-style`, `cohere-style`, `mistral-ai-style`, etc. All brand-style entries are self-authored from live brand verification and carry `source: live-verified` in their `DESIGN.md` frontmatter.
 
-Each design system is a `DESIGN.md` (Stitch YAML frontmatter + 6-section body carrying affordance prose) + `tokens.css` (the CSS sidecar templates read at render time).
+Each design system has `DESIGN.md` for visual guidance and `tokens.css` for concrete values. A package README, when present, links its references and previews; see [Editorial](visualize/design-systems/editorial/README.md).
+
+For example: “Apply Editorial to this report. Replace the project's visual styling for this artifact only; keep its logo, content, section order, and behavior.”
+
+Project styling remains the default. Explicit artifact overrides stay local and do not change project design files. A named treatment can be applied directly; `explore artifact` compares structure, visual treatment, or both before selection. A new artifact does not need an existing layout or captured project profile.
 
 ### Iteration verbs — 6 commands that operate on existing artifacts
 
@@ -113,7 +117,7 @@ See [`visualize/reference/image-generation.md`](visualize/reference/image-genera
 |---|---|
 | `/visualize <topic-or-path>` | Pick template from intent; compose against brand tokens; write self-contained HTML |
 | `/visualize teach` | Bootstrap (or refresh) the brand profile |
-| `/visualize explore artifact <topic-or-path>` | Compare responsive document structures inside the current visual system |
+| `/visualize explore artifact <topic-or-path>` | Compare structure, visual treatment, or both for one artifact |
 | `/visualize polish <path>` | Iteration: alignment, spacing, consistency |
 | `/visualize review <path>` | Iteration: detector findings + LLM judgment |
 | `/visualize simplify <path>` | Iteration: strip decoration |

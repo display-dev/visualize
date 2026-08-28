@@ -5,9 +5,9 @@ Explore makes a design decision tangible before changing the target. It is a sco
 ## Route the scope
 
 - `explore artifact <topic-or-path>`: read `explore-artifact.md` and follow it.
-- Natural-language requests for several layouts, document shapes, or page directions inside an existing visual system route to `artifact`.
-- `explore system`, a request to create or replace a design system, or a project with no usable visual authority is a separate planned scope. Say so and stop.
-- When an incumbent system exists but is not captured in `DESIGN.md`, `PRODUCT.md`, and `tokens.css`, offer `teach` and stop until that profile is approved.
-- If `explore <target>` does not make the scope clear, ask whether the user means document structure inside the current system. Do not guess or fall back to ordinary creation.
+- Natural-language requests to compare layouts, visual treatments, or reference themes for one artifact route to `artifact`. Apply SKILL.md's Artifact themes contract for project constraints and overrides.
+- A request to apply one named theme directly follows ordinary creation or revision, not Explore.
+- `explore system` or a request to explore a project-wide design system is a separate planned scope. Say so and stop. Capturing or deriving a project profile uses `teach`.
+- If the scope is unclear, ask whether the decision concerns one artifact or the project's design system. Missing profile files alone do not determine scope.
 
 The `comparison` template compares subject matter in a final reader artifact. It is not Explore review chrome.

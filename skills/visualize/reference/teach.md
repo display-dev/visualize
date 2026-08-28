@@ -32,7 +32,7 @@ Don't assume; ask. Each input mode is opt-in. Don't sniff, fetch, walk, or write
 
 ## Design system derivation
 
-The brand's design tokens are always derived custom — never picked from a fixed menu. The design systems in `visualize/design-systems/` (native register-family references plus brand-style imports) are reference examples the derivation borrows from. Each one's `tokens.css` (colorimetric structure) + `DESIGN.md` (Stitch YAML frontmatter + 6-section body, with section 1 and section 6 carrying affordance prose) teaches the agent a calibrated example for one register family or brand voice.
+During teach, the brand's design tokens are derived for the project rather than stored as a theme pointer. Applying a reference to one artifact instead follows SKILL.md's Artifact themes contract. The design systems in `visualize/design-systems/` (native register-family references plus brand-style imports) are reference examples the derivation borrows from. Each one's `tokens.css` (colorimetric structure) + `DESIGN.md` (Stitch YAML frontmatter + 6-section body, with section 1 and section 6 carrying affordance prose) teaches the agent a calibrated example for one register family or brand voice.
 
 ### Step 1: pick reference design system(s)
 
@@ -173,5 +173,5 @@ Edit deltas only; never regenerate the file wholesale. Preserve frontmatter keys
 ## Out of scope for `teach`
 
 - No silent scans, fetches, or file mutations. Every action is opt-in.
-- No design system picking from a menu. Custom design tokens are derived during teach (see Design system derivation above) and written into `DESIGN.md` (Stitch YAML frontmatter + 6-section markdown body) plus the sidecar `tokens.css`. The design systems in `design-systems/` are reference token packages the derivation borrows from, not options to pick from.
+- Artifact theme application is not teach. Teach derives and confirms concrete project tokens before writing the profile; choosing a reference for one artifact does not authorize those project writes.
 - No publishing. `publish` is a separate command.
