@@ -8,6 +8,8 @@ Before following the instructions below, apply the shared rules in SKILL.md.
 
 Don't assume; ask. Each input mode is opt-in. Don't sniff, fetch, walk, or write without confirmation.
 
+Capture an incumbent even when `DESIGN.md` is missing; code, tokens, components, and shipped surfaces can already express a system. Reconcile incomplete or conflicting sources here. When the user wants to compare new identities and there is no visual authority, or explicitly wants replacement alternatives, use [System Explore](explore-system.md). Its selected-system handoff reuses the draft and validation sections below without restarting input gathering or inventing new visual choices.
+
 ## Procedure
 
 1. **State the goal.** "I'll set up `DESIGN.md` + `PRODUCT.md` at the project root, plus a sidecar `tokens.css`, so every artifact reads as your brand. I'll walk through a few sources — say skip to any you don't want."
@@ -26,7 +28,7 @@ Don't assume; ask. Each input mode is opt-in. Don't sniff, fetch, walk, or write
 
 5. **Conversational fill-in.** For each `DESIGN.md` + `PRODUCT.md` field the prior steps didn't cover (or surfaced ambiguously), ask directly. Examples: "What's your primary CTA color?" / "Who's the typical reader: engineers, execs, mixed?" / "Formal or casual register?" / "Logo lives where, or should I generate a wordmark?" Batch related questions; one ask per field if the answer affects others. For the design tokens, follow the Design system derivation procedure below.
 
-6. **Show the draft, confirm before writing.** Render the proposed `DESIGN.md` + `PRODUCT.md` + sidecar `tokens.css` in chat. Ask: "Anything to change before I write these?" Apply requested edits. Only after explicit yes do you write the files.
+6. **Show the draft, confirm before writing.** Render the proposed `DESIGN.md` + `PRODUCT.md` + sidecar `tokens.css` in chat. When using saved drafts, show their exact contents rather than retyping token values; check that the displayed and saved versions match. Ask: "Anything to change before I write these?" Apply requested edits. Only after explicit yes do you write the reviewed contents, without reconstructing or silently repairing them during the write.
 
 7. **Offer the AGENTS.md auto-trigger block** *(optional, ask first)*. "Want me to append a one-liner to your `AGENTS.md` so any agent loading the project knows visualize is the design system?" If yes, append a short block citing the brand profile and the visualize skill. If no, skip.
 

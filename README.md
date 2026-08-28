@@ -44,6 +44,14 @@ Four problems with how agents publish HTML today:
 | Data-shaped | data-explorer · survey-results |
 | Presentation / marketing | slide-deck · pitch-deck · one-pager · org-chart · resume-bio |
 
+### System Explore
+
+`explore system` compares a new project identity or an explicitly requested replacement. Start with broad visual directions or a focused palette/type question; no existing layout is required. A coherent identity already in code should be captured with `teach`, even without `DESIGN.md`.
+
+Keep settled choices while comparing the next question: “Keep Coral and this layout; compare quieter secondary accents,” then “Keep the palette; compare typography.” Review each candidate at wide and phone widths in light and dark. A selected trait does not approve the complete system. Adopting a complete system leads to a full `DESIGN.md`, `PRODUCT.md`, and `tokens.css` draft, with separate confirmation before writing. Replacement preserves private backups and stops for manual repair if an edit or verification fails.
+
+Available in v0.6.0. See [System Explore](visualize/reference/explore-system.md) for the procedure.
+
 ### Design systems and artifact themes
 
 Reference packages with visual guidance, tokens, and previews. Use them when deriving a project identity with `teach`, apply one as an artifact theme, or compare treatments with `explore artifact`. Two layers:
@@ -120,6 +128,7 @@ See [`visualize/reference/image-generation.md`](visualize/reference/image-genera
 | `/visualize <topic-or-path>` | Pick template from intent; compose against brand tokens; write self-contained HTML |
 | `/visualize teach` | Bootstrap (or refresh) the brand profile |
 | `/visualize explore artifact <topic-or-path>` | Compare structure, visual treatment, or both for one artifact |
+| `/visualize explore system <topic-or-path>` | Compare new or replacement project systems before confirmed adoption |
 | `/visualize polish <path>` | Iteration: alignment, spacing, consistency |
 | `/visualize review <path>` | Iteration: detector findings + LLM judgment |
 | `/visualize simplify <path>` | Iteration: strip decoration |

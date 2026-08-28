@@ -14,11 +14,11 @@ Named fonts, named palettes, named anti-references from the resolved brand profi
 
 The composition reflex check runs in preflight, before shape sketching. Its output stays internal — the shape gate carries forward only the chosen alternative, not the rejection process. Anti-reflex procedures upstream of generation catch reflexes not yet cataloged; post-build refusal rules force the model into the next-most-common reflex instead. Reference implementation: impeccable's 4-step font-selection procedure.
 
-### 3. The internal catalog is for teach-time, not creation-time
+### 3. Catalog access follows the task's scope
 
-`design-systems/catalog-index.json` and the per-system `DESIGN.md` files are reference packages `teach` reads when *deriving* a brand profile. At creation time the model uses the brand profile it has — browsing the catalog as a substitute for the resolved brand is drift, not fidelity. No per-artifact creation pass browses the catalog.
+`teach` and [System Explore](reference/explore-system.md) use the catalog and reference packages as calibration when deriving project identities. Catalog choices do not themselves establish project authority; adoption follows `teach`'s draft-and-confirm contract.
 
-Artifact Explore is also catalog-blind. It explores document structure inside an already resolved visual world; catalog access would silently reopen the identity decision. The future System Explore scope may use catalog entries only as calibration evidence under its own contract.
+Creation and revision can apply reference packages as artifact themes, and Artifact Explore can compare them. [SKILL.md's Artifact themes contract](SKILL.md#artifact-themes) owns project defaults and explicit artifact overrides. Browsing the catalog must not silently replace resolved project guidance or turn an artifact treatment into project authority.
 
 ### 4. Required shape-gate fields are source-conditional
 
@@ -44,7 +44,6 @@ Already tried and rejected — don't reintroduce without confronting the reason:
 - **Multi-persona generate-then-synthesize at the brand-words step.** Considered for measured diversity gain (Cambridge Design Science multi-persona work). Rejected per principle 7: overlap-rejection competes with brand fidelity — three personas should agree on brand identity moves, not have those rejected as shared reflex.
 - **LLM-judged "marker-density" check post-build.** Considered for catching reflex co-occurrence patterns. Rejected: false-positives on legitimate brand-aligned output that uses cataloged moves; false-negatives on unfamiliar combinations. `detect.mjs` stays deterministic regex-based.
 - **Verbalized-sampling probability weights.** Considered (Zhang et al. 2025, measured 1.6–2.1× diversity gain). Rejected per principle 5: model-generated weights without calibration are theater.
-- **Browsing `design-systems/` at creation time.** Considered as an in-skill external-grounding step. Rejected per principle 3.
 - **Specific pixel numbers in prose (`32–40px padding`, type ratio `≥ 4x`).** Rejected per principle 5 — bakes one aesthetic into the skill and doesn't travel across registers.
 
 ## Templates

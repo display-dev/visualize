@@ -31,3 +31,7 @@ The combined `puppeteer.mjs` bundle inlines transitive code under MIT, ISC, and 
 - [meodai/skill.color-expert](https://github.com/meodai/skill.color-expert/blob/d60f17973cab5bafb6caef605e9592dfe832b90b/SKILL.md), revision `d60f17973cab5bafb6caef605e9592dfe832b90b`. [Original license](reference/licenses/color-expert.txt). Adapted on 2026-08-28.
 
 Impeccable is by Paul Bakaus, under Apache-2.0. Color Expert is by meodai, under CC BY 4.0 for its original material; third-party reference content has separate terms and was not imported. Color Expert-derived adaptations remain attributed and licensed under CC BY 4.0; the repository MIT license does not replace these source terms.
+
+## Adapted system-exploration guidance
+
+`reference/explore-system.md` adapts the distinction between established, incomplete, absent, and replacement visual authority from Paul Bakaus’s [Impeccable new-work guidance](https://github.com/pbakaus/impeccable/blob/f88b2837a7d7c3182e46307bbbb091a1ed547571/skill/reference/new-work.md), revision `f88b2837a7d7c3182e46307bbbb091a1ed547571` (Apache-2.0; [license](reference/licenses/impeccable-Apache-2.0.txt)). Adapted on 2026-08-28 with new wording and Visualize’s comparison, confirmation, and local recovery procedure. No seed engine, decision UI, command structure, or executable code is imported. Shared color adaptations are attributed above.

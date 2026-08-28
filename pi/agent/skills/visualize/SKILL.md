@@ -1,6 +1,6 @@
 ---
 name: visualize
-version: 0.5.1
+version: 0.6.0
 license: MIT
 user-invocable: true
 argument-hint: "[teach | explore | simplify | bolder | quieter | animate | polish | review | publish] [<topic-or-path>]"
@@ -32,7 +32,8 @@ description: >
   "generate a diagram", "build a slide deck", "draft a recap",
   "visualize this", "render this as HTML", "make me a status update")
   and exploration intents ("show me three layouts", "explore document
-  shapes", "compare visual treatments") and iteration intents ("make this beautiful", "polish this report",
+  shapes", "compare visual treatments", "explore a new design system",
+  "compare replacement brand directions") and iteration intents ("make this beautiful", "polish this report",
   "make this less generic", "design this", "theme this", "use my
   brand", "iterate on this design", "review this artifact", "make
   this bolder", "make this quieter", "simplify this design",
@@ -70,7 +71,7 @@ Evaluate proposed fixes together against the reader's task. Do not turn every cr
 | Category | Command | Argument | What it does | Reference |
 |---|---|---|---|---|
 | **Build** | `teach` | none | Bootstrap (or refresh) the brand profile. Writes `DESIGN.md` + `PRODUCT.md` at the project root. | `reference/teach.md` |
-| **Build** | `explore` | `artifact <topic-or-path>` | Compare structure, visual treatment, or both for one artifact; waits for selection before changing the target. | `reference/explore.md` |
+| **Build** | `explore` | `artifact\|system <topic-or-path>` | Compare one artifact's treatment or a new/replacement project system; review before applying. | `reference/explore.md` |
 | **Refine** | `simplify` | `<path>` | Strip decoration that isn't earning its pixel. Hands off to `polish`. | `reference/simplify.md` |
 | **Refine** | `bolder` | `<path>` | Amplify visual punch on safe / generic artifacts. Hands off to `polish`. | `reference/bolder.md` |
 | **Refine** | `quieter` | `<path>` | Tone down over-decoration without going generic. Hands off to `polish`. | `reference/quieter.md` |
@@ -85,10 +86,10 @@ Invocation forms: `/visualize teach`, `/visualize explore artifact ./report.html
 
 1. **No argument**: render the Commands table above as the user-facing menu, grouped by category. Ask what they'd like to do.
 2. **First word matches a command**: **load its reference file before doing anything else.** Non-negotiable — the table row + this section is insufficient; the procedure lives in the reference. Everything after the command name is the target.
-3. **First word doesn't match a command**: load `reference/create.md` for creation or an explicitly requested restyling of an existing artifact. A named theme follows Artifact themes below; it does not require an exploration round.
+3. **Natural-language intent**: requests to compare design alternatives load `reference/explore.md`; capturing or reconciling project identity loads `reference/teach.md`. Otherwise load `reference/create.md` for creation or an explicitly requested restyling of an existing artifact. A named theme follows Artifact themes below; it does not require an exploration round.
 4. **Relationship-diagram route during creation**: when preflight first identifies a likely relationship diagram, load `reference/diagram.md` and the one tentative non-spatial type reference needed for that figure before presenting the shape gate. For multi-figure artifacts, load one reference for each distinct tentative family: `reference/diagram-flow.md`, `reference/diagram-system.md`, `reference/diagram-sequence.md`, `reference/diagram-state.md`, or `reference/diagram-hierarchy.md`. Spatial figures use `reference/diagram.md` alone. If approval changes a figure's type, load the replacement reference before authoring; do not load unrelated families.
 5. **Generated-image route during creation**: when the approved shape requires generated bitmap imagery, load `reference/image-generation.md` before selecting or invoking a route. Use only the active callable inventory or an explicitly selected API adapter. Never infer a route from a key, executable, mount, or model claim, and never retry or fall back after an ambiguous attempt.
-6. **Explore scope**: `explore` always loads `reference/explore.md`, which dispatches the named scope. Comparing treatments for one artifact does not require creating a project design system first.
+6. **Explore scope**: `explore` always loads `reference/explore.md`, which distinguishes artifact treatment from project-system creation or explicit replacement. Comparing treatments for one artifact does not require creating a project design system first. System Explore uses its opt-in authority classification instead of applying the render fallback as an incumbent identity.
 
 ## Hand-off output shape
 
@@ -196,7 +197,7 @@ Run both. The second catches what the first misses.
 
 Every render reads available `DESIGN.md` (visual identity + design tokens) and `PRODUCT.md` (voice, audience, tone) at the project root. `teach` derives custom design tokens for the brand and writes them in `DESIGN.md` as YAML frontmatter (the Google Stitch canonical format: machine-readable tokens) plus a six-section markdown body (Overview / Colors / Typography / Elevation / Components / Do's and Don'ts), with a sidecar `tokens.css` at the project root carrying the CSS-form tokens templates read at render time. Project profiles retain concrete tokens, not a `theme: <name>` pointer.
 
-The design systems under `design-systems/` are reference packages with design guidance, tokens, and previews. `teach` reads them when deriving project identities; artifact creation and exploration can use them as themes under the shared contract below.
+The design systems under `design-systems/` are reference packages with design guidance, tokens, and previews. `teach` and System Explore read them when deriving project identities; artifact creation and exploration can use them as themes under the shared contract below.
 
 **Fallback when no DESIGN.md exists:** an approved artifact reference supplies the visual baseline where project guidance is absent; do not replace it with a seed or Clean defaults. Otherwise, first read available project instructions (`AGENTS.md`, `CLAUDE.md`, README, docs) for product positioning, visual direction, anti-references, and design principles. If those files contain usable brand/design guidance, treat it as binding brand context while using Clean's token **surface** as the structural floor. Explicit cues in repo guidance override Clean values: named fonts become the artifact font stack, named palette roles become the artifact color tokens, and named anti-references rule out the corresponding fallback register. If the guidance points at concrete token files, stylesheet files, logo components, or design guidelines, read those referenced files and use their values before approximating from prose. Using Clean's token surface means keeping the semantic variable shape, not copying Clean's fonts, monochrome values, or warm/cream defaults. Only run `node $SKILL_DIR/scripts/palette.mjs --from "<topic-or-project-name>"` when the project has no usable visual direction at all. When a seed is used, compose the temporary `--primary`, `--background`, `--foreground`, `--accent`, chart, and state tokens from the seed + artifact brief; do not copy Clean's monochrome palette unchanged. Use the script's `derived` block (real contrast numbers, per-hue chroma budgets, light + dark lightness ladders) instead of estimating those values; if the seed's register fights the brief, re-run with `--not <zone,...>` or `--vary <n>` and note the veto in the shape gate. After composing, validate with `node $SKILL_DIR/scripts/palette.mjs --check <tokens-or-html> --strict` and fix error findings (exit 2) before render. Nudge `/visualize teach` once per session so repo guidance or the temporary seed can become a real brand profile.
 
@@ -214,7 +215,7 @@ Apply a named treatment through ordinary creation or revision; compare unresolve
 
 Translate the reference's hierarchy, spacing, surfaces, and component treatment as well as its palette and type. Keep non-overridden project choices. Embed the resolved tokens, including designed light/dark and OS-dark behavior, in the artifact; do not replace the project's token source. Verify against the resolved artifact context, not the overridden project values. Describe partial borrowing and retained constraints rather than claiming an unchanged reference application. Keep the approved exception and its scope in existing task notes or a short artifact comment so later refinement can preserve it; unexplained styling drift alone is not approval.
 
-For project-wide capture or derivation, use `teach`. System Explore remains a separate planned scope, not a prerequisite for artifact themes.
+For project-wide capture or direct derivation, use `teach`. To compare new or explicitly requested replacement systems, use `explore system`. Neither route is a prerequisite for artifact themes.
 
 ## Universal laws
 
