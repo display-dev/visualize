@@ -1,6 +1,6 @@
 ---
 name: visualize
-version: 0.4.0
+version: 0.4.1
 license: MIT
 user-invocable: true
 argument-hint: "[teach | explore | simplify | bolder | quieter | animate | polish | review | publish] [<topic-or-path>]"
@@ -53,6 +53,12 @@ Artifact mode describes how the reader consumes the information, not the aesthet
 
 Visual conviction can come from composition, typography, density, spatial rhythm, imagery, interaction, or color. Do not add hues, decoration, or components merely to make an artifact feel designed. A restrained palette can carry a strong point of view when another dimension does the expressive work.
 
+Before responding to feedback, compare the observation with the artifact's reader, purpose, source, and approved brief where one exists. Distinguish an implementation defect, a design that fails its existing requirements, and evidence that a requirement or assumption has changed. The current composition is a solution, not a constraint.
+
+Make authorized corrections within the existing brief directly. If feedback implies a change to established requirements that the user has not already approved, explain the proposed change and obtain agreement before editing. When several structural directions remain plausible, recommend `explore artifact` within its supported scope. When the direction is established, use the ordinary creation or refinement workflow. Follow that workflow's approval requirements; a small correction does not need a new exploration.
+
+Evaluate proposed fixes together against the reader's task. Do not turn every critique finding into an addition or treat a small diff as evidence that the direction is sound. Preserve decision-relevant deferred observations in existing review or task notes.
+
 ## Commands
 
 `{{command_prefix}}visualize` invokes the skill. The argument tells the agent what to do.
@@ -93,12 +99,12 @@ Every refine run's summary covers four facts:
 - Which verb ran, against which artifact.
 - What the verb actually did. Pull the verb-specific content from the per-verb reference's "what to surface" list (focal moment, cuts + audit trail, strategy, what stayed, hero moment, reduced-motion handling — depends on the verb).
 - Diff size as a percent of the artifact.
-- Which next verb makes sense, if any. Polish is the default next step from a successful refine run.
+- Which next action makes sense, if any. Polish is the default next step from a successful refine run.
 
 Variant rules (behaviour, not surface text):
 
 - **Context source note.** If the run cannot use a persisted `DESIGN.md` / `PRODUCT.md`, mention once which fallback source anchored the work: project instructions, README/docs, generated seed, or Clean defaults. Also nudge the user to run `{{command_prefix}}visualize teach` so that fallback can become a real brand profile. Clean defaults are the last resort after the Brand profile rules below find no usable project guidance.
-- **Diff exceeded the 40% guard.** Don't recommend polish — surface the breach and recommend a fresh `{{command_prefix}}visualize <topic>` creation pass against a brand profile. The verb was the wrong scope for what the artifact needed.
+- **Diff exceeded the 40% guard.** Stop refinement and report the affected scope. Apply Design judgment to recommend exploration when the structural direction remains unresolved, or a fresh creation pass when it is established. Do not continue into polish.
 - **Verb shouldn't have run** (Absolute bans present, no decoration to remove, no focal moment, etc.). Skip the standard run summary entirely. Surface a short refusal that names the reason and routes to the right alternative verb. Each per-verb reference's "When `<verb>` is the right verb (and when it isn't)" section enumerates the verb's specific refusal conditions.
 
 Tone is conversational. Lead with what changed, not with a banner. Don't capitalise words for emphasis. Don't print a `<Verb> pass complete ·` header — the summary's content is the proof of completion.
@@ -208,7 +214,7 @@ The design systems under `design-systems/` are **reference token packages** `tea
 
 Apply on every command, every template, every prompt. These override any single-rule finding:
 
-1. **Resolved context and voice trump rule.** A detector finding that contradicts the resolved context is a category error.
+1. **Resolved context and voice trump rule.** A detector finding that contradicts the resolved context is a category error. Permission to refine an artifact does not authorize changes to the project's brand profile or shared token source. Propose necessary changes to those authorities separately unless the user has already authorized them.
 2. **Commands interpret, not regenerate.** Iteration commands return a targeted diff, not a fresh draft. If the diff is >40% of the artifact, the command has misfired.
 3. **Ship-blockers and taste-calls are different.** A11y and contrast must be fixed; taste-calls are negotiable.
 4. **Severity follows context, including aggregate.** An `info` rule can ship-block in aggregate; an `error` rule can be a taste-call if the brand whitelists it.

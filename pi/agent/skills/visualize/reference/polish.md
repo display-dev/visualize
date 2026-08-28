@@ -4,7 +4,7 @@ Before following the instructions below, apply the shared rules in SKILL.md.
 
 `/visualize polish <path>` is the terminal Refine verb. The other Refine verbs (`simplify` / `bolder` / `quieter` / `animate`) hand off to this one.
 
-Walk every quality dimension. Report findings per dimension. Don't declare clean too fast — a walk that finds nothing across every dimension is suspicious. The mechanical floor (a11y blockers, hardcoded hex literals, missing favicon, missing OG meta) converges within one or two passes; the quality dimensions never do. If a pass finds nothing across the quality dimensions, walk again before declaring done.
+Walk every applicable quality dimension and report findings against the reader's task and resolved context. A pass may require few changes or none. Finding count does not establish diligence; rendered evidence and the reasons for each judgment do.
 
 ## Before you start
 
@@ -19,16 +19,16 @@ Before fixing anything, classify what kind of drift each finding represents. The
 
 Common root causes (most findings fit one of these; some don't — name the cause anyway):
 
-- **Missing token.** The artifact authors a value that should have come from resolved tokens but doesn't exist there yet — `#8b5cf6` when `--primary` isn't declared, `1.2rem` when `--text-base` isn't declared. *Fix*: add the token to the token source and reference it; surface the addition in the run summary so the context gets the upgrade.
+- **Missing token.** First check whether the artifact omitted an existing token or uses a local value where an existing token would suffice. Restore or reuse that token. If the shared token source needs an extension, follow SKILL.md's authority boundary and propose it separately; do not change the shared system as a side effect of polishing one artifact.
 - **One-off implementation.** The artifact reinvents a local pattern with inconsistent semantics — bespoke metadata chips without labels, a hand-rolled table that loses header roles, a custom KPI tile without units or baseline. *Fix*: repair the artifact-local implementation from the rendered issue and artifact context; do not load pattern recipes during polish and do not swap to a shared component library.
-- **Conceptual misalignment.** The artifact uses the wrong *register* for its content — theatrical density on an ops-register artifact, mono on body prose for a publishing-register report, gradient hero on an institutional memo. *Fix*: rework the section to match the register the resolved context + template category imply; this is the most invasive fix and often trips the shared diff guard.
+- **Conceptual misalignment.** The artifact's visual treatment or structure conflicts with its reader, source, or resolved context. Apply SKILL.md's Design judgment before editing. Repair a bounded departure from an established direction; stop refinement when the direction itself needs reconsideration.
 - **Medium / state / semantic gap.** The artifact's HTML source looks fine but breaks once rendered — missing alt text, empty table state never authored, print breaks splitting figures mid-page, charts that don't reflow at mobile, heading-order skips. The cause isn't a token or a component; it's a category the source code didn't address. *Fix*: address per-symptom, but tag the category in the summary so the user sees the pattern across runs.
 
-State the root-cause class for each finding in the run summary (`Typography: missing token (--text-h3 not declared; added) + conceptual misalignment (mono on body prose in editorial register)`). Findings without a named root cause are symptom-fixes that the next polish will surface again.
+State the root-cause class for each finding in the run summary (`Typography: missing token (existing --text-h3 omitted from artifact; restored) + conceptual misalignment (mono on body prose in editorial register)`). Findings without a named root cause are symptom-fixes that the next polish will surface again.
 
 ## Walk every dimension
 
-Nine dimensions, plus a tenth — **data graphics** — when the artifact contains a chart, sparkline, KPI tile, or data table. Mechanical first (they converge), quality second (they don't). Report findings per dimension even when the count is zero, so the user sees you walked the dimension instead of skipping it. The data-graphics dimension is content-gated: when the artifact has no data graphics, write `Data graphics: not applicable` rather than omitting it — the user reads the explicit gate as "agent looked and decided."
+Nine dimensions, plus a tenth — **data graphics** — when the artifact contains a chart, sparkline, KPI tile, or data table. Check the mechanical floor first, then assess quality. Report findings per dimension even when the count is zero, so the user sees you walked the dimension instead of skipping it. The data-graphics dimension is content-gated: when the artifact has no data graphics, write `Data graphics: not applicable` rather than omitting it — the user reads the explicit gate as "agent looked and decided."
 
 - **Visual point of view:** Does the artifact have a memorable composition choice tied to the content, or is it only clean typography? Did the signature move survive? Does the first viewport make a visual argument?
 
@@ -152,7 +152,7 @@ Most of the dimension list applies the same way across all templates. These four
 
 - Polish before the artifact is functionally complete. Polish is the last step, not the first.
 - Cite a clean `detect.mjs` result as proof the artifact is strong. The detector is one input.
-- Rebuild or regenerate the artifact in a polish run. If you would, the artifact needs a different verb (`simplify`, `bolder`, or a fresh creation pass) — not polish.
+- Rebuild or regenerate the artifact in a polish run. Stop refinement and apply SKILL.md's Hand-off output shape and Design judgment to recommend the next action.
 - Resolve a context-driven choice as a slop finding. A context that declares Inter is not a font slop; an `ops` register that uses mono on chrome is not a mono-on-prose slop. Context wins.
 - Hand off to another Refine verb. Polish is terminal. If the artifact needs amplification or simplification, that's a separate user-initiated run.
 - Skip a dimension because "the artifact doesn't need it." Walk it; if findings are zero, report zero. Skipped dimensions accumulate to "polish finds nothing" — exactly the bug this verb is designed to avoid.
@@ -161,7 +161,7 @@ Most of the dimension list applies the same way across all templates. These four
 
 Two passes — discipline first (think it through), then medium-checks (open the artifact).
 
-**Discipline.** Re-run the two-altitude AI slop test from SKILL.md; if the topic-plus-template was guessable, polish isn't done. If <3 dimensions had findings, walk again — a polish pass that touches one dimension is usually lazy, but not always. Genuinely strong artifacts produce sparse polish runs; if the second walk also finds little, state per-dimension why each clean dimension is already strong (e.g. *"Typography: clean — type scale already snaps to the geometric ladder, three weights only, line length 68ch."*). Don't fabricate findings to hit a quota. Apply the shared diff guard from SKILL.md. Re-grep for Absolute bans. Functional findings all fixed; cosmetic either fixed or surfaced as deferred — mixed-state ship-blockers ("a11y fixed in section 1, missing alt in section 3") are how regressions ship.
+**Discipline.** Re-run the shared design checks against the revised artifact. Confirm that each change addresses an observed problem and preserves neighboring hierarchy, content, and behavior. Functional findings must be resolved before declaring completion; cosmetic findings may be fixed or explicitly deferred. Recheck affected states after changes. Do not repeat the pass merely because few dimensions had findings.
 
 **Medium.** Don't trust the dimension walk alone — render the artifact and confirm it behaves where it will be read. The walk catches what the model can reason about from HTML source; the medium catches what only shows up at paint time. Open in a real browser (Chromium / Firefox / Safari), sweep the smoke widths (320 / 390 / 768 / 1280 — these are concrete widths within the [responsive-design.md](responsive-design.md) rungs, chosen so a single sweep tests narrow-phone / common phone / tablet / desktop), toggle dark mode (DevTools → Rendering → `prefers-color-scheme: dark`), toggle `prefers-reduced-motion`. At 390px, read the first two screens as a design, not as a technical pass: a simpler document that gives the reader the thesis faster beats a decorative composition that hides the body behind oversized hero chrome, rounded metadata chips, doubled separator rules, or a TOC that turns into scattered words. If the artifact is prose-heavy and likely to be printed (whitepaper, report, case study, runbook), print-preview it — page breaks between sections, no background bleed, link URLs rendered inline. If the artifact carries a chart or data table, view at 320px — does it reflow, or break the column?
 
@@ -172,8 +172,8 @@ Skipped verification accumulates as "polish reports clean but the artifact is br
 If the artifact needs broad rework, polish has misfired. The escape:
 
 - **Artifact carries ≥3 Absolute bans** → refuse and route to `/visualize simplify` first. Simplify's job is removing ban patterns; polish assumes a clean baseline. (SKILL.md's "Refine verbs on artifacts that carry ≥3 Absolute bans" rule applies.)
-- **Artifact has clean bans but many weak dimensions** → recommend a fresh `/visualize <topic>` creation pass against the resolved context. Polish is a floor-raise, not a rebuild.
-- **Do not hand off to another Refine verb expecting it to come back.** The Refine verbs (`simplify` / `bolder` / `quieter` / `animate`) hand off to polish, but polish doesn't hand off to them — that creates a cycle. When polish refuses, route to creation or to the user, not to a peer Refine verb.
+- **Artifact needs broad rework beyond polish** → stop refinement and apply SKILL.md's Hand-off output shape and Design judgment to recommend the next action.
+- **Do not hand off to another Refine verb expecting it to come back.** The Refine verbs (`simplify` / `bolder` / `quieter` / `animate`) hand off to polish, but polish doesn't hand off to them — that creates a cycle. When polish refuses, recommend the next action to the user; do not start another command.
 
 ## Output shape
 
@@ -201,11 +201,10 @@ Scannable consolidation of Discipline + Medium verification above. Every box sho
 - [ ] Walked every dimension (9, plus data-graphics when applicable); every dimension reported in run summary (including `clean` lines).
 - [ ] Triaged every finding as functional vs cosmetic; functional all fixed; cosmetic fixed or deferred-with-note.
 - [ ] Named the root cause for every finding (missing token / one-off implementation / conceptual misalignment / medium-state-semantic gap).
-- [ ] Discovery surfaced new tokens added to `tokens.css` (if any) in the run summary.
+- [ ] Shared brand and token sources were not changed without authorization.
 - [ ] No Absolute bans in the output (re-grepped after the run).
 - [ ] Shared diff guard checked (else surfaced via diff-guard-breach hand-off).
 - [ ] Two-altitude AI slop test re-run; neither altitude returns "could guess from topic alone."
-- [ ] If <3 dimensions had findings, walked again AND justified the low count per-dimension.
 - [ ] Opened in a real browser; swept smoke widths 320 / 390 / 768 / 1280; judged the first two phone screens as a finished mobile reading state; toggled dark mode; toggled `prefers-reduced-motion`.
 - [ ] Print preview run (for whitepaper / report / case-study / runbook).
 - [ ] Chart / data display reflow checked at 320px (when applicable).

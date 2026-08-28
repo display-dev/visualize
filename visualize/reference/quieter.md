@@ -93,7 +93,7 @@ Consult [motion.md](motion.md).
 1. **Context still recognizable.** Does it still read as the context resolved by SKILL.md?
 2. **The eye still lands somewhere.** Quieter should not flatten hierarchy. There's still a focal point; it's just less aggressive.
 3. **Re-run the two-altitude AI slop test** from SKILL.md. Did you collapse to Notion-default? Editorial-Tufte clone? Brutalist-terminal clone? Reflex aesthetic → start over.
-4. **Scope check.** If quieter touches most of the artifact, you've gone too far — surface this in the hand-off; recommend a fresh creation pass instead of pushing through.
+4. **Scope check.** If quieter touches most of the artifact, stop refinement and apply SKILL.md's Hand-off output shape and Design judgment to recommend the next action.
 
 ## Hand off to polish
 

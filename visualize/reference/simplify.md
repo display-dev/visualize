@@ -22,7 +22,7 @@ Simplify is the *only* Refine verb that's the correct first response to a ban-ca
 Refuse and route when:
 
 - The artifact has **no decoration to remove** — it's already minimal. Recommend `{{command_prefix}}visualize bolder` or `{{command_prefix}}visualize polish` instead, or surface that nothing needs cutting.
-- The change would become a rebuild rather than a simplification. Stop and recommend a fresh creation pass; simplify isn't a rebuild verb.
+- The change would become a rebuild rather than a simplification. Stop refinement and apply SKILL.md's Hand-off output shape and Design judgment to recommend the next action.
 
 ## Plan the cuts
 
@@ -109,7 +109,7 @@ Cut decision-points the reader doesn't need (Hick's law — see [cognitive-load.
 ## Verify before declaring done
 
 1. **Context still recognizable.** The artifact should still read as the context resolved by SKILL.md.
-2. **Scope check.** If simplify is touching most of the artifact, the verb is wrong — surface this in the hand-off, don't push through. Recommend a fresh creation pass.
+2. **Scope check.** If simplify is touching most of the artifact, stop refinement and apply SKILL.md's Hand-off output shape and Design judgment to recommend the next action.
 3. **No Absolute bans in the output.** Re-grep / re-scan after the run.
 4. **Each cut has a named reason.** "Removed because…" on every diff hunk. If you can't name why, put it back.
 5. **Re-run the two-altitude AI slop test** from SKILL.md. After cuts, does the artifact still read as the topic's stock aesthetic? If yes, the cuts didn't reach far enough — re-walk.

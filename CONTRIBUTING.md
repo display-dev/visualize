@@ -12,6 +12,39 @@ bin/sync-mounts.sh
 
 CI runs the same script with `--check` and fails on drift.
 
+### Preserving design judgment
+
+The skill should help the reader understand the source, not reward the agent for
+making more changes. When revising its procedures, preserve these distinctions:
+
+- **Requirements versus solutions.** Feedback can expose a defect or change the
+  brief; it does not automatically justify another local adjustment. Keep that
+  decision in [SKILL.md's Design judgment](visualize/SKILL.md#design-judgment),
+  and have verb-specific refusal and routing instructions defer to it.
+- **Artifact scope versus shared authority.** Refinement permission covers the
+  artifact, not its project's brand profile or token source. The authority
+  boundary belongs in [Universal laws](visualize/SKILL.md#universal-laws).
+- **Evidence versus activity.** Finding counts, diff size, and clean detector
+  output do not establish design quality. Preserve bounded completion in
+  [polish](visualize/reference/polish.md#verify-before-declaring-done) and
+  rendered comparison evidence in
+  [Artifact Explore](visualize/reference/explore-artifact.md#5-verify-and-stop).
+
+Keep procedures in the linked skill sections; this guide explains what edits
+must preserve. Before adding another instruction, identify the demonstrated
+failure and whether it comes from routing, unclear guidance, conflicting rules,
+or a mechanical check. Change the responsible layer rather than adding a second
+policy to a reference.
+
+Validate workflow changes with an independent agent using the changed skill on
+a representative artifact. Check both the failure and a nearby valid case:
+clean output should not provoke invented polish work; a bounded correction
+should not reopen the brief; unresolved structure should not trigger target
+edits; and a missing shared token should not authorize a design-system change.
+Keep test artifacts and screenshots under `temp/`. Inspect the actions and
+rendered evidence, not just the agent's explanation. Re-test after fixes;
+mirror and syntax checks do not establish behavioral correctness.
+
 ## Adding a template
 
 Drop a new directory under `visualize/templates/<slug>/` with one file: `template.md`. Required frontmatter is `name` and `description`; `shell` is optional and must resolve to `visualize/shells/<slug>/README.md`. Keep the body focused on Use when, Do not use when, Structure, Creation guidance, Hierarchy contract, Mobile contract, and concrete failure modes. Do not add live template HTML or `template-skill.md`.

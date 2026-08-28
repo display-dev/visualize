@@ -2,7 +2,7 @@
 
 Before following the instructions below, apply the shared rules in SKILL.md.
 
-`{{command_prefix}}visualize review <path>` is the **Evaluate** verb. It reports findings — it does **not** modify the file and does **not** hand off to `polish`. The user reads the report and decides which Refine verb (`polish`, `simplify`, `bolder`, `quieter`, `animate`) to run next, or whether to fix by hand.
+`{{command_prefix}}visualize review <path>` is the Evaluate verb. It reports findings without modifying the artifact or starting another command. Its recommendation may be a bounded repair, refinement, exploration, a revised brief, or no further work. The user decides what to authorize.
 
 Review runs deterministic checks first (Layer 1 via `detect.mjs` for static patterns, Layer 1b via `browser-contrast.mjs` for browser-computed contrast, and a conditional diagram-geometry layer), then LLM judgment via the rules below. Each layer catches what the others can't reliably see.
 
@@ -175,7 +175,7 @@ Don't dump NDJSON. Don't free-form. Produce this structure so two different agen
 | H9 | Edge-data realism | <…> | <…> |
 | H10 | Honesty | <…> | <…> |
 
-**Worst heuristic(s):** <H#, H#>. **Recommended next verb:** <see Heuristic scoring routing table>.
+**Worst heuristic(s):** <H#, H#>. **Recommended next action:** <see Heuristic scoring routing table>.
 
 ## Context-suppressed
 - **<rule-id>** · `<locator>` — detector fired but resolved context <source> declares <reason>. Demoted to info.
@@ -194,6 +194,6 @@ Detector findings carry `ruleId` strings (`slop/generic-gradient`, `a11y/missing
 
 Review is the Evaluate verb. It reports; it does not run polish, simplify, bolder, quieter, or animate as part of its own flow. The verdict + sections above are the entire output.
 
-Use the **Routing the next verb** table in [heuristics-scoring.md](heuristics-scoring.md) — the worst-scored heuristic *plus its root cause* maps to a specific next verb. Don't route on heuristic ID alone; the same heuristic can fail for different reasons that need different verbs (H1 with "no element amplified" → bolder; H1 with "too many elements competing" → simplify).
+Apply SKILL.md's Design judgment before recommending an action. Use the **Routing the next action** table in [heuristics-scoring.md](heuristics-scoring.md) to match an established root cause to a remedy. A grade establishes readiness, not which remedy is appropriate.
 
-Top-level guard: if **Grade D or F**, OR ≥3 Absolute bans present, recommend `{{command_prefix}}visualize simplify <path>` first per SKILL.md refuse-and-route, then re-evaluate. Otherwise, defer to the heuristics-scoring routing table.
+Apply the shared ban-heavy refusal rules when recommending a Refine verb. Do not recommend simplification solely because the artifact received Grade D or F: missing evidence, incorrect content, and an unresolved design direction need different responses.

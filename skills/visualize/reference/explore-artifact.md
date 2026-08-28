@@ -12,7 +12,7 @@ For an existing artifact, understand its content, assets, actions, states, acces
 
 ## 2. Approve one brief
 
-Before HTML or image generation, show a compact brief and wait for approval. Include:
+For initial exploration, show a compact brief and wait for approval before HTML or image generation. For revisions, apply SKILL.md's Design judgment; material changes to the comparison require approval of the revised brief. Include:
 
 - reader and decision;
 - target or proposed output and source material;
@@ -24,6 +24,8 @@ Before HTML or image generation, show a compact brief and wait for approval. Inc
 - imagery as `none`, `optional`, `supplied`, or `essential`.
 
 The target and authority files stay unchanged during exploration. The default output is one `<slug>-explore.html` beside the target or in the approved output directory.
+
+Preserve the approved brief in the artifact's clearly separated review context or existing task notes.
 
 When a shared generated image is needed, read `image-generation.md`, use one released route, and inspect the result before building directions. Give every direction the same approved assets. Do not add an Explore-specific image sidecar or provenance format.
 
@@ -66,9 +68,11 @@ Exercise every direction at wide and 390 px. Check:
 - no unexpected console error or horizontal overflow occurs; and
 - `detect.mjs` finds no unaddressed blocker in the final HTML.
 
-Use screenshots or contact sheets when they help visual comparison, but keep them as disposable local evidence. They are not part of the artifact contract.
+Render every direction in the approved wide and 390 px contexts. Capture and inspect screenshots or contact sheets sufficient to judge hierarchy, reading order, clipping, and the stated tradeoffs. Keep this evidence disposable and separate from runtime dependencies. If rendered inspection cannot be completed, report the comparison as unverified rather than recommending a winner.
 
 Present each direction's structural bet and main trade-off, then stop for user input. The user may select, shortlist, reject all and revise the brief, or request a named synthesis. Synthesis is another round with its own selection stop.
+
+Record the selected direction and its rationale alongside the brief. If later feedback invalidates that choice, preserve the earlier rationale and state what changed before proposing another round.
 
 ## 6. Apply only after explicit selection
 

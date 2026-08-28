@@ -118,23 +118,24 @@ Verdict → ship/iterate/ship-blocked mapping for review's top line:
 
 H8 (reader-respect) and H10 (honesty) FAILs are ship-blockers regardless of grade. They render in `Errors (ship-blockers)` AND in the heuristic table — same finding, two places, with the heuristic note citing the Errors entry by label.
 
-## Routing the next verb
+## Routing the next action
 
-Worst heuristic + root cause map to a verb. Don't route on heuristic ID alone — the same heuristic can fail for different reasons that need different verbs.
+Apply SKILL.md's Design judgment first. This table selects a remedy once the reader's task and applicable constraints are understood. Recommendations are not authorization to execute them.
 
-| Worst heuristic | Root cause | Recommended next verb |
+| Worst heuristic | Root cause | Recommended next action |
 |---|---|---|
+| H1 (visual primacy), H4 (narrative sequencing) | Primary reading path or structural direction remains unresolved | `{{command_prefix}}visualize explore artifact` to compare arrangements under one brief, within its supported scope |
 | H1 (visual primacy) | No element is amplified — everything reads at middle weight | `{{command_prefix}}visualize bolder` (amplify one focal element) |
 | H1 | Too many elements competing (3+ at same weight) | `{{command_prefix}}visualize simplify` (cut the competing chrome) OR `{{command_prefix}}visualize quieter` (demote the supporting elements) |
-| H3 (scannable chrome) | Missing structural chrome — no headings, no TOC, no labels | direct edit (add headings / TOC / labels — no verb covers this automatically) |
+| H3 (scannable chrome) | Necessary headings, labels, or navigation are missing | direct edit to add the structure required by the reader's task; do not assume a TOC is necessary |
 | H3 | Chrome is present but visually flat (all h2s same weight) | `{{command_prefix}}visualize polish` (typography dimension raises hierarchy) |
 | H3 | Static header metadata appears as unlabeled rounded chips | `{{command_prefix}}visualize polish` (replace chips with crisp key-value labels) |
 | H3 | Header and mobile contents/TOC create adjacent horizontal rules | `{{command_prefix}}visualize polish` (collapse to one separator at the mobile breakpoint) |
 | H3 | Mobile TOC wraps as unrelated words | `{{command_prefix}}visualize polish` (turn TOC into a structured list or grid) |
 | H3 | Table caption/intro/body roles are visually confused | `{{command_prefix}}visualize polish` (typography dimension restores table type hierarchy) |
-| H4 (narrative sequencing) | Sections in wrong order, content correctly written | direct edit (reorder sections — no verb covers reordering) |
+| H4 (narrative sequencing) | Sections are in the wrong order and the intended order is established | direct edit to restore that order |
 | H4 | Buildup-to-claim prose ("background → process → finding") | `{{command_prefix}}visualize simplify` (cuts the buildup, lifts the claim) |
-| H2 (topic register), H7 (brand-trueness) | Too generic / safe / defaulted | `{{command_prefix}}visualize bolder` for amplification; fresh `{{command_prefix}}visualize <topic>` creation pass if brand is missed entirely |
+| H2 (topic register), H7 (brand-trueness) | Visual treatment is generic | `{{command_prefix}}visualize bolder` when the structure works and expression is weak; otherwise apply shared Design judgment |
 | H6 (register coherence) | One section is louder than the rest | `{{command_prefix}}visualize quieter` on the loud section |
 | H6 | One section is quieter than the rest | `{{command_prefix}}visualize bolder` on the quiet section |
 | H5 (cite the number), H8 (reader-respect) | Copy-side | direct edit; no verb covers prose-by-prose |
@@ -158,7 +159,7 @@ Render the heuristic verdicts as a section between "Info / aggregate patterns" a
 | H3 | Scannability | PASS | TL;DR + headings extract in 30s |
 | … | … | … | … |
 
-**Grade: B** (2 WARNs, no FAILs). Worst: H2. Recommended next verb: `{{command_prefix}}visualize bolder` to commit harder to the brand's actual register.
+**Grade: B** (2 WARNs, no FAILs). Worst: H2. Recommended next action: `{{command_prefix}}visualize bolder` to strengthen the brand's expression within the established structure.
 ```
 
 Every note must be 1 sentence and must name the evidence that triggered the verdict. PASS notes are mandatory; they should cite the screenshot/viewport, detector result, or element that proves the heuristic holds.
