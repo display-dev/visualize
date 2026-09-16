@@ -1,6 +1,6 @@
 # Motion
 
-Doctrine, primitives, easing, durations, reduced-motion contract for visualize artifacts. Brand profile overrides every rule below — a brand that declares `motion: none` blocks every animation rule here; one that declares `motion: subtle` halves the durations. The rules below are the fallback when the brand profile is silent. Lane: motion.md owns the cross-cutting fundamentals; [animate.md](animate.md) owns per-element patterns + per-artifact orchestration — each cites the other, neither restates.
+Doctrine, primitives, easing, durations, reduced-motion contract for visualize artifacts. Brand profile overrides every rule below — a brand that declares `motion: none` blocks every animation rule here; one that declares `motion: subtle` halves the durations. The rules below are the fallback when the brand profile is silent. Lane: motion.md owns primitives, easing families, allowed duration ranges, physical continuity, and reduced-motion behavior; [animate.md](animate.md) owns per-element patterns, exact timing choices within those ranges, and per-artifact orchestration.
 
 ## Native web platform first
 
@@ -41,7 +41,8 @@ Two curves cover 95% of cases. Don't author bespoke per artifact.
 |--------------------------|------------------|----------------------|
 | Hover / focus state      | 100–150ms        | 80–110ms             |
 | Button press / active    | 80–120ms         | 80–100ms             |
-| Dialog / popover open    | 200–250ms        | 150–190ms            |
+| Tooltip / popover open   | 150–200ms        | 110–150ms            |
+| Dialog open              | 200–250ms        | 150–190ms            |
 | Page / section enter     | 300–400ms        | 220–300ms            |
 | Decorative scroll-driven | 600ms+ allowed   | n/a (one-direction)  |
 
@@ -82,7 +83,17 @@ Single pattern: smooth `height: auto` on `<details>` accordions and expand-row d
 
 ## Spring physics
 
-Default don't. The two canonical easing curves cover most of what springs are reached for. When the brand profile declares a spring vocabulary explicitly, sample one spring into a `linear()` function and use it as a shared token — don't bring in a motion library to author one curve. A spring-rich brand whose `DESIGN.md` calls for per-element spring physics is the only case where a library earns its 30-50KB.
+Default don't. The two canonical easing curves cover most of what springs are reached for. A spring earns its place when an existing gesture must preserve velocity through interruption or reversal, or when the brand profile explicitly declares a spring vocabulary. Sample a decorative spring into a shared `linear()` token when that is sufficient; don't bring in a motion library to author one curve. A gesture-driven artifact or spring-rich brand whose `DESIGN.md` calls for per-element physics is the only case where a library earns its 30-50KB.
+
+## Physical continuity
+
+Motion needs a plausible source, destination, and path:
+
+- Anchor a popover, menu, tooltip, or other trigger-owned surface at its trigger; set `transform-origin` from that relationship rather than defaulting to the center.
+- Preserve the path between entry and exit. A surface that enters from one edge does not leave through an unrelated edge.
+- Never enter from `scale(0)`, which makes the element appear from nothing. Start near its final size, usually `scale(0.9–0.97)`, with opacity when scale is warranted.
+- Gesture-driven motion preserves its current value and velocity through interruption or reversal rather than restarting from its origin.
+- Keep modals centered unless the interaction gives them a real spatial source; they are not normally trigger-anchored surfaces.
 
 ## `prefers-reduced-motion`
 

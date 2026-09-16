@@ -47,7 +47,7 @@ If imagery is relevant, use the approved image route in `image-generation.md`. B
 
 ## 4. Build and verify one review
 
-Reuse [Artifact Explore's optional builders](explore-artifact.md#optional-subagents), [one-file review shape](explore-artifact.md#4-build-one-review-artifact), and [verification](explore-artifact.md#5-verify-and-stop). Those sections own the same-DOM roots, scoped CSS/IDs/behavior, inert destination actions, natural height and outer scrolling, width controls, URL copy/reset, no-JS readability, inline assets, and rendered checks. Do not run its artifact-scope approval or apply steps for a system comparison.
+Read and follow [the shared comparison harness](explore-comparison-harness.md). It owns isolated builders, one-file construction, same-DOM roots, scoped CSS/IDs/behavior, inert destination actions, natural height and outer scrolling, review state, no-JS readability, inline assets, rendered checks, and the mode-neutral convergence test. Do not load Artifact Explore for a system comparison; its single-axis, presentation, selection, synthesis, and apply rules do not govern project-system candidates.
 
 Give broad builders the same approved brief and one independent direction, without sibling candidates. Focused builders receive the baseline and fixed-versus-variable scope, without sibling variations. The coordinator assembles and checks the result. Serial construction preserves the approved count when subagents are unavailable.
 
@@ -57,7 +57,7 @@ Map each candidate's provisional tokens to its own root under the review theme. 
 
 Check all candidates at wide and 390 px in explicit light and dark; capture and inspect full-document evidence. Also emulate OS dark without an explicit theme and test both overrides. Reuse existing schema/token, palette, detector, browser contrast, image decoding, overflow, URL-state, keyboard, reduced-motion, and browser-health checks as applicable; record unsupported checks rather than calling them passed. Qualitatively inspect product fit, fixed-content/action parity, hierarchy, component coherence beyond the opening, phone crops, and reference leakage. In broad rounds judge independent worlds; in focused rounds judge meaningful differences within the named scope. A clean detector or token delta does not prove either. No distinctness score, new verifier, or evidence package is needed.
 
-Present the HTML with parallel rationale and trade-offs, then stop for user input. The review contains only approved candidate content and controls, never old canonical files, backups, credentials, unrelated project content, or persistence metadata. Screenshots are disposable review evidence, not runtime dependencies. Publishing is separate.
+Present the HTML with parallel rationale and trade-offs, then stop for user input. For a broad round, describe each as `Candidate / World thesis / Right when / Cost`; for a focused round, use `Candidate / Named choice or coupled bundle / Right when / Cost`. Do not mark a favorite unless the user asks. The review contains only approved candidate content and controls, never old canonical files, backups, credentials, unrelated project content, or persistence metadata. Screenshots are disposable review evidence, not runtime dependencies. Publishing is separate.
 
 ## 5. Narrow, combine, or adopt
 

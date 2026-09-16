@@ -8,6 +8,18 @@ Review runs deterministic checks first (Layer 1 via `detect.mjs` for static patt
 
 Review does not load or cite `patterns/` recipes. Findings name the concrete rendered issue and repair direction; recipes are creation guidance, not review rubrics.
 
+## Establish scope and coverage
+
+Before running checks, state the artifact, screens or sections, interactive states, themes, and viewports the review is expected to cover. Use the artifact and request to decide the rows; do not imply whole-artifact coverage when only one flow or screen was inspected.
+
+Every coverage row has one status:
+
+- **Reviewed** — the source, rendered state, or behavior was actually inspected; cite the file, command, viewport, screenshot, or interaction that proves it.
+- **Not verified** — the area applies but the necessary runtime, state, or evidence was unavailable; state why. This is a coverage limit, not a finding.
+- **Not applicable** — the artifact does not contain that surface or state; state the absence briefly.
+
+At minimum account for static source/detector coverage, computed contrast, desktop and mobile rendering, applicable interaction states, light/dark and reduced-motion behavior, and content-gated diagrams or data graphics. A `ship` verdict is unavailable when evidence needed to rule out a plausible blocker remains `Not verified`; use `iterate` and name the missing check instead.
+
 ## Layer 1 — deterministic findings via `detect.mjs`
 
 ```sh
@@ -52,7 +64,7 @@ Union its structured `diagram/*` findings with Layers 1 and 1b. Inspect the requ
 
 ## Rendered screenshot gate
 
-Before assigning a verdict or grade, open/render the artifact and inspect screenshots. Deterministic findings are inputs; they are not a substitute for looking at the rendered result.
+Open/render the artifact and inspect every screenshot the resolved scope requires and the available environment can produce. Deterministic findings are inputs; they are not a substitute for looking at the rendered result. When a required render cannot be produced, continue the review with the available evidence, mark that viewport or state `Not verified`, and cap the verdict at `iterate`; the mandatory grade then reflects only the inspected scope.
 
 Minimum evidence:
 
@@ -60,21 +72,21 @@ Minimum evidence:
 - For multi-screen artifacts, capture enough states/pages/sections to judge repeated layout patterns; for a new template, changed shell, or generated deck, capture every distinct screen.
 - Cite screenshot paths or browser viewport sizes in the review notes. Visual heuristics must cite what was visible in those screenshots.
 
-Do not assign `ship` from detector/a11y output alone. The screenshot gate is what validates visual hierarchy, scan path, responsive composition, clipping, overlap, and realistic rendered state.
+Do not assign `ship` from detector/a11y output alone. The screenshot gate is what validates visual hierarchy, scan path, responsive composition, clipping, overlap, and realistic rendered state. Never imply that an unavailable screenshot was inspected.
 
 ## Layer 2 — LLM judgment in this prompt
 
 Two parts:
 
-**(a) Find specific issues** by walking the category lists below — fossil-shape failures, brand-register-dependent slop, structural-pattern slop, semantic-structure calls, data-graphics failures. Each category names patterns the detector deliberately doesn't catch (vocab-unbounded, register-dependent, semantic-judgment calls).
+**(a) Inspect specific issues** by walking every applicable category below — fossil-shape failures, brand-register-dependent slop, structural-pattern slop, semantic-structure calls, data-graphics failures — and collecting each confirmed issue into the working set. Each category names patterns the detector deliberately doesn't catch (vocab-unbounded, register-dependent, semantic-judgment calls).
 
-**(b) Score the 10 artifact heuristics** from [heuristics-scoring.md](heuristics-scoring.md) and render a per-heuristic verdict + aggregate grade. The heuristics are the grading layer; the category findings are the *evidence* the verdicts cite.
+**(b) Score the 10 artifact heuristics** from [heuristics-scoring.md](heuristics-scoring.md) and render a per-heuristic verdict + aggregate grade. The heuristics are the grading layer; the category working set is the *evidence* the verdicts cite.
 
 Don't ship a review without both. The categories without the heuristics produce a list of issues with no grade; the heuristics without the categories produce a grade with no evidence.
 
-### Category findings (the evidence)
+### Category evidence (the working set)
 
-Things detect.mjs deliberately doesn't try to catch: register-dependence, vocab-unboundedness, semantic-structure calls. Walk these and surface every match:
+Things detect.mjs deliberately doesn't try to catch: register-dependence, vocab-unboundedness, semantic-structure calls. Inspect every applicable category and collect every confirmed issue before ranking. Do not stop when the eventual reporting cap is reached; context, aggregation, severity, consolidation, and ranking happen afterward.
 
 **Fossil-shape failures** (vocab is unbounded, so no detector list):
 
@@ -83,10 +95,9 @@ Things detect.mjs deliberately doesn't try to catch: register-dependence, vocab-
 - **Sycophant footers**: "I hope you find this useful", "Happy to clarify", "Hopefully this addresses your needs", "Best, Claude", anything signed by an AI.
 - **Imperative tricolon** ("Ship faster. Build smarter. Scale forever."): three commands ending in periods, regardless of content. Can't be redeemed.
 
-**Brand- and register-dependent slop** (mechanical detector would false-positive). When deciding these calls, consult [color.md](color.md) / [typography.md](typography.md) / [spatial.md](spatial.md) / [copy.md](copy.md) for the deeper material:
+**Brand- and register-dependent slop** (mechanical detector would false-positive). These judgment calls exclude SKILL.md's Absolute bans, which resolved context cannot redeem. When deciding the remaining calls, consult [color.md](color.md) / [typography.md](typography.md) / [spatial.md](spatial.md) / [copy.md](copy.md) for the deeper material:
 
 - **Color fit**: do palette character, relationships, and coverage support the brief and approved identity? Name the rendered mismatch; hue names alone are not a finding.
-- **Icon-tile-stack**: every section heading has a rounded-square icon above it. Genuine AI section-marker tell, or is this a deliberate icon-led design system?
 - **Center-everything**: body prose centered, section after section. False positive for Bauhaus / Swiss-poster / academic preprint registers; real signal for AI-essay register.
 - **Uppercase body**: long all-caps passages. False positive for brutalist / letterpress / show-bill registers; real signal otherwise. Acronyms (HTML / POST / REST / WCAG) don't count.
 
@@ -121,11 +132,26 @@ Things detect.mjs deliberately doesn't try to catch: register-dependence, vocab-
 - **Chartjunk-density**: heavy gridlines competing with the data, hero-scaled sparklines, every chart fragmented into its own drop-shadowed card.
 - **Table-type hierarchy**: table captions/intros at `1.2rem+`, headers that compete with body values, whole-cell bold paragraphs, or mono-washed prose. Use the table type roles from [typography.md](typography.md) / [data-viz.md](data-viz.md).
 
+## Consolidate and rank findings
+
+Process the complete working set in this order:
+
+1. Union deterministic and Layer-2 evidence.
+2. Apply resolved-context overrides and aggregate thresholds.
+3. Classify ship-blockers and non-blockers.
+4. Consolidate repeated symptoms by root cause, retaining every confirmed locator under that finding.
+5. Rank consolidated findings by reader impact first, then by reach and repair leverage.
+6. Select the report-wide publishable set: every ship-blocker, followed by at most the 15 highest-ranked actionable non-blockers across warnings and informational patterns.
+
+The cap applies only to the final actionable non-blocker output, never to inspection or the working set. Never pad a short review, and never use the cap to hide a blocker. Use only the publishable set when naming findings in Scope, Verification, heuristic notes, and Summary. If an omitted finding is necessary to justify a verdict or heuristic, include it in the selected 15 and omit a lower-ranked finding instead. When lower-ranked non-blockers are omitted, state their count in the Summary without listing them individually.
+
+Context-suppressed detector results are audit evidence rather than actionable findings and do not consume the 15-finding budget. Consolidate them by rule and suppression reason; state the count and affected scope, using representative locators when the full list would overwhelm the report.
+
 ## Override grid (apply to BOTH layers)
 
-- **Universal law 1**: resolved context overrides any single-rule finding *except* the **absolute-ban rules**. A `slop/system-default-font` hit on a context that declares Inter is a category error; demote. When demoting: don't drop the finding silently. Surface it under the "Context-suppressed" section of the output (see below) so the user sees the chain "detector caught X, context says it's correct, demoted to info." Audit trail matters.
-  - **Absolute-ban rules (NOT brand-suppressible):** every `fossil/*` rule, plus `slop/gradient-text`. These patterns are slop *regardless* of brand. A brand can't whitelist gradient text by declaring it as their identity; the pattern itself disqualifies. If an artifact carrying one of these belongs to a brand that genuinely uses that aesthetic (rare), the brand needs to declare a `skip` entry in `.visualize-detect.json` rather than expect runtime suppression. Same model as pilcrow's "AI fossils" list: match-and-refuse, no exceptions.
-  - **Cross-reference**: the SKILL.md `Absolute bans` block lists the patterns the agent must refuse during *creation* and *Refine* runs (gradient text, side-stripe callouts, triple-feature-cards, hero-metric template, icon-tile section markers, imperative tricolon, sycophant footers). Review's job is to *flag* these post-hoc when they slipped through — every Absolute ban from SKILL.md should be surfaced as `Errors (ship-blockers)` even if the detector doesn't have a rule ID for it.
+- **Universal law 1**: resolved context overrides contextual taste findings, not the non-contextual constraints named in SKILL.md. A `slop/system-default-font` hit on a context that declares Inter is a category error; demote. When demoting, do not drop the evidence silently: account for it under "Context-suppressed," consolidated by rule and suppression reason as described above, so the user sees the chain "detector caught X, context says it's correct, demoted." Audit trail matters.
+  - **Non-context-suppressible detector findings:** every `fossil/*` rule plus `slop/gradient-text` is immune to runtime brand suppression. Only an explicit `skip` entry for that concrete rule ID in `.visualize-detect.json` waives it.
+  - **Layer-2 Absolute bans:** inspect the complete `Absolute bans` block in SKILL.md. Every confirmed match is an `Errors (ship-blockers)` finding and never enters `Context-suppressed`, including icon-tile section markers in an icon-led design system. When an Absolute ban is detector-backed and its exact rule ID is explicitly skipped, do not reintroduce the same fact through Layer 2 or heuristic scoring. Layer-2-only bans have no detector ID and cannot use a detector skip.
 - **Universal law 4**: info-severity rules ship-block in aggregate. Threshold calibration (use these as anchors when deciding):
   - **6 `slop/emoji-heading` across a presentation = pattern.** 1 = taste-call.
   - **≥3 hardcoded hex literals in a file that otherwise uses `var(--*)` = token-discipline pattern.** 1–2 = exception (e.g., favicon data-URL).
@@ -144,6 +170,15 @@ Don't dump NDJSON. Don't free-form. Produce this structure so two different agen
 **Verdict:** <ship / ship-blocked / iterate>. <Sentence summarising the state.>
 **Grade:** <A | B | C | D | F> (from Heuristic scoring below).
 
+## Scope and coverage
+
+| Area or state | Status | Evidence or boundary |
+|---|---|---|
+| Static source and detector | <Reviewed / Not verified / Not applicable> | <file, command, result, or reason> |
+| Desktop render | <…> | <viewport and screenshot/browser evidence> |
+| Mobile render | <…> | <viewport and screenshot/browser evidence> |
+| <Applicable interaction, theme, diagram, or data state> | <…> | <interaction/check or reason> |
+
 ## Errors (ship-blockers)
 - **<rule-id or layer-2 category>** · `<locator>` — <finding>. <Why it matters.> → <fix.>
 - …
@@ -152,10 +187,9 @@ Don't dump NDJSON. Don't free-form. Produce this structure so two different agen
 - **<rule-id>** · `<locator>` — <finding>. → <fix.>
 - …
 
-## Rendered evidence
-- Desktop: <screenshot path or browser viewport inspected>
-- Mobile: <screenshot path or browser viewport inspected>
-- Other states/pages: <if relevant>
+## Verification
+- **Passed:** <exact command or interaction> — <observed result>.
+- **Not verified:** <applicable check> — <why it could not be run>.
 
 ## Info / aggregate patterns
 - <Category aggregate>: <count> findings of <pattern>. <Why this aggregates to a signal.>
@@ -164,7 +198,7 @@ Don't dump NDJSON. Don't free-form. Produce this structure so two different agen
 
 | # | Heuristic | Verdict | Note |
 |---|---|---|---|
-| H1 | Visibility of the claim | <PASS / WARN / FAIL> | <1-sentence justification> |
+| H1 | Visual primacy of central element | <PASS / WARN / FAIL> | <1-sentence justification> |
 | H2 | Match with topic register | <…> | <…> |
 | H3 | Scannability | <…> | <…> |
 | H4 | Information arrival order | <…> | <…> |
@@ -178,13 +212,24 @@ Don't dump NDJSON. Don't free-form. Produce this structure so two different agen
 **Worst heuristic(s):** <H#, H#>. **Recommended next action:** <see Heuristic scoring routing table>.
 
 ## Context-suppressed
-- **<rule-id>** · `<locator>` — detector fired but resolved context <source> declares <reason>. Demoted to info.
+- **<rule-id>** · <count and affected scope; representative locators when needed> — detector fired but resolved context <source> declares <reason>. Demoted from the actionable set.
 
 ## Summary
-<Sentence per category if any non-zero: errors / warnings / info / heuristics.>
+<Sentence per category if any non-zero: errors / warnings / info / heuristics. If the cap omitted consolidated non-blockers, state the count.>
 ```
 
-If a section has no items, omit it entirely (don't render empty headings) — except **Rendered evidence**, **Heuristic scoring**, **Verdict / Grade / Summary**, which are always present. Every heuristic gets a verdict, even PASS. The "Context-suppressed" section is critical when used; silently dropped findings hide the audit trail.
+If a section has no items, omit it entirely (don't render empty headings) — except **Scope and coverage**, **Verification**, **Heuristic scoring**, **Verdict / Grade / Summary**, which are always present. Every heuristic gets a verdict, even PASS. The "Context-suppressed" section is critical when used; silently dropped evidence hides the audit trail.
+
+Derive the verdict after grading, using the first matching condition:
+
+1. **`ship-blocked`** when any blocker remains, regardless of grade.
+2. **`iterate`** when no blocker remains but evidence needed to rule one out is `Not verified`.
+3. **`iterate`** when coverage is complete and Grade C comes only from warn-severity findings.
+4. **`ship`** when coverage is complete, no blocker remains, and the grade is A or B. Grade B ships with recommendations.
+
+Grades D and F, and a Grade C containing an error-severity finding, necessarily resolve through the first condition. Non-blocking recommendations alone do not prevent a Grade A or B artifact from shipping.
+
+Within **Verification**, omit the `Not verified` bullet when every applicable check ran; keep the section and list the checks that passed.
 
 ## Layer-2 finding IDs
 

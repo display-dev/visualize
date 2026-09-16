@@ -18,7 +18,7 @@ For initial exploration, show a compact brief and wait for approval before HTML 
 - target or proposed output and source material;
 - current visual authority and any explicit artifact-only overrides;
 - content, facts, quotations, citations, actions, states, accessibility outcomes, and assets that stay fixed;
-- the open question and structural or visual qualities allowed to vary;
+- the open question, one primary comparison axis for this round, and the structural or visual qualities allowed to vary as consequences of that axis;
 - about three directions unless the user asks for another useful count;
 - wide and fixed 390 px review contexts; and
 - imagery as `none`, `optional`, `supplied`, or `essential`.
@@ -31,46 +31,21 @@ When generated imagery is approved, read `image-generation.md`, use one released
 
 ## 3. Define the spread
 
-Before construction, name each direction's design bet, what it changes, what stays fixed, and its 390 px behavior. Judge meaningful difference against the open question: structural alternatives must differ structurally; palette or type alternatives may use the same layout. A reference name is an input, not evidence of a meaningful difference on this artifact.
+Choose one primary axis for the round, such as hierarchy, density, reading order, grouping, navigation, palette, or typography. Give every direction a different named position on that axis. Secondary choices may follow when they make the position coherent, but do not vary independently: changing every dimension at once produces attractive but unattributable results, while cosmetic-only alternatives teach nothing about a structural question.
+
+Before construction, name each direction, its axis position, design bet, when it is the right choice, its cost, what it changes, what stays fixed, and its 390 px behavior. Judge meaningful difference against the open question: structural alternatives must differ structurally; palette or type alternatives may use the same layout. A reference name is an input, not evidence of a meaningful difference on this artifact. If two proposed directions occupy the same position or differ only in labels, tint, or incidental decoration, merge them or replace one before writing code.
 
 Keep product truth, facts, actions, accessibility outcomes, and every non-open dimension fixed. Depending on the brief, vary reading order, hierarchy, density, grouping, navigation, responsive composition, palette, typography, surfaces, or component treatment. Use the shared color and typography references when exploring those dimensions, not a mandatory sequence of exploration stages.
 
-### Optional subagents
+## 4. Build and verify one review artifact
 
-When host-native subagents are callable and permitted, the active agent may assign one direction to each fresh-context subagent. Give every subagent the same approved brief and inputs, one direction's scope, and one temporary exclusive output path. Do not show it another direction. Shared imagery is already resolved.
+Read and follow [the shared comparison harness](explore-comparison-harness.md). It owns isolated builders, one-file construction, review controls and state, candidate isolation, rendered checks, and the mode-neutral convergence test. Artifact Explore still owns the single-axis spread and the decision that follows.
 
-Subagent outputs are disposable construction inputs, not a package. The active agent remains coordinator and assembles the final HTML. When subagents are unavailable, create isolated serial passes without reducing the approved direction count.
+For this mode, exercise every direction at the approved wide and 390 px contexts in light and dark; verify the OS-dark path and explicit theme overrides too. The artifact brief determines any additional interaction states. A direction must preserve binding project choices plus approved artifact overrides and differ meaningfully on its named axis.
 
-## 4. Build one review artifact
+## 5. Present and stop
 
-Write one self-contained HTML file. Follow the proven prototype harness behavior:
-
-- Put clearly labeled review controls outside the candidate surface.
-- Mount every direction in the same DOM under its own stable root, such as `[data-direction="briefing-rail"]`.
-- Scope each direction's CSS and resolved light/dark tokens to its root; reference package `:root` rules must not leak into other candidates. Keep harness styles and genuinely shared tokens coordinator-owned.
-- Prefix IDs and their `for`, `aria-*`, and fragment references by direction. Keep behavior coordinator-owned or scoped to the direction root so hidden candidates cannot capture another direction's interaction.
-- After enhancement, show one direction at a time and expose selection with `aria-pressed`. Without JavaScript, leave every labeled direction readable in source order.
-- Switch `Wide` and `Phone` by changing the review frame's width only. Phone is 390 CSS pixels. Never assign a fixed candidate height: the frame grows with the full document and the outer page scrolls normally.
-- Store direction and viewport state in the query string. Copy state and reset must reproduce the visible review state.
-- Keep proposed destination actions inert in review mode and make their review-only behavior clear. Preserve real destinations in the source brief for later apply.
-- Inline approved assets. Do not depend on sibling HTML, JSON, stylesheet, image, manifest, evidence, or selection files.
-
-The review artifact must be publishable as one ordinary display.dev HTML artifact. Do not use candidate iframes or a directory-backed package.
-
-## 5. Verify and stop
-
-Exercise every direction at wide and 390 px. Check:
-
-- all fixed content, actions, states, and approved assets are represented consistently;
-- the directions answer the open question and honor binding project choices plus approved artifact overrides;
-- full documents are visible through ordinary page scrolling;
-- review controls remain separate and usable;
-- no unexpected console error or horizontal overflow occurs; and
-- `detect.mjs` finds no unaddressed blocker in the final HTML.
-
-Render every direction in the approved wide and 390 px contexts, in light and dark; verify the OS-dark path and explicit theme overrides too. Capture and inspect screenshots or contact sheets sufficient to judge hierarchy, reading order, clipping, and the stated tradeoffs. Keep this evidence disposable and separate from runtime dependencies. If rendered inspection cannot be completed, report the comparison as unverified rather than recommending a winner.
-
-Present each direction's design bet and main trade-off, then stop for user input. The user may select, shortlist, reject all and revise the brief, or request a named synthesis. Synthesis is another round with its own selection stop.
+Present each surviving direction as `Direction / Axis position / Right when / Cost` and stop for user input. Do not mark a favorite unless the user asks. The user may select, shortlist, reject all and revise the brief, or request a named synthesis. Synthesis is another Artifact Explore round with its own primary axis and selection stop.
 
 Record the selected direction and its rationale alongside the brief. If later feedback invalidates that choice, preserve the earlier rationale and state what changed before proposing another round.
 

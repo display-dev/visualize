@@ -1,6 +1,6 @@
 ---
 name: visualize
-version: 0.6.0
+version: 0.7.0
 license: MIT
 user-invocable: true
 argument-hint: "[teach | explore | simplify | bolder | quieter | animate | polish | review | publish] [<topic-or-path>]"
@@ -114,7 +114,7 @@ For `animate` specifically: when the brand declares `motion: none`, a fifth vari
 
 ## Absolute bans
 
-Match-and-refuse. Apply on every command and the default creation flow. These ban specific patterns — not aesthetics, not registers. A brand can declare a font, a hue, or a layout that looks unusual; it cannot redeem any of these patterns by declaring them as identity. If the artifact carrying one of these belongs to a brand that genuinely lives in that aesthetic (rare), the brand has to declare a `.visualize-detect.json` skip — never expect runtime suppression.
+Match-and-refuse. Apply on every command and the default creation flow. These ban specific patterns — not aesthetics, not registers. A brand can declare a font, a hue, or a layout that looks unusual; it cannot redeem any of these patterns by declaring them as identity. An explicit `.visualize-detect.json` skip can waive only a detector-backed ban with a concrete rule ID; it is project policy, not runtime brand suppression, and cannot waive a Layer-2 ban.
 
 ```
 BAN 1 — Gradient text on metrics or headings
@@ -185,6 +185,8 @@ These are not brand aesthetics; they are observed model reflexes with required c
 
 **Table guard:** tables are reading instruments, not hero sections. Keep caption, header, body, row-key, and numeric roles distinct; scope monospace to fixed-width values. Read `patterns/table.md` when the artifact carries dense comparison or evidence.
 
+**Interactive-state route:** when creation includes functional controls or changes state in place, read `patterns/interactive-states.md`.
+
 ## AI slop test (two altitudes)
 
 Run both. The second catches what the first misses.
@@ -196,6 +198,8 @@ Run both. The second catches what the first misses.
 ## Brand profile
 
 Every render reads available `DESIGN.md` (visual identity + design tokens) and `PRODUCT.md` (voice, audience, tone) at the project root. `teach` derives custom design tokens for the brand and writes them in `DESIGN.md` as YAML frontmatter (the Google Stitch canonical format: machine-readable tokens) plus a six-section markdown body (Overview / Colors / Typography / Elevation / Components / Do's and Don'ts), with a sidecar `tokens.css` at the project root carrying the CSS-form tokens templates read at render time. Project profiles retain concrete tokens, not a `theme: <name>` pointer.
+
+Brand authority is identity-scoped. If the request fixes a named identity but the resolved project profile clearly belongs to another product, do not substitute, relabel, or approximate it. Stop before the shape gate or any artifact edit and request matching authority or explicit permission for an artifact-only override.
 
 The design systems under `design-systems/` are reference packages with design guidance, tokens, and previews. `teach` and System Explore read them when deriving project identities; artifact creation and exploration can use them as themes under the shared contract below.
 
@@ -219,12 +223,12 @@ For project-wide capture or direct derivation, use `teach`. To compare new or ex
 
 ## Universal laws
 
-Apply on every command, every template, every prompt. These override any single-rule finding:
+Apply on every command, every template, every prompt. These override contextual taste findings, not non-contextual correctness constraints:
 
-1. **Resolved context and voice trump rule.** A detector finding that contradicts the resolved context is a category error. Permission to refine an artifact does not authorize changes to the project's brand profile or shared token source. Propose necessary changes to those authorities separately unless the user has already authorized them.
+1. **Resolved context and voice trump contextual taste rules.** A finding that merely conflicts with the approved register is a category error. Context cannot suppress an unskipped Absolute ban, an artifact fossil or placeholder, an accessibility requirement, or an honesty/data-truth failure. Permission to refine an artifact does not authorize changes to the project's brand profile or shared token source. Propose necessary changes to those authorities separately unless the user has already authorized them.
 2. **Commands interpret, not regenerate.** Iteration commands return a targeted diff, not a fresh draft. If the diff is >40% of the artifact, the command has misfired.
 3. **Ship-blockers and taste-calls are different.** A11y and contrast must be fixed; taste-calls are negotiable.
-4. **Severity follows context, including aggregate.** An `info` rule can ship-block in aggregate; an `error` rule can be a taste-call if the brand whitelists it.
+4. **Severity follows context, including aggregate.** An `info` rule can ship-block in aggregate; an `error` rule can be a taste-call only when it is context-sensitive and the brand whitelists it. The non-contextual constraints in law 1 do not demote.
 5. **Don't strip-mine into invisibility.** After a command runs, the artifact should still feel anchored to the resolved context.
 6. **The reader is the judge.** Every finding maps to: does this make the reader's job harder, or just satisfy a rule?
 7. **Detector output is defect-evidence, never done-evidence.** A clean `detect.mjs` result is not proof the artifact is strong — it's proof the mechanical floor passes. The detector catches what regex can identify; verb work covers everything else. Don't declare done on a clean detector reading.
