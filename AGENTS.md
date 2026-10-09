@@ -28,7 +28,7 @@ Every constraint the skill imposes must answer: *what bad output would result wi
 
 ## Universal laws (override single rules)
 
-1. Brand and voice trump rule.
+1. Brand and voice trump contextual taste rules; correctness constraints and explicit Absolute bans remain carve-outs.
 2. Verbs interpret, not regenerate.
 3. Ship-blockers and taste-calls are different.
 4. Severity follows context, including aggregate.
