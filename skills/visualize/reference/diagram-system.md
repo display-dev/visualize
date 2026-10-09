@@ -13,6 +13,8 @@ Use for components, connections, data movement, tiers, trust boundaries, and nes
 
 Connect edges to components, never to an abstract group label. A component should not appear as an unexplained orphan. Keep group headers clear of contained nodes and use containment instead of edges when containment alone carries the meaning. Route secondary or return paths with lower emphasis without disguising their direction.
 
+Separate views connected to shared state can show two view silhouettes within one computer boundary, both connected to a common state component. The views and retained state have different roles; drawing them as equivalent boxes hides that distinction.
+
 ## Budget and mobile
 
 Target at most nine components, twelve relationships, and three top-level boundaries; nested containment should remain at five visible levels or fewer. Split by reader question, not by arbitrary technology tier. On mobile, preserve boundary membership and the primary path by stacking whole groups in flow order, using an overview plus detail figures, or drawing a separate narrow topology.

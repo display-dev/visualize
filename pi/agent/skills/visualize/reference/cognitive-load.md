@@ -23,7 +23,7 @@ Decision time scales logarithmically with the number of choices: `T = a + b·log
 
 Apply ruthlessly:
 
-- **CTAs per section**: ONE primary action. Secondaries demoted to tertiary or removed.
+- **CTAs on surfaces asking the reader to act**: one primary action; demote secondaries. An explanatory report does not need a CTA merely to satisfy this rule. Depicted UI follows [interface-illustration.md](interface-illustration.md).
 - **Theme toggle**: smart-default via `prefers-color-scheme`; skip the per-artifact toggle unless the brand profile asks for one (see [simplify.md](simplify.md) navigation density).
 - **Navigation surfaces**: ONE per artifact (inline TOC, OR sticky sidebar, OR breadcrumb — not all three).
 - **Filter chips on a dashboard**: ≤6 visible; the rest behind "more filters" disclosure.
@@ -40,10 +40,10 @@ A 12-stage rollout has 12 stages. Stripping it to 4 stages to "reduce cognitive 
 Distinct from Hick's law. Hick's measures how long each decision takes; decision fatigue measures how decision quality degrades across a sequence of decisions. The artifact reduces decision fatigue by removing decisions the reader doesn't need to make.
 
 - **Default everything.** Every toggle, dropdown, and configurable surface ships with the right answer pre-picked. The reader changes only what doesn't fit.
-- **One primary action *identity* per artifact** — the same CTA may repeat (hero band + closing band) when both restate the same commitment.
-- **One primary *decision* per section or viewport** — no section asks the reader to pick between two equal-weight actions.
-- **Settings surfaces deferred to admin chrome**, clustered at the end of the artifact (or on a separate page entirely). Settings competing with content for attention burns decision-budget on configuration choices the reader didn't come to make.
-- **Executive-mode vs analyst-mode**: the same artifact serves both registers if the executive-mode signals (headline claim, top-line numbers, primary CTA) are at the top and the analyst-mode depth (methodology, raw data, edge cases) is below. Don't make the executive reader scroll to the answer.
+- **For artifacts asking the reader to act, one primary action *identity*** — the same CTA may repeat (hero band + closing band) when both restate the same commitment.
+- **For action surfaces, one primary *decision* per section or viewport** — no section asks the reader to pick between two equal-weight actions.
+- **Settings appear in the relevant context**, with administration deferred until needed. Settings competing with the main task burn decision-budget on configuration choices the reader did not come to make; placing every setting at the end is not a universal solution.
+- **Executive-mode vs analyst-mode**: the same artifact serves both registers if the executive-mode signals (headline claim and supplied top-line numbers; a primary CTA only when action is the reader task) are at the top and the analyst-mode depth (methodology, raw data, edge cases) is below. Don't make the executive reader scroll to the answer.
 
 ## Jakob's law — pattern familiarity
 
@@ -53,13 +53,13 @@ Brand can declare a distinctive register (terminal-native, editorial side-margin
 
 ## Progressive disclosure
 
-Hide complexity behind clear entry points. Reveal more when the reader asks.
+Layer the immediate answer, supporting explanation, and full account according to the reader's task, with clear entry points when detail is disclosed. Do not hide information that changes the conclusion, scope, permissions, evidence strength, or available action. Apply SKILL.md's preservation scope; moving detail out of the primary path does not authorize deleting it.
 
-- **TL;DR + body** for long-form prose: the reader picks how deep to go. Don't make every reader read every paragraph to extract the claim.
-- **Expandable rows** on dense tables: 12 columns by default, the rest revealed on row expand.
-- **Footnote chrome** on editorial registers: keep citations in footnotes / sidenotes so they don't break the body's reading flow.
-- **Inline code on prose; full code on demand**: short snippets inline (`<code>fn()</code>`), longer blocks behind a heading or in a separate file the artifact links to.
-- **Show, then explain**: render the diagram / dashboard / report first; explain the methodology below or in a separate section. Reader sees the result before they pay the cost of understanding how it was produced.
+- **Lead answer + supporting body** lets readers choose depth where a summary fits the approved pacing; it is not a mandatory opening for narrative or tutorial sequences.
+- **Expandable comparison detail** can hold supplementary conditions or raw evidence. Choose visible columns from the comparison question, not a fixed column count; interpretation-changing conditions remain visible.
+- **Footnotes / sidenotes** can carry provenance without interrupting prose, while evidence limitations stay beside the claim they qualify.
+- **Inline code; full code on demand** keeps short snippets recognizable and longer blocks behind a clear heading or accessible link.
+- **Show, then explain** when seeing the result helps understand the method; retain the source's required argument order when the result needs that context first.
 
 **Modern affordances** (Baseline gating matters):
 
@@ -103,15 +103,11 @@ The order in which information appears should match the order the reader needs i
 
 ## Cognitive offloading
 
-Move cost off the reader's working memory and onto the artifact. Recognition-over-recall (NN/g usability heuristic #6) means: don't ask the reader to hold values across screens or sections; surface what they need where they need it.
+Make the important distinction recognizable before asking the reader to read its explanation. This section owns recognition guidance; prose shape belongs in [copy.md](copy.md), and quantitative encodings in [data-viz.md](data-viz.md).
 
-- **Direct labels on data marks** beat legend lookups (per [data-viz.md](data-viz.md)). One eye-jump saved per data point.
-- **Inline definitions** for terms the reader might not know, instead of a glossary at the end. A `<dfn>` tag or a parenthetical on first use saves a flip-back.
-- **Sticky context** on long scrolling artifacts: a sticky h2 or section indicator at the top so the reader doesn't have to remember which section they're in.
-- **Annotations on the data, not in captions** (per [data-viz.md](data-viz.md)). The story renders next to the spike; the reader doesn't have to round-trip to a footnote.
-- **Numbers in the prose, not in stats below the prose**: "The migration moved 50M rows in 12 minutes" carries the data inline; a separate stats row asks the reader to re-integrate.
-- **Cross-reference shorthand**: define inline, refer by name later. "Hot path (the request lifecycle from accept to response)" once, then "hot path" throughout — beats sending the reader back to find the definition.
-- **Avoid mental-math triggers**: "up 22%" beats "up from 1820 to 2220." The reader's eye reads the percent change directly; the absolute numbers ask them to subtract and divide. State the comparison the reader needs, not the raw inputs to compute it.
+- **Recognize the object.** Labelled icons, recognizable objects, or distinct forms can help identify recurring actors, resources, actions, and states. Prefer the brand's existing vocabulary; keep equivalent entities consistent and the same object recognizable across views. Choose coherent cues for the audience and content, not a fixed icon vocabulary or an icon for every heading. Labels carry meaning alongside color and form; decorative glyphs should not create redundant accessible announcements.
+- **Understand the relationship.** Use attachment, containment, position, and connections to show what belongs together or changes. A comment attached to a document and two screens connected to one computer state store communicate different relationships; these are examples, not mandatory shapes. Variety without meaning adds decoding work.
+- **Find the explanation locally.** Put direct labels and annotations beside the data or object they explain, define unfamiliar terms at first use, and reuse those names. Keep relevant values in the sentence making the claim. State the comparison the reader needs rather than making them compute it; for example, include the percentage change alongside absolute values when it matters. On long artifacts, retain useful context without multiplying sticky chrome.
 
 ## Failure modes the agent reaches for
 
@@ -126,6 +122,6 @@ Move cost off the reader's working memory and onto the artifact. Recognition-ove
 - **The "everything is bold" hierarchy.** When every section header is 700-weight 28px, nothing is primary. Use weight + size + space together to carry hierarchy; not weight alone.
 - **Claim outside the F-pattern scan path.** Long-form prose with the key claim buried mid-paragraph. F-shaped scanning is what readers default to when formatting is weak — they sample left-edge first-words and miss whatever isn't there. Surface the claim through scan-visible structure (lead-in sentence, bold span, sub-heading); see [copy.md](copy.md) for the prose-shape side.
 - **CTA outside the Z-pattern landing zone.** A landing-style artifact with the primary CTA at the top-left. The reader's eye finishes its Z at the bottom-right; that's where the CTA earns its place.
-- **Hidden disclosure.** Critical information behind an expand-row, accordion, or tooltip. Disclosure is for context-on-demand, not for hiding what the reader needs to make a decision.
+- **Hidden disclosure.** Apply the Progressive disclosure boundary above; supplementary depth must not conceal interpretation-changing information.
 - **Configurability over defaults.** Every setting surfaced because "the reader knows best." Default everything to the right answer; expose settings only when the right answer genuinely varies per reader.
 - **Pattern reinvention.** A novel table that isn't sortable; a chart with a custom legend that requires onboarding; a nav with a novel interaction. Jakob's law applies — the cost of "wait, how does this work" is paid once per reader and never recovers.

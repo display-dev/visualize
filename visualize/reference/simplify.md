@@ -42,7 +42,7 @@ State which strategy is primary (and which are secondary, if any) in the run sum
 
 - Drop shadows on cards that already have borders → keep one or the other.
 - Background gradients that compete with content without carrying identity or meaning → flat color.
-- Per-heading icon tiles → just the heading. (Also a hard Ban — see SKILL.md BAN 5.)
+- Ornamental or redundant icon tiles → remove the marker. Preserve cues that identify meaningful distinctions, following [Cognitive offloading](cognitive-load.md#cognitive-offloading). (See SKILL.md BAN 5.)
 - Stat tiles around a single number when the artifact isn't a dashboard → inline the number in body prose.
 - Decorative borders on every section → only where the section break needs visual separation.
 - "Why us" / "Features" / "Benefits" triple-card grids → asymmetric content or removed entirely. (Also BAN 3.)
@@ -102,7 +102,7 @@ Cut decision-points the reader doesn't need (Hick's law — see [cognitive-load.
 
 ## Per-template-category notes
 
-- **Long-form prose** (`whitepaper`, `report`, `case-study`, `research-brief`): simplify is mostly copy cuts (restated headings, hedging wrappers) and chrome cuts (per-heading icons, decorative borders). Don't cut footnote chrome on editorial registers — that *is* the register.
+- **Long-form prose** (`whitepaper`, `report`, `case-study`, `research-brief`): simplify is mostly copy cuts (restated headings, hedging wrappers) and chrome cuts (ornamental or redundant icons, decorative borders). Don't cut footnote chrome on editorial registers — that *is* the register.
 - **Dashboard** (`dashboard`, `data-explorer`, `status-page`): the highest-yield cut is duplicate KPI tiles. If three tiles show the same metric in three ways, keep one. Don't cut data density itself — compact is the right register.
 - **Pitch deck** (`pitch-deck`, `slide-deck`): cut decorative chrome on every slide (icon tiles, gradients, decorative borders). Don't cut hero moments — a pitch deck has 2–3 slides that *should* be theatrical.
 

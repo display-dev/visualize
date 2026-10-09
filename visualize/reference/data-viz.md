@@ -66,7 +66,7 @@ A data table is a dense reading surface, so its typography has to carry scan ord
 
 - **Caption / intro:** `0.8125rem`-`0.9375rem`, muted, line-height `1.4`-`1.5`, padded or spaced clearly from the grid. The caption identifies what the table contains, the source, or the caveat. If the sentence is the main argument, place it as prose before the table instead of inside the table frame.
 - **Column headers:** `0.6875rem`-`0.8125rem`, 500-600 weight, uppercase only with `0.04em`-`0.08em` tracking. Header labels should be crisp, not loud.
-- **Body cells:** `0.875rem`-`1rem`, regular weight, line-height `1.45`-`1.55`. Let padding and rules create row rhythm; don't use display-size text to compensate for weak layout.
+- **Body cells:** `0.875rem`-`1rem`, with emphasis governed by [Table typography](typography.md#table-typography), line-height `1.45`-`1.55`. Let padding and rules create row rhythm; don't use display-size text to compensate for weak layout.
 - **Row keys:** first-column labels may be 500-600 weight. Bold only the key phrase, not a paragraph-length explanation.
 - **Numeric / code columns:** use mono plus `tabular-nums` for values that benefit from alignment. Keep prose columns in the text face.
 - **De-emphasis:** use muted foreground and smaller type for notes, sources, and secondary values. Do not rely on opacity that falls below contrast requirements.
@@ -92,5 +92,5 @@ Default to a horizontal rectangle, ~1.5:1 wider than tall. The eye is trained on
 - **Sparkline scaled to fill a hero block.** A sparkline is word-sized by definition. If it needs to be hero-sized, it's a line chart with axes.
 - **Heavy gridlines competing with the data.** Mute (`oklch(0.9 0.003 85)` light / `oklch(0.25 0.003 85)` dark, or rely on `--border-weak`) or remove entirely.
 - **Large prose embedded above a table.** A table caption or intro at `1.2rem+` inside a bordered frame looks like unpadded body copy, not table chrome. Move the prose out or shrink it to caption scale.
-- **Table body set like display copy.** Oversized cells, bold paragraphs, and mono-washed prose make the table harder to scan. Keep body cells regular and compact; reserve emphasis for row labels, totals, states, and focal columns.
+- **Table body set like display copy.** Oversized cells, bold paragraphs, and mono-washed prose make the table harder to scan. Keep cells compact and apply [Table typography](typography.md#table-typography), including short answer leads with regular supporting text.
 - **Tufte aesthetic on a non-editorial topic.** Cream + serif + side-margin annotation captions on a dev-product dashboard reads as costume. Take the principles; leave the look.

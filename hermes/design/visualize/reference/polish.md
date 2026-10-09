@@ -30,7 +30,7 @@ State the root-cause class for each finding in the run summary (`Typography: mis
 
 Nine dimensions, plus a tenth — **data graphics** — when the artifact contains a chart, sparkline, KPI tile, or data table. Check the mechanical floor first, then assess quality. Report findings per dimension even when the count is zero, so the user sees you walked the dimension instead of skipping it. The data-graphics dimension is content-gated: when the artifact has no data graphics, write `Data graphics: not applicable` rather than omitting it — the user reads the explicit gate as "agent looked and decided."
 
-- **Visual point of view:** Does the artifact have a memorable composition choice tied to the content, or is it only clean typography? Did the signature move survive? Does the first viewport make a visual argument?
+- **Visual point of view:** Apply the [Specificity and comprehension pass](create.md#specificity-and-comprehension-pass): inspect the opening and substantial explanations for scan-visible distinctions grounded in source, brand, and task. Does the approved reading choice survive within its intended pacing? For interface depictions, conditionally load [interface-illustration.md](interface-illustration.md) and assess fidelity using its shared contract. Familiar composition can pass; revise demonstrated deficiencies within SKILL.md's scope.
 
 **Before walking**: skim the **Per-template-category notes** section below — some templates shift the weighting (a diagram skips body-text typography rules; a dashboard prioritizes spatial + edge-data over typography; a slide deck prioritizes typography + motion). Apply the weighting; don't blindly run the same procedure on every template.
 
@@ -50,9 +50,9 @@ Consult [typography.md](typography.md) for the deeper material.
 - Heading hierarchy actually descends (h1 > h2 > h3 visual weight)? Or do h2s match h1s in practice?
 - Mono only on code / identifiers / timestamps? Not on body prose as "tech aesthetic."
 - Display-text optical sizing honoured when the brand carries both grades?
-- Table typography uses distinct roles? Captions/intro notes at `0.8125rem`-`0.9375rem` muted, headers `0.6875rem`-`0.8125rem` labels, body cells `0.875rem`-`1rem` regular, row keys at most semibold.
+- Table typography uses distinct roles? Captions/intro notes at `0.8125rem`-`0.9375rem` muted, headers `0.6875rem`-`0.8125rem` labels, body cells follow [Table typography](typography.md#table-typography), row keys at most semibold.
 - Any table lede/caption sentence at `1.2rem+`, especially inside a bordered table wrapper? Move it outside as prose or shrink it to caption/source-note scale with proper inset.
-- Bold used only for row keys, totals, states, or focal values? Whole table paragraphs in bold are a hierarchy bug.
+- Cell emphasis follows [Table typography](typography.md#table-typography), including short answer leads? Whole table paragraphs in bold are a hierarchy bug.
 
 ### 2. Color & contrast
 Consult [color.md](color.md) for the deeper material.
@@ -83,6 +83,7 @@ Consult [motion.md](motion.md) for the deeper material.
 ### 5. Copy
 Consult [copy.md](copy.md) for the deeper material.
 
+- Depicted UI copy and controls communicate the intended state using [interface-illustration.md](interface-illustration.md)? Static depictions are not interactive controls; apply keyboard, focus, hover, and target-size checks to simulations and real artifact controls.
 - Subject-verb-object, active voice, present tense? No "It is worth noting that…" wrappers.
 - Resolved voice/context actually applied? `technical` shouldn't drift to `pragmatic`; `analytical` shouldn't drift to `opinionated`.
 - Same noun used for the same concept paragraph-to-paragraph? Not "session token" / "auth token" / "credential" / "cookie" alternating.
@@ -135,7 +136,7 @@ Skip explicitly when the artifact contains no chart, sparkline, KPI tile, or dat
 - Sparklines word-sized, not hero-scaled? Direct labels on data marks over legends when ≤5 series?
 - Chart colors support the intended comparison and preserve meaningful category mappings?
 - Layering reads at squint distance: primary data dominates, grids/references recede?
-- Table typography reads as a table, not a poster? Captions are small and attached, headers are label-sized, body cells are regular, and mono is scoped to fixed-width values.
+- Table typography reads as a table, not a poster? Captions are small and attached, headers are label-sized, body-cell emphasis follows [Table typography](typography.md#table-typography), and mono is scoped to fixed-width values.
 
 ## Per-template-category notes
 

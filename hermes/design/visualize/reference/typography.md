@@ -46,7 +46,7 @@ Tables need tighter roles than prose because the reader scans across rows and do
 
 - **Table caption / intro:** `0.8125rem`-`0.9375rem`, line-height `1.4`-`1.5`, muted foreground, 8-12px spacing from the table. If the sentence is the argument, make it a normal paragraph before the table; the caption should only identify the table or its source.
 - **Header row:** `0.6875rem`-`0.8125rem`, 500-600 weight, uppercase only with `0.04em`-`0.08em` tracking. Headers recede enough that body values win.
-- **Body cells:** `0.875rem`-`1rem`, regular weight, line-height `1.45`-`1.55`. Use `font-variant-numeric: tabular-nums` on numeric tables.
+- **Body cells:** `0.875rem`-`1rem`, regular weight, line-height `1.45`-`1.55`. A short lead phrase carrying the cell's answer may be emphasized; supporting text remains regular. Do not bold whole explanatory cells. Row labels, totals, states, and focal values retain their legitimate emphasis roles. Use `font-variant-numeric: tabular-nums` on numeric tables.
 - **Row labels:** first column may be semibold (500-600) when it is a row key. Do not bold full sentence cells or every first-column paragraph.
 - **Mono cells:** IDs, paths, code, timestamps, and aligned numeric columns only. A whole table in mono reads as costume unless the artifact is a terminal log.
 

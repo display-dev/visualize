@@ -39,7 +39,7 @@ Pick from the brand's declared `voice`, not from a generic "professional" defaul
 
 ## Headings and titles
 
-Heading hierarchy mirrors information hierarchy. Don't skip levels (H2 → H4 with no H3 confuses scan order); don't decorate (no leading icons, no trailing colons, no parenthetical descriptors).
+Heading text carries the information hierarchy; don't skip levels (H2 → H4 with no H3 confuses scan order). Recognition cues follow [Cognitive offloading](cognitive-load.md#cognitive-offloading). Avoid decorative trailing colons and parenthetical descriptors.
 
 - **Sentence case for body headings; preserve proper nouns and product names.** "OAuth 2.0 flow", "Stripe webhook payload" — capitalize the proper noun, leave the rest lowercase.
 - **Each heading carries the gist of its section.** "Migration moved 50M rows in 4h12m" beats "Migration results"; "OAuth flow drops a session cookie at `/auth/callback`" beats "OAuth flow."
@@ -53,6 +53,7 @@ Readers scan before they read. Prose shape determines whether the scan finds the
 - **Front-loaded claims.** Lead the paragraph with the noun + verb that carry the point; supporting detail follows.
 - **Bullets vs numbered lists.** Bullets when order doesn't matter; numbered when steps depend on each other. Keep parallel structure across items — every item starts with the same part of speech.
 - **Don't bullet what should be prose.** Three connected sentences are clearer than three disconnected fragments. Bullets that read as fragments of one paragraph belong as a paragraph.
+- **Consolidate repeated explanations within the authorized scope.** Keep repetition when it serves a different reader need. A closing synthesis connects findings rather than reproducing every preceding explanation; preserve required source content and interpretation-changing qualifications.
 
 See [cognitive-load.md](cognitive-load.md) for the F-pattern / Z-pattern scan-path mechanics; this section owns the prose-shape side of scannability.
 
@@ -73,7 +74,7 @@ The text that travels with a visual carries half the visual's information.
 - **Chart titles are claims, not topics.** "Latency p99 doubled after the migration" beats "Latency over time."
 - **Axis labels carry units** ("Response time (ms)" beats "Response time").
 - **Table column headers parallel in structure.** Either all noun phrases or all verb phrases, not a mix.
-- **Captions earn their place by saying what the visual can't** — source, methodology, sample size, caveats. "Source: prod replica `db-east-1`, 2026-05-22; p99 only, errors excluded" earns its line; "A chart showing latency over time" doesn't. Narrative-on-data ("drop at 14:32 coincides with the deploy") goes on the chart annotation, not in the caption (see [data-viz.md](data-viz.md)).
+- **Captions earn their place by saying what the visual can't** — source, methodology, sample size, caveats. "Source: prod replica `db-east-1`, 2026-05-22; p99 only, errors excluded" earns its line; "A chart showing latency over time" doesn't. Narrative-on-data ("drop at 14:32 coincides with the deploy") goes on the chart annotation, not in the caption (see [data-viz.md](data-viz.md)). Remove captions that merely narrate the drawing or explain its styling; describe an otherwise unclear relationship when needed for understanding or a text alternative.
 
 See [data-viz.md](data-viz.md) for chart-annotation *placement*; this section owns the *words*.
 
@@ -97,7 +98,7 @@ Apply only when the artifact carries interactive surfaces — most static report
 ## CTA and link copy
 
 - **Verb-first link text for action links.** "Download report" beats "Click here"; "Read the spec" beats "See more."
-- **One primary CTA per section / viewport.** Multiple primary-styled buttons compete; the visual hierarchy collapses. See [cognitive-load.md](cognitive-load.md) for the decision-architecture side of CTA discipline.
+- **On surfaces asking the reader to act, one primary CTA per section / viewport.** Multiple primary-styled buttons compete; explanatory content need not invent an action. See [cognitive-load.md](cognitive-load.md) for decision architecture; depicted UI follows [interface-illustration.md](interface-illustration.md).
 - **Link text reads as a self-contained action or resource out of context.** A reader skimming or a screen reader pulling out all the links should see "Download report", "Read the spec", "Open the dashboard", or — for resource links — "Migration plan v3", "Stripe webhook docs". Never "here", "this", "more info."
 
 ## Failure modes the agent reaches for

@@ -48,7 +48,7 @@ When the artifact contains `figure[data-visualize-diagram]`, read [diagram.md](d
 node $SKILL_DIR/scripts/browser-diagram.mjs --json <path-to-artifact.html>
 ```
 
-Union its structured `diagram/*` findings with Layers 1 and 1b. Inspect the required desktop and mobile screenshots and judge what the checkers cannot: whether the principal topology, direction, boundaries, connector meaning, branches or loops, and mobile transformation remain recoverable from the figure. Cite the viewport evidence. `review` remains read-only: report repair direction, but make no change and do not silently route to a mutation verb. If the user later requests a repair, use creation or the Refine command whose mutation contract fits it.
+Union its structured `diagram/*` findings with Layers 1 and 1b. Inspect the required desktop and mobile screenshots and judge what the checkers cannot: whether the principal topology, direction, boundaries, connector meaning, branches or loops, meaningfully different entity kinds, and mobile transformation remain recoverable from the figure. Route a scan-visible comprehension deficiency to the existing H3 finding rather than duplicating it. Cite the viewport evidence. `review` remains read-only: report repair direction, but make no change and do not silently route to a mutation verb. If the user later requests a repair, use creation or the Refine command whose mutation contract fits it.
 
 ## Rendered screenshot gate
 
@@ -86,7 +86,7 @@ Things detect.mjs deliberately doesn't try to catch: register-dependence, vocab-
 **Brand- and register-dependent slop** (mechanical detector would false-positive). When deciding these calls, consult [color.md](color.md) / [typography.md](typography.md) / [spatial.md](spatial.md) / [copy.md](copy.md) for the deeper material:
 
 - **Color fit**: do palette character, relationships, and coverage support the brief and approved identity? Name the rendered mismatch; hue names alone are not a finding.
-- **Icon-tile-stack**: every section heading has a rounded-square icon above it. Genuine AI section-marker tell, or is this a deliberate icon-led design system?
+- **Icon-tile-stack**: apply SKILL.md BAN 5 to repetitive ornamental markers. Judge cues in the resolved brand and register: does each identify a meaningful content distinction, or merely add chrome? A circular or tiled treatment alone is not a ban hit; do not flag useful recognition cues as ornamental tiles.
 - **Center-everything**: body prose centered, section after section. False positive for Bauhaus / Swiss-poster / academic preprint registers; real signal for AI-essay register.
 - **Uppercase body**: long all-caps passages. False positive for brutalist / letterpress / show-bill registers; real signal otherwise. Acronyms (HTML / POST / REST / WCAG) don't count.
 
@@ -103,6 +103,8 @@ Things detect.mjs deliberately doesn't try to catch: register-dependence, vocab-
 - **Table typography imbalance**: table caption or intro sentence uses lede/display scale, headers are not label-sized, body cells are oversized or bolded as paragraphs, or monospace is applied to prose columns. Tables need separate caption/header/body/value roles.
 
 **Semantic-structure calls** (read the actual HTML):
+
+- **Interface fidelity** (when UI is depicted): conditionally load [interface-illustration.md](interface-illustration.md). Assess the specific state, actor, attention, next action, and optionality against that contract. Route scan-visible comprehension deficiencies to H3; assess static alternatives and simulation behavior under existing accessibility rules, without making fake controls interactive.
 
 - **Landmarks**: does the artifact use `<main>`, `<header>`, `<footer>`, `<nav>` appropriately? A `<div>`-soup with no semantic landmarks is wrong-shape for a publishable artifact.
 - **Heading-slot register**: each `<h*>` should carry content appropriate to its level + element. Greetings, calls-to-action, or marketing tags in `<h2>` ("Welcome John Doe", "Get started today") are usually wrong-element calls; the right shape is body prose or a CTA button.
@@ -125,7 +127,7 @@ Things detect.mjs deliberately doesn't try to catch: register-dependence, vocab-
 
 - **Universal law 1**: resolved context overrides any single-rule finding *except* the **absolute-ban rules**. A `slop/system-default-font` hit on a context that declares Inter is a category error; demote. When demoting: don't drop the finding silently. Surface it under the "Context-suppressed" section of the output (see below) so the user sees the chain "detector caught X, context says it's correct, demoted to info." Audit trail matters.
   - **Absolute-ban rules (NOT brand-suppressible):** every `fossil/*` rule, plus `slop/gradient-text`. These patterns are slop *regardless* of brand. A brand can't whitelist gradient text by declaring it as their identity; the pattern itself disqualifies. If an artifact carrying one of these belongs to a brand that genuinely uses that aesthetic (rare), the brand needs to declare a `skip` entry in `.visualize-detect.json` rather than expect runtime suppression. Same model as pilcrow's "AI fossils" list: match-and-refuse, no exceptions.
-  - **Cross-reference**: the SKILL.md `Absolute bans` block lists the patterns the agent must refuse during *creation* and *Refine* runs (gradient text, side-stripe callouts, triple-feature-cards, hero-metric template, icon-tile section markers, imperative tricolon, sycophant footers). Review's job is to *flag* these post-hoc when they slipped through — every Absolute ban from SKILL.md should be surfaced as `Errors (ship-blockers)` even if the detector doesn't have a rule ID for it.
+  - **Cross-reference**: the SKILL.md `Absolute bans` block lists the patterns the agent must refuse during *creation* and *Refine* runs (gradient text, side-stripe callouts, triple-feature-cards, hero-metric template, ornamental icon-tile section markers, imperative tricolon, sycophant footers). Review's job is to *flag* these post-hoc when they slipped through — every Absolute ban from SKILL.md should be surfaced as `Errors (ship-blockers)` even if the detector doesn't have a rule ID for it.
 - **Universal law 4**: info-severity rules ship-block in aggregate. Threshold calibration (use these as anchors when deciding):
   - **6 `slop/emoji-heading` across a presentation = pattern.** 1 = taste-call.
   - **≥3 hardcoded hex literals in a file that otherwise uses `var(--*)` = token-discipline pattern.** 1–2 = exception (e.g., favicon data-URL).
@@ -166,7 +168,7 @@ Don't dump NDJSON. Don't free-form. Produce this structure so two different agen
 |---|---|---|---|
 | H1 | Visibility of the claim | <PASS / WARN / FAIL> | <1-sentence justification> |
 | H2 | Match with topic register | <…> | <…> |
-| H3 | Scannability | <…> | <…> |
+| H3 | Scannable structure | <…> | <…> |
 | H4 | Information arrival order | <…> | <…> |
 | H5 | Cite the number | <…> | <…> |
 | H6 | Register coherence | <…> | <…> |

@@ -28,7 +28,7 @@ Labels are small, quiet, and explicit: `Updated`, `Source`, `Audience`, `Owner`.
 
 Use crisp rows, compact groups, or a single boundary rule. Avoid stacking a header bottom border with a metadata top border on mobile.
 
-In document mode, metadata belongs under or near the title as labeled rows/groups by default. Do not turn it into a standalone side card unless the reader needs a separate operational/status panel.
+Place document context according to [create.md's document-context guidance](../reference/create.md). Keep labelled context in the reading flow rather than a standalone side card unless the reader needs a separate operational/status panel.
 
 ## Mobile behavior
 

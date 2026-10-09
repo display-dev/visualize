@@ -30,7 +30,7 @@ The skill produces from-scratch using only prose instructions plus the brand pro
 
 ### 6. Specificity, not novelty
 
-The revision pass is named *specificity revision*, not *bolder revision*. "Bolder" pushes toward decoration; "more source-specific" pushes toward conviction grounded in the actual material. Cumulative denial across artifacts (avoiding a pattern because it was used before) confuses brand consistency with reflex — brand-consistent work *should* repeat. Only avoid reflexes that are wrong for the brand or source.
+The *specificity and comprehension pass* assesses whether composition communicates the actual material. A familiar arrangement is acceptable when it serves the reader; structural change corrects a demonstrated deficiency rather than merely differing from a common layout. Cumulative denial across artifacts (avoiding a pattern because it was used before) confuses brand consistency with reflex — brand-consistent work *should* repeat. Only avoid reflexes that are wrong for the brand or source.
 
 ### 7. Two-model design center
 

@@ -14,6 +14,8 @@ Use for ordered work, decisions, handoffs, bottlenecks, and real feedback loops.
 
 Choose one dominant reading direction and keep the primary path easy to trace. Give each branch its own route. A decision with more than three exits usually needs decomposition. Handoffs cross labeled lane boundaries; a step belongs to one owner.
 
+For a request crossing owners, distinguish the request object, action, and handoff through form and labelled lane crossings. Preserve the actual branching and return paths; a row of identical cards should not make decisions look like mandatory actions.
+
 ## Budget and mobile
 
 Target at most nine primary nodes, twelve edges, three decision exits, and five owner lanes. Split a long process into overview plus phase detail. On mobile, rotate to top-to-bottom, split before/after a named handoff, or redraw a loop vertically while retaining the return edge. Never replace branches or feedback with a flat stack.

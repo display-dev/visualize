@@ -48,6 +48,8 @@ Generate self-contained HTML artifacts composed from `templates/*/template.md` c
 
 ## Design judgment
 
+Identify what the reader needs to understand, make the important distinction visible, and retain the evidence and qualifications needed to interpret it correctly.
+
 Find the artifact's organizing idea before choosing its visual treatment. Look for a relationship, contrast, sequence, decision, or object in the source that the composition itself can make easier to understand. Use that idea to shape the opening, section rhythm, and any explanatory primitive. When the source has no useful spatial or structural idea, prefer a restrained reading experience over manufacturing one.
 
 Artifact mode describes how the reader consumes the information, not the aesthetic family it must use. A document can use product-native, application-like, spatial, editorial, or technical-drawing grammar when that grammar serves the source, reader, and brand. Do not equate `document` with editorial publishing, or `canvas` with diagram chrome.
@@ -141,11 +143,11 @@ BAN 4 — Hero-metric template
   WHY:       SaaS-landing cliché; the most-copied AI-marketing-page shape in 2024-2026
   REWRITE:   Specific claim in body prose with the number inline; data tiles only when the artifact is actually a dashboard
 
-BAN 5 — Icon-tile section markers
-  PATTERN:   Every <h2> preceded by a rounded-square tile carrying a Lucide / Heroicons / Phosphor glyph
-  INCLUDES:  Circle-icon variants, icon-on-coloured-pill variants, gradient-icon-tile variants
-  WHY:       AI section-marker tell; reads as "every section needs visual chrome"
-  REWRITE:   Heading alone, or heading + small accent rule above, or numbered sections — no per-heading iconography
+BAN 5 — Ornamental icon-tile section markers
+  PATTERN:   Repeated icon tiles on section headings add chrome without identifying meaningful content distinctions
+  INCLUDES:  Rounded-square, circle, coloured-pill, and gradient-tile variants serving only as decoration
+  WHY:       Repeated chrome makes different sections look alike and competes with their content
+  REWRITE:   Remove ornamental markers; retain useful recognition cues under reference/cognitive-load.md's Cognitive offloading guidance
 
 BAN 6 — Imperative tricolon
   PATTERN:   Three short imperative sentences ending in periods, in the same paragraph or hero
@@ -181,7 +183,7 @@ These are not brand aesthetics; they are observed model reflexes with required c
 
 - Do not animate `<img>` elements on hover. If a card needs hover feedback, animate the card's border, background, or action affordance instead.
 
-**Metadata / TOC guard:** static document context needs explicit labels, not anonymous rounded chips. In document mode, keep metadata close to the title/thesis inside the reading flow; a right rail, split-cover facts column, or standalone metadata panel usually turns context into competing chrome. TOC rails are allowed for genuinely long documents, but they should support navigation rather than dominate the opening. Mobile TOCs must remain navigable lists or deliberate grids, never free-wrapping word clouds. Read `patterns/metadata.md` or `patterns/toc.md` when those structures are part of creation.
+**Metadata / TOC guard:** static document context needs explicit labels, not anonymous rounded chips. Place document context according to [create.md's document-context guidance](reference/create.md); a right rail, split-cover facts column, or standalone metadata panel usually turns context into competing chrome. TOC rails are allowed for genuinely long documents, but they should support navigation rather than dominate the opening. Mobile TOCs must remain navigable lists or deliberate grids, never free-wrapping word clouds. Read `patterns/metadata.md` or `patterns/toc.md` when those structures are part of creation.
 
 **Table guard:** tables are reading instruments, not hero sections. Keep caption, header, body, row-key, and numeric roles distinct; scope monospace to fixed-width values. Read `patterns/table.md` when the artifact carries dense comparison or evidence.
 
@@ -229,5 +231,5 @@ Apply on every command, every template, every prompt. These override any single-
 6. **The reader is the judge.** Every finding maps to: does this make the reader's job harder, or just satisfy a rule?
 7. **Detector output is defect-evidence, never done-evidence.** A clean `detect.mjs` result is not proof the artifact is strong — it's proof the mechanical floor passes. The detector catches what regex can identify; verb work covers everything else. Don't declare done on a clean detector reading.
 8. **Rendered mobile beats desktop theory.** A desktop-strong composition that merely stacks on phone can still be worse than a plain document. Judge the first two mobile screens as a finished reading state: heading scale, metadata wraps, TOC placement, card chrome, and body rhythm all have to feel intentional at narrow width.
-9. **Metadata should explain itself.** Bare chips such as `display.dev strategy` or `Updated May 29, 2026` force the reader to infer the field. Prefer explicit labels: `Memo type / display.dev strategy`, `Updated / May 29, 2026`, `Input / method, vision, competitor refresh`. For document artifacts, those labels belong near the opening argument, not in a side rail that competes with the body.
-10. **Clean is not enough.** An artifact can pass every ban, detector rule, and mobile check and still fail because it has no visual point of view. Boring-but-clean is a failure when the user asked for a visual artifact. The output needs at least one deliberate composition choice that helps the reader understand the content faster or remember it longer. If the strongest honest description of the first viewport is only "clean," "polished," "on-brand," or "easy to read," the composition is unfinished; its strongest quality should describe what this specific artifact helps the reader see.
+9. **Metadata should explain itself.** Bare chips such as `display.dev strategy` or `Updated May 29, 2026` force the reader to infer the field. Prefer explicit labels: `Memo type / display.dev strategy`, `Updated / May 29, 2026`, `Input / method, vision, competitor refresh`. Place labelled context according to [create.md's document-context guidance](reference/create.md); not every metadata field belongs in the opening.
+10. **Clean is not enough.** Mechanical correctness and visual polish do not establish comprehension. A visual artifact needs deliberate composition that helps the reader understand its source. Assess substantial explanations beyond the first viewport as well as the opening; follow the [Specificity and comprehension pass](reference/create.md#specificity-and-comprehension-pass). A familiar arrangement is valid when it serves the reader; change structure to correct a demonstrated deficiency, not merely to avoid a common layout.

@@ -10,6 +10,8 @@ Use when one entity moves between durable states, repeats a lifecycle, or change
 
 Choose one dominant direction before routing return transitions. Use a compact annotation for a true “from any state” transition rather than duplicating it from every state. Composite states are boundaries, not extra peers.
 
+For draft → under review → accepted, keep the same document identity recognizable across the states. Change the state treatment and label the actual transitions; three unrelated documents would imply three separate objects.
+
 ## Budget and mobile
 
 Target at most nine visible states and eighteen transitions (or fewer when labels crowd), two composite levels, eight loop stations, and one shared-state hub. Timelines keep the number of simultaneously visible labels low enough to avoid collision. On mobile, use a vertical state spine with side returns, split composite detail, or turn a horizontal timeline into a vertical dated sequence while preserving interval truth in labels.

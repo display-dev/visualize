@@ -26,12 +26,12 @@ The two-altitude AI slop test (SKILL.md), restated as a heuristic.
 - **FAIL** · first-order hits (unsupported alarm framing, generic opening unrelated to the source, academic layout that obstructs the reader).
 - Severity: WARN → warn; FAIL → error.
 
-## H3 — Scannable navigation chrome
+## H3 — Scannable structure
 
-The artifact's structural navigation — headings, TOC, labels, anchor points — lets a 30-second skim reveal *what's in it and how it's organized*. Independent of whether the central claim itself is visible (that's H1) and independent of whether the content arrives in the right order (that's H4). H3 is about the navigability of the chrome.
+Headings, navigation, labels, grouping, and explanatory composition let a skim reveal what is in the artifact and its important distinctions. H3 covers navigability and scan-visible understanding; H1 judges visual primacy and H4 judges arrival order.
 
-- **PASS** · h2/h3 hierarchy descends visually; TOC (if present) maps to section anchors; labeled metadata gives context without reading body prose; the artifact's structure is legible from the chrome alone.
-- **WARN** · structure is present but uneven (h2s have varying visual weight; one section lacks a heading; TOC is missing a top-level entry; header metadata is present but hidden inside unlabeled chips; mobile header/TOC boundary shows doubled separator rules; mobile TOC links wrap like scattered words; a table caption/intro uses lede scale instead of caption scale).
+- **PASS** · h2/h3 hierarchy descends visually; TOC (if present) maps to section anchors; labeled metadata gives context without reading body prose; the structure and principal distinctions are recoverable from headings, labels, grouping, and composition without reading every supporting sentence.
+- **WARN** · structure is present but uneven (h2s have varying visual weight; one section lacks a heading; TOC is missing a top-level entry; header metadata is present but hidden inside unlabeled chips; mobile header/TOC boundary shows doubled separator rules; mobile TOC links wrap like scattered words; a table caption/intro uses lede scale instead of caption scale); OR a comparison or figure requires body prose to recover its principal distinction despite readable labels and layout.
 - **FAIL** · no structural chrome — section breaks invisible, no headings or all-the-same-weight headings, no labels on data displays, or data tables have no readable caption/header/body hierarchy. Reader must read body prose to navigate. Apply F-pattern / Z-pattern / grid-scanning principles from [cognitive-load.md](cognitive-load.md) — the artifact's scan path should match its template shape.
 - Severity: WARN → info; FAIL → warn.
 
@@ -127,12 +127,13 @@ Apply SKILL.md's Design judgment first. This table selects a remedy once the rea
 | H1 (visual primacy), H4 (narrative sequencing) | Primary reading path or structural direction remains unresolved | `{{command_prefix}}visualize explore artifact` to compare arrangements under one brief, within its supported scope |
 | H1 (visual primacy) | No element is amplified — everything reads at middle weight | `{{command_prefix}}visualize bolder` (amplify one focal element) |
 | H1 | Too many elements competing (3+ at same weight) | `{{command_prefix}}visualize simplify` (cut the competing chrome) OR `{{command_prefix}}visualize quieter` (demote the supporting elements) |
-| H3 (scannable chrome) | Necessary headings, labels, or navigation are missing | direct edit to add the structure required by the reader's task; do not assume a TOC is necessary |
+| H3 (scannable structure) | Necessary headings, labels, or navigation are missing | direct edit to add the structure required by the reader's task; do not assume a TOC is necessary |
 | H3 | Chrome is present but visually flat (all h2s same weight) | `{{command_prefix}}visualize polish` (typography dimension raises hierarchy) |
 | H3 | Static header metadata appears as unlabeled rounded chips | `{{command_prefix}}visualize polish` (replace chips with crisp key-value labels) |
 | H3 | Header and mobile contents/TOC create adjacent horizontal rules | `{{command_prefix}}visualize polish` (collapse to one separator at the mobile breakpoint) |
 | H3 | Mobile TOC wraps as unrelated words | `{{command_prefix}}visualize polish` (turn TOC into a structured list or grid) |
 | H3 | Table caption/intro/body roles are visually confused | `{{command_prefix}}visualize polish` (typography dimension restores table type hierarchy) |
+| H3 | A readable figure or comparison hides its principal distinction in body prose | directly recompose its objects, labels, grouping, or emphasis within the approved scope; apply shared Design judgment if the direction needs reconsideration |
 | H4 (narrative sequencing) | Sections are in the wrong order and the intended order is established | direct edit to restore that order |
 | H4 | Buildup-to-claim prose ("background → process → finding") | `{{command_prefix}}visualize simplify` (cuts the buildup, lifts the claim) |
 | H2 (topic register), H7 (brand-trueness) | Visual treatment is generic | `{{command_prefix}}visualize bolder` when the structure works and expression is weak; otherwise apply shared Design judgment |
@@ -156,7 +157,7 @@ Render the heuristic verdicts as a section between "Info / aggregate patterns" a
 |---|---|---|---|
 | H1 | Visibility of the claim | PASS | central claim lands first |
 | H2 | Match with topic register | WARN | second-order: editorial-Tufte echo on a dev-tool topic |
-| H3 | Scannability | PASS | TL;DR + headings extract in 30s |
+| H3 | Scannable structure | PASS | headings and comparison labels expose the principal distinctions at desktop and mobile |
 | … | … | … | … |
 
 **Grade: B** (2 WARNs, no FAILs). Worst: H2. Recommended next action: `{{command_prefix}}visualize bolder` to strengthen the brand's expression within the established structure.

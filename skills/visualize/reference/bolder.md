@@ -93,7 +93,7 @@ When the three primary axes are spent and the artifact still needs more presence
 - **Mesh gradients** — multi-stop CSS gradients producing a "soft mesh" surface. Reads as 2020s SaaS-digital by default — useful for brands that *want* that register (consumer-product launches, modern web-editorial), wrong-register for technical, institutional, or editorial brands. Pair with a tinted neutral foreground, not the gradient stops as text color.
 - **Halftone** — `background-image` dot pattern or SVG halftone on a single accent surface. Works on editorial / publishing / print-adjacent registers; off-register on dev-tool brands.
 - **Duotone** — two-color photo treatment via `mix-blend-mode` or SVG filter. Useful on hero imagery for brands with a single committed accent color.
-- **Custom illustrative elements** — hand-drawn, woodcut, or geometric custom artwork in the brand's voice. Distinct from icon-tile section markers (BAN 5 in SKILL.md); the difference is illustrations carry information or atmosphere, icon tiles are chrome.
+- **Custom illustrative elements** — hand-drawn, woodcut, or geometric custom artwork in the brand's voice. Distinct from ornamental icon-tile section markers (BAN 5 in SKILL.md); illustrations carry information or atmosphere, while ornamental tiles add chrome without meaningful distinctions.
 - **Atmospheric blur / backdrop-filter** — sparingly, on a single hero surface, never as decoration on every card. Glassmorphism-on-every-panel is generic AI-design slop; one purposeful backdrop-filter on a focal moment is craft.
 - **Full-bleed surface** — break the column at the focal section, let one element occupy 100vw with a dramatic surface (gradient, photo, illustration). Theatrical lane only.
 

@@ -19,6 +19,10 @@ Choose the semantic pattern independently of the type: topology, handoff, decisi
 
 Every node, group, edge, label, state, and direction must come from supplied or inspected evidence. Leave unknowns visible or ask a focused question; never complete a graph by invention. Merge entities that always travel together and remove relationships already made unambiguous by geometry. Above roughly nine primary nodes or twelve edges, prefer overview plus detail unless the selected type declares its own explicit budget; that type budget then governs.
 
+## Visual encoding
+
+Use recognizable forms, treatments, or labelled glyphs to distinguish meaningfully different entity kinds; keep equivalent entities consistent and the same object identifiable across states, following [Cognitive offloading](cognitive-load.md#cognitive-offloading). Position, attachment, containment, and edges express relationships; labels clarify ambiguity. Preserve the selected topology rather than turning it into disconnected panels. The routed type references give bounded examples.
+
 ## Delivered SVG contract
 
 Deliver every relationship figure as inline SVG in self-contained HTML:
@@ -58,7 +62,7 @@ With captions and body prose hidden, the figure must still expose its principal 
 
 Preserve meaning rather than pixel layout. At narrow width, redraw, rotate, split, or replace the desktop SVG with a separately marked mobile figure. Keep direction, branch structure, boundary membership, and loops recoverable; a stacked card list that removes topology fails.
 
-Project `DESIGN.md`, `tokens.css`, and instructions win. Without project guidance, use existing Visualize semantic tokens for a restrained editorial baseline: quiet background, strong foreground, one focal accent, thin rules, limited fills, and distinct label roles. Do not copy a donor palette or font stack.
+Project `DESIGN.md`, `tokens.css`, and instructions win. Without project guidance, use existing Visualize semantic tokens for a restrained editorial baseline: quiet background, strong foreground, the artifact's consistent semantic color roles, thin rules, limited fills, and distinct label roles. Do not copy a donor palette or font stack.
 
 ## Failure modes
 
