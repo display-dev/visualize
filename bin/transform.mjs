@@ -77,7 +77,82 @@ const MIRRORS = [
   { provider: 'skills', path: 'skills/visualize',          displayName: 'npm skills' },
   { provider: 'hermes', path: 'hermes/design/visualize',   displayName: 'Hermes' },
   { provider: 'pi',     path: 'pi/agent/skills/visualize', displayName: 'Pi' },
+  { provider: 'skills', path: 'skills/visualize-lite',     displayName: 'npm skills (lite)', lite: true },
 ];
+
+// =============================================================================
+// Lite build
+// =============================================================================
+//
+// `skills/visualize-lite/` is the same skill with a small file count, for hosts
+// whose validators or size limits reject the full design-system catalog. It
+// leaves out the design-system packages (except _template and clean) and the
+// test files, writes design-systems/REMOTE.md with the full catalog's URL at
+// the release tag, and adds one rule to SKILL.md telling the agent to fetch a
+// missing package from there. Install: npx skills add display-dev/visualize
+// --skill visualize-lite.
+
+const LITE_KEPT_DESIGN_SYSTEMS = new Set(['_template', 'clean']);
+const LITE_EXCLUDED_FILES = new Set([
+  'scripts/image-test-fixtures.mjs',
+  'scripts/pattern-fixture-smoke.mjs',
+]);
+const LITE_RULE_ANCHOR = 'The design systems under `design-systems/` are reference packages';
+const LITE_RULE =
+  'This lite build bundles only `catalog-index.json`, `_template/`, and `clean/` from `design-systems/`. ' +
+  '`design-systems/REMOTE.md` holds the base URL of the full catalog at the same version. ' +
+  'When a selected package folder is missing, fetch its `README.md`, `DESIGN.md`, and `tokens.css` from that base URL plus `<slug>/<file>` ' +
+  "with `curl` or the host's web fetch, then use them as if they were local. " +
+  'If a fetch fails, name the package that could not be loaded and continue with the next shortlisted reference or the fallback; never rebuild a package from memory.';
+
+function liteExcludes(rel) {
+  const parts = rel.split(sep);
+  if (parts[0] === 'fixtures') return true;
+  if (parts[0] === 'scripts' && parts[1] === 'fixtures') return true;
+  if (parts[0] === 'scripts' && parts.length === 2 && parts[1].endsWith('.test.mjs')) return true;
+  if (LITE_EXCLUDED_FILES.has(parts.join('/'))) return true;
+  if (parts[0] === 'design-systems' && parts.length > 2 && !LITE_KEPT_DESIGN_SYSTEMS.has(parts[1])) return true;
+  return false;
+}
+
+function canonicalVersion(canonicalSkillContent) {
+  const match = canonicalSkillContent.match(/^version:\s*([0-9]+\.[0-9]+\.[0-9]+)\s*$/m);
+  if (!match) throw new Error('Canonical SKILL.md is missing a semver version field');
+  return match[1];
+}
+
+// Applied to canonical text before placeholder substitution.
+function liteRewrite(rel, content) {
+  let out = content
+    .replaceAll('{{command_prefix}}visualize', '{{command_prefix}}visualize-lite')
+    .replaceAll('*/visualize/scripts/', '*/visualize-lite/scripts/');
+  if (rel === 'SKILL.md') {
+    out = out.replace(/^name: visualize$/m, 'name: visualize-lite');
+    if (!/^name: visualize-lite$/m.test(out)) throw new Error('lite: SKILL.md name field not rewritten');
+    const lines = out.split('\n');
+    const hits = lines.filter((line) => line.startsWith(LITE_RULE_ANCHOR)).length;
+    if (hits !== 1) throw new Error(`lite: SKILL.md must contain exactly one line starting "${LITE_RULE_ANCHOR}" (found ${hits})`);
+    const at = lines.findIndex((line) => line.startsWith(LITE_RULE_ANCHOR));
+    lines.splice(at + 1, 0, '', LITE_RULE);
+    out = lines.join('\n');
+  }
+  return out;
+}
+
+function liteGeneratedFiles(version) {
+  const base = `https://raw.githubusercontent.com/display-dev/visualize/v${version}/skills/visualize/design-systems/`;
+  return new Map([[
+    join('design-systems', 'REMOTE.md'),
+    Buffer.from(
+      '# Remote design-system catalog\n\n' +
+      'This lite build of Visualize bundles `catalog-index.json`, `_template/`, and `clean/`.\n' +
+      'Every other design system listed in `catalog-index.json` is at:\n\n' +
+      `${base}\n\n` +
+      'Append `<slug>/README.md`, `<slug>/DESIGN.md`, or `<slug>/tokens.css`.\n',
+      'utf8',
+    ),
+  ]]);
+}
 
 // Substitution is scoped to authoring formats — .md and .html. Everything
 // else (scripts, fonts, images) is byte-copied untouched.
@@ -250,15 +325,37 @@ function assertArgumentHintFresh(canonicalContent) {
  * @returns {() => { displayName, mirrorPath, written, drift }} transform fn
  */
 function createTransformer(config) {
-  const { provider, path: mirrorPath, displayName, outputRoot, checkMode } = config;
+  const { provider, path: mirrorPath, displayName, outputRoot, checkMode, lite = false, version } = config;
   const mirrorDir = join(outputRoot, mirrorPath);
 
   return function transform() {
-    const canonicalFiles = listFiles(CANONICAL);
+    const allCanonicalFiles = listFiles(CANONICAL);
+    const canonicalFiles = lite
+      ? new Set([...allCanonicalFiles].filter((rel) => !liteExcludes(rel)))
+      : allCanonicalFiles;
+    const generated = lite ? liteGeneratedFiles(version) : new Map();
     const mirrorFiles = listFiles(mirrorDir);
 
     let drift = 0;
     let written = 0;
+
+    for (const [rel, buf] of generated) {
+      const dstPath = join(mirrorDir, rel);
+      if (checkMode) {
+        if (!existsSync(dstPath)) {
+          console.error(`missing in ${mirrorPath}: ${rel}`);
+          drift++;
+        } else if (!readFileSync(dstPath).equals(buf)) {
+          console.error(`drift in ${mirrorPath}: ${rel}`);
+          drift++;
+        }
+      } else {
+        mkdirSync(dirname(dstPath), { recursive: true });
+        writeFileSync(dstPath, buf);
+        chmodSync(dstPath, 0o644);
+        written++;
+      }
+    }
 
     for (const rel of canonicalFiles) {
       const srcPath = join(CANONICAL, rel);
@@ -268,7 +365,8 @@ function createTransformer(config) {
 
       let resolved;
       if (shouldSubstitute(rel)) {
-        const replaced = replacePlaceholders(srcBuf.toString('utf8'), provider);
+        const text = lite ? liteRewrite(rel, srcBuf.toString('utf8')) : srcBuf.toString('utf8');
+        const replaced = replacePlaceholders(text, provider);
         assertNoUnresolvedPlaceholders(replaced, `${mirrorPath}/${rel}`);
         resolved = Buffer.from(replaced, 'utf8');
       } else {
@@ -301,7 +399,7 @@ function createTransformer(config) {
     // Stale-file cleanup: files in mirror with no canonical counterpart.
     // Write mode deletes them; --check reports as drift.
     for (const rel of mirrorFiles) {
-      if (canonicalFiles.has(rel)) continue;
+      if (canonicalFiles.has(rel) || generated.has(rel)) continue;
       const dstPath = join(mirrorDir, rel);
       if (checkMode) {
         console.error(`stale in ${mirrorPath}: ${rel}`);
@@ -365,7 +463,7 @@ function main() {
   let totalDrift = 0;
 
   for (const mirror of MIRRORS) {
-    const transform = createTransformer({ ...mirror, outputRoot, checkMode });
+    const transform = createTransformer({ ...mirror, outputRoot, checkMode, version: canonicalVersion(canonicalSkillContent) });
     const result = transform();
     totalWritten += result.written;
     totalDrift += result.drift;

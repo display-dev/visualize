@@ -14,6 +14,14 @@ npx skills add display-dev/visualize --skill visualize
 
 Works across Claude Code, Cursor, Codex, OpenCode, Hermes, and Pi.
 
+### Visualize Lite
+
+```sh
+npx skills add display-dev/visualize --skill visualize-lite
+```
+
+The same skill in about 130 files instead of about 800, for hosts that limit skill size or file count. It bundles the design-system index and the `clean` system. When you pick another design system, it downloads that system's `README.md`, `DESIGN.md`, and `tokens.css` from this repository at the matching release, so it needs network access to `raw.githubusercontent.com` for those. Commands are `/visualize-lite …`. `bin/sync-mounts.sh` generates it from `visualize/`; never edit `skills/visualize-lite/` directly.
+
 ## Why visualize?
 
 Four problems with how agents publish HTML today:
