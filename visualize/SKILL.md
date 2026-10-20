@@ -205,7 +205,7 @@ Nudge `{{command_prefix}}visualize teach` once per session when using fallback c
 
 A theme is a reference design system applied to one artifact, not a new stored object or a project-wide adoption. Default to the project system; resolve binding choices, approved exceptions, and open dimensions before borrowing. A named reference or request for more expression does not silently override binding choices. Clarify unresolved conflicts; explicit replacement permission covers only the named artifact and dimensions. Do not invent constraints where the project is silent.
 
-Read the selected package's `README.md` when present, then `DESIGN.md` and `tokens.css`. DESIGN owns suitability, identity, and adaptation. Previews illustrate treatment, not required layouts. Offer a small relevant shortlist for alternatives; do not load the whole catalog. A missing README does not make a package unavailable.
+Read the selected package's `README.md` when present, then `DESIGN.md` and `tokens.css`. DESIGN owns suitability, identity, and adaptation. Previews illustrate treatment, not required layouts. When the user wants alternatives, offer a small relevant shortlist; do not load the whole catalog. A missing README does not make a package unavailable.
 
 Apply a treatment through creation or revision; compare unresolved treatments through `explore artifact`. Neither requires a new layout or project profile. Derive new structure from source and reader task. Preserve existing content, order, assets, and behavior unless changes were requested. Broad restyling uses `reference/create.md` with that scope rather than exceeding a refine verb's diff guard. Existing approval gates apply; an explicit request covering the proposed changes needs no reconfirmation.
 
