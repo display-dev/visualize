@@ -34,7 +34,6 @@ function syncBundledCatalog(check) {
     ['clean/README.md', `${SOURCE.root}/clean/README.md`],
     ['clean/DESIGN.md', `${SOURCE.root}/clean/DESIGN.md`],
     ['clean/tokens.css', `${SOURCE.root}/clean/tokens.css`],
-    ['animation-patterns.md', `${SOURCE.root}/animation-patterns.md`],
     ['catalog-source.json', join(REPO_ROOT, 'catalog', 'source.json')],
   ];
   for (const [name, source] of files) {

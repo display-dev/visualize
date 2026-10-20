@@ -223,7 +223,7 @@ The generated `catalog-index.json` is deterministic and committed. Do not hand-e
 
 ## Animation patterns
 
-Per-system preview templates should use the shared motion vocabulary in [`animation-patterns.md`](animation-patterns.md). That file owns entrance, hover, background, and reduced-motion conventions for catalog previews. Use those patterns before inventing custom keyframes; if a brand needs bespoke motion, keep the names and timing compatible with the catalog vocabulary so future audits can reason about it.
+Per-system preview templates should use the shared motion vocabulary in [`animation-patterns.md`](../../visualize/design-systems/animation-patterns.md). That file owns entrance, hover, background, and reduced-motion conventions for catalog previews. Use those patterns before inventing custom keyframes; if a brand needs bespoke motion, keep the names and timing compatible with the catalog vocabulary so future audits can reason about it.
 
 ## Content shape: Halcyon is a name only — no the host product product surface, no brand-X lift
 

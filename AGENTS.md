@@ -8,6 +8,8 @@ This repo is the source for the `visualize` agent skill. Most edits land under `
 2. Run `bin/sync-mounts.sh` to propagate.
 3. Commit both the canonical change and the mirror updates in the same commit.
 
+`visualize/design-systems/animation-patterns.md` is runtime-owned shared guidance for `animate` and catalog preview authors. Edit it directly; catalog generation does not overwrite it.
+
 ## Adding content
 
 - **Template** → `visualize/templates/<slug>/template.md`. Keep the contract compact: frontmatter, use/exclusion rules, structure, creation guidance, hierarchy/mobile contracts, and concrete failure modes. See `CONTRIBUTING.md` for the canonical shape.
@@ -42,7 +44,7 @@ visualize/                     ← canonical installed skill
 ├── SKILL.md
 ├── reference/                 ← typography / color / spatial / motion / copy
 ├── patterns/                  ← creation-time pattern recipes
-├── design-systems/            ← generated index, source pin, common motion, and Clean fallback
+├── design-systems/            ← generated index/source pin/Clean fallback + runtime-owned animation-patterns.md
 ├── templates/                 ← template contracts (template.md per template)
 └── scripts/                   ← bash + Node helpers
 

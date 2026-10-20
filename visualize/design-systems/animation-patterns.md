@@ -1,6 +1,6 @@
-# Animation patterns for catalog previews
+# Animation patterns for artifacts and catalog previews
 
-This file is the shared motion vocabulary for `visualize/design-systems/*/preview-template.html`. Use it when a preview needs entrance motion, hover response, background texture, or interactive polish. Keep the brand's identity intact, but make the implementation recognizable to future maintainers and validators.
+This file is the shared motion vocabulary for artifact animation and catalog previews under `catalog/design-systems/*/preview-template.html`. Use it when an artifact or preview needs entrance motion, hover response, background texture, or interactive polish. Keep the brand's identity intact, but make the implementation recognizable to future maintainers and validators.
 
 ## Motion intent
 
