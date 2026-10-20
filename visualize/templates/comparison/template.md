@@ -1,17 +1,17 @@
 ---
 name: Comparison
-description: A decision-support artifact for comparing options, tradeoffs, and recommendations.
+description: A qualitative options matrix with yes/no/partial/varies cell states, supporting values, and tradeoffs.
 ---
 
 # Comparison
 
 ## Use when
 
-Use this template when the reader needs decision-support artifact for comparing options, tradeoffs, and recommendations. Pick it when the artifact has enough substance to benefit from the named structure, not just because the topic contains similar words.
+Use for one option-by-criterion matrix. Every cell carries both a state (`yes` / `no` / `partial` / `varies`) and a supporting value; explanations carry nuance.
 
 ## Do not use when
 
-Do not use this when a simpler memo, plain prose answer, or a more specific template would make the reader faster. Do not force the template when the ask lacks the evidence or structure it requires.
+For numeric observations without an option-by-criterion evaluation, use Report with an ordinary table. Split multiple comparison matrices into separate artifacts or use Report with embedded comparison figures.
 
 ## Structure
 
@@ -37,9 +37,9 @@ The first two phone screens must deliver title, thesis, and essential context wi
 
 ## Failure modes
 
-**Single-table rule.** Exactly one `<table class="cmp-table">` per artifact. A second `cmp-table` block trips the detector — multi-table comparisons fragment the read; split them into multiple Comparison artifacts or fold into a Report with embedded comparison figures.
+**Single-table rule.** Render the matrix as `<table class="cmp-table">`. A second `cmp-table` block trips the detector because multi-table comparisons fragment the read.
 
-**Cell-state vocabulary is closed.** States are drawn from `yes` / `no` / `partial` / `varies` — full stop. Inventing new states (`coming-soon`, `beta`, `enterprise-only`) trips the detector because they erode the scan-at-a-glance property the closed vocabulary buys. Encode nuance in the cell's `detail` text, not in a new state. Every cell carries both a `state` and a `value`; a blank cell is a content gap, not a styling choice.
+**Invalid cell states.** Inventing states (`coming-soon`, `beta`, `enterprise-only`) outside the selection vocabulary trips the detector because they erode the scan-at-a-glance property the closed vocabulary buys. Encode nuance in the cell's `detail` text, not in a new state. A blank cell is a content gap, not a styling choice.
 
 **Us-column singularity.** Exactly one column may carry `isUs: true` (zero is valid for a neutral comparison; two or more is positioning incoherence — "us" is a singular concept). The emphasis is a quiet `--us-band-bg` + foreground-derived border, never a brand-primary fill — a brand-coloured us-column opts out of the restraint that makes the comparison read as honest.
 

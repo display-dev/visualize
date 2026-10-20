@@ -1,17 +1,17 @@
 ---
 name: Report
-description: A structured long-form artifact for explaining findings, context, implications, and next steps.
+description: A prose-led document explaining findings, evidence, implications, and next actions, with supporting tables or figures.
 ---
 
 # Report
 
 ## Use when
 
-Use this template when the reader needs structured long-form artifact for explaining findings, context, implications, and next steps. Pick it when the artifact has enough substance to benefit from the named structure, not just because the topic contains similar words.
+Use when the main job is explaining findings and next steps, with prose, ordinary numeric tables, or supporting figures. Fits short decision briefs as well as longer reports.
 
 ## Do not use when
 
-Do not use this when a simpler memo, plain prose answer, or a more specific template would make the reader faster. Do not force the template when the ask lacks the evidence or structure it requires.
+Use Comparison for a qualitative option-by-criterion matrix, Research brief for research-source synthesis or study documentation, and a plain answer when the material needs no document structure.
 
 ## Structure
 
