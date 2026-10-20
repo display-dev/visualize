@@ -1,17 +1,17 @@
 ---
 name: Research brief
-description: A concise evidence synthesis for a research question, market, user, or competitor.
+description: A research-source synthesis or study write-up, with source provenance and study-specific disclosures when applicable.
 ---
 
 # Research brief
 
 ## Use when
 
-Use this template when the reader needs concise evidence synthesis for a research question, market, user, or competitor. Pick it when the artifact has enough substance to benefit from the named structure, not just because the topic contains similar words.
+Use to answer a research question from market, competitor, desk-research, or primary user-research sources. Interview studies use the methodology and citation contracts below; secondary-source or desk-research briefs still need source trails and claim-level provenance, but not interview-specific sections.
 
 ## Do not use when
 
-Do not use this when a simpler memo, plain prose answer, or a more specific template would make the reader faster. Do not force the template when the ask lacks the evidence or structure it requires.
+Use Report for operational findings and next steps that need no research-source synthesis or study documentation. Use a plain answer when the question needs no structured evidence synthesis.
 
 ## Structure
 
@@ -27,7 +27,7 @@ Read pattern recipes only when the content calls for them: `metadata` for docume
 
 Prior visual variants are no longer live authoring files. If the ask needs a distinct register or rendering route, express that choice in the artifact-local composition and document the reason in visible copy only when it helps the reader.
 
-Default to `document` mode for source synthesis, market scans, competitor reads, user research summaries, and other prose-led evidence briefs. Interview studies use the methodology and citation contracts below; secondary-source or desk-research briefs still need source trails and claim-level provenance, but not interview-specific sections. Use canvas/dashboard primitives only when relationships or metrics are the main read and the source material supplies the model.
+Default to `document` mode for source synthesis, market scans, competitor reads, user research summaries, and other prose-led evidence briefs. Use canvas/dashboard primitives only when relationships or metrics are the main read and the source material supplies the model.
 
 ## Hierarchy contract
 
