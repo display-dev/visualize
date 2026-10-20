@@ -48,7 +48,7 @@ When sources disagree, preserve the conflict in the evidence note and resolve it
 
 ## Design system derivation
 
-During teach, the brand's design tokens are derived for the project rather than stored as a theme pointer. Applying a reference to one artifact instead follows SKILL.md's Artifact themes contract. The design systems in `visualize/design-systems/` (native register-family references plus brand-style imports) are reference examples the derivation borrows from. Each one's `tokens.css` (colorimetric structure) + `DESIGN.md` (Stitch YAML frontmatter + 6-section body, with section 1 and section 6 carrying affordance prose) teaches the agent a calibrated example for one register family or brand voice.
+During teach, the brand's design tokens are derived for the project rather than stored as a theme pointer. Applying a reference to one artifact instead follows SKILL.md's Artifact themes contract. The catalog design systems (native register-family references plus brand-style imports) are reference examples the derivation borrows from. Each one's `tokens.css` (colorimetric structure) + `DESIGN.md` (Stitch YAML frontmatter + 6-section body, with section 1 and section 6 carrying affordance prose) teaches the agent a calibrated example for one register family or brand voice.
 
 ### Step 1: pick reference design system(s)
 
@@ -60,7 +60,7 @@ Derive references from voice:
 2. **Physical experience.** What does using the product feel like? ("Reading a well-crafted dev tool" reads IDE-inspired. "Browsing a thoughtful magazine" reads Editorial. "Wiring up something at a workbench" reads Blueprint.)
 3. **Anti-references.** What does the brand *not* want to look like? Eliminates design systems from consideration.
 
-Read the chosen reference's `design-systems/<name>/DESIGN.md` + `design-systems/<name>/tokens.css`. The DESIGN.md carries the calibrated palette / type scale / radius / component vocabulary in YAML, plus prose (sections 1 and 6) that names the affordances the design system blesses (Paper-ink's drop-cap + small-caps section labels; Brutalist's uppercase + hard-drop tiles; Console's status-dot KPI cards + traffic-light coding). The tokens.css is the CSS form templates read at render time. Both are inputs to the derivation, not blueprints to copy wholesale.
+Resolve the chosen reference through SKILL.md's catalog procedure and read its returned `DESIGN.md` + `tokens.css`. The DESIGN.md carries the calibrated palette / type scale / radius / component vocabulary in YAML, plus prose (sections 1 and 6) that names the affordances the design system blesses (Paper-ink's drop-cap + small-caps section labels; Brutalist's uppercase + hard-drop tiles; Console's status-dot KPI cards + traffic-light coding). The tokens.css is the CSS form templates read at render time. Both are inputs to the derivation, not blueprints to copy wholesale.
 
 ### Step 2: derive the brand's Stitch DESIGN.md + tokens.css
 
@@ -152,7 +152,7 @@ Six numbered sections, exact order, exact section names (Stitch parsers depend o
 
 **Sidecar `tokens.css`** (the CSS form templates read at render time):
 
-A standard CSS file at the project root carrying every token the YAML lists plus the surface templates use that's beyond Stitch's 8-prop component subset — `--chart-*`, sidebar tokens, `--text-*` scale, `--shadow-*` scale, `--font-*` stacks. Three required selector blocks for mode handling: `:root` (canonical light), `[data-theme="dark"]` (explicit-dark override), and `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]):not([data-theme="dark"]) }` (raw-HTML OS-dark path). Match the surface enumerated in the chosen reference's `design-systems/<name>/tokens.css`.
+A standard CSS file at the project root carrying every token the YAML lists plus the surface templates use that's beyond Stitch's 8-prop component subset — `--chart-*`, sidebar tokens, `--text-*` scale, `--shadow-*` scale, `--font-*` stacks. Three required selector blocks for mode handling: `:root` (canonical light), `[data-theme="dark"]` (explicit-dark override), and `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]):not([data-theme="dark"]) }` (raw-HTML OS-dark path). Match the surface enumerated in the resolved reference's `tokens.css`.
 
 **Motion tokens are brand-specific.** Reference design systems don't ship `--motion-*` tokens — motion stance lives at the brand level, not the register level. When the brand specifies a motion posture (zero / restrained / expressive), encode it as `--motion-duration-*` + `--motion-ease` in the sidecar (concrete patterns: no-motion → `0ms` / `linear`; restrained → `150ms` / `cubic-bezier(0.16, 1, 0.3, 1)`; expressive → `300–400ms` / spring-like ease). Add a `@media (prefers-reduced-motion: reduce)` override block whenever any motion exists.
 
@@ -164,7 +164,7 @@ A standard CSS file at the project root carrying every token the YAML lists plus
 
 If only `:root` is derived, OS-dark users see white-flashed renders when viewing the artifact raw. Don't ship partial.
 
-**Required token surface (as a floor, not a ceiling):** match the surface enumerated in `design-systems/<reference>/tokens.css`. Templates reference `--chart-*`, `--spacing`, `--radius-*`, `--font-display`, motion tokens, and more beyond palette + fonts. Partial sidecars silently degrade — read the reference's `tokens.css` end-to-end and ensure every named token in the file has a value in your derived sidecar, in both `:root` and the two dark blocks. The reference is the *minimum* surface; brand-introduced tokens (motion presets per the section above; label-slot splits like `--font-label` when both display and body are serif; per-component CSS the 8-prop subset can't hold) get added on top.
+**Required token surface (as a floor, not a ceiling):** match the surface enumerated in the resolved reference's `tokens.css`. Templates reference `--chart-*`, `--spacing`, `--radius-*`, `--font-display`, motion tokens, and more beyond palette + fonts. Partial sidecars silently degrade — read the reference's `tokens.css` end-to-end and ensure every named token in the file has a value in your derived sidecar, in both `:root` and the two dark blocks. The reference is the *minimum* surface; brand-introduced tokens (motion presets per the section above; label-slot splits like `--font-label` when both display and body are serif; per-component CSS the 8-prop subset can't hold) get added on top.
 
 Every render command (`/visualize <topic>`, `polish`, `bolder`, `quieter`, `simplify`, `animate`) reads the YAML frontmatter + sidecar at render time and inlines the CSS-form tokens into the artifact's `<style>` element.
 

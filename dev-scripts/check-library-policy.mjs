@@ -2,7 +2,7 @@
 // Library / CDN policy enforcer.
 //
 // Walks every fixture HTML file under visualize/fixtures/,
-// visualize/preview-kit/template.html, and per-system preview-template.html
+// dev-scripts/preview-kit/template.html, and per-system preview-template.html
 // and validates that any `<script src="…">` reference matches the
 // allowlist defined below. Anything outside the allowlist fails the
 // check.
@@ -30,8 +30,8 @@ import { fileURLToPath } from 'node:url';
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const VIS_ROOT = resolve(SCRIPT_DIR, '..', 'visualize');
 const FIXTURES_DIR = resolve(VIS_ROOT, 'fixtures');
-const PREVIEW_KIT_TEMPLATE = resolve(VIS_ROOT, 'preview-kit', 'template.html');
-const DESIGN_SYSTEMS_DIR = resolve(VIS_ROOT, 'design-systems');
+const PREVIEW_KIT_TEMPLATE = resolve(SCRIPT_DIR, 'preview-kit', 'template.html');
+const DESIGN_SYSTEMS_DIR = resolve(SCRIPT_DIR, '..', 'catalog', 'design-systems');
 const EXPECTED_POLICY_FAILURE_FIXTURES = new Set([
   resolve(FIXTURES_DIR, 'diagrams', 'mermaid-runtime-bad.html'),
 ]);

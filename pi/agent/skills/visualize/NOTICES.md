@@ -1,6 +1,6 @@
 # Design-system notices
 
-Design systems under `visualize/design-systems/<name>-style/` are independent
+Design systems under `catalog/design-systems/<name>-style/` are independent
 reference implementations inspired by public brand surfaces. Repository-level
 notices for vendored runtime bundles are collected here.
 

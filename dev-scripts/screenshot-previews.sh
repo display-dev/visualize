@@ -5,11 +5,11 @@
 #   <out-dir>/<ds>-light.png   (from design-systems/<ds>/preview.html)
 #   <out-dir>/<ds>-dark.png    (from design-systems/<ds>/preview-dark.html)
 #
-# Pre-requisite: a local HTTP server serving the visualize/ directory.
+# Pre-requisite: a local HTTP server serving the catalog/ directory.
 # Default URL root: http://localhost:9091. Override with VIS_HOST.
 #
 # Start the server (if not running):
-#   cd visualize/ && python3 -m http.server 9091
+#   cd catalog/ && python3 -m http.server 9091
 #
 # Usage:
 #   screenshot-previews.sh <brand> [<brand>...]   # one or more brands
@@ -42,8 +42,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-VIS_ROOT="$(cd "$SCRIPT_DIR/../visualize" && pwd)"
-DS_DIR="$VIS_ROOT/design-systems"
+DS_DIR="$SCRIPT_DIR/../catalog/design-systems"
 
 VIS_HOST="${VIS_HOST:-http://localhost:9091}"
 OUT_DIR="${OUT_DIR:-/tmp/preview-shots}"
@@ -122,7 +121,7 @@ fi
 
 if ! curl -sf -o /dev/null -m 3 "$VIS_HOST/"; then
   echo "screenshot-previews: $VIS_HOST/ not reachable." >&2
-  echo "  start it: cd $VIS_ROOT && python3 -m http.server 9091" >&2
+  echo "  start it: cd $SCRIPT_DIR/../catalog && python3 -m http.server 9091" >&2
   exit 3
 fi
 

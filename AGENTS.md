@@ -4,14 +4,14 @@ This repo is the source for the `visualize` agent skill. Most edits land under `
 
 ## Editing workflow
 
-1. Make changes only under `visualize/`.
+1. Edit runtime instructions and helpers under `visualize/`; full catalog sources under `catalog/`; authoring tools under `dev-scripts/`. Run `node dev-scripts/catalog-index.mjs` after catalog edits to regenerate the bundled index and fallback.
 2. Run `bin/sync-mounts.sh` to propagate.
 3. Commit both the canonical change and the mirror updates in the same commit.
 
 ## Adding content
 
 - **Template** → `visualize/templates/<slug>/template.md`. Keep the contract compact: frontmatter, use/exclusion rules, structure, creation guidance, hierarchy/mobile contracts, and concrete failure modes. See `CONTRIBUTING.md` for the canonical shape.
-- **Design system** → `visualize/design-systems/<slug>/{DESIGN.md,tokens.css}`.
+- **Design system** → `catalog/design-systems/<slug>/{DESIGN.md,tokens.css}`.
 - **Pattern recipe** → `visualize/patterns/<slug>.md`. Use for recurring creation guidance, not reusable component CSS.
 - **Reference doc** → `visualize/reference/<topic>.md`. Lean intent + named failure modes only. Don't write defensive scaffolding.
 
@@ -38,11 +38,11 @@ Every constraint the skill imposes must answer: *what bad output would result wi
 ## Repository layout
 
 ```
-visualize/                     ← canonical mount, the only directory humans edit
+visualize/                     ← canonical installed skill
 ├── SKILL.md
 ├── reference/                 ← typography / color / spatial / motion / copy
 ├── patterns/                  ← creation-time pattern recipes
-├── design-systems/            ← 10 design systems (DESIGN.md + tokens.css per system)
+├── design-systems/            ← generated index, source pin, common motion, and Clean fallback
 ├── templates/                 ← template contracts (template.md per template)
 └── scripts/                   ← bash + Node helpers
 
@@ -50,7 +50,9 @@ skills/visualize/              ← mirror — npm-skills (`npx skills add`)
 hermes/design/visualize/       ← mirror — Hermes well-known
 pi/agent/skills/visualize/     ← mirror — Pi / OpenClaw
 
-fixtures/                      ← 10 brand-profile worked examples (DESIGN.md + PRODUCT.md per fixture)
+catalog/design-systems/        ← full authoritative catalog and generated previews
+dev-scripts/preview-kit/       ← development-only preview sources
+visualize/fixtures/            ← shared fixtures used by shipped check helpers
 bin/sync-mounts.sh             ← regenerate the three mirrors
 .github/workflows/ci.yml       ← mirror-check + JSON lint + shellcheck
 ```

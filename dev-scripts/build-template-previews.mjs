@@ -5,7 +5,7 @@ import path from "node:path";
 const repoRoot = path.resolve(import.meta.dirname, "..");
 const visualizeRoot = path.join(repoRoot, "visualize");
 const fixturesRoot = path.join(visualizeRoot, "fixtures");
-const designSystemsRoot = path.join(visualizeRoot, "design-systems");
+const designSystemsRoot = path.join(repoRoot, "catalog", "design-systems");
 
 function usage() {
   console.error(`usage:

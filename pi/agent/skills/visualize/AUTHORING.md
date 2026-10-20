@@ -68,4 +68,4 @@ Fixtures live under `fixtures/` and are tooling assets. They are not authoring i
 
 ## Fixture Styles
 
-Preview-only CSS belongs in `preview-kit/fixture-styles/` or inside the fixture itself. Do not recreate `components/` as a reusable component library. If a style is required for generated artifacts, it belongs in the artifact, not the preview kit.
+Preview-only CSS belongs in `dev-scripts/preview-kit/fixture-styles/` or inside the fixture itself. Do not recreate `components/` as a reusable component library. If a style is required for generated artifacts, it belongs in the artifact, not the preview kit.

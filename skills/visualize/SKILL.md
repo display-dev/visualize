@@ -11,6 +11,7 @@ allowed-tools:
   - Bash(node $SKILL_DIR/scripts/render-mermaid.mjs*)
   - Bash(node $SKILL_DIR/scripts/palette.mjs*)
   - Bash(node $SKILL_DIR/scripts/teach.mjs*)
+  - Bash(node $SKILL_DIR/scripts/catalog.mjs*)
   - Bash(node $SKILL_DIR/scripts/generate-image.mjs*)
   - Bash(node $SKILL_DIR/scripts/record-image.mjs*)
   - Bash(bash $SKILL_DIR/scripts/publish.sh*)
@@ -21,6 +22,7 @@ allowed-tools:
   - Bash(node */visualize/scripts/render-mermaid.mjs*)
   - Bash(node */visualize/scripts/palette.mjs*)
   - Bash(node */visualize/scripts/teach.mjs*)
+  - Bash(node */visualize/scripts/catalog.mjs*)
   - Bash(node */visualize/scripts/generate-image.mjs*)
   - Bash(node */visualize/scripts/record-image.mjs*)
   - Bash(bash */visualize/scripts/publish.sh*)
@@ -189,6 +191,8 @@ Brand authority is identity-scoped. If the request fixes a named identity but th
 
 `design-systems/` packages supply guidance, tokens, and previews for `teach`, System Explore, and artifact themes.
 
+The installed skill bundles the catalog index and Clean fallback. Resolve any selected reference with `node $SKILL_DIR/scripts/catalog.mjs <slug>` and read the returned file paths; add `--previews` only when inspecting its previews. Other packages are fetched from the published revision in `design-systems/catalog-source.json` and cached locally. Package links resolve against the returned source URL; shared workflow remains this installed skill. If resolution fails, report the unavailable reference without inventing its guidance or silently replacing an explicit choice. `VISUALIZE_CATALOG_CACHE_DIR` can relocate the cache.
+
 **Fallback when no DESIGN.md exists:**
 
 1. Preserve an approved artifact reference as the baseline where project guidance is absent; do not replace it with a seed or Clean.
@@ -205,7 +209,7 @@ Nudge `/visualize teach` once per session when using fallback context.
 
 A theme is a reference design system applied to one artifact, not a new stored object or a project-wide adoption. Default to the project system; resolve binding choices, approved exceptions, and open dimensions before borrowing. A named reference or request for more expression does not silently override binding choices. Clarify unresolved conflicts; explicit replacement permission covers only the named artifact and dimensions. Do not invent constraints where the project is silent.
 
-Read the selected package's `README.md` when present, then `DESIGN.md` and `tokens.css`. DESIGN owns suitability, identity, and adaptation. Previews illustrate treatment, not required layouts. When the user wants alternatives, offer a small relevant shortlist; do not load the whole catalog. A missing README does not make a package unavailable.
+Resolve the selected package through Brand profile's catalog procedure. Read its returned `README.md` when present, then `DESIGN.md` and `tokens.css`. DESIGN owns suitability, identity, and adaptation. Previews illustrate treatment, not required layouts. When the user wants alternatives, offer a small relevant shortlist; do not load the whole catalog. A missing README does not make a package unavailable.
 
 Apply a treatment through creation or revision; compare unresolved treatments through `explore artifact`. Neither requires a new layout or project profile. Derive new structure from source and reader task. Preserve existing content, order, assets, and behavior unless changes were requested. Broad restyling uses `reference/create.md` with that scope rather than exceeding a refine verb's diff guard. Existing approval gates apply; an explicit request covering the proposed changes needs no reconfirmation.
 
