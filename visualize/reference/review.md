@@ -92,8 +92,7 @@ Things detect.mjs deliberately doesn't try to catch: register-dependence, vocab-
 
 - **Mock identity** beyond the obvious: fictitious customer quotes ("Sarah Johnson, VP Marketing"), placeholder phone / address / company / brand names that aren't in the obvious set (Acme, Globex, Anytown, TBD, XXX-XXX-XXXX).
 - **Slop openers**: "leverage / streamline / empower / unlock / elevate / unleash / robust / holistic / seamless / cutting-edge / next-gen / In conclusion / TL;DR:" packed into the opening paragraphs.
-- **Sycophant footers**: "I hope you find this useful", "Happy to clarify", "Hopefully this addresses your needs", "Best, Claude", anything signed by an AI.
-- **Imperative tricolon** ("Ship faster. Build smarter. Scale forever."): three commands ending in periods, regardless of content. Can't be redeemed.
+- **Sycophant footers and imperative tricolons**: inspect against SKILL.md BAN 7 and BAN 6.
 
 **Brand- and register-dependent slop** (mechanical detector would false-positive). These judgment calls exclude SKILL.md's Absolute bans, which resolved context cannot redeem. When deciding the remaining calls, consult [color.md](color.md) / [typography.md](typography.md) / [spatial.md](spatial.md) / [copy.md](copy.md) for the deeper material:
 
@@ -161,7 +160,7 @@ Context-suppressed detector results are audit evidence rather than actionable fi
   - **≥4 `slop/center-everything` declarations in a non-Bauhaus / non-academic register = pattern.** Single centered hero is fine.
 
   When unsure, default to surfacing it as info + naming the aggregate count.
-- **Universal law 6**: the reader is the judge. Does each finding make the reader's job harder, or just satisfy a rule?
+- Apply SKILL.md's Universal law 6 to every finding.
 
 ## Output format (mandatory shape)
 

@@ -26,20 +26,12 @@ allowed-tools:
   - Bash(bash */visualize/scripts/publish.sh*)
   - Bash(*/visualize/scripts/publish.sh*)
 description: >
-  Generate beautiful, on-brand HTML artifacts — reports, diagrams, diff
-  reviews, slide decks, plans, recaps, dashboards. Loads on creation
-  intents ("create a plan", "make me an implementation plan",
-  "generate a diagram", "build a slide deck", "draft a recap",
-  "visualize this", "render this as HTML", "make me a status update")
-  and exploration intents ("show me three layouts", "explore document
-  shapes", "compare visual treatments", "explore a new design system",
-  "compare replacement brand directions") and iteration intents ("make this beautiful", "polish this report",
-  "make this less generic", "design this", "theme this", "use my
-  brand", "iterate on this design", "review this artifact", "make
-  this bolder", "make this quieter", "simplify this design",
-  "animate this", "improve the look of", "give this a refresh").
-  Captures brand from the user's codebase, asking, or live site, then
-  applies it to every artifact.
+  Create, explore, refine, and review on-brand HTML reports, diagrams,
+  diff reviews, slide decks, plans, recaps, and dashboards. Use to visualize
+  information, compare layouts or design systems, apply a brand or theme,
+  or improve an artifact's design, including simplifying, polishing, making
+  it bolder or quieter, and animating. Capture brand from code, conversation,
+  or a live site.
 ---
 
 # visualize — beautiful, on-brand HTML artifacts
@@ -48,25 +40,21 @@ Generate self-contained HTML artifacts composed from `templates/*/template.md` c
 
 ## Design judgment
 
-Identify what the reader needs to understand, make the important distinction visible, and retain the evidence and qualifications needed to interpret it correctly.
+Identify the reader's task and make the important distinction visible, retaining the evidence and qualifications needed to interpret it. Before choosing a treatment, find the source's organizing relationship, contrast, sequence, decision, or object; let it shape the opening, section rhythm, and explanatory primitives. When none helps, prefer restrained reading over a manufactured organizing idea.
 
-Find the artifact's organizing idea before choosing its visual treatment. Look for a relationship, contrast, sequence, decision, or object in the source that the composition itself can make easier to understand. Use that idea to shape the opening, section rhythm, and any explanatory primitive. When the source has no useful spatial or structural idea, prefer a restrained reading experience over manufacturing one.
-
-Artifact mode describes how the reader consumes the information, not the aesthetic family it must use. A document can use product-native, application-like, spatial, editorial, or technical-drawing grammar when that grammar serves the source, reader, and brand. Do not equate `document` with editorial publishing, or `canvas` with diagram chrome.
-
-Visual conviction can come from composition, typography, density, spatial rhythm, imagery, interaction, or color. Do not add hues, decoration, or components merely to make an artifact feel designed. A restrained palette can carry a strong point of view when another dimension does the expressive work.
+Artifact mode describes consumption, not aesthetics: `document` need not mean editorial publishing, nor `canvas` diagram chrome. Composition, typography, density, spatial rhythm, imagery, interaction, or color can supply conviction. Do not add hues, decoration, or components merely to make the artifact feel designed.
 
 Before responding to feedback, compare the observation with the artifact's reader, purpose, source, and approved brief where one exists. Distinguish an implementation defect, a design that fails its existing requirements, and evidence that a requirement or assumption has changed. The current composition is a solution, not a constraint.
 
 Make authorized corrections within the existing brief directly. If feedback implies a change to established requirements that the user has not already approved, explain the proposed change and obtain agreement before editing. When several structural or visual directions remain plausible, recommend `explore artifact` within its supported scope. When the direction is established, use the ordinary creation or refinement workflow. Follow that workflow's approval requirements; a small correction does not need a new exploration.
 
-Evaluate proposed fixes together against the reader's task. Do not turn every critique finding into an addition or treat a small diff as evidence that the direction is sound. Preserve decision-relevant deferred observations in existing review or task notes.
+Judge proposed fixes together against the reader's task. Do not turn every critique finding into an addition or treat a small diff as evidence of a sound direction. Retain decision-relevant deferred observations in existing review or task notes.
 
 ## Commands
 
-`{{command_prefix}}visualize` invokes the skill. The argument tells the agent what to do.
+`{{command_prefix}}visualize` takes a command or topic/path.
 
-**Default (no command, or the first argument is a topic):** `{{command_prefix}}visualize <topic-or-path>` creates a new artifact. The agent picks a template from intent across all of `templates/`, composes against the resolved project or artifact-theme context, writes self-contained HTML. **The flow is gated:** preflight checklist + shape-gate before code, no self-authored briefs. See `reference/create.md`.
+**Default (topic/path without a command):** create self-contained HTML using a template and resolved context. Read `reference/create.md`; preflight and user-approved shape precede code. An agent-authored brief cannot approve itself.
 
 **Named commands:**
 
@@ -82,12 +70,12 @@ Evaluate proposed fixes together against the reader's task. Do not turn every cr
 | **Evaluate** | `review` | `<path>` | Deterministic detector findings + LLM judgment. Reports; doesn't modify the file. | `reference/review.md` |
 | **Publish** | `publish` | `<path>` | Push the artifact to display.dev via MCP / CLI / HTTP cascade. | `reference/publish.md` |
 
-Invocation forms: `{{command_prefix}}visualize teach`, `{{command_prefix}}visualize explore artifact ./report.html`, `{{command_prefix}}visualize polish ./report.html`, `{{command_prefix}}visualize publish ./diagram.html`. On hosts without a slash-command form, the skill loads on intent-match from the description above; natural-language is the primary entry there.
+Example: `{{command_prefix}}visualize polish ./report.html`. On hosts without slash commands, natural-language intent is the primary entry.
 
 ## Routing rules
 
 1. **No argument**: render the Commands table above as the user-facing menu, grouped by category. Ask what they'd like to do.
-2. **First word matches a command**: **load its reference file before doing anything else.** Non-negotiable — the table row + this section is insufficient; the procedure lives in the reference. Everything after the command name is the target.
+2. **First word matches a command**: **load its reference before acting**; the table is not the procedure. Everything after the command name is the target.
 3. **Natural-language intent**: requests to compare design alternatives load `reference/explore.md`; capturing or reconciling project identity loads `reference/teach.md`. Otherwise load `reference/create.md` for creation or an explicitly requested restyling of an existing artifact. A named theme follows Artifact themes below; it does not require an exploration round.
 4. **Relationship-diagram route during creation**: when preflight first identifies a likely relationship diagram, load `reference/diagram.md` and the one tentative non-spatial type reference needed for that figure before presenting the shape gate. For multi-figure artifacts, load one reference for each distinct tentative family: `reference/diagram-flow.md`, `reference/diagram-system.md`, `reference/diagram-sequence.md`, `reference/diagram-state.md`, or `reference/diagram-hierarchy.md`. Spatial figures use `reference/diagram.md` alone. If approval changes a figure's type, load the replacement reference before authoring; do not load unrelated families.
 5. **Generated-image route during creation**: when the approved shape requires generated bitmap imagery, load `reference/image-generation.md` before selecting or invoking a route. Use only the active callable inventory or an explicitly selected API adapter. Never infer a route from a key, executable, mount, or model claim, and never retry or fall back after an ambiguous attempt.
@@ -95,24 +83,17 @@ Invocation forms: `{{command_prefix}}visualize teach`, `{{command_prefix}}visual
 
 ## Hand-off output shape
 
-After a refine verb (`simplify` / `bolder` / `quieter` / `animate`) finishes its run, summarise to the user in plain markdown. Don't render the summary as a fenced code block — it's conversational output, not machine-readable. Vary phrasing across runs; pick wording per context (engineer reading detector output vs. designer iterating on a brand brief). `polish` has its own output shape — see `reference/polish.md`.
+After `simplify` / `bolder` / `quieter` / `animate`, report in conversational markdown: verb and target, changes drawn from the reference's "what to surface" list, diff percentage, and the appropriate next action. Successful refinement defaults to `polish`, which has its own output shape in `reference/polish.md`.
 
-Every refine run's summary covers four facts:
+Variant rules:
 
-- Which verb ran, against which artifact.
-- What the verb actually did. Pull the verb-specific content from the per-verb reference's "what to surface" list (focal moment, cuts + audit trail, strategy, what stayed, hero moment, reduced-motion handling — depends on the verb).
-- Diff size as a percent of the artifact.
-- Which next action makes sense, if any. Polish is the default next step from a successful refine run.
-
-Variant rules (behaviour, not surface text):
-
-- **Context source note.** If the run cannot use a persisted `DESIGN.md` / `PRODUCT.md`, mention once which fallback source anchored the work: project instructions, README/docs, generated seed, or Clean defaults. Also nudge the user to run `{{command_prefix}}visualize teach` so that fallback can become a real brand profile. Clean defaults are the last resort after the Brand profile rules below find no usable project guidance.
-- **Diff exceeded the 40% guard.** Stop refinement and report the affected scope. Apply Design judgment to recommend exploration when the structural direction remains unresolved, or a fresh creation pass when it is established. Do not continue into polish.
-- **Verb shouldn't have run** (Absolute bans present, no decoration to remove, no focal moment, etc.). Skip the standard run summary entirely. Surface a short refusal that names the reason and routes to the right alternative verb. Each per-verb reference's "When `<verb>` is the right verb (and when it isn't)" section enumerates the verb's specific refusal conditions.
-
-Tone is conversational. Lead with what changed, not with a banner. Don't capitalise words for emphasis. Don't print a `<Verb> pass complete ·` header — the summary's content is the proof of completion.
+- **Fallback context:** name the source once (project instructions, README/docs, seed, or Clean) and nudge `{{command_prefix}}visualize teach`. Follow Brand profile's fallback hierarchy.
+- **Diff >40%:** stop, report the scope, and apply Design judgment to recommend exploration if direction is unresolved or fresh creation if established. Do not continue to polish.
+- **Verb shouldn't have run:** use the reference's refusal conditions; replace the standard summary with a short reason and the appropriate alternative.
 
 For `animate` specifically: when the brand declares `motion: none`, a fifth variant applies — see `reference/animate.md`.
+
+Lead with changes, vary phrasing for the reader, and avoid fenced summaries, capitalized emphasis, or `<Verb> pass complete ·` banners.
 
 ## Absolute bans
 
@@ -191,21 +172,30 @@ These are not brand aesthetics; they are observed model reflexes with required c
 
 ## AI slop test (two altitudes)
 
-Run both. The second catches what the first misses.
+Run both tests:
 
-**First-order**: if someone could guess the template + palette from the topic alone, you've hit the first training-data reflex. Topic stereotypes are prompts to inspect the brief, not color prohibitions: red, purple gradients, or navy-and-gold can fit a specific artifact. Rework unsupported defaults, not approved identity.
+- **First-order:** could the topic alone predict the template and palette? Inspect unsupported stereotypes, not approved identity; hue names are not prohibitions.
+- **Second-order:** could topic plus anti-references predict the aesthetic family? Avoid substituting another saturated reflex, such as cream/Georgia/margin-note editorial, mono/grid/heavy-border terminal, or uppercase/grotesk/grid Swiss-poster when the source and register do not support it.
 
-**Second-order**: if someone could guess the aesthetic family from topic-plus-anti-references ("AI workflow tool that's not SaaS-cream → editorial-typographic," "fintech that's not navy-and-gold → terminal-native dark mode"), the second-tier reflex isn't avoided. Currently-saturated families to watch for: editorial-Tufte clone (cream + Georgia + side-margin notes when the topic isn't editorial), brutalist-terminal clone (mono + grid + heavy borders when the topic isn't dev-tool), Swiss-poster clone (uppercase + grotesk + grid when the topic isn't presentation). Rework until both altitudes return "no, you couldn't have guessed."
+Rework unsupported defaults until neither test predicts the treatment; preserve approved identity.
 
 ## Brand profile
 
-Every render reads available `DESIGN.md` (visual identity + design tokens) and `PRODUCT.md` (voice, audience, tone) at the project root. `teach` derives custom design tokens for the brand and writes them in `DESIGN.md` as YAML frontmatter (the Google Stitch canonical format: machine-readable tokens) plus a six-section markdown body (Overview / Colors / Typography / Elevation / Components / Do's and Don'ts), with a sidecar `tokens.css` at the project root carrying the CSS-form tokens templates read at render time. Project profiles retain concrete tokens, not a `theme: <name>` pointer.
+Every render reads available project-root `DESIGN.md` (visual identity/tokens), `PRODUCT.md` (voice/audience/tone), and `tokens.css`. `teach` writes concrete project tokens in Stitch-format `DESIGN.md` plus the CSS sidecar, not a `theme: <name>` pointer; its schema and derivation procedure live in `reference/teach.md`.
+
+**Authority:** persisted `DESIGN.md` and `tokens.css` own visual tokens; `PRODUCT.md` owns voice and audience. Project instructions fill gaps without overriding persisted tokens unless the user explicitly says otherwise in the current request. Apply Artifact themes' approved exceptions before locking context.
 
 Brand authority is identity-scoped. If the request fixes a named identity but the resolved project profile clearly belongs to another product, do not substitute, relabel, or approximate it. Stop before the shape gate or any artifact edit and request matching authority or explicit permission for an artifact-only override.
 
-The design systems under `design-systems/` are reference packages with design guidance, tokens, and previews. `teach` and System Explore read them when deriving project identities; artifact creation and exploration can use them as themes under the shared contract below.
+`design-systems/` packages supply guidance, tokens, and previews for `teach`, System Explore, and artifact themes.
 
-**Fallback when no DESIGN.md exists:** an approved artifact reference supplies the visual baseline where project guidance is absent; do not replace it with a seed or Clean defaults. Otherwise, first read available project instructions (`AGENTS.md`, `CLAUDE.md`, README, docs) for product positioning, visual direction, anti-references, and design principles. If those files contain usable brand/design guidance, treat it as binding brand context while using Clean's token **surface** as the structural floor. Explicit cues in repo guidance override Clean values: named fonts become the artifact font stack, named palette roles become the artifact color tokens, and named anti-references rule out the corresponding fallback register. If the guidance points at concrete token files, stylesheet files, logo components, or design guidelines, read those referenced files and use their values before approximating from prose. Using Clean's token surface means keeping the semantic variable shape, not copying Clean's fonts, monochrome values, or warm/cream defaults. Only run `node {{scripts_path}}/palette.mjs --from "<topic-or-project-name>"` when the project has no usable visual direction at all. When a seed is used, compose the temporary `--primary`, `--background`, `--foreground`, `--accent`, chart, and state tokens from the seed + artifact brief; do not copy Clean's monochrome palette unchanged. Use the script's `derived` block (real contrast numbers, per-hue chroma budgets, light + dark lightness ladders) instead of estimating those values; if the seed's register fights the brief, re-run with `--not <zone,...>` or `--vary <n>` and note the veto in the shape gate. After composing, validate with `node {{scripts_path}}/palette.mjs --check <tokens-or-html> --strict` and fix error findings (exit 2) before render. Nudge `{{command_prefix}}visualize teach` once per session so repo guidance or the temporary seed can become a real brand profile.
+**Fallback when no DESIGN.md exists:**
+
+1. Preserve an approved artifact reference as the baseline where project guidance is absent; do not replace it with a seed or Clean.
+2. Otherwise read available project instructions (`AGENTS.md`, `CLAUDE.md`, README, docs) for positioning, visual direction, anti-references, and design principles. Treat usable guidance as binding brand context, including named fonts, palette roles, logo/mark rules, density/register, and anti-references, not optional mood. Follow referenced tokens, stylesheets, logo components, and guidelines before approximating from prose. Named fonts and palette roles override Clean's values; anti-references rule out the corresponding fallback register. Clean supplies the semantic token surface, not its fonts, monochrome palette, or warm/cream defaults.
+3. Only with no usable visual direction, run `node {{scripts_path}}/palette.mjs --from "<topic-or-project-name>"`. Compose temporary primary, background, foreground, accent, chart, and state tokens from the seed and brief, using its `derived` contrast numbers, chroma budgets, and light/dark ladders. Do not estimate those values or copy Clean unchanged. If the seed fights the brief, re-run with `--not <zone,...>` or `--vary <n>` and note the veto in the shape gate. Validate composed tokens with `node {{scripts_path}}/palette.mjs --check <tokens-or-html> --strict`; fix errors (exit 2) before render.
+
+Nudge `{{command_prefix}}visualize teach` once per session when using fallback context.
 
 **Refine verbs on missing persisted brand files:** `simplify` / `bolder` / `quieter` / `animate` / `polish` use the same fallback hierarchy as creation. Project instructions, README/docs, or other already-loaded context can be a valid qualitative brand anchor. Clean defaults are only the anchor when no usable project guidance exists. Whenever a fallback source is used, mention that source once and nudge `{{command_prefix}}visualize teach` so the fallback can become a real brand profile.
 
@@ -213,15 +203,15 @@ The design systems under `design-systems/` are reference packages with design gu
 
 ## Artifact themes
 
-A theme is a reference design system applied to one artifact, not a new stored object or a project-wide adoption. Use the current project system by default. Resolve binding project choices, approved artifact exceptions, and open design dimensions before borrowing from a reference. A named reference or a request to make an artifact more expressive does not silently override binding project choices; clarify conflicts that the request leaves unresolved. Explicit permission to replace visual styling applies only to the named artifact and dimensions. Do not invent constraints where the project is silent.
+A theme is a reference design system applied to one artifact, not a new stored object or a project-wide adoption. Default to the project system; resolve binding choices, approved exceptions, and open dimensions before borrowing. A named reference or request for more expression does not silently override binding choices. Clarify unresolved conflicts; explicit replacement permission covers only the named artifact and dimensions. Do not invent constraints where the project is silent.
 
-Read the selected `design-systems/<slug>/README.md` when present, then its `DESIGN.md` and `tokens.css`. README is the package entry point; DESIGN owns suitability, identity, and adaptation guidance. Use previews to understand the treatment, not as required layouts. If the user wants alternatives, propose a small relevant shortlist rather than loading the entire catalog. A missing README does not make a package unavailable.
+Read the selected package's `README.md` when present, then `DESIGN.md` and `tokens.css`. DESIGN owns suitability, identity, and adaptation. Previews illustrate treatment, not required layouts. Offer a small relevant shortlist for alternatives; do not load the whole catalog. A missing README does not make a package unavailable.
 
-Apply a named treatment through ordinary creation or revision; compare unresolved treatments through `explore artifact`. Neither requires a new layout or a project profile first. For new content, derive structure from the reader's task and source. For existing artifacts, preserve content, order, assets, and behavior unless those changes were requested. A broad restyling uses `reference/create.md` with that preservation scope, not a narrow refine verb forced past its diff guard. Existing approval gates still apply; an explicit request already covering the proposed changes does not need reconfirmation.
+Apply a treatment through creation or revision; compare unresolved treatments through `explore artifact`. Neither requires a new layout or project profile. Derive new structure from source and reader task. Preserve existing content, order, assets, and behavior unless changes were requested. Broad restyling uses `reference/create.md` with that scope rather than exceeding a refine verb's diff guard. Existing approval gates apply; an explicit request covering the proposed changes needs no reconfirmation.
 
-Translate the reference's hierarchy, spacing, surfaces, and component treatment as well as its palette and type. Keep non-overridden project choices. Embed the resolved tokens, including designed light/dark and OS-dark behavior, in the artifact; do not replace the project's token source. Verify against the resolved artifact context, not the overridden project values. Describe partial borrowing and retained constraints rather than claiming an unchanged reference application. Keep the approved exception and its scope in existing task notes or a short artifact comment so later refinement can preserve it; unexplained styling drift alone is not approval.
+Translate hierarchy, spacing, surfaces, and component treatment alongside palette and type. Preserve non-overridden project choices. Embed resolved tokens with light, explicit-dark, and OS-dark behavior in the artifact; do not replace the project's token source. Verify against the resolved artifact context, not overridden values. Describe partial borrowing and retained constraints accurately. Record approved exceptions and scope in existing task notes or a short artifact comment for later refinement; unexplained drift is not approval.
 
-For project-wide capture or direct derivation, use `teach`. To compare new or explicitly requested replacement systems, use `explore system`. Neither route is a prerequisite for artifact themes.
+Project-wide capture or derivation uses `teach`; comparing new or explicitly requested replacement systems uses `explore system`. Neither is a prerequisite for artifact themes.
 
 ## Universal laws
 

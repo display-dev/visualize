@@ -11,7 +11,7 @@ Walk every applicable quality dimension and report findings against the reader's
 Read in order:
 
 1. **The artifact.** Open the file, scroll it end-to-end in your head. Notice what the eye lands on first, what feels off, what reads as "agent eyeballed it."
-2. **The detector.** Run `node $SKILL_DIR/scripts/detect.mjs --json <path>` for the mechanical floor. Detector output is **defect-evidence**, never **done-evidence** — a clean result is not proof the artifact is strong. The detector catches what regex can identify; polish covers everything else.
+2. **The detector.** Run `node $SKILL_DIR/scripts/detect.mjs --json <path>` for the mechanical floor; apply SKILL.md's Universal law 7 when interpreting the result.
 
 ## Discovery: name the root cause, not just the symptom
 
@@ -170,7 +170,7 @@ Skipped verification accumulates as "polish reports clean but the artifact is br
 
 If the artifact needs broad rework, polish has misfired. The escape:
 
-- **Artifact carries ≥3 Absolute bans** → refuse and route to `/visualize simplify` first. Simplify's job is removing ban patterns; polish assumes a clean baseline. (SKILL.md's "Refine verbs on artifacts that carry ≥3 Absolute bans" rule applies.)
+- **Ban-heavy artifact** → apply SKILL.md's "Refine verbs on artifacts that carry ≥3 Absolute bans" refusal and routing contract.
 - **Artifact needs broad rework beyond polish** → stop refinement and apply SKILL.md's Hand-off output shape and Design judgment to recommend the next action.
 - **Do not hand off to another Refine verb expecting it to come back.** The Refine verbs (`simplify` / `bolder` / `quieter` / `animate`) hand off to polish, but polish doesn't hand off to them — that creates a cycle. When polish refuses, recommend the next action to the user; do not start another command.
 
