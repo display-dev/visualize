@@ -4,7 +4,7 @@ import { readFile, writeFile, mkdir, mkdtemp, rename, rm, lstat, realpath } from
 import { createHash } from 'node:crypto';
 import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 
 const skillRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const source = JSON.parse(await readFile(join(skillRoot, 'design-systems', 'catalog-source.json'), 'utf8'));
@@ -118,7 +118,9 @@ export async function resolveCatalog(slug, {
   }
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+// Installers may expose the skill through a symlink; compare resolved paths.
+const invokedPath = process.argv[1] ? await realpath(process.argv[1]).catch(() => null) : null;
+if (invokedPath && await realpath(fileURLToPath(import.meta.url)) === invokedPath) {
   const [slug, ...flags] = process.argv.slice(2);
   if (!slug || flags.some(flag => flag !== '--previews')) {
     console.error('usage: node scripts/catalog.mjs <slug> [--previews]'); process.exitCode = 2;

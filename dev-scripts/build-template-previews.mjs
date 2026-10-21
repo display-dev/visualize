@@ -3,7 +3,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const repoRoot = path.resolve(import.meta.dirname, "..");
-const visualizeRoot = path.join(repoRoot, "visualize");
+const visualizeRoot = path.join(repoRoot, "skills", "visualize");
 const fixturesRoot = path.join(visualizeRoot, "fixtures");
 const designSystemsRoot = path.join(repoRoot, "catalog", "design-systems");
 
@@ -13,7 +13,7 @@ function usage() {
   build-template-previews.sh --matrix dev-scripts/template-preview-matrix.json [--mode light|dark|both] [--out-dir temp/template-previews]
   build-template-previews.sh --manifest [--design-system <slug>] [--mode light|dark|both] [--out-dir temp/template-previews]
 
-Template HTML is no longer a canonical authoring input. Use fixture files listed in visualize/fixtures/manifest.json.`);
+Template HTML is no longer a canonical authoring input. Use fixture files listed in skills/visualize/fixtures/manifest.json.`);
 }
 
 function parseArgs(argv) {

@@ -5,7 +5,7 @@ import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 
 const repoRoot = resolve(import.meta.dirname, "..");
-const fixturesRoot = join(repoRoot, "visualize", "fixtures");
+const fixturesRoot = join(repoRoot, "skills", "visualize", "fixtures");
 const manifestPath = join(fixturesRoot, "manifest.json");
 
 const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
@@ -31,7 +31,7 @@ function runDiagramCheck(entry, check) {
   if (runner === "mermaid-render") {
     const workDir = mkdtempSync(join(tmpdir(), "visualize-mermaid-fixture-"));
     try {
-      const result = spawnSync(process.execPath, ["visualize/scripts/render-mermaid.mjs", file, join(workDir, "output.svg")], {
+      const result = spawnSync(process.execPath, ["skills/visualize/scripts/render-mermaid.mjs", file, join(workDir, "output.svg")], {
         cwd: repoRoot,
         encoding: "utf8",
         stdio: "pipe",
@@ -55,9 +55,9 @@ function runDiagramCheck(entry, check) {
   }
   let args;
   if (runner === "detect") {
-    args = ["visualize/scripts/detect.mjs", "--strict", "--json", file];
+    args = ["skills/visualize/scripts/detect.mjs", "--strict", "--json", file];
   } else if (runner === "browser-diagram") {
-    args = ["visualize/scripts/browser-diagram.mjs", "--strict", "--json", file];
+    args = ["skills/visualize/scripts/browser-diagram.mjs", "--strict", "--json", file];
   } else {
     process.stderr.write(`FAIL · ${entry.file}: unknown diagram runner "${runner}"\n`);
     process.exit(1);
@@ -118,9 +118,9 @@ for (const entry of entries) {
     }
     const file = join(fixturesRoot, entry.file);
     if (check === "detect") {
-      run(`${entry.file} detect`, process.execPath, ["visualize/scripts/detect.mjs", "--strict", file]);
+      run(`${entry.file} detect`, process.execPath, ["skills/visualize/scripts/detect.mjs", "--strict", file]);
     } else if (check === "contrast") {
-      run(`${entry.file} contrast`, process.execPath, ["visualize/scripts/browser-contrast.mjs", "--strict", file]);
+      run(`${entry.file} contrast`, process.execPath, ["skills/visualize/scripts/browser-contrast.mjs", "--strict", file]);
     } else if (check === "desktop-smoke" || check === "mobile-smoke") {
       if (entry.kind !== "pattern") {
         process.stderr.write(`FAIL · ${entry.file}: ${check} is only supported for pattern fixtures\n`);
@@ -128,7 +128,7 @@ for (const entry of entries) {
       }
       const viewport = check === "desktop-smoke" ? "desktop" : "mobile";
       run(`${entry.file} ${check}`, process.execPath, [
-        "visualize/scripts/pattern-fixture-smoke.mjs",
+        "skills/visualize/scripts/pattern-fixture-smoke.mjs",
         "--strict",
         "--viewport",
         viewport,
@@ -139,19 +139,19 @@ for (const entry of entries) {
         process.stderr.write(`FAIL · ${entry.file}: no smoke runner for shell "${entry.shell}"\n`);
         process.exit(1);
       }
-      run(`${entry.file} smoke`, process.execPath, ["visualize/scripts/slide-canvas-smoke.mjs", "--strict", file]);
+      run(`${entry.file} smoke`, process.execPath, ["skills/visualize/scripts/slide-canvas-smoke.mjs", "--strict", file]);
     } else if (check === "overflow") {
       if (entry.shell !== "slide-canvas") {
         process.stderr.write(`FAIL · ${entry.file}: no overflow runner for shell "${entry.shell}"\n`);
         process.exit(1);
       }
-      run(`${entry.file} overflow`, process.execPath, ["visualize/scripts/slide-canvas-overflow.mjs", "--strict", file]);
+      run(`${entry.file} overflow`, process.execPath, ["skills/visualize/scripts/slide-canvas-overflow.mjs", "--strict", file]);
     } else if (check === "print") {
       if (entry.shell !== "slide-canvas") {
         process.stderr.write(`FAIL · ${entry.file}: no print runner for shell "${entry.shell}"\n`);
         process.exit(1);
       }
-      run(`${entry.file} print`, process.execPath, ["visualize/scripts/print-check.mjs", "--strict", file]);
+      run(`${entry.file} print`, process.execPath, ["skills/visualize/scripts/print-check.mjs", "--strict", file]);
     }
     count += 1;
   }

@@ -18,6 +18,6 @@ Previews demonstrate the system; their content and layouts are examples.
 > project's visual styling for this artifact only; keep its logo, content,
 > section order, and behavior.
 
-Follow Visualize's [shared theme workflow](../../../visualize/SKILL.md#artifact-themes)
+Follow Visualize's [shared theme workflow](../../../skills/visualize/SKILL.md#artifact-themes)
 for application, project constraints, explicit overrides, and comparisons.
-For project-wide capture or derivation, use [teach](../../../visualize/reference/teach.md).
+For project-wide capture or derivation, use [teach](../../../skills/visualize/reference/teach.md).

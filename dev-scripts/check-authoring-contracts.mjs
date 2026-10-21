@@ -3,7 +3,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 
 const repoRoot = path.resolve(import.meta.dirname, "..");
-const visualizeRoot = path.join(repoRoot, "visualize");
+const visualizeRoot = path.join(repoRoot, "skills", "visualize");
 const templatesRoot = path.join(visualizeRoot, "templates");
 const patternsRoot = path.join(visualizeRoot, "patterns");
 const shellsRoot = path.join(visualizeRoot, "shells");
@@ -56,7 +56,7 @@ function warn(label, issue) {
 }
 
 if (existsSync(path.join(visualizeRoot, "components"))) {
-  fail("visualize/components", "legacy components directory still exists");
+  fail("skills/visualize/components", "legacy components directory still exists");
 }
 
 for (const slug of dirs(templatesRoot)) {

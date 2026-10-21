@@ -50,5 +50,5 @@ taste. Under-filled cells in the generator's matrix are usually gamut
 truth, not bugs (dark saturated teal barely exists in sRGB, and what does
 exist is already occupied by shipped seeds).
 
-`oklch-lib.mjs` duplicates the color math from `visualize/scripts/palette.mjs`
+`oklch-lib.mjs` duplicates the color math from `skills/visualize/scripts/palette.mjs`
 (which exports nothing by design); if the runtime rules change, update both.

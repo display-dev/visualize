@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Smoke test for visualize/scripts/palette.mjs (schemaVersion 2).
+// Smoke test for skills/visualize/scripts/palette.mjs (schemaVersion 2).
 //
 // Verifies: inline color math against vendored culori, seed library
 // integrity (gamut, fields, zone coverage), deterministic sampling
@@ -16,11 +16,11 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { writeFileSync, readFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { detect } from '../visualize/scripts/detect.mjs';
-import { parse as parseColor, converter, wcagContrast, wcagLuminance } from '../visualize/scripts/vendor/culori.mjs';
+import { detect } from '../skills/visualize/scripts/detect.mjs';
+import { parse as parseColor, converter, wcagContrast, wcagLuminance } from '../skills/visualize/scripts/vendor/culori.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const PALETTE = join(__dirname, '..', 'visualize', 'scripts', 'palette.mjs');
+const PALETTE = join(__dirname, '..', 'skills', 'visualize', 'scripts', 'palette.mjs');
 const toRgb = converter('rgb');
 
 let failures = 0;

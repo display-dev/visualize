@@ -13,7 +13,7 @@ stdout, never the script name or source.
 
 | name | command |
 |---|---|
-| v2 | `node visualize/scripts/palette.mjs --from "<topic>"` |
+| v2 | `node skills/visualize/scripts/palette.mjs --from "<topic>"` |
 | v1 | `node <extracted-from-git> --from "<topic>"` (`git show c6f3452:visualize/scripts/palette.mjs`) |
 | impeccable | `node ~/Development/impeccable/skill/scripts/palette.mjs --from "<topic>"` |
 

@@ -12,11 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Mounts byte-identical (canonical → mirrors)
-        run: bin/sync-mounts.sh --check
+      - name: Standalone skill package
+        run: node dev-scripts/check-skill-package.mjs
 
       - name: Make scripts executable
-        run: chmod +x bin/sync-mounts.sh dev-scripts/*.mjs visualize/scripts/*.sh visualize/scripts/*.mjs
+        run: chmod +x dev-scripts/*.mjs skills/visualize/scripts/*.sh skills/visualize/scripts/*.mjs
 
       - name: Plugin manifests parse as JSON
         run: |
@@ -25,28 +25,28 @@ jobs:
 
       - name: Bash syntax check
         run: |
-          bash -n visualize/scripts/_common.sh
-          bash -n visualize/scripts/publish.sh
+          bash -n skills/visualize/scripts/_common.sh
+          bash -n skills/visualize/scripts/publish.sh
           bash -n dev-scripts/build-previews.sh
           bash -n dev-scripts/build-template-previews.sh
           bash -n dev-scripts/build-templates-showcase.sh
 
       - name: Node syntax check
         run: |
-          node --check visualize/scripts/catalog.mjs
-          node --check visualize/scripts/teach.mjs
-          node --check visualize/scripts/palette.mjs
-          node --check visualize/scripts/detect.mjs
-          node --check visualize/scripts/browser-contrast.mjs
-          node --check visualize/scripts/browser-diagram.mjs
-          node --check visualize/scripts/render-mermaid.mjs
-          node --check visualize/scripts/image-contract.mjs
-          node --check visualize/scripts/generate-image.mjs
-          node --check visualize/scripts/record-image.mjs
-          node --check visualize/scripts/print-check.mjs
-          node --check visualize/scripts/slide-canvas-overflow.mjs
-          node --check visualize/scripts/slide-canvas-smoke.mjs
-          node --check visualize/shells/slide-canvas/slide-canvas.js
+          node --check skills/visualize/scripts/catalog.mjs
+          node --check skills/visualize/scripts/teach.mjs
+          node --check skills/visualize/scripts/palette.mjs
+          node --check skills/visualize/scripts/detect.mjs
+          node --check skills/visualize/scripts/browser-contrast.mjs
+          node --check skills/visualize/scripts/browser-diagram.mjs
+          node --check skills/visualize/scripts/render-mermaid.mjs
+          node --check skills/visualize/scripts/image-contract.mjs
+          node --check skills/visualize/scripts/generate-image.mjs
+          node --check skills/visualize/scripts/record-image.mjs
+          node --check skills/visualize/scripts/print-check.mjs
+          node --check skills/visualize/scripts/slide-canvas-overflow.mjs
+          node --check skills/visualize/scripts/slide-canvas-smoke.mjs
+          node --check skills/visualize/shells/slide-canvas/slide-canvas.js
           node --check dev-scripts/catalog-index.mjs
           node --check dev-scripts/check-authoring-contracts.mjs
           node --check dev-scripts/check-fixtures.mjs
@@ -86,17 +86,17 @@ jobs:
       - name: slide-canvas unit tests
         # Pure-logic helpers (computeScale, parseSlideHash, static API).
         # Zero deps; runs with the bundled node:test runner.
-        run: node --test visualize/shells/slide-canvas/slide-canvas.test.mjs
+        run: node --test skills/visualize/shells/slide-canvas/slide-canvas.test.mjs
 
       - name: Portable image-generation contract
-        run: node --test visualize/scripts/image-contract.test.mjs visualize/scripts/image-generation.test.mjs visualize/scripts/image-routes.test.mjs
+        run: node --test skills/visualize/scripts/image-contract.test.mjs skills/visualize/scripts/image-generation.test.mjs skills/visualize/scripts/image-routes.test.mjs
 
       - name: Authoring contract
         # Enforces the template.md / patterns / shells / fixtures model.
         run: node dev-scripts/check-authoring-contracts.mjs
 
       - name: Slide-canvas overflow self-test
-        run: node visualize/scripts/slide-canvas-overflow.mjs --self-test
+        run: node skills/visualize/scripts/slide-canvas-overflow.mjs --self-test
 
       - name: Library / CDN policy enforcement
         # Fails the build if any template <script src=...> references a
@@ -105,10 +105,10 @@ jobs:
         run: node dev-scripts/check-library-policy.mjs --quiet
 
       - name: Diagram geometry self-test
-        run: node visualize/scripts/browser-diagram.mjs --self-test
+        run: node skills/visualize/scripts/browser-diagram.mjs --self-test
 
       - name: Mermaid authoring-path self-test
-        run: node visualize/scripts/render-mermaid.mjs --self-test
+        run: node skills/visualize/scripts/render-mermaid.mjs --self-test
 
       - name: Fixture manifest checks
         # Runs each detect / contrast / smoke check declared in fixtures/manifest.json.
@@ -119,7 +119,7 @@ jobs:
         run: |
           node dev-scripts/inventory-template-composition.mjs --strict
           dev-scripts/build-template-previews.sh --matrix dev-scripts/template-preview-matrix.json
-          find temp/template-previews -name '*.html' -print0 | xargs -0 node visualize/scripts/detect.mjs --strict
+          find temp/template-previews -name '*.html' -print0 | xargs -0 node skills/visualize/scripts/detect.mjs --strict
 
       - name: Preview freshness — design-systems/<ds>/preview*.html match generated
         # Re-runs build-previews.sh in --check mode. Fails if committed
@@ -133,7 +133,7 @@ jobs:
         # hygiene; floating branch refs let upstream rewrite history.
         uses: ludeeus/action-shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38 # v2.0.0
         with:
-          scandir: ./visualize/scripts
+          scandir: ./skills/visualize/scripts
           severity: warning
 
       # Deliberately no wire-level smoke against a spawned API. The bash
@@ -166,7 +166,7 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ${{ env.npm_config_cache }}
-          key: mermaid-${{ runner.os }}-${{ runner.arch }}-${{ steps.toolchain.outputs.node }}-${{ steps.toolchain.outputs.npm }}-${{ hashFiles('visualize/scripts/render-mermaid.mjs') }}
+          key: mermaid-${{ runner.os }}-${{ runner.arch }}-${{ steps.toolchain.outputs.node }}-${{ steps.toolchain.outputs.npm }}-${{ hashFiles('skills/visualize/scripts/render-mermaid.mjs') }}
 
       - name: Prepare pinned Mermaid CLI
         # Keep cold package acquisition outside the renderer's 60-second
@@ -179,4 +179,4 @@ jobs:
         # Covers direct npx-cli.js execution through Node, valid and invalid
         # source, the end-to-end deadline, and taskkill-based descendant cleanup.
         timeout-minutes: 3
-        run: node visualize/scripts/render-mermaid.mjs --self-test
+        run: node skills/visualize/scripts/render-mermaid.mjs --self-test

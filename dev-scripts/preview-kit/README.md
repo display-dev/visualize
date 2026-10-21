@@ -74,7 +74,7 @@ CI (`.github/workflows/ci.yml`) runs the `--check` form. Any drift between commi
 
 ## Fixture previews
 
-The preview kit proves design-system tokens across one broad token page. Fixture previews render targeted pattern and shell examples from `visualize/fixtures/manifest.json`.
+The preview kit proves design-system tokens across one broad token page. Fixture previews render targeted pattern and shell examples from `skills/visualize/fixtures/manifest.json`.
 
 ```sh
 # One fixture/design-system pair.

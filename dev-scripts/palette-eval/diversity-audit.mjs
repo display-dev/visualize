@@ -25,7 +25,7 @@ import { oklchToOklab, oklabDist, parseOklch } from '../palette-curate/oklch-lib
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO = join(__dirname, '..', '..');
-const PALETTE = join(REPO, 'visualize', 'scripts', 'palette.mjs');
+const PALETTE = join(REPO, 'skills', 'visualize', 'scripts', 'palette.mjs');
 
 const args = process.argv.slice(2);
 const dirIdx = args.indexOf('--dir');
