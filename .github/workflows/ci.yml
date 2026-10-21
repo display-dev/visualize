@@ -33,6 +33,7 @@ jobs:
 
       - name: Node syntax check
         run: |
+          node --check visualize/scripts/catalog.mjs
           node --check visualize/scripts/teach.mjs
           node --check visualize/scripts/palette.mjs
           node --check visualize/scripts/detect.mjs
@@ -70,11 +71,17 @@ jobs:
         # ladder self-consistency).
         run: node dev-scripts/palette-smoke.mjs
 
+      - name: Fetch immutable catalog snapshot
+        run: git fetch --no-tags --depth=1 origin "$(node -p "require('./catalog/source.json').revision")"
+
       - name: Catalog selection metadata
         # DESIGN.md frontmatter feeds deterministic catalog-index.json.
         # The check fails on missing / invalid selection metadata or
         # hand-edited index drift.
         run: node dev-scripts/catalog-index.mjs --check
+
+      - name: Selected catalog resolution
+        run: node --test dev-scripts/catalog.test.mjs
 
       - name: slide-canvas unit tests
         # Pure-logic helpers (computeScale, parseSlideHash, static API).

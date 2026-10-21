@@ -44,9 +44,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-VIS_ROOT="$(cd "$SCRIPT_DIR/../visualize" && pwd)"
-TEMPLATE="$VIS_ROOT/preview-kit/template.html"
-FIXTURE_STYLES_DIR="$VIS_ROOT/preview-kit/fixture-styles"
+TEMPLATE="$SCRIPT_DIR/preview-kit/template.html"
+FIXTURE_STYLES_DIR="$SCRIPT_DIR/preview-kit/fixture-styles"
 
 # Curated, alphabetical. Adding a design system requires updating this list.
 # Keeps freshness check honest (auto-discovery would mask missing previews).
@@ -81,7 +80,7 @@ build_fixture_styles_bundle() {
   find "$FIXTURE_STYLES_DIR" -name '*.css' -type f 2>/dev/null \
     | LC_ALL=C sort \
     | while IFS= read -r css; do
-        rel="${css#"$VIS_ROOT/"}"
+        rel="${css#"$SCRIPT_DIR/"}"
         printf '/* === %s === */\n' "$rel"
         cat "$css"
         printf '\n'
@@ -100,7 +99,7 @@ trap 'rm -f "$FIXTURE_STYLES_BUNDLE" "${CURRENT_TMP:-}"' EXIT
 render() {
   local ds="$1"
   local root_attr="$2"
-  local tokens="$VIS_ROOT/design-systems/$ds/tokens.css"
+  local tokens="$SCRIPT_DIR/../catalog/design-systems/$ds/tokens.css"
 
   if [[ ! -f "$tokens" ]]; then
     echo "missing tokens.css for design system '$ds': $tokens" >&2
@@ -116,7 +115,7 @@ render() {
   # __TOKENS_PLACEHOLDER__ / __COMPONENTS_PLACEHOLDER__ / __DESIGN_SYSTEM_NAME__
   # / __ROOT_ATTR__ substitution contract, so the build flow doesn't
   # branch.
-  local override="$VIS_ROOT/design-systems/$ds/preview-template.html"
+  local override="$SCRIPT_DIR/../catalog/design-systems/$ds/preview-template.html"
   local template_for_render="$TEMPLATE"
   if [[ -f "$override" ]]; then
     template_for_render="$override"
@@ -150,10 +149,10 @@ generated=0
 for ds in "${DESIGN_SYSTEMS[@]}"; do
   for variant in light dark; do
     if [[ "$variant" == "light" ]]; then
-      out="$VIS_ROOT/design-systems/$ds/preview.html"
+      out="$SCRIPT_DIR/../catalog/design-systems/$ds/preview.html"
       root_attr="$ROOT_ATTR_LIGHT"
     else
-      out="$VIS_ROOT/design-systems/$ds/preview-dark.html"
+      out="$SCRIPT_DIR/../catalog/design-systems/$ds/preview-dark.html"
       root_attr="$ROOT_ATTR_DARK"
     fi
 

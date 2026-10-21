@@ -7,15 +7,46 @@
 //   node dev-scripts/catalog-index.mjs --write-metadata
 //   node dev-scripts/catalog-index.mjs --refresh-metadata
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const REPO_ROOT = dirname(dirname(__filename));
-const DESIGN_ROOT = join(REPO_ROOT, 'visualize', 'design-systems');
+const DESIGN_ROOT = join(REPO_ROOT, 'catalog', 'design-systems');
 const BUILD_PREVIEWS = join(REPO_ROOT, 'dev-scripts', 'build-previews.sh');
-const OUT_PATH = join(DESIGN_ROOT, 'catalog-index.json');
+const OUT_PATH = join(REPO_ROOT, 'visualize', 'design-systems', 'catalog-index.json');
+const SOURCE = JSON.parse(readFileSync(join(REPO_ROOT, 'catalog', 'source.json'), 'utf8'));
+if (!/^[a-f0-9]{40}$/.test(SOURCE.revision) || !/^(visualize|catalog)\/design-systems$/.test(SOURCE.root)) throw new Error('Invalid immutable catalog source');
+
+function published(path) {
+  try {
+    return execFileSync('git', ['show', `${SOURCE.revision}:${path}`], { cwd: REPO_ROOT, stdio: ['ignore', 'pipe', 'pipe'] });
+  } catch (error) {
+    throw new Error(`Cannot read published catalog ${SOURCE.revision}:${path}. Fetch the pinned commit before generating: git fetch --no-tags --depth=1 origin ${SOURCE.revision}`, { cause: error });
+  }
+}
+
+function syncBundledCatalog(check) {
+  const runtime = join(REPO_ROOT, 'visualize', 'design-systems');
+  const files = [
+    ['clean/README.md', `${SOURCE.root}/clean/README.md`],
+    ['clean/DESIGN.md', `${SOURCE.root}/clean/DESIGN.md`],
+    ['clean/tokens.css', `${SOURCE.root}/clean/tokens.css`],
+    ['catalog-source.json', join(REPO_ROOT, 'catalog', 'source.json')],
+  ];
+  for (const [name, source] of files) {
+    const target = join(runtime, name);
+    const bytes = name === 'catalog-source.json' ? readFileSync(source) : published(source);
+    if (check) {
+      if (!readFileSync(target).equals(bytes)) throw new Error(`drift: ${relative(REPO_ROOT, target)}`);
+    } else {
+      mkdirSync(dirname(target), { recursive: true });
+      writeFileSync(target, bytes);
+    }
+  }
+}
 
 const FORMALITY = new Set(['low', 'medium', 'high']);
 const DENSITY = new Set(['low', 'medium', 'high']);
@@ -96,8 +127,7 @@ function printUsage() {
   node dev-scripts/catalog-index.mjs --refresh-metadata`);
 }
 
-function designSystemsFromBuildScript() {
-  const text = readFileSync(BUILD_PREVIEWS, 'utf8');
+function designSystemsFromBuildScript(text = readFileSync(BUILD_PREVIEWS, 'utf8')) {
   const match = text.match(/DESIGN_SYSTEMS=\(([^)]+)\)/s);
   if (!match) throw new Error('could not find DESIGN_SYSTEMS=(...) in build-previews.sh');
   return match[1].trim().split(/\s+/).sort();
@@ -268,9 +298,9 @@ function avoidFor(mood, density, canvas) {
   return 'Avoid when the source material asks for a sharply different emotional register, density profile, or canvas polarity.';
 }
 
-function readSystem(slug) {
-  const filePath = join(DESIGN_ROOT, slug, 'DESIGN.md');
-  const text = readFileSync(filePath, 'utf8');
+function readSystem(slug, pinned = false) {
+  const filePath = pinned ? `${SOURCE.root}/${slug}/DESIGN.md` : join(DESIGN_ROOT, slug, 'DESIGN.md');
+  const text = pinned ? published(filePath).toString('utf8') : readFileSync(filePath, 'utf8');
   const fm = parseFrontmatter(text, filePath);
   const topCanvas = normalizeCanvas(firstTopLevel(fm.raw, 'canonical-canvas'));
   const rawWithoutCanvas = fm.raw
@@ -375,12 +405,12 @@ async function main() {
   }
 
   const slugs = designSystemsFromBuildScript();
-  let systems = slugs.map(readSystem);
+  let systems = slugs.map(slug => readSystem(slug));
   if (options.writeMetadata || options.refreshMetadata) {
     for (const system of systems) {
       insertOrReplaceSelection(system, options.refreshMetadata ? inferSelection(system) : (system.selection || inferSelection(system)));
     }
-    systems = slugs.map(readSystem);
+    systems = slugs.map(slug => readSystem(slug));
   }
 
   const errors = systems.flatMap(validateSelection);
@@ -389,7 +419,13 @@ async function main() {
     process.exit(1);
   }
 
-  const json = stableJson(buildIndex(systems));
+  // Authoring validation follows the working catalog; installed resources follow
+  // only the published pin, so source-only catalog PRs do not expose missing URLs.
+  const distributed = designSystemsFromBuildScript(published('dev-scripts/build-previews.sh').toString('utf8')).map(slug => readSystem(slug, true));
+  const pinnedErrors = distributed.flatMap(validateSelection);
+  if (pinnedErrors.length) throw new Error(pinnedErrors.join('\n'));
+  const json = stableJson(buildIndex(distributed));
+  syncBundledCatalog(options.check);
   if (options.check) {
     const current = readFileSync(OUT_PATH, 'utf8');
     if (current !== json) {
@@ -397,10 +433,10 @@ async function main() {
       console.error('Run `node dev-scripts/catalog-index.mjs` to regenerate.');
       process.exit(1);
     }
-    console.log(`OK · catalog-index fresh for ${systems.length} design systems`);
+    console.log(`OK · catalog-index fresh for ${distributed.length} published design systems (${systems.length} authored)`);
   } else {
     writeFileSync(OUT_PATH, json, 'utf8');
-    console.log(`OK · wrote ${relative(REPO_ROOT, OUT_PATH)} for ${systems.length} design systems`);
+    console.log(`OK · wrote ${relative(REPO_ROOT, OUT_PATH)} for ${distributed.length} published design systems (${systems.length} authored)`);
   }
 }
 

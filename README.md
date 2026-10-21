@@ -14,6 +14,17 @@ npx skills add display-dev/visualize --skill visualize
 
 Works across Claude Code, Cursor, Codex, OpenCode, Hermes, and Pi.
 
+Installations bundle the selection index, Clean fallback, templates, and runtime helpers. The full catalog and preview sources stay in this repository. Selected reference packages load on demand from a pinned public commit; Node.js 18+ and internet access are needed for the first load of a non-bundled package. Cached packages can be reused offline.
+
+From the installed skill directory:
+
+```sh
+node scripts/catalog.mjs editorial
+node scripts/catalog.mjs editorial --previews
+```
+
+The JSON result gives local file paths and the pinned source URL. Previews load only with `--previews`. Set `VISUALIZE_CATALOG_CACHE_DIR` to relocate the default `~/.cache/visualize-skill/catalog` cache. A failed fetch reports the unavailable reference; it never silently substitutes Clean. For a damaged cache, remove only the directory named in the error and retry.
+
 ## Why visualize?
 
 Four problems with how agents publish HTML today:
@@ -59,7 +70,7 @@ Reference packages with visual guidance, tokens, and previews. Use them when der
 - **40 native register-family references** — Clean (default), Editorial, Console, IDE, Terminal, Blueprint, Brutalist, Deck, Paper-ink, Whitepaper, plus broader artifact registers like Bento, Neon, Riso, Terracotta, Glassmorphism, Dithered, Luxury, Sketch, Monograph, News-print, Swiss, Win98, and more.
 - **63 brand-style entries** — `airbnb-style`, `apple-style`, `cohere-style`, `mistral-ai-style`, etc. All brand-style entries are self-authored from live brand verification and carry `source: live-verified` in their `DESIGN.md` frontmatter.
 
-Each design system has `DESIGN.md` for visual guidance and `tokens.css` for concrete values. A package README, when present, links its references and previews; see [Editorial](visualize/design-systems/editorial/README.md).
+Each design system has `DESIGN.md` for visual guidance and `tokens.css` for concrete values. A package README, when present, links its references and previews; see [Editorial](catalog/design-systems/editorial/README.md).
 
 For example: “Apply Editorial to this report. Replace the project's visual styling for this artifact only; keep its logo, content, section order, and behavior.”
 

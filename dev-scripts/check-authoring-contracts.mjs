@@ -8,7 +8,7 @@ const templatesRoot = path.join(visualizeRoot, "templates");
 const patternsRoot = path.join(visualizeRoot, "patterns");
 const shellsRoot = path.join(visualizeRoot, "shells");
 const fixturesRoot = path.join(visualizeRoot, "fixtures");
-const designSystemsRoot = path.join(visualizeRoot, "design-systems");
+const designSystemsRoot = path.join(repoRoot, "catalog", "design-systems");
 
 function readFrontmatter(file) {
   const content = readFileSync(file, "utf8");

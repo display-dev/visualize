@@ -63,7 +63,7 @@ Generated fixture previews live under `temp/template-previews/` and are intentio
 
 ## Adding a design system
 
-Drop a new directory under `visualize/design-systems/<slug>/` with `DESIGN.md` (Google Stitch's canonical format — YAML frontmatter carrying design tokens + a six-section markdown body: Overview / Colors / Typography / Elevation / Components / Do's and Don'ts) and `tokens.css` (sidecar with CSS custom properties for the `:root` + `.dark` blocks). The worked exemplar is `visualize/design-systems/clean/DESIGN.md` — match its overall shape (YAML structure, evocative subtitles, Named Rules pattern) and adapt the content for the new register.
+Drop a new directory under `catalog/design-systems/<slug>/` with `DESIGN.md` (Google Stitch's canonical format — YAML frontmatter carrying design tokens + a six-section markdown body: Overview / Colors / Typography / Elevation / Components / Do's and Don'ts) and `tokens.css` (sidecar with CSS custom properties for the `:root` + `.dark` blocks). The worked exemplar is `catalog/design-systems/clean/DESIGN.md` — match its overall shape (YAML structure, evocative subtitles, Named Rules pattern) and adapt the content for the new register.
 
 Then add `<slug>` to the `DESIGN_SYSTEMS` array in `dev-scripts/build-previews.sh` (alphabetical) and regenerate the previews:
 
@@ -75,27 +75,37 @@ Commit the generated `preview.html` + `preview-dark.html` alongside `DESIGN.md` 
 
 A package may also include a short `README.md` linking its design guidance, tokens, and previews, with an example of theme usage; see Editorial. Keep system-specific identity and adaptation rules in `DESIGN.md`, and application/override procedure in SKILL.md's Artifact themes section. Do not duplicate the shared workflow across package READMEs.
 
+### Catalog distribution
+
+The installed catalog resources are the generated selection index, Clean fallback, and catalog source pin. `catalog/design-systems/` is their single authoring source. Run `node dev-scripts/catalog-index.mjs` to regenerate those bundled files, then `bin/sync-mounts.sh`. CI checks both generations. Authoring metadata is validated from the working catalog; bundled files are generated from the pinned Git snapshot, so a catalog-only PR leaves the installed selection unchanged. Fetch that commit locally first if needed (`git fetch --no-tags --depth=1 origin <revision>`).
+
+Shared motion guidance stays runtime-owned at [`visualize/design-systems/animation-patterns.md`](visualize/design-systems/animation-patterns.md). Edit it directly and sync the mirrors; it serves both `animate` and catalog preview authors and does not require catalog publication or repinning.
+
+Other references are read from the immutable public commit and catalog root recorded in `catalog/source.json`. To distribute catalog changes, first merge/publish the catalog source and previews; then, in a follow-up distribution change, set `revision` to that reachable full commit SHA and `root` to `catalog/design-systems`, regenerate, and sync. Do not point at an unpublished commit, branch, or tag. The initial pin uses the previously published `visualize/design-systems` snapshot. New entries or changed reference guidance must be published and pinned before distributing their updated selection index.
+
+Verify a changed pin with a cold cache by resolving each changed package (including `--previews`) and comparing the returned bytes with the published catalog. `node --test dev-scripts/catalog.test.mjs` covers cache and failure behavior.
+
 ## Adding a per-system preview-template
 
-A design system can ship its own `preview-template.html` that overrides the generic `preview-kit/template.html` shell. Most design systems carry one so the preview can show their signature moves; systems without an override fall back to the preview-kit shell with only their tokens applied.
+A design system can ship its own `preview-template.html` that overrides the generic `dev-scripts/preview-kit/template.html` shell. Most design systems carry one so the preview can show their signature moves; systems without an override fall back to the preview-kit shell with only their tokens applied.
 
-Drop `preview-template.html` in `visualize/design-systems/<slug>/`. The file must carry four placeholders verbatim: `__ROOT_ATTR__` on the `<html>` tag, `__DESIGN_SYSTEM_NAME__` wherever the slug should appear, and `/* __TOKENS_PLACEHOLDER__ */` + the legacy marker `/* __COMPONENTS_PLACEHOLDER__ */` each inside a `<style>` block on a whitespace-only line. The latter now injects preview-only fixture styles from `preview-kit/fixture-styles/`. `dev-scripts/build-previews.sh` auto-detects the override. Per-system templates don't inherit `preview-kit/template.html`, so declare any required Google Fonts inside the per-system `<head>`.
+Drop `preview-template.html` in `catalog/design-systems/<slug>/`. The file must carry four placeholders verbatim: `__ROOT_ATTR__` on the `<html>` tag, `__DESIGN_SYSTEM_NAME__` wherever the slug should appear, and `/* __TOKENS_PLACEHOLDER__ */` + the legacy marker `/* __COMPONENTS_PLACEHOLDER__ */` each inside a `<style>` block on a whitespace-only line. The latter now injects preview-only fixture styles from `dev-scripts/preview-kit/fixture-styles/`. `dev-scripts/build-previews.sh` auto-detects the override. Per-system templates don't inherit `dev-scripts/preview-kit/template.html`, so declare any required Google Fonts inside the per-system `<head>`.
 
-If the brand's synthesised dark mode reads wrong (low contrast or wrong-temperature surfaces), hand-edit the `[data-theme="dark"]` block in `tokens.css` to the brand's actual dark surface. See [`visualize/design-systems/AUTHORING.md`](visualize/design-systems/AUTHORING.md) for pattern references, the dark-mode strategy decision table, and the detect-clean checklist.
+If the brand's synthesised dark mode reads wrong (low contrast or wrong-temperature surfaces), hand-edit the `[data-theme="dark"]` block in `tokens.css` to the brand's actual dark surface. See [`catalog/design-systems/AUTHORING.md`](catalog/design-systems/AUTHORING.md) for pattern references, the dark-mode strategy decision table, and the detect-clean checklist.
 
 After editing:
 
 ```sh
 bash dev-scripts/build-previews.sh
-node visualize/scripts/detect.mjs --strict visualize/design-systems/<slug>/preview.html
+node visualize/scripts/detect.mjs --strict catalog/design-systems/<slug>/preview.html
 bash bin/sync-mounts.sh
 ```
 
 ## Preview kit
 
-`visualize/preview-kit/` carries the canonical token-surface preview page. Each design system gets two generated files at `design-systems/<slug>/preview.html` (light) and `preview-dark.html` (dark).
+`dev-scripts/preview-kit/` carries the canonical token-surface preview page. Each design system gets two generated files at `design-systems/<slug>/preview.html` (light) and `preview-dark.html` (dark).
 
-Do not hand-edit the generated previews. When you change `preview-kit/template.html`, fixture styles under `preview-kit/fixture-styles/`, or a design system's `tokens.css`, regenerate via `dev-scripts/build-previews.sh`. See `visualize/preview-kit/README.md` for the placeholder contract and extension notes.
+Do not hand-edit the generated previews. When you change `dev-scripts/preview-kit/template.html`, fixture styles under `dev-scripts/preview-kit/fixture-styles/`, or a design system's `tokens.css`, regenerate via `dev-scripts/build-previews.sh`. See `dev-scripts/preview-kit/README.md` for the placeholder contract and extension notes.
 
 For targeted fixture previews, use `dev-scripts/build-template-previews.sh`. It renders fixture files from `visualize/fixtures/manifest.json` against any design-system `tokens.css` and writes standalone HTML to `temp/template-previews/`:
 
