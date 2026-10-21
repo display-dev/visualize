@@ -1,17 +1,17 @@
 ---
 name: Project recap
-description: A retrospective summary of shipped work, outcomes, lessons, and next steps.
+description: A retrospective organized into Shipped, Skipped, Shifted, and Learned sections.
 ---
 
 # Project recap
 
 ## Use when
 
-Use this template when the reader needs retrospective summary of shipped work, outcomes, lessons, and next steps. Pick it when the artifact has enough substance to benefit from the named structure, not just because the topic contains similar words.
+Use when the reader needs a retrospective organized as Shipped / Skipped / Shifted / Learned. Shipped + Skipped + Shifted are required (Learned recommended); empty Skipped or Shifted sections render with an explicit "no items this period" note rather than omitting the section header, because the absence itself is informative. These are the exact section names; do not rename them or add a "Wins" category.
 
 ## Do not use when
 
-Do not use this when a simpler memo, plain prose answer, or a more specific template would make the reader faster. Do not force the template when the ask lacks the evidence or structure it requires.
+Do not use when the reader needs only a prose-led summary of results and next actions rather than this retrospective structure; use Report. Do not force the named structure just because the request says "recap".
 
 ## Structure
 
@@ -34,8 +34,6 @@ The title owns the page. Section headings describe reader jobs, not generic labe
 The first two phone screens must deliver title, thesis, and essential context without oversized chrome. Metadata wraps as labeled rows or compact groups. TOCs remain list-like. Tables either scroll deliberately with attached captions or become structured lists when column comparison is no longer the reader job.
 
 ## Failure modes
-
-**Restricted four-section vocabulary.** The recap sections are exactly Shipped / Skipped / Shifted / Learned — inventing a "Wins" section or renaming "Skipped" to "Deprioritised" is a content-shape violation. Shipped + Skipped + Shifted are required (Learned recommended); empty Skipped or Shifted sections render with an explicit "no items this period" note rather than omitting the section header, because the absence itself is informative.
 
 **Reason-disclosure on every Skipped + Shifted item.** Each entry carries a stated `reason` inline. Items without reasons trip the detector — the recap's trustworthiness depends on the reasons being part of the record. "We cut it" is not a reason; the reason should declare the actual decision-time logic, not a retrofit.
 
