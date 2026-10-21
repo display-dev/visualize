@@ -40,6 +40,8 @@ description: >
 
 Generate self-contained HTML artifacts composed from `templates/*/template.md` contracts against the resolved visual context. The project's `DESIGN.md`, `PRODUCT.md`, and sidecar `tokens.css` provide the default; artifact themes below allow reference systems within the user's approved scope. Shared pattern recipes live in `patterns/` and are read only when the selected template and user ask make them relevant; shell mechanics are loaded automatically only when a template declares `shell: <slug>`.
 
+In helper commands, `$SKILL_DIR` means the absolute directory containing this installed `SKILL.md`. Resolve it from the host's skill location; set it in the shell and quote it (`"$SKILL_DIR"`), or substitute the quoted absolute path. Hosts do not necessarily export it.
+
 ## Design judgment
 
 Identify the reader's task and make the important distinction visible, retaining the evidence and qualifications needed to interpret it. Before choosing a treatment, find the source's organizing relationship, contrast, sequence, decision, or object; let it shape the opening, section rhythm, and explanatory primitives. When none helps, prefer restrained reading over a manufactured organizing idea.

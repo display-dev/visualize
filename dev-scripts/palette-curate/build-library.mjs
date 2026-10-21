@@ -10,7 +10,7 @@
 // --merge  validates the authored batches (unique ids, polarity enum,
 //          register bans, full coverage of keeps), then regenerates the
 //          SEEDS array and the coverage-matrix header comment inside
-//          visualize/scripts/palette.mjs, preserving the shipped seeds.
+//          skills/visualize/scripts/palette.mjs, preserving the shipped seeds.
 //
 // Usage:
 //   node dev-scripts/palette-curate/build-library.mjs --prep
@@ -23,7 +23,7 @@ import { parseOklch, zoneOf, bandOf, ALL_ZONES } from './oklch-lib.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO = join(__dirname, '..', '..');
-const PALETTE = join(REPO, 'visualize', 'scripts', 'palette.mjs');
+const PALETTE = join(REPO, 'skills', 'visualize', 'scripts', 'palette.mjs');
 const BATCH_DIR = join(REPO, 'temp', 'curation-batches');
 const MAX_BATCH = 35;
 
@@ -157,7 +157,7 @@ if (mode === '--prep') {
   if (out === src) { console.error('splice produced no change — marker drift?'); process.exit(2); }
   writeFileSync(PALETTE, out);
   console.log(`library: ${shipped.length} shipped + ${newSeeds.length} new = ${all.length} seeds → ${PALETTE}`);
-  console.log('next: node dev-scripts/palette-smoke.mjs && bash bin/sync-mounts.sh');
+  console.log('next: node dev-scripts/palette-smoke.mjs && node dev-scripts/check-skill-package.mjs');
 } else {
   console.error('usage: build-library.mjs --prep | --merge [dir]');
   process.exit(2);

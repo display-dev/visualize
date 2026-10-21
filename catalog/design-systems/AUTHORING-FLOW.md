@@ -116,7 +116,7 @@ If you're uncertain whether a source counts as "third-party catalog content," tr
 
    **If Chrome MCP is blocked** (some brands refuse headless-Chrome traffic), fall back to `WebFetch` on the same URLs. Note in §Known gaps which surfaces are screenshot-deferred.
 
-3. **DOM-sample for actual values.** `mcp__chrome-devtools__evaluate_script` with `getComputedStyle` over the full set of distinct components — buttons, links, CTAs, pills, badges, headers, footer chips, body text. Convert hex / rgb to OKLCH (vendored culori at `visualize/scripts/vendor/culori.mjs`).
+3. **DOM-sample for actual values.** `mcp__chrome-devtools__evaluate_script` with `getComputedStyle` over the full set of distinct components — buttons, links, CTAs, pills, badges, headers, footer chips, body text. Convert hex / rgb to OKLCH (vendored culori at `skills/visualize/scripts/vendor/culori.mjs`).
 
 4. **Author `DESIGN.md`.** Copy `_template/DESIGN.md` and fill each section. Frontmatter, §1 Canonical canvas, §2 Palette, §3 Typography, §4 Component vocabulary, §5 Surface inventory, §6 Notes, §Known gaps.
 
@@ -248,7 +248,7 @@ Replace `verified-urls` with `reference-materials`. The `verified-by` value can 
 1. `mkdir -p temp/design-system-originals && mv catalog/design-systems/<brand-slug>/DESIGN.md temp/design-system-originals/<brand-slug>-DESIGN.md`
 2. Confirm only `tokens.css` and `preview-template.html` remain in the brand folder.
 3. Dispatch the subagent with the prompt above.
-4. After report: diff against the moved-aside original to confirm no verbatim sections survived, and run `node dev-scripts/catalog-index.mjs --check` after regenerating the index if needed. If clean: commit, delete the moved-aside copy, drop the brand from `visualize/NOTICES.md`'s third-party-attribution list. If contaminated: discuss, refine, retry.
+4. After report: diff against the moved-aside original to confirm no verbatim sections survived, and run `node dev-scripts/catalog-index.mjs --check` after regenerating the index if needed. If clean: commit, delete the moved-aside copy, drop the brand from `skills/visualize/NOTICES.md`'s third-party-attribution list. If contaminated: discuss, refine, retry.
 
 **Spec-derived mode**:
 1. `mkdir -p catalog/design-systems/<system-slug>`
@@ -322,7 +322,7 @@ Every chromatic value in the output must trace to a `DESIGN.md` §2 Palette entr
    | `--primary-foreground` × `--primary` | 4.5:1 (body) | cream-on-red (`oklch(0.93 0.03 93)` × `oklch(0.55 0.22 25)`) lands ~4.1:1 | swap `--primary-foreground` to white (utility-neutral, NOT a brand chroma) |
    | `--destructive-foreground` × `--destructive` | 4.5:1 (body) | same shape as primary | same fix |
 
-   You can compute ratios inline in JS with vendored culori (`/Users/carl/Development/visualize/visualize/scripts/vendor/culori.mjs`) by converting OKLCH → sRGB → WCAG relative-luminance, or eyeball the OKLCH lightness gap (|L_fg − L_bg| ≥ 0.50 is a reasonable proxy for AA body on neutral-vs-neutral pairs). When a pair lands sub-AA:
+   You can compute ratios inline in JS with vendored culori (`/Users/carl/Development/visualize/skills/visualize/scripts/vendor/culori.mjs`) by converting OKLCH → sRGB → WCAG relative-luminance, or eyeball the OKLCH lightness gap (|L_fg − L_bg| ≥ 0.50 is a reasonable proxy for AA body on neutral-vs-neutral pairs). When a pair lands sub-AA:
    - **First** try retuning the chroma-0 utility neutral (`--muted-foreground`, `--primary-foreground`, `--destructive-foreground`) — AUTHORING.md §"Brand identity vs utility neutrals" explicitly allows this.
    - **Only if the foreground is brand-chromatic** (rare — typically chromatic foregrounds are tinted-paper registers where the chromatic value IS the brand mark), defer the fix to Step 3 where you can wrap consumers in scoped CSS custom properties or qualify them at large-text-bold floor (≥19px @ 700). DO NOT retune the brand chroma.
 
@@ -406,8 +406,8 @@ Author a `preview-template.html` at `catalog/design-systems/<brand-slug>/preview
 
    ```sh
    bash dev-scripts/build-previews.sh
-   node visualize/scripts/detect.mjs --strict catalog/design-systems/<brand-slug>/preview.html catalog/design-systems/<brand-slug>/preview-dark.html
-   node visualize/scripts/browser-contrast.mjs catalog/design-systems/<brand-slug>/preview.html catalog/design-systems/<brand-slug>/preview-dark.html
+   node skills/visualize/scripts/detect.mjs --strict catalog/design-systems/<brand-slug>/preview.html catalog/design-systems/<brand-slug>/preview-dark.html
+   node skills/visualize/scripts/browser-contrast.mjs catalog/design-systems/<brand-slug>/preview.html catalog/design-systems/<brand-slug>/preview-dark.html
    bash dev-scripts/screenshot-previews.sh <brand-slug>
    ```
 
@@ -450,15 +450,15 @@ Mechanical steps after the three artefacts ship. Not a subagent prompt; the main
 3. **Catalog-wide contrast check:**
 
    ```sh
-   node visualize/scripts/browser-contrast.mjs --strict catalog/design-systems/*/preview.html catalog/design-systems/*/preview-dark.html
+   node skills/visualize/scripts/browser-contrast.mjs --strict catalog/design-systems/*/preview.html catalog/design-systems/*/preview-dark.html
    ```
 
    Must return `exit 0 · 0 error`. If the new brand introduces errors, investigate at the brand's `tokens.css` or `preview-template.html` level — never globally relax the check.
 
-4. **Sync mounts:**
+4. **Verify the standalone package:**
 
    ```sh
-   bash bin/sync-mounts.sh
+   node dev-scripts/check-skill-package.mjs
    ```
 
 5. **Commit** the catalog source with explicit paths (five files for a new brand, plus `dev-scripts/build-previews.sh`). Publish and pin the catalog before distributing the updated index, as described in CONTRIBUTING.md:
@@ -482,8 +482,8 @@ For an existing brand entry:
 - **Step 1 always runs** — the whole point is to author a fresh `DESIGN.md` from live. Pre-dispatch moves the old `DESIGN.md` to `temp/design-system-originals/`; post-dispatch diffs to confirm originality.
 - **Step 2 runs only if Step 1 surfaces drift** — the `DESIGN.md`'s "Drift vs `tokens.css`" subsection lists discrepancies; if any are substantive (real brand-colour changes, not noise), re-author `tokens.css` per Step 2's prompt.
 - **Step 3 rarely runs** — the brand's `preview-template.html` is typically still valid from the prior audit cycle. Re-author only if Step 1 surfaces structural changes (new signature surface on the live brand, retired component the preview currently demos prominently).
-- **Step 4 runs** — sync mounts, commit.
-- **Post-refresh attribution drop**: once `DESIGN.md` is original prose, drop the brand from `visualize/NOTICES.md`'s third-party attribution list.
+- **Step 4 runs** — verify the package, commit.
+- **Post-refresh attribution drop**: once `DESIGN.md` is original prose, drop the brand from `skills/visualize/NOTICES.md`'s third-party attribution list.
 
 ## Batch authoring
 
@@ -508,7 +508,7 @@ Before dispatching a batch (any N>3), confirm:
 1. **Each subagent prompt includes its own Step 3 detect-clean step.** Grep your dispatch template for "do not run build" or "skip detect" — if it's there, you've already failed.
 2. **Step 2 contrast pre-flight is in each per-subagent prompt.** Step 2 §8 in this doc enumerates the three pairs (`--muted-foreground × --background`, `--primary-foreground × --primary`, `--destructive-foreground × --destructive`). The single-system flow catches these; the batch flow only catches them if the per-subagent prompt requires the pre-flight explicitly.
 3. **The `_template/tokens.css` is current** — it carries inline trap-warnings next to the three known sub-AA pairs. Subagents that read the scaffold (which they all do) see the warnings before they pick OKLCH values.
-4. **Central Step 4 wire-up runs once at the end** (build all, sync mounts, commit). This is the only step that legitimately amortises across the batch.
+4. **Central Step 4 wire-up runs once at the end** (build all, verify the package, commit). This is the only step that legitimately amortises across the batch.
 
 ### Recovery when the rule was broken
 

@@ -16,7 +16,7 @@ const __filename = fileURLToPath(import.meta.url);
 const REPO_ROOT = dirname(dirname(__filename));
 const DESIGN_ROOT = join(REPO_ROOT, 'catalog', 'design-systems');
 const BUILD_PREVIEWS = join(REPO_ROOT, 'dev-scripts', 'build-previews.sh');
-const OUT_PATH = join(REPO_ROOT, 'visualize', 'design-systems', 'catalog-index.json');
+const OUT_PATH = join(REPO_ROOT, 'skills', 'visualize', 'design-systems', 'catalog-index.json');
 const SOURCE = JSON.parse(readFileSync(join(REPO_ROOT, 'catalog', 'source.json'), 'utf8'));
 if (!/^[a-f0-9]{40}$/.test(SOURCE.revision) || !/^(visualize|catalog)\/design-systems$/.test(SOURCE.root)) throw new Error('Invalid immutable catalog source');
 
@@ -29,7 +29,7 @@ function published(path) {
 }
 
 function syncBundledCatalog(check) {
-  const runtime = join(REPO_ROOT, 'visualize', 'design-systems');
+  const runtime = join(REPO_ROOT, 'skills', 'visualize', 'design-systems');
   const files = [
     ['clean/README.md', `${SOURCE.root}/clean/README.md`],
     ['clean/DESIGN.md', `${SOURCE.root}/clean/DESIGN.md`],
@@ -38,7 +38,10 @@ function syncBundledCatalog(check) {
   ];
   for (const [name, source] of files) {
     const target = join(runtime, name);
-    const bytes = name === 'catalog-source.json' ? readFileSync(source) : published(source);
+    let bytes = name === 'catalog-source.json' ? readFileSync(source) : published(source);
+    // Catalog navigation lives three levels below the repo; bundled Clean lives
+    // two levels below the installed skill. Keep both sets of local links usable.
+    if (name === 'clean/README.md') bytes = Buffer.from(bytes.toString('utf8').replaceAll('../../../skills/visualize/', '../../').replaceAll('../../../visualize/', '../../'));
     if (check) {
       if (!readFileSync(target).equals(bytes)) throw new Error(`drift: ${relative(REPO_ROOT, target)}`);
     } else {

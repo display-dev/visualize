@@ -223,7 +223,7 @@ The generated `catalog-index.json` is deterministic and committed. Do not hand-e
 
 ## Animation patterns
 
-Per-system preview templates should use the shared motion vocabulary in [`animation-patterns.md`](../../visualize/design-systems/animation-patterns.md). That file owns entrance, hover, background, and reduced-motion conventions for catalog previews. Use those patterns before inventing custom keyframes; if a brand needs bespoke motion, keep the names and timing compatible with the catalog vocabulary so future audits can reason about it.
+Per-system preview templates should use the shared motion vocabulary in [`animation-patterns.md`](../../skills/visualize/design-systems/animation-patterns.md). That file owns entrance, hover, background, and reduced-motion conventions for catalog previews. Use those patterns before inventing custom keyframes; if a brand needs bespoke motion, keep the names and timing compatible with the catalog vocabulary so future audits can reason about it.
 
 ## Content shape: Halcyon is a name only — no the host product product surface, no brand-X lift
 
@@ -355,13 +355,13 @@ After `bash dev-scripts/build-previews.sh`, run both detectors:
 
 ```sh
 # Structural CSS lint (slop / meta / non-contrast rules)
-node visualize/scripts/detect.mjs --strict catalog/design-systems/<slug>/preview.html catalog/design-systems/<slug>/preview-dark.html
+node skills/visualize/scripts/detect.mjs --strict catalog/design-systems/<slug>/preview.html catalog/design-systems/<slug>/preview-dark.html
 
 # Computed contrast via headless Chrome + axe-core (the canonical
 # contrast check — resolves var() colors, cross-rule cascade, and
 # per-theme computed styles; detect.mjs's a11y/low-contrast rule
 # is structurally blind to var() and skips silently).
-node visualize/scripts/browser-contrast.mjs catalog/design-systems/<slug>/preview.html catalog/design-systems/<slug>/preview-dark.html
+node skills/visualize/scripts/browser-contrast.mjs catalog/design-systems/<slug>/preview.html catalog/design-systems/<slug>/preview-dark.html
 ```
 
 Expected:

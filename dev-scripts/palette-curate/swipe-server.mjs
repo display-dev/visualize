@@ -24,7 +24,7 @@ import { execFileSync } from 'node:child_process';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO = join(__dirname, '..', '..');
-const PALETTE = join(REPO, 'visualize', 'scripts', 'palette.mjs');
+const PALETTE = join(REPO, 'skills', 'visualize', 'scripts', 'palette.mjs');
 const DATA = join(__dirname, 'data');
 const CANDIDATES = join(DATA, 'candidates.jsonl');
 const VERDICTS = join(DATA, 'verdicts.jsonl');

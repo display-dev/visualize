@@ -27,7 +27,7 @@ The theme uses this package's design guidance and tokens together.
 Its application can affect typography, color, spacing, and component
 treatment; it is not limited to swapping palette and font values.
 
-Follow Visualize's [shared workflow](../../../visualize/SKILL.md#artifact-themes) for project
+Follow Visualize's [shared workflow](../../../skills/visualize/SKILL.md#artifact-themes) for project
 constraints, explicit overrides, exploration, and verification.
 
-For project-wide capture or derivation, use [teach](../../../visualize/reference/teach.md).
+For project-wide capture or derivation, use [teach](../../../skills/visualize/reference/teach.md).

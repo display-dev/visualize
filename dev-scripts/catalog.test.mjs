@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, readFile, writeFile, readdir, rm, symlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { resolveCatalog } from '../visualize/scripts/catalog.mjs';
+import { resolveCatalog } from '../skills/visualize/scripts/catalog.mjs';
 
 async function cache(t) {
   const root = await mkdtemp(join(tmpdir(), 'visualize-catalog-'));
@@ -18,6 +18,57 @@ test('bundled Clean works without a cache or network request', async () => {
   const value = await resolveCatalog('clean', { fetchImpl: () => assert.fail('unexpected network') });
   assert.match(await readFile(value.files['DESIGN.md'], 'utf8'), /Clean/);
   assert.match(value.directory, /design-systems[/\\]clean$/);
+});
+
+test('installed CLI emits JSON through a symlink with spaces in its path', { skip: process.platform === 'win32' }, async t => {
+  const { execFileSync } = await import('node:child_process');
+  const { fileURLToPath } = await import('node:url');
+  const root = await cache(t);
+  const installed = join(root, 'installed skill');
+  await symlink(fileURLToPath(new URL('../skills/visualize', import.meta.url)), installed, 'dir');
+  const result = JSON.parse(execFileSync(process.execPath, [join(installed, 'scripts/catalog.mjs'), 'clean'], { cwd: root, encoding: 'utf8' }));
+  assert.match(await readFile(result.files['DESIGN.md'], 'utf8'), /Clean/);
+});
+
+test('CLI runs through a case-variant path on case-insensitive filesystems', async t => {
+  const { execFileSync } = await import('node:child_process');
+  const { fileURLToPath } = await import('node:url');
+  const variant = fileURLToPath(new URL('../skills/visualize/scripts/CATALOG.mjs', import.meta.url));
+  if (!await readFile(variant).then(() => true, () => false)) return t.skip('case-sensitive filesystem');
+  const result = JSON.parse(execFileSync(process.execPath, [variant, 'clean'], { encoding: 'utf8' }));
+  assert.match(await readFile(result.files['DESIGN.md'], 'utf8'), /Clean/);
+});
+
+test('repinned catalog README links resolve inside the installed Clean fallback', async t => {
+  const { execFileSync } = await import('node:child_process');
+  const { cp, mkdir } = await import('node:fs/promises');
+  const { fileURLToPath } = await import('node:url');
+  const repo = fileURLToPath(new URL('../', import.meta.url));
+  const root = await cache(t);
+  await mkdir(join(root, 'dev-scripts'));
+  await cp(join(repo, 'dev-scripts/catalog-index.mjs'), join(root, 'dev-scripts/catalog-index.mjs'));
+  await writeFile(join(root, 'dev-scripts/build-previews.sh'), 'DESIGN_SYSTEMS=(clean)\n');
+  await mkdir(join(root, 'catalog/design-systems/clean'), { recursive: true });
+  for (const name of ['README.md', 'DESIGN.md', 'tokens.css']) {
+    await cp(join(repo, 'catalog/design-systems/clean', name), join(root, 'catalog/design-systems/clean', name));
+  }
+  const git = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+  git('init', '-q');
+  git('add', 'catalog/design-systems/clean', 'dev-scripts/build-previews.sh');
+  git('-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.test', '-c', 'commit.gpgsign=false', 'commit', '-qm', 'Published catalog fixture');
+  await writeFile(join(root, 'catalog/source.json'), JSON.stringify({ revision: git('rev-parse', 'HEAD'), root: 'catalog/design-systems' }));
+  execFileSync(process.execPath, ['dev-scripts/catalog-index.mjs'], { cwd: root });
+  execFileSync(process.execPath, ['dev-scripts/catalog-index.mjs', '--check'], { cwd: root });
+  const installed = join(root, 'skills/visualize');
+  await cp(join(repo, 'skills/visualize/SKILL.md'), join(installed, 'SKILL.md'));
+  await mkdir(join(installed, 'reference'));
+  await cp(join(repo, 'skills/visualize/reference/teach.md'), join(installed, 'reference/teach.md'));
+  const readmePath = join(installed, 'design-systems/clean/README.md');
+  const readme = await readFile(readmePath, 'utf8');
+  const { resolve, dirname } = await import('node:path');
+  const links = [...readme.matchAll(/\]\(([^)#]+)(?:#[^)]*)?\)/g)].map(match => match[1]).filter(link => link.endsWith('SKILL.md') || link.endsWith('reference/teach.md'));
+  assert.equal(links.length, 2);
+  for (const link of links) assert((await readFile(resolve(dirname(readmePath), link))).length > 0);
 });
 
 test('cold resolution fetches only the selected immutable package and cache reuses exact bytes', async t => {
@@ -106,7 +157,7 @@ test('unpublished catalog additions do not change the installed snapshot', async
   await mkdir(join(root, 'dev-scripts'));
   await cp(join(repo, 'dev-scripts/catalog-index.mjs'), join(root, 'dev-scripts/catalog-index.mjs'));
   await cp(join(repo, 'catalog'), join(root, 'catalog'), { recursive: true, filter: path => !/\.(html|css)$/.test(path) });
-  await cp(join(repo, 'visualize/design-systems'), join(root, 'visualize/design-systems'), { recursive: true });
+  await cp(join(repo, 'skills/visualize/design-systems'), join(root, 'skills/visualize/design-systems'), { recursive: true });
   // git show reads the real published objects; all generator writes stay isolated.
   const gitDir = execFileSync('git', ['rev-parse', '--absolute-git-dir'], { cwd: repo, encoding: 'utf8' }).trim();
   await writeFile(join(root, '.git'), `gitdir: ${gitDir}\n`);
@@ -114,9 +165,9 @@ test('unpublished catalog additions do not change the installed snapshot', async
   await writeFile(join(root, 'dev-scripts/build-previews.sh'), build.replace('DESIGN_SYSTEMS=(', 'DESIGN_SYSTEMS=(draft-reference '));
   await mkdir(join(root, 'catalog/design-systems/draft-reference'));
   await cp(join(repo, 'catalog/design-systems/clean/DESIGN.md'), join(root, 'catalog/design-systems/draft-reference/DESIGN.md'));
-  const before = await readFile(join(root, 'visualize/design-systems/catalog-index.json'));
+  const before = await readFile(join(root, 'skills/visualize/design-systems/catalog-index.json'));
   execFileSync(process.execPath, ['dev-scripts/catalog-index.mjs'], { cwd: root });
-  assert.deepEqual(await readFile(join(root, 'visualize/design-systems/catalog-index.json')), before);
+  assert.deepEqual(await readFile(join(root, 'skills/visualize/design-systems/catalog-index.json')), before);
   const check = execFileSync(process.execPath, ['dev-scripts/catalog-index.mjs', '--check'], { cwd: root, encoding: 'utf8' });
   assert.match(check, /104 authored/);
   const design = join(root, 'catalog/design-systems/draft-reference/DESIGN.md');

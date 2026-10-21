@@ -3,7 +3,7 @@ import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 const repoRoot = path.resolve(import.meta.dirname, "..");
-const templatesRoot = path.join(repoRoot, "visualize", "templates");
+const templatesRoot = path.join(repoRoot, "skills", "visualize", "templates");
 
 const dirs = (await readdir(templatesRoot, { withFileTypes: true }))
   .filter((entry) => entry.isDirectory())

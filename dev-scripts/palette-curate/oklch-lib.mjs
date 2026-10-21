@@ -1,6 +1,6 @@
 // Shared OKLCH math for the curation + eval dev-scripts.
 //
-// Duplicated from visualize/scripts/palette.mjs, which deliberately exports
+// Duplicated from skills/visualize/scripts/palette.mjs, which deliberately exports
 // nothing (it is a CLI consumed by agents, and keeping it import-free keeps
 // the runtime contract small). If the constants or rules change there, this
 // file follows. The palette smoke cross-checks the runtime copy against

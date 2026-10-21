@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Golden-file gate for visualize/scripts/browser-contrast.mjs.
+# Golden-file gate for skills/visualize/scripts/browser-contrast.mjs.
 #
 # Runs browser-contrast.mjs against every fixture under
-# visualize/scripts/fixtures/, normalises the NDJSON (sort lines, zero
+# skills/visualize/scripts/fixtures/, normalises the NDJSON (sort lines, zero
 # durationMs), and diffs against the committed *.expected.ndjson files.
 # Exits non-zero on any drift.
 #
@@ -18,10 +18,10 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-cd "$ROOT/visualize/scripts"
+cd "$ROOT/skills/visualize/scripts"
 
 if [ ! -d fixtures ]; then
-  echo "error: visualize/scripts/fixtures/ not found" >&2
+  echo "error: skills/visualize/scripts/fixtures/ not found" >&2
   exit 1
 fi
 
