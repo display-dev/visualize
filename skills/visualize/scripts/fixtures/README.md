@@ -19,7 +19,7 @@ The expected files capture the sidecar's full NDJSON, sorted by `(severity, loca
 dev-scripts/verify-browser-contrast.sh
 
 # Refresh in place after a deliberate change to browser-contrast.mjs,
-# axe.min.js, or a fixture:
+# vendor/axe/, or a fixture:
 dev-scripts/verify-browser-contrast.sh --update
 ```
 

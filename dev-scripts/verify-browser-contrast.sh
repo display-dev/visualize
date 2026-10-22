@@ -8,7 +8,7 @@
 #
 # This is a local-only contributor gate (the spec's CI variant is not
 # wired — would add ~30s Chromium download per run). Run it manually
-# when you touch browser-contrast.mjs, vendor/axe.min.js, or any fixture.
+# when you touch browser-contrast.mjs, vendor/axe/, or any fixture.
 #
 # Usage:
 #   dev-scripts/verify-browser-contrast.sh           # check

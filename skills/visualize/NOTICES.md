@@ -13,7 +13,7 @@ representative of the named companies. All brand names and trademarks remain
 the property of their respective owners.
 ## Vendored bundles (`scripts/vendor/`)
 
-The skill vendors a small set of npm-distributed libraries as single-file bundles so the detector and browser-contrast sidecar work after `npx skills add display-dev/visualize` with no `npm install` step. Per-file version, size, and sha256 are recorded in [`scripts/vendor/README.md`](scripts/vendor/README.md).
+The skill vendors a small set of npm-distributed libraries as readable modules so the detector and browser-contrast sidecar work after `npx skills add display-dev/visualize` with no `npm install` step. Versions, sizes, source provenance and sha256 are recorded in and linked from [`scripts/vendor/README.md`](scripts/vendor/README.md).
 
 - `node-html-parser` — MIT — https://github.com/taoqf/node-html-parser
 - `culori` — MIT — https://github.com/Evercoder/culori
@@ -21,7 +21,7 @@ The skill vendors a small set of npm-distributed libraries as single-file bundle
 - `puppeteer-core` — Apache-2.0 — https://github.com/puppeteer/puppeteer
 - `@puppeteer/browsers` — Apache-2.0 — https://github.com/puppeteer/puppeteer
 
-The combined `puppeteer.mjs` bundle inlines transitive code under MIT, ISC, and Apache-2.0 — representative packages include `debug`, `ws`, `chromium-bidi`, `tar-fs`, `tar-stream`, `yargs`, `progress`, `streamx`, `b4a`, `fast-fifo`, `cliui`. Legal comments and SPDX identifiers from each upstream package are preserved inline via `esbuild --legal-comments=inline`; consult the bundle directly for the authoritative per-package text.
+The readable module graphs include their transitive dependencies. Complete license texts and package attribution are in [`scripts/vendor/LICENSES.txt`](scripts/vendor/LICENSES.txt); exact versions, source provenance and output hashes are in [`scripts/vendor/manifest.json`](scripts/vendor/manifest.json). Upstream license comments are retained in generated JavaScript. Axe source is adapted only for module packaging; it remains MPL-2.0. The unchanged Culori bundle retains its license header.
 
 ## Adapted color guidance
 

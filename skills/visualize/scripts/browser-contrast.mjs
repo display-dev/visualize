@@ -53,9 +53,10 @@
 
 import { existsSync, realpathSync, statSync } from 'node:fs';
 import { homedir } from 'node:os';
-import { resolve, dirname, join } from 'node:path';
+import { resolve, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { setTimeout as sleep } from 'node:timers/promises';
+import { loadAxe } from './axe-loader.mjs';
 import {
   puppeteer,
   computeSystemExecutablePath,
@@ -65,10 +66,6 @@ import {
   Browser,
   BrowserTag,
 } from './vendor/puppeteer.mjs';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const AXE_PATH = resolve(__dirname, 'vendor', 'axe.min.js');
 
 const CACHE_DIR =
   process.env.VISUALIZE_PUPPETEER_CACHE_DIR ||
@@ -236,13 +233,13 @@ async function findingsForFile(browser, filePath) {
       await page.goto(fileUrl, { waitUntil: 'domcontentloaded' });
       await page.evaluate(() => document.fonts.ready);
       await sleep(100);
-      await page.addScriptTag({ path: AXE_PATH });
+      await loadAxe(page);
     } catch (err) {
       throw new LoadError(err.message);
     }
     // The narrow catch: only axe's evaluation inside the page is
     // recoverable as a synthetic finding per spec §Operational
-    // behavior. Failures in goto / fonts.ready / addScriptTag are
+    // behavior. Failures in goto / fonts.ready / loadAxe are
     // infrastructure (above) — they abort the run.
     let axeResult;
     try {

@@ -2,7 +2,8 @@
 // Check the single installable package, retaining the former transformer's
 // frontmatter / command checks and exercising helpers outside the repository.
 import assert from 'node:assert/strict';
-import { cpSync, mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { cpSync, mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { basename, dirname, join, relative } from 'node:path';
@@ -121,6 +122,22 @@ for (const reference of new Set(content.match(/\breference\/[a-z0-9/-]+\.md\b/g)
   readFileSync(join(skill, reference));
 }
 
+// Readable vendor output must be complete and unchanged from the pinned build.
+const vendor = join(skill, 'scripts', 'vendor');
+const manifest = JSON.parse(readFileSync(join(vendor, 'manifest.json'), 'utf8'));
+assert.equal(manifest.buildLockSha256, createHash('sha256').update(readFileSync(join(root, 'dev-scripts/vendor-build/package-lock.json'))).digest('hex'), 'Vendor build lock drift');
+const generatedFiles = [...files(vendor)].filter(file =>
+  (/\.(mjs|cjs)$/.test(file) && basename(file) !== 'culori.mjs') || basename(file) === 'LICENSES.txt');
+assert.deepEqual(generatedFiles.map(file => relative(vendor, file).split('\\').join('/')).sort(), Object.keys(manifest.files).sort());
+for (const [name, expected] of Object.entries(manifest.files)) {
+  const bytes = readFileSync(join(vendor, name));
+  assert(bytes.length < 256 * 1024, `Oversized vendor file: ${name}`);
+  assert.equal(bytes.length, expected.bytes, `Vendor size drift: ${name}`);
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), expected.sha256, `Vendor build drift: ${name}`);
+}
+assert(![...files(vendor)].some(file => basename(file) === 'axe.min.js'), 'Minified axe must not be shipped');
+assert([...files(skill)].length <= 512, 'Installed skill exceeds 512 files');
+
 const isolated = mkdtempSync(join(tmpdir(), 'visualize-package-'));
 try {
   const installed = join(isolated, 'installed skill', 'visualize');
@@ -131,8 +148,36 @@ try {
   readFileSync(clean.files['DESIGN.md']);
   assert(run('detect.mjs', '--list-rules').length > 0);
   assert(JSON.parse(run('palette.mjs', '--from', 'Package smoke')).schemaVersion);
+  const normalizeContrast = text => text.trim().split('\n').map(JSON.parse).map(record => {
+    delete record.file;
+    delete record.durationMs;
+    return record;
+  }).sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));
+  for (const fixture of ['figma-style-preview', 'shopify-style-preview-dark', 'webflow-style-preview-dark']) {
+    const actual = run('browser-contrast.mjs', '--json', join(installed, `scripts/fixtures/${fixture}.html`));
+    const expected = readFileSync(join(installed, `scripts/fixtures/${fixture}.expected.ndjson`), 'utf8');
+    assert.deepEqual(normalizeContrast(actual), normalizeContrast(expected), `Installed contrast regression: ${fixture}`);
+  }
+  const positiveFixture = readFileSync(join(installed, 'scripts/fixtures/webflow-style-preview-dark.html'), 'utf8');
+  const positiveExpected = readFileSync(join(installed, 'scripts/fixtures/webflow-style-preview-dark.expected.ndjson'), 'utf8');
+  for (const [name, setup] of [
+    ['inline-only-csp', `<meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-inline'">`],
+    ['null-css-global', '<script>window.CSS = null;</script>'],
+  ]) {
+    const fixture = join(isolated, `${name}.html`);
+    writeFileSync(fixture, positiveFixture.replace('<head>', `<head>${setup}`));
+    const actual = run('browser-contrast.mjs', '--json', fixture);
+    assert.deepEqual(normalizeContrast(actual), normalizeContrast(positiveExpected), `${name} contrast regression`);
+  }
+  const shadowFixture = join(isolated, 'shadow-contrast.html');
+  writeFileSync(shadowFixture, `<!doctype html><html lang="en"><head><title>Shadow contrast</title></head><body>
+    <div id="host"></div><script>document.querySelector('#host').attachShadow({mode:'open'}).innerHTML=
+    '<p style="color:#aaa;background:white;font:16px Arial">Shadow text</p>';</script></body></html>`);
+  const shadow = normalizeContrast(run('browser-contrast.mjs', '--json', shadowFixture));
+  assert.equal(shadow.find(record => record.type === 'summary').errors, 1, 'Shadow text must produce a contrast failure');
+  assert.equal(shadow.find(record => record.type === 'summary').warnings, 0);
   run('slide-canvas-overflow.mjs', '--all', '--strict');
 } finally {
   rmSync(isolated, { recursive: true, force: true });
 }
-console.log('OK · one standalone skill; metadata, routing, placeholders and isolated helpers pass');
+console.log('OK · one standalone skill; metadata, routing, readable vendor integrity and isolated helpers pass');
