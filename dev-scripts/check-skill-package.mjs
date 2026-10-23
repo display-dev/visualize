@@ -27,7 +27,6 @@ const EXPECTED_FRONTMATTER_FIELDS = [
   'license',
   'user-invocable',
   'argument-hint',
-  'allowed-tools',
   'description',
 ];
 

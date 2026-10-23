@@ -4,29 +4,6 @@ version: 0.8.0
 license: MIT
 user-invocable: true
 argument-hint: "[teach | explore | simplify | bolder | quieter | animate | polish | review | publish] [<topic-or-path>]"
-allowed-tools:
-  - Bash(node $SKILL_DIR/scripts/detect.mjs*)
-  - Bash(node $SKILL_DIR/scripts/browser-contrast.mjs*)
-  - Bash(node $SKILL_DIR/scripts/browser-diagram.mjs*)
-  - Bash(node $SKILL_DIR/scripts/render-mermaid.mjs*)
-  - Bash(node $SKILL_DIR/scripts/palette.mjs*)
-  - Bash(node $SKILL_DIR/scripts/teach.mjs*)
-  - Bash(node $SKILL_DIR/scripts/catalog.mjs*)
-  - Bash(node $SKILL_DIR/scripts/generate-image.mjs*)
-  - Bash(node $SKILL_DIR/scripts/record-image.mjs*)
-  - Bash(bash $SKILL_DIR/scripts/publish.sh*)
-  - Bash($SKILL_DIR/scripts/publish.sh*)
-  - Bash(node */visualize/scripts/detect.mjs*)
-  - Bash(node */visualize/scripts/browser-contrast.mjs*)
-  - Bash(node */visualize/scripts/browser-diagram.mjs*)
-  - Bash(node */visualize/scripts/render-mermaid.mjs*)
-  - Bash(node */visualize/scripts/palette.mjs*)
-  - Bash(node */visualize/scripts/teach.mjs*)
-  - Bash(node */visualize/scripts/catalog.mjs*)
-  - Bash(node */visualize/scripts/generate-image.mjs*)
-  - Bash(node */visualize/scripts/record-image.mjs*)
-  - Bash(bash */visualize/scripts/publish.sh*)
-  - Bash(*/visualize/scripts/publish.sh*)
 description: >
   Create, explore, refine, and review on-brand HTML reports, diagrams,
   diff reviews, slide decks, plans, recaps, and dashboards. Use to visualize
