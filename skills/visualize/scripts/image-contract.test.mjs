@@ -328,3 +328,54 @@ test('diagnostic identifiers are bounded and path-free', async (t) => {
   await assert.rejects(() => finalizeImage({ approvedRoot: root, source, out: 'assets/provider.png', route: 'codex-native', provider: 'unknown', billing: 'unknown' }), /provider/);
   await assert.rejects(() => finalizeImage({ approvedRoot: root, source, out: 'assets/model.png', route: 'codex-native', model: '/Users/alice/model', billing: 'unknown' }), /safe identifier/);
 });
+
+
+test('replacement rejects an existing directory without displacing its contents', async (t) => {
+  const root = await fixture(t);
+  const source = join(root, 'assets', 'source.png');
+  const out = join(root, 'assets', 'result.png');
+
+  await writeFile(source, createDeterministicPng({ seed: 'transaction-regression' }));
+  await mkdir(out);
+  await writeFile(join(out, 'important.txt'), 'Existing user data');
+
+  await assert.rejects(() => finalizeImage({
+    approvedRoot: root,
+    source,
+    out,
+    route: 'fake',
+    billing: 'none',
+    replace: true,
+  }), { code: 'invalid-output' });
+
+  assert.equal(
+    await readFile(join(out, 'important.txt'), 'utf8'),
+    'Existing user data',
+  );
+
+  assert.deepEqual(
+    (await readdir(join(root, 'assets'))).sort(),
+    ['result.png', 'source.png'],
+  );
+});
+
+test('output reservation rejects directories before generation', async (t) => {
+  const root = await fixture(t);
+  const out = join(root, 'assets', 'result.png');
+
+  await mkdir(out);
+
+  await assert.rejects(async () => {
+    const held = await reserveImageOutput({
+      approvedRoot: root,
+      out,
+      replace: true,
+    });
+    await held.release();
+  }, { code: 'invalid-output' });
+
+  assert.deepEqual(
+    await readdir(join(root, 'assets')),
+    ['result.png'],
+  );
+});
