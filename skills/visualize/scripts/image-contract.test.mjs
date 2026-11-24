@@ -330,12 +330,15 @@ test('diagnostic identifiers are bounded and path-free', async (t) => {
 });
 
 
-test('replacement rejects an existing directory without displacing its contents', async (t) => {
+test('finalization preserves a directory created after output reservation', async (t) => {
   const root = await fixture(t);
   const source = join(root, 'assets', 'source.png');
   const out = join(root, 'assets', 'result.png');
 
   await writeFile(source, createDeterministicPng({ seed: 'transaction-regression' }));
+  const reservation = await reserveImageOutput({ approvedRoot: root, out, replace: true });
+  t.after(() => reservation.release());
+
   await mkdir(out);
   await writeFile(join(out, 'important.txt'), 'Existing user data');
 
@@ -346,6 +349,7 @@ test('replacement rejects an existing directory without displacing its contents'
     route: 'fake',
     billing: 'none',
     replace: true,
+    reservation,
   }), { code: 'invalid-output' });
 
   assert.equal(
