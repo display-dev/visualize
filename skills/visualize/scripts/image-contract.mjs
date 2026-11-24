@@ -437,6 +437,20 @@ async function pathExists(path) {
   try { await lstat(path); return true; } catch (error) { if (error?.code === 'ENOENT') return false; throw error; }
 }
 
+async function inspectOutput(path) {
+  let info;
+  try {
+    info = await lstat(path);
+  } catch (error) {
+    if (error?.code === 'ENOENT') return null;
+    throw error;
+  }
+  if (!info.isFile() || info.isSymbolicLink()) {
+    fail('invalid-output', 'output must be a regular file');
+  }
+  return info;
+}
+
 export async function reserveImageOutput({ approvedRoot, out, replace = false }) {
   const root = await resolveApprovedRoot(approvedRoot);
   if (typeof out !== 'string') fail('invalid-output-extension', 'output must use .png, .jpg, or .jpeg');
@@ -464,13 +478,13 @@ export async function reserveImageOutput({ approvedRoot, out, replace = false })
     await rm(lockPath, { force: true });
   };
   try {
-    if ((await pathExists(outPath)) && !replace) fail('output-exists', 'output already exists; pass --replace to replace it');
+    if ((await inspectOutput(outPath)) && !replace) fail('output-exists', 'output already exists; pass --replace to replace it');
     return { root, outPath, replace, release };
   } catch (error) { await release(); throw error; }
 }
 
 async function installImage({ imageTemp, out, replace }) {
-  const existed = await pathExists(out);
+  const existed = await inspectOutput(out);
   if (existed && !replace) fail('output-exists', 'output already exists; pass --replace to replace it');
   const backup = join(dirname(out), `.visualize-backup-${randomUUID()}${extname(out).toLowerCase()}`);
   let installed = false;
